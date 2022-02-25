@@ -5,17 +5,9 @@
 	flex-direction: column;
 	flex-shrink: 0;
 	min-height: 0;
-	width: 300px;
+	width: 324px; /* 81 * 4 for GeoPreview */
 	white-space: pre-wrap;
 	word-break: break-word;
-}
-
-.mapMouseMoveCoordinates {
-	padding: 8px;
-}
-
-.mouseHidden {
-	visibility: hidden;
 }
 
 .properties {
@@ -50,4 +42,13 @@
 
 .objectHighlight {
 	background: yellow;
+}
+
+.mapMouseMoveCoordinates {
+	border-top: 1px solid #000;
+	padding: 8px;
+}
+
+.mouseHidden {
+	visibility: hidden;
 }

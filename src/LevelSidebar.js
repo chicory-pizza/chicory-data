@@ -2,6 +2,8 @@
 
 import type {LevelType} from './types/LevelType';
 
+// $FlowFixMe
+import GeoPreview from './GeoPreview';
 import React from 'react';
 import SidebarObjectText from './SidebarObjectText';
 
@@ -26,21 +28,7 @@ export default function LevelSidebar(props: Props): React$Node {
 
 	return (
 		<div className={styles.sidebar}>
-			<div
-				className={
-					styles.mapMouseMoveCoordinates +
-					' ' +
-					(props.mapMouseMoveCoordinates == null ? styles.mouseHidden : '')
-				}
-			>
-				Mouse:{' '}
-				{props.mapMouseMoveCoordinates != null ? (
-					<>
-						{props.mapMouseMoveCoordinates[0]},{' '}
-						{props.mapMouseMoveCoordinates[1]}
-					</>
-				) : null}
-			</div>
+			<GeoPreview level={props.level} />
 
 			<div className={styles.properties}>
 				<div>
@@ -83,6 +71,22 @@ export default function LevelSidebar(props: Props): React$Node {
 					</ul>
 				</details>
 			) : null}
+
+			<div
+				className={
+					styles.mapMouseMoveCoordinates +
+					' ' +
+					(props.mapMouseMoveCoordinates == null ? styles.mouseHidden : '')
+				}
+			>
+				Mouse:{' '}
+				{props.mapMouseMoveCoordinates != null ? (
+					<>
+						{props.mapMouseMoveCoordinates[0]},{' '}
+						{props.mapMouseMoveCoordinates[1]}
+					</>
+				) : null}
+			</div>
 		</div>
 	);
 }

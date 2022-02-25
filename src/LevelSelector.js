@@ -137,6 +137,7 @@ export default function LevelSelector(props: Props): React$Node {
 							inputCoordinates[2],
 						]);
 					}}
+					required
 					type="number"
 					value={inputCoordinates[0]}
 				/>
@@ -151,6 +152,7 @@ export default function LevelSelector(props: Props): React$Node {
 							inputCoordinates[2],
 						]);
 					}}
+					required
 					type="number"
 					value={inputCoordinates[1]}
 				/>
@@ -165,6 +167,7 @@ export default function LevelSelector(props: Props): React$Node {
 							parseInt(ev.currentTarget.value, 10),
 						]);
 					}}
+					required
 					type="number"
 					value={inputCoordinates[2]}
 				/>
