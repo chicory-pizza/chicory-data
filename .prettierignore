@@ -1,3 +1,5 @@
 build/
 
+package.json
+
 src/level_data.json

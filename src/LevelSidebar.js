@@ -2,7 +2,7 @@
 
 import type {LevelType} from './types/LevelType';
 
-// $FlowFixMe
+// $FlowFixMe[nonstrict-import]
 import GeoPreview from './GeoPreview';
 import React from 'react';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';

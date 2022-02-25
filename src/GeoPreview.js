@@ -3,11 +3,11 @@
 import type {LevelType} from './types/LevelType';
 
 import {decode} from 'base64-arraybuffer';
-import 'konva/lib/shapes/Rect';
 import {inflate} from 'pako';
 import React from 'react';
-import {useMemo} from 'react';
-import {Stage, Layer, Rect} from 'react-konva/lib/ReactKonvaCore';
+import {useEffect, useMemo, useRef} from 'react';
+
+import styles from './GeoPreview.module.css';
 
 type Props = {
 	level: LevelType,
@@ -46,8 +46,10 @@ const PIXEL_COLORS: {[pixel: string]: string} = {
 };
 
 export default function GeoPreview(props: Props): React$Node {
+	const canvasRef = useRef<?HTMLCanvasElement>(null);
+
 	// todo use error boundary
-	const output: ?Uint8Array = useMemo(() => {
+	const decodedGeo: ?Uint8Array = useMemo(() => {
 		try {
 			return inflate(decode(props.level.geo));
 		} catch (ex) {
@@ -57,69 +59,76 @@ export default function GeoPreview(props: Props): React$Node {
 		return null;
 	}, [props.level.geo]);
 
-	if (output == null) {
+	const dpr = window.devicePixelRatio || 1;
+
+	useEffect(() => {
+		const canvas = canvasRef.current;
+		if (!decodedGeo || !canvas) {
+			return;
+		}
+
+		// https://github.com/facebook/flow/issues/8689
+		// $FlowFixMe[method-unbinding]
+		if (typeof canvas.getContext === 'undefined') {
+			return;
+		}
+
+		const ctx = canvas.getContext('2d', {alpha: false});
+		ctx.mozImageSmoothingEnabled = false;
+		ctx.imageSmoothingEnabled = false;
+
+		ctx.scale(4 * dpr, 4 * dpr);
+
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+		// pixels
+		decodedGeo.forEach((pixel, index) => {
+			let fill = PIXEL_COLORS[pixel.toString()];
+			if (fill == null) {
+				console.warn('unknown pixel color' + pixel);
+				return null;
+			}
+
+			ctx.fillStyle = fill;
+			ctx.fillRect(index % GEO_WIDTH, Math.floor(index / GEO_WIDTH), 1, 1);
+		});
+
+		// mouse move
+		const mouse = props.mapMouseMoveCoordinates;
+		if (mouse != null) {
+			ctx.fillStyle = 'red';
+
+			ctx.fillRect(
+				(mouse[0] / SCREEN_WIDTH) * GEO_WIDTH - 1,
+				(mouse[1] / SCREEN_HEIGHT) * GEO_HEIGHT,
+				3,
+				1
+			);
+
+			ctx.fillRect(
+				(mouse[0] / SCREEN_WIDTH) * GEO_WIDTH,
+				(mouse[1] / SCREEN_HEIGHT) * GEO_HEIGHT - 1,
+				1,
+				3
+			);
+		}
+
+		ctx.setTransform(1, 0, 0, 1, 0, 0);
+	}, [decodedGeo, dpr, props.mapMouseMoveCoordinates]);
+
+	if (decodedGeo == null) {
 		return "Can't generate map preview";
 	}
 
 	return (
 		<div>
-			<Stage
-				listening={false}
-				width={GEO_WIDTH * SCALE}
-				height={GEO_HEIGHT * SCALE}
-				scaleX={SCALE}
-				scaleY={SCALE}
-			>
-				<Layer>
-					{Array.from(output).map((pixel, index) => {
-						let fill = PIXEL_COLORS[pixel.toString()];
-						if (fill == null) {
-							console.warn('unknown pixel color' + pixel);
-							return null;
-						}
-
-						return (
-							<Rect
-								key={index}
-								x={index % GEO_WIDTH}
-								y={Math.floor(index / GEO_WIDTH)}
-								width={1}
-								height={1}
-								fill={fill}
-							/>
-						);
-					})}
-				</Layer>
-
-				{props.mapMouseMoveCoordinates != null ? (
-					<Layer>
-						<Rect
-							x={
-								(props.mapMouseMoveCoordinates[0] / SCREEN_WIDTH) * GEO_WIDTH -
-								1
-							}
-							y={
-								(props.mapMouseMoveCoordinates[1] / SCREEN_HEIGHT) * GEO_HEIGHT
-							}
-							width={3}
-							height={1}
-							fill={'#f00'}
-						/>
-
-						<Rect
-							x={(props.mapMouseMoveCoordinates[0] / SCREEN_WIDTH) * GEO_WIDTH}
-							y={
-								(props.mapMouseMoveCoordinates[1] / SCREEN_HEIGHT) *
-									GEO_HEIGHT -
-								1
-							}
-							width={1}
-							height={3}
-							fill={'#f00'}
-						/>
-					</Layer>
-				) : null}
-			</Stage>
+			<canvas
+				className={styles.canvas}
+				ref={canvasRef}
+				width={GEO_WIDTH * SCALE * dpr}
+				height={GEO_HEIGHT * SCALE * dpr}
+				style={{width: GEO_WIDTH * SCALE, height: GEO_HEIGHT * SCALE}}
+			/>
 		</div>
 	);
 }
