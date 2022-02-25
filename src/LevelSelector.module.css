@@ -1,7 +1,20 @@
+.root,
+.numberInputForm {
+	display: flex;
+	align-items: center;
+}
+
 .root {
 	padding: 0 4px 4px 8px;
 }
 
-.label {
-	padding-right: 8px;
+.label,
+.select,
+.numberInput {
+	margin-right: 8px;
+}
+
+.numberInput {
+	text-align: right;
+	width: 45px;
 }

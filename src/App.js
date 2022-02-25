@@ -1,5 +1,6 @@
 // @flow
 
+import convertCoordinatesToLevelId from './convertCoordinatesToLevelId';
 import levelData from './level_data.json';
 import LevelInspector from './LevelInspector';
 import LevelSelector from './LevelSelector';
@@ -12,19 +13,23 @@ export default function App(): React$Node {
 	// for your custom queries on the browser console
 	window.levelData = levelData;
 
-	const [currentLevelId, setCurrentLevelId] = useState('0_0_0');
+	const [coordinates, setCoordinates] = useState<[number, number, number]>([
+		0, 0, 0,
+	]);
 
 	return (
 		<div className={styles.root}>
 			<h1 className={styles.header}>Chicory Level Data</h1>
 
 			<LevelSelector
-				currentLevelId={currentLevelId}
+				currentCoordinates={coordinates}
 				levels={levelData}
-				onNewLevelIdSelect={setCurrentLevelId}
+				onNewCoordinates={setCoordinates}
 			/>
 
-			<LevelInspector level={levelData[currentLevelId]} />
+			<LevelInspector
+				level={levelData[convertCoordinatesToLevelId(coordinates)]}
+			/>
 		</div>
 	);
 }

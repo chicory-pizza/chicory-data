@@ -23,6 +23,8 @@ body {
 }
 
 body,
+input[type='text'],
+input[type='number'],
 button,
 select {
 	font-family: Domigorgon, sans-serif;
@@ -40,6 +42,21 @@ body,
 
 button,
 select {
-	border: 1px solid #000;
 	cursor: pointer;
+}
+
+input[type='text'],
+input[type='number'] {
+	border: 1px solid #000;
+	padding: 2px;
+}
+
+button {
+	border: 1px solid #000;
+	padding: 2px 4px;
+}
+
+select {
+	border: 1px solid #000;
+	padding: 2px;
 }

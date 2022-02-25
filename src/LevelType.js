@@ -11,7 +11,7 @@ export type LevelType = {
 		y: number,
 		ys: number,
 	}>,
-	exits: string,
+	exits?: string,
 	foley: string,
 	geo: string,
 	music: string,
@@ -24,6 +24,6 @@ export type LevelType = {
 		...
 	}>,
 	palette: string,
-	title: string,
+	title?: string,
 	transition: number,
 };
