@@ -10,6 +10,7 @@ import React from 'react';
 import {useEffect, useState} from 'react';
 import WorldMap from './WorldMap';
 
+import icon144 from './icon144.png';
 import styles from './App.module.css';
 
 export default function App(): React$Node {
@@ -28,27 +29,33 @@ export default function App(): React$Node {
 
 	return (
 		<div className={styles.root}>
-			<h1 className={styles.header}>Chicory Level Data</h1>
+			<div className={styles.header}>
+				<img src={icon144} alt="Chicory Data" width={72} height={72} />
 
-			<div className={styles.levelSelectorWrap}>
-				<div className={styles.levelSelector}>
-					<LevelSelector
-						currentCoordinates={coordinates}
-						levels={levelData}
-						onNewCoordinates={setCoordinates}
-					/>
+				<div className={styles.headerContent}>
+					<h1 className={styles.title}>Chicory Data</h1>
+
+					<div className={styles.levelSelectorWrap}>
+						<div className={styles.levelSelector}>
+							<LevelSelector
+								currentCoordinates={coordinates}
+								levels={levelData}
+								onNewCoordinates={setCoordinates}
+							/>
+						</div>
+
+						<label>
+							<input
+								onChange={(ev: SyntheticInputEvent<HTMLInputElement>) =>
+									setDrawPreviewsOnWorldMap(ev.currentTarget.checked)
+								}
+								type="checkbox"
+								value={drawPreviewsOnWorldMap}
+							/>{' '}
+							Show previews on world map (slow)
+						</label>
+					</div>
 				</div>
-
-				<label>
-					<input
-						onChange={(ev: SyntheticInputEvent<HTMLInputElement>) =>
-							setDrawPreviewsOnWorldMap(ev.currentTarget.checked)
-						}
-						type="checkbox"
-						value={drawPreviewsOnWorldMap}
-					/>{' '}
-					Show previews on world map (slow)
-				</label>
 			</div>
 
 			<WorldMap

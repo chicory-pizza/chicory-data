@@ -90,7 +90,7 @@ export default function LevelSelector(props: Props): React$Node {
 
 	return (
 		<div className={styles.root}>
-			<span className={styles.label}>Go to level:</span>
+			<span className={styles.label}>Level:</span>
 
 			<select
 				className={styles.select}

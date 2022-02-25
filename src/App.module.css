@@ -5,15 +5,24 @@
 }
 
 .header {
+	display: flex;
+	align-items: center;
+	padding-left: 8px;
+}
+
+.headerContent {
+	padding: 0 8px;
+	flex: 1;
+}
+
+.title {
 	font-size: 2em;
-	padding: 8px;
+	padding: 8px 0;
 }
 
 .levelSelectorWrap {
 	display: flex;
 	align-items: center;
-
-	padding: 0 8px 0 0;
 }
 
 .levelSelector {
