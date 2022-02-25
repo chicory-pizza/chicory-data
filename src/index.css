@@ -20,6 +20,11 @@ body {
 	cursor: default;
 	font-size: 1em;
 	margin: 0;
+}
+
+body,
+button,
+select {
 	font-family: Domigorgon, sans-serif;
 }
 
@@ -31,4 +36,10 @@ html,
 body,
 #root {
 	height: 100%;
+}
+
+button,
+select {
+	border: 1px solid #000;
+	cursor: pointer;
 }

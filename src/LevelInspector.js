@@ -4,7 +4,7 @@ import type {LevelType} from './LevelType';
 
 import LevelPreview from './LevelPreview';
 import React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import styles from './LevelInspector.module.css';
 
@@ -13,7 +13,9 @@ type Props = {
 };
 
 export default function LevelInspector({level}: Props): React$Node {
-	console.log(level);
+	useEffect(() => {
+		console.log(level);
+	}, [level]);
 
 	const [objectIndexHover, setObjectIndexHover] = useState<?number>(null);
 
