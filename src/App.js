@@ -1,10 +1,10 @@
 // @flow
 
 import levelData from './level_data.json';
-import LevelPreview from './LevelPreview';
+import LevelInspector from './LevelInspector';
 import React from 'react';
 
-import './App.css';
+import styles from './App.module.css';
 
 export default function App(): React$Node {
 	window.levelData = levelData;
@@ -12,9 +12,10 @@ export default function App(): React$Node {
 	// do 0_0_0 as sample first
 
 	return (
-		<div className="App">
+		<div className={styles.root}>
 			<h1>chicory-level-data</h1>
-			<LevelPreview level={levelData['0_0_0']} />
+
+			<LevelInspector level={levelData['0_0_0']} />
 		</div>
 	);
 }
