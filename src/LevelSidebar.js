@@ -5,6 +5,7 @@ import type {LevelType} from './types/LevelType';
 // $FlowFixMe
 import GeoPreview from './GeoPreview';
 import React from 'react';
+import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
 import SidebarObjectText from './SidebarObjectText';
 
 import styles from './LevelSidebar.module.css';
@@ -30,7 +31,7 @@ export default function LevelSidebar(props: Props): React$Node {
 		<div className={styles.sidebar}>
 			<GeoPreview level={props.level} />
 
-			<div className={styles.properties}>
+			<div className={styles.group + ' ' + styles.properties}>
 				<div>
 					{levelObjects != null && props.objectIndexHover != null
 						? 'Object properties'
@@ -45,7 +46,7 @@ export default function LevelSidebar(props: Props): React$Node {
 			</div>
 
 			{levelObjects != null ? (
-				<details className={styles.objectsBox} open>
+				<details className={styles.group + ' ' + styles.objectsBox} open>
 					<summary>Objects ({levelObjects.length}):</summary>
 
 					<ul className={styles.objectsList}>
@@ -72,20 +73,10 @@ export default function LevelSidebar(props: Props): React$Node {
 				</details>
 			) : null}
 
-			<div
-				className={
-					styles.mapMouseMoveCoordinates +
-					' ' +
-					(props.mapMouseMoveCoordinates == null ? styles.mouseHidden : '')
-				}
-			>
-				Mouse:{' '}
-				{props.mapMouseMoveCoordinates != null ? (
-					<>
-						{props.mapMouseMoveCoordinates[0]},{' '}
-						{props.mapMouseMoveCoordinates[1]}
-					</>
-				) : null}
+			<div className={styles.group}>
+				<SidebarMouseMoveCoordinates
+					mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
+				/>
 			</div>
 		</div>
 	);
