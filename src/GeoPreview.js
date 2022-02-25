@@ -5,13 +5,16 @@ import type {LevelType} from './types/LevelType';
 import {decode} from 'base64-arraybuffer';
 import 'konva/lib/shapes/Rect';
 import {inflate} from 'pako';
-import React, {memo} from 'react';
+import React from 'react';
 import {Stage, Layer, Rect} from 'react-konva/lib/ReactKonvaCore';
 
 type Props = {
 	level: LevelType,
+	mapMouseMoveCoordinates: ?[number, number],
 };
 
+const SCREEN_WIDTH = 1920;
+const SCREEN_HEIGHT = 1080;
 const GEO_WIDTH = 81;
 const GEO_HEIGHT = 46;
 const SCALE = 4;
@@ -41,7 +44,7 @@ const PIXEL_COLORS: {[pixel: string]: string} = {
 	'0': '#fff', // walkable
 };
 
-function GeoPreview(props: Props): React$Node {
+export default function GeoPreview(props: Props): React$Node {
 	// todo use error boundary
 	let output: Uint8Array;
 	try {
@@ -80,9 +83,36 @@ function GeoPreview(props: Props): React$Node {
 						);
 					})}
 				</Layer>
+
+				{props.mapMouseMoveCoordinates != null ? (
+					<Layer>
+						<Rect
+							x={
+								(props.mapMouseMoveCoordinates[0] / SCREEN_WIDTH) * GEO_WIDTH -
+								1
+							}
+							y={
+								(props.mapMouseMoveCoordinates[1] / SCREEN_HEIGHT) * GEO_HEIGHT
+							}
+							width={3}
+							height={1}
+							fill={'#f00'}
+						/>
+
+						<Rect
+							x={(props.mapMouseMoveCoordinates[0] / SCREEN_WIDTH) * GEO_WIDTH}
+							y={
+								(props.mapMouseMoveCoordinates[1] / SCREEN_HEIGHT) *
+									GEO_HEIGHT -
+								1
+							}
+							width={1}
+							height={3}
+							fill={'#f00'}
+						/>
+					</Layer>
+				) : null}
 			</Stage>
 		</div>
 	);
 }
-
-export default (memo<Props>(GeoPreview): React$AbstractComponent<Props, mixed>);

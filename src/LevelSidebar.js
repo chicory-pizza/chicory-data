@@ -29,7 +29,10 @@ export default function LevelSidebar(props: Props): React$Node {
 
 	return (
 		<div className={styles.sidebar}>
-			<GeoPreview level={props.level} />
+			<GeoPreview
+				level={props.level}
+				mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
+			/>
 
 			<div className={styles.group + ' ' + styles.properties}>
 				<div>
