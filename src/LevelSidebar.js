@@ -7,6 +7,13 @@ import SidebarObjectText from './SidebarObjectText';
 
 import styles from './LevelSidebar.module.css';
 
+function withoutObjectsAndDecos(
+	level: LevelType
+): $Diff<LevelType, {geo: string}> {
+	const {objects, decos, geo, ...otherProps} = level;
+	return otherProps;
+}
+
 type Props = {
 	level: LevelType,
 	mapMouseMoveCoordinates: ?[number, number],
@@ -15,6 +22,8 @@ type Props = {
 };
 
 export default function LevelSidebar(props: Props): React$Node {
+	const levelObjects = props.level.objects;
+
 	return (
 		<div className={styles.sidebar}>
 			<div
@@ -34,23 +43,25 @@ export default function LevelSidebar(props: Props): React$Node {
 			</div>
 
 			<div className={styles.properties}>
-				{props.level.objects != null && props.objectIndexHover != null ? (
-					<code>
-						{JSON.stringify(
-							props.level.objects[props.objectIndexHover],
-							null,
-							2
-						)}
-					</code>
-				) : null}
+				<div>
+					{levelObjects != null && props.objectIndexHover != null
+						? 'Object properties'
+						: 'Level properties'}
+				</div>
+
+				<code>
+					{levelObjects != null && props.objectIndexHover != null
+						? JSON.stringify(levelObjects[props.objectIndexHover], null, 2)
+						: JSON.stringify(withoutObjectsAndDecos(props.level), null, 2)}
+				</code>
 			</div>
 
-			{props.level.objects != null ? (
+			{levelObjects != null ? (
 				<details className={styles.objectsBox} open>
-					<summary>Objects ({props.level.objects.length}):</summary>
+					<summary>Objects ({levelObjects.length}):</summary>
 
 					<ul className={styles.objectsList}>
-						{props.level.objects.map((obj, index) => {
+						{levelObjects.map((obj, index) => {
 							return (
 								<li key={index}>
 									<button
