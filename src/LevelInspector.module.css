@@ -1,17 +1,20 @@
 .root {
+	flex-grow: 1;
 	display: flex;
 	height: 100%;
+	min-height: 0;
 }
 
 .preview {
 	border: 1px solid #000;
-	flex-grow: 1;
 	height: 100%;
 	overflow: scroll;
 }
 
 .sidebar {
-	background: gray;
+	background: #ccc;
+	flex-shrink: 0;
+	padding: 8px;
 	width: 300px;
 	white-space: pre-wrap;
 	word-break: break-word;

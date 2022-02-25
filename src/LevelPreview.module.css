@@ -1,3 +1,9 @@
 .root {
+	background: #fff;
+	cursor: crosshair;
 	position: relative;
+
+	/* naive for now */
+	width: 1920px;
+	height: 1080px;
 }
