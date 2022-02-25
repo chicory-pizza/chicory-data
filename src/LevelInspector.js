@@ -60,9 +60,11 @@ export default function LevelInspector({level}: Props): React$Node {
 				) : null}
 
 				<div>
-					{level.objects != null && objectIndexHover != null
-						? JSON.stringify(level.objects[objectIndexHover])
-						: null}
+					<code>
+						{level.objects != null && objectIndexHover != null
+							? JSON.stringify(level.objects[objectIndexHover])
+							: null}
+					</code>
 				</div>
 			</div>
 		</div>
