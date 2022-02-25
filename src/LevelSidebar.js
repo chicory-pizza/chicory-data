@@ -2,7 +2,6 @@
 
 import type {LevelType} from './types/LevelType';
 
-// $FlowFixMe[nonstrict-import]
 import GeoPreview from './GeoPreview';
 import React from 'react';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
@@ -51,7 +50,9 @@ export default function LevelSidebar(props: Props): React$Node {
 
 			{levelObjects != null ? (
 				<details className={styles.group + ' ' + styles.objectsBox} open>
-					<summary>Objects ({levelObjects.length}):</summary>
+					<summary>
+						Objects ({levelObjects.length}){levelObjects.length > 0 ? ':' : ''}
+					</summary>
 
 					<ul className={styles.objectsList}>
 						{levelObjects.map((obj, index) => {

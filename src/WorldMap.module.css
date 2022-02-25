@@ -10,14 +10,42 @@
 
 .box {
 	background: #ddd;
-	outline: 1px solid #000;
+	padding: 0;
 	position: absolute;
+}
+
+.canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+
+	outline: 1px solid #000;
+}
+
+.text {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
+.drawPreviews .text {
+	background: rgba(255, 255, 255, 0.4);
+}
+
 .currentBox {
 	background: yellow;
+}
+
+.currentBox .canvas {
+	display: none;
+}
+
+.currentBox .text {
+	background: none;
 }

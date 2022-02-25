@@ -2,8 +2,7 @@
 
 import type {LevelType} from './types/LevelType';
 
-// $FlowFixMe[nonstrict-import]
-import GeoPreview from './GeoPreview';
+import GeoPreview, {GEO_WIDTH, SCREEN_WIDTH} from './GeoPreview';
 import React from 'react';
 import {memo} from 'react';
 
@@ -47,7 +46,7 @@ function LevelPreview(props: Props): React$Node {
 				<GeoPreview
 					level={props.level}
 					mapMouseMoveCoordinates={null}
-					scale={1920 / 81}
+					scale={SCREEN_WIDTH / GEO_WIDTH}
 				/>
 			</div>
 		</div>

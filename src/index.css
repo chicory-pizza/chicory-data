@@ -42,7 +42,10 @@ body,
 
 button,
 select,
-summary {
+summary,
+label,
+input[type='checkbox'],
+input[type='radio'] {
 	cursor: pointer;
 }
 

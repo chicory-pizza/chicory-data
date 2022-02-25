@@ -1,8 +1,10 @@
-// @flow
+// @flow strict
 
 import type {LevelType} from './types/LevelType';
 
+// $FlowFixMe[untyped-import]
 import {decode} from 'base64-arraybuffer';
+// $FlowFixMe[untyped-import]
 import {inflate} from 'pako';
 import React from 'react';
 import {useEffect, useMemo, useRef} from 'react';
@@ -15,10 +17,10 @@ type Props = {
 	scale: number,
 };
 
-const SCREEN_WIDTH = 1920;
-const SCREEN_HEIGHT = 1080;
-const GEO_WIDTH = 81;
-const GEO_HEIGHT = 46;
+export const SCREEN_WIDTH = 1920;
+export const SCREEN_HEIGHT = 1080;
+export const GEO_WIDTH = 81;
+export const GEO_HEIGHT = 46;
 
 const PIXEL_COLORS: {[pixel: string]: string} = {
 	// higher ground layers

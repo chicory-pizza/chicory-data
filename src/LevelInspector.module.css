@@ -5,8 +5,8 @@
 }
 
 .preview {
-	border: 1px solid #000;
-	border-bottom: 0;
+	border: solid #000;
+	border-width: 1px 1px 0 0;
 	flex-grow: 1;
 	overflow: scroll;
 }

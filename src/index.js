@@ -1,6 +1,7 @@
-// @flow
+// @flow strict
 
 import React from 'react';
+// $FlowFixMe[untyped-import]
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
