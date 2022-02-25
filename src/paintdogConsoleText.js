@@ -1,6 +1,6 @@
 // @flow strict
 
-export const drawdogConsoleText: string = `
+export const paintdogConsoleText: string = `
                                 ,,╓▄▄▄▄╓,
                           .╓▄▓▓▓██████████▓▌Q     .╥▄▓ε  ╔ε  .
                        .▄▓▓▀▀▀▀▀╬▓▓███████████▌m,╫████▒:╬╠▓▒▓▓░,
