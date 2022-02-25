@@ -6,6 +6,7 @@ import {decode} from 'base64-arraybuffer';
 import 'konva/lib/shapes/Rect';
 import {inflate} from 'pako';
 import React from 'react';
+import {useMemo} from 'react';
 import {Stage, Layer, Rect} from 'react-konva/lib/ReactKonvaCore';
 
 type Props = {
@@ -46,12 +47,18 @@ const PIXEL_COLORS: {[pixel: string]: string} = {
 
 export default function GeoPreview(props: Props): React$Node {
 	// todo use error boundary
-	let output: Uint8Array;
-	try {
-		output = inflate(decode(props.level.geo));
-	} catch (ex) {
-		console.error(ex);
-		return "Can't generate geo preview";
+	const output: ?Uint8Array = useMemo(() => {
+		try {
+			return inflate(decode(props.level.geo));
+		} catch (ex) {
+			console.error(ex);
+		}
+
+		return null;
+	}, [props.level.geo]);
+
+	if (output == null) {
+		return "Can't generate map preview";
 	}
 
 	return (
@@ -65,7 +72,7 @@ export default function GeoPreview(props: Props): React$Node {
 			>
 				<Layer>
 					{Array.from(output).map((pixel, index) => {
-						let fill = PIXEL_COLORS[pixel];
+						let fill = PIXEL_COLORS[pixel.toString()];
 						if (fill == null) {
 							console.warn('unknown pixel color' + pixel);
 							return null;
