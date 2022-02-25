@@ -43,6 +43,7 @@
 .objectItem {
 	background: transparent;
 	border: 0;
+	cursor: default;
 	text-align: left;
 	width: 100%;
 }

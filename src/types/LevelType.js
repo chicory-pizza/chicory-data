@@ -61,13 +61,7 @@ export type LevelType = {
 	music: LevelMusicType,
 	name: LevelNameType,
 	object_id: string | number,
-	objects?: Array<{
-		id?: number,
-		obj: GameObjectType,
-		x: number,
-		y: number,
-		...
-	}>,
+	objects?: Array<GameObjectType>,
 	palette: LevelPaletteType,
 	title?: LevelTitleType,
 	transition: string | number,

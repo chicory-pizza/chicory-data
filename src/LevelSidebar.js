@@ -3,6 +3,7 @@
 import type {LevelType} from './types/LevelType';
 
 import React from 'react';
+import SidebarObjectText from './SidebarObjectText';
 
 import styles from './LevelSidebar.module.css';
 
@@ -63,7 +64,7 @@ export default function LevelSidebar(props: Props): React$Node {
 										onMouseEnter={() => props.onObjectHover(index)}
 										onMouseLeave={() => props.onObjectHover(null)}
 									>
-										{obj.obj.slice('obj'.length)}
+										<SidebarObjectText obj={obj} />
 									</button>
 								</li>
 							);
