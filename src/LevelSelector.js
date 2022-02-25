@@ -62,6 +62,12 @@ export default function LevelSelector(props: Props): React$Node {
 	const [inputCoordinates, setInputCoordinates] = useState(
 		props.currentCoordinates
 	);
+	const [prevCoordinates, setPrevCoordinates] = useState(null);
+
+	if (props.currentCoordinates !== prevCoordinates) {
+		setInputCoordinates(props.currentCoordinates);
+		setPrevCoordinates(props.currentCoordinates);
+	}
 
 	function changeLevelByMenu(ev: SyntheticEvent<HTMLSelectElement>) {
 		const newLevelId = ev.currentTarget.value;
