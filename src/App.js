@@ -1,11 +1,11 @@
 // @flow strict
 
-import convertCoordinatesToLevelId from './convertCoordinatesToLevelId';
+import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 // $FlowFixMe[untyped-import]
 import levelData from './level_data.json';
 import LevelInspector from './LevelInspector';
 import LevelSelector from './LevelSelector';
-import {paintdogConsoleText} from './paintdogConsoleText';
+import {paintdogConsoleText} from './util/paintdogConsoleText';
 import React from 'react';
 import {useEffect, useState} from 'react';
 import WorldMap from './WorldMap';

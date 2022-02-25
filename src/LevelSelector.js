@@ -2,10 +2,11 @@
 
 import type {LevelType} from './types/LevelType';
 
-import convertCoordinatesToLevelId from './convertCoordinatesToLevelId';
-import convertLevelIdToCoordinates from './convertLevelIdToCoordinates';
+import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
+import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
 import React from 'react';
 import {useMemo, useState} from 'react';
+import sortCompareCoordinates from './util/sortCompareCoordinates';
 
 import styles from './LevelSelector.module.css';
 
@@ -20,28 +21,10 @@ export default function LevelSelector(props: Props): React$Node {
 		const keys = Object.keys(props.levels);
 
 		return keys.sort((a, b) => {
-			const coordinatesA = convertLevelIdToCoordinates(a);
-			const coordinatesB = convertLevelIdToCoordinates(b);
-
-			if (coordinatesA[0] < coordinatesB[0]) {
-				return -1;
-			} else if (coordinatesA[0] > coordinatesB[0]) {
-				return 1;
-			}
-
-			if (coordinatesA[1] < coordinatesB[1]) {
-				return -1;
-			} else if (coordinatesA[1] > coordinatesB[1]) {
-				return 1;
-			}
-
-			if (coordinatesA[2] < coordinatesB[2]) {
-				return -1;
-			} else if (coordinatesA[2] > coordinatesB[2]) {
-				return 1;
-			}
-
-			return 0;
+			return sortCompareCoordinates(
+				convertLevelIdToCoordinates(a),
+				convertLevelIdToCoordinates(b)
+			);
 		});
 	}, [props.levels]);
 

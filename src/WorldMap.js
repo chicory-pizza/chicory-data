@@ -2,14 +2,15 @@
 
 import type {LevelType} from './types/LevelType';
 
-import isSameCoordinates from './isSameCoordinates';
-import convertCoordinatesToLevelId from './convertCoordinatesToLevelId';
-import convertLevelIdToCoordinates from './convertLevelIdToCoordinates';
+import isSameCoordinates from './util/isSameCoordinates';
+import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
+import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
 import GeoPreview, {GEO_WIDTH, GEO_HEIGHT} from './GeoPreview';
 import React from 'react';
 import {useEffect, useRef} from 'react';
 
 import styles from './WorldMap.module.css';
+import sortCompareCoordinates from './util/sortCompareCoordinates';
 
 const WIDTH = GEO_WIDTH;
 const HEIGHT = GEO_HEIGHT;
@@ -39,7 +40,10 @@ export default function WorldMap(props: Props): React$Node {
 
 			return coordinates;
 		})
-		.filter(Boolean);
+		.filter(Boolean)
+		.sort((a, b) => {
+			return sortCompareCoordinates(a, b);
+		});
 
 	useEffect(() => {
 		currentBox.current?.scrollIntoView({
