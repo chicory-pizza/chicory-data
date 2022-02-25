@@ -41,7 +41,8 @@ body,
 }
 
 button,
-select {
+select,
+details {
 	cursor: pointer;
 }
 

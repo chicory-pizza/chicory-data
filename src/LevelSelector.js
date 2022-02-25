@@ -45,6 +45,20 @@ export default function LevelSelector(props: Props): React$Node {
 		});
 	}, [props.levels]);
 
+	const layersGrouped: {[layer: number]: Array<[number, number, number]>} =
+		useMemo(() => {
+			return levelIds.reduce((prev, current) => {
+				const coordinates = convertLevelIdToCoordinates(current);
+
+				if (prev[coordinates[0]] == null) {
+					prev[coordinates[0]] = [];
+				}
+
+				prev[coordinates[0]].push(coordinates);
+				return prev;
+			}, {});
+		}, [levelIds]);
+
 	const [inputCoordinates, setInputCoordinates] = useState(
 		props.currentCoordinates
 	);
@@ -77,17 +91,25 @@ export default function LevelSelector(props: Props): React$Node {
 				onChange={changeLevelByMenu}
 				value={convertCoordinatesToLevelId(props.currentCoordinates)}
 			>
-				{levelIds.map((id) => {
-					const sublabel =
-						props.levels[id].area !== 'none'
-							? props.levels[id].area
-							: props.levels[id].palette;
-
+				{Object.keys(layersGrouped).map((layer) => {
 					return (
-						<option key={id} value={id}>
-							{id}
-							{sublabel !== '' ? ' (' + sublabel + ')' : ''}
-						</option>
+						<optgroup label={'Layer ' + layer} key={layer}>
+							{layersGrouped[parseInt(layer, 10)].map((coordinates) => {
+								const id = convertCoordinatesToLevelId(coordinates);
+
+								const sublabel =
+									props.levels[id].area !== 'none'
+										? props.levels[id].area
+										: props.levels[id].palette;
+
+								return (
+									<option key={id} value={id}>
+										{coordinates[0]}, {coordinates[1]}, {coordinates[2]}
+										{sublabel !== '' ? ' (' + sublabel + ')' : ''}
+									</option>
+								);
+							})}
+						</optgroup>
 					);
 				})}
 			</select>
@@ -97,6 +119,7 @@ export default function LevelSelector(props: Props): React$Node {
 				className={styles.numberInputForm}
 				onSubmit={changeLevelByNumberInput}
 			>
+				<span className={styles.label}>Layer:</span>
 				<input
 					className={styles.numberInput}
 					onChange={(ev: SyntheticEvent<HTMLInputElement>) => {
@@ -110,6 +133,7 @@ export default function LevelSelector(props: Props): React$Node {
 					value={inputCoordinates[0]}
 				/>
 
+				<span className={styles.label}>X:</span>
 				<input
 					className={styles.numberInput}
 					onChange={(ev: SyntheticEvent<HTMLInputElement>) => {
@@ -123,6 +147,7 @@ export default function LevelSelector(props: Props): React$Node {
 					value={inputCoordinates[1]}
 				/>
 
+				<span className={styles.label}>Y:</span>
 				<input
 					className={styles.numberInput}
 					onChange={(ev: SyntheticEvent<HTMLInputElement>) => {

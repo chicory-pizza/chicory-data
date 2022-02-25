@@ -46,7 +46,7 @@ export default function LevelSidebar(props: Props): React$Node {
 			</div>
 
 			{props.level.objects != null ? (
-				<details className={styles.objectsBox}>
+				<details className={styles.objectsBox} open>
 					<summary>Objects ({props.level.objects.length}):</summary>
 
 					<ul className={styles.objectsList}>
