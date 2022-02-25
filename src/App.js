@@ -13,7 +13,7 @@ export default function App(): React$Node {
 
 	return (
 		<div className={styles.root}>
-			<h1>chicory-level-data</h1>
+			<h1 className={styles.header}>Chicory Level Data</h1>
 
 			<LevelInspector level={levelData['0_0_0']} />
 		</div>

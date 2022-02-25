@@ -5,16 +5,26 @@
 	padding: 0;
 }
 
+/* https://www.dafont.com/domigorgon.font */
+@font-face {
+	font-family: 'Domigorgon';
+	src: url('domigorgon-webfont.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
 body {
+	background: #fff;
+	color: #000;
+	cursor: default;
+	font-size: 1em;
 	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif;
+	font-family: Domigorgon, sans-serif;
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
+	font-family: monospace;
 }
 
 html,
