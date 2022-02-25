@@ -1,6 +1,6 @@
 // @flow strict
 
-import type {LevelType} from './LevelType';
+import type {LevelType} from './types/LevelType';
 
 import LevelPreview from './LevelPreview';
 import React from 'react';
@@ -30,7 +30,7 @@ export default function LevelInspector({level}: Props): React$Node {
 			</div>
 
 			<div className={styles.sidebar}>
-				{objectIndexHover != null
+				{level.objects != null && objectIndexHover != null
 					? JSON.stringify(level.objects[objectIndexHover])
 					: null}
 			</div>

@@ -1,6 +1,6 @@
 // @flow strict
 
-import type {LevelType} from './LevelType';
+import type {LevelType} from './types/LevelType';
 
 import React from 'react';
 
@@ -15,7 +15,7 @@ type Props = {
 export default function LevelPreview(props: Props): React$Node {
 	return (
 		<div className={styles.root}>
-			{props.level.objects.map((obj, index) => {
+			{props.level.objects?.map((obj, index) => {
 				return (
 					<div
 						key={index}
@@ -28,7 +28,7 @@ export default function LevelPreview(props: Props): React$Node {
 							background: props.objectIndexHover === index ? 'yellow' : null,
 						}}
 					>
-						{obj.obj}
+						{obj.obj.slice('obj'.length)}
 					</div>
 				);
 			})}

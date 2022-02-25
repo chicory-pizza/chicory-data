@@ -1,6 +1,6 @@
 // @flow strict
 
-import type {LevelType} from './LevelType';
+import type {LevelType} from './types/LevelType';
 
 import convertCoordinatesToLevelId from './convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from './convertLevelIdToCoordinates';
