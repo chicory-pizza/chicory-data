@@ -1,7 +1,8 @@
-// @flow
+// @flow strict
 
 import convertCoordinatesToLevelId from './convertCoordinatesToLevelId';
 import {drawdogConsoleText} from './drawdogConsoleText';
+// $FlowFixMe
 import levelData from './level_data.json';
 import LevelInspector from './LevelInspector';
 import LevelSelector from './LevelSelector';

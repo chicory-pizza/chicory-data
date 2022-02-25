@@ -1,4 +1,6 @@
-export const drawdogConsoleText = `
+// @flow strict
+
+export const drawdogConsoleText: string = `
                                 ,,╓▄▄▄▄╓,
                           .╓▄▓▓▓██████████▓▌Q     .╥▄▓ε  ╔ε  .
                        .▄▓▓▀▀▀▀▀╬▓▓███████████▌m,╫████▒:╬╠▓▒▓▓░,

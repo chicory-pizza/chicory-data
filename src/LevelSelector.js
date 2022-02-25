@@ -104,7 +104,9 @@ export default function LevelSelector(props: Props): React$Node {
 								const id = convertCoordinatesToLevelId(coordinates);
 
 								const sublabel =
-									props.levels[id].area !== 'none'
+									props.levels[id].name !== id
+										? props.levels[id].name
+										: props.levels[id].area !== 'none'
 										? props.levels[id].area
 										: props.levels[id].palette;
 

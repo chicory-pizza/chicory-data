@@ -23,9 +23,13 @@ export type GameObjectType =
 			x: number,
 			y: number,
 
+			dataamt?: string, // actually number
+			datalock?: string,
 			dest: string,
+			interactable?: '1', // only on [1, -1, -1]
 			name: string,
+			oneway?: '0' | '1',
 			sound: string,
-			swimming: string, // more like boolean
-			trans: string,
+			swimming?: '1' | '-1',
+			trans: '-2' | '0' | '1' | '2' | '3',
 	  };

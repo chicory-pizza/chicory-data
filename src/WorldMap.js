@@ -50,13 +50,15 @@ export default function WorldMap(props: Props): React$Node {
 		<div className={styles.root}>
 			{levels.map((coordinates) => {
 				const levelId = convertCoordinatesToLevelId(coordinates);
+				const level = props.levels[levelId];
 
 				const isSame = isSameCoordinates(props.currentCoordinates, coordinates);
 
-				const sublabel =
-					props.levels[levelId].area !== 'none'
-						? props.levels[levelId].area
-						: props.levels[levelId].palette;
+				const sublabel = [
+					level.name !== '' ? 'Name: ' + level.name : null,
+					level.area !== '' ? 'Area: ' + level.area : null,
+					level.palette !== '' ? 'Palette: ' + level.palette : null,
+				];
 
 				return (
 					<button
@@ -70,7 +72,7 @@ export default function WorldMap(props: Props): React$Node {
 							width: WIDTH,
 							height: HEIGHT,
 						}}
-						title={sublabel}
+						title={sublabel.filter(Boolean).join('\n')}
 					>
 						{coordinates[1]}, {coordinates[2]}
 					</button>
