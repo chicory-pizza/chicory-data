@@ -2,6 +2,8 @@
 
 import type {LevelType} from './types/LevelType';
 
+// $FlowFixMe[nonstrict-import]
+import GeoPreview from './GeoPreview';
 import React from 'react';
 import {memo} from 'react';
 
@@ -32,6 +34,7 @@ function LevelPreview(props: Props): React$Node {
 							position: 'absolute',
 							top: obj.y,
 							left: obj.x,
+							zIndex: 2,
 							background: props.objectIndexHover === index ? 'yellow' : null,
 						}}
 					>
@@ -39,6 +42,14 @@ function LevelPreview(props: Props): React$Node {
 					</div>
 				);
 			})}
+
+			<div className={styles.canvas}>
+				<GeoPreview
+					level={props.level}
+					mapMouseMoveCoordinates={null}
+					scale={1920 / 81}
+				/>
+			</div>
 		</div>
 	);
 }

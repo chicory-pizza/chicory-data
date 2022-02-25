@@ -12,13 +12,13 @@ import styles from './GeoPreview.module.css';
 type Props = {
 	level: LevelType,
 	mapMouseMoveCoordinates: ?[number, number],
+	scale: number,
 };
 
 const SCREEN_WIDTH = 1920;
 const SCREEN_HEIGHT = 1080;
 const GEO_WIDTH = 81;
 const GEO_HEIGHT = 46;
-const SCALE = 4;
 
 const PIXEL_COLORS: {[pixel: string]: string} = {
 	// higher ground layers
@@ -77,7 +77,7 @@ export default function GeoPreview(props: Props): React$Node {
 		ctx.mozImageSmoothingEnabled = false;
 		ctx.imageSmoothingEnabled = false;
 
-		ctx.scale(4 * dpr, 4 * dpr);
+		ctx.scale(props.scale * dpr, props.scale * dpr);
 
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -114,7 +114,7 @@ export default function GeoPreview(props: Props): React$Node {
 		}
 
 		ctx.setTransform(1, 0, 0, 1, 0, 0);
-	}, [decodedGeo, dpr, props.mapMouseMoveCoordinates]);
+	}, [decodedGeo, dpr, props.mapMouseMoveCoordinates, props.scale]);
 
 	if (decodedGeo == null) {
 		return "Can't generate map preview";
@@ -125,9 +125,12 @@ export default function GeoPreview(props: Props): React$Node {
 			<canvas
 				className={styles.canvas}
 				ref={canvasRef}
-				width={GEO_WIDTH * SCALE * dpr}
-				height={GEO_HEIGHT * SCALE * dpr}
-				style={{width: GEO_WIDTH * SCALE, height: GEO_HEIGHT * SCALE}}
+				width={GEO_WIDTH * props.scale * dpr}
+				height={GEO_HEIGHT * props.scale * dpr}
+				style={{
+					width: GEO_WIDTH * props.scale,
+					height: GEO_HEIGHT * props.scale,
+				}}
 			/>
 		</div>
 	);

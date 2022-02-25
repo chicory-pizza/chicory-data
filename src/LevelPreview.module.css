@@ -7,3 +7,10 @@
 	width: 1920px;
 	height: 1080px;
 }
+
+.canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
