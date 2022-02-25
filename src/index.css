@@ -53,6 +53,7 @@ input[type='number'] {
 
 button {
 	border: 1px solid #000;
+	font-size: 1em;
 	padding: 2px 4px;
 }
 

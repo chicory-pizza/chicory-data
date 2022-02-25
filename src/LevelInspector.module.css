@@ -10,12 +10,3 @@
 	height: 100%;
 	overflow: scroll;
 }
-
-.sidebar {
-	background: #ccc;
-	flex-shrink: 0;
-	padding: 8px;
-	width: 300px;
-	white-space: pre-wrap;
-	word-break: break-word;
-}

@@ -3,6 +3,7 @@
 import type {LevelType} from './types/LevelType';
 
 import LevelPreview from './LevelPreview';
+import LevelSidebar from './LevelSidebar';
 import React from 'react';
 import {useCallback, useEffect, useState} from 'react';
 
@@ -52,21 +53,12 @@ export default function LevelInspector({level}: Props): React$Node {
 				/>
 			</div>
 
-			<div className={styles.sidebar}>
-				{mapMouseMoveCoordinates != null ? (
-					<div>
-						Mouse: {mapMouseMoveCoordinates[0]}, {mapMouseMoveCoordinates[1]}
-					</div>
-				) : null}
-
-				<div>
-					<code>
-						{level.objects != null && objectIndexHover != null
-							? JSON.stringify(level.objects[objectIndexHover])
-							: null}
-					</code>
-				</div>
-			</div>
+			<LevelSidebar
+				level={level}
+				mapMouseMoveCoordinates={mapMouseMoveCoordinates}
+				objectIndexHover={objectIndexHover}
+				onObjectHover={setObjectIndexHover}
+			/>
 		</div>
 	);
 }
