@@ -51,7 +51,9 @@ export default function LevelSidebar(props: Props): React$Node {
 			{levelObjects != null ? (
 				<details className={styles.group + ' ' + styles.objectsBox} open>
 					<summary>
-						Objects ({levelObjects.length}){levelObjects.length > 0 ? ':' : ''}
+						{levelObjects.length > 0
+							? 'Objects (' + levelObjects.length + '):'
+							: 'No objects'}
 					</summary>
 
 					<ul className={styles.objectsList}>

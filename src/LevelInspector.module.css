@@ -5,6 +5,13 @@
 }
 
 .preview {
+	background: repeating-linear-gradient(
+		45deg,
+		transparent,
+		transparent 4px,
+		#ccc 4px,
+		#ccc 8px
+	);
 	border: solid #000;
 	border-width: 1px 1px 0 0;
 	flex-grow: 1;

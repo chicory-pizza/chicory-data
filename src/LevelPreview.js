@@ -17,13 +17,27 @@ type Props = {
 };
 
 function LevelPreview(props: Props): React$Node {
+	const objects = props.level.objects;
+
+	// Some objects can be bit off-screen
+	let offscreenX = 0;
+	let offscreenY = 0;
+	objects?.forEach((obj) => {
+		offscreenX = Math.min(offscreenX, obj.x);
+		offscreenY = Math.min(offscreenY, obj.y);
+	});
+
 	return (
 		<div
 			className={styles.root}
 			onMouseMove={props.onMapMouseMove}
 			onMouseLeave={props.onMapMouseLeave}
+			style={{
+				left: -offscreenX,
+				top: -offscreenY,
+			}}
 		>
-			{props.level.objects?.map((obj, index) => {
+			{objects?.map((obj, index) => {
 				return (
 					<div
 						className={
@@ -35,8 +49,8 @@ function LevelPreview(props: Props): React$Node {
 						onMouseEnter={() => props.onObjectHover(index)}
 						onMouseLeave={() => props.onObjectHover(null)}
 						style={{
-							top: obj.y,
 							left: obj.x,
+							top: obj.y,
 						}}
 					>
 						{obj.obj.slice('obj'.length)}
