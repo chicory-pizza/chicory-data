@@ -1,25 +1,31 @@
 {
-  "name": "chicory-level-data",
-  "version": "0.1.0",
+  "name": "chicory-data",
   "private": true,
+  "license": "MPL-2.0",
   "dependencies": {
+    "base64-arraybuffer": "^1.0.2",
+    "pako": "^2.0.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
-    "base64-arraybuffer": "^1.0.2",
-    "flow-bin": "^0.172.0",
-    "pako": "^2.0.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0",
-    "web-vitals": "^2.1.0"
+    "flow-bin": "0.172.0",
+    "prettier": "2.5.1",
+    "react-scripts": "5.0.0"
+  },
+  "engines": {
+    "node": ">=14"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "flow": "flow"
+    "flow": "flow",
+    "start": "react-scripts start",
+    "prettier": "prettier .",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [

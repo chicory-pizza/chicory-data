@@ -46,11 +46,11 @@ export default function App(): React$Node {
 
 						<label>
 							<input
+								checked={drawPreviewsOnWorldMap}
 								onChange={(ev: SyntheticInputEvent<HTMLInputElement>) =>
 									setDrawPreviewsOnWorldMap(ev.currentTarget.checked)
 								}
 								type="checkbox"
-								value={drawPreviewsOnWorldMap}
 							/>{' '}
 							Show previews on world map (slow)
 						</label>

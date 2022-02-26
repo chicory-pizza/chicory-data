@@ -11,12 +11,6 @@ import {useEffect, useMemo, useRef} from 'react';
 
 import styles from './GeoPreview.module.css';
 
-type Props = {
-	level: LevelType,
-	mapMouseMoveCoordinates: ?[number, number],
-	scale: number,
-};
-
 export const SCREEN_WIDTH = 1920;
 export const SCREEN_HEIGHT = 1080;
 export const GEO_WIDTH = 81;
@@ -45,6 +39,12 @@ const PIXEL_COLORS: {[pixel: string]: string} = {
 	'2': '#555', // unclimbable wall
 	'1': '#eee', // ramp
 	'0': '#fff', // walkable
+};
+
+type Props = {
+	level: LevelType,
+	mapMouseMoveCoordinates: ?[number, number],
+	scale: number,
 };
 
 export default function GeoPreview(props: Props): React$Node {

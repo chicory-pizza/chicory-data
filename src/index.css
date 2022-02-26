@@ -65,3 +65,14 @@ select {
 	border: 1px solid #000;
 	padding: 2px;
 }
+
+#noscript-error {
+	font-size: 2em;
+	padding: 2em;
+	text-align: center;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
