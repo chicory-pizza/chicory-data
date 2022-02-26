@@ -1,17 +1,17 @@
 // @flow strict
 
+import React from 'react';
+import {useEffect, useState} from 'react';
+
+import styles from './App.module.css';
 import {CurrentCoordinatesProvider} from './CurrentCoordinatesContext';
+import icon144 from './icon144.png';
 // $FlowFixMe[untyped-import]
 import levelData from './level_data.json';
 import LevelInspectorContainer from './LevelInspectorContainer';
 import LevelSelector from './LevelSelector';
 import {paintdogConsoleText} from './util/paintdogConsoleText';
-import React from 'react';
-import {useEffect, useState} from 'react';
 import WorldMap from './WorldMap';
-
-import icon144 from './icon144.png';
-import styles from './App.module.css';
 
 export default function App(): React$Node {
 	window.levelData = levelData;

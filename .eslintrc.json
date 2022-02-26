@@ -15,6 +15,17 @@
 		"flowtype/require-indexer-name": "error",
 		"flowtype/require-readonly-react-props": "error",
 
-		"react/button-has-type": "error"
+		"react/button-has-type": "error",
+
+		"import/order": [
+			"error",
+			{
+				"newlines-between": "always",
+				"alphabetize": {
+					"order": "asc",
+					"caseInsensitive": true
+				}
+			}
+		]
 	}
 }

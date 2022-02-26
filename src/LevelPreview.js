@@ -1,12 +1,11 @@
 // @flow strict
 
-import type {LevelType} from './types/LevelType';
-
-import GeoPreview, {GEO_WIDTH, SCREEN_WIDTH} from './GeoPreview';
 import React from 'react';
 import {memo} from 'react';
 
+import GeoPreview, {GEO_WIDTH, SCREEN_WIDTH} from './GeoPreview';
 import styles from './LevelPreview.module.css';
+import type {LevelType} from './types/LevelType';
 
 type Props = $ReadOnly<{
 	level: LevelType,

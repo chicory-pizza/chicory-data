@@ -1,11 +1,11 @@
 // @flow strict
 
-import type {LevelType} from './types/LevelType';
+import React from 'react';
 
-import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 import {useCurrentCoordinates} from './CurrentCoordinatesContext';
 import LevelInspector from './LevelInspector';
-import React from 'react';
+import type {LevelType} from './types/LevelType';
+import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 
 type Props = $ReadOnly<{
 	levels: {[levelId: string]: LevelType},

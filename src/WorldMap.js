@@ -1,17 +1,16 @@
 // @flow strict
 
-import type {LevelType} from './types/LevelType';
-
-import {useCurrentCoordinates} from './CurrentCoordinatesContext';
-import isSameCoordinates from './util/isSameCoordinates';
-import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
-import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
-import GeoPreview, {GEO_WIDTH, GEO_HEIGHT} from './GeoPreview';
 import React from 'react';
 import {useEffect, useRef} from 'react';
 
-import styles from './WorldMap.module.css';
+import {useCurrentCoordinates} from './CurrentCoordinatesContext';
+import GeoPreview, {GEO_WIDTH, GEO_HEIGHT} from './GeoPreview';
+import type {LevelType} from './types/LevelType';
+import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
+import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
+import isSameCoordinates from './util/isSameCoordinates';
 import sortCompareCoordinates from './util/sortCompareCoordinates';
+import styles from './WorldMap.module.css';
 
 const WIDTH = GEO_WIDTH;
 const HEIGHT = GEO_HEIGHT;

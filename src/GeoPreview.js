@@ -1,6 +1,5 @@
 // @flow strict
 
-import type {LevelType} from './types/LevelType';
 
 // $FlowFixMe[untyped-import]
 import {decode} from 'base64-arraybuffer';
@@ -10,6 +9,7 @@ import React from 'react';
 import {useEffect, useMemo, useRef} from 'react';
 
 import styles from './GeoPreview.module.css';
+import type {LevelType} from './types/LevelType';
 
 export const SCREEN_WIDTH = 1920;
 export const SCREEN_HEIGHT = 1080;

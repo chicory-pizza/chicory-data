@@ -1,13 +1,13 @@
 // @flow strict
 
-import type {LevelType} from '../types/LevelType';
+import React from 'react';
 
 import GeoPreview from '../GeoPreview';
-import React from 'react';
-import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
-import SidebarObjectsList from './SidebarObjectsList';
+import type {LevelType} from '../types/LevelType';
 
 import styles from './LevelSidebar.module.css';
+import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
+import SidebarObjectsList from './SidebarObjectsList';
 
 function withoutObjectsAndDecos(
 	level: LevelType

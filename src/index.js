@@ -1,7 +1,8 @@
 // @flow strict
 
-import React from 'react';
+import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
 import App from './App';
 
@@ -11,8 +12,8 @@ if (root == null) {
 }
 
 ReactDOM.render(
-	<React.StrictMode>
+	<StrictMode>
 		<App />
-	</React.StrictMode>,
+	</StrictMode>,
 	root
 );

@@ -1,17 +1,16 @@
 // @flow strict
 
-import type {LevelType} from './types/LevelType';
-
-import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
-import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
-import {useCurrentCoordinates} from './CurrentCoordinatesContext';
 import React from 'react';
 import {useMemo, useState} from 'react';
 // $FlowFixMe[untyped-import]
 import Select from 'react-select';
-import sortCompareCoordinates from './util/sortCompareCoordinates';
 
+import {useCurrentCoordinates} from './CurrentCoordinatesContext';
 import styles from './LevelSelector.module.css';
+import type {LevelType} from './types/LevelType';
+import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
+import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
+import sortCompareCoordinates from './util/sortCompareCoordinates';
 
 type Props = $ReadOnly<{
 	levels: {[levelId: string]: LevelType},

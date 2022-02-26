@@ -1,11 +1,11 @@
 // @flow strict
 
+import React from 'react';
+
 import type {GameObjectType} from '../types/GameObjectType';
 
-import React from 'react';
-import SidebarObjectText from './SidebarObjectText';
-
 import styles from './SidebarObjectsList.module.css';
+import SidebarObjectText from './SidebarObjectText';
 
 type Props = $ReadOnly<{
 	levelObjects: Array<GameObjectType>,

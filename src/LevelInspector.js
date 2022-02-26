@@ -1,13 +1,12 @@
 // @flow strict
 
-import type {LevelType} from './types/LevelType';
-
-import LevelPreview from './LevelPreview';
-import LevelSidebar from './sidebar/LevelSidebar';
 import React from 'react';
 import {useCallback, useEffect, useState} from 'react';
 
 import styles from './LevelInspector.module.css';
+import LevelPreview from './LevelPreview';
+import LevelSidebar from './sidebar/LevelSidebar';
+import type {LevelType} from './types/LevelType';
 
 type Props = $ReadOnly<{
 	level: LevelType,
