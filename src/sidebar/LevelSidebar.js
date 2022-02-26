@@ -26,6 +26,11 @@ type Props = {
 export default function LevelSidebar(props: Props): React$Node {
 	const levelObjects = props.level.objects;
 
+	const currentObject =
+		levelObjects != null && props.objectIndexHover != null
+			? levelObjects[props.objectIndexHover]
+			: null;
+
 	return (
 		<div className={styles.sidebar}>
 			<GeoPreview
@@ -35,15 +40,11 @@ export default function LevelSidebar(props: Props): React$Node {
 			/>
 
 			<div className={styles.group + ' ' + styles.properties}>
-				<div>
-					{levelObjects != null && props.objectIndexHover != null
-						? 'Object properties'
-						: 'Level properties'}
-				</div>
+				<div>{currentObject ? 'Object properties' : 'Level properties'}</div>
 
 				<code>
-					{levelObjects != null && props.objectIndexHover != null
-						? JSON.stringify(levelObjects[props.objectIndexHover], null, 2)
+					{currentObject
+						? JSON.stringify(currentObject, null, 2)
 						: JSON.stringify(withoutObjectsAndDecos(props.level), null, 2)}
 				</code>
 			</div>

@@ -18,7 +18,7 @@ export default function SidebarObjectsList(props: Props): React$Node {
 		<details className={styles.root} open>
 			<summary>
 				{props.levelObjects.length > 0
-					? 'Objects (' + props.levelObjects.length + '):'
+					? 'Objects (' + props.levelObjects.length + ')'
 					: 'No objects'}
 			</summary>
 
