@@ -4,9 +4,9 @@ import React, {createContext, useContext, useState} from 'react';
 
 const CurrentCoordinatesContext = createContext();
 
-type Props = {
+type Props = $ReadOnly<{
 	children: ?React$Node,
-};
+}>;
 
 export function CurrentCoordinatesProvider({children}: Props): React$Node {
 	const [coordinates, setCoordinates] = useState<[number, number, number]>([

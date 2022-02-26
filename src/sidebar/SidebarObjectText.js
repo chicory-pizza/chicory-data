@@ -7,9 +7,9 @@ import LinkButton from '../LinkButton';
 import React from 'react';
 import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
 
-type Props = {
+type Props = $ReadOnly<{
 	obj: GameObjectType,
-};
+}>;
 
 export default function SidebarObjectText({obj}: Props): React$Node {
 	const [, setNewCoordinates] = useCurrentCoordinates();

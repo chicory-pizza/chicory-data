@@ -16,10 +16,10 @@ import sortCompareCoordinates from './util/sortCompareCoordinates';
 const WIDTH = GEO_WIDTH;
 const HEIGHT = GEO_HEIGHT;
 
-type Props = {
+type Props = $ReadOnly<{
 	drawPreviews: boolean,
 	levels: {[levelId: string]: LevelType},
-};
+}>;
 
 export default function WorldMap(props: Props): React$Node {
 	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
@@ -85,6 +85,7 @@ export default function WorldMap(props: Props): React$Node {
 							height: HEIGHT,
 						}}
 						title={sublabel.filter(Boolean).join('\n')}
+						type="button"
 					>
 						{props.drawPreviews ? (
 							<div className={styles.canvas}>

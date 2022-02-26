@@ -9,9 +9,9 @@ import {useCallback, useEffect, useState} from 'react';
 
 import styles from './LevelInspector.module.css';
 
-type Props = {
+type Props = $ReadOnly<{
 	level: LevelType,
-};
+}>;
 
 export default function LevelInspector({level}: Props): React$Node {
 	useEffect(() => {

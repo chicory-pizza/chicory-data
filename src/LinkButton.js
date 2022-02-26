@@ -4,10 +4,10 @@ import React from 'react';
 
 import styles from './LinkButton.module.css';
 
-type Props = {
+type Props = $ReadOnly<{
 	children: ?React$Node,
 	...
-};
+}>;
 
 // A button that looks like a link
 export default function SidebarObjectText({

@@ -7,9 +7,9 @@ import {useCurrentCoordinates} from './CurrentCoordinatesContext';
 import LevelInspector from './LevelInspector';
 import React from 'react';
 
-type Props = {
+type Props = $ReadOnly<{
 	levels: {[levelId: string]: LevelType},
-};
+}>;
 
 export default function LevelInspectorContainer(props: Props): React$Node {
 	const [currentCoordinates] = useCurrentCoordinates();

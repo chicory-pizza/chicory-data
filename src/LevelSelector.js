@@ -13,9 +13,9 @@ import sortCompareCoordinates from './util/sortCompareCoordinates';
 
 import styles from './LevelSelector.module.css';
 
-type Props = {
+type Props = $ReadOnly<{
 	levels: {[levelId: string]: LevelType},
-};
+}>;
 
 export default function LevelSelector(props: Props): React$Node {
 	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();

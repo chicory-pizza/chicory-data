@@ -4,9 +4,9 @@ import React from 'react';
 
 import styles from './SidebarMouseMoveCoordinates.module.css';
 
-type Props = {
+type Props = $ReadOnly<{
 	mapMouseMoveCoordinates: ?[number, number],
-};
+}>;
 
 export default function SidebarMouseMoveCoordinates(props: Props): React$Node {
 	return (

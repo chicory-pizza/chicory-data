@@ -7,11 +7,11 @@ import SidebarObjectText from './SidebarObjectText';
 
 import styles from './SidebarObjectsList.module.css';
 
-type Props = {
+type Props = $ReadOnly<{
 	levelObjects: Array<GameObjectType>,
 	objectIndexHover: ?number,
 	onObjectHover: (objectIndex: ?number) => mixed,
-};
+}>;
 
 export default function SidebarObjectsList(props: Props): React$Node {
 	return (

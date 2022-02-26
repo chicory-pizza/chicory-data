@@ -8,13 +8,13 @@ import {memo} from 'react';
 
 import styles from './LevelPreview.module.css';
 
-type Props = {
+type Props = $ReadOnly<{
 	level: LevelType,
 	objectIndexHover: ?number,
 	onMapMouseLeave: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
-};
+}>;
 
 function LevelPreview(props: Props): React$Node {
 	const objects = props.level.objects;

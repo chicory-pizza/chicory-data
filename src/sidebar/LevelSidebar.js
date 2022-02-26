@@ -16,12 +16,12 @@ function withoutObjectsAndDecos(
 	return otherProps;
 }
 
-type Props = {
+type Props = $ReadOnly<{
 	level: LevelType,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
 	onObjectHover: (objectIndex: ?number) => mixed,
-};
+}>;
 
 export default function LevelSidebar(props: Props): React$Node {
 	const levelObjects = props.level.objects;

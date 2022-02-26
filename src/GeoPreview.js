@@ -41,11 +41,11 @@ const PIXEL_COLORS: {[pixel: string]: string} = {
 	'0': '#fff', // walkable
 };
 
-type Props = {
+type Props = $ReadOnly<{
 	level: LevelType,
 	mapMouseMoveCoordinates: ?[number, number],
 	scale: number,
-};
+}>;
 
 export default function GeoPreview(props: Props): React$Node {
 	const canvasRef = useRef<?HTMLCanvasElement>(null);
