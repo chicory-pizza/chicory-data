@@ -26,15 +26,17 @@ function LevelPreview(props: Props): React$Node {
 			{props.level.objects?.map((obj, index) => {
 				return (
 					<div
+						className={
+							styles.objectItem +
+							' ' +
+							(props.objectIndexHover === index ? styles.objectItemHover : '')
+						}
 						key={index}
 						onMouseEnter={() => props.onObjectHover(index)}
 						onMouseLeave={() => props.onObjectHover(null)}
 						style={{
-							position: 'absolute',
 							top: obj.y,
 							left: obj.x,
-							zIndex: 2,
-							background: props.objectIndexHover === index ? 'yellow' : null,
 						}}
 					>
 						{obj.obj.slice('obj'.length)}

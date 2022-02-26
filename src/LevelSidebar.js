@@ -58,7 +58,7 @@ export default function LevelSidebar(props: Props): React$Node {
 						{levelObjects.map((obj, index) => {
 							return (
 								<li key={index}>
-									<button
+									<span
 										className={
 											styles.objectItem +
 											' ' +
@@ -70,7 +70,7 @@ export default function LevelSidebar(props: Props): React$Node {
 										onMouseLeave={() => props.onObjectHover(null)}
 									>
 										<SidebarObjectText obj={obj} />
-									</button>
+									</span>
 								</li>
 							);
 						})}

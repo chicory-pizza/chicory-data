@@ -119,6 +119,16 @@ export default function LevelSelector(props: Props): React$Node {
 							return {...provided, zIndex: 99};
 						},
 					}}
+					theme={(theme) => {
+						return {
+							...theme,
+							colors: {
+								...theme.colors,
+								primary: '#c5aeff',
+								primary25: '#ffb8a9',
+							},
+						};
+					}}
 				/>
 			</div>
 

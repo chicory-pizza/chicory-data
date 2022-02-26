@@ -8,6 +8,15 @@
 	height: 1080px;
 }
 
+.objectItem {
+	position: absolute;
+	z-index: 2;
+}
+
+.objectItemHover {
+	background: #e0ff77;
+}
+
 .canvas {
 	position: absolute;
 	top: 0;

@@ -56,14 +56,19 @@ input[type='number'] {
 }
 
 button {
+	background: #eee;
 	border: 1px solid #000;
 	font-size: 1em;
-	padding: 2px 4px;
+	padding: 2px 8px;
 }
 
 select {
 	border: 1px solid #000;
 	padding: 2px;
+}
+
+:focus {
+	outline: 1px solid #c5aeff;
 }
 
 #noscript-error {
