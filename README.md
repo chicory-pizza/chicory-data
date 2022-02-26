@@ -1,5 +1,7 @@
 # Chicory Data
 
+<img alt="Logo" align="right" src="./src/icon144.png" width="72" />
+
 ## Development
 
 Requirements:

@@ -3,7 +3,7 @@
 import type {LevelType} from './types/LevelType';
 
 import LevelPreview from './LevelPreview';
-import LevelSidebar from './LevelSidebar';
+import LevelSidebar from './sidebar/LevelSidebar';
 import React from 'react';
 import {useCallback, useEffect, useState} from 'react';
 

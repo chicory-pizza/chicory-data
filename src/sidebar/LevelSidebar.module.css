@@ -23,27 +23,8 @@
 	resize: vertical;
 }
 
-.objectsBox {
+.objectsList {
 	flex-grow: 1;
 	overflow: auto;
 	padding: 8px;
-}
-
-.objectsList {
-	list-style-type: none;
-	padding: 8px 0;
-}
-
-.objectItem {
-	background: transparent;
-	border: 0;
-	cursor: default;
-	display: block;
-	padding: 2px 8px;
-	text-align: left;
-	width: 100%;
-}
-
-.objectHighlight {
-	background: #e0ff77;
 }

@@ -1,11 +1,11 @@
 // @flow strict
 
-import type {LevelType} from './types/LevelType';
+import type {LevelType} from '../types/LevelType';
 
-import GeoPreview from './GeoPreview';
+import GeoPreview from '../GeoPreview';
 import React from 'react';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
-import SidebarObjectText from './SidebarObjectText';
+import SidebarObjectsList from './SidebarObjectsList';
 
 import styles from './LevelSidebar.module.css';
 
@@ -48,37 +48,13 @@ export default function LevelSidebar(props: Props): React$Node {
 				</code>
 			</div>
 
-			{levelObjects != null ? (
-				<details className={styles.group + ' ' + styles.objectsBox} open>
-					<summary>
-						{levelObjects.length > 0
-							? 'Objects (' + levelObjects.length + '):'
-							: 'No objects'}
-					</summary>
-
-					<ul className={styles.objectsList}>
-						{levelObjects.map((obj, index) => {
-							return (
-								<li key={index}>
-									<span
-										className={
-											styles.objectItem +
-											' ' +
-											(props.objectIndexHover === index
-												? styles.objectHighlight
-												: '')
-										}
-										onMouseEnter={() => props.onObjectHover(index)}
-										onMouseLeave={() => props.onObjectHover(null)}
-									>
-										<SidebarObjectText obj={obj} />
-									</span>
-								</li>
-							);
-						})}
-					</ul>
-				</details>
-			) : null}
+			<div className={styles.group + ' ' + styles.objectsList}>
+				<SidebarObjectsList
+					levelObjects={levelObjects ?? []}
+					objectIndexHover={props.objectIndexHover}
+					onObjectHover={props.onObjectHover}
+				/>
+			</div>
 
 			<div className={styles.group}>
 				<SidebarMouseMoveCoordinates

@@ -1,6 +1,6 @@
 // @flow strict
 
-import type {GameObjectType} from './types/GameObjectType';
+import type {GameObjectType} from '../types/GameObjectType';
 
 type Props = {
 	obj: GameObjectType,

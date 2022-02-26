@@ -1,0 +1,22 @@
+.root {
+	padding: 8px;
+}
+
+.list {
+	list-style-type: none;
+	padding: 8px 0;
+}
+
+.item {
+	background: transparent;
+	border: 0;
+	cursor: default;
+	display: block;
+	padding: 2px 8px;
+	text-align: left;
+	width: 100%;
+}
+
+.highlight {
+	background: #e0ff77;
+}
