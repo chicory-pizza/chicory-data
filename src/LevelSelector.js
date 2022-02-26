@@ -6,6 +6,8 @@ import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
 import React from 'react';
 import {useMemo, useState} from 'react';
+// $FlowFixMe[untyped-import]
+import Select from 'react-select';
 import sortCompareCoordinates from './util/sortCompareCoordinates';
 
 import styles from './LevelSelector.module.css';
@@ -28,19 +30,46 @@ export default function LevelSelector(props: Props): React$Node {
 		});
 	}, [props.levels]);
 
-	const layersGrouped: {[layer: number]: Array<[number, number, number]>} =
-		useMemo(() => {
-			return levelIds.reduce((prev, current) => {
-				const coordinates = convertLevelIdToCoordinates(current);
+	// Select stuff
+	const selectOptions = useMemo(() => {
+		return levelIds.map((id) => {
+			const level = props.levels[id];
 
-				if (prev[coordinates[0]] == null) {
-					prev[coordinates[0]] = [];
+			const coordinates = convertLevelIdToCoordinates(id);
+			const sublabel =
+				level.name !== id
+					? level.name
+					: level.area !== 'none'
+					? level.area
+					: level.palette;
+
+			return {
+				value: id,
+				label: `${coordinates[0]}, ${coordinates[1]}, ${coordinates[2]}${
+					sublabel !== '' ? ` (${sublabel})` : ''
+				}`,
+			};
+		});
+	}, [levelIds, props.levels]);
+
+	const layersGrouped = useMemo(() => {
+		return Object.values(
+			selectOptions.reduce((prev, current) => {
+				if (prev[current.value[0]] == null) {
+					prev[current.value[0]] = {
+						label: 'Layer ' + current.value[0],
+						options: [],
+					};
 				}
 
-				prev[coordinates[0]].push(coordinates);
+				prev[current.value[0]].options.push(current);
+
 				return prev;
-			}, {});
-		}, [levelIds]);
+			}, {})
+		);
+	}, [selectOptions]);
+
+	const currentLevelId = convertCoordinatesToLevelId(props.currentCoordinates);
 
 	const [inputCoordinates, setInputCoordinates] = useState(
 		props.currentCoordinates
@@ -52,10 +81,9 @@ export default function LevelSelector(props: Props): React$Node {
 		setPrevCoordinates(props.currentCoordinates);
 	}
 
-	function changeLevelByMenu(ev: SyntheticEvent<HTMLSelectElement>) {
-		const newLevelId = ev.currentTarget.value;
+	function changeLevelBySelect({value: id}: {value: string, label: string}) {
+		const coordinates = convertLevelIdToCoordinates(id);
 
-		const coordinates = convertLevelIdToCoordinates(newLevelId);
 		props.onNewCoordinates(coordinates);
 		setInputCoordinates(coordinates);
 	}
@@ -75,35 +103,24 @@ export default function LevelSelector(props: Props): React$Node {
 		<div className={styles.root}>
 			<span className={styles.label}>Level:</span>
 
-			<select
-				className={styles.select}
-				onChange={changeLevelByMenu}
-				value={convertCoordinatesToLevelId(props.currentCoordinates)}
-			>
-				{Object.keys(layersGrouped).map((layer) => {
-					return (
-						<optgroup label={'Layer ' + layer} key={layer}>
-							{layersGrouped[parseInt(layer, 10)].map((coordinates) => {
-								const id = convertCoordinatesToLevelId(coordinates);
-
-								const sublabel =
-									props.levels[id].name !== id
-										? props.levels[id].name
-										: props.levels[id].area !== 'none'
-										? props.levels[id].area
-										: props.levels[id].palette;
-
-								return (
-									<option key={id} value={id}>
-										{coordinates[0]}, {coordinates[1]}, {coordinates[2]}
-										{sublabel !== '' ? ' (' + sublabel + ')' : ''}
-									</option>
-								);
-							})}
-						</optgroup>
-					);
-				})}
-			</select>
+			<div className={styles.select}>
+				<Select
+					value={selectOptions.find(
+						(option) => option.value === currentLevelId
+					)}
+					maxMenuHeight={1000}
+					onChange={changeLevelBySelect}
+					options={layersGrouped}
+					styles={{
+						control: (provided, state) => {
+							return {...provided, cursor: 'pointer'};
+						},
+						menu: (provided, state) => {
+							return {...provided, zIndex: 99};
+						},
+					}}
+				/>
+			</div>
 
 			<form
 				action="#"
