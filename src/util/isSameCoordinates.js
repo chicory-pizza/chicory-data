@@ -1,6 +1,6 @@
 // @flow strict
 
-export default function convertLevelIdToCoordinates(
+export default function isSameCoordinates(
 	a: [number, number, number],
 	b: [number, number, number]
 ): boolean {

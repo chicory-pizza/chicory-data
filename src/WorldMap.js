@@ -2,6 +2,7 @@
 
 import type {LevelType} from './types/LevelType';
 
+import {useCurrentCoordinates} from './CurrentCoordinatesContext';
 import isSameCoordinates from './util/isSameCoordinates';
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
@@ -16,13 +17,13 @@ const WIDTH = GEO_WIDTH;
 const HEIGHT = GEO_HEIGHT;
 
 type Props = {
-	currentCoordinates: [number, number, number],
 	drawPreviews: boolean,
 	levels: {[levelId: string]: LevelType},
-	onNewCoordinates: (coordinates: [number, number, number]) => mixed,
 };
 
 export default function WorldMap(props: Props): React$Node {
+	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
+
 	const currentBox = useRef<?HTMLButtonElement>(null);
 
 	let minX = 0;
@@ -31,7 +32,7 @@ export default function WorldMap(props: Props): React$Node {
 	const levels = Object.keys(props.levels)
 		.map((levelId) => {
 			const coordinates = convertLevelIdToCoordinates(levelId);
-			if (coordinates[0] !== props.currentCoordinates[0]) {
+			if (coordinates[0] !== currentCoordinates[0]) {
 				return null;
 			}
 
@@ -50,7 +51,7 @@ export default function WorldMap(props: Props): React$Node {
 			block: 'center',
 			inline: 'center',
 		});
-	}, [props.currentCoordinates]);
+	}, [currentCoordinates]);
 
 	return (
 		<div
@@ -62,7 +63,7 @@ export default function WorldMap(props: Props): React$Node {
 				const levelId = convertCoordinatesToLevelId(coordinates);
 				const level = props.levels[levelId];
 
-				const isSame = isSameCoordinates(props.currentCoordinates, coordinates);
+				const isSame = isSameCoordinates(currentCoordinates, coordinates);
 
 				const sublabel = [
 					level.name !== '' ? 'Name: ' + level.name : null,
@@ -73,8 +74,9 @@ export default function WorldMap(props: Props): React$Node {
 				return (
 					<button
 						className={styles.box + ' ' + (isSame ? styles.currentBox : '')}
-						key={convertCoordinatesToLevelId(coordinates)}
-						onClick={() => props.onNewCoordinates(coordinates)}
+						// performance, try to recycle if possible
+						key={coordinates[1] + '_' + coordinates[2]}
+						onClick={() => setNewCoordinates(coordinates)}
 						ref={isSame ? currentBox : null}
 						style={{
 							left: Math.abs(minX) * WIDTH + coordinates[1] * WIDTH,

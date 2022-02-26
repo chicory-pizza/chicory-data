@@ -30,6 +30,10 @@ select {
 	font-family: Domigorgon, sans-serif;
 }
 
+a {
+	color: #c5aeff;
+}
+
 code {
 	font-family: monospace;
 }

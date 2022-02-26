@@ -4,6 +4,7 @@ import type {LevelType} from './types/LevelType';
 
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
+import {useCurrentCoordinates} from './CurrentCoordinatesContext';
 import React from 'react';
 import {useMemo, useState} from 'react';
 // $FlowFixMe[untyped-import]
@@ -13,12 +14,12 @@ import sortCompareCoordinates from './util/sortCompareCoordinates';
 import styles from './LevelSelector.module.css';
 
 type Props = {
-	currentCoordinates: [number, number, number],
 	levels: {[levelId: string]: LevelType},
-	onNewCoordinates: (coordinates: [number, number, number]) => mixed,
 };
 
 export default function LevelSelector(props: Props): React$Node {
+	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
+
 	const levelIds = useMemo(() => {
 		const keys = Object.keys(props.levels);
 
@@ -69,22 +70,20 @@ export default function LevelSelector(props: Props): React$Node {
 		);
 	}, [selectOptions]);
 
-	const currentLevelId = convertCoordinatesToLevelId(props.currentCoordinates);
+	const currentLevelId = convertCoordinatesToLevelId(currentCoordinates);
 
-	const [inputCoordinates, setInputCoordinates] = useState(
-		props.currentCoordinates
-	);
+	const [inputCoordinates, setInputCoordinates] = useState(currentCoordinates);
 	const [prevCoordinates, setPrevCoordinates] = useState(null);
 
-	if (props.currentCoordinates !== prevCoordinates) {
-		setInputCoordinates(props.currentCoordinates);
-		setPrevCoordinates(props.currentCoordinates);
+	if (currentCoordinates !== prevCoordinates) {
+		setInputCoordinates(currentCoordinates);
+		setPrevCoordinates(currentCoordinates);
 	}
 
 	function changeLevelBySelect({value: id}: {value: string, label: string}) {
 		const coordinates = convertLevelIdToCoordinates(id);
 
-		props.onNewCoordinates(coordinates);
+		setNewCoordinates(coordinates);
 		setInputCoordinates(coordinates);
 	}
 
@@ -96,7 +95,7 @@ export default function LevelSelector(props: Props): React$Node {
 			return;
 		}
 
-		props.onNewCoordinates(inputCoordinates);
+		setNewCoordinates(inputCoordinates);
 	}
 
 	return (
