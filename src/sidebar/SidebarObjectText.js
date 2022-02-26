@@ -3,6 +3,7 @@
 import type {GameObjectType} from '../types/GameObjectType';
 
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
+import LinkButton from '../LinkButton';
 import React from 'react';
 import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
 
@@ -25,11 +26,8 @@ export default function SidebarObjectText({obj}: Props): React$Node {
 				{newLevelId != null ? (
 					<>
 						&nbsp;(
-						<a
-							href="#"
-							onClick={(ev: SyntheticMouseEvent<HTMLAnchorElement>) => {
-								ev.preventDefault();
-
+						<LinkButton
+							onClick={() => {
 								// todo add validation
 								setNewCoordinates(
 									convertLevelIdToCoordinates(newLevelId.replace(/,/g, '_'))
@@ -37,7 +35,7 @@ export default function SidebarObjectText({obj}: Props): React$Node {
 							}}
 						>
 							{name ?? newLevelId}
-						</a>
+						</LinkButton>
 						)
 					</>
 				) : name != null ? (
