@@ -1,6 +1,5 @@
 // @flow strict
 
-import React from 'react';
 import {useMemo, useState} from 'react';
 // $FlowFixMe[untyped-import]
 import Select from 'react-select';

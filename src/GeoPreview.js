@@ -1,11 +1,9 @@
 // @flow strict
 
-
 // $FlowFixMe[untyped-import]
 import {decode} from 'base64-arraybuffer';
 // $FlowFixMe[untyped-import]
 import {inflate} from 'pako';
-import React from 'react';
 import {useEffect, useMemo, useRef} from 'react';
 
 import styles from './GeoPreview.module.css';

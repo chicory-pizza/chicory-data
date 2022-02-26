@@ -1,6 +1,5 @@
 // @flow strict
 
-import React from 'react';
 import {useEffect, useState} from 'react';
 
 import styles from './App.module.css';

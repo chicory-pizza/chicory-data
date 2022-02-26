@@ -1,7 +1,5 @@
 // @flow strict
 
-import React from 'react';
-
 import type {GameObjectType} from '../types/GameObjectType';
 
 import styles from './SidebarObjectsList.module.css';

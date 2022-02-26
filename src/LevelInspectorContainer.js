@@ -1,7 +1,5 @@
 // @flow strict
 
-import React from 'react';
-
 import {useCurrentCoordinates} from './CurrentCoordinatesContext';
 import LevelInspector from './LevelInspector';
 import type {LevelType} from './types/LevelType';

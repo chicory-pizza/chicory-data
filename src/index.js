@@ -1,6 +1,6 @@
 // @flow strict
 
-import React, {StrictMode} from 'react';
+import {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 
 import './index.css';

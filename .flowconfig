@@ -21,6 +21,7 @@ untyped-type-import=error
 [options]
 emoji=true
 exact_by_default=true
+react.runtime=automatic
 
 [strict]
 unclear-type

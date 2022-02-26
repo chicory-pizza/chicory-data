@@ -1,7 +1,5 @@
 // @flow strict
 
-import React from 'react';
-
 import styles from './SidebarMouseMoveCoordinates.module.css';
 
 type Props = $ReadOnly<{

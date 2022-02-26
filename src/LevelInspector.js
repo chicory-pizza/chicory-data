@@ -1,6 +1,5 @@
 // @flow strict
 
-import React from 'react';
 import {useCallback, useEffect, useState} from 'react';
 
 import styles from './LevelInspector.module.css';

@@ -1,6 +1,5 @@
 // @flow strict
 
-import React from 'react';
 import {memo} from 'react';
 
 import GeoPreview, {GEO_WIDTH, SCREEN_WIDTH} from './GeoPreview';

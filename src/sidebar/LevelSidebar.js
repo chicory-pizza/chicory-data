@@ -1,7 +1,5 @@
 // @flow strict
 
-import React from 'react';
-
 import GeoPreview from '../GeoPreview';
 import type {LevelType} from '../types/LevelType';
 

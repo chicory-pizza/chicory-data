@@ -1,6 +1,6 @@
 // @flow strict
 
-import React, {createContext, useContext, useState} from 'react';
+import {createContext, useContext, useState} from 'react';
 
 const CurrentCoordinatesContext = createContext();
 

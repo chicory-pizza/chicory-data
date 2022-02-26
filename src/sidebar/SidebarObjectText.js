@@ -1,7 +1,5 @@
 // @flow strict
 
-import React from 'react';
-
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
 import LinkButton from '../LinkButton';
 import type {GameObjectType} from '../types/GameObjectType';

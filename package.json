@@ -24,6 +24,7 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "flow": "flow",
+    "lint": "eslint .",
     "start": "react-scripts start",
     "prettier": "prettier .",
     "test": "react-scripts test"
