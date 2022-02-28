@@ -1,6 +1,6 @@
-# Chicory Data
+# Chicory: A Colorful Data
 
-<img alt="Logo" align="right" src="./src/icon144.png" width="72" />
+<img alt="Chicory: A Colorful Tale game logo" align="right" src="./src/icon144.png" width="72" />
 
 ## Development
 

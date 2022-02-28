@@ -26,10 +26,15 @@ export default function App(): React$Node {
 		<CurrentCoordinatesProvider>
 			<div className={styles.root}>
 				<div className={styles.header}>
-					<img src={icon144} alt="Chicory Data" width={72} height={72} />
+					<img
+						src={icon144}
+						alt="Chicory: A Colorful Tale game logo"
+						width={72}
+						height={72}
+					/>
 
 					<div className={styles.headerContent}>
-						<h1 className={styles.title}>Chicory Data</h1>
+						<h1 className={styles.title}>Chicory: A Colorful Data</h1>
 
 						<div className={styles.levelSelectorWrap}>
 							<div className={styles.levelSelector}>
