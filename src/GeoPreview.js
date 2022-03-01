@@ -117,7 +117,7 @@ export default function GeoPreview(props: Props): React$Node {
 	}, [decodedGeo, dpr, props.mapMouseMoveCoordinates, props.scale]);
 
 	if (decodedGeo == null) {
-		return "Can't generate map preview";
+		return '⚠️ Can’t generate map preview';
 	}
 
 	return (

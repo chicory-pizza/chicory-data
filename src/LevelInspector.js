@@ -2,6 +2,7 @@
 
 import {useCallback, useEffect, useState} from 'react';
 
+import ErrorBoundary from './ErrorBoundary';
 import styles from './LevelInspector.module.css';
 import LevelPreview from './LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
@@ -70,25 +71,29 @@ export default function LevelInspector({
 	return (
 		<div className={styles.root}>
 			<div className={styles.preview}>
-				<LevelPreview
-					addingObjectEntity={addingObjectEntity}
+				<ErrorBoundary>
+					<LevelPreview
+						addingObjectEntity={addingObjectEntity}
+						level={level}
+						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
+						objectIndexHover={objectIndexHover}
+						onMapMouseClick={onMapMouseClick}
+						onMapMouseLeave={onMapMouseLeave}
+						onMapMouseMove={onMapMouseMove}
+						onObjectHover={setObjectIndexHover}
+					/>
+				</ErrorBoundary>
+			</div>
+
+			<ErrorBoundary>
+				<LevelSidebar
 					level={level}
 					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					objectIndexHover={objectIndexHover}
-					onMapMouseClick={onMapMouseClick}
-					onMapMouseLeave={onMapMouseLeave}
-					onMapMouseMove={onMapMouseMove}
+					onAddingObjectEntity={setAddingObjectEntity}
 					onObjectHover={setObjectIndexHover}
 				/>
-			</div>
-
-			<LevelSidebar
-				level={level}
-				mapMouseMoveCoordinates={mapMouseMoveCoordinates}
-				objectIndexHover={objectIndexHover}
-				onAddingObjectEntity={setAddingObjectEntity}
-				onObjectHover={setObjectIndexHover}
-			/>
+			</ErrorBoundary>
 		</div>
 	);
 }

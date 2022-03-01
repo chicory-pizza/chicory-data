@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 
 import styles from './App.module.css';
 import {CurrentCoordinatesProvider} from './CurrentCoordinatesContext';
+import ErrorBoundary from './ErrorBoundary';
 import AppHeader from './header/AppHeader';
 import DataSelector from './header/DataSelector';
 import LevelSelector from './header/LevelSelector';
@@ -29,9 +30,18 @@ export default function App(): React$Node {
 			<div className={styles.root}>
 				<AppHeader
 					dataSelector={
-						<DataSelector levels={levelsData} onNewLevelsLoad={setLevelsData} />
+						<ErrorBoundary>
+							<DataSelector
+								levels={levelsData}
+								onNewLevelsLoad={setLevelsData}
+							/>
+						</ErrorBoundary>
 					}
-					levelSelector={<LevelSelector levels={levelsData} />}
+					levelSelector={
+						<ErrorBoundary>
+							<LevelSelector levels={levelsData} />
+						</ErrorBoundary>
+					}
 					levelSelectorSide={
 						<label>
 							<input
@@ -46,12 +56,16 @@ export default function App(): React$Node {
 					}
 				/>
 
-				<WorldMap drawPreviews={drawPreviewsOnWorldMap} levels={levelsData} />
+				<ErrorBoundary>
+					<WorldMap drawPreviews={drawPreviewsOnWorldMap} levels={levelsData} />
+				</ErrorBoundary>
 
-				<LevelInspectorContainer
-					levels={levelsData}
-					setLevelsData={setLevelsData}
-				/>
+				<ErrorBoundary>
+					<LevelInspectorContainer
+						levels={levelsData}
+						setLevelsData={setLevelsData}
+					/>
+				</ErrorBoundary>
 			</div>
 		</CurrentCoordinatesProvider>
 	);

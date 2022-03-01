@@ -1,5 +1,6 @@
 // @flow strict
 
+import ErrorBoundary from '../ErrorBoundary';
 import GeoPreview from '../GeoPreview';
 import type {GameObjectEntityType} from '../types/GameObjectEntityType';
 import type {LevelType} from '../types/LevelType';
@@ -51,15 +52,21 @@ export default function LevelSidebar(props: Props): React$Node {
 			</div>
 
 			<div className={styles.group}>
-				<SidebarObjectAdder onAddingObjectEntity={props.onAddingObjectEntity} />
+				<ErrorBoundary>
+					<SidebarObjectAdder
+						onAddingObjectEntity={props.onAddingObjectEntity}
+					/>
+				</ErrorBoundary>
 			</div>
 
 			<div className={styles.group + ' ' + styles.objectsList}>
-				<SidebarObjectsList
-					levelObjects={levelObjects ?? []}
-					objectIndexHover={props.objectIndexHover}
-					onObjectHover={props.onObjectHover}
-				/>
+				<ErrorBoundary>
+					<SidebarObjectsList
+						levelObjects={levelObjects ?? []}
+						objectIndexHover={props.objectIndexHover}
+						onObjectHover={props.onObjectHover}
+					/>
+				</ErrorBoundary>
 			</div>
 
 			<div className={styles.group}>
