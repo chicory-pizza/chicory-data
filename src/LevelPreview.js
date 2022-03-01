@@ -18,11 +18,11 @@ function LevelPreview(props: Props): React$Node {
 	const objects = props.level.objects;
 
 	// Some objects can be bit off-screen
-	let offscreenX = 0;
-	let offscreenY = 0;
+	let offscreenX = -8;
+	let offscreenY = -8;
 	objects?.forEach((obj) => {
-		offscreenX = Math.min(offscreenX, obj.x);
-		offscreenY = Math.min(offscreenY, obj.y);
+		offscreenX = Math.min(offscreenX, obj.x - 8);
+		offscreenY = Math.min(offscreenY, obj.y - 8);
 	});
 
 	return (
