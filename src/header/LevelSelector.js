@@ -4,12 +4,13 @@ import {useMemo, useState} from 'react';
 // $FlowFixMe[untyped-import]
 import Select from 'react-select';
 
-import {useCurrentCoordinates} from './CurrentCoordinatesContext';
+import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
+import type {LevelType} from '../types/LevelType';
+import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
+import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
+import sortCompareCoordinates from '../util/sortCompareCoordinates';
+
 import styles from './LevelSelector.module.css';
-import type {LevelType} from './types/LevelType';
-import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
-import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
-import sortCompareCoordinates from './util/sortCompareCoordinates';
 
 type Props = $ReadOnly<{
 	levels: {[levelId: string]: LevelType},

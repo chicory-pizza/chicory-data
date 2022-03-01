@@ -1,0 +1,24 @@
+.root {
+	display: flex;
+	align-items: center;
+	padding-left: 8px;
+}
+
+.content {
+	padding: 0 8px;
+	flex: 1;
+}
+
+.title {
+	font-size: 2em;
+	padding: 8px 0;
+}
+
+.leftRight {
+	display: flex;
+	align-items: center;
+}
+
+.leftSide {
+	flex-grow: 1;
+}

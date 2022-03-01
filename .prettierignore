@@ -4,3 +4,4 @@ flow-typed/npm/
 package.json
 
 src/level_data.json
+tests/min_level_data.json

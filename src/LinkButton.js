@@ -8,7 +8,7 @@ type Props = $ReadOnly<{
 }>;
 
 // A button that looks like a link
-export default function SidebarObjectText({
+export default function LinkButton({
 	children,
 	...otherProps
 }: Props): React$Node {

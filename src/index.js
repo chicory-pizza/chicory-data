@@ -5,6 +5,10 @@ import ReactDOM from 'react-dom';
 
 import './index.css';
 import App from './App';
+import {paintdogConsoleText} from './util/paintdogConsoleText';
+
+// Start
+console.log(paintdogConsoleText);
 
 const root = document.getElementById('root');
 if (root == null) {
