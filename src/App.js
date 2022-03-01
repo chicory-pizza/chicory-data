@@ -28,7 +28,9 @@ export default function App(): React$Node {
 		<CurrentCoordinatesProvider>
 			<div className={styles.root}>
 				<AppHeader
-					dataSelector={<DataSelector onNewLevelsLoad={setLevelData} />}
+					dataSelector={
+						<DataSelector levels={levelData} onNewLevelsLoad={setLevelData} />
+					}
 					levelSelector={<LevelSelector levels={levelData} />}
 					levelSelectorSide={
 						<label>
