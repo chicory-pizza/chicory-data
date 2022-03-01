@@ -8,13 +8,11 @@
 	height: 1080px;
 }
 
-.objectItem {
+.addingObjectItem {
+	background: #c5aeff;
+	pointer-events: none;
 	position: absolute;
 	z-index: 2;
-}
-
-.objectItemHover {
-	background: #e0ff77;
 }
 
 .canvas {

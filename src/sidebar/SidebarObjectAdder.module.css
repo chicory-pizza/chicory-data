@@ -1,0 +1,10 @@
+.root {
+	display: flex;
+	align-items: center;
+	padding: 8px;
+}
+
+.select {
+	flex-grow: 1;
+	padding: 0 0 0 8px;
+}

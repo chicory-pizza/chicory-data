@@ -62,8 +62,14 @@ input[type='number'] {
 button {
 	background: #eee;
 	border: 1px solid #000;
+	color: #000;
 	font-size: 1em;
 	padding: 2px 8px;
+}
+
+button[disabled] {
+	cursor: not-allowed;
+	opacity: 0.1;
 }
 
 select {

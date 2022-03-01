@@ -8,30 +8,30 @@ import AppHeader from './header/AppHeader';
 import DataSelector from './header/DataSelector';
 import LevelSelector from './header/LevelSelector';
 // $FlowFixMe[untyped-import]
-import initialLevelData from './level_data.json';
+import initialLevelsData from './level_data.json';
 import LevelInspectorContainer from './LevelInspectorContainer';
 import type {LevelType} from './types/LevelType';
 import WorldMap from './WorldMap';
 
 export default function App(): React$Node {
-	const [levelData, setLevelData] =
-		useState<{[levelId: string]: LevelType}>(initialLevelData);
+	const [levelsData, setLevelsData] =
+		useState<{[levelId: string]: LevelType}>(initialLevelsData);
 	const [drawPreviewsOnWorldMap, setDrawPreviewsOnWorldMap] = useState(false);
 
 	useEffect(() => {
-		window.levelData = levelData;
+		window.levelsData = levelsData;
+	}, [levelsData]);
 
-		console.log('Use `window.levelData` for your custom queries!');
-	}, [levelData]);
+	console.log('Use `window.levelsData` for your custom queries!');
 
 	return (
 		<CurrentCoordinatesProvider>
 			<div className={styles.root}>
 				<AppHeader
 					dataSelector={
-						<DataSelector levels={levelData} onNewLevelsLoad={setLevelData} />
+						<DataSelector levels={levelsData} onNewLevelsLoad={setLevelsData} />
 					}
-					levelSelector={<LevelSelector levels={levelData} />}
+					levelSelector={<LevelSelector levels={levelsData} />}
 					levelSelectorSide={
 						<label>
 							<input
@@ -46,9 +46,12 @@ export default function App(): React$Node {
 					}
 				/>
 
-				<WorldMap drawPreviews={drawPreviewsOnWorldMap} levels={levelData} />
+				<WorldMap drawPreviews={drawPreviewsOnWorldMap} levels={levelsData} />
 
-				<LevelInspectorContainer levels={levelData} />
+				<LevelInspectorContainer
+					levels={levelsData}
+					setLevelsData={setLevelsData}
+				/>
 			</div>
 		</CurrentCoordinatesProvider>
 	);

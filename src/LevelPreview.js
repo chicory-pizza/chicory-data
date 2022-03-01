@@ -1,20 +1,23 @@
 // @flow strict
 
-import {memo} from 'react';
-
 import GeoPreview, {GEO_WIDTH, SCREEN_WIDTH} from './GeoPreview';
 import styles from './LevelPreview.module.css';
+import LevelPreviewObjects from './LevelPreviewObjects';
+import type {GameObjectEntityType} from './types/GameObjectEntityType';
 import type {LevelType} from './types/LevelType';
 
 type Props = $ReadOnly<{
+	addingObjectEntity: ?GameObjectEntityType,
 	level: LevelType,
+	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
+	onMapMouseClick: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseLeave: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 }>;
 
-function LevelPreview(props: Props): React$Node {
+export default function LevelPreview(props: Props): React$Node {
 	const objects = props.level.objects;
 
 	// Some objects can be bit off-screen
@@ -26,8 +29,10 @@ function LevelPreview(props: Props): React$Node {
 	});
 
 	return (
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 		<div
 			className={styles.root}
+			onClick={props.onMapMouseClick}
 			onMouseMove={props.onMapMouseMove}
 			onMouseLeave={props.onMapMouseLeave}
 			style={{
@@ -35,26 +40,26 @@ function LevelPreview(props: Props): React$Node {
 				top: -offscreenY,
 			}}
 		>
-			{objects?.map((obj, index) => {
-				return (
-					<div
-						className={
-							styles.objectItem +
-							' ' +
-							(props.objectIndexHover === index ? styles.objectItemHover : '')
-						}
-						key={index}
-						onMouseEnter={() => props.onObjectHover(index)}
-						onMouseLeave={() => props.onObjectHover(null)}
-						style={{
-							left: obj.x,
-							top: obj.y,
-						}}
-					>
-						{obj.obj.slice('obj'.length)}
-					</div>
-				);
-			})}
+			<LevelPreviewObjects
+				level={props.level}
+				objectIndexHover={props.objectIndexHover}
+				onMapMouseLeave={props.onMapMouseLeave}
+				onMapMouseMove={props.onMapMouseMove}
+				onObjectHover={props.onObjectHover}
+			/>
+
+			{props.addingObjectEntity != null &&
+			props.mapMouseMoveCoordinates != null ? (
+				<div
+					className={styles.addingObjectItem}
+					style={{
+						left: props.mapMouseMoveCoordinates[0],
+						top: props.mapMouseMoveCoordinates[1],
+					}}
+				>
+					{props.addingObjectEntity.slice('obj'.length)}
+				</div>
+			) : null}
 
 			<div className={styles.canvas}>
 				<GeoPreview
@@ -66,8 +71,3 @@ function LevelPreview(props: Props): React$Node {
 		</div>
 	);
 }
-
-export default (memo<Props>(LevelPreview): React$AbstractComponent<
-	Props,
-	mixed
->);

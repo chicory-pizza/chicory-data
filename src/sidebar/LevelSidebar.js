@@ -1,10 +1,12 @@
 // @flow strict
 
 import GeoPreview from '../GeoPreview';
+import type {GameObjectEntityType} from '../types/GameObjectEntityType';
 import type {LevelType} from '../types/LevelType';
 
 import styles from './LevelSidebar.module.css';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
+import SidebarObjectAdder from './SidebarObjectAdder';
 import SidebarObjectsList from './SidebarObjectsList';
 
 function withoutObjectsAndDecos(
@@ -18,6 +20,7 @@ type Props = $ReadOnly<{
 	level: LevelType,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
+	onAddingObjectEntity: (entity: GameObjectEntityType) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 }>;
 
@@ -45,6 +48,10 @@ export default function LevelSidebar(props: Props): React$Node {
 						? JSON.stringify(currentObject, null, 2)
 						: JSON.stringify(withoutObjectsAndDecos(props.level), null, 2)}
 				</code>
+			</div>
+
+			<div className={styles.group}>
+				<SidebarObjectAdder onAddingObjectEntity={props.onAddingObjectEntity} />
 			</div>
 
 			<div className={styles.group + ' ' + styles.objectsList}>
