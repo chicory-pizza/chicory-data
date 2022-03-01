@@ -50,7 +50,10 @@ export default function DataSelector(props: Props): React$Node {
 			throw new Error('Document is not ready');
 		}
 
-		const blob = new Blob([JSON.stringify(props.levels)], {type: 'text/plain'});
+		const blob = new Blob([JSON.stringify(props.levels)], {
+			// must be this type to ensure no file extension
+			type: 'application/octet-stream',
+		});
 		const url = window.URL.createObjectURL(blob);
 
 		const link = document.createElement('a');
