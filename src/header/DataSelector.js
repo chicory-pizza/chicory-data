@@ -1,7 +1,10 @@
 // @flow strict
 
+import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
 import CustomFileInput from '../CustomFileInput';
 import type {LevelType} from '../types/LevelType';
+import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
+import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
 
 import styles from './DataSelector.module.css';
 
@@ -11,6 +14,8 @@ type Props = $ReadOnly<{
 }>;
 
 export default function DataSelector(props: Props): React$Node {
+	const [currentCoordinates, setCurrentCoordinates] = useCurrentCoordinates();
+
 	function onChange(ev: SyntheticEvent<HTMLInputElement>) {
 		const fileInput = ev.currentTarget;
 		if (fileInput.files && fileInput.files[0]) {
@@ -32,6 +37,22 @@ export default function DataSelector(props: Props): React$Node {
 					console.error(ex);
 					alert('The custom level_data JSON is invalid.');
 					return;
+				}
+
+				// If current viewing level doesn't exist, go back to 0,0,0
+				// If it also doesn't exist, try the first level (better than nothing)
+				if (result[convertCoordinatesToLevelId(currentCoordinates)] == null) {
+					if (result[convertCoordinatesToLevelId([0, 0, 0])] != null) {
+						setCurrentCoordinates([0, 0, 0]);
+					} else {
+						const firstLevelId = Object.keys(result)[0];
+						if (firstLevelId != null) {
+							setCurrentCoordinates(convertLevelIdToCoordinates(firstLevelId));
+						} else {
+							alert('There are no levels in this JSON.');
+							return;
+						}
+					}
 				}
 
 				props.onNewLevelsLoad(result);
