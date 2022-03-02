@@ -9,13 +9,12 @@ Level viewer and editor for the Chicory: A Colorful Tale game.
 Requirements:
 
 - [Node v14+](https://nodejs.org)
-- [Yarn](https://yarnpkg.com)
 
 Steps:
 
 1. git clone
-2. yarn
-3. yarn start
+2. npm install
+3. npm start
 
 This should open the web app at http://localhost:3000
 
