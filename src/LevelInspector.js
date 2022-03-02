@@ -68,6 +68,23 @@ export default function LevelInspector({
 		[setMapMouseMoveCoordinates]
 	);
 
+	const onObjectDelete = useCallback(
+		(objectIndex: number) => {
+			const levelObjects = level.objects;
+			if (levelObjects == null) {
+				return;
+			}
+
+			setSingleLevelData({
+				...level,
+				objects: levelObjects
+					.slice(0, objectIndex)
+					.concat(levelObjects.slice(objectIndex + 1)),
+			});
+		},
+		[level, setSingleLevelData]
+	);
+
 	return (
 		<div className={styles.root}>
 			<div className={styles.preview}>
@@ -91,6 +108,7 @@ export default function LevelInspector({
 					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					objectIndexHover={objectIndexHover}
 					onAddingObjectEntity={setAddingObjectEntity}
+					onObjectDelete={onObjectDelete}
 					onObjectHover={setObjectIndexHover}
 				/>
 			</ErrorBoundary>

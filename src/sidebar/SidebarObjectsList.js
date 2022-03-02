@@ -1,5 +1,6 @@
 // @flow strict
 
+import CloseButton from '../CloseButton';
 import type {GameObjectType} from '../types/GameObjectType';
 
 import styles from './SidebarObjectsList.module.css';
@@ -8,6 +9,7 @@ import SidebarObjectText from './SidebarObjectText';
 type Props = $ReadOnly<{
 	levelObjects: Array<GameObjectType>,
 	objectIndexHover: ?number,
+	onObjectDelete: (objectIndex: number) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 }>;
 
@@ -33,7 +35,18 @@ export default function SidebarObjectsList(props: Props): React$Node {
 								onMouseEnter={() => props.onObjectHover(index)}
 								onMouseLeave={() => props.onObjectHover(null)}
 							>
-								<SidebarObjectText obj={obj} />
+								<span className={styles.text}>
+									<SidebarObjectText obj={obj} />
+								</span>
+
+								{props.objectIndexHover === index ? (
+									<CloseButton
+										color="#000"
+										label={'Delete ' + obj.obj}
+										onClick={() => props.onObjectDelete(index)}
+										size=".5em"
+									/>
+								) : null}
 							</span>
 						</li>
 					);

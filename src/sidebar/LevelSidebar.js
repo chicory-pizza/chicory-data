@@ -22,6 +22,7 @@ type Props = $ReadOnly<{
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
 	onAddingObjectEntity: (entity: GameObjectEntityType) => mixed,
+	onObjectDelete: (objectIndex: number) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 }>;
 
@@ -64,6 +65,7 @@ export default function LevelSidebar(props: Props): React$Node {
 					<SidebarObjectsList
 						levelObjects={levelObjects ?? []}
 						objectIndexHover={props.objectIndexHover}
+						onObjectDelete={props.onObjectDelete}
 						onObjectHover={props.onObjectHover}
 					/>
 				</ErrorBoundary>
