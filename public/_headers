@@ -1,5 +1,5 @@
 /*
-  X-Powered-By: 🍕
+  X-Powered-By: Picnic
   X-Content-Type-Options: nosniff
   X-XSS-Protection: 0
   X-Frame-Options: DENY
@@ -7,5 +7,5 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-site
   Permissions-Policy: interest-cohort=()
-  Content-Security-Policy: default-src 'self';script-src 'self' https://static.cloudflareinsights.com;connect-src 'self' https://cloudflareinsights.com;frame-ancestors 'none';base-uri 'none';object-src 'none';block-all-mixed-content
+  Content-Security-Policy: default-src 'self';script-src 'self' https://static.cloudflareinsights.com;connect-src 'self' https://cloudflareinsights.com;style-src 'self' 'unsafe-inline';img-src 'self' data:;frame-ancestors 'none';base-uri 'none';object-src 'none';block-all-mixed-content
   Feature-Policy: accelerometer 'none';ambient-light-sensor 'none';battery 'none';camera 'none';display-capture 'none';geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';usb 'none';xr-spatial-tracking 'none';
