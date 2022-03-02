@@ -7,6 +7,14 @@
 .loading {
 	flex-grow: 1;
 
+	background: repeating-linear-gradient(
+		45deg,
+		transparent,
+		transparent 4px,
+		#ccc 4px,
+		#ccc 8px
+	);
+	border-top: 1px solid #000;
 	padding: 2em;
 	text-align: center;
 
