@@ -9,7 +9,7 @@ import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
 import styles from './DataSelector.module.css';
 
 type Props = $ReadOnly<{
-	levels: {[levelId: string]: LevelType},
+	levels: ?{[levelId: string]: LevelType},
 	onNewLevelsLoad: ({[levelId: string]: LevelType}) => mixed,
 }>;
 
@@ -99,7 +99,7 @@ export default function DataSelector(props: Props): React$Node {
 				</CustomFileInput>
 			</div>
 
-			<button type="button" onClick={saveFile}>
+			<button disabled={props.levels == null} type="button" onClick={saveFile}>
 				Save
 			</button>
 		</>

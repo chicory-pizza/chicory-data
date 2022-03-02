@@ -3,3 +3,14 @@
 	flex-direction: column;
 	height: 100%;
 }
+
+.loading {
+	flex-grow: 1;
+
+	padding: 2em;
+	text-align: center;
+
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+}

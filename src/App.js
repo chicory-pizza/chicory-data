@@ -8,22 +8,30 @@ import ErrorBoundary from './ErrorBoundary';
 import AppHeader from './header/AppHeader';
 import DataSelector from './header/DataSelector';
 import LevelSelector from './header/LevelSelector';
-// $FlowFixMe[untyped-import]
-import initialLevelsData from './level_data.json';
 import LevelInspectorContainer from './LevelInspectorContainer';
+import LoadingBigBanner from './LoadingBigBanner';
 import type {LevelType} from './types/LevelType';
 import WorldMap from './WorldMap';
 
 export default function App(): React$Node {
 	const [levelsData, setLevelsData] =
-		useState<{[levelId: string]: LevelType}>(initialLevelsData);
+		useState<?{[levelId: string]: LevelType}>(null);
 	const [drawPreviewsOnWorldMap, setDrawPreviewsOnWorldMap] = useState(false);
 
 	useEffect(() => {
 		window.levelsData = levelsData;
 	}, [levelsData]);
 
-	console.log('Use `window.levelsData` for your custom queries!');
+	useEffect(() => {
+		console.log('Use `window.levelsData` for your custom queries!');
+	}, []);
+
+	useEffect(() => {
+		// $FlowFixMe[untyped-import]
+		import('./level_data.json').then((initialLevelsData) =>
+			setLevelsData(initialLevelsData.default)
+		);
+	}, []);
 
 	return (
 		<CurrentCoordinatesProvider>
@@ -38,9 +46,11 @@ export default function App(): React$Node {
 						</ErrorBoundary>
 					}
 					levelSelector={
-						<ErrorBoundary>
-							<LevelSelector levels={levelsData} />
-						</ErrorBoundary>
+						levelsData ? (
+							<ErrorBoundary>
+								<LevelSelector levels={levelsData} />
+							</ErrorBoundary>
+						) : null
 					}
 					levelSelectorSide={
 						<label>
@@ -56,16 +66,29 @@ export default function App(): React$Node {
 					}
 				/>
 
-				<ErrorBoundary>
-					<WorldMap drawPreviews={drawPreviewsOnWorldMap} levels={levelsData} />
-				</ErrorBoundary>
+				{levelsData != null ? (
+					<ErrorBoundary>
+						<WorldMap
+							drawPreviews={drawPreviewsOnWorldMap}
+							levels={levelsData}
+						/>
+					</ErrorBoundary>
+				) : null}
 
-				<ErrorBoundary>
-					<LevelInspectorContainer
-						levels={levelsData}
-						setLevelsData={setLevelsData}
-					/>
-				</ErrorBoundary>
+				{levelsData != null ? (
+					<ErrorBoundary>
+						<LevelInspectorContainer
+							levels={levelsData}
+							setLevelsData={setLevelsData}
+						/>
+					</ErrorBoundary>
+				) : null}
+
+				{levelsData == null ? (
+					<div className={styles.loading}>
+						<LoadingBigBanner />
+					</div>
+				) : null}
 			</div>
 		</CurrentCoordinatesProvider>
 	);

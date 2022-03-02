@@ -1,0 +1,25 @@
+.root {
+	background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1233 417' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m75.5 3.5-69 86-6 233 79 94 1088-2 65-85v-244l-61-85-1096 3Z' /%3E%3C/svg%3E")
+		50% 50% no-repeat;
+	background-size: contain;
+	color: #fff;
+	font-size: 6em;
+	letter-spacing: 4px;
+	padding: 1em 0.6em;
+}
+
+.text1 {
+	color: #33f5e4;
+}
+
+.text2 {
+	color: #e0ff77;
+}
+
+.text3 {
+	color: #ffb8a9;
+}
+
+.text4 {
+	color: #c5aeff;
+}

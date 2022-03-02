@@ -15,7 +15,7 @@ type Props = $ReadOnly<{
 
 export default function SidebarObjectsList(props: Props): React$Node {
 	return (
-		<details className={styles.root} open>
+		<details open>
 			<summary>
 				{props.levelObjects.length > 0
 					? 'Objects (' + props.levelObjects.length + ')'

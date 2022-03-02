@@ -1,10 +1,6 @@
-.root {
-	padding: 8px;
-}
-
 .list {
 	list-style-type: none;
-	padding: 8px 0;
+	padding: 8px 0 0;
 }
 
 .item {
