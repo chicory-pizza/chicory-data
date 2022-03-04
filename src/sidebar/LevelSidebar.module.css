@@ -13,16 +13,6 @@
 	border-top: 1px solid #000;
 }
 
-.properties {
-	flex-shrink: 0;
-	list-style-type: none;
-	min-height: 50px;
-	height: 200px;
-	overflow: auto;
-	padding: 8px;
-	resize: vertical;
-}
-
 .objectsList {
 	flex-grow: 1;
 	overflow: auto;

@@ -1,0 +1,13 @@
+.root {
+	flex-shrink: 0;
+	list-style-type: none;
+	min-height: 50px;
+	height: 200px;
+	overflow: auto;
+	padding: 8px;
+	resize: vertical;
+}
+
+.actions {
+	margin-top: 16px;
+}

@@ -8,32 +8,20 @@ import type {LevelType} from '../types/LevelType';
 import styles from './LevelSidebar.module.css';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
 import SidebarObjectAdder from './SidebarObjectAdder';
+import SidebarObjectProperties from './SidebarObjectProperties';
 import SidebarObjectsList from './SidebarObjectsList';
-
-function withoutObjectsAndDecos(
-	level: LevelType
-): $Diff<LevelType, {geo: string}> {
-	const {objects, decos, geo, ...otherProps} = level;
-	return otherProps;
-}
 
 type Props = $ReadOnly<{
 	level: LevelType,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
 	onAddingObjectEntity: (entity: GameObjectEntityType) => mixed,
+	onLevelDelete: () => mixed,
 	onObjectDelete: (objectIndex: number) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 }>;
 
 export default function LevelSidebar(props: Props): React$Node {
-	const levelObjects = props.level.objects;
-
-	const currentObject =
-		levelObjects != null && props.objectIndexHover != null
-			? levelObjects[props.objectIndexHover]
-			: null;
-
 	return (
 		<div className={styles.sidebar}>
 			<GeoPreview
@@ -42,14 +30,14 @@ export default function LevelSidebar(props: Props): React$Node {
 				scale={4}
 			/>
 
-			<div className={styles.group + ' ' + styles.properties}>
-				<div>{currentObject ? 'Object properties' : 'Level properties'}</div>
-
-				<code>
-					{currentObject
-						? JSON.stringify(currentObject, null, 2)
-						: JSON.stringify(withoutObjectsAndDecos(props.level), null, 2)}
-				</code>
+			<div className={styles.group}>
+				<ErrorBoundary>
+					<SidebarObjectProperties
+						level={props.level}
+						objectIndexHover={props.objectIndexHover}
+						onLevelDelete={props.onLevelDelete}
+					/>
+				</ErrorBoundary>
 			</div>
 
 			<div className={styles.group}>
@@ -63,7 +51,7 @@ export default function LevelSidebar(props: Props): React$Node {
 			<div className={styles.group + ' ' + styles.objectsList}>
 				<ErrorBoundary>
 					<SidebarObjectsList
-						levelObjects={levelObjects ?? []}
+						levelObjects={props.level.objects ?? []}
 						objectIndexHover={props.objectIndexHover}
 						onObjectDelete={props.onObjectDelete}
 						onObjectHover={props.onObjectHover}

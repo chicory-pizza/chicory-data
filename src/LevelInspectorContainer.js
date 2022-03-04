@@ -14,7 +14,16 @@ type Props = $ReadOnly<{
 export default function LevelInspectorContainer(props: Props): React$Node {
 	const [currentCoordinates] = useCurrentCoordinates();
 
-	function setSingleLevelData(newLevelData: LevelType) {
+	function setSingleLevelData(newLevelData: ?LevelType) {
+		// delete level
+		if (newLevelData == null) {
+			const newLevels = {...props.levels};
+			delete newLevels[convertCoordinatesToLevelId(currentCoordinates)];
+			props.setLevelsData(newLevels);
+
+			return;
+		}
+
 		props.setLevelsData({
 			...props.levels,
 			[convertCoordinatesToLevelId(currentCoordinates)]: newLevelData,

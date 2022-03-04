@@ -12,7 +12,7 @@ import type {LevelType} from './types/LevelType';
 
 type Props = $ReadOnly<{
 	level: LevelType,
-	setSingleLevelData: (LevelType) => mixed,
+	setSingleLevelData: (newLevelData: ?LevelType) => mixed,
 }>;
 
 export default function LevelInspector({
@@ -69,6 +69,10 @@ export default function LevelInspector({
 		[setMapMouseMoveCoordinates]
 	);
 
+	const onLevelDelete = useCallback(() => {
+		setSingleLevelData(null);
+	}, [setSingleLevelData]);
+
 	const onObjectDelete = useCallback(
 		(objectIndex: number) => {
 			const levelObjects = level.objects;
@@ -109,6 +113,7 @@ export default function LevelInspector({
 					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					objectIndexHover={objectIndexHover}
 					onAddingObjectEntity={setAddingObjectEntity}
+					onLevelDelete={onLevelDelete}
 					onObjectDelete={onObjectDelete}
 					onObjectHover={setObjectIndexHover}
 				/>

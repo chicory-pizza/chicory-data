@@ -34,8 +34,13 @@ a {
 	color: #c5aeff;
 }
 
+pre,
 code {
 	font-family: monospace;
+}
+
+pre {
+	line-height: 1.5;
 }
 
 html,
