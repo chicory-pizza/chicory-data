@@ -20,7 +20,11 @@ export default function LevelSelector(props: Props): React$Node {
 	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
 
 	const levelIds = useMemo(() => {
-		const keys = Object.keys(props.levels);
+		const keys = Object.keys(props.levels).concat(
+			props.levels[convertCoordinatesToLevelId(currentCoordinates)] == null
+				? [convertCoordinatesToLevelId(currentCoordinates)]
+				: []
+		);
 
 		return keys.sort((a, b) => {
 			return sortCompareCoordinates(
@@ -28,20 +32,23 @@ export default function LevelSelector(props: Props): React$Node {
 				convertLevelIdToCoordinates(b)
 			);
 		});
-	}, [props.levels]);
+	}, [currentCoordinates, props.levels]);
 
 	// Select stuff
 	const selectOptions = useMemo(() => {
 		return levelIds.map((id) => {
-			const level = props.levels[id];
+			const level: ?LevelType = props.levels[id];
 
 			const coordinates = convertLevelIdToCoordinates(id);
+
 			const sublabel =
-				level.name !== id
-					? level.name
-					: level.area !== 'none'
-					? level.area
-					: level.palette;
+				level != null
+					? level.name !== id
+						? level.name
+						: level.area !== 'none'
+						? level.area
+						: level.palette
+					: '';
 
 			return {
 				value: id,
@@ -88,11 +95,6 @@ export default function LevelSelector(props: Props): React$Node {
 
 	function changeLevelByNumberInput(ev: SyntheticEvent<HTMLFormElement>) {
 		ev.preventDefault();
-
-		if (!levelIds.includes(convertCoordinatesToLevelId(inputCoordinates))) {
-			alert('Not a valid level');
-			return;
-		}
 
 		setNewCoordinates(inputCoordinates);
 	}

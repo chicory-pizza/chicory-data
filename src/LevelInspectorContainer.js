@@ -2,6 +2,7 @@
 
 import {useCurrentCoordinates} from './CurrentCoordinatesContext';
 import LevelInspector from './LevelInspector';
+import LevelNotExist from './LevelNotExist';
 import type {LevelType} from './types/LevelType';
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 
@@ -20,10 +21,31 @@ export default function LevelInspectorContainer(props: Props): React$Node {
 		});
 	}
 
+	function onCreateButtonClick() {
+		props.setLevelsData({
+			...props.levels,
+			[convertCoordinatesToLevelId(currentCoordinates)]: {
+				ambiance: '-1',
+				objects: [],
+				geo: 'eJztwTEBAAAAwqD1T20LL6AAAADgbQ6OAAE=',
+				foley: '0 ',
+				palette: '',
+				area: '',
+				transition: '0',
+				music: '-1',
+				decos: [],
+				object_id: '',
+				name: '',
+			},
+		});
+	}
+
+	const level = props.levels[convertCoordinatesToLevelId(currentCoordinates)];
+	if (level == null) {
+		return <LevelNotExist onCreateButtonClick={onCreateButtonClick} />;
+	}
+
 	return (
-		<LevelInspector
-			level={props.levels[convertCoordinatesToLevelId(currentCoordinates)]}
-			setSingleLevelData={setSingleLevelData}
-		/>
+		<LevelInspector level={level} setSingleLevelData={setSingleLevelData} />
 	);
 }

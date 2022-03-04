@@ -73,7 +73,10 @@ export default function GeoPreview(props: Props): React$Node {
 			return;
 		}
 
-		const ctx = canvas.getContext('2d', {alpha: false});
+		const ctx: CanvasRenderingContext2D = canvas.getContext('2d', {
+			alpha: false,
+		});
+		// $FlowFixMe[prop-missing]
 		ctx.mozImageSmoothingEnabled = false;
 		ctx.imageSmoothingEnabled = false;
 

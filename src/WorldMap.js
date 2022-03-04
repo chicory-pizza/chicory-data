@@ -28,6 +28,11 @@ export default function WorldMap(props: Props): React$Node {
 	let minY = 0;
 
 	const levels = Object.keys(props.levels)
+		.concat(
+			props.levels[convertCoordinatesToLevelId(currentCoordinates)] == null
+				? [convertCoordinatesToLevelId(currentCoordinates)]
+				: []
+		)
 		.map((levelId) => {
 			const coordinates = convertLevelIdToCoordinates(levelId);
 			if (coordinates[0] !== currentCoordinates[0]) {
@@ -59,15 +64,18 @@ export default function WorldMap(props: Props): React$Node {
 		>
 			{levels.map((coordinates) => {
 				const levelId = convertCoordinatesToLevelId(coordinates);
-				const level = props.levels[levelId];
+				const level: ?LevelType = props.levels[levelId];
 
 				const isSame = isSameCoordinates(currentCoordinates, coordinates);
 
-				const sublabel = [
-					level.name !== '' ? 'Name: ' + level.name : null,
-					level.area !== '' ? 'Area: ' + level.area : null,
-					level.palette !== '' ? 'Palette: ' + level.palette : null,
-				];
+				const sublabel =
+					level != null
+						? [
+								level.name !== '' ? 'Name: ' + level.name : null,
+								level.area !== '' ? 'Area: ' + level.area : null,
+								level.palette !== '' ? 'Palette: ' + level.palette : null,
+						  ]
+						: [];
 
 				return (
 					<button
@@ -86,7 +94,7 @@ export default function WorldMap(props: Props): React$Node {
 						title={sublabel.filter(Boolean).join('\n')}
 						type="button"
 					>
-						{props.drawPreviews ? (
+						{props.drawPreviews && level != null ? (
 							<div className={styles.canvas}>
 								<GeoPreview
 									level={level}
