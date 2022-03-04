@@ -9,7 +9,7 @@ type Props = $ReadOnly<{
 	size: string,
 }>;
 
-export default function CloseIcon(props: Props): React$Node {
+export default function CloseButton(props: Props): React$Node {
 	return (
 		<button
 			aria-label={props.label}

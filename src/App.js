@@ -3,6 +3,7 @@
 import {useEffect, useState} from 'react';
 
 import styles from './App.module.css';
+import ConsoleNoJest from './ConsoleNoJest';
 import {CurrentCoordinatesProvider} from './CurrentCoordinatesContext';
 import ErrorBoundary from './ErrorBoundary';
 import AppHeader from './header/AppHeader';
@@ -23,7 +24,7 @@ export default function App(): React$Node {
 	}, [levelsData]);
 
 	useEffect(() => {
-		console.log('Use `window.levelsData` for your custom queries!');
+		ConsoleNoJest.log('Use `window.levelsData` for your custom queries!');
 	}, []);
 
 	useEffect(() => {

@@ -32,6 +32,7 @@ export default function LevelPreview(props: Props): React$Node {
 		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 		<div
 			className={styles.root}
+			data-testid="levelpreview-root"
 			onClick={props.onMapMouseClick}
 			onMouseMove={props.onMapMouseMove}
 			onMouseLeave={props.onMapMouseLeave}

@@ -72,6 +72,7 @@ export default function WorldMap(props: Props): React$Node {
 				return (
 					<button
 						className={styles.box + ' ' + (isSame ? styles.currentBox : '')}
+						data-testid={isSame ? 'worldmap-active' : null}
 						// performance, try to recycle if possible
 						key={coordinates[1] + '_' + coordinates[2]}
 						onClick={() => setNewCoordinates(coordinates)}

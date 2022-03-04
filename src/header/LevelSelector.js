@@ -138,6 +138,7 @@ export default function LevelSelector(props: Props): React$Node {
 				<span className={styles.label}>Layer:</span>
 				<input
 					className={styles.numberInput}
+					data-testid="levelselector-layer"
 					onChange={(ev: SyntheticEvent<HTMLInputElement>) => {
 						setInputCoordinates([
 							parseInt(ev.currentTarget.value, 10),
@@ -153,6 +154,7 @@ export default function LevelSelector(props: Props): React$Node {
 				<span className={styles.label}>X:</span>
 				<input
 					className={styles.numberInput}
+					data-testid="levelselector-x"
 					onChange={(ev: SyntheticEvent<HTMLInputElement>) => {
 						setInputCoordinates([
 							inputCoordinates[0],
@@ -168,6 +170,7 @@ export default function LevelSelector(props: Props): React$Node {
 				<span className={styles.label}>Y:</span>
 				<input
 					className={styles.numberInput}
+					data-testid="levelselector-y"
 					onChange={(ev: SyntheticEvent<HTMLInputElement>) => {
 						setInputCoordinates([
 							inputCoordinates[0],
@@ -180,7 +183,9 @@ export default function LevelSelector(props: Props): React$Node {
 					value={inputCoordinates[2]}
 				/>
 
-				<button type="submit">Go</button>
+				<button data-testid="levelselector-go" type="submit">
+					Go
+				</button>
 			</form>
 		</div>
 	);

@@ -2,6 +2,7 @@
 
 import {useCallback, useEffect, useState} from 'react';
 
+import ConsoleNoJest from './ConsoleNoJest';
 import ErrorBoundary from './ErrorBoundary';
 import styles from './LevelInspector.module.css';
 import LevelPreview from './LevelPreview';
@@ -19,7 +20,7 @@ export default function LevelInspector({
 	setSingleLevelData,
 }: Props): React$Node {
 	useEffect(() => {
-		console.log(level);
+		ConsoleNoJest.log(level);
 	}, [level]);
 
 	const [addingObjectEntity, setAddingObjectEntity] =

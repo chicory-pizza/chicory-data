@@ -2,6 +2,7 @@ build/
 
 flow-typed/npm/
 package.json
+package-lock.json
 
 src/level_data.json
-tests/min_level_data.json
+src/__mocks__/level_data.json
