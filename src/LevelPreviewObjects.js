@@ -10,6 +10,7 @@ type Props = $ReadOnly<{
 	objectIndexHover: ?number,
 	onMapMouseLeave: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
+	onObjectClick: (objectIndex: number) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 }>;
 
@@ -22,6 +23,7 @@ function LevelPreviewObjects(props: Props): React$Node {
 
 	return objects.map((obj, index) => {
 		return (
+			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 			<div
 				className={
 					styles.item +
@@ -29,6 +31,7 @@ function LevelPreviewObjects(props: Props): React$Node {
 					(props.objectIndexHover === index ? styles.itemHover : '')
 				}
 				key={index}
+				onClick={() => props.onObjectClick(index)}
 				onMouseEnter={() => props.onObjectHover(index)}
 				onMouseLeave={() => props.onObjectHover(null)}
 				style={{

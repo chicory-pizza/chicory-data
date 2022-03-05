@@ -6,20 +6,22 @@ import type {GameObjectEntityType} from '../types/GameObjectEntityType';
 import type {LevelType} from '../types/LevelType';
 
 import styles from './LevelSidebar.module.css';
-import SidebarObjectProperties from './properties/SidebarObjectProperties';
+import SidebarObjectsList from './objectsList/SidebarObjectsList';
+import SidebarLevelProperties from './properties/SidebarLevelProperties';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
 import SidebarObjectAdder from './SidebarObjectAdder';
-import SidebarObjectsList from './SidebarObjectsList';
 
 type Props = $ReadOnly<{
 	level: LevelType,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
+	objectsListItemsExpanded: Array<number>,
 	onAddingObjectEntity: (entity: GameObjectEntityType) => mixed,
 	onLevelDelete: () => mixed,
 	onLevelEditProperty: (key: string, value: string | number) => mixed,
 	onObjectDelete: (objectIndex: number) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
+	onObjectListItemToggle: (objectIndex: number) => mixed,
 }>;
 
 export default function LevelSidebar(props: Props): React$Node {
@@ -33,9 +35,8 @@ export default function LevelSidebar(props: Props): React$Node {
 
 			<div className={styles.group}>
 				<ErrorBoundary>
-					<SidebarObjectProperties
+					<SidebarLevelProperties
 						level={props.level}
-						objectIndexHover={props.objectIndexHover}
 						onLevelDelete={props.onLevelDelete}
 						onLevelEditProperty={props.onLevelEditProperty}
 					/>
@@ -55,8 +56,10 @@ export default function LevelSidebar(props: Props): React$Node {
 					<SidebarObjectsList
 						levelObjects={props.level.objects ?? []}
 						objectIndexHover={props.objectIndexHover}
+						objectsListItemsExpanded={props.objectsListItemsExpanded}
 						onObjectDelete={props.onObjectDelete}
 						onObjectHover={props.onObjectHover}
+						onObjectListItemToggle={props.onObjectListItemToggle}
 					/>
 				</ErrorBoundary>
 			</div>

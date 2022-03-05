@@ -14,6 +14,7 @@ type Props = $ReadOnly<{
 	onMapMouseClick: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseLeave: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
+	onObjectClick: (objectIndex: number) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 }>;
 
@@ -46,6 +47,7 @@ export default function LevelPreview(props: Props): React$Node {
 				objectIndexHover={props.objectIndexHover}
 				onMapMouseLeave={props.onMapMouseLeave}
 				onMapMouseMove={props.onMapMouseMove}
+				onObjectClick={props.onObjectClick}
 				onObjectHover={props.onObjectHover}
 			/>
 

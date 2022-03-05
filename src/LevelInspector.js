@@ -31,6 +31,13 @@ export default function LevelInspector({
 
 	const [objectIndexHover, setObjectIndexHover] = useState<?number>(null);
 
+	const [sidebarObjectsListItemsExpanded, setSidebarObjectsListItemsExpanded] =
+		useState<Array<number>>([]);
+
+	useEffect(() => {
+		setSidebarObjectsListItemsExpanded([]);
+	}, [level]);
+
 	function onMapMouseClick(ev: SyntheticMouseEvent<>) {
 		if (addingObjectEntity == null || mapMouseMoveCoordinates == null) {
 			return;
@@ -87,6 +94,20 @@ export default function LevelInspector({
 		[level, setSingleLevelData]
 	);
 
+	const onObjectClick = useCallback(
+		(objectIndex: number) => {
+			if (sidebarObjectsListItemsExpanded.includes(objectIndex)) {
+				// todo if the item is already expanded, then it won't scrollIntoView
+				return;
+			}
+
+			setSidebarObjectsListItemsExpanded(
+				sidebarObjectsListItemsExpanded.concat(objectIndex)
+			);
+		},
+		[sidebarObjectsListItemsExpanded]
+	);
+
 	const onObjectDelete = useCallback(
 		(objectIndex: number) => {
 			const levelObjects = level.objects;
@@ -104,6 +125,23 @@ export default function LevelInspector({
 		[level, setSingleLevelData]
 	);
 
+	const onObjectListItemToggle = useCallback(
+		(objectIndex: number) => {
+			if (sidebarObjectsListItemsExpanded.includes(objectIndex)) {
+				setSidebarObjectsListItemsExpanded(
+					sidebarObjectsListItemsExpanded.filter(
+						(index) => index !== objectIndex
+					)
+				);
+			} else {
+				setSidebarObjectsListItemsExpanded(
+					sidebarObjectsListItemsExpanded.concat(objectIndex)
+				);
+			}
+		},
+		[sidebarObjectsListItemsExpanded]
+	);
+
 	return (
 		<div className={styles.root}>
 			<div className={styles.preview}>
@@ -116,6 +154,7 @@ export default function LevelInspector({
 						onMapMouseClick={onMapMouseClick}
 						onMapMouseLeave={onMapMouseLeave}
 						onMapMouseMove={onMapMouseMove}
+						onObjectClick={onObjectClick}
 						onObjectHover={setObjectIndexHover}
 					/>
 				</ErrorBoundary>
@@ -126,11 +165,13 @@ export default function LevelInspector({
 					level={level}
 					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					objectIndexHover={objectIndexHover}
+					objectsListItemsExpanded={sidebarObjectsListItemsExpanded}
 					onAddingObjectEntity={setAddingObjectEntity}
 					onLevelDelete={onLevelDelete}
 					onLevelEditProperty={onLevelEditProperty}
 					onObjectDelete={onObjectDelete}
 					onObjectHover={setObjectIndexHover}
+					onObjectListItemToggle={onObjectListItemToggle}
 				/>
 			</ErrorBoundary>
 		</div>
