@@ -1,0 +1,13 @@
+.button {
+	margin-left: 135px;
+}
+
+.open {
+	height: auto;
+	overflow: initial;
+}
+
+.closed {
+	height: 0px;
+	overflow: hidden;
+}

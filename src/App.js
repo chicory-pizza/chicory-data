@@ -3,6 +3,7 @@
 import {useEffect, useState} from 'react';
 
 import styles from './App.module.css';
+import Collapsible from './Collapsible';
 import ConsoleNoJest from './ConsoleNoJest';
 import {CurrentCoordinatesProvider} from './CurrentCoordinatesContext';
 import ErrorBoundary from './ErrorBoundary';
@@ -69,10 +70,12 @@ export default function App(): React$Node {
 
 				{levelsData != null ? (
 					<ErrorBoundary>
-						<WorldMap
-							drawPreviews={drawPreviewsOnWorldMap}
-							levels={levelsData}
-						/>
+						<Collapsible buttonText="World Map">
+							<WorldMap
+								drawPreviews={drawPreviewsOnWorldMap}
+								levels={levelsData}
+							/>
+						</Collapsible>
 					</ErrorBoundary>
 				) : null}
 
