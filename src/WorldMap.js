@@ -3,7 +3,8 @@
 import {useEffect, useRef} from 'react';
 
 import {useCurrentCoordinates} from './CurrentCoordinatesContext';
-import GeoPreview, {GEO_WIDTH, GEO_HEIGHT} from './GeoPreview';
+import {GEO_HEIGHT, GEO_WIDTH} from './GeoConstants';
+import GeoPreview from './GeoPreview';
 import type {LevelType} from './types/LevelType';
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
@@ -100,6 +101,7 @@ export default function WorldMap(props: Props): React$Node {
 									level={level}
 									mapMouseMoveCoordinates={null}
 									scale={1}
+									useDevicePixelRatio={true}
 								/>
 							</div>
 						) : null}

@@ -1,57 +1,31 @@
 // @flow strict
 
-// $FlowFixMe[untyped-import]
-import {decode} from 'base64-arraybuffer';
-// $FlowFixMe[untyped-import]
-import {inflate} from 'pako';
 import {useEffect, useMemo, useRef} from 'react';
 
+import {GEO_HEIGHT, GEO_WIDTH} from './GeoConstants';
 import styles from './GeoPreview.module.css';
 import type {LevelType} from './types/LevelType';
+import drawGeoToCanvas from './util/canvas/drawGeoToCanvas';
+import getCanvasRenderingContext from './util/canvas/getCanvasRenderingContext';
+import decodeGeoString from './util/decodeGeoString';
 
 export const SCREEN_WIDTH = 1920;
 export const SCREEN_HEIGHT = 1080;
-export const GEO_WIDTH = 81;
-export const GEO_HEIGHT = 46;
-
-const PIXEL_COLORS: {[pixel: string]: string} = {
-	// higher ground layers
-	'255': '#eee',
-	'254': '#ddd',
-	'253': '#ccc',
-	'252': '#bbb',
-	'251': '#aaa',
-	'250': '#999',
-	'249': '#888',
-	'248': '#777',
-	'247': '#666', // [0, 3, 2]
-	'246': '#555', // [0, -2, -14]
-	'244': '#444', // [0, 5, 1]
-	'243': '#333', // [0, 6, 1]
-	'242': '#222', // [0, 6, 1]
-
-	'6': 'blue', // water
-	'5': 'brown', // unwalkable collision
-	'4': 'lightblue', // sky
-	'3': 'pink', // climbable wall
-	'2': '#555', // unclimbable wall
-	'1': '#eee', // ramp
-	'0': '#fff', // walkable
-};
 
 type Props = $ReadOnly<{
 	level: LevelType,
 	mapMouseMoveCoordinates: ?[number, number],
 	scale: number,
+	useDevicePixelRatio: boolean,
 }>;
 
 export default function GeoPreview(props: Props): React$Node {
 	const canvasRef = useRef<?HTMLCanvasElement>(null);
 
 	// todo use error boundary
-	const decodedGeo: ?Uint8Array = useMemo(() => {
+	const decodedGeo = useMemo(() => {
 		try {
-			return inflate(decode(props.level.geo));
+			return decodeGeoString(props.level.geo);
 		} catch (ex) {
 			console.error(ex);
 		}
@@ -59,7 +33,7 @@ export default function GeoPreview(props: Props): React$Node {
 		return null;
 	}, [props.level.geo]);
 
-	const dpr = window.devicePixelRatio || 1;
+	const dpr = props.useDevicePixelRatio ? window.devicePixelRatio || 1 : 1;
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
@@ -73,28 +47,16 @@ export default function GeoPreview(props: Props): React$Node {
 			return;
 		}
 
-		const ctx: CanvasRenderingContext2D = canvas.getContext('2d', {
-			alpha: false,
+		const ctx = getCanvasRenderingContext(canvas);
+
+		drawGeoToCanvas({
+			canvas,
+			ctx,
+			geo: decodedGeo,
+			scale: props.scale * dpr,
 		});
-		// $FlowFixMe[prop-missing]
-		ctx.mozImageSmoothingEnabled = false;
-		ctx.imageSmoothingEnabled = false;
 
 		ctx.scale(props.scale * dpr, props.scale * dpr);
-
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-		// pixels
-		decodedGeo.forEach((pixel, index) => {
-			let fill = PIXEL_COLORS[pixel.toString()];
-			if (fill == null) {
-				console.warn('unknown pixel color' + pixel);
-				return null;
-			}
-
-			ctx.fillStyle = fill;
-			ctx.fillRect(index % GEO_WIDTH, Math.floor(index / GEO_WIDTH), 1, 1);
-		});
 
 		// mouse move
 		const mouse = props.mapMouseMoveCoordinates;
@@ -120,7 +82,7 @@ export default function GeoPreview(props: Props): React$Node {
 	}, [decodedGeo, dpr, props.mapMouseMoveCoordinates, props.scale]);
 
 	if (decodedGeo == null) {
-		return '⚠️ Can’t generate map preview';
+		return "⚠️ Can't generate map preview";
 	}
 
 	return (

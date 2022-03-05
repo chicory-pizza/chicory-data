@@ -1,8 +1,9 @@
 // @flow strict
 
-import {memo} from 'react';
+import {memo, useState} from 'react';
 
 import {useCurrentCoordinates} from '../../CurrentCoordinatesContext';
+import LevelTerrainEditorModal from '../../terrainEditor/LevelTerrainEditorModal';
 import {LEVEL_EDITABLE_PROPERTIES_SCHEMA} from '../../types/LevelEditablePropertiesSchema';
 import type {LevelType} from '../../types/LevelType';
 
@@ -17,6 +18,7 @@ type Props = $ReadOnly<{
 
 function SidebarLevelProperties(props: Props): React$Node {
 	const [currentCoordinates] = useCurrentCoordinates();
+	const [isTerrainEditorOpen, setIsTerrainEditorOpen] = useState(false);
 
 	function onDeleteLevelButtonClick() {
 		if (
@@ -28,6 +30,10 @@ function SidebarLevelProperties(props: Props): React$Node {
 		}
 
 		props.onLevelDelete();
+	}
+
+	function onNewGeoLoaded(geo: string) {
+		props.onLevelEditProperty('geo', geo);
 	}
 
 	return (
@@ -42,10 +48,25 @@ function SidebarLevelProperties(props: Props): React$Node {
 			/>
 
 			<div className={styles.actions}>
+				<button
+					className={styles.rightPadding}
+					onClick={() => setIsTerrainEditorOpen(true)}
+					type="button"
+				>
+					Edit terrain
+				</button>
+
 				<button onClick={onDeleteLevelButtonClick} type="button">
 					Delete level
 				</button>
 			</div>
+
+			<LevelTerrainEditorModal
+				isOpen={isTerrainEditorOpen}
+				level={props.level}
+				onRequestClose={() => setIsTerrainEditorOpen(false)}
+				onNewGeoLoaded={onNewGeoLoaded}
+			/>
 		</div>
 	);
 }

@@ -2,6 +2,7 @@
 
 import CustomFileInput from '../CustomFileInput';
 import type {LevelType} from '../types/LevelType';
+import downloadBlob from '../util/downloadBlob';
 
 import styles from './DataSelector.module.css';
 
@@ -45,34 +46,20 @@ export default function DataSelector(props: Props): React$Node {
 	}
 
 	function saveFile() {
-		const body = document.body;
-		if (!body) {
-			throw new Error('Document is not ready');
-		}
-
-		const blob = new Blob([JSON.stringify(props.levels)], {
-			// must be this type to ensure no file extension
-			type: 'application/octet-stream',
-		});
-		const url = window.URL.createObjectURL(blob);
-
-		const link = document.createElement('a');
-		link.href = url;
-		link.download = 'level_data';
-		// Firefox requires link to be inserted in <body> before clicking
-		// https://stackoverflow.com/a/27116581
-		body.appendChild(link);
-		link.click();
-		link.remove();
-
-		window.URL.revokeObjectURL(blob);
+		downloadBlob(
+			new Blob([JSON.stringify(props.levels)], {
+				// must be this type to ensure no file extension
+				type: 'application/octet-stream',
+			}),
+			'level_data'
+		);
 	}
 
 	return (
 		<>
 			<div className={styles.space}>
 				<CustomFileInput onChange={onChange}>
-					<button type="submit" tabIndex={-1}>
+					<button type="button" tabIndex={-1}>
 						Load custom level_data
 					</button>
 				</CustomFileInput>

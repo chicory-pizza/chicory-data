@@ -1,0 +1,63 @@
+.modalTitleBar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.modalTitleText {
+	font-size: 1.5em;
+}
+
+.content {
+	display: flex;
+	flex-direction: row;
+}
+
+.explanation {
+	margin-bottom: 8px;
+}
+
+.geoPreview {
+	display: flex;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.geoPreviewSaveButton {
+	margin-left: 8px;
+}
+
+.grid {
+	display: inline-grid;
+	grid-template-columns: repeat(6, auto);
+}
+
+.colorItem {
+	border-top: 1px solid #ccc;
+	padding: 8px 20px 8px 0;
+	display: flex;
+	align-items: center;
+}
+
+.colorBoxWrap {
+	padding-right: 8px;
+}
+
+.colorBox {
+	width: 30px;
+	height: 30px;
+	border: 1px solid #ccc;
+}
+
+.contentRight {
+	margin-left: 20px;
+}
+
+.fileInput {
+	display: flex;
+}
+
+.errorMessage {
+	margin-top: 8px;
+}

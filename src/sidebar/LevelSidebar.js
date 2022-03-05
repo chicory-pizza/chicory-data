@@ -31,6 +31,7 @@ export default function LevelSidebar(props: Props): React$Node {
 				level={props.level}
 				mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
 				scale={4}
+				useDevicePixelRatio={true}
 			/>
 
 			<div className={styles.group}>

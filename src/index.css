@@ -107,3 +107,7 @@ button[disabled] {
 	justify-content: center;
 	height: 100%;
 }
+
+.ReactModal__Overlay {
+	z-index: 9;
+}

@@ -1,6 +1,7 @@
 // @flow strict
 
-import GeoPreview, {GEO_WIDTH, SCREEN_WIDTH} from './GeoPreview';
+import {GEO_WIDTH} from './GeoConstants';
+import GeoPreview, {SCREEN_WIDTH} from './GeoPreview';
 import styles from './LevelPreview.module.css';
 import LevelPreviewObjects from './LevelPreviewObjects';
 import type {GameObjectEntityType} from './types/GameObjectEntityType';
@@ -69,6 +70,7 @@ export default function LevelPreview(props: Props): React$Node {
 					level={props.level}
 					mapMouseMoveCoordinates={null}
 					scale={SCREEN_WIDTH / GEO_WIDTH}
+					useDevicePixelRatio={true}
 				/>
 			</div>
 		</div>
