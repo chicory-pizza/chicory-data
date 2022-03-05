@@ -14,9 +14,9 @@ type Props = $ReadOnly<{
 	highlighted: boolean,
 	index: number,
 	obj: GameObjectType,
+	onItemToggle: (objectIndex: number) => mixed,
 	onObjectDelete: (objectIndex: number) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
-	onObjectListItemToggle: (objectIndex: number) => mixed,
 }>;
 
 function SidebarObjectItem(props: Props): React$Node {
@@ -45,7 +45,7 @@ function SidebarObjectItem(props: Props): React$Node {
 				<button
 					className={styles.toggleIcon}
 					onFocus={() => props.onObjectHover(props.index)}
-					onClick={() => props.onObjectListItemToggle(props.index)}
+					onClick={() => props.onItemToggle(props.index)}
 					title={props.expanded ? 'Collapse details' : 'Expand details'}
 					type="button"
 				>

@@ -125,23 +125,6 @@ export default function LevelInspector({
 		[level, setSingleLevelData]
 	);
 
-	const onObjectListItemToggle = useCallback(
-		(objectIndex: number) => {
-			if (sidebarObjectsListItemsExpanded.includes(objectIndex)) {
-				setSidebarObjectsListItemsExpanded(
-					sidebarObjectsListItemsExpanded.filter(
-						(index) => index !== objectIndex
-					)
-				);
-			} else {
-				setSidebarObjectsListItemsExpanded(
-					sidebarObjectsListItemsExpanded.concat(objectIndex)
-				);
-			}
-		},
-		[sidebarObjectsListItemsExpanded]
-	);
-
 	return (
 		<div className={styles.root}>
 			<div className={styles.preview}>
@@ -171,7 +154,7 @@ export default function LevelInspector({
 					onLevelEditProperty={onLevelEditProperty}
 					onObjectDelete={onObjectDelete}
 					onObjectHover={setObjectIndexHover}
-					onObjectListItemToggle={onObjectListItemToggle}
+					setObjectsListItemsExpanded={setSidebarObjectsListItemsExpanded}
 				/>
 			</ErrorBoundary>
 		</div>

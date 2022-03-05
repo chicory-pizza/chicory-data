@@ -1,6 +1,6 @@
 // @flow strict
 
-import {memo} from 'react';
+import {memo, useCallback} from 'react';
 
 import type {GameObjectType} from '../../types/GameObjectType';
 
@@ -13,10 +13,27 @@ type Props = $ReadOnly<{
 	objectsListItemsExpanded: Array<number>,
 	onObjectDelete: (objectIndex: number) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
-	onObjectListItemToggle: (objectIndex: number) => mixed,
+	setObjectsListItemsExpanded: (expandedIndexes: Array<number>) => mixed,
 }>;
 
 function SidebarObjectsList(props: Props): React$Node {
+	const {objectsListItemsExpanded, setObjectsListItemsExpanded} = props;
+
+	const onItemToggle = useCallback(
+		(objectIndex: number) => {
+			if (objectsListItemsExpanded.includes(objectIndex)) {
+				setObjectsListItemsExpanded(
+					objectsListItemsExpanded.filter((index) => index !== objectIndex)
+				);
+			} else {
+				setObjectsListItemsExpanded(
+					objectsListItemsExpanded.concat(objectIndex)
+				);
+			}
+		},
+		[objectsListItemsExpanded, setObjectsListItemsExpanded]
+	);
+
 	return (
 		<details open>
 			<summary>
@@ -34,13 +51,40 @@ function SidebarObjectsList(props: Props): React$Node {
 							index={index}
 							key={index}
 							obj={obj}
+							onItemToggle={onItemToggle}
 							onObjectDelete={props.onObjectDelete}
 							onObjectHover={props.onObjectHover}
-							onObjectListItemToggle={props.onObjectListItemToggle}
 						/>
 					);
 				})}
 			</ul>
+
+			<div className={styles.actions}>
+				<button
+					className={styles.rightPadding}
+					disabled={
+						props.objectsListItemsExpanded.length === props.levelObjects.length
+					}
+					onClick={() => {
+						setObjectsListItemsExpanded(
+							props.levelObjects.map((_, index) => index)
+						);
+					}}
+					type="button"
+				>
+					Expand all
+				</button>
+
+				<button
+					disabled={props.objectsListItemsExpanded.length === 0}
+					onClick={() => {
+						setObjectsListItemsExpanded([]);
+					}}
+					type="button"
+				>
+					Collapse all
+				</button>
+			</div>
 		</details>
 	);
 }
