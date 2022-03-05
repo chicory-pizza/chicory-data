@@ -1,10 +1,11 @@
 // @flow strict
 
-import {useMemo, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 
 import CustomSelect from '../common/CustomSelect';
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
 import type {LevelType} from '../types/LevelType';
+import changeDocumentTitle from '../util/changeDocumentTitle';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
 import sortCompareCoordinates from '../util/sortCompareCoordinates';
@@ -78,6 +79,13 @@ export default function LevelSelector(props: Props): React$Node {
 	}, [selectOptions]);
 
 	const currentLevelId = convertCoordinatesToLevelId(currentCoordinates);
+	const currentSelectOption = selectOptions.find(
+		(option) => option.value === currentLevelId
+	);
+
+	useEffect(() => {
+		changeDocumentTitle(currentSelectOption?.label ?? '');
+	}, [currentSelectOption]);
 
 	const [inputCoordinates, setInputCoordinates] = useState(currentCoordinates);
 	const [prevCoordinates, setPrevCoordinates] = useState(null);
@@ -106,9 +114,7 @@ export default function LevelSelector(props: Props): React$Node {
 
 			<div className={styles.select}>
 				<CustomSelect
-					value={selectOptions.find(
-						(option) => option.value === currentLevelId
-					)}
+					value={currentSelectOption}
 					maxMenuHeight={1000}
 					onChange={changeLevelBySelect}
 					options={layersGrouped}
