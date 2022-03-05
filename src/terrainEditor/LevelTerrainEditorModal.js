@@ -131,9 +131,9 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 
 						if (colorInfo == null) {
 							throw new Error(
-								`Unsupported color found (found R: ${pixel[0]} G: ${
-									pixel[1]
-								} B: ${pixel[2]}) at pixel (X: ${x + 1}, Y: ${y + 1})`
+								`Unsupported color found (R: ${pixel[0]} G: ${pixel[1]} B: ${
+									pixel[2]
+								}) at pixel (X: ${x + 1}, Y: ${y + 1})`
 							);
 						}
 
@@ -153,7 +153,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 			}
 		};
 		img.onerror = () => {
-			throw new Error('There was an error loading the image.');
+			setErrorMessage('There was a problem loading the image');
 		};
 		img.src = URL.createObjectURL(file);
 	}
