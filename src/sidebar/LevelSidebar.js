@@ -6,9 +6,9 @@ import type {GameObjectEntityType} from '../types/GameObjectEntityType';
 import type {LevelType} from '../types/LevelType';
 
 import styles from './LevelSidebar.module.css';
+import SidebarObjectProperties from './properties/SidebarObjectProperties';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
 import SidebarObjectAdder from './SidebarObjectAdder';
-import SidebarObjectProperties from './SidebarObjectProperties';
 import SidebarObjectsList from './SidebarObjectsList';
 
 type Props = $ReadOnly<{
@@ -17,6 +17,7 @@ type Props = $ReadOnly<{
 	objectIndexHover: ?number,
 	onAddingObjectEntity: (entity: GameObjectEntityType) => mixed,
 	onLevelDelete: () => mixed,
+	onLevelEditProperty: (key: string, value: string | number) => mixed,
 	onObjectDelete: (objectIndex: number) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 }>;
@@ -36,6 +37,7 @@ export default function LevelSidebar(props: Props): React$Node {
 						level={props.level}
 						objectIndexHover={props.objectIndexHover}
 						onLevelDelete={props.onLevelDelete}
+						onLevelEditProperty={props.onLevelEditProperty}
 					/>
 				</ErrorBoundary>
 			</div>

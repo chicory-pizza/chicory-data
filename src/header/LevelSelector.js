@@ -1,9 +1,8 @@
 // @flow strict
 
 import {useMemo, useState} from 'react';
-// $FlowFixMe[untyped-import]
-import Select from 'react-select';
 
+import CustomSelect from '../common/CustomSelect';
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
 import type {LevelType} from '../types/LevelType';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
@@ -60,20 +59,22 @@ export default function LevelSelector(props: Props): React$Node {
 	}, [levelIds, props.levels]);
 
 	const layersGrouped = useMemo(() => {
-		return Object.values(
-			selectOptions.reduce((prev, current) => {
-				if (prev[current.value[0]] == null) {
-					prev[current.value[0]] = {
-						label: 'Layer ' + current.value[0],
-						options: [],
-					};
-				}
+		const map = new Map();
 
-				prev[current.value[0]].options.push(current);
+		selectOptions.forEach((option) => {
+			const layer = option.value[0];
 
-				return prev;
-			}, {})
-		);
+			if (!map.has(layer)) {
+				map.set(layer, {
+					label: 'Layer ' + layer,
+					options: [],
+				});
+			}
+
+			map.get(layer)?.options.push(option);
+		});
+
+		return Array.from(map.values());
 	}, [selectOptions]);
 
 	const currentLevelId = convertCoordinatesToLevelId(currentCoordinates);
@@ -86,8 +87,8 @@ export default function LevelSelector(props: Props): React$Node {
 		setPrevCoordinates(currentCoordinates);
 	}
 
-	function changeLevelBySelect({value: id}: {value: string, label: string}) {
-		const coordinates = convertLevelIdToCoordinates(id);
+	function changeLevelBySelect(newOption) {
+		const coordinates = convertLevelIdToCoordinates(newOption.value);
 
 		setNewCoordinates(coordinates);
 		setInputCoordinates(coordinates);
@@ -104,31 +105,13 @@ export default function LevelSelector(props: Props): React$Node {
 			<span className={styles.label}>Level:</span>
 
 			<div className={styles.select}>
-				<Select
+				<CustomSelect
 					value={selectOptions.find(
 						(option) => option.value === currentLevelId
 					)}
 					maxMenuHeight={1000}
 					onChange={changeLevelBySelect}
 					options={layersGrouped}
-					styles={{
-						control: (provided, state) => {
-							return {...provided, cursor: 'pointer'};
-						},
-						menu: (provided, state) => {
-							return {...provided, zIndex: 99};
-						},
-					}}
-					theme={(theme) => {
-						return {
-							...theme,
-							colors: {
-								...theme.colors,
-								primary: '#c5aeff',
-								primary25: '#ffb8a9',
-							},
-						};
-					}}
 				/>
 			</div>
 

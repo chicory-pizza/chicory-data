@@ -73,6 +73,20 @@ export default function LevelInspector({
 		setSingleLevelData(null);
 	}, [setSingleLevelData]);
 
+	const onLevelEditProperty = useCallback(
+		(key: string, value: string | number) => {
+			if (level[key] === value || (value === '' && level[key] == null)) {
+				return;
+			}
+
+			setSingleLevelData({
+				...level,
+				[key]: value,
+			});
+		},
+		[level, setSingleLevelData]
+	);
+
 	const onObjectDelete = useCallback(
 		(objectIndex: number) => {
 			const levelObjects = level.objects;
@@ -114,6 +128,7 @@ export default function LevelInspector({
 					objectIndexHover={objectIndexHover}
 					onAddingObjectEntity={setAddingObjectEntity}
 					onLevelDelete={onLevelDelete}
+					onLevelEditProperty={onLevelEditProperty}
 					onObjectDelete={onObjectDelete}
 					onObjectHover={setObjectIndexHover}
 				/>

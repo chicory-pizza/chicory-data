@@ -1,9 +1,8 @@
 // @flow strict
 
 import {memo, useMemo, useState} from 'react';
-// $FlowFixMe[untyped-import]
-import Select from 'react-select';
 
+import CustomSelect from '../common/CustomSelect';
 import {GAME_OBJECT_ENTITIES} from '../types/GameObjectEntities';
 import type {GameObjectEntityType} from '../types/GameObjectEntityType';
 
@@ -25,40 +24,19 @@ function SidebarObjectAdder(props: Props): React$Node {
 		});
 	}, []);
 
-	function addObject(option: {
-		label: GameObjectEntityType,
-		value: GameObjectEntityType,
-	}) {
-		setSelected(option);
-		props.onAddingObjectEntity(option.value);
+	function addObject(newOption) {
+		setSelected(newOption);
+		props.onAddingObjectEntity(newOption.value);
 	}
 
 	return (
 		<div className={styles.root}>
 			Add object:
 			<div className={styles.select}>
-				<Select
+				<CustomSelect
 					maxMenuHeight={300}
 					onChange={addObject}
 					options={options}
-					styles={{
-						control: (provided, state) => {
-							return {...provided, cursor: 'pointer'};
-						},
-						menu: (provided, state) => {
-							return {...provided, zIndex: 99};
-						},
-					}}
-					theme={(theme) => {
-						return {
-							...theme,
-							colors: {
-								...theme.colors,
-								primary: '#c5aeff',
-								primary25: '#ffb8a9',
-							},
-						};
-					}}
 					value={selected}
 				/>
 			</div>

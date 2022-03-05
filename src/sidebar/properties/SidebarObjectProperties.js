@@ -1,24 +1,22 @@
 // @flow strict
 
-import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
-import type {LevelType} from '../types/LevelType';
+import {memo} from 'react';
 
+import {useCurrentCoordinates} from '../../CurrentCoordinatesContext';
+import {LEVEL_EDITABLE_PROPERTIES_SCHEMA} from '../../types/LevelEditablePropertiesSchema';
+import type {LevelType} from '../../types/LevelType';
+
+import SidebarEditableProperties from './SidebarEditableProperties';
 import styles from './SidebarObjectProperties.module.css';
-
-function withoutObjectsAndDecos(
-	level: LevelType
-): $Diff<LevelType, {geo: string}> {
-	const {objects, decos, geo, ...otherProps} = level;
-	return otherProps;
-}
 
 type Props = $ReadOnly<{
 	level: LevelType,
 	objectIndexHover: ?number,
 	onLevelDelete: () => mixed,
+	onLevelEditProperty: (key: string, value: string | number) => mixed,
 }>;
 
-export default function SidebarObjectProperties(props: Props): React$Node {
+function SidebarObjectProperties(props: Props): React$Node {
 	const [currentCoordinates] = useCurrentCoordinates();
 
 	const levelObjects = props.level.objects;
@@ -54,11 +52,12 @@ export default function SidebarObjectProperties(props: Props): React$Node {
 				<>
 					<div>Level properties</div>
 
-					<pre>
-						<code>
-							{JSON.stringify(withoutObjectsAndDecos(props.level), null, 2)}
-						</code>
-					</pre>
+					<SidebarEditableProperties
+						excludeProperties={['decos', 'geo', 'objects']}
+						onLevelEditProperty={props.onLevelEditProperty}
+						properties={props.level}
+						schema={LEVEL_EDITABLE_PROPERTIES_SCHEMA}
+					/>
 
 					<div className={styles.actions}>
 						<button onClick={onDeleteLevelButtonClick} type="button">
@@ -70,3 +69,8 @@ export default function SidebarObjectProperties(props: Props): React$Node {
 		</div>
 	);
 }
+
+export default (memo<Props>(SidebarObjectProperties): React$AbstractComponent<
+	Props,
+	mixed
+>);

@@ -3,7 +3,7 @@
 import type {GameObjectEntityType} from './GameObjectEntityType';
 
 // I know it's duplicated :(
-export const GAME_OBJECT_ENTITIES: Array<GameObjectEntityType> = [
+export const GAME_OBJECT_ENTITIES: $ReadOnlyArray<GameObjectEntityType> = [
 	'objAchiote',
 	'objAdult',
 	'objAllium',

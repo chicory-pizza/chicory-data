@@ -2,11 +2,7 @@
 
 import type {DecorationType} from './DecorationType';
 import type {GameObjectType} from './GameObjectType';
-import type {LevelAmbianceType} from './LevelAmbianceType';
-import type {LevelAreaType} from './LevelAreaType';
-import type {LevelMusicType} from './LevelMusicType';
 import type {LevelNameType} from './LevelNameType';
-import type {LevelPaletteType} from './LevelPaletteType';
 import type {LevelTitleType} from './LevelTitleType';
 
 /*
@@ -45,8 +41,8 @@ Object.values(window.levelData).reduce((prev, current) => {
 */
 
 export type LevelType = {
-	ambiance: LevelAmbianceType,
-	area: LevelAreaType,
+	ambiance: string,
+	area: string,
 	decos?: Array<{
 		ang: number,
 		spr: DecorationType,
@@ -58,11 +54,11 @@ export type LevelType = {
 	exits?: string,
 	foley: string,
 	geo: string,
-	music: LevelMusicType,
+	music: string,
 	name: LevelNameType,
 	object_id: string | number,
 	objects?: Array<GameObjectType>,
-	palette: LevelPaletteType,
+	palette: string,
 	title?: LevelTitleType,
 	transition: string | number,
 };
