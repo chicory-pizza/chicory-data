@@ -12,6 +12,11 @@ type Props = $ReadOnly<{
 	objectIndexHover: ?number,
 	objectsListItemsExpanded: Array<number>,
 	onObjectDelete: (objectIndex: number) => mixed,
+	onObjectEditProperty: (
+		objectIndex: number,
+		key: string,
+		value: string | number
+	) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 	setObjectsListItemsExpanded: (expandedIndexes: Array<number>) => mixed,
 }>;
@@ -53,6 +58,7 @@ function SidebarObjectsList(props: Props): React$Node {
 							obj={obj}
 							onItemToggle={onItemToggle}
 							onObjectDelete={props.onObjectDelete}
+							onObjectEditProperty={props.onObjectEditProperty}
 							onObjectHover={props.onObjectHover}
 						/>
 					);

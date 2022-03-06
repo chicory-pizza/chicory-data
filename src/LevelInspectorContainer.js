@@ -55,6 +55,10 @@ export default function LevelInspectorContainer(props: Props): React$Node {
 	}
 
 	return (
-		<LevelInspector level={level} setSingleLevelData={setSingleLevelData} />
+		<LevelInspector
+			currentCoordinates={currentCoordinates}
+			level={level}
+			setSingleLevelData={setSingleLevelData}
+		/>
 	);
 }

@@ -2,6 +2,8 @@
 
 import {createContext, useContext, useState} from 'react';
 
+import isSameCoordinates from './util/isSameCoordinates';
+
 const CurrentCoordinatesContext = createContext();
 
 type Props = $ReadOnly<{
@@ -9,15 +11,21 @@ type Props = $ReadOnly<{
 }>;
 
 export function CurrentCoordinatesProvider({children}: Props): React$Node {
-	const [coordinates, setCoordinates] = useState<[number, number, number]>([
-		0, 0, 0,
-	]);
+	const [currentCordinates, setCurrentCoordinates] = useState<
+		[number, number, number]
+	>([0, 0, 0]);
 
 	return (
 		<CurrentCoordinatesContext.Provider
 			value={{
-				coordinates,
-				setCoordinates,
+				coordinates: currentCordinates,
+				setCoordinates(newCoordinates: [number, number, number]) {
+					if (isSameCoordinates(currentCordinates, newCoordinates)) {
+						return;
+					}
+
+					setCurrentCoordinates(newCoordinates);
+				},
 			}}
 		>
 			{children}

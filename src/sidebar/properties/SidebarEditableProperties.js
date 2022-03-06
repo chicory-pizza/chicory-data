@@ -1,5 +1,7 @@
 // @flow strict
 
+import {Fragment} from 'react';
+
 import type {EditablePropertiesType} from '../../types/EditablePropertiesSchemaType';
 
 import PropertyNumberInput from './PropertyNumberInput';
@@ -9,7 +11,7 @@ import styles from './SidebarEditableProperties.module.css';
 
 type Props = $ReadOnly<{
 	excludeProperties: Array<string>,
-	onLevelEditProperty: (key: string, value: string | number) => mixed,
+	onEditProperty: (key: string, value: string | number) => mixed,
 	properties: {...},
 	schema: Array<EditablePropertiesType>,
 }>;
@@ -27,7 +29,17 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 		.filter((propertyKey) => {
 			return !props.excludeProperties.includes(propertyKey);
 		})
-		.sort();
+		.sort((a, b) => {
+			const lowerA = a.toLowerCase();
+			const lowerB = b.toLowerCase();
+
+			if (lowerA < lowerB) {
+				return -1;
+			} else if (lowerA > lowerB) {
+				return 1;
+			}
+			return 0;
+		});
 
 	return (
 		<div className={styles.root}>
@@ -42,7 +54,7 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 						<PropertyNumberInput
 							initialValue={props.properties[propertyKey] ?? ''}
 							onCommitValue={(newValue: number | string) => {
-								props.onLevelEditProperty(propertyKey, newValue);
+								props.onEditProperty(propertyKey, newValue);
 							}}
 						/>
 					);
@@ -50,7 +62,7 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 					input = (
 						<PropertySelectInput
 							onChange={(newValue) => {
-								props.onLevelEditProperty(propertyKey, newValue.value);
+								props.onEditProperty(propertyKey, newValue.value);
 							}}
 							options={propertyType.options}
 							value={props.properties[propertyKey]}
@@ -62,18 +74,31 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 						<PropertyTextInput
 							initialValue={props.properties[propertyKey] ?? ''}
 							onCommitValue={(newValue: string) => {
-								props.onLevelEditProperty(propertyKey, newValue);
+								props.onEditProperty(propertyKey, newValue);
 							}}
 						/>
 					);
 				}
 
+				const help =
+					propertyType?.help != null && propertyType.help !== propertyKey
+						? propertyType.help
+						: null;
+
 				return (
-					<div className={styles.row} key={propertyKey}>
-						<div className={styles.label}>{propertyKey}</div>
+					<Fragment key={propertyKey}>
+						<div
+							className={
+								styles.label + ' ' + (help != null ? styles.labelWithHelp : '')
+							}
+							title={help}
+						>
+							{propertyKey}
+							{help != null ? ' [?]' : ''}
+						</div>
 
 						<div className={styles.input}>{input}</div>
-					</div>
+					</Fragment>
 				);
 			})}
 		</div>

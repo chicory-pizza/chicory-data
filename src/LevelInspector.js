@@ -11,11 +11,13 @@ import type {GameObjectEntityType} from './types/GameObjectEntityType';
 import type {LevelType} from './types/LevelType';
 
 type Props = $ReadOnly<{
+	currentCoordinates: [number, number, number],
 	level: LevelType,
 	setSingleLevelData: (newLevelData: ?LevelType) => mixed,
 }>;
 
 export default function LevelInspector({
+	currentCoordinates,
 	level,
 	setSingleLevelData,
 }: Props): React$Node {
@@ -36,7 +38,7 @@ export default function LevelInspector({
 
 	useEffect(() => {
 		setSidebarObjectsListItemsExpanded([]);
-	}, [level]);
+	}, [currentCoordinates]);
 
 	function onMapMouseClick(ev: SyntheticMouseEvent<>) {
 		if (addingObjectEntity == null || mapMouseMoveCoordinates == null) {
@@ -125,6 +127,27 @@ export default function LevelInspector({
 		[level, setSingleLevelData]
 	);
 
+	const onObjectEditProperty = useCallback(
+		(objectIndex: number, key: string, value: string | number) => {
+			const levelObjects = level.objects;
+			if (levelObjects == null) {
+				return;
+			}
+
+			setSingleLevelData({
+				...level,
+				objects: levelObjects
+					.slice(0, objectIndex)
+					.concat({
+						...levelObjects[objectIndex],
+						[key]: value,
+					})
+					.concat(levelObjects.slice(objectIndex + 1)),
+			});
+		},
+		[level, setSingleLevelData]
+	);
+
 	return (
 		<div className={styles.root}>
 			<div className={styles.preview}>
@@ -153,6 +176,7 @@ export default function LevelInspector({
 					onLevelDelete={onLevelDelete}
 					onLevelEditProperty={onLevelEditProperty}
 					onObjectDelete={onObjectDelete}
+					onObjectEditProperty={onObjectEditProperty}
 					onObjectHover={setObjectIndexHover}
 					setObjectsListItemsExpanded={setSidebarObjectsListItemsExpanded}
 				/>

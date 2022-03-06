@@ -4,7 +4,10 @@ import {memo, useEffect, useRef} from 'react';
 
 import CloseButton from '../../CloseButton';
 import type {GameObjectType} from '../../types/GameObjectType';
+import {OBJECT_EDITABLE_PROPERTIES_SCHEMA} from '../../types/ObjectEditablePropertiesSchema';
 import usePrevious from '../../util/usePrevious';
+import PropertyNumberInput from '../properties/PropertyNumberInput';
+import SidebarEditableProperties from '../properties/SidebarEditableProperties';
 import SidebarObjectText from '../SidebarObjectText';
 
 import styles from './SidebarObjectsItem.module.css';
@@ -16,6 +19,11 @@ type Props = $ReadOnly<{
 	obj: GameObjectType,
 	onItemToggle: (objectIndex: number) => mixed,
 	onObjectDelete: (objectIndex: number) => mixed,
+	onObjectEditProperty: (
+		objectIndex: number,
+		key: string,
+		value: string | number
+	) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 }>;
 
@@ -68,9 +76,32 @@ function SidebarObjectItem(props: Props): React$Node {
 
 			{props.expanded ? (
 				<div className={styles.editor}>
-					<pre>
-						<code>{JSON.stringify(props.obj, null, 2)}</code>
-					</pre>
+					<div className={styles.objectCoordinates}>
+						<span className={styles.objectCoordinatesText}>X:</span>
+						<PropertyNumberInput
+							initialValue={props.obj.x}
+							onCommitValue={(newValue: number | string) => {
+								props.onObjectEditProperty(props.index, 'x', newValue);
+							}}
+						/>
+
+						<span className={styles.objectCoordinatesText}>Y:</span>
+						<PropertyNumberInput
+							initialValue={props.obj.y}
+							onCommitValue={(newValue: number | string) => {
+								props.onObjectEditProperty(props.index, 'y', newValue);
+							}}
+						/>
+					</div>
+
+					<SidebarEditableProperties
+						excludeProperties={['obj', 'x', 'y']}
+						onEditProperty={(key: string, value: string | number) => {
+							props.onObjectEditProperty(props.index, key, value);
+						}}
+						properties={props.obj}
+						schema={OBJECT_EDITABLE_PROPERTIES_SCHEMA.get(props.obj.obj) ?? []}
+					/>
 				</div>
 			) : null}
 		</li>

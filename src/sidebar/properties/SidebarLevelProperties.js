@@ -38,14 +38,14 @@ function SidebarLevelProperties(props: Props): React$Node {
 
 	return (
 		<div className={styles.root}>
-			<div>
+			<div className={styles.heading}>
 				Level {currentCoordinates[0]}, {currentCoordinates[1]},{' '}
 				{currentCoordinates[2]} properties
 			</div>
 
 			<SidebarEditableProperties
 				excludeProperties={['decos', 'geo', 'objects']}
-				onLevelEditProperty={props.onLevelEditProperty}
+				onEditProperty={props.onLevelEditProperty}
 				properties={props.level}
 				schema={LEVEL_EDITABLE_PROPERTIES_SCHEMA}
 			/>

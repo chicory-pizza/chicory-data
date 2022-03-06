@@ -20,6 +20,11 @@ type Props = $ReadOnly<{
 	onLevelDelete: () => mixed,
 	onLevelEditProperty: (key: string, value: string | number) => mixed,
 	onObjectDelete: (objectIndex: number) => mixed,
+	onObjectEditProperty: (
+		objectIndex: number,
+		key: string,
+		value: string | number
+	) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 	setObjectsListItemsExpanded: (expandedIndexes: Array<number>) => mixed,
 }>;
@@ -59,6 +64,7 @@ export default function LevelSidebar(props: Props): React$Node {
 						objectIndexHover={props.objectIndexHover}
 						objectsListItemsExpanded={props.objectsListItemsExpanded}
 						onObjectDelete={props.onObjectDelete}
+						onObjectEditProperty={props.onObjectEditProperty}
 						onObjectHover={props.onObjectHover}
 						setObjectsListItemsExpanded={props.setObjectsListItemsExpanded}
 					/>

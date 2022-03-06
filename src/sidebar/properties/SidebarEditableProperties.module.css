@@ -1,21 +1,18 @@
 .root {
-	margin-top: 8px;
-}
-
-.row {
-	display: flex;
-	align-items: center;
-	align-content: space-between;
-	margin-top: 4px;
+	display: grid;
+	grid-template-columns: auto 1fr;
 }
 
 .label {
-	flex-shrink: 0;
-	flex-grow: 1;
+	display: flex;
+	align-items: center;
 	padding-right: 8px;
 }
 
+.labelWithHelp {
+	cursor: help;
+}
+
 .input {
-	max-width: 180px;
-	width: 100%;
+	margin-top: 4px;
 }
