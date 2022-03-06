@@ -1,4 +1,5 @@
 build/
+coverage/
 
 flow-typed/npm/
 package.json
