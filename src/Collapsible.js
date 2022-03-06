@@ -6,7 +6,7 @@ import styles from './Collapsible.module.css';
 
 type Props = $ReadOnly<{
 	children: React$Node,
-	buttonText: String,
+	buttonText: string,
 }>;
 
 export default function Collapsible(props: Props): React$Node {
