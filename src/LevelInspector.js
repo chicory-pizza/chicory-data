@@ -123,8 +123,16 @@ export default function LevelInspector({
 					.slice(0, objectIndex)
 					.concat(levelObjects.slice(objectIndex + 1)),
 			});
+
+			if (sidebarObjectsListItemsExpanded.includes(objectIndex)) {
+				setSidebarObjectsListItemsExpanded(
+					sidebarObjectsListItemsExpanded.filter(
+						(index) => index !== objectIndex
+					)
+				);
+			}
 		},
-		[level, setSingleLevelData]
+		[level, setSingleLevelData, sidebarObjectsListItemsExpanded]
 	);
 
 	const onObjectEditProperty = useCallback(
