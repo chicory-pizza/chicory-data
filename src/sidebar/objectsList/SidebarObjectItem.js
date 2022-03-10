@@ -2,7 +2,7 @@
 
 import {memo, useEffect, useRef} from 'react';
 
-import CloseButton from '../../CloseButton';
+import CloseButton from '../../common/CloseButton';
 import type {GameObjectType} from '../../types/GameObjectType';
 import {OBJECT_EDITABLE_PROPERTIES_SCHEMA} from '../../types/ObjectEditablePropertiesSchema';
 import usePrevious from '../../util/usePrevious';

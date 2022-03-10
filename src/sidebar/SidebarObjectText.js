@@ -1,7 +1,7 @@
 // @flow strict
 
+import LinkButton from '../common/LinkButton';
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
-import LinkButton from '../LinkButton';
 import type {GameObjectType} from '../types/GameObjectType';
 import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
 

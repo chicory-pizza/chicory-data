@@ -9,11 +9,11 @@ import ReactModal from 'react-modal';
 // $FlowFixMe[untyped-import]
 import tinycolor from 'tinycolor2';
 
-import CloseButton from '../CloseButton';
+import CloseButton from '../common/CloseButton';
+import CustomFileInput from '../common/CustomFileInput';
+import ErrorBoundary from '../common/ErrorBoundary';
 import ErrorMessage from '../common/ErrorMessage';
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
-import CustomFileInput from '../CustomFileInput';
-import ErrorBoundary from '../ErrorBoundary';
 import {
 	GEO_HEIGHT,
 	GEO_WIDTH,

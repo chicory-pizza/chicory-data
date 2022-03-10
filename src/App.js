@@ -3,15 +3,15 @@
 import {useEffect, useState} from 'react';
 
 import styles from './App.module.css';
-import ConsoleNoJest from './ConsoleNoJest';
+import ErrorBoundary from './common/ErrorBoundary';
 import {CurrentCoordinatesProvider} from './CurrentCoordinatesContext';
-import ErrorBoundary from './ErrorBoundary';
 import AppHeader from './header/AppHeader';
 import DataSelector from './header/DataSelector';
 import LevelSelector from './header/LevelSelector';
 import LevelInspectorContainer from './LevelInspectorContainer';
 import LoadingBigBanner from './LoadingBigBanner';
 import type {LevelType} from './types/LevelType';
+import ConsoleNoJest from './util/ConsoleNoJest';
 import WorldMap from './WorldMap';
 
 export default function App(): React$Node {

@@ -1,6 +1,6 @@
 // @flow strict
 
-import CustomFileInput from '../CustomFileInput';
+import CustomFileInput from '../common/CustomFileInput';
 import type {LevelType} from '../types/LevelType';
 import downloadBlob from '../util/downloadBlob';
 
