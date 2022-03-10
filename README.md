@@ -8,7 +8,7 @@ Level viewer and editor for the Chicory: A Colorful Tale game.
 
 Requirements:
 
-- [Node v14+](https://nodejs.org)
+- [Node v16+](https://nodejs.org)
 
 Steps:
 
