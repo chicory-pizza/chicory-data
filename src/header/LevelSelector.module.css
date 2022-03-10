@@ -9,16 +9,10 @@
 }
 
 .label,
-.select,
-.numberInput {
+.select {
 	margin-right: 8px;
 }
 
 .select {
 	width: 300px;
-}
-
-.numberInput {
-	text-align: right;
-	width: 45px;
 }
