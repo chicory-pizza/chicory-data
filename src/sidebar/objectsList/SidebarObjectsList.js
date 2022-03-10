@@ -69,6 +69,7 @@ function SidebarObjectsList(props: Props): React$Node {
 				<button
 					className={styles.rightPadding}
 					disabled={
+						props.levelObjects.length === 0 ||
 						props.objectsListItemsExpanded.length === props.levelObjects.length
 					}
 					onClick={() => {
@@ -82,7 +83,10 @@ function SidebarObjectsList(props: Props): React$Node {
 				</button>
 
 				<button
-					disabled={props.objectsListItemsExpanded.length === 0}
+					disabled={
+						props.levelObjects.length === 0 ||
+						props.objectsListItemsExpanded.length === 0
+					}
 					onClick={() => {
 						setObjectsListItemsExpanded([]);
 					}}
