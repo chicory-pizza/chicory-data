@@ -1,6 +1,5 @@
 // @flow strict
 
-// $FlowFixMe[untyped-import]
 import {decode} from 'base64-arraybuffer';
 // $FlowFixMe[untyped-import]
 import {inflate} from 'pako';
