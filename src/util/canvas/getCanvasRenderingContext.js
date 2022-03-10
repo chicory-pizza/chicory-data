@@ -7,8 +7,6 @@ export default function getCanvasRenderingContext(
 		alpha: false,
 	});
 
-	// $FlowFixMe[prop-missing]
-	ctx.mozImageSmoothingEnabled = false;
 	ctx.imageSmoothingEnabled = false;
 
 	return ctx;
