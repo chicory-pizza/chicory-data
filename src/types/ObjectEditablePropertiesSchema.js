@@ -31,7 +31,7 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objBellLine', [
 	{key: 'num', type: 'NUMBER', default: 3, help: 'how many bells'},
 ]);
 
-OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objBench', [
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objBench_travel', [
 	{key: 'anim', type: 'NUMBER', default: 0, help: 'HIDDEN'},
 ]);
 
@@ -123,6 +123,9 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCaramel', [
 
 OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objChicory', [
 	{key: 'darkfade', type: 'NUMBER', default: 0, help: 'HIDDEN'},
+]);
+
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objChicory_partner', [
 	{key: 'active', type: 'NUMBER', default: 0, help: 'HIDDEN'},
 	{key: 'assist', type: 'NUMBER', default: 0, help: 'HIDDEN'},
 ]);
@@ -243,7 +246,7 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objExitstopper', [
 	{key: 'block_right', type: 'NUMBER', default: 0, help: 'block up?'},
 ]);
 
-OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objFeastbugs', [
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objFeastbugs_gen', [
 	{key: 'fly_num', type: 'NUMBER', default: 10, help: 'fly num'},
 	{key: 'ground_num', type: 'NUMBER', default: 15, help: 'ground num'},
 ]);
@@ -252,10 +255,13 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objFinalboss', [
 	{key: 'anim', type: 'NUMBER', default: 0, help: 'HIDDEN'},
 	{key: 'timer', type: 'NUMBER', default: 0, help: 'HIDDEN'},
 	{key: 'mode_to', type: 'NUMBER', default: 0, help: 'HIDDEN'},
+]);
+
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objFinalboss_death', [
 	{key: 'anim', type: 'NUMBER', default: 0, help: 'HIDDEN'},
 ]);
 
-OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objFinaltree', [
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objFinaltree_arm', [
 	{key: 'spr', type: 'NUMBER', default: 0, help: 'spr'},
 	{key: 'depth', type: 'NUMBER', default: -300, help: 'depthadjust'},
 ]);
@@ -304,7 +310,7 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objForestedge1', [
 	{key: 'grabmaster', type: 'NUMBER', default: 0, help: 'HIDDEN'},
 ]);
 
-OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objFound', [
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objFound_animal', [
 	{key: 'up', type: 'NUMBER', default: 0, help: 'layering to stand on stuff'},
 	{key: 'all', type: 'NUMBER', default: 0, help: 'only after all found'},
 ]);
@@ -456,7 +462,7 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objLostmouse', [
 	{key: 'hop', type: 'NUMBER', default: 0, help: 'HIDDEN'},
 ]);
 
-OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objLost', [
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objLost_animal', [
 	{key: 'attached_object', type: 'NUMBER', default: -1, help: 'ATTACH'},
 	{key: 'jumper', type: 'NUMBER', default: 0, help: 'jump'},
 ]);
@@ -475,7 +481,7 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objMapreplay', [
 	{key: 'done', type: 'NUMBER', default: 0, help: 'HIDDEN'},
 ]);
 
-OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objMusic', [
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objMusic_temp_transition', [
 	{key: 'param', type: 'NUMBER', default: 100, help: 'set param to...'},
 	{key: 'time', type: 'NUMBER', default: 3, help: 'set param to...'},
 ]);
@@ -499,7 +505,7 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objPhonebooth', [
 	{key: 'ringing', type: 'NUMBER', default: 0, help: 'HIDDEN'},
 ]);
 
-OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objPhoto', [
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objPhoto_capture', [
 	{
 		key: 'data',
 		type: 'STRING',
@@ -624,8 +630,11 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objRiser', [
 	},
 ]);
 
-OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objRockbug', [
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objRockbug_attractor', [
 	{key: 'dist', type: 'NUMBER', default: 150, help: 'range 4 bugz'},
+]);
+
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objRockbug', [
 	{
 		key: 'paint_search',
 		type: 'NUMBER',
@@ -745,7 +754,7 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objSwimzone', [
 	{key: 'height', type: 'NUMBER', default: 64, help: 'height'},
 ]);
 
-OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objTemple', [
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objTemple_music', [
 	{key: 'level', type: 'NUMBER', default: 1, help: '1, 2 or 3'},
 ]);
 
@@ -758,7 +767,7 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objTreegrow', [
 	{key: 'brush', type: 'NUMBER', default: 0, help: 'HIDDEN'},
 ]);
 
-OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objVine', [
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objVine_ride', [
 	{key: 'attached_object', type: 'NUMBER', default: -1, help: 'POINT_TO'},
 ]);
 
