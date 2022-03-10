@@ -1,14 +1,3 @@
-.modalTitleBar {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: 20px;
-}
-
-.modalTitleText {
-	font-size: 1.5em;
-}
-
 .content {
 	display: flex;
 	flex-direction: row;

@@ -1,0 +1,11 @@
+.titleBar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.titleText {
+	font-size: 1.5em;
+	margin-right: 20px;
+}
