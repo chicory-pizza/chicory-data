@@ -3,6 +3,12 @@
 
 module.exports = (app) => {
 	app.use((req, res, next) => {
+		// https://github.com/w3c/webappsec-csp/issues/7
+		const host = req.hostname + ':' + req.socket.localPort;
+		const userAgent = req.get('User-Agent');
+		const isSafari =
+			userAgent.includes('Safari/') && !userAgent.includes('Chrome/');
+
 		// Keep this in sync with /public/_headers
 		const headers = [
 			['X-Powered-By', 'Picnic'],
@@ -18,9 +24,16 @@ module.exports = (app) => {
 				[
 					"default-src 'self'",
 					"script-src 'self'",
-					"connect-src 'self'",
+					[
+						'connect-src',
+						"'self'",
+						// For webpack dev server
+						isSafari ? (req.secure ? 'wss' : 'ws') + '://' + host : '',
+					].join(' '),
+
 					// unsafe-inline: For react-select (https://github.com/JedWatson/react-select/issues/2030)
 					"style-src 'self' 'unsafe-inline'",
+
 					// data: Inline images
 					// blob: Read images to canvas for terrain editor
 					"img-src 'self' data: blob:",
