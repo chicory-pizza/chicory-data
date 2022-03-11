@@ -2,12 +2,13 @@
 
 import {encode} from 'base64-arraybuffer';
 // $FlowFixMe[untyped-import]
+import {fileOpen, fileSave} from 'browser-fs-access';
+// $FlowFixMe[untyped-import]
 import {deflate} from 'pako';
 import {Fragment, useState} from 'react';
 // $FlowFixMe[untyped-import]
 import tinycolor from 'tinycolor2';
 
-import CustomFileInput from '../common/CustomFileInput';
 import CustomModal from '../common/CustomModal';
 import ErrorMessage from '../common/ErrorMessage';
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
@@ -22,7 +23,6 @@ import type {LevelType} from '../types/LevelType';
 import drawGeoToCanvas from '../util/canvas/drawGeoToCanvas';
 import getCanvasRenderingContext from '../util/canvas/getCanvasRenderingContext';
 import decodeGeoString from '../util/decodeGeoString';
-import downloadBlob from '../util/downloadBlob';
 
 import styles from './LevelTerrainEditorModal.module.css';
 
@@ -69,22 +69,16 @@ type Props = $ReadOnly<{
 
 export default function LevelTerrainEditorModal(props: Props): React$Node {
 	const [currentCoordinates] = useCurrentCoordinates();
-
-	const [fileInputUsageCount, setFileInputUsageCount] = useState(0);
 	const [errorMessage, setErrorMessage] = useState<?string>(null);
 
-	function onFileLoad(ev: SyntheticEvent<HTMLInputElement>) {
-		const file = ev.currentTarget.files[0];
-		if (!file) {
-			return;
-		}
+	async function openFile() {
+		const blob = await fileOpen({
+			extensions: ['.png'],
+		});
 
 		setErrorMessage(null);
 
-		// Force clear the file input
-		setFileInputUsageCount(fileInputUsageCount + 1);
-
-		if (file.name.endsWith('.jpg') || file.name.endsWith('.jpeg')) {
+		if (blob.type === 'image/jpeg') {
 			setErrorMessage(
 				"Please don't use JPEG, it is likely to lose precise color info"
 			);
@@ -152,7 +146,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 		img.onerror = () => {
 			setErrorMessage('There was a problem loading the image');
 		};
-		img.src = URL.createObjectURL(file);
+		img.src = URL.createObjectURL(blob);
 	}
 
 	function saveFile() {
@@ -168,10 +162,10 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 		});
 
 		canvas.toBlob((blob) => {
-			downloadBlob(
-				blob,
-				`Level terrain for ${currentCoordinates[0]}, ${currentCoordinates[1]}, ${currentCoordinates[2]}.png`
-			);
+			fileSave(blob, {
+				fileName: `Level Geometry (${currentCoordinates[0]}_${currentCoordinates[1]}_${currentCoordinates[2]})`,
+				extensions: ['.png'],
+			});
 		});
 	}
 
@@ -263,15 +257,9 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 					<p className={styles.explanation}>Then load your image:</p>
 
 					<div className={styles.fileInput}>
-						<CustomFileInput
-							accept=".png"
-							key={fileInputUsageCount}
-							onChange={onFileLoad}
-						>
-							<button type="button" tabIndex={-1}>
-								Load image
-							</button>
-						</CustomFileInput>
+						<button type="button" onClick={openFile}>
+							Load image
+						</button>
 					</div>
 
 					{errorMessage != null ? (
