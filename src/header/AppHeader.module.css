@@ -28,17 +28,27 @@
 	flex-grow: 1;
 }
 
-.githubLink {
+.websiteLink {
 	opacity: 0.6;
-	padding-left: 8px;
+	margin-left: 8px;
 }
 
-.githubLink:hover {
+.websiteLink:hover,
+.websiteLink:active,
+.websiteLink:focus {
 	opacity: 1;
 }
 
+.discordIcon,
 .githubIcon {
-	width: 24px;
-	height: 24px;
-	fill: #000;
+	width: 20px;
+	height: 20px;
+	display: block;
+	fill: #171515;
+}
+
+.websiteLink:hover .discordIcon,
+.websiteLink:active .discordIcon,
+.websiteLink:focus .discordIcon {
+	fill: #5865f2;
 }
