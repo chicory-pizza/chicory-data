@@ -23,6 +23,7 @@ import {
 import type {LevelType} from '../types/LevelType';
 import decodeGeoString from '../util/decodeGeoString';
 import drawGeoToCanvas from '../util/drawGeoToCanvas';
+import {useWorldDataNonNullable} from '../WorldDataContext';
 
 import styles from './LevelTerrainEditorModal.module.css';
 
@@ -64,11 +65,12 @@ type Props = $ReadOnly<{
 	isOpen: boolean,
 	level: LevelType,
 	onModalRequestClose: () => void,
-	onNewGeoLoaded: (geo: string) => mixed,
 }>;
 
 export default function LevelTerrainEditorModal(props: Props): React$Node {
 	const [currentCoordinates] = useCurrentCoordinates();
+	const [, dispatch] = useWorldDataNonNullable();
+
 	const [errorMessage, setErrorMessage] = useState<?string>(null);
 
 	async function openFile() {
@@ -136,7 +138,13 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 
 				const encoded = new Uint8Array(pixels);
 				const deflated = deflate(encoded);
-				props.onNewGeoLoaded(encode(deflated));
+
+				dispatch({
+					type: 'setLevelProperty',
+					coordinates: currentCoordinates,
+					key: 'geo',
+					value: encode(deflated),
+				});
 				props.onModalRequestClose();
 			} catch (ex) {
 				setErrorMessage(ex.message);

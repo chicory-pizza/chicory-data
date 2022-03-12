@@ -61,10 +61,9 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 				} else if (propertyType?.type === 'ENUM') {
 					input = (
 						<PropertySelectInput
-							onChange={(newValue) => {
-								props.onEditProperty(propertyKey, newValue.value);
-							}}
+							onEditProperty={props.onEditProperty}
 							options={propertyType.options}
+							propertyKey={propertyKey}
 							value={props.properties[propertyKey]}
 						/>
 					);

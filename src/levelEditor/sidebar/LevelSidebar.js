@@ -17,8 +17,6 @@ type Props = $ReadOnly<{
 	objectIndexHover: ?number,
 	objectsListItemsExpanded: Array<number>,
 	onAddingObjectEntity: (entity: GameObjectEntityType) => mixed,
-	onLevelDelete: () => mixed,
-	onLevelEditProperty: (key: string, value: string | number) => mixed,
 	onObjectDelete: (objectIndex: number) => mixed,
 	onObjectEditProperty: (
 		objectIndex: number,
@@ -49,11 +47,7 @@ export default function LevelSidebar(props: Props): React$Node {
 
 			<div className={styles.group + ' ' + styles.properties}>
 				<ErrorBoundary>
-					<SidebarLevelProperties
-						level={props.level}
-						onLevelDelete={props.onLevelDelete}
-						onLevelEditProperty={props.onLevelEditProperty}
-					/>
+					<SidebarLevelProperties level={props.level} />
 
 					<SidebarObjectsList
 						levelObjects={props.level.objects ?? []}

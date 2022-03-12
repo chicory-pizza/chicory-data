@@ -2,13 +2,18 @@
 
 import {useCurrentCoordinates} from './CurrentCoordinatesContext';
 import styles from './LevelNotExist.module.css';
+import {useWorldDataNonNullable} from './WorldDataContext';
 
-type Props = $ReadOnly<{
-	onCreateButtonClick: () => mixed,
-}>;
-
-export default function LevelNotExist(props: Props): React$Node {
+export default function LevelNotExist(): React$Node {
 	const [currentCoordinates] = useCurrentCoordinates();
+	const [, dispatch] = useWorldDataNonNullable();
+
+	function onCreateButtonClick() {
+		dispatch({
+			type: 'newBlankLevel',
+			coordinates: currentCoordinates,
+		});
+	}
 
 	return (
 		<div className={styles.root}>
@@ -17,7 +22,7 @@ export default function LevelNotExist(props: Props): React$Node {
 				{currentCoordinates[2]} doesn{"'"}t exist
 			</div>
 
-			<button type="button" onClick={props.onCreateButtonClick}>
+			<button type="button" onClick={onCreateButtonClick}>
 				Create
 			</button>
 		</div>

@@ -22,7 +22,7 @@ type Props = $ReadOnly<{
 }>;
 
 export default function DuplicateLevelModal(props: Props): React$Node {
-	const [worldData, setWorldData] = useWorldDataNonNullable();
+	const [worldData, dispatch] = useWorldDataNonNullable();
 	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
 
 	const [draftCoordinates, setDraftCoordinates] = useState<
@@ -71,10 +71,10 @@ export default function DuplicateLevelModal(props: Props): React$Node {
 			return;
 		}
 
-		setWorldData({
-			...worldData,
-			[convertCoordinatesToLevelId(newCoordinates)]:
-				worldData[convertCoordinatesToLevelId(currentCoordinates)],
+		dispatch({
+			type: 'duplicateLevel',
+			from: currentCoordinates,
+			to: newCoordinates,
 		});
 
 		setNewCoordinates(newCoordinates);

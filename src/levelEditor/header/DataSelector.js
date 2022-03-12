@@ -9,7 +9,7 @@ import {useWorldData} from '../WorldDataContext';
 import styles from './DataSelector.module.css';
 
 export default function DataSelector(): React$Node {
-	const [worldData, setWorldData] = useWorldData();
+	const [worldData, dispatch] = useWorldData();
 
 	const saveFileHandleRef = useRef(null);
 
@@ -34,7 +34,10 @@ export default function DataSelector(): React$Node {
 				return;
 			}
 
-			setWorldData(result);
+			dispatch({
+				type: 'setWorldData',
+				worldData: result,
+			});
 		};
 		reader.onerror = (ex) => {
 			console.error(ex);

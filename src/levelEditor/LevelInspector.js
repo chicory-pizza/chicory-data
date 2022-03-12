@@ -10,21 +10,18 @@ import LevelPreview from './preview/LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
 import type {GameObjectEntityType} from './types/GameObjectEntityType';
 import type {LevelType} from './types/LevelType';
+import {useWorldDataNonNullable} from './WorldDataContext';
 
 type Props = $ReadOnly<{
 	currentCoordinates: [number, number, number],
 	level: LevelType,
-	setSingleLevelData: (newLevelData: ?LevelType) => mixed,
 }>;
 
 export default function LevelInspector({
 	currentCoordinates,
 	level,
-	setSingleLevelData,
 }: Props): React$Node {
-	useEffect(() => {
-		ConsoleNoJest.log(level);
-	}, [level]);
+	const [, dispatch] = useWorldDataNonNullable();
 
 	const [addingObjectEntity, setAddingObjectEntity] =
 		useState<?GameObjectEntityType>(null);
@@ -41,18 +38,21 @@ export default function LevelInspector({
 		setSidebarObjectsListItemsExpanded([]);
 	}, [currentCoordinates]);
 
+	useEffect(() => {
+		ConsoleNoJest.log(level);
+	}, [level]);
+
 	function onMapMouseClick(ev: SyntheticMouseEvent<>) {
 		if (addingObjectEntity == null || mapMouseMoveCoordinates == null) {
 			return;
 		}
 
-		setSingleLevelData({
-			...level,
-			objects: (level.objects ?? []).concat({
-				obj: addingObjectEntity,
-				x: mapMouseMoveCoordinates[0],
-				y: mapMouseMoveCoordinates[1],
-			}),
+		dispatch({
+			type: 'addObjectToLevel',
+			coordinates: currentCoordinates,
+			objectEntity: addingObjectEntity,
+			x: mapMouseMoveCoordinates[0],
+			y: mapMouseMoveCoordinates[1],
 		});
 
 		if (!ev.shiftKey) {
@@ -79,24 +79,6 @@ export default function LevelInspector({
 		[setMapMouseMoveCoordinates]
 	);
 
-	const onLevelDelete = useCallback(() => {
-		setSingleLevelData(null);
-	}, [setSingleLevelData]);
-
-	const onLevelEditProperty = useCallback(
-		(key: string, value: string | number) => {
-			if (level[key] === value || (value === '' && level[key] == null)) {
-				return;
-			}
-
-			setSingleLevelData({
-				...level,
-				[key]: value,
-			});
-		},
-		[level, setSingleLevelData]
-	);
-
 	const onObjectClick = useCallback(
 		(objectIndex: number) => {
 			if (sidebarObjectsListItemsExpanded.includes(objectIndex)) {
@@ -113,16 +95,10 @@ export default function LevelInspector({
 
 	const onObjectDelete = useCallback(
 		(objectIndex: number) => {
-			const levelObjects = level.objects;
-			if (levelObjects == null) {
-				return;
-			}
-
-			setSingleLevelData({
-				...level,
-				objects: levelObjects
-					.slice(0, objectIndex)
-					.concat(levelObjects.slice(objectIndex + 1)),
+			dispatch({
+				type: 'deleteObjectOnLevel',
+				coordinates: currentCoordinates,
+				objectIndex,
 			});
 
 			if (sidebarObjectsListItemsExpanded.includes(objectIndex)) {
@@ -133,7 +109,7 @@ export default function LevelInspector({
 				);
 			}
 		},
-		[level, setSingleLevelData, sidebarObjectsListItemsExpanded]
+		[currentCoordinates, dispatch, sidebarObjectsListItemsExpanded]
 	);
 
 	const onObjectEditProperty = useCallback(
@@ -143,18 +119,15 @@ export default function LevelInspector({
 				return;
 			}
 
-			setSingleLevelData({
-				...level,
-				objects: levelObjects
-					.slice(0, objectIndex)
-					.concat({
-						...levelObjects[objectIndex],
-						[key]: value,
-					})
-					.concat(levelObjects.slice(objectIndex + 1)),
+			dispatch({
+				type: 'editObjectPropertyOnLevel',
+				coordinates: currentCoordinates,
+				objectIndex,
+				key,
+				value,
 			});
 		},
-		[level, setSingleLevelData]
+		[currentCoordinates, dispatch, level.objects]
 	);
 
 	return (
@@ -182,8 +155,6 @@ export default function LevelInspector({
 					objectIndexHover={objectIndexHover}
 					objectsListItemsExpanded={sidebarObjectsListItemsExpanded}
 					onAddingObjectEntity={setAddingObjectEntity}
-					onLevelDelete={onLevelDelete}
-					onLevelEditProperty={onLevelEditProperty}
 					onObjectDelete={onObjectDelete}
 					onObjectEditProperty={onObjectEditProperty}
 					onObjectHover={setObjectIndexHover}

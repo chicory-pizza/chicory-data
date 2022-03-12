@@ -11,7 +11,7 @@ type Props = $ReadOnly<{
 }>;
 
 export default function LevelEditorDataLoader(props: Props): React$Node {
-	const [worldData, setWorldData] = useWorldData();
+	const [worldData, dispatch] = useWorldData();
 	const [consoleMessageShown, setConsoleMessageShown] = useState(false);
 
 	useEffect(() => {
@@ -28,11 +28,16 @@ export default function LevelEditorDataLoader(props: Props): React$Node {
 
 	// Do first load
 	useEffect(() => {
-		// $FlowFixMe[untyped-import]
-		import('./level_data.json').then((initialWorldData) =>
-			setWorldData(initialWorldData.default)
-		);
-	}, [setWorldData]);
+		if (worldData == null) {
+			// $FlowFixMe[untyped-import]
+			import('./level_data.json').then((initialWorldData) => {
+				dispatch({
+					type: 'setWorldData',
+					worldData: initialWorldData.default,
+				});
+			});
+		}
+	}, [dispatch, worldData]);
 
 	return props.children;
 }
