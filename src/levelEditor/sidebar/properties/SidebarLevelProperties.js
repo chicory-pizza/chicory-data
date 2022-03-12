@@ -3,9 +3,11 @@
 import {memo, useState} from 'react';
 
 import {useCurrentCoordinates} from '../../CurrentCoordinatesContext';
+import DuplicateLevelModal from '../../duplicateLevel/DuplicateLevelModal';
 import LevelTerrainEditorModal from '../../terrainEditor/LevelTerrainEditorModal';
 import {LEVEL_EDITABLE_PROPERTIES_SCHEMA} from '../../types/LevelEditablePropertiesSchema';
 import type {LevelType} from '../../types/LevelType';
+import getLevelLabel from '../../util/getLevelLabel';
 
 import SidebarEditableProperties from './SidebarEditableProperties';
 import styles from './SidebarLevelProperties.module.css';
@@ -18,12 +20,18 @@ type Props = $ReadOnly<{
 
 function SidebarLevelProperties(props: Props): React$Node {
 	const [currentCoordinates] = useCurrentCoordinates();
-	const [isTerrainEditorOpen, setIsTerrainEditorOpen] = useState(false);
+
+	const [isTerrainEditorModalOpen, setIsTerrainEditorModalOpen] =
+		useState(false);
+	const [isDuplicateLevelModalOpen, setIsDuplicateLevelModalOpen] =
+		useState(false);
 
 	function onDeleteLevelButtonClick() {
 		if (
 			!window.confirm(
-				`Are you sure you want to delete level ${currentCoordinates[0]}, ${currentCoordinates[1]}, ${currentCoordinates[2]}?`
+				'Are you sure you want to delete level ' +
+					getLevelLabel(currentCoordinates, props.level) +
+					'?'
 			)
 		) {
 			return;
@@ -53,10 +61,18 @@ function SidebarLevelProperties(props: Props): React$Node {
 
 				<button
 					className={styles.actionButton}
-					onClick={() => setIsTerrainEditorOpen(true)}
+					onClick={() => setIsTerrainEditorModalOpen(true)}
 					type="button"
 				>
 					Edit terrain
+				</button>
+
+				<button
+					className={styles.actionButton}
+					onClick={() => setIsDuplicateLevelModalOpen(true)}
+					type="button"
+				>
+					Duplicate level
 				</button>
 
 				<button
@@ -69,10 +85,16 @@ function SidebarLevelProperties(props: Props): React$Node {
 			</div>
 
 			<LevelTerrainEditorModal
-				isOpen={isTerrainEditorOpen}
+				isOpen={isTerrainEditorModalOpen}
 				level={props.level}
-				onRequestClose={() => setIsTerrainEditorOpen(false)}
+				onModalRequestClose={() => setIsTerrainEditorModalOpen(false)}
 				onNewGeoLoaded={onNewGeoLoaded}
+			/>
+
+			<DuplicateLevelModal
+				isOpen={isDuplicateLevelModalOpen}
+				level={props.level}
+				onModalRequestClose={() => setIsDuplicateLevelModalOpen(false)}
 			/>
 		</details>
 	);

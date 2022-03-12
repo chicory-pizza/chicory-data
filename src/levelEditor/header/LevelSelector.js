@@ -8,6 +8,7 @@ import LevelLayerNumberInputs from '../common/LevelLayerNumberInputs';
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
 import type {LevelType} from '../types/LevelType';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
+import convertNullableCoordinatesToNonNull from '../util/convertNullableCoordinatesToNonNull';
 import getLevelLabel from '../util/getLevelLabel';
 import {useWorldDataNonNullable} from '../WorldDataContext';
 
@@ -61,17 +62,14 @@ export default function LevelSelector(): React$Node {
 	function changeLevelByNumberInput(ev: SyntheticEvent<HTMLFormElement>) {
 		ev.preventDefault();
 
-		if (
-			draftCoordinates[0] != null &&
-			draftCoordinates[1] != null &&
-			draftCoordinates[2] != null
-		) {
-			setNewCoordinates([
-				draftCoordinates[0],
-				draftCoordinates[1],
-				draftCoordinates[2],
-			]);
+		const newCoordinates =
+			convertNullableCoordinatesToNonNull(draftCoordinates);
+		if (newCoordinates == null) {
+			alert('Please enter the coordinates.');
+			return;
 		}
+
+		setNewCoordinates(newCoordinates);
 	}
 
 	return (

@@ -1,0 +1,133 @@
+// @flow strict
+
+import {useState} from 'react';
+
+import CustomModal from '../../common/CustomModal';
+import ErrorMessage from '../../common/ErrorMessage';
+import LevelLayerNumberInputs from '../common/LevelLayerNumberInputs';
+import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
+import type {LevelType} from '../types/LevelType';
+import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
+import convertNullableCoordinatesToNonNull from '../util/convertNullableCoordinatesToNonNull';
+import getLevelLabel from '../util/getLevelLabel';
+import isSameCoordinates from '../util/isSameCoordinates';
+import {useWorldDataNonNullable} from '../WorldDataContext';
+
+import styles from './DuplicateLevelModal.module.css';
+
+type Props = $ReadOnly<{
+	isOpen: boolean,
+	level: LevelType,
+	onModalRequestClose: () => void,
+}>;
+
+export default function DuplicateLevelModal(props: Props): React$Node {
+	const [worldData, setWorldData] = useWorldDataNonNullable();
+	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
+
+	const [draftCoordinates, setDraftCoordinates] = useState<
+		[?number, ?number, ?number]
+	>([currentCoordinates[0], currentCoordinates[1], currentCoordinates[2]]);
+	const [prevCoordinates, setPrevCoordinates] = useState(currentCoordinates);
+
+	const [errorMessage, setErrorMessage] = useState<?string>(null);
+
+	if (currentCoordinates !== prevCoordinates) {
+		setDraftCoordinates([
+			currentCoordinates[0],
+			currentCoordinates[1],
+			currentCoordinates[2],
+		]);
+		setPrevCoordinates(currentCoordinates);
+	}
+
+	const draftCoordinatesNonNull =
+		convertNullableCoordinatesToNonNull(draftCoordinates);
+	const goingToOverwriteExisting =
+		draftCoordinatesNonNull != null &&
+		!isSameCoordinates(currentCoordinates, draftCoordinatesNonNull) &&
+		worldData[convertCoordinatesToLevelId(draftCoordinatesNonNull)] != null;
+
+	function onFormSubmit(ev: SyntheticEvent<HTMLFormElement>) {
+		ev.preventDefault();
+
+		setErrorMessage(null);
+
+		const newCoordinates =
+			convertNullableCoordinatesToNonNull(draftCoordinates);
+		if (newCoordinates == null) {
+			setErrorMessage('Please enter the coordinates');
+			return;
+		}
+
+		if (
+			newCoordinates[0] === currentCoordinates[0] &&
+			newCoordinates[1] === currentCoordinates[1] &&
+			newCoordinates[2] === currentCoordinates[2]
+		) {
+			setErrorMessage(
+				"Silly wielder, there's no reason to duplicate the level to the same coordinates"
+			);
+			return;
+		}
+
+		setWorldData({
+			...worldData,
+			[convertCoordinatesToLevelId(newCoordinates)]:
+				worldData[convertCoordinatesToLevelId(currentCoordinates)],
+		});
+
+		setNewCoordinates(newCoordinates);
+
+		props.onModalRequestClose();
+	}
+
+	return (
+		<CustomModal
+			isOpen={props.isOpen}
+			onRequestClose={props.onModalRequestClose}
+			titleText={
+				'Duplicate level ' + getLevelLabel(currentCoordinates, props.level)
+			}
+		>
+			<p className={styles.explanation}>
+				Enter the new coordinates to copy to:
+			</p>
+
+			<form action="#" onSubmit={onFormSubmit}>
+				<div>
+					<LevelLayerNumberInputs
+						coordinates={draftCoordinates}
+						onNewCoordinatesSet={(newCoordinates) => {
+							setDraftCoordinates(newCoordinates);
+							setErrorMessage(null);
+						}}
+					/>
+				</div>
+
+				<button className={styles.button} type="submit">
+					Duplicate
+				</button>
+			</form>
+
+			<div
+				className={
+					styles.overwriteExistingMessage +
+					' ' +
+					(goingToOverwriteExisting ? styles.visible : '')
+				}
+			>
+				<ErrorMessage
+					message="You are about to overwrite an existing level"
+					type="INFO"
+				/>
+			</div>
+
+			{errorMessage != null ? (
+				<div className={styles.errorMessage}>
+					<ErrorMessage message={errorMessage} />
+				</div>
+			) : null}
+		</CustomModal>
+	);
+}

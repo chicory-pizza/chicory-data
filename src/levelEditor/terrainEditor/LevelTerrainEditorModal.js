@@ -63,7 +63,7 @@ function generateColorsToGameBytes() {
 type Props = $ReadOnly<{
 	isOpen: boolean,
 	level: LevelType,
-	onRequestClose: () => void,
+	onModalRequestClose: () => void,
 	onNewGeoLoaded: (geo: string) => mixed,
 }>;
 
@@ -137,7 +137,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 				const encoded = new Uint8Array(pixels);
 				const deflated = deflate(encoded);
 				props.onNewGeoLoaded(encode(deflated));
-				props.onRequestClose();
+				props.onModalRequestClose();
 			} catch (ex) {
 				setErrorMessage(ex.message);
 				throw ex;
@@ -172,7 +172,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 	return (
 		<CustomModal
 			isOpen={props.isOpen}
-			onRequestClose={props.onRequestClose}
+			onRequestClose={props.onModalRequestClose}
 			titleText="Edit level terrain"
 		>
 			<div className={styles.content}>

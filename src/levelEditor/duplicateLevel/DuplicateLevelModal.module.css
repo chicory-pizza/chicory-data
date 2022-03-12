@@ -1,0 +1,20 @@
+.explanation {
+	margin-bottom: 8px;
+}
+
+.button {
+	margin: 16px 0 0;
+}
+
+.overwriteExistingMessage {
+	margin-top: 16px;
+	visibility: hidden;
+}
+
+.visible {
+	visibility: inherit;
+}
+
+.errorMessage {
+	margin-top: 16px;
+}
