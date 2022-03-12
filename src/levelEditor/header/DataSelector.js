@@ -4,6 +4,7 @@
 import {fileOpen, fileSave} from 'browser-fs-access';
 import {useRef, useState} from 'react';
 
+import LevelEditorBeforeUnloadPrompt from '../LevelEditorBeforeUnloadPrompt';
 import {useWorldData} from '../WorldDataContext';
 
 import DataSaveTimestamp from './DataSaveTimestamp';
@@ -87,6 +88,7 @@ export default function DataSelector(): React$Node {
 			</button>
 
 			<DataSaveTimestamp lastSaveTime={lastSaveTime} />
+			<LevelEditorBeforeUnloadPrompt lastSaveTime={lastSaveTime} />
 		</div>
 	);
 }
