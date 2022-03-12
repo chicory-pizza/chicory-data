@@ -3,10 +3,22 @@
 import {memo, useState} from 'react';
 
 import CustomSelect from '../../common/CustomSelect';
-import {GAME_OBJECT_ENTITIES} from '../types/GameObjectEntities';
+import type {OptionType} from '../../common/CustomSelect';
+import {
+	GAME_OBJECT_ENTITIES,
+	GAME_OBJECT_ENTITIES_ADVANCED,
+	GAME_OBJECT_ENTITIES_CRASH,
+} from '../types/GameObjectEntities';
 import type {GameObjectEntityType} from '../types/GameObjectEntityType';
 
 import styles from './SidebarObjectAdder.module.css';
+
+function gameObjectEntityTypeToOption(entity: GameObjectEntityType) {
+	return {
+		label: entity.slice('obj'.length),
+		value: entity,
+	};
+}
 
 type Props = $ReadOnly<{
 	onAddingObjectEntity: (entity: GameObjectEntityType) => mixed,
@@ -15,12 +27,23 @@ type Props = $ReadOnly<{
 function SidebarObjectAdder(props: Props): React$Node {
 	const [selected, setSelected] = useState(null);
 
-	const options = GAME_OBJECT_ENTITIES.map((entity) => {
-		return {
-			value: entity,
-			label: entity.slice('obj'.length),
-		};
-	});
+	const options: $ReadOnlyArray<{
+		label: string,
+		options: $ReadOnlyArray<OptionType<GameObjectEntityType>>,
+	}> = [
+		{
+			label: 'Common',
+			options: GAME_OBJECT_ENTITIES.map(gameObjectEntityTypeToOption),
+		},
+		{
+			label: 'Added from game scripts',
+			options: GAME_OBJECT_ENTITIES_ADVANCED.map(gameObjectEntityTypeToOption),
+		},
+		{
+			label: 'Game crash',
+			options: GAME_OBJECT_ENTITIES_CRASH.map(gameObjectEntityTypeToOption),
+		},
+	];
 
 	return (
 		<div className={styles.root}>
