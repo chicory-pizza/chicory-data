@@ -6,5 +6,6 @@
 
 .select {
 	flex-grow: 1;
+	margin-right: 8px;
 	padding: 0 0 0 8px;
 }

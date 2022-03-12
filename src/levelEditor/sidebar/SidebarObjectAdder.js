@@ -1,6 +1,6 @@
 // @flow strict
 
-import {memo, useMemo, useState} from 'react';
+import {memo, useState} from 'react';
 
 import CustomSelect from '../../common/CustomSelect';
 import {GAME_OBJECT_ENTITIES} from '../types/GameObjectEntities';
@@ -15,19 +15,12 @@ type Props = $ReadOnly<{
 function SidebarObjectAdder(props: Props): React$Node {
 	const [selected, setSelected] = useState(null);
 
-	const options = useMemo(() => {
-		return GAME_OBJECT_ENTITIES.map((entity) => {
-			return {
-				value: entity,
-				label: entity.slice('obj'.length),
-			};
-		});
-	}, []);
-
-	function addObject(newOption) {
-		setSelected(newOption);
-		props.onAddingObjectEntity(newOption.value);
-	}
+	const options = GAME_OBJECT_ENTITIES.map((entity) => {
+		return {
+			value: entity,
+			label: entity.slice('obj'.length),
+		};
+	});
 
 	return (
 		<div className={styles.root}>
@@ -35,14 +28,25 @@ function SidebarObjectAdder(props: Props): React$Node {
 			<div className={styles.select}>
 				<CustomSelect
 					maxMenuHeight={300}
-					onChange={addObject}
+					onChange={(newOption) => {
+						setSelected(newOption);
+						props.onAddingObjectEntity(newOption.value);
+					}}
 					options={options}
 					value={selected}
 				/>
 			</div>
-			{/* <button onClick={addObject} disabled={selected == null} type="button">
+			<button
+				disabled={selected == null}
+				onClick={() => {
+					if (selected && selected.value) {
+						props.onAddingObjectEntity(selected.value);
+					}
+				}}
+				type="button"
+			>
 				Add
-			</button> */}
+			</button>
 		</div>
 	);
 }

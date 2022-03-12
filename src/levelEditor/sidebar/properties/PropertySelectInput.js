@@ -1,6 +1,6 @@
 // @flow strict
 
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback} from 'react';
 
 import CustomSelect from '../../../common/CustomSelect';
 
@@ -17,20 +17,16 @@ function PropertySelectInput({
 	propertyKey,
 	value,
 }: Props): React$Node {
-	const selectOptions = useMemo(() => {
-		return options.map((option) => {
-			return {
-				label: option === '' ? '(Blank)' : option,
-				value: option,
-			};
-		});
-	}, [options]);
+	const selectOptions = options.map((option) => {
+		return {
+			label: option === '' ? '(Blank)' : option,
+			value: option,
+		};
+	});
 
-	const selectedValue = useMemo(() => {
-		return selectOptions.find((option) => {
-			return option.value === value;
-		});
-	}, [selectOptions, value]);
+	const selectedValue = selectOptions.find((option) => {
+		return option.value === value;
+	});
 
 	const onChange = useCallback(
 		(newValue) => {
