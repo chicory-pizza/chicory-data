@@ -5,34 +5,31 @@ import LevelInspector from './LevelInspector';
 import LevelNotExist from './LevelNotExist';
 import type {LevelType} from './types/LevelType';
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
+import {useWorldDataNonNullable} from './WorldDataContext';
 
-type Props = $ReadOnly<{
-	levels: {[levelId: string]: LevelType},
-	setWorldData: ({[levelId: string]: LevelType}) => mixed,
-}>;
-
-export default function LevelInspectorContainer(props: Props): React$Node {
+export default function LevelInspectorContainer(): React$Node {
 	const [currentCoordinates] = useCurrentCoordinates();
+	const [worldData, setWorldData] = useWorldDataNonNullable();
 
 	function setSingleLevelData(newLevelData: ?LevelType) {
 		// delete level
 		if (newLevelData == null) {
-			const newLevels = {...props.levels};
+			const newLevels = {...worldData};
 			delete newLevels[convertCoordinatesToLevelId(currentCoordinates)];
-			props.setWorldData(newLevels);
+			setWorldData(newLevels);
 
 			return;
 		}
 
-		props.setWorldData({
-			...props.levels,
+		setWorldData({
+			...worldData,
 			[convertCoordinatesToLevelId(currentCoordinates)]: newLevelData,
 		});
 	}
 
 	function onCreateButtonClick() {
-		props.setWorldData({
-			...props.levels,
+		setWorldData({
+			...worldData,
 			[convertCoordinatesToLevelId(currentCoordinates)]: {
 				ambiance: '-1',
 				objects: [],
@@ -49,7 +46,7 @@ export default function LevelInspectorContainer(props: Props): React$Node {
 		});
 	}
 
-	const level = props.levels[convertCoordinatesToLevelId(currentCoordinates)];
+	const level = worldData[convertCoordinatesToLevelId(currentCoordinates)];
 	if (level == null) {
 		return <LevelNotExist onCreateButtonClick={onCreateButtonClick} />;
 	}

@@ -4,16 +4,13 @@
 import {fileOpen, fileSave} from 'browser-fs-access';
 import {useRef} from 'react';
 
-import type {LevelType} from '../types/LevelType';
+import {useWorldData} from '../WorldDataContext';
 
 import styles from './DataSelector.module.css';
 
-type Props = $ReadOnly<{
-	levels: ?{[levelId: string]: LevelType},
-	onNewLevelsLoad: ({[levelId: string]: LevelType}) => mixed,
-}>;
+export default function DataSelector(): React$Node {
+	const [worldData, setWorldData] = useWorldData();
 
-export default function DataSelector(props: Props): React$Node {
 	const saveFileHandleRef = useRef(null);
 
 	async function openFile() {
@@ -37,7 +34,7 @@ export default function DataSelector(props: Props): React$Node {
 				return;
 			}
 
-			props.onNewLevelsLoad(result);
+			setWorldData(result);
 		};
 		reader.onerror = (ex) => {
 			console.error(ex);
@@ -47,7 +44,7 @@ export default function DataSelector(props: Props): React$Node {
 	}
 
 	async function saveFile() {
-		const blob = new Blob([JSON.stringify(props.levels)]);
+		const blob = new Blob([JSON.stringify(worldData)]);
 		try {
 			saveFileHandleRef.current = await fileSave(
 				blob,
@@ -73,7 +70,7 @@ export default function DataSelector(props: Props): React$Node {
 				</button>
 			</div>
 
-			<button disabled={props.levels == null} type="button" onClick={saveFile}>
+			<button disabled={worldData == null} type="button" onClick={saveFile}>
 				Save
 			</button>
 		</>

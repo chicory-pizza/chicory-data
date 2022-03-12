@@ -34,3 +34,16 @@ export function useWorldData(): [
 
 	return [context.worldData, context.setWorldData];
 }
+
+export function useWorldDataNonNullable(): [
+	WorldType,
+	(newWorldData: ?WorldType) => mixed
+] {
+	const hook = useWorldData();
+
+	if (hook[0] == null) {
+		throw new Error('worldData is null');
+	}
+
+	return [hook[0], hook[1]];
+}

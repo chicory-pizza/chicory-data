@@ -15,7 +15,7 @@ import {useWorldData} from './WorldDataContext';
 import WorldMap from './WorldMap';
 
 export default function LevelEditorUI(): React$Node {
-	const [worldData, setWorldData] = useWorldData();
+	const [worldData] = useWorldData();
 
 	const [drawPreviewsOnWorldMap, setDrawPreviewsOnWorldMap] = useState(false);
 
@@ -24,13 +24,13 @@ export default function LevelEditorUI(): React$Node {
 			<AppHeader
 				dataSelector={
 					<ErrorBoundary>
-						<DataSelector levels={worldData} onNewLevelsLoad={setWorldData} />
+						<DataSelector />
 					</ErrorBoundary>
 				}
 				levelSelector={
 					worldData ? (
 						<ErrorBoundary>
-							<LevelSelector levels={worldData} />
+							<LevelSelector />
 						</ErrorBoundary>
 					) : null
 				}
@@ -50,16 +50,13 @@ export default function LevelEditorUI(): React$Node {
 
 			{worldData != null ? (
 				<ErrorBoundary>
-					<WorldMap drawPreviews={drawPreviewsOnWorldMap} levels={worldData} />
+					<WorldMap drawPreviews={drawPreviewsOnWorldMap} />
 				</ErrorBoundary>
 			) : null}
 
 			{worldData != null ? (
 				<ErrorBoundary>
-					<LevelInspectorContainer
-						levels={worldData}
-						setWorldData={setWorldData}
-					/>
+					<LevelInspectorContainer />
 				</ErrorBoundary>
 			) : null}
 

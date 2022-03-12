@@ -9,37 +9,34 @@ import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
 import type {LevelType} from '../types/LevelType';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 import getLevelLabel from '../util/getLevelLabel';
+import {useWorldDataNonNullable} from '../WorldDataContext';
 
 import styles from './LevelSelector.module.css';
 
-type Props = $ReadOnly<{
-	levels: {[levelId: string]: LevelType},
-}>;
-
-export default function LevelSelector(props: Props): React$Node {
+export default function LevelSelector(): React$Node {
+	const [worldData] = useWorldDataNonNullable();
 	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
 
-	const levelsWithPlaceholder: {+[levelId: string]: ?LevelType} =
-		useMemo(() => {
-			const currentLevelId = convertCoordinatesToLevelId(currentCoordinates);
-			const currentLevel = props.levels[currentLevelId];
-			if (currentLevel != null) {
-				return props.levels;
-			}
+	const levelsWithPlaceholder = useMemo(() => {
+		const currentLevelId = convertCoordinatesToLevelId(currentCoordinates);
+		const currentLevel = worldData[currentLevelId];
+		if (currentLevel != null) {
+			return worldData;
+		}
 
-			return {
-				...props.levels,
-				[currentLevelId]: null,
-			};
-		}, [currentCoordinates, props.levels]);
+		return {
+			...worldData,
+			[currentLevelId]: null,
+		};
+	}, [currentCoordinates, worldData]);
 
 	// Change title
 	useEffect(() => {
 		const level: ?LevelType =
-			props.levels[convertCoordinatesToLevelId(currentCoordinates)];
+			worldData[convertCoordinatesToLevelId(currentCoordinates)];
 
 		changeDocumentTitle(getLevelLabel(currentCoordinates, level));
-	}, [currentCoordinates, props.levels]);
+	}, [currentCoordinates, worldData]);
 
 	// Inputs
 	const [draftCoordinates, setDraftCoordinates] = useState<

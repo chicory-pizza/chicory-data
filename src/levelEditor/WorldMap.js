@@ -10,6 +10,7 @@ import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
 import isSameCoordinates from './util/isSameCoordinates';
 import sortCompareCoordinates from './util/sortCompareCoordinates';
+import {useWorldDataNonNullable} from './WorldDataContext';
 import styles from './WorldMap.module.css';
 
 const WIDTH = GEO_WIDTH;
@@ -17,10 +18,10 @@ const HEIGHT = GEO_HEIGHT;
 
 type Props = $ReadOnly<{
 	drawPreviews: boolean,
-	levels: {[levelId: string]: LevelType},
 }>;
 
 export default function WorldMap(props: Props): React$Node {
+	const [worldData] = useWorldDataNonNullable();
 	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
 
 	const currentBox = useRef<?HTMLButtonElement>(null);
@@ -28,14 +29,18 @@ export default function WorldMap(props: Props): React$Node {
 	let minX = 0;
 	let minY = 0;
 
-	const levels = Object.keys(props.levels)
+	const maybePlaceholderLevelId =
+		convertCoordinatesToLevelId(currentCoordinates);
+	const levels = Object.keys(worldData)
 		.concat(
-			props.levels[convertCoordinatesToLevelId(currentCoordinates)] == null
-				? [convertCoordinatesToLevelId(currentCoordinates)]
+			worldData[maybePlaceholderLevelId] == null
+				? [maybePlaceholderLevelId]
 				: []
 		)
 		.map((levelId) => {
 			const coordinates = convertLevelIdToCoordinates(levelId);
+
+			// check layer
 			if (coordinates[0] !== currentCoordinates[0]) {
 				return null;
 			}
@@ -65,7 +70,7 @@ export default function WorldMap(props: Props): React$Node {
 		>
 			{levels.map((coordinates) => {
 				const levelId = convertCoordinatesToLevelId(coordinates);
-				const level: ?LevelType = props.levels[levelId];
+				const level: ?LevelType = worldData[levelId];
 
 				const isSame = isSameCoordinates(currentCoordinates, coordinates);
 
