@@ -102,10 +102,15 @@ export default function DuplicateLevelModal(props: Props): React$Node {
 							setDraftCoordinates(newCoordinates);
 							setErrorMessage(null);
 						}}
+						testIdPrefix="duplicatelevelmodal"
 					/>
 				</div>
 
-				<button className={styles.button} type="submit">
+				<button
+					className={styles.button}
+					data-testid="duplicatelevelmodal-submit"
+					type="submit"
+				>
 					Duplicate
 				</button>
 			</form>

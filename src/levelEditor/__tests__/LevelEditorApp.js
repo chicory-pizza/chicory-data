@@ -10,9 +10,7 @@ test('renders the UI', async () => {
 		expect(screen.getByText(/Load custom level_data/)).toBeInTheDocument();
 	});
 
-	await waitFor(() => {
-		expect(screen.getByTestId('worldmap-active')).toHaveTextContent('0, 0');
-	});
+	expect(screen.getByTestId('worldmap-active')).toHaveTextContent('0, 0');
 });
 
 test('changing the level using the 3 number inputs', async () => {
