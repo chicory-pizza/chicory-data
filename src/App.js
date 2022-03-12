@@ -4,15 +4,15 @@ import {useEffect, useState} from 'react';
 
 import styles from './App.module.css';
 import ErrorBoundary from './common/ErrorBoundary';
-import {CurrentCoordinatesProvider} from './CurrentCoordinatesContext';
 import AppHeader from './header/AppHeader';
-import DataSelector from './header/DataSelector';
-import LevelSelector from './header/LevelSelector';
-import LevelInspectorContainer from './LevelInspectorContainer';
+import {CurrentCoordinatesProvider} from './levelEditor/CurrentCoordinatesContext';
+import DataSelector from './levelEditor/header/DataSelector';
+import LevelSelector from './levelEditor/header/LevelSelector';
+import LevelInspectorContainer from './levelEditor/LevelInspectorContainer';
+import type {LevelType} from './levelEditor/types/LevelType';
+import WorldMap from './levelEditor/WorldMap';
 import LoadingBigBanner from './LoadingBigBanner';
-import type {LevelType} from './types/LevelType';
 import ConsoleNoJest from './util/ConsoleNoJest';
-import WorldMap from './WorldMap';
 
 export default function App(): React$Node {
 	const [levelsData, setLevelsData] =
@@ -29,7 +29,7 @@ export default function App(): React$Node {
 
 	useEffect(() => {
 		// $FlowFixMe[untyped-import]
-		import('./level_data.json').then((initialLevelsData) =>
+		import('./levelEditor/level_data.json').then((initialLevelsData) =>
 			setLevelsData(initialLevelsData.default)
 		);
 	}, []);

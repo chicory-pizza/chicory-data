@@ -2,7 +2,7 @@
 
 import {memo, useMemo, useState} from 'react';
 
-import CustomSelect from '../common/CustomSelect';
+import CustomSelect from '../../common/CustomSelect';
 import {GAME_OBJECT_ENTITIES} from '../types/GameObjectEntities';
 import type {GameObjectEntityType} from '../types/GameObjectEntityType';
 

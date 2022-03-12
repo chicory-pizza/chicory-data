@@ -9,8 +9,10 @@ import {Fragment, useState} from 'react';
 // $FlowFixMe[untyped-import]
 import tinycolor from 'tinycolor2';
 
-import CustomModal from '../common/CustomModal';
-import ErrorMessage from '../common/ErrorMessage';
+import CustomModal from '../../common/CustomModal';
+import ErrorMessage from '../../common/ErrorMessage';
+import getCanvasRenderingContext from '../../util/getCanvasRenderingContext';
+import GeoPreview from '../common/GeoPreview';
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
 import {
 	GEO_HEIGHT,
@@ -18,11 +20,9 @@ import {
 	PIXEL_COLORS,
 	PIXEL_COLORS_EXPLANATIONS,
 } from '../GeoConstants';
-import GeoPreview from '../GeoPreview';
 import type {LevelType} from '../types/LevelType';
-import drawGeoToCanvas from '../util/canvas/drawGeoToCanvas';
-import getCanvasRenderingContext from '../util/canvas/getCanvasRenderingContext';
 import decodeGeoString from '../util/decodeGeoString';
+import drawGeoToCanvas from '../util/drawGeoToCanvas';
 
 import styles from './LevelTerrainEditorModal.module.css';
 

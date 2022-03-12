@@ -2,11 +2,11 @@
 
 import {useEffect, useMemo, useState} from 'react';
 
+import changeDocumentTitle from '../../util/changeDocumentTitle';
 import LevelLayerDropdownSelect from '../common/LevelLayerDropdownSelect';
 import LevelLayerNumberInputs from '../common/LevelLayerNumberInputs';
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
 import type {LevelType} from '../types/LevelType';
-import changeDocumentTitle from '../util/changeDocumentTitle';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 import getLevelLabel from '../util/getLevelLabel';
 

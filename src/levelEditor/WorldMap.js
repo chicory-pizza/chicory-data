@@ -2,9 +2,9 @@
 
 import {useEffect, useRef} from 'react';
 
+import GeoPreview from './common/GeoPreview';
 import {useCurrentCoordinates} from './CurrentCoordinatesContext';
 import {GEO_HEIGHT, GEO_WIDTH} from './GeoConstants';
-import GeoPreview from './GeoPreview';
 import type {LevelType} from './types/LevelType';
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';

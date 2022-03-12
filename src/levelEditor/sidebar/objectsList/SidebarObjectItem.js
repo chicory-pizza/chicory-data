@@ -2,15 +2,15 @@
 
 import {memo, useEffect, useRef} from 'react';
 
-import CloseButton from '../../common/CloseButton';
+import CloseButton from '../../../common/CloseButton';
+import usePrevious from '../../../util/usePrevious';
 import type {GameObjectType} from '../../types/GameObjectType';
 import {OBJECT_EDITABLE_PROPERTIES_SCHEMA} from '../../types/ObjectEditablePropertiesSchema';
-import usePrevious from '../../util/usePrevious';
 import PropertyNumberInput from '../properties/PropertyNumberInput';
 import SidebarEditableProperties from '../properties/SidebarEditableProperties';
-import SidebarObjectText from '../SidebarObjectText';
 
 import styles from './SidebarObjectsItem.module.css';
+import SidebarObjectText from './SidebarObjectText';
 
 type Props = $ReadOnly<{
 	expanded: boolean,

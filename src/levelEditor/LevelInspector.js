@@ -2,13 +2,14 @@
 
 import {useCallback, useEffect, useState} from 'react';
 
-import ErrorBoundary from './common/ErrorBoundary';
+import ErrorBoundary from '../common/ErrorBoundary';
+import ConsoleNoJest from '../util/ConsoleNoJest';
+
 import styles from './LevelInspector.module.css';
-import LevelPreview from './LevelPreview';
+import LevelPreview from './preview/LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
 import type {GameObjectEntityType} from './types/GameObjectEntityType';
 import type {LevelType} from './types/LevelType';
-import ConsoleNoJest from './util/ConsoleNoJest';
 
 type Props = $ReadOnly<{
 	currentCoordinates: [number, number, number],

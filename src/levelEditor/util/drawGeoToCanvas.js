@@ -1,6 +1,6 @@
 // @flow strict
 
-import {GEO_WIDTH, PIXEL_COLORS} from '../../GeoConstants';
+import {GEO_WIDTH, PIXEL_COLORS} from '../GeoConstants';
 
 export default function drawGeoToCanvas({
 	canvas,

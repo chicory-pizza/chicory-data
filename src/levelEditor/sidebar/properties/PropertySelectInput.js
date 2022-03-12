@@ -1,7 +1,7 @@
 // @flow strict
 
-import type {OptionType} from '../../common/CustomSelect';
-import CustomSelect from '../../common/CustomSelect';
+import type {OptionType} from '../../../common/CustomSelect';
+import CustomSelect from '../../../common/CustomSelect';
 
 type Props = $ReadOnly<{
 	onChange: (newValue: OptionType<string>) => mixed,

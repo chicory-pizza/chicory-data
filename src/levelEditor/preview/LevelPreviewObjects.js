@@ -2,8 +2,9 @@
 
 import {memo} from 'react';
 
+import type {LevelType} from '../types/LevelType';
+
 import styles from './LevelPreviewObjects.module.css';
-import type {LevelType} from './types/LevelType';
 
 type Props = $ReadOnly<{
 	level: LevelType,

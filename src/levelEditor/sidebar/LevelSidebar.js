@@ -1,7 +1,7 @@
 // @flow strict
 
-import ErrorBoundary from '../common/ErrorBoundary';
-import GeoPreview from '../GeoPreview';
+import ErrorBoundary from '../../common/ErrorBoundary';
+import GeoPreview from '../common/GeoPreview';
 import type {GameObjectEntityType} from '../types/GameObjectEntityType';
 import type {LevelType} from '../types/LevelType';
 

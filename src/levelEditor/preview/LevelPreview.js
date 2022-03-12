@@ -1,11 +1,12 @@
 // @flow strict
 
-import {GEO_WIDTH} from './GeoConstants';
-import GeoPreview, {SCREEN_WIDTH} from './GeoPreview';
+import GeoPreview, {SCREEN_WIDTH} from '../common/GeoPreview';
+import {GEO_WIDTH} from '../GeoConstants';
+import type {GameObjectEntityType} from '../types/GameObjectEntityType';
+import type {LevelType} from '../types/LevelType';
+
 import styles from './LevelPreview.module.css';
 import LevelPreviewObjects from './LevelPreviewObjects';
-import type {GameObjectEntityType} from './types/GameObjectEntityType';
-import type {LevelType} from './types/LevelType';
 
 type Props = $ReadOnly<{
 	addingObjectEntity: ?GameObjectEntityType,

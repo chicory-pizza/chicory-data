@@ -1,9 +1,9 @@
 // @flow strict
 
-import LinkButton from '../common/LinkButton';
-import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
-import type {GameObjectType} from '../types/GameObjectType';
-import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
+import LinkButton from '../../../common/LinkButton';
+import {useCurrentCoordinates} from '../../CurrentCoordinatesContext';
+import type {GameObjectType} from '../../types/GameObjectType';
+import convertLevelIdToCoordinates from '../../util/convertLevelIdToCoordinates';
 
 type Props = $ReadOnly<{
 	obj: GameObjectType,

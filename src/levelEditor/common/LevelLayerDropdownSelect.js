@@ -2,13 +2,12 @@
 
 import {useCallback, useMemo} from 'react';
 
+import CustomSelect from '../../common/CustomSelect';
 import type {LevelType} from '../types/LevelType';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
 import getLevelLabel from '../util/getLevelLabel';
 import sortCompareCoordinates from '../util/sortCompareCoordinates';
-
-import CustomSelect from './CustomSelect';
 
 type Props = $ReadOnly<{
 	levels: {+[levelId: string]: ?LevelType},
