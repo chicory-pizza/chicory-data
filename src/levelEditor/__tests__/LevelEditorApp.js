@@ -1,10 +1,10 @@
 import {screen, render, waitFor, within} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import App from '../App';
+import LevelEditorApp from '../LevelEditorApp';
 
 test('renders the UI', async () => {
-	render(<App />);
+	render(<LevelEditorApp />);
 
 	await waitFor(() => {
 		expect(screen.getByText(/Load custom level_data/)).toBeInTheDocument();
@@ -16,7 +16,7 @@ test('renders the UI', async () => {
 });
 
 test('changing the level using the 3 number inputs', async () => {
-	render(<App />);
+	render(<LevelEditorApp />);
 
 	await waitFor(() => {
 		expect(screen.getByTestId('levelselector-layer')).toBeInTheDocument();
