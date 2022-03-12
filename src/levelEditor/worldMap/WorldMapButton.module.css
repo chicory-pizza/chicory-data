@@ -1,0 +1,22 @@
+.box {
+	background: #ddd no-repeat;
+	background-size: 81px 46px;
+	padding: 0;
+	position: absolute;
+}
+
+.currentBox {
+	background-color: #e0ff77;
+}
+
+.text {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.4);
+}
+
+.currentBox .text {
+	background: none;
+}

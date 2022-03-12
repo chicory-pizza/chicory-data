@@ -49,11 +49,7 @@ export default function WorldMap(props: Props): React$Node {
 		});
 
 	return (
-		<div
-			className={
-				styles.root + ' ' + (props.drawPreviews ? styles.drawPreviews : '')
-			}
-		>
+		<div className={styles.root}>
 			{levels.map((coordinates) => {
 				const levelId = convertCoordinatesToLevelId(coordinates);
 				const level: ?LevelType = worldData[levelId];

@@ -42,12 +42,6 @@ export default function GeoPreview(props: Props): React$Node {
 			return;
 		}
 
-		// https://github.com/facebook/flow/issues/8689
-		// $FlowFixMe[method-unbinding]
-		if (typeof canvas.getContext === 'undefined') {
-			return;
-		}
-
 		const ctx = getCanvasRenderingContext(canvas);
 
 		drawGeoToCanvas({

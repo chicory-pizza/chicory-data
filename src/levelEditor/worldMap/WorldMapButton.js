@@ -2,12 +2,12 @@
 
 import {memo, useEffect, useRef} from 'react';
 
-import GeoPreview from '../common/GeoPreview';
 import {GEO_HEIGHT, GEO_WIDTH} from '../GeoConstants';
 import type {LevelType} from '../types/LevelType';
 import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
 
-import styles from './WorldMap.module.css';
+import getWorldMapGeoPreviewCache from './getWorldMapGeoPreviewCache';
+import styles from './WorldMapButton.module.css';
 
 const WIDTH = GEO_WIDTH;
 const HEIGHT = GEO_HEIGHT;
@@ -59,28 +59,15 @@ function WorldMapButton(props: Props): React$Node {
 				top: Math.abs(props.minY) * HEIGHT + coordinates[2] * HEIGHT,
 				width: WIDTH,
 				height: HEIGHT,
+				backgroundImage:
+					props.drawPreviews && !isCurrent && level != null
+						? `url(${getWorldMapGeoPreviewCache(level.geo)})`
+						: null,
 			}}
 			title={sublabel.filter(Boolean).join('\n')}
 			type="button"
 		>
-			{props.drawPreviews && level != null ? (
-				<div className={styles.canvas}>
-					<GeoPreview
-						level={level}
-						mapMouseMoveCoordinates={null}
-						scale={1}
-						useDevicePixelRatio={true}
-					/>
-				</div>
-			) : null}
-
-			<div
-				className={styles.text}
-				style={{
-					width: WIDTH,
-					height: HEIGHT,
-				}}
-			>
+			<div className={styles.text}>
 				{coordinates[1]}, {coordinates[2]}
 			</div>
 		</button>
