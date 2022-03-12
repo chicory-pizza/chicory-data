@@ -1,21 +1,13 @@
-.root {
-	flex-shrink: 0;
-	list-style-type: none;
-	min-height: 50px;
-	height: 200px;
-	overflow: auto;
-	padding: 8px;
-	resize: vertical;
+.expander {
+	margin: 8px;
 }
 
-.heading {
-	margin-bottom: 4px;
+.content {
+	margin: 4px 0 0;
+	padding-bottom: 8px;
 }
 
-.actions {
+.actionButton {
 	margin-top: 8px;
-}
-
-.rightPadding {
 	margin-right: 8px;
 }

@@ -1,3 +1,7 @@
+.expander {
+	margin: 8px;
+}
+
 .list {
 	list-style-type: none;
 	padding: 4px 0 0;

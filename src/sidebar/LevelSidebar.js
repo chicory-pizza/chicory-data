@@ -41,24 +41,20 @@ export default function LevelSidebar(props: Props): React$Node {
 
 			<div className={styles.group}>
 				<ErrorBoundary>
-					<SidebarLevelProperties
-						level={props.level}
-						onLevelDelete={props.onLevelDelete}
-						onLevelEditProperty={props.onLevelEditProperty}
-					/>
-				</ErrorBoundary>
-			</div>
-
-			<div className={styles.group}>
-				<ErrorBoundary>
 					<SidebarObjectAdder
 						onAddingObjectEntity={props.onAddingObjectEntity}
 					/>
 				</ErrorBoundary>
 			</div>
 
-			<div className={styles.group + ' ' + styles.objectsList}>
+			<div className={styles.group + ' ' + styles.properties}>
 				<ErrorBoundary>
+					<SidebarLevelProperties
+						level={props.level}
+						onLevelDelete={props.onLevelDelete}
+						onLevelEditProperty={props.onLevelEditProperty}
+					/>
+
 					<SidebarObjectsList
 						levelObjects={props.level.objects ?? []}
 						objectIndexHover={props.objectIndexHover}

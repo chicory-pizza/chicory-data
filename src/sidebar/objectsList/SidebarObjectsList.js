@@ -40,7 +40,7 @@ function SidebarObjectsList(props: Props): React$Node {
 	);
 
 	return (
-		<details open>
+		<details className={styles.expander} open>
 			<summary>
 				{props.levelObjects.length > 0
 					? 'Objects (' + props.levelObjects.length + ')'

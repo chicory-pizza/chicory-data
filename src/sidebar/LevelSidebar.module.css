@@ -13,8 +13,7 @@
 	border-top: 1px solid #000;
 }
 
-.objectsList {
+.properties {
 	flex-grow: 1;
 	overflow: auto;
-	padding: 8px;
 }

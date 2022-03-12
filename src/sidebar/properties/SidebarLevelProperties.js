@@ -37,29 +37,33 @@ function SidebarLevelProperties(props: Props): React$Node {
 	}
 
 	return (
-		<div className={styles.root}>
-			<div className={styles.heading}>
+		<details className={styles.expander} open>
+			<summary>
 				Level {currentCoordinates[0]}, {currentCoordinates[1]},{' '}
 				{currentCoordinates[2]} properties
-			</div>
+			</summary>
 
-			<SidebarEditableProperties
-				excludeProperties={['decos', 'geo', 'objects']}
-				onEditProperty={props.onLevelEditProperty}
-				properties={props.level}
-				schema={LEVEL_EDITABLE_PROPERTIES_SCHEMA}
-			/>
+			<div className={styles.content}>
+				<SidebarEditableProperties
+					excludeProperties={['decos', 'geo', 'objects']}
+					onEditProperty={props.onLevelEditProperty}
+					properties={props.level}
+					schema={LEVEL_EDITABLE_PROPERTIES_SCHEMA}
+				/>
 
-			<div className={styles.actions}>
 				<button
-					className={styles.rightPadding}
+					className={styles.actionButton}
 					onClick={() => setIsTerrainEditorOpen(true)}
 					type="button"
 				>
 					Edit terrain
 				</button>
 
-				<button onClick={onDeleteLevelButtonClick} type="button">
+				<button
+					className={styles.actionButton}
+					onClick={onDeleteLevelButtonClick}
+					type="button"
+				>
 					Delete level
 				</button>
 			</div>
@@ -70,7 +74,7 @@ function SidebarLevelProperties(props: Props): React$Node {
 				onRequestClose={() => setIsTerrainEditorOpen(false)}
 				onNewGeoLoaded={onNewGeoLoaded}
 			/>
-		</div>
+		</details>
 	);
 }
 
