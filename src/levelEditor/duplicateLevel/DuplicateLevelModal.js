@@ -3,7 +3,7 @@
 import {useState} from 'react';
 
 import CustomModal from '../../common/CustomModal';
-import ErrorMessage from '../../common/ErrorMessage';
+import MessageBox from '../../common/MessageBox';
 import LevelLayerNumberInputs from '../common/LevelLayerNumberInputs';
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
 import type {LevelType} from '../types/LevelType';
@@ -117,7 +117,7 @@ export default function DuplicateLevelModal(props: Props): React$Node {
 					(goingToOverwriteExisting ? styles.visible : '')
 				}
 			>
-				<ErrorMessage
+				<MessageBox
 					message="You are about to overwrite an existing level"
 					type="INFO"
 				/>
@@ -125,7 +125,7 @@ export default function DuplicateLevelModal(props: Props): React$Node {
 
 			{errorMessage != null ? (
 				<div className={styles.errorMessage}>
-					<ErrorMessage message={errorMessage} />
+					<MessageBox message={errorMessage} type="ERROR" />
 				</div>
 			) : null}
 		</CustomModal>

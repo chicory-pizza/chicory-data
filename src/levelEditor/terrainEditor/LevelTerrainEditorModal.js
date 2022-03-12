@@ -10,7 +10,7 @@ import {Fragment, useState} from 'react';
 import tinycolor from 'tinycolor2';
 
 import CustomModal from '../../common/CustomModal';
-import ErrorMessage from '../../common/ErrorMessage';
+import MessageBox from '../../common/MessageBox';
 import getCanvasRenderingContext from '../../util/getCanvasRenderingContext';
 import GeoPreview from '../common/GeoPreview';
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
@@ -264,7 +264,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 
 					{errorMessage != null ? (
 						<div className={styles.errorMessage}>
-							<ErrorMessage message={errorMessage} />
+							<MessageBox message={errorMessage} type="ERROR" />
 						</div>
 					) : null}
 				</div>
