@@ -1,10 +1,4 @@
-import {
-	fireEvent,
-	screen,
-	render,
-	waitFor,
-	within,
-} from '@testing-library/react';
+import {screen, render, waitFor, within} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from '../App';
@@ -28,15 +22,14 @@ test('changing the level using the 3 number inputs', async () => {
 		expect(screen.getByTestId('levelselector-layer')).toBeInTheDocument();
 	});
 
-	// todo should change to `userEvent.type()`
-	fireEvent.change(screen.getByTestId('levelselector-layer'), {
-		target: {value: 1},
+	userEvent.type(screen.getByTestId('levelselector-layer'), '1', {
+		initialSelectionStart: 0,
 	});
-	fireEvent.change(screen.getByTestId('levelselector-x'), {
-		target: {value: 2},
+	userEvent.type(screen.getByTestId('levelselector-x'), '2', {
+		initialSelectionStart: 0,
 	});
-	fireEvent.change(screen.getByTestId('levelselector-y'), {
-		target: {value: -99},
+	userEvent.type(screen.getByTestId('levelselector-y'), '-99', {
+		initialSelectionStart: 0,
 	});
 	userEvent.click(screen.getByTestId('levelselector-go'));
 
