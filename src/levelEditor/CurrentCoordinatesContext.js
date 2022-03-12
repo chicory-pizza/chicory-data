@@ -7,7 +7,10 @@ import {
 	useMemo,
 	useReducer,
 } from 'react';
+// $FlowFixMe
+import {useNavigate} from 'react-router-dom';
 
+import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 import isSameCoordinates from './util/isSameCoordinates';
 
 const CurrentCoordinatesContext = createContext();
@@ -31,11 +34,18 @@ function reducer(state: [number, number, number], action: ReducerAction) {
 }
 
 type Props = $ReadOnly<{
+	defaultCoordinates: [number, number, number],
 	children: React$Node,
 }>;
 
-export function CurrentCoordinatesProvider({children}: Props): React$Node {
-	const [currentCoordinates, dispatch] = useReducer(reducer, [0, 0, 0]);
+export function CurrentCoordinatesProvider({
+	defaultCoordinates,
+	children,
+}: Props): React$Node {
+	const [currentCoordinates, dispatch] = useReducer(
+		reducer,
+		defaultCoordinates
+	);
 
 	const contextValue = useMemo(() => {
 		return {currentCoordinates, dispatch};
@@ -53,6 +63,7 @@ export function useCurrentCoordinates(): [
 	(newCoordinates: [number, number, number]) => mixed
 ] {
 	const context = useContext(CurrentCoordinatesContext);
+	const navigate = useNavigate();
 
 	if (!context) {
 		throw new Error(
@@ -64,8 +75,10 @@ export function useCurrentCoordinates(): [
 	const setCoordinates = useCallback(
 		(coordinates: [number, number, number]) => {
 			dispatch({type: 'change', coordinates});
+
+			navigate('/level/' + convertCoordinatesToLevelId(coordinates));
 		},
-		[dispatch]
+		[dispatch, navigate]
 	);
 
 	return [context.currentCoordinates, setCoordinates];
