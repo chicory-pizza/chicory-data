@@ -41,7 +41,7 @@ export default function LevelLayerDropdownSelect(props: Props): React$Node {
 		const map = new Map();
 
 		options.forEach((option) => {
-			const layer = option.value[0];
+			const layer = convertLevelIdToCoordinates(option.value)[0];
 
 			if (!map.has(layer)) {
 				map.set(layer, {
