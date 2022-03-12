@@ -769,6 +769,7 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objTreegrow', [
 
 OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objVine_ride', [
 	{key: 'attached_object', type: 'NUMBER', default: -1, help: 'POINT_TO'},
+	{key: 'id', type: 'NUMBER'},
 ]);
 
 OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objWallcrack', [
