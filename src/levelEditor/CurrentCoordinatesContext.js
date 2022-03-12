@@ -7,20 +7,20 @@ import isSameCoordinates from './util/isSameCoordinates';
 const CurrentCoordinatesContext = createContext();
 
 type Props = $ReadOnly<{
-	children: ?React$Node,
+	children: React$Node,
 }>;
 
 export function CurrentCoordinatesProvider({children}: Props): React$Node {
-	const [currentCordinates, setCurrentCoordinates] = useState<
+	const [currentCoordinates, setCurrentCoordinates] = useState<
 		[number, number, number]
 	>([0, 0, 0]);
 
 	return (
 		<CurrentCoordinatesContext.Provider
 			value={{
-				coordinates: currentCordinates,
+				coordinates: currentCoordinates,
 				setCoordinates(newCoordinates: [number, number, number]) {
-					if (isSameCoordinates(currentCordinates, newCoordinates)) {
+					if (isSameCoordinates(currentCoordinates, newCoordinates)) {
 						return;
 					}
 
@@ -41,7 +41,7 @@ export function useCurrentCoordinates(): [
 
 	if (!context) {
 		throw new Error(
-			`useCurrentCoordinates must be used within a CurrentCoordinatesProvider`
+			'useCurrentCoordinates must be used within a CurrentCoordinatesProvider'
 		);
 	}
 

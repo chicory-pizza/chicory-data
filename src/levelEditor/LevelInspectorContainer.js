@@ -8,7 +8,7 @@ import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 
 type Props = $ReadOnly<{
 	levels: {[levelId: string]: LevelType},
-	setLevelsData: ({[levelId: string]: LevelType}) => mixed,
+	setWorldData: ({[levelId: string]: LevelType}) => mixed,
 }>;
 
 export default function LevelInspectorContainer(props: Props): React$Node {
@@ -19,19 +19,19 @@ export default function LevelInspectorContainer(props: Props): React$Node {
 		if (newLevelData == null) {
 			const newLevels = {...props.levels};
 			delete newLevels[convertCoordinatesToLevelId(currentCoordinates)];
-			props.setLevelsData(newLevels);
+			props.setWorldData(newLevels);
 
 			return;
 		}
 
-		props.setLevelsData({
+		props.setWorldData({
 			...props.levels,
 			[convertCoordinatesToLevelId(currentCoordinates)]: newLevelData,
 		});
 	}
 
 	function onCreateButtonClick() {
-		props.setLevelsData({
+		props.setWorldData({
 			...props.levels,
 			[convertCoordinatesToLevelId(currentCoordinates)]: {
 				ambiance: '-1',
