@@ -12,7 +12,7 @@ import LevelSelector from './header/LevelSelector';
 import styles from './LevelEditorUI.module.css';
 import LevelInspectorContainer from './LevelInspectorContainer';
 import {useWorldData} from './WorldDataContext';
-import WorldMap from './WorldMap';
+import WorldMap from './worldMap/WorldMap';
 
 export default function LevelEditorUI(): React$Node {
 	const [worldData] = useWorldData();

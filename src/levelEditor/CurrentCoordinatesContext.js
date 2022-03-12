@@ -1,33 +1,48 @@
 // @flow strict
 
-import {createContext, useContext, useState} from 'react';
+import {
+	createContext,
+	useCallback,
+	useContext,
+	useMemo,
+	useReducer,
+} from 'react';
 
 import isSameCoordinates from './util/isSameCoordinates';
 
 const CurrentCoordinatesContext = createContext();
+
+type ReducerAction = {type: 'change', coordinates: [number, number, number]};
+
+function reducer(state: [number, number, number], action: ReducerAction) {
+	switch (action.type) {
+		case 'change':
+			if (isSameCoordinates(state, action.coordinates)) {
+				return state;
+			}
+
+			return action.coordinates;
+
+		default:
+			throw new Error(
+				'Unknown CurrentCoordinates reducer action ' + action.type
+			);
+	}
+}
 
 type Props = $ReadOnly<{
 	children: React$Node,
 }>;
 
 export function CurrentCoordinatesProvider({children}: Props): React$Node {
-	const [currentCoordinates, setCurrentCoordinates] = useState<
-		[number, number, number]
-	>([0, 0, 0]);
+	const [currentCoordinates, dispatch] = useReducer(reducer, [0, 0, 0]);
+
+	const contextValue = useMemo(() => {
+		return {currentCoordinates, dispatch};
+	}, [currentCoordinates, dispatch]);
 
 	return (
-		<CurrentCoordinatesContext.Provider
-			value={{
-				coordinates: currentCoordinates,
-				setCoordinates(newCoordinates: [number, number, number]) {
-					if (isSameCoordinates(currentCoordinates, newCoordinates)) {
-						return;
-					}
-
-					setCurrentCoordinates(newCoordinates);
-				},
-			}}
-		>
+		<CurrentCoordinatesContext.Provider value={contextValue}>
 			{children}
 		</CurrentCoordinatesContext.Provider>
 	);
@@ -45,5 +60,13 @@ export function useCurrentCoordinates(): [
 		);
 	}
 
-	return [context.coordinates, context.setCoordinates];
+	const dispatch = context.dispatch;
+	const setCoordinates = useCallback(
+		(coordinates: [number, number, number]) => {
+			dispatch({type: 'change', coordinates});
+		},
+		[dispatch]
+	);
+
+	return [context.currentCoordinates, setCoordinates];
 }

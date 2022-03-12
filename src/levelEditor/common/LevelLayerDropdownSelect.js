@@ -1,6 +1,6 @@
 // @flow strict
 
-import {useCallback, useMemo} from 'react';
+import {useCallback, useMemo, useRef} from 'react';
 
 import CustomSelect from '../../common/CustomSelect';
 import type {LevelType} from '../types/LevelType';
@@ -18,6 +18,9 @@ type Props = $ReadOnly<{
 export default function LevelLayerDropdownSelect(props: Props): React$Node {
 	const {onNewCoordinatesSet} = props;
 
+	const currentLevelId = convertCoordinatesToLevelId(props.selectedCoordinates);
+	let currentSelectOption = useRef();
+
 	const levelIds = useMemo(() => {
 		return Object.keys(props.levels).sort((a, b) => {
 			return sortCompareCoordinates(
@@ -27,20 +30,12 @@ export default function LevelLayerDropdownSelect(props: Props): React$Node {
 		});
 	}, [props.levels]);
 
-	const options = useMemo(() => {
-		return levelIds.map((id) => {
-			return {
-				value: id,
-				label: getLevelLabel(convertLevelIdToCoordinates(id), props.levels[id]),
-			};
-		});
-	}, [levelIds, props.levels]);
-
 	const layersGrouped = useMemo(() => {
 		const map = new Map();
 
-		options.forEach((option) => {
-			const layer = convertLevelIdToCoordinates(option.value)[0];
+		levelIds.forEach((id) => {
+			const coordinates = convertLevelIdToCoordinates(id);
+			const layer = coordinates[0];
 
 			if (!map.has(layer)) {
 				map.set(layer, {
@@ -49,16 +44,20 @@ export default function LevelLayerDropdownSelect(props: Props): React$Node {
 				});
 			}
 
+			const option = {
+				value: id,
+				label: getLevelLabel(coordinates, props.levels[id]),
+			};
+
 			map.get(layer)?.options.push(option);
+
+			if (option.value === currentLevelId) {
+				currentSelectOption.current = option;
+			}
 		});
 
 		return Array.from(map.values());
-	}, [options]);
-
-	const currentLevelId = convertCoordinatesToLevelId(props.selectedCoordinates);
-	const currentSelectOption = options.find((option) => {
-		return option.value === currentLevelId;
-	});
+	}, [currentLevelId, levelIds, props.levels]);
 
 	const onOptionChange = useCallback(
 		(newOption) => {
@@ -69,7 +68,7 @@ export default function LevelLayerDropdownSelect(props: Props): React$Node {
 
 	return (
 		<CustomSelect
-			value={currentSelectOption}
+			value={currentSelectOption.current}
 			maxMenuHeight={1000}
 			onChange={onOptionChange}
 			options={layersGrouped}

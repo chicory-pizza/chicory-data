@@ -183,100 +183,102 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 			onRequestClose={props.onModalRequestClose}
 			titleText="Edit level terrain"
 		>
-			<div className={styles.content}>
-				<div>
-					<p className={styles.explanation}>
-						Save this current terrain and use your image editor:
-					</p>
+			{props.isOpen ? (
+				<div className={styles.content}>
+					<div>
+						<p className={styles.explanation}>
+							Save this current terrain and use your image editor:
+						</p>
 
-					<div className={styles.geoPreview}>
-						<GeoPreview
-							level={props.level}
-							mapMouseMoveCoordinates={null}
-							scale={1}
-							useDevicePixelRatio={false}
-						/>
+						<div className={styles.geoPreview}>
+							<GeoPreview
+								level={props.level}
+								mapMouseMoveCoordinates={null}
+								scale={1}
+								useDevicePixelRatio={false}
+							/>
 
-						<button
-							className={styles.geoPreviewSaveButton}
-							onClick={saveFile}
-							type="button"
-						>
-							Save
-						</button>
-					</div>
-
-					<p className={styles.explanation}>
-						Or to start from scratch, create a {GEO_WIDTH}×{GEO_HEIGHT}{' '}
-						resolution PNG image.
-					</p>
-
-					<p className={styles.explanation}>Use these colors for terrain:</p>
-
-					<div className={styles.grid}>
-						{PIXEL_COLORS_EXPLANATIONS.map((explanation) => {
-							return (
-								<Fragment key={explanation.description}>
-									<div className={styles.colorItem}>
-										{explanation.description}
-									</div>
-
-									{explanation.colors.map((colorIndex, index) => {
-										const color = PIXEL_COLORS.get(colorIndex);
-
-										const colorObj = tinycolor(color);
-										const rgb = colorObj.toRgb();
-
-										return (
-											<Fragment key={colorIndex}>
-												{index !== 0 ? <div></div> : null}
-
-												<div
-													className={
-														styles.colorItem + ' ' + styles.colorBoxWrap
-													}
-												>
-													<div
-														className={styles.colorBox}
-														key={colorIndex}
-														style={{background: PIXEL_COLORS.get(colorIndex)}}
-													></div>
-												</div>
-
-												<div className={styles.colorItem}>
-													{colorObj.toHexString()}
-												</div>
-
-												<div className={styles.colorItem}>R: {rgb.r}</div>
-
-												<div className={styles.colorItem}>G: {rgb.g}</div>
-
-												<div className={styles.colorItem}>B: {rgb.b}</div>
-											</Fragment>
-										);
-									})}
-								</Fragment>
-							);
-						})}
-					</div>
-				</div>
-
-				<div className={styles.contentRight}>
-					<p className={styles.explanation}>Then load your image:</p>
-
-					<div className={styles.fileInput}>
-						<button type="button" onClick={openFile}>
-							Load image
-						</button>
-					</div>
-
-					{errorMessage != null ? (
-						<div className={styles.errorMessage}>
-							<MessageBox message={errorMessage} type="ERROR" />
+							<button
+								className={styles.geoPreviewSaveButton}
+								onClick={saveFile}
+								type="button"
+							>
+								Save
+							</button>
 						</div>
-					) : null}
+
+						<p className={styles.explanation}>
+							Or to start from scratch, create a {GEO_WIDTH}×{GEO_HEIGHT}{' '}
+							resolution PNG image.
+						</p>
+
+						<p className={styles.explanation}>Use these colors for terrain:</p>
+
+						<div className={styles.grid}>
+							{PIXEL_COLORS_EXPLANATIONS.map((explanation) => {
+								return (
+									<Fragment key={explanation.description}>
+										<div className={styles.colorItem}>
+											{explanation.description}
+										</div>
+
+										{explanation.colors.map((colorIndex, index) => {
+											const color = PIXEL_COLORS.get(colorIndex);
+
+											const colorObj = tinycolor(color);
+											const rgb = colorObj.toRgb();
+
+											return (
+												<Fragment key={colorIndex}>
+													{index !== 0 ? <div></div> : null}
+
+													<div
+														className={
+															styles.colorItem + ' ' + styles.colorBoxWrap
+														}
+													>
+														<div
+															className={styles.colorBox}
+															key={colorIndex}
+															style={{background: PIXEL_COLORS.get(colorIndex)}}
+														></div>
+													</div>
+
+													<div className={styles.colorItem}>
+														{colorObj.toHexString()}
+													</div>
+
+													<div className={styles.colorItem}>R: {rgb.r}</div>
+
+													<div className={styles.colorItem}>G: {rgb.g}</div>
+
+													<div className={styles.colorItem}>B: {rgb.b}</div>
+												</Fragment>
+											);
+										})}
+									</Fragment>
+								);
+							})}
+						</div>
+					</div>
+
+					<div className={styles.contentRight}>
+						<p className={styles.explanation}>Then load your image:</p>
+
+						<div className={styles.fileInput}>
+							<button type="button" onClick={openFile}>
+								Load image
+							</button>
+						</div>
+
+						{errorMessage != null ? (
+							<div className={styles.errorMessage}>
+								<MessageBox message={errorMessage} type="ERROR" />
+							</div>
+						) : null}
+					</div>
 				</div>
-			</div>
+			) : null}
 		</CustomModal>
 	);
 }

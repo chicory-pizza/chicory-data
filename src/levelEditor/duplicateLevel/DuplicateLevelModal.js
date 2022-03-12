@@ -90,48 +90,52 @@ export default function DuplicateLevelModal(props: Props): React$Node {
 				'Duplicate level ' + getLevelLabel(currentCoordinates, props.level)
 			}
 		>
-			<p className={styles.explanation}>
-				Enter the new coordinates to copy to:
-			</p>
+			{props.isOpen ? (
+				<>
+					<p className={styles.explanation}>
+						Enter the new coordinates to copy to:
+					</p>
 
-			<form action="#" onSubmit={onFormSubmit}>
-				<div>
-					<LevelLayerNumberInputs
-						coordinates={draftCoordinates}
-						onNewCoordinatesSet={(newCoordinates) => {
-							setDraftCoordinates(newCoordinates);
-							setErrorMessage(null);
-						}}
-						testIdPrefix="duplicatelevelmodal"
-					/>
-				</div>
+					<form action="#" onSubmit={onFormSubmit}>
+						<div>
+							<LevelLayerNumberInputs
+								coordinates={draftCoordinates}
+								onNewCoordinatesSet={(newCoordinates) => {
+									setDraftCoordinates(newCoordinates);
+									setErrorMessage(null);
+								}}
+								testIdPrefix="duplicatelevelmodal"
+							/>
+						</div>
 
-				<button
-					className={styles.button}
-					data-testid="duplicatelevelmodal-submit"
-					type="submit"
-				>
-					Duplicate
-				</button>
-			</form>
+						<button
+							className={styles.button}
+							data-testid="duplicatelevelmodal-submit"
+							type="submit"
+						>
+							Duplicate
+						</button>
+					</form>
 
-			<div
-				className={
-					styles.overwriteExistingMessage +
-					' ' +
-					(goingToOverwriteExisting ? styles.visible : '')
-				}
-			>
-				<MessageBox
-					message="You are about to overwrite an existing level"
-					type="INFO"
-				/>
-			</div>
+					<div
+						className={
+							styles.overwriteExistingMessage +
+							' ' +
+							(goingToOverwriteExisting ? styles.visible : '')
+						}
+					>
+						<MessageBox
+							message="You are about to overwrite an existing level"
+							type="INFO"
+						/>
+					</div>
 
-			{errorMessage != null ? (
-				<div className={styles.errorMessage}>
-					<MessageBox message={errorMessage} type="ERROR" />
-				</div>
+					{errorMessage != null ? (
+						<div className={styles.errorMessage}>
+							<MessageBox message={errorMessage} type="ERROR" />
+						</div>
+					) : null}
+				</>
 			) : null}
 		</CustomModal>
 	);
