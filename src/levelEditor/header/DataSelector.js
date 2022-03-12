@@ -2,14 +2,16 @@
 
 // $FlowFixMe[untyped-import]
 import {fileOpen, fileSave} from 'browser-fs-access';
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 
 import {useWorldData} from '../WorldDataContext';
 
+import DataSaveTimestamp from './DataSaveTimestamp';
 import styles from './DataSelector.module.css';
 
 export default function DataSelector(): React$Node {
 	const [worldData, dispatch] = useWorldData();
+	const [lastSaveTime, setLastSaveTime] = useState<?number>(null);
 
 	const saveFileHandleRef = useRef(null);
 
@@ -48,6 +50,7 @@ export default function DataSelector(): React$Node {
 
 	async function saveFile() {
 		const blob = new Blob([JSON.stringify(worldData)]);
+
 		try {
 			saveFileHandleRef.current = await fileSave(
 				blob,
@@ -56,26 +59,34 @@ export default function DataSelector(): React$Node {
 				},
 				saveFileHandleRef.current
 			);
-		} catch (err) {
-			if (err.name !== 'AbortError') {
-				console.error(err);
+
+			setLastSaveTime(Date.now() / 1000);
+		} catch (ex) {
+			if (ex.name !== 'AbortError') {
+				console.error(ex);
 				alert('There was a problem saving the file.');
 			}
-			console.log('The user aborted a request.');
 		}
 	}
 
 	return (
-		<>
+		<div className={styles.root}>
 			<div className={styles.space}>
 				<button type="button" onClick={openFile}>
 					Load custom level_data
 				</button>
 			</div>
 
-			<button disabled={worldData == null} type="button" onClick={saveFile}>
+			<button
+				className={styles.space}
+				disabled={worldData == null}
+				onClick={saveFile}
+				type="button"
+			>
 				Save
 			</button>
-		</>
+
+			<DataSaveTimestamp lastSaveTime={lastSaveTime} />
+		</div>
 	);
 }
