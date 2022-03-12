@@ -12,13 +12,15 @@ import sortCompareCoordinates from '../util/sortCompareCoordinates';
 type Props = $ReadOnly<{
 	levels: {+[levelId: string]: ?LevelType},
 	onNewCoordinatesSet: (newCoordinates: [number, number, number]) => mixed,
-	selectedCoordinates: [number, number, number],
+	selectedCoordinates: ?[number, number, number],
 }>;
 
 export default function LevelLayerDropdownSelect(props: Props): React$Node {
 	const {onNewCoordinatesSet} = props;
 
-	const currentLevelId = convertCoordinatesToLevelId(props.selectedCoordinates);
+	const currentLevelId = props.selectedCoordinates
+		? convertCoordinatesToLevelId(props.selectedCoordinates)
+		: null;
 	let currentSelectOption = useRef();
 
 	const levelIds = useMemo(() => {

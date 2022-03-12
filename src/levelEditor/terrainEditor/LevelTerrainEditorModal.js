@@ -13,7 +13,7 @@ import CustomModal from '../../common/CustomModal';
 import MessageBox from '../../common/MessageBox';
 import getCanvasRenderingContext from '../../util/getCanvasRenderingContext';
 import GeoPreview from '../common/GeoPreview';
-import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
+import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
 import {
 	GEO_HEIGHT,
 	GEO_WIDTH,
@@ -68,7 +68,7 @@ type Props = $ReadOnly<{
 }>;
 
 export default function LevelTerrainEditorModal(props: Props): React$Node {
-	const [currentCoordinates] = useCurrentCoordinates();
+	const [currentCoordinates] = useCurrentCoordinatesNonNullable();
 	const [, dispatch] = useWorldDataNonNullable();
 
 	const [errorMessage, setErrorMessage] = useState<?string>(null);

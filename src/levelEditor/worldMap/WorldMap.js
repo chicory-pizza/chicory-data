@@ -22,11 +22,13 @@ export default function WorldMap(props: Props): React$Node {
 	let minX = 0;
 	let minY = 0;
 
-	const maybePlaceholderLevelId =
-		convertCoordinatesToLevelId(currentCoordinates);
+	const maybePlaceholderLevelId = currentCoordinates
+		? convertCoordinatesToLevelId(currentCoordinates)
+		: null;
 	const levels = Object.keys(worldData)
 		.concat(
-			worldData[maybePlaceholderLevelId] == null
+			maybePlaceholderLevelId != null &&
+				worldData[maybePlaceholderLevelId] == null
 				? [maybePlaceholderLevelId]
 				: []
 		)
@@ -34,7 +36,8 @@ export default function WorldMap(props: Props): React$Node {
 			const coordinates = convertLevelIdToCoordinates(levelId);
 
 			// check layer
-			if (coordinates[0] !== currentCoordinates[0]) {
+			const currentLayer = currentCoordinates ? currentCoordinates[0] : 0;
+			if (coordinates[0] !== currentLayer) {
 				return null;
 			}
 
@@ -57,7 +60,10 @@ export default function WorldMap(props: Props): React$Node {
 				return (
 					<WorldMapButton
 						drawPreviews={props.drawPreviews}
-						isCurrent={isSameCoordinates(currentCoordinates, coordinates)}
+						isCurrent={
+							currentCoordinates != null &&
+							isSameCoordinates(currentCoordinates, coordinates)
+						}
 						level={level}
 						levelId={levelId}
 						// optimization: try to recycle if possible

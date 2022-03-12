@@ -10,7 +10,7 @@ type Props = $ReadOnly<{
 export default function MessageBox(props: Props): React$Node {
 	return (
 		<div className={styles.box}>
-			{props.type === 'ERROR' ? '⚠' : props.type === 'INFO' ? 'ℹ️' : ''}️{' '}
+			{props.type === 'ERROR' ? '⚠️' : props.type === 'INFO' ? 'ℹ️' : ''}️{' '}
 			{props.message}
 		</div>
 	);

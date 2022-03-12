@@ -30,9 +30,9 @@ function getRelativeText(lastSaveTime: number): string {
 	return rtf.format(-Math.floor(diff / group), unit);
 }
 
-type Props = {
+type Props = $ReadOnly<{
 	lastSaveTime: ?number,
-};
+}>;
 
 export default function DataSaveTimestamp({lastSaveTime}: Props): React$Node {
 	const [, forceUpdate] = useState(0);

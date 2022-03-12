@@ -1,10 +1,11 @@
 import {screen, render, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {MemoryRouter} from 'react-router-dom';
 
-import LevelEditorApp from '../../LevelEditorApp';
+import {routes} from '../../../routes';
 
 test('duplicates the level', async () => {
-	render(<LevelEditorApp />);
+	render(<MemoryRouter>{routes}</MemoryRouter>);
 
 	await waitFor(() => {
 		expect(screen.getByText('Duplicate level')).toBeInTheDocument();

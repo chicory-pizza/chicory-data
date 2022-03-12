@@ -19,6 +19,10 @@ export default function LevelSelector(): React$Node {
 	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
 
 	const levelsWithPlaceholder = useMemo(() => {
+		if (currentCoordinates == null) {
+			return worldData;
+		}
+
 		const currentLevelId = convertCoordinatesToLevelId(currentCoordinates);
 		const currentLevel = worldData[currentLevelId];
 		if (currentLevel != null) {
@@ -33,6 +37,10 @@ export default function LevelSelector(): React$Node {
 
 	// Change title
 	useEffect(() => {
+		if (currentCoordinates == null) {
+			return;
+		}
+
 		const level: ?LevelType =
 			worldData[convertCoordinatesToLevelId(currentCoordinates)];
 
@@ -42,14 +50,18 @@ export default function LevelSelector(): React$Node {
 	// Inputs
 	const [draftCoordinates, setDraftCoordinates] = useState<
 		[?number, ?number, ?number]
-	>([currentCoordinates[0], currentCoordinates[1], currentCoordinates[2]]);
+	>(
+		currentCoordinates
+			? [currentCoordinates[0], currentCoordinates[1], currentCoordinates[2]]
+			: [null, null, null]
+	);
 	const [prevCoordinates, setPrevCoordinates] = useState(currentCoordinates);
 
 	if (currentCoordinates !== prevCoordinates) {
 		setDraftCoordinates([
-			currentCoordinates[0],
-			currentCoordinates[1],
-			currentCoordinates[2],
+			currentCoordinates ? currentCoordinates[0] : null,
+			currentCoordinates ? currentCoordinates[1] : null,
+			currentCoordinates ? currentCoordinates[2] : null,
 		]);
 		setPrevCoordinates(currentCoordinates);
 	}

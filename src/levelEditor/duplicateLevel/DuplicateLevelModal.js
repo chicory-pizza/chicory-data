@@ -5,7 +5,7 @@ import {useState} from 'react';
 import CustomModal from '../../common/CustomModal';
 import MessageBox from '../../common/MessageBox';
 import LevelLayerNumberInputs from '../common/LevelLayerNumberInputs';
-import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
+import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
 import type {LevelType} from '../types/LevelType';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 import convertNullableCoordinatesToNonNull from '../util/convertNullableCoordinatesToNonNull';
@@ -23,7 +23,8 @@ type Props = $ReadOnly<{
 
 export default function DuplicateLevelModal(props: Props): React$Node {
 	const [worldData, dispatch] = useWorldDataNonNullable();
-	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
+	const [currentCoordinates, setNewCoordinates] =
+		useCurrentCoordinatesNonNullable();
 
 	const [draftCoordinates, setDraftCoordinates] = useState<
 		[?number, ?number, ?number]

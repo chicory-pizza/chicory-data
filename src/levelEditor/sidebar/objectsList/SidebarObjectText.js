@@ -1,7 +1,7 @@
 // @flow strict
 
 import LinkButton from '../../../common/LinkButton';
-import {useCurrentCoordinates} from '../../CurrentCoordinatesContext';
+import {useCurrentCoordinatesNonNullable} from '../../CurrentCoordinatesContext';
 import type {GameObjectType} from '../../types/GameObjectType';
 import convertLevelIdToCoordinates from '../../util/convertLevelIdToCoordinates';
 
@@ -10,7 +10,7 @@ type Props = $ReadOnly<{
 }>;
 
 export default function SidebarObjectText({obj}: Props): React$Node {
-	const [, setNewCoordinates] = useCurrentCoordinates();
+	const [, setNewCoordinates] = useCurrentCoordinatesNonNullable();
 
 	const sliced = obj.obj.slice('obj'.length);
 

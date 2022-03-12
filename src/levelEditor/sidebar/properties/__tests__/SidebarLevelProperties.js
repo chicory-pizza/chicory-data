@@ -1,10 +1,11 @@
 import {screen, render, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {MemoryRouter} from 'react-router-dom';
 
-import LevelEditorApp from '../../../LevelEditorApp';
+import {routes} from '../../../../routes';
 
 test('deletes the level if confirmed', async () => {
-	render(<LevelEditorApp />);
+	render(<MemoryRouter>{routes}</MemoryRouter>);
 
 	await waitFor(() => {
 		expect(screen.getByText('Delete level')).toBeInTheDocument();
@@ -15,11 +16,11 @@ test('deletes the level if confirmed', async () => {
 	userEvent.click(screen.getByText('Delete level'));
 
 	expect(window.confirm).toHaveBeenCalled();
-	expect(screen.getByText("Level 0, 0, 0 doesn't exist")).toBeInTheDocument();
+	expect(screen.getByText(/Level 0, 0, 0 doesn't exist/)).toBeInTheDocument();
 });
 
 test('does not delete the level if cancelled', async () => {
-	render(<LevelEditorApp />);
+	render(<MemoryRouter>{routes}</MemoryRouter>);
 
 	await waitFor(() => {
 		expect(screen.getByText('Delete level')).toBeInTheDocument();
@@ -32,6 +33,6 @@ test('does not delete the level if cancelled', async () => {
 	expect(window.confirm).toHaveBeenCalled();
 	expect(screen.getByTestId('worldmap-active')).toHaveTextContent('0, 0');
 	expect(
-		screen.queryByText("Level 0, 0, 0 doesn't exist")
+		screen.queryByText(/Level 0, 0, 0 doesn't exist/)
 	).not.toBeInTheDocument();
 });

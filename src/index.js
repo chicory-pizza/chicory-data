@@ -4,15 +4,9 @@ import {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 import ReactModal from 'react-modal';
 import './index.css';
-import {
-	BrowserRouter,
-	// $FlowFixMe missing definition in flow-typed
-	Navigate,
-	Route,
-	Routes,
-} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
-import App from './App';
+import {routes} from './routes';
 import {paintdogConsoleText} from './util/paintdogConsoleText';
 
 // Start
@@ -28,18 +22,7 @@ ReactModal.setAppElement(root);
 
 ReactDOM.render(
 	<StrictMode>
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<Navigate replace to="/level/0_0_0" />} />
-
-				<Route path="level">
-					<Route index element={<Navigate replace to="/level/0_0_0" />} />
-					<Route path=":levelId" element={<App />} />
-				</Route>
-
-				<Route path="*" element={<div>Page not found</div>} />
-			</Routes>
-		</BrowserRouter>
+		<BrowserRouter>{routes}</BrowserRouter>
 	</StrictMode>,
 	root
 );

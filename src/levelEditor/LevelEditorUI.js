@@ -7,32 +7,30 @@ import ErrorBoundary from '../common/ErrorBoundary';
 import AppHeader from '../header/AppHeader';
 import LoadingBigBanner from '../LoadingBigBanner';
 
-import {CurrentCoordinatesProvider} from './CurrentCoordinatesContext';
 import DataSelector from './header/DataSelector';
 import LevelSelector from './header/LevelSelector';
 import styles from './LevelEditorUI.module.css';
+import LevelIdFromRouterInvalid from './LevelIdFromRouterInvalid';
 import LevelInspectorContainer from './LevelInspectorContainer';
 import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
 import {useWorldData} from './WorldDataContext';
 import WorldMap from './worldMap/WorldMap';
 
 export default function LevelEditorUI(): React$Node {
-	const {levelId} = useParams();
 	const [worldData] = useWorldData();
+	const {levelId} = useParams();
 
 	const [drawPreviewsOnWorldMap, setDrawPreviewsOnWorldMap] = useState(false);
 
-	let coordinates;
+	let validLevelId = true;
 	try {
-		coordinates = convertLevelIdToCoordinates(levelId);
+		convertLevelIdToCoordinates(levelId);
 	} catch (ex) {
-		return 'Not a valid level ID';
+		validLevelId = false;
 	}
 
-	console.log(levelId);
-
 	return (
-		<CurrentCoordinatesProvider defaultCoordinates={coordinates}>
+		<>
 			<AppHeader
 				dataSelector={
 					<ErrorBoundary>
@@ -44,7 +42,9 @@ export default function LevelEditorUI(): React$Node {
 						<ErrorBoundary>
 							<LevelSelector />
 						</ErrorBoundary>
-					) : null
+					) : (
+						<div className={styles.levelSelectorPlaceholder} />
+					)
 				}
 				levelSelectorSide={
 					<label>
@@ -60,23 +60,33 @@ export default function LevelEditorUI(): React$Node {
 				}
 			/>
 
-			{worldData != null ? (
-				<ErrorBoundary>
-					<WorldMap drawPreviews={drawPreviewsOnWorldMap} />
-				</ErrorBoundary>
-			) : null}
+			{validLevelId ? (
+				<>
+					{worldData != null ? (
+						<ErrorBoundary>
+							<WorldMap drawPreviews={drawPreviewsOnWorldMap} />
+						</ErrorBoundary>
+					) : null}
 
-			{worldData != null ? (
-				<ErrorBoundary>
-					<LevelInspectorContainer />
-				</ErrorBoundary>
-			) : null}
+					{worldData != null ? (
+						<ErrorBoundary>
+							<LevelInspectorContainer />
+						</ErrorBoundary>
+					) : null}
 
-			{worldData == null ? (
-				<div className={styles.loading}>
-					<LoadingBigBanner />
-				</div>
-			) : null}
-		</CurrentCoordinatesProvider>
+					{worldData == null ? (
+						<div className={styles.loading}>
+							<LoadingBigBanner />
+						</div>
+					) : null}
+				</>
+			) : (
+				<>
+					<LevelIdFromRouterInvalid />
+
+					{worldData == null ? <LoadingBigBanner /> : null}
+				</>
+			)}
+		</>
 	);
 }

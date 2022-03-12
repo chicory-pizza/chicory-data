@@ -1,85 +1,49 @@
 // @flow strict
 
+import {useCallback, useMemo} from 'react';
 import {
-	createContext,
-	useCallback,
-	useContext,
-	useMemo,
-	useReducer,
-} from 'react';
-// $FlowFixMe
-import {useNavigate} from 'react-router-dom';
+	// $FlowFixMe[missing-export] missing definition in flow-typed
+	useNavigate,
+	useParams,
+} from 'react-router-dom';
 
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
-import isSameCoordinates from './util/isSameCoordinates';
-
-const CurrentCoordinatesContext = createContext();
-
-type ReducerAction = {type: 'change', coordinates: [number, number, number]};
-
-function reducer(state: [number, number, number], action: ReducerAction) {
-	switch (action.type) {
-		case 'change':
-			if (isSameCoordinates(state, action.coordinates)) {
-				return state;
-			}
-
-			return action.coordinates;
-
-		default:
-			throw new Error(
-				'Unknown CurrentCoordinates reducer action ' + action.type
-			);
-	}
-}
-
-type Props = $ReadOnly<{
-	defaultCoordinates: [number, number, number],
-	children: React$Node,
-}>;
-
-export function CurrentCoordinatesProvider({
-	defaultCoordinates,
-	children,
-}: Props): React$Node {
-	const [currentCoordinates, dispatch] = useReducer(
-		reducer,
-		defaultCoordinates
-	);
-
-	const contextValue = useMemo(() => {
-		return {currentCoordinates, dispatch};
-	}, [currentCoordinates, dispatch]);
-
-	return (
-		<CurrentCoordinatesContext.Provider value={contextValue}>
-			{children}
-		</CurrentCoordinatesContext.Provider>
-	);
-}
+import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
 
 export function useCurrentCoordinates(): [
+	?[number, number, number],
+	(newCoordinates: [number, number, number]) => mixed
+] {
+	const {levelId} = useParams();
+
+	const coordinates = useMemo(() => {
+		try {
+			return convertLevelIdToCoordinates(levelId);
+		} catch (ex) {
+			return null;
+		}
+	}, [levelId]);
+
+	const navigate = useNavigate();
+	const setCoordinates = useCallback(
+		(coordinates: [number, number, number]) => {
+			navigate('/level/' + convertCoordinatesToLevelId(coordinates));
+		},
+		[navigate]
+	);
+
+	return [coordinates, setCoordinates];
+}
+
+export function useCurrentCoordinatesNonNullable(): [
 	[number, number, number],
 	(newCoordinates: [number, number, number]) => mixed
 ] {
-	const context = useContext(CurrentCoordinatesContext);
-	const navigate = useNavigate();
+	const hook = useCurrentCoordinates();
 
-	if (!context) {
-		throw new Error(
-			'useCurrentCoordinates must be used within a CurrentCoordinatesProvider'
-		);
+	if (hook[0] == null) {
+		throw new Error('Current coordinates are invalid');
 	}
 
-	const dispatch = context.dispatch;
-	const setCoordinates = useCallback(
-		(coordinates: [number, number, number]) => {
-			dispatch({type: 'change', coordinates});
-
-			navigate('/level/' + convertCoordinatesToLevelId(coordinates));
-		},
-		[dispatch, navigate]
-	);
-
-	return [context.currentCoordinates, setCoordinates];
+	return [hook[0], hook[1]];
 }

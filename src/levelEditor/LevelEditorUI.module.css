@@ -1,3 +1,7 @@
+.levelSelectorPlaceholder {
+	min-height: 42px;
+}
+
 .loading {
 	flex-grow: 1;
 
@@ -9,10 +13,4 @@
 		#ccc 8px
 	);
 	border-top: 1px solid #000;
-	padding: 2em;
-	text-align: center;
-
-	display: flex;
-	align-items: flex-start;
-	justify-content: center;
 }

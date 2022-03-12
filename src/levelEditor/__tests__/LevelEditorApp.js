@@ -1,10 +1,11 @@
 import {screen, render, waitFor, within} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {MemoryRouter} from 'react-router-dom';
 
-import LevelEditorApp from '../LevelEditorApp';
+import {routes} from '../../routes';
 
 test('renders the UI', async () => {
-	render(<LevelEditorApp />);
+	render(<MemoryRouter>{routes}</MemoryRouter>);
 
 	await waitFor(() => {
 		expect(screen.getByText(/Load custom level_data/)).toBeInTheDocument();
@@ -14,7 +15,7 @@ test('renders the UI', async () => {
 });
 
 test('changing the level using the 3 number inputs', async () => {
-	render(<LevelEditorApp />);
+	render(<MemoryRouter>{routes}</MemoryRouter>);
 
 	await waitFor(() => {
 		expect(screen.getByTestId('levelselector-layer')).toBeInTheDocument();

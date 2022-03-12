@@ -2,7 +2,7 @@
 
 import {memo, useCallback, useState} from 'react';
 
-import {useCurrentCoordinates} from '../../CurrentCoordinatesContext';
+import {useCurrentCoordinatesNonNullable} from '../../CurrentCoordinatesContext';
 import DuplicateLevelModal from '../../duplicateLevel/DuplicateLevelModal';
 import LevelTerrainEditorModal from '../../terrainEditor/LevelTerrainEditorModal';
 import {LEVEL_EDITABLE_PROPERTIES_SCHEMA} from '../../types/LevelEditablePropertiesSchema';
@@ -20,7 +20,7 @@ type Props = $ReadOnly<{
 }>;
 
 function SidebarLevelProperties(props: Props): React$Node {
-	const [currentCoordinates] = useCurrentCoordinates();
+	const [currentCoordinates] = useCurrentCoordinatesNonNullable();
 	const [, dispatch] = useWorldDataNonNullable();
 
 	const [isTerrainEditorModalOpen, setIsTerrainEditorModalOpen] =
