@@ -18,7 +18,7 @@ export default function LevelNotExist(): React$Node {
 
 	return (
 		<BigPageNotice
-			heading={`ℹ️ Level ${currentCoordinates[0]}, ${currentCoordinates[1]}, ${currentCoordinates[2]} doesn't exist`}
+			heading={`ℹ️ Level ${currentCoordinates.join(', ')} doesn't exist`}
 		>
 			<button type="button" onClick={onCreateButtonClick}>
 				Create

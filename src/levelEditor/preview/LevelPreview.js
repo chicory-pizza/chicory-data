@@ -1,16 +1,18 @@
 // @flow strict
 
-import GeoPreview, {SCREEN_WIDTH} from '../common/GeoPreview';
-import {GEO_WIDTH} from '../GeoConstants';
+import GeoPreview from '../common/GeoPreview';
+import {GEO_WIDTH, SCREEN_WIDTH} from '../GeoConstants';
 import type {GameObjectEntityType} from '../types/GameObjectEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
 
+import LevelInGamePreview from './LevelInGamePreview';
 import styles from './LevelPreview.module.css';
 import LevelPreviewObjects from './LevelPreviewObjects';
 
 type Props = $ReadOnly<{
 	addingObjectEntity: ?GameObjectEntityType,
+	currentCoordinates: [number, number, number],
 	level: LevelType,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
@@ -76,6 +78,8 @@ export default function LevelPreview(props: Props): React$Node {
 						scale={SCREEN_WIDTH / GEO_WIDTH}
 						useDevicePixelRatio={true}
 					/>
+				) : props.uiView === 'INGAME' ? (
+					<LevelInGamePreview currentCoordinates={props.currentCoordinates} />
 				) : null}
 			</div>
 		</div>

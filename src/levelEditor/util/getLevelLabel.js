@@ -8,7 +8,7 @@ export default function getLevelLabel(
 	coordinates: [number, number, number],
 	level: ?LevelType
 ): string {
-	const coordinatesText = `${coordinates[0]}, ${coordinates[1]}, ${coordinates[2]}`;
+	const coordinatesText = coordinates.join(', ');
 
 	const sublabel =
 		level != null

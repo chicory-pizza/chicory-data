@@ -26,8 +26,14 @@ function SidebarViewMenu(props: Props): React$Node {
 						Geo terrain
 					</MenuItem>
 
-					<MenuItem type="radio" value="INGAME">
-						In-game screenshot
+					<MenuItem
+						disabled={
+							process.env.REACT_APP_IN_GAME_SCREENSHOT_URL_PREFIX == null
+						}
+						type="radio"
+						value="INGAME"
+					>
+						Original in-game screenshot
 					</MenuItem>
 				</MenuRadioGroup>
 			</Menu>

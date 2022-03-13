@@ -140,6 +140,7 @@ export default function LevelInspector({
 				<ErrorBoundary>
 					<LevelPreview
 						addingObjectEntity={addingObjectEntity}
+						currentCoordinates={currentCoordinates}
 						level={level}
 						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 						objectIndexHover={objectIndexHover}

@@ -3,15 +3,17 @@
 import {useEffect, useMemo, useRef} from 'react';
 
 import getCanvasRenderingContext from '../../util/getCanvasRenderingContext';
-import {GEO_HEIGHT, GEO_WIDTH} from '../GeoConstants';
+import {
+	GEO_HEIGHT,
+	GEO_WIDTH,
+	SCREEN_WIDTH,
+	SCREEN_HEIGHT,
+} from '../GeoConstants';
 import type {LevelType} from '../types/LevelType';
 import decodeGeoString from '../util/decodeGeoString';
 import drawGeoToCanvas from '../util/drawGeoToCanvas';
 
 import styles from './GeoPreview.module.css';
-
-export const SCREEN_WIDTH = 1920;
-export const SCREEN_HEIGHT = 1080;
 
 type Props = $ReadOnly<{
 	level: LevelType,

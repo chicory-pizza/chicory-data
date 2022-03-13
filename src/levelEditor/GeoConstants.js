@@ -3,6 +3,9 @@
 export const GEO_WIDTH = 81;
 export const GEO_HEIGHT = 46;
 
+export const SCREEN_WIDTH = 1920;
+export const SCREEN_HEIGHT = 1080;
+
 // Colors
 const PIXEL_COLORS: Map<number, string> = new Map();
 
