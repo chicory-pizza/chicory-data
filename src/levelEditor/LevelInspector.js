@@ -9,6 +9,7 @@ import styles from './LevelInspector.module.css';
 import LevelPreview from './preview/LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
 import type {GameObjectEntityType} from './types/GameObjectEntityType';
+import type {LevelInspectorUiView} from './types/LevelInspectorUiView';
 import type {LevelType} from './types/LevelType';
 import {useWorldDataNonNullable} from './WorldDataContext';
 
@@ -23,14 +24,16 @@ export default function LevelInspector({
 }: Props): React$Node {
 	const [, dispatch] = useWorldDataNonNullable();
 
+	useEffect(() => {
+		ConsoleNoJest.log(level);
+	}, [level]);
+
+	// Sidebar
+	const [uiView, setUiView] = useState<LevelInspectorUiView>('GEO');
+
 	const [addingObjectEntity, setAddingObjectEntity] =
 		useState<?GameObjectEntityType>(null);
-
-	const [mapMouseMoveCoordinates, setMapMouseMoveCoordinates] =
-		useState<?[number, number]>(null);
-
 	const [objectIndexHover, setObjectIndexHover] = useState<?number>(null);
-
 	const [sidebarObjectsListItemsExpanded, setSidebarObjectsListItemsExpanded] =
 		useState<Array<number>>([]);
 
@@ -38,10 +41,11 @@ export default function LevelInspector({
 		setSidebarObjectsListItemsExpanded([]);
 	}, [currentCoordinates]);
 
-	useEffect(() => {
-		ConsoleNoJest.log(level);
-	}, [level]);
+	// Coordinates
+	const [mapMouseMoveCoordinates, setMapMouseMoveCoordinates] =
+		useState<?[number, number]>(null);
 
+	// Events
 	function onMapMouseClick(ev: SyntheticMouseEvent<>) {
 		if (addingObjectEntity == null || mapMouseMoveCoordinates == null) {
 			return;
@@ -144,6 +148,7 @@ export default function LevelInspector({
 						onMapMouseMove={onMapMouseMove}
 						onObjectClick={onObjectClick}
 						onObjectHover={setObjectIndexHover}
+						uiView={uiView}
 					/>
 				</ErrorBoundary>
 			</div>
@@ -159,6 +164,8 @@ export default function LevelInspector({
 					onObjectEditProperty={onObjectEditProperty}
 					onObjectHover={setObjectIndexHover}
 					setObjectsListItemsExpanded={setSidebarObjectsListItemsExpanded}
+					setUiView={setUiView}
+					uiView={uiView}
 				/>
 			</ErrorBoundary>
 		</div>

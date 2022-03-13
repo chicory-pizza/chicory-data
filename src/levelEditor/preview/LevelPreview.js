@@ -3,6 +3,7 @@
 import GeoPreview, {SCREEN_WIDTH} from '../common/GeoPreview';
 import {GEO_WIDTH} from '../GeoConstants';
 import type {GameObjectEntityType} from '../types/GameObjectEntityType';
+import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
 
 import styles from './LevelPreview.module.css';
@@ -18,6 +19,7 @@ type Props = $ReadOnly<{
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onObjectClick: (objectIndex: number) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
+	uiView: LevelInspectorUiView,
 }>;
 
 export default function LevelPreview(props: Props): React$Node {
@@ -67,12 +69,14 @@ export default function LevelPreview(props: Props): React$Node {
 			) : null}
 
 			<div className={styles.canvas}>
-				<GeoPreview
-					level={props.level}
-					mapMouseMoveCoordinates={null}
-					scale={SCREEN_WIDTH / GEO_WIDTH}
-					useDevicePixelRatio={true}
-				/>
+				{props.uiView === 'GEO' ? (
+					<GeoPreview
+						level={props.level}
+						mapMouseMoveCoordinates={null}
+						scale={SCREEN_WIDTH / GEO_WIDTH}
+						useDevicePixelRatio={true}
+					/>
+				) : null}
 			</div>
 		</div>
 	);

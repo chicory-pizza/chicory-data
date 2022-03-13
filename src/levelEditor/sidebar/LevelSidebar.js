@@ -3,6 +3,7 @@
 import ErrorBoundary from '../../common/ErrorBoundary';
 import GeoPreview from '../common/GeoPreview';
 import type {GameObjectEntityType} from '../types/GameObjectEntityType';
+import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
 
 import styles from './LevelSidebar.module.css';
@@ -10,6 +11,7 @@ import SidebarObjectsList from './objectsList/SidebarObjectsList';
 import SidebarLevelProperties from './properties/SidebarLevelProperties';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
 import SidebarObjectAdder from './SidebarObjectAdder';
+import SidebarViewMenu from './SidebarViewMenu';
 
 type Props = $ReadOnly<{
 	level: LevelType,
@@ -25,17 +27,21 @@ type Props = $ReadOnly<{
 	) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 	setObjectsListItemsExpanded: (expandedIndexes: Array<number>) => mixed,
+	setUiView: (newUiView: LevelInspectorUiView) => mixed,
+	uiView: LevelInspectorUiView,
 }>;
 
 export default function LevelSidebar(props: Props): React$Node {
 	return (
 		<div className={styles.sidebar}>
-			<GeoPreview
-				level={props.level}
-				mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
-				scale={4}
-				useDevicePixelRatio={true}
-			/>
+			<ErrorBoundary>
+				<GeoPreview
+					level={props.level}
+					mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
+					scale={4}
+					useDevicePixelRatio={true}
+				/>
+			</ErrorBoundary>
 
 			<div className={styles.group}>
 				<ErrorBoundary>
@@ -47,8 +53,14 @@ export default function LevelSidebar(props: Props): React$Node {
 
 			<div className={styles.group + ' ' + styles.properties}>
 				<ErrorBoundary>
-					<SidebarLevelProperties level={props.level} />
+					<SidebarViewMenu setUiView={props.setUiView} uiView={props.uiView} />
+				</ErrorBoundary>
 
+				<ErrorBoundary>
+					<SidebarLevelProperties level={props.level} />
+				</ErrorBoundary>
+
+				<ErrorBoundary>
 					<SidebarObjectsList
 						levelObjects={props.level.objects ?? []}
 						objectIndexHover={props.objectIndexHover}

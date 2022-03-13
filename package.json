@@ -3,6 +3,7 @@
   "private": true,
   "license": "MPL-2.0",
   "dependencies": {
+    "@szhsin/react-menu": "3.0.0",
     "base64-arraybuffer": "1.0.2",
     "browser-fs-access": "^0.25.0",
     "pako": "2.0.4",
