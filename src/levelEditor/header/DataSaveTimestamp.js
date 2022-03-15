@@ -20,10 +20,14 @@ function getRelativeText(lastSaveTime: number): string {
 	if (diff >= 60) {
 		group = 60;
 		unit = 'minute';
-	} else if (diff >= 60 * 60) {
+	}
+
+	if (diff >= 60 * 60) {
 		group = 60 * 60;
 		unit = 'hour';
-	} else if (diff >= 60 * 60 * 24) {
+	}
+
+	if (diff >= 60 * 60 * 24) {
 		return 'a long time ago';
 	}
 
