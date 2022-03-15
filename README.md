@@ -4,6 +4,8 @@
 
 Level viewer and editor for the Chicory: A Colorful Tale game.
 
+Note that this tool directly exposes game internals and doesn't hide anything, it's recommended to complete the game (ideally to 100% completion) if you don't want to be spoiled.
+
 ## Development
 
 Requirements:
