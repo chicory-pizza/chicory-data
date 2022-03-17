@@ -30,6 +30,11 @@ export default function PropertyTextInput({
 			onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
 				setInputValue(ev.currentTarget.value);
 			}}
+			onKeyPress={(ev: SyntheticKeyboardEvent<HTMLInputElement>) => {
+				if (ev.key === 'Enter') {
+					onCommitValue(inputValue);
+				}
+			}}
 			spellCheck={false}
 			type="text"
 			value={inputValue}

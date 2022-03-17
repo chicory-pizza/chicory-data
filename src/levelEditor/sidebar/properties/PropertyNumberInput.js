@@ -36,6 +36,11 @@ export default function PropertyNumberInput({
 					setInputValue(parseFloat(ev.currentTarget.value));
 				}
 			}}
+			onKeyPress={(ev: SyntheticKeyboardEvent<HTMLInputElement>) => {
+				if (ev.key === 'Enter') {
+					onCommitValue(inputValue);
+				}
+			}}
 			type="number"
 			value={inputValue}
 		/>
