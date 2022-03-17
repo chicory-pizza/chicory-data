@@ -1,11 +1,7 @@
 // @flow strict
 
 import {useCallback, useMemo} from 'react';
-import {
-	// $FlowFixMe[missing-export] missing definition in flow-typed
-	useNavigate,
-	useParams,
-} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';

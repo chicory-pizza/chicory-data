@@ -1,5 +1,5 @@
-// flow-typed signature: e637cbcb250240cc13563d2711489ebb
-// flow-typed version: a4c4637f4a/react-router-dom_v6.x.x/flow_>=v0.104.x
+// flow-typed signature: 41f1a9833e1392a829f1b5e690652bd1
+// flow-typed version: 33952c2eec/react-router-dom_v6.x.x/flow_>=v0.104.x
 
 declare module "react-router-dom" {
   declare export var BrowserRouter: React$ComponentType<{|
@@ -145,13 +145,21 @@ declare module "react-router-dom" {
     context?: mixed;
   |}>
 
-  declare export var Redirect: React$ComponentType<{|
-    to: string | LocationShape,
-    push?: boolean,
-    from?: string,
-    exact?: boolean,
-    strict?: boolean
-  |}>
+  declare export var useNavigate: () => (
+    & ((
+      to: To,
+      options?: {|
+        replace?: boolean, state?: any,
+      |},
+    ) => void)
+    & ((delta: number) => void)
+  );
+
+  declare export var Navigate: (props: {|
+    to: To;
+    replace?: boolean;
+    state?: any;
+  |}) => null;
 
   declare export var Route: React$ComponentType<{|
     caseSensitive?: boolean,

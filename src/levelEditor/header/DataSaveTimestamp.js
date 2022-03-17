@@ -4,7 +4,7 @@ import {useState} from 'react';
 
 import useInterval from '../../util/useInterval';
 
-// $FlowFixMe
+// $FlowFixMe[prop-missing]
 const rtf = new Intl.RelativeTimeFormat('en');
 
 function getRelativeText(lastSaveTime: number): string {

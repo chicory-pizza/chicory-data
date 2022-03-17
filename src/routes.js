@@ -1,11 +1,6 @@
 // @flow strict
 
-import {
-	// $FlowFixMe[missing-export] missing definition in flow-typed
-	Navigate,
-	Route,
-	Routes,
-} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 
 import App from './App';
 import PageNotFound from './PageNotFound';
