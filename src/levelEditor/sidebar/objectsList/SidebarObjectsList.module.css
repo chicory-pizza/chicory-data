@@ -2,6 +2,22 @@
 	margin: 8px;
 }
 
+.filterWrap {
+	display: flex;
+	align-items: center;
+	margin: 4px 0 0 8px;
+}
+
+.filterLabel {
+	flex-shrink: 0;
+	margin-right: 8px;
+}
+
+.filter.filter {
+	padding: 8px;
+	width: 100%;
+}
+
 .list {
 	list-style-type: none;
 	padding: 4px 0 0;

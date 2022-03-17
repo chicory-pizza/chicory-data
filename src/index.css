@@ -18,16 +18,17 @@ body {
 	background: #eee;
 	color: #000;
 	cursor: default;
-	font-size: 1em;
 	margin: 0;
 }
 
 body,
 input[type='text'],
+input[type='search'],
 input[type='number'],
 button,
 select {
 	font-family: Domigorgon, sans-serif;
+	font-size: 1em;
 }
 
 a {
@@ -59,6 +60,7 @@ input[type='radio'] {
 }
 
 input[type='text'],
+input[type='search'],
 input[type='number'],
 button,
 select {
@@ -68,6 +70,8 @@ select {
 
 input[type='text']:hover,
 input[type='text']:focus,
+input[type='search']:hover,
+input[type='search']:focus,
 input[type='number']:hover,
 input[type='number']:focus,
 button:hover,

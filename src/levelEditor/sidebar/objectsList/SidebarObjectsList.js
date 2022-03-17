@@ -1,6 +1,6 @@
 // @flow strict
 
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useState} from 'react';
 
 import type {GameObjectType} from '../../types/GameObjectType';
 
@@ -22,36 +22,92 @@ type Props = $ReadOnly<{
 }>;
 
 function SidebarObjectsList(props: Props): React$Node {
-	const {objectsListItemsExpanded, setObjectsListItemsExpanded} = props;
+	const {
+		levelObjects: unfilteredObjects,
+		objectsListItemsExpanded: expandedUnfilteredObjectIndexes,
+		setObjectsListItemsExpanded: setExpandedUnfilteredObjectIndexes,
+	} = props;
+
+	const [filter, setFilter] = useState('');
 
 	const onItemToggle = useCallback(
 		(objectIndex: number) => {
-			if (objectsListItemsExpanded.includes(objectIndex)) {
-				setObjectsListItemsExpanded(
-					objectsListItemsExpanded.filter((index) => index !== objectIndex)
+			if (expandedUnfilteredObjectIndexes.includes(objectIndex)) {
+				setExpandedUnfilteredObjectIndexes(
+					expandedUnfilteredObjectIndexes.filter(
+						(index) => index !== objectIndex
+					)
 				);
 			} else {
-				setObjectsListItemsExpanded(
-					objectsListItemsExpanded.concat(objectIndex)
+				setExpandedUnfilteredObjectIndexes(
+					expandedUnfilteredObjectIndexes.concat(objectIndex)
 				);
 			}
 		},
-		[objectsListItemsExpanded, setObjectsListItemsExpanded]
+		[expandedUnfilteredObjectIndexes, setExpandedUnfilteredObjectIndexes]
 	);
+
+	const filterLowercase = filter.toLowerCase().trim();
+	const filteredObjects: $ReadOnlyArray<?GameObjectType> =
+		filter === ''
+			? unfilteredObjects
+			: unfilteredObjects.map((obj) => {
+					let objName = obj.obj.toLowerCase();
+					if (!filterLowercase.startsWith('obj')) {
+						objName = objName.slice('obj'.length);
+					}
+
+					return objName.includes(filterLowercase) ? obj : null;
+			  });
+	const filteredObjectsCount =
+		filter === ''
+			? filteredObjects.length
+			: filteredObjects.filter((obj) => obj != null).length;
+
+	const expandedFilteredObjectIndexes: Array<number> =
+		filter === ''
+			? expandedUnfilteredObjectIndexes
+			: expandedUnfilteredObjectIndexes.filter(
+					(objectIndex) => filteredObjects[objectIndex] != null
+			  );
 
 	return (
 		<details className={styles.expander} open>
 			<summary>
-				{props.levelObjects.length > 0
-					? 'Objects (' + props.levelObjects.length + ')'
+				{unfilteredObjects.length > 0
+					? 'Objects (' +
+					  (filteredObjectsCount !== unfilteredObjects.length
+							? `${filteredObjectsCount} of ${unfilteredObjects.length} shown`
+							: `${unfilteredObjects.length} total`) +
+					  ')'
 					: 'No objects'}
 			</summary>
 
+			{unfilteredObjects.length > 0 ? (
+				<div className={styles.filterWrap}>
+					<span className={styles.filterLabel}>Filter:</span>
+
+					<input
+						className={styles.filter}
+						onChange={(newFilter) => {
+							setFilter(newFilter.currentTarget.value);
+						}}
+						spellCheck={false}
+						type="search"
+						value={filter}
+					/>
+				</div>
+			) : null}
+
 			<ul className={styles.list}>
-				{props.levelObjects.map((obj, index) => {
+				{filteredObjects.map((obj, index) => {
+					if (obj == null) {
+						return null;
+					}
+
 					return (
 						<SidebarObjectItem
-							expanded={props.objectsListItemsExpanded.includes(index)}
+							expanded={expandedUnfilteredObjectIndexes.includes(index)}
 							highlighted={props.objectIndexHover === index}
 							index={index}
 							key={index}
@@ -69,12 +125,25 @@ function SidebarObjectsList(props: Props): React$Node {
 				<button
 					className={styles.rightPadding}
 					disabled={
-						props.levelObjects.length === 0 ||
-						props.objectsListItemsExpanded.length === props.levelObjects.length
+						filteredObjectsCount === 0 ||
+						expandedFilteredObjectIndexes.length === filteredObjectsCount
 					}
 					onClick={() => {
-						setObjectsListItemsExpanded(
-							props.levelObjects.map((_, index) => index)
+						setExpandedUnfilteredObjectIndexes(
+							Array.from(
+								new Set(
+									expandedUnfilteredObjectIndexes.concat(
+										filteredObjects.reduce(
+											(previous, currentValue, objectIndex) => {
+												return currentValue != null
+													? previous.concat(objectIndex)
+													: previous;
+											},
+											[]
+										)
+									)
+								)
+							)
 						);
 					}}
 					type="button"
@@ -84,11 +153,16 @@ function SidebarObjectsList(props: Props): React$Node {
 
 				<button
 					disabled={
-						props.levelObjects.length === 0 ||
-						props.objectsListItemsExpanded.length === 0
+						filteredObjectsCount === 0 ||
+						expandedFilteredObjectIndexes.length === 0
 					}
 					onClick={() => {
-						setObjectsListItemsExpanded([]);
+						// Collapse all objects that are currently visible
+						setExpandedUnfilteredObjectIndexes(
+							expandedUnfilteredObjectIndexes.filter(
+								(objectIndex) => filteredObjects[objectIndex] == null
+							)
+						);
 					}}
 					type="button"
 				>
