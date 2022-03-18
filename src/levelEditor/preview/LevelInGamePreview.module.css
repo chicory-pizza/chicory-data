@@ -10,6 +10,9 @@
 
 .image {
 	display: block;
-	opacity: 0.3;
 	user-select: none;
+}
+
+.semiTransparent {
+	opacity: 0.3;
 }

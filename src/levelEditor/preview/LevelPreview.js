@@ -77,7 +77,10 @@ export default function LevelPreview(props: Props): React$Node {
 			) : null}
 
 			{props.activeUiViews.includes('INGAME') ? (
-				<LevelInGamePreview currentCoordinates={props.currentCoordinates} />
+				<LevelInGamePreview
+					currentCoordinates={props.currentCoordinates}
+					semiTransparent={props.activeUiViews.length > 1}
+				/>
 			) : null}
 
 			{props.activeUiViews.includes('GEO') ? (

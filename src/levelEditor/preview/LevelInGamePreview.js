@@ -9,10 +9,12 @@ import styles from './LevelInGamePreview.module.css';
 
 type Props = $ReadOnly<{
 	currentCoordinates: [number, number, number],
+	semiTransparent: boolean,
 }>;
 
 export default function LevelInGamePreview({
 	currentCoordinates,
+	semiTransparent,
 }: Props): React$Node {
 	const levelId = convertCoordinatesToLevelId(currentCoordinates);
 
@@ -44,7 +46,11 @@ export default function LevelInGamePreview({
 	const src = urlPrefix + levelId + '.png';
 
 	return (
-		<div className={styles.root}>
+		<div
+			className={
+				styles.root + ' ' + (semiTransparent ? styles.semiTransparent : '')
+			}
+		>
 			<img
 				alt={`Level preview for level ${currentCoordinates.join(', ')}`}
 				className={styles.image}
