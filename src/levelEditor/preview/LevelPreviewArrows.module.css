@@ -33,7 +33,7 @@
 }
 
 .bottom {
-	bottom: -43px; /* really need to figure out why the geo has 10px extra at the bottom... */
+	bottom: -33px;
 	left: 0;
 
 	height: 25px;

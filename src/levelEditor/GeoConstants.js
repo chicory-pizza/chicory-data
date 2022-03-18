@@ -4,7 +4,7 @@ export const GEO_WIDTH = 81;
 export const GEO_HEIGHT = 46;
 
 export const SCREEN_WIDTH = 1920;
-export const SCREEN_HEIGHT = 1080;
+export const SCREEN_HEIGHT: number = 1080 + 10; // I don't know why the geo has 10px extra at the bottom...
 
 // Colors
 const PIXEL_COLORS: Map<number, string> = new Map();

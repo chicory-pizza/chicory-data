@@ -1,7 +1,7 @@
 // @flow strict
 
 import MessageBox from '../../common/MessageBox';
-import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../GeoConstants';
+import {SCREEN_WIDTH} from '../GeoConstants';
 import {AVAILABLE_IN_GAME_SCREENSHOTS} from '../types/AvailableInGameScreenshots';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 
@@ -43,7 +43,7 @@ export default function LevelInGamePreview({
 		<img
 			alt={`Level preview for level ${currentCoordinates.join(', ')}`}
 			className={styles.image}
-			height={SCREEN_HEIGHT}
+			height={1080}
 			// force reload
 			key={levelId}
 			src={src}
