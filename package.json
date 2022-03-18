@@ -20,7 +20,7 @@
     "@testing-library/user-event": "13.5.0",
     "canvas": "2.9.0",
     "flow-bin": "0.173.0",
-    "prettier": "2.5.1",
+    "prettier": "2.6.0",
     "react-scripts": "5.0.0"
   },
   "engines": {
