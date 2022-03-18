@@ -7,7 +7,7 @@ import {useWorldDataNonNullable} from './WorldDataContext';
 
 export default function LevelNotExist(): React$Node {
 	const [currentCoordinates] = useCurrentCoordinatesNonNullable();
-	const [, dispatch] = useWorldDataNonNullable();
+	const {dispatch} = useWorldDataNonNullable();
 
 	function onCreateButtonClick() {
 		dispatch({

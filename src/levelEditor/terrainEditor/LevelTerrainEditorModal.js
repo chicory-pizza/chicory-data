@@ -69,7 +69,7 @@ type Props = $ReadOnly<{
 
 export default function LevelTerrainEditorModal(props: Props): React$Node {
 	const [currentCoordinates] = useCurrentCoordinatesNonNullable();
-	const [, dispatch] = useWorldDataNonNullable();
+	const {dispatch} = useWorldDataNonNullable();
 
 	const [errorMessage, setErrorMessage] = useState<?string>(null);
 

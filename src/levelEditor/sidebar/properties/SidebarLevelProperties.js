@@ -22,7 +22,7 @@ type Props = $ReadOnly<{
 
 function SidebarLevelProperties(props: Props): React$Node {
 	const [currentCoordinates] = useCurrentCoordinatesNonNullable();
-	const [, dispatch] = useWorldDataNonNullable();
+	const {dispatch} = useWorldDataNonNullable();
 
 	const [isTerrainEditorModalOpen, setIsTerrainEditorModalOpen] =
 		useState(false);

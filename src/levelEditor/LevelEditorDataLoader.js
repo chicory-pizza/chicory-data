@@ -4,14 +4,14 @@ import {useEffect, useState} from 'react';
 
 import ConsoleNoJest from '../util/ConsoleNoJest';
 
-import {useWorldData} from './WorldDataContext';
+import {useWorldDataNullable} from './WorldDataContext';
 
 type Props = $ReadOnly<{
 	children: React$Node,
 }>;
 
 export default function LevelEditorDataLoader(props: Props): React$Node {
-	const [worldData, dispatch] = useWorldData();
+	const {worldData, dispatch} = useWorldDataNullable();
 	const [consoleMessageShown, setConsoleMessageShown] = useState(false);
 
 	useEffect(() => {
@@ -34,6 +34,10 @@ export default function LevelEditorDataLoader(props: Props): React$Node {
 				dispatch({
 					type: 'setWorldData',
 					worldData: initialWorldData.default,
+				});
+
+				dispatch({
+					type: 'clearUndoHistory',
 				});
 			});
 		}

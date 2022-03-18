@@ -5,13 +5,13 @@ import {fileOpen, fileSave} from 'browser-fs-access';
 import {useRef, useState} from 'react';
 
 import LevelEditorBeforeUnloadPrompt from '../LevelEditorBeforeUnloadPrompt';
-import {useWorldData} from '../WorldDataContext';
+import {useWorldDataNullable} from '../WorldDataContext';
 
 import DataSaveTimestamp from './DataSaveTimestamp';
 import styles from './DataSelector.module.css';
 
 export default function DataSelector(): React$Node {
-	const [worldData, dispatch] = useWorldData();
+	const {worldData, dispatch} = useWorldDataNullable();
 	const [lastSaveTime, setLastSaveTime] = useState<?number>(null);
 
 	const saveFileHandleRef = useRef(null);
@@ -40,6 +40,10 @@ export default function DataSelector(): React$Node {
 			dispatch({
 				type: 'setWorldData',
 				worldData: result,
+			});
+
+			dispatch({
+				type: 'clearUndoHistory',
 			});
 		};
 		reader.onerror = (ex) => {

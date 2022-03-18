@@ -15,7 +15,7 @@ import {useWorldDataNonNullable} from '../WorldDataContext';
 import styles from './LevelSelector.module.css';
 
 export default function LevelSelector(): React$Node {
-	const [worldData] = useWorldDataNonNullable();
+	const {worldData} = useWorldDataNonNullable();
 	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
 
 	const levelsWithPlaceholder = useMemo(() => {

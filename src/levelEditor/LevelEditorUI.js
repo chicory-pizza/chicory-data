@@ -8,16 +8,17 @@ import AppHeader from '../header/AppHeader';
 import LoadingBigBanner from '../LoadingBigBanner';
 
 import DataSelector from './header/DataSelector';
+import LevelEditorUndoRedo from './header/LevelEditorUndoRedo';
 import LevelSelector from './header/LevelSelector';
 import styles from './LevelEditorUI.module.css';
 import LevelIdFromRouterInvalid from './LevelIdFromRouterInvalid';
 import LevelInspectorContainer from './LevelInspectorContainer';
 import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
-import {useWorldData} from './WorldDataContext';
+import {useWorldDataNullable} from './WorldDataContext';
 import WorldMap from './worldMap/WorldMap';
 
 export default function LevelEditorUI(): React$Node {
-	const [worldData] = useWorldData();
+	const {worldData} = useWorldDataNullable();
 	const {levelId} = useParams();
 
 	const [drawPreviewsOnWorldMap, setDrawPreviewsOnWorldMap] = useState(false);
@@ -47,16 +48,19 @@ export default function LevelEditorUI(): React$Node {
 					)
 				}
 				levelSelectorSide={
-					<label>
-						<input
-							checked={drawPreviewsOnWorldMap}
-							onChange={(ev: SyntheticInputEvent<HTMLInputElement>) =>
-								setDrawPreviewsOnWorldMap(ev.currentTarget.checked)
-							}
-							type="checkbox"
-						/>{' '}
-						Show previews on world map (slow)
-					</label>
+					<>
+						<LevelEditorUndoRedo />
+						<label>
+							<input
+								checked={drawPreviewsOnWorldMap}
+								onChange={(ev: SyntheticInputEvent<HTMLInputElement>) =>
+									setDrawPreviewsOnWorldMap(ev.currentTarget.checked)
+								}
+								type="checkbox"
+							/>{' '}
+							Show previews on world map (slow)
+						</label>
+					</>
 				}
 			/>
 

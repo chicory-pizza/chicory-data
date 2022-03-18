@@ -22,7 +22,7 @@ type Props = $ReadOnly<{
 }>;
 
 export default function DuplicateLevelModal(props: Props): React$Node {
-	const [worldData, dispatch] = useWorldDataNonNullable();
+	const {worldData, dispatch} = useWorldDataNonNullable();
 	const [currentCoordinates, setNewCoordinates] =
 		useCurrentCoordinatesNonNullable();
 

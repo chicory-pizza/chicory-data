@@ -22,7 +22,7 @@ export default function LevelInspector({
 	currentCoordinates,
 	level,
 }: Props): React$Node {
-	const [, dispatch] = useWorldDataNonNullable();
+	const {dispatch} = useWorldDataNonNullable();
 
 	useEffect(() => {
 		ConsoleNoJest.log(level);

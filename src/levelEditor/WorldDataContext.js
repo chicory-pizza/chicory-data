@@ -1,6 +1,9 @@
 // @flow strict
 
-import {createContext, useContext, useMemo, useReducer} from 'react';
+import {createContext, useContext, useMemo} from 'react';
+
+import type {UndoReducerAction} from '../util/useUndoRedoReducer';
+import useUndoRedoReducer from '../util/useUndoRedoReducer';
 
 import type {GameObjectEntityType} from './types/GameObjectEntityType';
 import type {LevelType} from './types/LevelType';
@@ -30,6 +33,7 @@ function getNonNullableLevel(
 }
 
 type ReducerAction =
+	| UndoReducerAction
 	| {type: 'setWorldData', worldData: ?WorldType}
 	| {type: 'newBlankLevel', coordinates: [number, number, number]}
 	| {
@@ -211,16 +215,28 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 	}
 }
 
+type ContextValue = $ReadOnly<{
+	worldData: ?WorldType,
+	dispatch: (action: ReducerAction) => void,
+	canUndo: boolean,
+	canRedo: boolean,
+}>;
+
 type Props = $ReadOnly<{
 	children: React$Node,
 }>;
 
 export function WorldDataProvider({children}: Props): React$Node {
-	const [worldData, dispatch] = useReducer(reducer);
+	const {
+		currentState: worldData,
+		dispatch,
+		canUndo,
+		canRedo,
+	} = useUndoRedoReducer(reducer, null);
 
-	const contextValue = useMemo(() => {
-		return {worldData, dispatch};
-	}, [worldData, dispatch]);
+	const contextValue: ContextValue = useMemo(() => {
+		return {worldData, dispatch, canUndo, canRedo};
+	}, [worldData, dispatch, canUndo, canRedo]);
 
 	return (
 		<WorldDataContext.Provider value={contextValue}>
@@ -229,25 +245,26 @@ export function WorldDataProvider({children}: Props): React$Node {
 	);
 }
 
-export function useWorldData(): [?WorldType, (action: ReducerAction) => void] {
+export function useWorldDataNullable(): ContextValue {
 	const context = useContext(WorldDataContext);
 
 	if (!context) {
 		throw new Error('useWorldData must be used within a WorldDataProvider');
 	}
 
-	return [context.worldData, context.dispatch];
+	return context;
 }
 
-export function useWorldDataNonNullable(): [
-	WorldType,
-	(action: ReducerAction) => void
-] {
-	const hook = useWorldData();
+export function useWorldDataNonNullable(): $ReadOnly<{
+	...ContextValue,
+	worldData: WorldType,
+}> {
+	const hook = useWorldDataNullable();
 
-	if (hook[0] == null) {
+	if (hook.worldData == null) {
 		throw new Error('worldData is null');
 	}
 
-	return [hook[0], hook[1]];
+	// $FlowFixMe[incompatible-return] we don't want to construct yet another object for performance
+	return hook;
 }

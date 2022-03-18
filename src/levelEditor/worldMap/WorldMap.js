@@ -16,7 +16,7 @@ type Props = $ReadOnly<{
 }>;
 
 export default function WorldMap(props: Props): React$Node {
-	const [worldData] = useWorldDataNonNullable();
+	const {worldData} = useWorldDataNonNullable();
 	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
 
 	let minX = 0;

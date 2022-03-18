@@ -2,7 +2,7 @@
 
 import {useEffect, useRef} from 'react';
 
-import {useWorldData} from './WorldDataContext';
+import {useWorldDataNullable} from './WorldDataContext';
 
 function prompt(ev: BeforeUnloadEvent) {
 	ev.returnValue = 'You have unsaved changes to this level data';
@@ -13,7 +13,7 @@ type Props = $ReadOnly<{
 }>;
 
 export default function LevelEditorBeforeUnloadPrompt(props: Props): null {
-	const [worldData] = useWorldData();
+	const {worldData} = useWorldDataNullable();
 	const prevWorldDataRef = useRef(worldData);
 
 	useEffect(() => {

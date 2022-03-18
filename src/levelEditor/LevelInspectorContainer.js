@@ -8,7 +8,7 @@ import {useWorldDataNonNullable} from './WorldDataContext';
 
 export default function LevelInspectorContainer(): React$Node {
 	const [currentCoordinates] = useCurrentCoordinatesNonNullable();
-	const [worldData] = useWorldDataNonNullable();
+	const {worldData} = useWorldDataNonNullable();
 
 	const level = worldData[convertCoordinatesToLevelId(currentCoordinates)];
 	if (level == null) {
