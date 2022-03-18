@@ -7,9 +7,15 @@ import {routes} from '../../routes';
 test('renders the UI', async () => {
 	render(<MemoryRouter>{routes}</MemoryRouter>);
 
-	await waitFor(() => {
-		expect(screen.getByText(/Load custom level_data/)).toBeInTheDocument();
-	});
+	await waitFor(
+		() => {
+			expect(screen.getByText(/Load custom level_data/)).toBeInTheDocument();
+		},
+		{
+			// Hacky fix for GitHub CI
+			timeout: 2000,
+		}
+	);
 
 	expect(screen.getByTestId('worldmap-active')).toHaveTextContent('0, 0');
 });
