@@ -73,7 +73,7 @@ function handleUndoReducer<T, ReducerAction: {...}>(
 		const newIndex = state.currentIndex + 1;
 
 		return {
-			history: state.history.concat(newPresent),
+			history: state.history.slice(0, newIndex).concat(newPresent),
 			currentIndex: newIndex,
 		};
 	};
