@@ -8,6 +8,7 @@ import type {LevelType} from '../types/LevelType';
 
 import LevelInGamePreview from './LevelInGamePreview';
 import styles from './LevelPreview.module.css';
+import LevelPreviewArrows from './LevelPreviewArrows';
 import LevelPreviewObjects from './LevelPreviewObjects';
 
 type Props = $ReadOnly<{
@@ -27,9 +28,10 @@ type Props = $ReadOnly<{
 export default function LevelPreview(props: Props): React$Node {
 	const objects = props.level.objects;
 
+	// Show arrows around
 	// Some objects can be bit off-screen
-	let offscreenX = -8;
-	let offscreenY = -8;
+	let offscreenX = -25 - 8 * 2;
+	let offscreenY = -25 - 8 * 2;
 	objects?.forEach((obj) => {
 		offscreenX = Math.min(offscreenX, obj.x - 8);
 		offscreenY = Math.min(offscreenY, obj.y - 8);
@@ -82,6 +84,8 @@ export default function LevelPreview(props: Props): React$Node {
 					<LevelInGamePreview currentCoordinates={props.currentCoordinates} />
 				) : null}
 			</div>
+
+			<LevelPreviewArrows />
 		</div>
 	);
 }

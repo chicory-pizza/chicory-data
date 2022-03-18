@@ -1,7 +1,6 @@
 // @flow strict
 
 import MessageBox from '../../common/MessageBox';
-import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
 import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../GeoConstants';
 import {AVAILABLE_IN_GAME_SCREENSHOTS} from '../types/AvailableInGameScreenshots';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
@@ -12,9 +11,9 @@ type Props = $ReadOnly<{
 	currentCoordinates: [number, number, number],
 }>;
 
-export default function LevelInGamePreview(props: Props): React$Node {
-	const [currentCoordinates] = useCurrentCoordinatesNonNullable();
-
+export default function LevelInGamePreview({
+	currentCoordinates,
+}: Props): React$Node {
 	const levelId = convertCoordinatesToLevelId(currentCoordinates);
 
 	if (!AVAILABLE_IN_GAME_SCREENSHOTS.includes(levelId)) {

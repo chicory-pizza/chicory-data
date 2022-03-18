@@ -1,6 +1,6 @@
 .item {
 	position: absolute;
-	z-index: 2;
+	z-index: 3;
 }
 
 .itemHover {

@@ -1,0 +1,41 @@
+.arrowBox {
+	position: absolute;
+	z-index: 2;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: sans-serif;
+}
+
+.top {
+	top: -33px;
+	left: 0;
+
+	height: 25px;
+	width: 100%;
+}
+
+.left {
+	top: 0;
+	left: -33px;
+
+	width: 25px;
+	height: 100%;
+}
+
+.right {
+	top: 0;
+	right: -33px;
+
+	width: 25px;
+	height: 100%;
+}
+
+.bottom {
+	bottom: -43px; /* really need to figure out why the geo has 10px extra at the bottom... */
+	left: 0;
+
+	height: 25px;
+	width: 100%;
+}
