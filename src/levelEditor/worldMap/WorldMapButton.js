@@ -26,6 +26,7 @@ type Props = $ReadOnly<{
 function WorldMapButton(props: Props): React$Node {
 	const coordinates = convertLevelIdToCoordinates(props.levelId);
 	const level = props.level;
+	const geo = level?.geo;
 	const isCurrent = props.isCurrent;
 
 	const [geoPreview, setGeoPreview] = useState(null);
@@ -50,11 +51,11 @@ function WorldMapButton(props: Props): React$Node {
 	}, [props.levelId, isCurrent]);
 
 	useEffect(() => {
-		if (props.drawPreviews && !isCurrent && level != null) {
+		if (props.drawPreviews && !isCurrent && geo != null) {
 			setGeoPreview(null);
 
 			const handle = window.requestIdleCallback(() => {
-				setGeoPreview(getWorldMapGeoPreviewCache(level.geo));
+				setGeoPreview(getWorldMapGeoPreviewCache(geo));
 			});
 
 			return () => {
@@ -63,7 +64,7 @@ function WorldMapButton(props: Props): React$Node {
 		} else {
 			setGeoPreview(null);
 		}
-	}, [isCurrent, level, props.drawPreviews]);
+	}, [isCurrent, geo, props.drawPreviews]);
 
 	return (
 		<button
