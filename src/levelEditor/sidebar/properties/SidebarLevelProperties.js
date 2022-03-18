@@ -7,6 +7,7 @@ import DuplicateLevelModal from '../../duplicateLevel/DuplicateLevelModal';
 import LevelTerrainEditorModal from '../../terrainEditor/LevelTerrainEditorModal';
 import {LEVEL_EDITABLE_PROPERTIES_SCHEMA} from '../../types/LevelEditablePropertiesSchema';
 import type {LevelType} from '../../types/LevelType';
+import convertCoordinatesToLevelId from '../../util/convertCoordinatesToLevelId';
 import getLevelLabel from '../../util/getLevelLabel';
 import {useWorldDataNonNullable} from '../../WorldDataContext';
 
@@ -40,6 +41,28 @@ function SidebarLevelProperties(props: Props): React$Node {
 		[currentCoordinates, dispatch]
 	);
 
+	function onRestoreGameDefaultButtonClick() {
+		if (
+			!window.confirm(
+				`Are you sure you want to restore level ${currentCoordinates.join(
+					', '
+				)} to the game default?`
+			)
+		) {
+			return;
+		}
+
+		// $FlowFixMe[untyped-import]
+		import('../../level_data.json').then((initialWorldData) => {
+			dispatch({
+				type: 'setRawLevel',
+				coordinates: currentCoordinates,
+				level:
+					initialWorldData[convertCoordinatesToLevelId(currentCoordinates)],
+			});
+		});
+	}
+
 	function onDeleteLevelButtonClick() {
 		if (
 			!window.confirm(
@@ -60,10 +83,7 @@ function SidebarLevelProperties(props: Props): React$Node {
 
 	return (
 		<details className={styles.expander} open>
-			<summary>
-				Level {currentCoordinates[0]}, {currentCoordinates[1]},{' '}
-				{currentCoordinates[2]} properties
-			</summary>
+			<summary>Level {currentCoordinates.join(', ')} properties</summary>
 
 			<div className={styles.content}>
 				<SidebarEditableProperties
@@ -87,6 +107,14 @@ function SidebarLevelProperties(props: Props): React$Node {
 					type="button"
 				>
 					Duplicate level
+				</button>
+
+				<button
+					className={styles.actionButton}
+					onClick={onRestoreGameDefaultButtonClick}
+					type="button"
+				>
+					Restore game default
 				</button>
 
 				<button

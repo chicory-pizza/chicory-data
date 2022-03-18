@@ -62,9 +62,14 @@ type ReducerAction =
 			from: [number, number, number],
 			to: [number, number, number],
 	  }
+	| {
+			type: 'setRawLevel',
+			coordinates: [number, number, number],
+			level: LevelType,
+	  }
 	| {type: 'deleteLevel', coordinates: [number, number, number]};
 
-function reducer(state: ?WorldType, action: ReducerAction) {
+function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 	switch (action.type) {
 		case 'setWorldData':
 			return action.worldData;
@@ -183,6 +188,16 @@ function reducer(state: ?WorldType, action: ReducerAction) {
 				...state,
 				[convertCoordinatesToLevelId(action.to)]:
 					state[convertCoordinatesToLevelId(action.from)],
+			};
+
+		case 'setRawLevel':
+			if (state == null) {
+				throw new Error('No world data');
+			}
+
+			return {
+				...state,
+				[convertCoordinatesToLevelId(action.coordinates)]: action.level,
 			};
 
 		case 'deleteLevel': {
