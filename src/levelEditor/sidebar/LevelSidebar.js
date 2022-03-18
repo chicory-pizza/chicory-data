@@ -14,10 +14,12 @@ import SidebarObjectAdder from './SidebarObjectAdder';
 import SidebarViewMenu from './SidebarViewMenu';
 
 type Props = $ReadOnly<{
+	activeUiViews: Array<LevelInspectorUiView>,
 	level: LevelType,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
 	objectsListItemsExpanded: Array<number>,
+	onActiveUiViewToggle: (uiView: LevelInspectorUiView) => mixed,
 	onAddingObjectEntity: (entity: GameObjectEntityType) => mixed,
 	onObjectDelete: (objectIndex: number) => mixed,
 	onObjectEditProperty: (
@@ -27,8 +29,6 @@ type Props = $ReadOnly<{
 	) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 	setObjectsListItemsExpanded: (expandedIndexes: Array<number>) => mixed,
-	setUiView: (newUiView: LevelInspectorUiView) => mixed,
-	uiView: LevelInspectorUiView,
 }>;
 
 export default function LevelSidebar(props: Props): React$Node {
@@ -53,7 +53,10 @@ export default function LevelSidebar(props: Props): React$Node {
 
 			<div className={styles.group + ' ' + styles.properties}>
 				<ErrorBoundary>
-					<SidebarViewMenu setUiView={props.setUiView} uiView={props.uiView} />
+					<SidebarViewMenu
+						activeUiViews={props.activeUiViews}
+						onActiveUiViewToggle={props.onActiveUiViewToggle}
+					/>
 				</ErrorBoundary>
 
 				<ErrorBoundary>

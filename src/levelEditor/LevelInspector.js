@@ -28,9 +28,11 @@ export default function LevelInspector({
 		ConsoleNoJest.log(level);
 	}, [level]);
 
-	// Sidebar
-	const [uiView, setUiView] = useState<LevelInspectorUiView>('GEO');
+	const [activeUiViews, setActiveUiViews] = useState<
+		Array<LevelInspectorUiView>
+	>(['GEO', 'OBJECTS']);
 
+	// Sidebar
 	const [addingObjectEntity, setAddingObjectEntity] =
 		useState<?GameObjectEntityType>(null);
 	const [objectIndexHover, setObjectIndexHover] = useState<?number>(null);
@@ -134,11 +136,23 @@ export default function LevelInspector({
 		[currentCoordinates, dispatch, level.objects]
 	);
 
+	const onActiveUiViewToggle = useCallback(
+		(uiView: LevelInspectorUiView) => {
+			if (activeUiViews.includes(uiView)) {
+				setActiveUiViews(activeUiViews.filter((index) => index !== uiView));
+			} else {
+				setActiveUiViews(activeUiViews.concat(uiView));
+			}
+		},
+		[activeUiViews]
+	);
+
 	return (
 		<div className={styles.root}>
 			<div className={styles.preview}>
 				<ErrorBoundary>
 					<LevelPreview
+						activeUiViews={activeUiViews}
 						addingObjectEntity={addingObjectEntity}
 						currentCoordinates={currentCoordinates}
 						level={level}
@@ -149,24 +163,23 @@ export default function LevelInspector({
 						onMapMouseMove={onMapMouseMove}
 						onObjectClick={onObjectClick}
 						onObjectHover={setObjectIndexHover}
-						uiView={uiView}
 					/>
 				</ErrorBoundary>
 			</div>
 
 			<ErrorBoundary>
 				<LevelSidebar
+					activeUiViews={activeUiViews}
 					level={level}
 					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					objectIndexHover={objectIndexHover}
 					objectsListItemsExpanded={sidebarObjectsListItemsExpanded}
+					onActiveUiViewToggle={onActiveUiViewToggle}
 					onAddingObjectEntity={setAddingObjectEntity}
 					onObjectDelete={onObjectDelete}
 					onObjectEditProperty={onObjectEditProperty}
 					onObjectHover={setObjectIndexHover}
 					setObjectsListItemsExpanded={setSidebarObjectsListItemsExpanded}
-					setUiView={setUiView}
-					uiView={uiView}
 				/>
 			</ErrorBoundary>
 		</div>

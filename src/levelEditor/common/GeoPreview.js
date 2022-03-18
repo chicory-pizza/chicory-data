@@ -83,17 +83,15 @@ export default function GeoPreview(props: Props): React$Node {
 	}
 
 	return (
-		<div>
-			<canvas
-				className={styles.canvas}
-				ref={canvasRef}
-				width={GEO_WIDTH * props.scale * dpr}
-				height={GEO_HEIGHT * props.scale * dpr}
-				style={{
-					width: GEO_WIDTH * props.scale,
-					height: GEO_HEIGHT * props.scale,
-				}}
-			/>
-		</div>
+		<canvas
+			className={styles.canvas}
+			ref={canvasRef}
+			width={GEO_WIDTH * props.scale * dpr}
+			height={GEO_HEIGHT * props.scale * dpr}
+			style={{
+				width: GEO_WIDTH * props.scale,
+				height: GEO_HEIGHT * props.scale,
+			}}
+		/>
 	);
 }

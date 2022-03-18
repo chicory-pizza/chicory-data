@@ -10,8 +10,10 @@ import LevelInGamePreview from './LevelInGamePreview';
 import styles from './LevelPreview.module.css';
 import LevelPreviewArrows from './LevelPreviewArrows';
 import LevelPreviewObjects from './LevelPreviewObjects';
+import LevelPreviewNoViews from './noviews/LevelPreviewNoViews';
 
 type Props = $ReadOnly<{
+	activeUiViews: Array<LevelInspectorUiView>,
 	addingObjectEntity: ?GameObjectEntityType,
 	currentCoordinates: [number, number, number],
 	level: LevelType,
@@ -22,7 +24,6 @@ type Props = $ReadOnly<{
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onObjectClick: (objectIndex: number) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
-	uiView: LevelInspectorUiView,
 }>;
 
 export default function LevelPreview(props: Props): React$Node {
@@ -50,16 +51,19 @@ export default function LevelPreview(props: Props): React$Node {
 				top: -offscreenY,
 			}}
 		>
-			<LevelPreviewObjects
-				level={props.level}
-				objectIndexHover={props.objectIndexHover}
-				onMapMouseLeave={props.onMapMouseLeave}
-				onMapMouseMove={props.onMapMouseMove}
-				onObjectClick={props.onObjectClick}
-				onObjectHover={props.onObjectHover}
-			/>
+			{props.activeUiViews.includes('OBJECTS') ? (
+				<LevelPreviewObjects
+					level={props.level}
+					objectIndexHover={props.objectIndexHover}
+					onMapMouseLeave={props.onMapMouseLeave}
+					onMapMouseMove={props.onMapMouseMove}
+					onObjectClick={props.onObjectClick}
+					onObjectHover={props.onObjectHover}
+				/>
+			) : null}
 
-			{props.addingObjectEntity != null &&
+			{props.activeUiViews.includes('OBJECTS') &&
+			props.addingObjectEntity != null &&
 			props.mapMouseMoveCoordinates != null ? (
 				<div
 					className={styles.addingObjectItem}
@@ -72,18 +76,22 @@ export default function LevelPreview(props: Props): React$Node {
 				</div>
 			) : null}
 
-			<div className={styles.canvas}>
-				{props.uiView === 'GEO' ? (
+			{props.activeUiViews.includes('INGAME') ? (
+				<LevelInGamePreview currentCoordinates={props.currentCoordinates} />
+			) : null}
+
+			{props.activeUiViews.includes('GEO') ? (
+				<div className={styles.geoCanvas}>
 					<GeoPreview
 						level={props.level}
 						mapMouseMoveCoordinates={null}
 						scale={SCREEN_WIDTH / GEO_WIDTH}
 						useDevicePixelRatio={true}
 					/>
-				) : props.uiView === 'INGAME' ? (
-					<LevelInGamePreview currentCoordinates={props.currentCoordinates} />
-				) : null}
-			</div>
+				</div>
+			) : null}
+
+			{props.activeUiViews.length === 0 ? <LevelPreviewNoViews /> : null}
 
 			<LevelPreviewArrows />
 		</div>

@@ -15,11 +15,11 @@
 	z-index: 2;
 }
 
-.canvas {
-	outline: 1px solid #000;
-
+.geoCanvas {
 	position: absolute;
 	top: 0;
 	left: 0;
 	z-index: 1;
+
+	outline: 1px solid #000;
 }
