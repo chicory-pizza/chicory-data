@@ -1,6 +1,6 @@
 // @flow strict
 
-import {memo, useEffect, useRef} from 'react';
+import {memo, useEffect, useRef, useState} from 'react';
 
 import {GEO_HEIGHT, GEO_WIDTH} from '../GeoConstants';
 import type {LevelType} from '../types/LevelType';
@@ -28,6 +28,7 @@ function WorldMapButton(props: Props): React$Node {
 	const level = props.level;
 	const isCurrent = props.isCurrent;
 
+	const [geoPreview, setGeoPreview] = useState(null);
 	const currentBox = useRef<?HTMLButtonElement>(null);
 
 	const sublabel =
@@ -46,7 +47,23 @@ function WorldMapButton(props: Props): React$Node {
 				inline: 'center',
 			});
 		}
-	}, [isCurrent]);
+	}, [props.levelId, isCurrent]);
+
+	useEffect(() => {
+		if (props.drawPreviews && !isCurrent && level != null) {
+			setGeoPreview(null);
+
+			const handle = window.requestIdleCallback(() => {
+				setGeoPreview(getWorldMapGeoPreviewCache(level.geo));
+			});
+
+			return () => {
+				window.cancelIdleCallback(handle);
+			};
+		} else {
+			setGeoPreview(null);
+		}
+	}, [isCurrent, level, props.drawPreviews]);
 
 	return (
 		<button
@@ -59,10 +76,7 @@ function WorldMapButton(props: Props): React$Node {
 				top: Math.abs(props.minY) * HEIGHT + coordinates[2] * HEIGHT,
 				width: WIDTH,
 				height: HEIGHT,
-				backgroundImage:
-					props.drawPreviews && !isCurrent && level != null
-						? `url(${getWorldMapGeoPreviewCache(level.geo)})`
-						: null,
+				backgroundImage: geoPreview != null ? `url(${geoPreview})` : null,
 			}}
 			title={sublabel.filter(Boolean).join('\n')}
 			type="button"

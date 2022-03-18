@@ -21,7 +21,7 @@ export default function LevelEditorUI(): React$Node {
 	const {worldData} = useWorldDataNullable();
 	const {levelId} = useParams();
 
-	const [drawPreviewsOnWorldMap, setDrawPreviewsOnWorldMap] = useState(false);
+	const [drawPreviewsOnWorldMap, setDrawPreviewsOnWorldMap] = useState(true);
 
 	let validLevelId = true;
 	try {
@@ -58,7 +58,7 @@ export default function LevelEditorUI(): React$Node {
 								}
 								type="checkbox"
 							/>{' '}
-							Show previews on world map (slow)
+							Show previews on world map
 						</label>
 					</>
 				}

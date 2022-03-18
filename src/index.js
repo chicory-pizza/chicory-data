@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import ReactModal from 'react-modal';
 import './index.css';
 import {BrowserRouter} from 'react-router-dom';
+import './util/shimRequestIdleCallback';
 
 import {routes} from './routes';
 import {paintdogConsoleText} from './util/paintdogConsoleText';
