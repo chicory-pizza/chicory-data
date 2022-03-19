@@ -100,20 +100,30 @@ export default function LevelInspector({
 	);
 
 	const onObjectDelete = useCallback(
-		(objectIndex: number) => {
+		(deletedObjectIndex: number) => {
 			dispatch({
 				type: 'deleteObjectOnLevel',
 				coordinates: currentCoordinates,
-				objectIndex,
+				objectIndex: deletedObjectIndex,
 			});
 
-			if (sidebarObjectsListItemsExpanded.includes(objectIndex)) {
-				setSidebarObjectsListItemsExpanded(
-					sidebarObjectsListItemsExpanded.filter(
-						(index) => index !== objectIndex
-					)
-				);
-			}
+			setSidebarObjectsListItemsExpanded(
+				sidebarObjectsListItemsExpanded.reduce((previous, currentIndex) => {
+					// Skip deleted object index
+					if (currentIndex === deletedObjectIndex) {
+						return previous;
+					}
+
+					// Anything after the deleted object index needs to decrement
+					if (currentIndex > deletedObjectIndex) {
+						previous.push(currentIndex - 1);
+					} else {
+						previous.push(currentIndex);
+					}
+
+					return previous;
+				}, [])
+			);
 		},
 		[currentCoordinates, dispatch, sidebarObjectsListItemsExpanded]
 	);
