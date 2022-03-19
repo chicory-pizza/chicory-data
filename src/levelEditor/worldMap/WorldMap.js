@@ -32,21 +32,21 @@ export default function WorldMap(props: Props): React$Node {
 				? [maybePlaceholderLevelId]
 				: []
 		)
-		.map((levelId) => {
+		.reduce((previous, levelId) => {
 			const coordinates = convertLevelIdToCoordinates(levelId);
 
 			// check layer
 			const currentLayer = currentCoordinates ? currentCoordinates[0] : 0;
 			if (coordinates[0] !== currentLayer) {
-				return null;
+				return previous;
 			}
 
 			minX = Math.min(minX, coordinates[1]);
 			minY = Math.min(minY, coordinates[2]);
 
-			return coordinates;
-		})
-		.filter(Boolean)
+			previous.push(coordinates);
+			return previous;
+		}, [])
 		.sort((a, b) => {
 			return sortCompareCoordinates(a, b);
 		});

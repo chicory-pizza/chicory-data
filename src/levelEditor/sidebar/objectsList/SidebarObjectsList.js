@@ -135,9 +135,11 @@ function SidebarObjectsList(props: Props): React$Node {
 									expandedUnfilteredObjectIndexes.concat(
 										filteredObjects.reduce(
 											(previous, currentValue, objectIndex) => {
-												return currentValue != null
-													? previous.concat(objectIndex)
-													: previous;
+												if (currentValue != null) {
+													previous.push(objectIndex);
+												}
+
+												return previous;
 											},
 											[]
 										)
