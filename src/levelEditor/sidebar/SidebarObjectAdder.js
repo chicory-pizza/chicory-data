@@ -47,7 +47,8 @@ function SidebarObjectAdder(props: Props): React$Node {
 
 	return (
 		<div className={styles.root}>
-			Add object:
+			<span className={styles.label}>Add object:</span>
+
 			<div className={styles.select}>
 				<CustomSelect
 					maxMenuHeight={300}
@@ -59,7 +60,9 @@ function SidebarObjectAdder(props: Props): React$Node {
 					value={selected}
 				/>
 			</div>
+
 			<button
+				className={styles.button}
 				disabled={selected == null}
 				onClick={() => {
 					if (selected && selected.value) {
