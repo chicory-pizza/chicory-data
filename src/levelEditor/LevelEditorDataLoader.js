@@ -1,6 +1,6 @@
 // @flow strict
 
-import {useEffect, useState} from 'react';
+import {useEffect, useRef} from 'react';
 
 import ConsoleNoJest from '../util/ConsoleNoJest';
 
@@ -12,19 +12,19 @@ type Props = $ReadOnly<{
 
 export default function LevelEditorDataLoader(props: Props): React$Node {
 	const {worldData, dispatch} = useWorldDataNullable();
-	const [consoleMessageShown, setConsoleMessageShown] = useState(false);
+	const consoleMessageShownRef = useRef(false);
 
 	useEffect(() => {
 		window.levelsData = worldData;
 	}, [worldData]);
 
 	useEffect(() => {
-		if (!consoleMessageShown) {
+		if (!consoleMessageShownRef.current) {
 			ConsoleNoJest.log('Use `window.levelsData` for your custom queries!');
 
-			setConsoleMessageShown(true);
+			consoleMessageShownRef.current = true;
 		}
-	}, [consoleMessageShown]);
+	}, []);
 
 	// Do first load
 	useEffect(() => {

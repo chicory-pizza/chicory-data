@@ -1,7 +1,7 @@
 // @flow strict
 
 import {StrictMode} from 'react';
-import ReactDOM from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import ReactModal from 'react-modal';
 import './index.css';
 import {BrowserRouter} from 'react-router-dom';
@@ -13,17 +13,17 @@ import {paintdogConsoleText} from './util/paintdogConsoleText';
 // Start
 console.log(paintdogConsoleText);
 
-const root = document.getElementById('root');
-if (root == null) {
+const container = document.getElementById('root');
+if (container == null) {
 	throw new Error('App root container is missing');
 }
 
 // https://reactcommunity.org/react-modal/accessibility/#app-element
-ReactModal.setAppElement(root);
+ReactModal.setAppElement(container);
 
-ReactDOM.render(
+const root = createRoot(container);
+root.render(
 	<StrictMode>
 		<BrowserRouter>{routes}</BrowserRouter>
-	</StrictMode>,
-	root
+	</StrictMode>
 );

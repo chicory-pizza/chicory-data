@@ -1,6 +1,6 @@
 // @flow strict
 
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
 import ConsoleNoJest from '../util/ConsoleNoJest';
@@ -24,8 +24,14 @@ export default function LevelInspector({
 }: Props): React$Node {
 	const {dispatch} = useWorldDataNonNullable();
 
+	const previousLevelRef = useRef<?LevelType>(null);
+
 	useEffect(() => {
-		ConsoleNoJest.log(level);
+		if (level !== previousLevelRef.current) {
+			ConsoleNoJest.log(level);
+
+			previousLevelRef.current = level;
+		}
 	}, [level]);
 
 	const [activeUiViews, setActiveUiViews] = useState<

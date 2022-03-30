@@ -1,28 +1,19 @@
-import {screen, render, waitFor} from '@testing-library/react';
+import {screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {MemoryRouter} from 'react-router-dom';
 
-import {routes} from '../../../routes';
+import renderAppRoutes from '../../../testUtil/renderAppRoutes';
 
 test('duplicates the level', async () => {
-	render(<MemoryRouter>{routes}</MemoryRouter>);
+	renderAppRoutes();
 
-	await waitFor(() => {
-		expect(screen.getByText('Duplicate level')).toBeInTheDocument();
-	});
+	await screen.findByText('Duplicate level');
 
-	userEvent.click(screen.getByText('Duplicate level'));
+	await userEvent.click(screen.getByText('Duplicate level'));
 
-	userEvent.type(screen.getByTestId('duplicatelevelmodal-layer'), '1', {
-		initialSelectionStart: 0,
-	});
-	userEvent.type(screen.getByTestId('duplicatelevelmodal-x'), '2', {
-		initialSelectionStart: 0,
-	});
-	userEvent.type(screen.getByTestId('duplicatelevelmodal-y'), '3', {
-		initialSelectionStart: 0,
-	});
-	userEvent.click(screen.getByTestId('duplicatelevelmodal-submit'));
+	await userEvent.type(screen.getByTestId('duplicatelevelmodal-layer'), '1');
+	await userEvent.type(screen.getByTestId('duplicatelevelmodal-x'), '2');
+	await userEvent.type(screen.getByTestId('duplicatelevelmodal-y'), '3');
+	await userEvent.click(screen.getByTestId('duplicatelevelmodal-submit'));
 
 	expect(screen.getByTestId('worldmap-active')).toHaveTextContent('2, 3');
 });
