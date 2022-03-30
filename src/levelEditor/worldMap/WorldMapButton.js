@@ -13,7 +13,6 @@ const WIDTH = GEO_WIDTH;
 const HEIGHT = GEO_HEIGHT;
 
 type Props = $ReadOnly<{
-	drawPreviews: boolean,
 	isCurrent: boolean,
 	level: ?LevelType,
 	// optimization: we were repeatedly creating new arrays
@@ -51,7 +50,7 @@ function WorldMapButton(props: Props): React$Node {
 	}, [props.levelId, isCurrent]);
 
 	useEffect(() => {
-		if (props.drawPreviews && !isCurrent && geo != null) {
+		if (!isCurrent && geo != null) {
 			setGeoPreview(null);
 
 			const handle = window.requestIdleCallback(() => {
@@ -64,7 +63,7 @@ function WorldMapButton(props: Props): React$Node {
 		} else {
 			setGeoPreview(null);
 		}
-	}, [isCurrent, geo, props.drawPreviews]);
+	}, [isCurrent, geo]);
 
 	return (
 		<button

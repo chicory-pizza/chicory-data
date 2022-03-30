@@ -1,6 +1,5 @@
 // @flow strict
 
-import {useState} from 'react';
 import {useParams} from 'react-router-dom';
 
 import ErrorBoundary from '../common/ErrorBoundary';
@@ -20,8 +19,6 @@ import WorldMap from './worldMap/WorldMap';
 export default function LevelEditorUI(): React$Node {
 	const {worldData} = useWorldDataNullable();
 	const {levelId} = useParams();
-
-	const [drawPreviewsOnWorldMap, setDrawPreviewsOnWorldMap] = useState(true);
 
 	let validLevelId = true;
 	try {
@@ -47,28 +44,14 @@ export default function LevelEditorUI(): React$Node {
 						<div className={styles.levelSelectorPlaceholder} />
 					)
 				}
-				levelSelectorSide={
-					<>
-						<LevelEditorUndoRedo />
-						<label>
-							<input
-								checked={drawPreviewsOnWorldMap}
-								onChange={(ev: SyntheticInputEvent<HTMLInputElement>) =>
-									setDrawPreviewsOnWorldMap(ev.currentTarget.checked)
-								}
-								type="checkbox"
-							/>{' '}
-							Show previews on world map
-						</label>
-					</>
-				}
+				levelSelectorSide={<LevelEditorUndoRedo />}
 			/>
 
 			{validLevelId ? (
 				<>
 					{worldData != null ? (
 						<ErrorBoundary>
-							<WorldMap drawPreviews={drawPreviewsOnWorldMap} />
+							<WorldMap />
 						</ErrorBoundary>
 					) : null}
 

@@ -26,12 +26,7 @@ export default function LevelEditorUndoRedo(): React$Node {
 				Undo
 			</button>
 
-			<button
-				className={styles.space}
-				disabled={!canRedo}
-				onClick={redo}
-				type="button"
-			>
+			<button disabled={!canRedo} onClick={redo} type="button">
 				Redo
 			</button>
 		</div>

@@ -11,11 +11,7 @@ import {useWorldDataNonNullable} from '../WorldDataContext';
 import styles from './WorldMap.module.css';
 import WorldMapButton from './WorldMapButton';
 
-type Props = $ReadOnly<{
-	drawPreviews: boolean,
-}>;
-
-export default function WorldMap(props: Props): React$Node {
+export default function WorldMap(): React$Node {
 	const {worldData} = useWorldDataNonNullable();
 	const [currentCoordinates, setNewCoordinates] = useCurrentCoordinates();
 
@@ -59,7 +55,6 @@ export default function WorldMap(props: Props): React$Node {
 
 				return (
 					<WorldMapButton
-						drawPreviews={props.drawPreviews}
 						isCurrent={
 							currentCoordinates != null &&
 							isSameCoordinates(currentCoordinates, coordinates)
