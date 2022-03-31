@@ -1,0 +1,24 @@
+.colorButton {
+	text-align: left;
+	height: 20px;
+	width: 100%;
+	padding: 0;
+	border: none;
+}
+
+.selected {
+	outline: 1px solid #000;
+	background: #ddd;
+}
+
+.colorBox {
+	border-right: 1px solid #000;
+	border-top: 1px solid #000;
+	width: 30px;
+	height: 20px;
+	padding-left: 25px;
+}
+
+.radio {
+	display: none;
+}

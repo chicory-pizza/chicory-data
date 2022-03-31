@@ -69,3 +69,37 @@ export const PIXEL_COLORS_EXPLANATIONS = [
 		colors: [255, 254, 253, 252, 251, 250, 249, 248, 247, 246, 244, 243, 242],
 	},
 ];
+
+// Labels for Toolbar (todo: combine with explanations)
+export const PIXEL_COLORS_LABELS = [
+	{
+		description: 'Ramp',
+		colors: [1],
+	},
+	{
+		description: 'Unswimable wall',
+		colors: [2],
+	},
+	{
+		description: 'Swimable wall',
+		colors: [3],
+	},
+	{
+		description: 'Unwalkable',
+		colors: [5],
+	},
+	{
+		description: 'Sky',
+		colors: [4],
+	},
+	{
+		description: 'Water',
+		colors: [6],
+	},
+	{
+		description: 'Ground',
+		colors: [
+			0, 255, 254, 253, 252, 251, 250, 249, 248, 247, 246, 244, 243, 242,
+		],
+	},
+];

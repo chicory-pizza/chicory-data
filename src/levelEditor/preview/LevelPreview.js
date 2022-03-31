@@ -17,9 +17,13 @@ type Props = $ReadOnly<{
 	addingObjectEntity: ?GameObjectEntityType,
 	currentCoordinates: [number, number, number],
 	level: LevelType,
+	geoBitmap: Uint8Array,
+	mode: EditorTooltType,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
 	onMapMouseClick: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
+	onMapMouseUp: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
+	onMapMouseDown: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseLeave: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onObjectClick: (objectIndex: number) => mixed,
@@ -44,6 +48,8 @@ export default function LevelPreview(props: Props): React$Node {
 			className={styles.root}
 			data-testid="levelpreview-root"
 			onClick={props.onMapMouseClick}
+			onMouseUp={props.onMapMouseUp}
+			onMouseDown={props.onMapMouseDown}
 			onMouseMove={props.onMapMouseMove}
 			onMouseLeave={props.onMapMouseLeave}
 			style={{
@@ -86,10 +92,11 @@ export default function LevelPreview(props: Props): React$Node {
 			{props.activeUiViews.includes('GEO') ? (
 				<div className={styles.geoCanvas}>
 					<GeoPreview
-						level={props.level}
+						geoBitmap={props.geoBitmap}
 						mapMouseMoveCoordinates={null}
 						scale={SCREEN_WIDTH / GEO_WIDTH}
 						useDevicePixelRatio={true}
+						mode={props.mode}
 					/>
 				</div>
 			) : null}

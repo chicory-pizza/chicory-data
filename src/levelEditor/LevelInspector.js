@@ -1,5 +1,7 @@
 // @flow strict
 
+import {encode} from 'base64-arraybuffer';
+import {deflate} from 'pako';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
@@ -8,9 +10,13 @@ import ConsoleNoJest from '../util/ConsoleNoJest';
 import styles from './LevelInspector.module.css';
 import LevelPreview from './preview/LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
+import Toolbar from './toolbar/Toolbar';
+import type {EditorToolType} from './types/EditorToolType';
 import type {GameObjectEntityType} from './types/GameObjectEntityType';
 import type {LevelInspectorUiView} from './types/LevelInspectorUiView';
 import type {LevelType} from './types/LevelType';
+import decodeGeoString from './util/decodeGeoString';
+import paintBresenham from './util/paintGeo';
 import {useWorldDataNonNullable} from './WorldDataContext';
 
 type Props = $ReadOnly<{
@@ -53,6 +59,37 @@ export default function LevelInspector({
 	const [mapMouseMoveCoordinates, setMapMouseMoveCoordinates] =
 		useState<?[number, number]>(null);
 
+	const prevCoordinates = useRef<?[number, number]>(null);
+
+	//map
+	const [geoBitmap, setGeoBitmap] = useState<Uint8Array>([]);
+
+	useEffect(() => {
+		setGeoBitmap(decodeGeoString(level.geo));
+	}, [level]); // Call this only when coords change?
+
+	//brush (combine into custom type?)
+	const [brushColor, setBrushColor] = useState<number>(0);
+	const [brushSize, setBrushSize] = useState<number>(1);
+
+	const [mode, setMode] = useState<EditorToolType>('Select'); // Use custom type
+
+	function paint(ev: SyntheticMouseEvent<HTMLDivElement>) {
+		if (mode === 'Paint' && ev.buttons === 1) {
+			let temp = paintBresenham(
+				brushColor,
+				geoBitmap,
+				mapMouseMoveCoordinates,
+				prevCoordinates.current,
+				brushSize
+			);
+			if (temp) {
+				setGeoBitmap(temp.slice());
+			}
+			prevCoordinates.current = mapMouseMoveCoordinates;
+		}
+	}
+
 	// Events
 	function onMapMouseClick(ev: SyntheticMouseEvent<>) {
 		if (addingObjectEntity == null || mapMouseMoveCoordinates == null) {
@@ -79,17 +116,31 @@ export default function LevelInspector({
 		[setMapMouseMoveCoordinates]
 	);
 
-	const onMapMouseMove = useCallback(
-		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
-			const rect = ev.currentTarget.getBoundingClientRect();
+	function onMapMouseDown(ev: SyntheticMouseEvent<HTMLDivElement>) {
+		if (mapMouseMoveCoordinates == null) {
+			return;
+		}
+		paint(ev);
+	}
+	function onMapMouseUp(ev: SyntheticMouseEvent<HTMLDivElement>) {
+		prevCoordinates.current = null;
+		dispatch({
+			type: 'setLevelProperty',
+			coordinates: currentCoordinates,
+			key: 'geo',
+			value: encode(deflate(geoBitmap)),
+		});
+	}
 
-			setMapMouseMoveCoordinates([
-				parseInt(ev.clientX - rect.left, 10),
-				parseInt(ev.clientY - rect.top, 10),
-			]);
-		},
-		[setMapMouseMoveCoordinates]
-	);
+	function onMapMouseMove(ev: SyntheticMouseEvent<HTMLDivElement>) {
+		const rect = ev.currentTarget.getBoundingClientRect();
+
+		setMapMouseMoveCoordinates([
+			parseInt(ev.clientX - rect.left, 10),
+			parseInt(ev.clientY - rect.top, 10),
+		]);
+		paint(ev);
+	}
 
 	const onObjectClick = useCallback(
 		(objectIndex: number) => {
@@ -165,6 +216,18 @@ export default function LevelInspector({
 
 	return (
 		<div className={styles.root}>
+			<div>
+				<ErrorBoundary>
+					<Toolbar
+						color={brushColor}
+						onColorChange={setBrushColor}
+						brushSize={brushSize}
+						onBrushSizeChange={setBrushSize}
+						mode={mode}
+						onModeSelect={setMode}
+					/>
+				</ErrorBoundary>
+			</div>
 			<div className={styles.preview}>
 				<ErrorBoundary>
 					<LevelPreview
@@ -172,9 +235,13 @@ export default function LevelInspector({
 						addingObjectEntity={addingObjectEntity}
 						currentCoordinates={currentCoordinates}
 						level={level}
+						geoBitmap={geoBitmap}
+						mode={mode}
 						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 						objectIndexHover={objectIndexHover}
 						onMapMouseClick={onMapMouseClick}
+						onMapMouseUp={onMapMouseUp}
+						onMapMouseDown={onMapMouseDown}
 						onMapMouseLeave={onMapMouseLeave}
 						onMapMouseMove={onMapMouseMove}
 						onObjectClick={onObjectClick}
@@ -187,6 +254,7 @@ export default function LevelInspector({
 				<LevelSidebar
 					activeUiViews={activeUiViews}
 					level={level}
+					geoBitmap={geoBitmap}
 					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					objectIndexHover={objectIndexHover}
 					objectsListItemsExpanded={sidebarObjectsListItemsExpanded}

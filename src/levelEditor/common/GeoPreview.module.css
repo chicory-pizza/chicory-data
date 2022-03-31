@@ -1,3 +1,7 @@
 .canvas {
 	display: block;
 }
+
+.paint {
+	cursor: url('../../cursor.png'), auto;
+}

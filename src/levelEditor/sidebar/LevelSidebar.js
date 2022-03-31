@@ -16,6 +16,7 @@ import SidebarViewMenu from './SidebarViewMenu';
 type Props = $ReadOnly<{
 	activeUiViews: Array<LevelInspectorUiView>,
 	level: LevelType,
+	geoBitmap: Uint8Array,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
 	objectsListItemsExpanded: Array<number>,
@@ -36,7 +37,7 @@ export default function LevelSidebar(props: Props): React$Node {
 		<div className={styles.sidebar}>
 			<ErrorBoundary>
 				<GeoPreview
-					level={props.level}
+					geoBitmap={props.geoBitmap}
 					mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
 					scale={4}
 					useDevicePixelRatio={true}

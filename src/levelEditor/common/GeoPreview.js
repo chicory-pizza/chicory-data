@@ -1,6 +1,6 @@
 // @flow strict
 
-import {useEffect, useMemo, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 
 import getCanvasRenderingContext from '../../util/getCanvasRenderingContext';
 import {
@@ -9,38 +9,25 @@ import {
 	SCREEN_WIDTH,
 	SCREEN_HEIGHT,
 } from '../GeoConstants';
-import type {LevelType} from '../types/LevelType';
-import decodeGeoString from '../util/decodeGeoString';
 import drawGeoToCanvas from '../util/drawGeoToCanvas';
 
 import styles from './GeoPreview.module.css';
 
 type Props = $ReadOnly<{
-	level: LevelType,
+	geoBitmap: ?Uint8Array,
 	mapMouseMoveCoordinates: ?[number, number],
 	scale: number,
 	useDevicePixelRatio: boolean,
+	mode: EditorTooltType,
 }>;
 
 export default function GeoPreview(props: Props): React$Node {
 	const canvasRef = useRef<?HTMLCanvasElement>(null);
-
-	// todo use error boundary
-	const decodedGeo = useMemo(() => {
-		try {
-			return decodeGeoString(props.level.geo);
-		} catch (ex) {
-			console.error(ex);
-		}
-
-		return null;
-	}, [props.level.geo]);
-
 	const dpr = props.useDevicePixelRatio ? window.devicePixelRatio || 1 : 1;
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
-		if (!decodedGeo || !canvas) {
+		if (!props.geoBitmap || !canvas) {
 			return;
 		}
 
@@ -49,7 +36,7 @@ export default function GeoPreview(props: Props): React$Node {
 		drawGeoToCanvas({
 			canvas,
 			ctx,
-			geo: decodedGeo,
+			geo: props.geoBitmap,
 			scale: props.scale * dpr,
 		});
 
@@ -76,15 +63,17 @@ export default function GeoPreview(props: Props): React$Node {
 		}
 
 		ctx.setTransform(1, 0, 0, 1, 0, 0);
-	}, [decodedGeo, dpr, props.mapMouseMoveCoordinates, props.scale]);
+	}, [props.geoBitmap, dpr, props.mapMouseMoveCoordinates, props.scale]);
 
-	if (decodedGeo == null) {
+	if (props.geoBitmap == null) {
 		return "⚠️ Can't generate map preview";
 	}
 
 	return (
 		<canvas
-			className={styles.canvas}
+			className={
+				styles.canvas + ' ' + (props.mode === 'Paint' ? styles.paint : '')
+			}
 			ref={canvasRef}
 			width={GEO_WIDTH * props.scale * dpr}
 			height={GEO_HEIGHT * props.scale * dpr}
