@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import renderAppRoutes from '../../../testUtil/renderAppRoutes';
 
 test('duplicates the level', async () => {
-	renderAppRoutes();
+	await renderAppRoutes();
 
 	await screen.findByText('Duplicate level');
 

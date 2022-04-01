@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import renderAppRoutes from '../../../../testUtil/renderAppRoutes';
 
 test('deletes the level if confirmed', async () => {
-	renderAppRoutes();
+	await renderAppRoutes();
 
 	await screen.findByText('Delete level');
 
@@ -17,7 +17,7 @@ test('deletes the level if confirmed', async () => {
 });
 
 test('does not delete the level if cancelled', async () => {
-	renderAppRoutes();
+	await renderAppRoutes();
 
 	await screen.findByText('Delete level');
 

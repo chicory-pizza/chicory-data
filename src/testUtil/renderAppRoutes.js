@@ -1,10 +1,23 @@
 // @flow strict
 
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import {MemoryRouter} from 'react-router-dom';
 
 import {routes} from '../routes';
 
-export default function renderAppRoutes(): mixed {
-	return render(<MemoryRouter>{routes}</MemoryRouter>);
+export default async function renderAppRoutes(
+	waitForLoad: boolean = true
+): mixed {
+	await render(<MemoryRouter>{routes}</MemoryRouter>);
+
+	if (waitForLoad) {
+		await screen.findByText(
+			'Load custom level_data',
+			{},
+			{
+				// Hacky fix for CI
+				timeout: 2000,
+			}
+		);
+	}
 }

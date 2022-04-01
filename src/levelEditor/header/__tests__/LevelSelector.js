@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import renderAppRoutes from '../../../testUtil/renderAppRoutes';
 
 test('changing the level using the 3 number inputs', async () => {
-	renderAppRoutes();
+	await renderAppRoutes();
 
 	await screen.findByTestId('levelselector-layer');
 
