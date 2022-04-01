@@ -5,12 +5,12 @@
   "dependencies": {
     "@szhsin/react-menu": "3.0.0",
     "base64-arraybuffer": "1.0.2",
-    "browser-fs-access": "^0.25.0",
+    "browser-fs-access": "0.25.2",
     "pako": "2.0.4",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-modal": "3.14.4",
-    "react-router-dom": "6.2.2",
+    "react-router-dom": "6.3.0",
     "react-select": "5.2.2",
     "tinycolor2": "1.4.2"
   },
