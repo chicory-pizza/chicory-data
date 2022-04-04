@@ -31,4 +31,7 @@ export const LEVEL_PALETTE_LIST: $ReadOnlyArray<string> = [
 	'springs',
 	'swamp',
 	'town',
+	'town_postgame',
+	'town_spooky',
+	'town_spooky2',
 ];
