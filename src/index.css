@@ -32,7 +32,7 @@ select {
 }
 
 a {
-	color: #c5aeff;
+	color: rgb(182, 154, 255);
 }
 
 pre,
@@ -98,7 +98,7 @@ button[disabled] {
 }
 
 :focus {
-	outline: 1px solid #c5aeff;
+	outline: 1px solid rgb(182, 154, 255);
 }
 
 #noscript-error {

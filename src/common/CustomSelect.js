@@ -46,9 +46,9 @@ const CUSTOM_THEME = (theme) => {
 		...theme,
 		colors: {
 			...theme.colors,
-			primary: '#c5aeff',
-			primary25: '#ffb8a9',
-			primary50: '#33f5e4',
+			primary: 'rgb(182, 154, 255)',
+			primary25: 'rgb(255, 166, 148)',
+			primary50: 'rgb(0, 243, 221)',
 		},
 	};
 };
