@@ -47,7 +47,11 @@ const CUSTOM_STYLES = {
 		return {...provided, zIndex: 99};
 	},
 	option(provided, state) {
-		return {...provided, color: ''};
+		return {
+			...provided,
+			color: '',
+			cursor: 'pointer',
+		};
 	},
 };
 
