@@ -67,7 +67,7 @@ function SidebarObjectItem(props: Props): React$Node {
 				{props.highlighted ? (
 					<CloseButton
 						color="#000"
-						label={'Delete ' + props.obj.obj}
+						label={'Delete ' + props.obj.obj.slice('obj'.length)}
 						onClick={() => props.onObjectDelete(props.index)}
 						size=".6em"
 					/>
