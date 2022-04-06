@@ -9,6 +9,16 @@ export type OptionType<T> = {
 };
 
 type Props<T> = $ReadOnly<{
+	components?: {
+		Option?: React$AbstractComponent<
+			{children: React$Node, data: OptionType<T>},
+			mixed
+		>,
+		SingleValue?: React$AbstractComponent<
+			{children: React$Node, data: OptionType<T>},
+			mixed
+		>,
+	},
 	maxMenuHeight: number,
 	onChange: (newOption: OptionType<T>) => mixed,
 	options:
@@ -56,6 +66,7 @@ const CUSTOM_THEME = (theme) => {
 export default function CustomSelect<T>(props: Props<T>): React$Node {
 	return (
 		<Select
+			components={props.components}
 			maxMenuHeight={props.maxMenuHeight}
 			menuPortalTarget={document.body}
 			onChange={props.onChange}

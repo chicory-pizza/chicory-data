@@ -5,6 +5,7 @@ import {Fragment} from 'react';
 import type {EditablePropertiesType} from '../../types/EditablePropertiesSchemaType';
 
 import PropertyNumberInput from './PropertyNumberInput';
+import PropertyPaletteInput from './PropertyPaletteInput';
 import PropertySelectInput from './PropertySelectInput';
 import PropertyTextInput from './PropertyTextInput';
 import styles from './SidebarEditableProperties.module.css';
@@ -63,6 +64,14 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 						<PropertySelectInput
 							onEditProperty={props.onEditProperty}
 							options={propertyType.options}
+							propertyKey={propertyKey}
+							value={props.properties[propertyKey]}
+						/>
+					);
+				} else if (propertyType?.type === 'PALETTE') {
+					input = (
+						<PropertyPaletteInput
+							onEditProperty={props.onEditProperty}
 							propertyKey={propertyKey}
 							value={props.properties[propertyKey]}
 						/>

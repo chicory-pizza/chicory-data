@@ -17,4 +17,8 @@ export type EditablePropertiesType =
 			key: string,
 			type: 'ENUM',
 			options: $ReadOnlyArray<string>,
+	  }
+	| {
+			key: string,
+			type: 'PALETTE',
 	  };
