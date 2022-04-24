@@ -56,7 +56,6 @@ export default function LevelPreview(props: Props): React$Node {
 					level={props.level}
 					objectIndexHover={props.objectIndexHover}
 					onMapMouseLeave={props.onMapMouseLeave}
-					onMapMouseMove={props.onMapMouseMove}
 					onObjectClick={props.onObjectClick}
 					onObjectHover={props.onObjectHover}
 				/>
