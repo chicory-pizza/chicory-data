@@ -1,5 +1,7 @@
 // @flow strict
 
+/* eslint-disable react/jsx-no-target-blank */
+
 import icon144 from '../icon144.png';
 
 import styles from './AppHeader.module.css';
@@ -31,9 +33,9 @@ export default function AppHeader(props: Props): React$Node {
 					<a
 						className={styles.websiteLink}
 						href="/discord"
-						rel="noopener noreferrer"
+						rel="noopener"
 						target="_blank"
-						title="Join the Chicory Modding Discord"
+						title="Join the Chicory fan Discord"
 					>
 						<DiscordIcon className={styles.discordIcon} />
 					</a>
@@ -41,7 +43,7 @@ export default function AppHeader(props: Props): React$Node {
 					<a
 						className={styles.websiteLink}
 						href="https://github.com/chicory-pizza/chicory-data"
-						rel="noopener noreferrer"
+						rel="noopener"
 						target="_blank"
 						title="View this project on GitHub"
 					>

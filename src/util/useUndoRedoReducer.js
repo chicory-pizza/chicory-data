@@ -7,6 +7,14 @@ type UndoState<T> = {
 	currentIndex: number,
 };
 
+function canUndo<T>(state: UndoState<T>) {
+	return state.currentIndex > 0;
+}
+
+function canRedo<T>(state: UndoState<T>) {
+	return state.currentIndex < state.history.length - 1;
+}
+
 export type UndoReducerAction =
 	| {type: 'undo'}
 	| {type: 'redo'}
@@ -26,15 +34,12 @@ export default function useUndoRedoReducer<T, ReducerAction: {...}>(
 		currentIndex: 0,
 	});
 
-	const canUndo = state.currentIndex > 0;
-	const canRedo = state.currentIndex < state.history.length - 1;
-
 	return {
 		currentState: state.history[state.currentIndex],
 		dispatch,
 
-		canUndo,
-		canRedo,
+		canUndo: canUndo(state),
+		canRedo: canRedo(state),
 	};
 }
 
@@ -46,11 +51,19 @@ function handleUndoReducer<T, ReducerAction: {...}>(
 ) => UndoState<T> {
 	return function (state, action) {
 		if (action.type === 'undo') {
+			if (!canUndo(state)) {
+				return state;
+			}
+
 			return {
 				...state,
 				currentIndex: state.currentIndex - 1,
 			};
 		} else if (action.type === 'redo') {
+			if (!canRedo(state)) {
+				return state;
+			}
+
 			return {
 				...state,
 				currentIndex: state.currentIndex + 1,
