@@ -2,6 +2,7 @@
 
 import {useEffect, useRef, useState} from 'react';
 
+import drawImageAsColor from '../util/drawImageAsColor';
 import getCanvasRenderingContext from '../util/getCanvasRenderingContext';
 
 import styles from './DogPreview.module.css';
@@ -12,7 +13,6 @@ import earImg from './images/sprDog_idle_ear_0.png';
 import {DOG_CLOTHES_LIST} from './types/DogClothesList';
 import {DOG_HAIR_LIST} from './types/DogHairList';
 import {DOG_HAT_LIST} from './types/DogHatList';
-import drawImageAsColor from '../util/drawImageAsColor';
 
 const SIZE = 750;
 
