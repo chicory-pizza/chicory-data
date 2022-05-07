@@ -95,7 +95,7 @@ export default function DogPreview(props: Props): React$Node {
 	const head = useLoadImage(headImg);
 	const hair = useLoadImage(hairInfo.imageWithPaddingPath);
 	const hat = useLoadImage(hatInfo.imageWithPaddingPath);
-	const hairLayer2 = useLoadImage(hatInfo.layer2ImagePath);
+	const hatLayer2 = useLoadImage(hatInfo.layer2ImagePath);
 	const ear = useLoadImage(earImg);
 
 	useEffect(() => {
@@ -104,30 +104,39 @@ export default function DogPreview(props: Props): React$Node {
 			return;
 		}
 
+		let layer2 = hatLayer2 || clothesLayer2;
+		let collar = hatLayer2 ? null : clothesInfo.collar;
+
 		const ctx = getCanvasRenderingContext(canvas, true);
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		ctx.drawImage(idle2, 0, 0, 750, 750);
 		ctx.drawImage(clothes, 0, 0, 750, 750);
-		ctx.drawImage(idle1, 0, 0, 750, 750);
-		if (hairLayer2) {
-			ctx.drawImage(hairLayer2, 0, 0, 750, 750);
-		} else if (clothesLayer2) {
-			ctx.drawImage(clothesLayer2, 0, 0, 750, 750);
+		if (layer2 && collar === 2) {
+			ctx.drawImage(layer2, 0, 0, 750, 750);
+			layer2 = null;
 		}
+		ctx.drawImage(idle1, 0, 0, 750, 750);
+		if (layer2 && collar == null) {
+			ctx.drawImage(layer2, 0, 0, 750, 750);
+		}
+		// This is for Horns which is not drawing correctly yet
 		// if (hatInfo.showHair != null && hatInfo.showHair > 2) {
 		// 	ctx.drawImage(hair, 0, 0, 750, 750);
 		// }
 		ctx.drawImage(head, 161, 48, 480, 480);
 		if (
 			!hat ||
-			(hatInfo.showHair != null &&
-				(hatInfo.showHair === 1 || hatInfo.showHair > 2))
+			hatInfo.showHair === 1 ||
+			(hatInfo.showHair != null && hatInfo.showHair > 2)
 		) {
 			ctx.drawImage(hair, 0, 0, 750, 750);
 		}
 		if (hat && hatInfo.showHair !== 2) {
 			ctx.drawImage(hat, 0, 0, 750, 750);
+		}
+		if (layer2 && collar != null) {
+			ctx.drawImage(layer2, 0, 0, 750, 750);
 		}
 		ctx.drawImage(ear, 0, 0, 750, 750);
 		if (hat && hatInfo.showHair === 2) {
@@ -135,10 +144,11 @@ export default function DogPreview(props: Props): React$Node {
 		}
 	}, [
 		clothes,
+		clothesInfo.collar,
 		clothesLayer2,
 		ear,
 		hair,
-		hairLayer2,
+		hatLayer2,
 		hat,
 		hatInfo.showHair,
 		head,

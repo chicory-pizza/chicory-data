@@ -7,7 +7,7 @@ export type DogClothesType = {
 	imageWithPaddingPath: string,
 
 	layer2ImagePath?: string,
-	collar?: boolean,
+	collar?: number,
 };
 
 export const DOG_CLOTHES_LIST: $ReadOnlyArray<DogClothesType> = [
@@ -127,7 +127,7 @@ export const DOG_CLOTHES_LIST: $ReadOnlyArray<DogClothesType> = [
 		imageIndex: 15,
 		imageWithPaddingPath: require('../images/clothes_padding/sprDog_body_15.png'),
 		layer2ImagePath: require('../images/clothes_padding/sprDog_body2_3.png'),
-		collar: true,
+		collar: 1,
 	},
 	{
 		internalName: 'Puffy Jacket',
@@ -238,7 +238,7 @@ export const DOG_CLOTHES_LIST: $ReadOnlyArray<DogClothesType> = [
 		imageIndex: 33,
 		imageWithPaddingPath: require('../images/clothes_padding/sprDog_body_33.png'),
 		layer2ImagePath: require('../images/clothes_padding/sprDog_body2_5.png'),
-		collar: true,
+		collar: 1,
 	},
 	{
 		internalName: 'Tux',
@@ -258,7 +258,7 @@ export const DOG_CLOTHES_LIST: $ReadOnlyArray<DogClothesType> = [
 		imageIndex: 36,
 		imageWithPaddingPath: require('../images/clothes_padding/sprDog_body_36.png'),
 		layer2ImagePath: require('../images/clothes_padding/sprDog_body2_6.png'),
-		collar: true,
+		collar: 1,
 	},
 	{
 		internalName: 'Sailor',
@@ -348,7 +348,7 @@ export const DOG_CLOTHES_LIST: $ReadOnlyArray<DogClothesType> = [
 		imageIndex: 47,
 		imageWithPaddingPath: require('../images/clothes_padding/sprDog_body_47.png'),
 		layer2ImagePath: require('../images/clothes_padding/sprDog_body2_12.png'),
-		collar: true,
+		collar: 1,
 	},
 	{
 		internalName: 'Gi',
@@ -356,7 +356,7 @@ export const DOG_CLOTHES_LIST: $ReadOnlyArray<DogClothesType> = [
 		imageIndex: 50,
 		imageWithPaddingPath: require('../images/clothes_padding/sprDog_body_50.png'),
 		layer2ImagePath: require('../images/clothes_padding/sprDog_body2_15.png'),
-		collar: true, // 2!!!
+		collar: 2,
 	},
 	{
 		internalName: 'Princess',
@@ -371,7 +371,7 @@ export const DOG_CLOTHES_LIST: $ReadOnlyArray<DogClothesType> = [
 		imageIndex: 49,
 		imageWithPaddingPath: require('../images/clothes_padding/sprDog_body_49.png'),
 		layer2ImagePath: require('../images/clothes_padding/sprDog_body2_14.png'),
-		collar: true,
+		collar: 1,
 	},
 ].sort((a, b) => {
 	if (a.externalName > b.externalName) {
