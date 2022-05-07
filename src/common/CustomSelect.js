@@ -11,7 +11,7 @@ export type OptionType<T> = {
 type Props<T> = $ReadOnly<{
 	components?: {
 		Option?: React$AbstractComponent<
-			{children: React$Node, data: OptionType<T>},
+			{children: React$Node, data: OptionType<T>, isFocused: boolean},
 			mixed
 		>,
 		SingleValue?: React$AbstractComponent<
@@ -21,6 +21,7 @@ type Props<T> = $ReadOnly<{
 	},
 	maxMenuHeight: number,
 	onChange: (newOption: OptionType<T>) => mixed,
+	onMenuClose?: () => void,
 	options:
 		| $ReadOnlyArray<OptionType<T>>
 		| $ReadOnlyArray<{
@@ -74,6 +75,7 @@ export default function CustomSelect<T>(props: Props<T>): React$Node {
 			maxMenuHeight={props.maxMenuHeight}
 			menuPortalTarget={document.body}
 			onChange={props.onChange}
+			onMenuClose={props.onMenuClose}
 			options={props.options}
 			styles={CUSTOM_STYLES}
 			theme={CUSTOM_THEME}
