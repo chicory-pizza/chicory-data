@@ -99,7 +99,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 				const colorToBytes = generateColorsToGameBytes();
 
 				const canvas = prepareCanvas();
-				const ctx = getCanvasRenderingContext(canvas);
+				const ctx = getCanvasRenderingContext(canvas, false);
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
 				ctx.drawImage(img, 0, 0);
 
@@ -161,7 +161,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 		const decodedGeo = decodeGeoString(props.level.geo);
 
 		const canvas = prepareCanvas();
-		const ctx = getCanvasRenderingContext(canvas);
+		const ctx = getCanvasRenderingContext(canvas, false);
 		drawGeoToCanvas({
 			canvas,
 			ctx,

@@ -44,7 +44,7 @@ export default function GeoPreview(props: Props): React$Node {
 			return;
 		}
 
-		const ctx = getCanvasRenderingContext(canvas);
+		const ctx = getCanvasRenderingContext(canvas, false);
 
 		drawGeoToCanvas({
 			canvas,

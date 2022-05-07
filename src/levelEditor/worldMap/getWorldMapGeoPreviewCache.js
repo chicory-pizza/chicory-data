@@ -20,7 +20,7 @@ export default function getWorldMapGeoPreviewCache(geo: string): string {
 	canvas.width = GEO_WIDTH * dpr;
 	canvas.height = GEO_HEIGHT * dpr;
 
-	const ctx = getCanvasRenderingContext(canvas);
+	const ctx = getCanvasRenderingContext(canvas, false);
 	drawGeoToCanvas({
 		canvas,
 		ctx,
