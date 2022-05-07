@@ -1,8 +1,9 @@
 // @flow strict
 
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
+import changeDocumentTitle from '../util/changeDocumentTitle';
 
 import DogClothesSelect from './DogClothesSelect';
 import styles from './DogEditorApp.module.css';
@@ -23,6 +24,10 @@ export default function DogEditorApp(): React$Node {
 	const [previewClothes, setPreviewClothes] = useState<?string>(null);
 	const [previewHat, setPreviewHat] = useState<?string>(null);
 	const [previewHair, setPreviewHair] = useState<?string>(null);
+
+	useEffect(() => {
+		changeDocumentTitle('Drawdog maker');
+	}, []);
 
 	return (
 		<div className={styles.root}>

@@ -3,7 +3,6 @@
 import {Suspense, lazy} from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 
-import {ENABLE_DOG_EDITOR} from './FeatureFlags';
 import LoadingBigBanner from './LoadingBigBanner';
 
 const DogEditorApp = lazy(() => import('./dog/DogEditorApp'));
@@ -20,11 +19,9 @@ const routes: React$Node = (
 				<Route path=":levelId" element={<LevelEditorApp />} />
 			</Route>
 
-			{ENABLE_DOG_EDITOR ? (
-				<Route path="dog">
-					<Route index element={<DogEditorApp />} />
-				</Route>
-			) : null}
+			<Route path="dog">
+				<Route index element={<DogEditorApp />} />
+			</Route>
 
 			<Route path="*" element={<PageNotFound />} />
 		</Routes>
