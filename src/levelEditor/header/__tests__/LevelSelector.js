@@ -1,10 +1,10 @@
 import {screen, within} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import renderAppRoutes from '../../../testUtil/renderAppRoutes';
+import renderLevelEditorRoute from '../../testUtil/renderLevelEditorRoute';
 
 test('changing the level using the 3 number inputs', async () => {
-	await renderAppRoutes();
+	await renderLevelEditorRoute();
 
 	await screen.findByTestId('levelselector-layer');
 

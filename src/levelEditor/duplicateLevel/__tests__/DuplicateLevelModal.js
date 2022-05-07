@@ -1,10 +1,10 @@
 import {screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import renderAppRoutes from '../../../testUtil/renderAppRoutes';
+import renderLevelEditorRoute from '../../testUtil/renderLevelEditorRoute';
 
 test('duplicates the level', async () => {
-	await renderAppRoutes();
+	await renderLevelEditorRoute();
 
 	await screen.findByText('Duplicate level');
 

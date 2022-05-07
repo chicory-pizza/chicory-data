@@ -31,6 +31,8 @@ export default function DogEditorApp(): React$Node {
 
 	return (
 		<div className={styles.root}>
+			<h1>Drawdog maker</h1>
+
 			<ErrorBoundary>
 				<DogPreview
 					clothes={previewClothes ?? clothes}

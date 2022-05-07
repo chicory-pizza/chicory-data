@@ -1,9 +1,9 @@
 import {screen} from '@testing-library/react';
 
-import renderAppRoutes from '../../testUtil/renderAppRoutes';
+import renderLevelEditorRoute from '../testUtil/renderLevelEditorRoute';
 
 test('renders the UI', async () => {
-	await renderAppRoutes();
+	await renderLevelEditorRoute();
 
 	const worldMapActive = await screen.findByTestId('worldmap-active');
 	expect(worldMapActive).toHaveTextContent('0, 0');

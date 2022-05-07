@@ -1,10 +1,10 @@
 import {screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import renderAppRoutes from '../../../../testUtil/renderAppRoutes';
+import renderLevelEditorRoute from '../../../testUtil/renderLevelEditorRoute';
 
 test('deletes the level if confirmed', async () => {
-	await renderAppRoutes();
+	await renderLevelEditorRoute();
 
 	await screen.findByText('Delete level');
 
@@ -17,7 +17,7 @@ test('deletes the level if confirmed', async () => {
 });
 
 test('does not delete the level if cancelled', async () => {
-	await renderAppRoutes();
+	await renderLevelEditorRoute();
 
 	await screen.findByText('Delete level');
 
