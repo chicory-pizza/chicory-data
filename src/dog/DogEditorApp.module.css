@@ -3,3 +3,16 @@
 	flex-direction: column;
 	padding: 0 10px;
 }
+
+.code {
+	margin-bottom: 10px;
+}
+
+.flex {
+	display: flex;
+}
+
+.selector {
+	margin-right: 10px;
+	min-width: 200px;
+}
