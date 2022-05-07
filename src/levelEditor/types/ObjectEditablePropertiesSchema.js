@@ -1,5 +1,10 @@
 // @flow strict
 
+import {DOG_ANIMATION_LIST} from '../../dog/types/DogAnimationList';
+import {DOG_CLOTHES_LIST} from '../../dog/types/DogClothesList';
+import {DOG_HAIR_LIST} from '../../dog/types/DogHairList';
+import {DOG_HAT_LIST} from '../../dog/types/DogHatList';
+
 import type {EditablePropertiesType} from './EditablePropertiesSchemaType';
 
 // Massive thanks to https://github.com/JdavisBro for finding these object properties!!
@@ -819,6 +824,49 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objWind', [
 		help: 'control when bombs resapwn',
 	},
 	{key: 'snowiness', type: 'NUMBER', default: 1, help: 'how snowy izit'},
+]);
+
+OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCustomDog', [
+	{
+		key: 'animation',
+		type: 'ENUM',
+		options: DOG_ANIMATION_LIST,
+	},
+	{
+		key: 'clothes',
+		type: 'ENUM',
+		options: DOG_CLOTHES_LIST,
+	},
+	{
+		key: 'color_body',
+		type: 'GM_COLOR',
+		default: 16777215,
+		help: 'Clothes color',
+	},
+	{
+		key: 'color_head',
+		type: 'GM_COLOR',
+		default: 16777215,
+		help: 'Hat color',
+	},
+	{
+		key: 'color_skin',
+		type: 'GM_COLOR',
+		default: 16777215,
+		help: 'Dog body color',
+	},
+	{
+		key: 'comment',
+		type: 'STRING',
+		default: '',
+		help: 'For your own reference, does not affect anything else',
+	},
+	{
+		key: 'expression',
+		type: 'DOG_EXPRESSION',
+	},
+	{key: 'hat', type: 'ENUM', options: DOG_HAT_LIST},
+	{key: 'hair', type: 'ENUM', options: DOG_HAIR_LIST},
 ]);
 
 export {OBJECT_EDITABLE_PROPERTIES_SCHEMA};

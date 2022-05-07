@@ -55,7 +55,8 @@ select,
 summary,
 label,
 input[type='checkbox'],
-input[type='radio'] {
+input[type='radio'],
+input[type='color'] {
 	cursor: pointer;
 }
 

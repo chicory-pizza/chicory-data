@@ -4,6 +4,8 @@ import {Fragment} from 'react';
 
 import type {EditablePropertiesType} from '../../types/EditablePropertiesSchemaType';
 
+import PropertyDogExpressionInput from './PropertyDogExpressionInput';
+import PropertyGameMakerColorInput from './PropertyGameMakerColorInput';
 import PropertyNumberInput from './PropertyNumberInput';
 import PropertyPaletteInput from './PropertyPaletteInput';
 import PropertySelectInput from './PropertySelectInput';
@@ -71,6 +73,23 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 				} else if (propertyType?.type === 'PALETTE') {
 					input = (
 						<PropertyPaletteInput
+							onEditProperty={props.onEditProperty}
+							propertyKey={propertyKey}
+							value={props.properties[propertyKey]}
+						/>
+					);
+				} else if (propertyType?.type === 'DOG_EXPRESSION') {
+					input = (
+						<PropertyDogExpressionInput
+							onEditProperty={props.onEditProperty}
+							propertyKey={propertyKey}
+							value={props.properties[propertyKey]}
+						/>
+					);
+				} else if (propertyType?.type === 'GM_COLOR') {
+					input = (
+						<PropertyGameMakerColorInput
+							defaultValue={propertyType.default}
 							onEditProperty={props.onEditProperty}
 							propertyKey={propertyKey}
 							value={props.properties[propertyKey]}

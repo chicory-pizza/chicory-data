@@ -392,4 +392,5 @@ export type GameObjectEntityType =
 	| 'objWordcount'
 	| 'objaeAudioloader'
 	| 'objaeButton'
-	| 'objaeParamEditor';
+	| 'objaeParamEditor'
+	| 'objCustomDog';

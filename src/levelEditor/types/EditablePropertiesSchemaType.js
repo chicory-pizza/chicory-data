@@ -21,4 +21,14 @@ export type EditablePropertiesType =
 	| {
 			key: string,
 			type: 'PALETTE',
+	  }
+	| {
+			key: string,
+			type: 'DOG_EXPRESSION',
+	  }
+	| {
+			key: string,
+			type: 'GM_COLOR',
+			default: number,
+			help?: string,
 	  };
