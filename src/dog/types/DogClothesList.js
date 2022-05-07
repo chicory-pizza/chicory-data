@@ -13,7 +13,7 @@ export type DogClothesType = {
 export const DOG_CLOTHES_LIST: $ReadOnlyArray<DogClothesType> = [
 	{
 		internalName: 'Overalls',
-		externalName: 'Overalls',
+		externalName: 'Overalls (default)',
 		imageIndex: 0,
 		imageWithPaddingPath: require('../images/clothes_padding/sprDog_body_0.png'),
 	},

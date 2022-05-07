@@ -11,6 +11,7 @@ import idle2Img from './images/sprDog_idle_B_0.png';
 import earImg from './images/sprDog_idle_ear_0.png';
 import {DOG_CLOTHES_LIST} from './types/DogClothesList';
 import {DOG_HAIR_LIST} from './types/DogHairList';
+import {DOG_HAT_LIST} from './types/DogHatList';
 
 const WIDTH = 750;
 const HEIGHT = 750;
@@ -69,6 +70,15 @@ export default function DogPreview(props: Props): React$Node {
 		throw new Error('Invalid clothes ' + props.clothes);
 	}
 
+	// Hat
+	const hatInfo = DOG_HAT_LIST.find((hat) => {
+		return props.hat === hat.internalName;
+	});
+
+	if (!hatInfo) {
+		throw new Error('Invalid hat ' + props.hat);
+	}
+
 	// Hair
 	const hairInfo = DOG_HAIR_LIST.find((hair) => {
 		return props.hair === hair.internalName;
@@ -84,6 +94,8 @@ export default function DogPreview(props: Props): React$Node {
 	const clothesLayer2 = useLoadImage(clothesInfo.layer2ImagePath);
 	const head = useLoadImage(headImg);
 	const hair = useLoadImage(hairInfo.imageWithPaddingPath);
+	const hat = useLoadImage(hatInfo.imageWithPaddingPath);
+	const hairLayer2 = useLoadImage(hatInfo.layer2ImagePath);
 	const ear = useLoadImage(earImg);
 
 	useEffect(() => {
@@ -98,13 +110,41 @@ export default function DogPreview(props: Props): React$Node {
 		ctx.drawImage(idle2, 0, 0, 750, 750);
 		ctx.drawImage(clothes, 0, 0, 750, 750);
 		ctx.drawImage(idle1, 0, 0, 750, 750);
-		if (clothesLayer2) {
+		if (hairLayer2) {
+			ctx.drawImage(hairLayer2, 0, 0, 750, 750);
+		} else if (clothesLayer2) {
 			ctx.drawImage(clothesLayer2, 0, 0, 750, 750);
 		}
+		// if (hatInfo.showHair != null && hatInfo.showHair > 2) {
+		// 	ctx.drawImage(hair, 0, 0, 750, 750);
+		// }
 		ctx.drawImage(head, 161, 48, 480, 480);
-		ctx.drawImage(hair, 0, 0, 750, 750);
+		if (
+			!hat ||
+			(hatInfo.showHair != null &&
+				(hatInfo.showHair === 1 || hatInfo.showHair > 2))
+		) {
+			ctx.drawImage(hair, 0, 0, 750, 750);
+		}
+		if (hat && hatInfo.showHair !== 2) {
+			ctx.drawImage(hat, 0, 0, 750, 750);
+		}
 		ctx.drawImage(ear, 0, 0, 750, 750);
-	}, [clothes, clothesLayer2, ear, hair, head, idle1, idle2]);
+		if (hat && hatInfo.showHair === 2) {
+			ctx.drawImage(hat, 0, 0, 750, 750);
+		}
+	}, [
+		clothes,
+		clothesLayer2,
+		ear,
+		hair,
+		hairLayer2,
+		hat,
+		hatInfo.showHair,
+		head,
+		idle1,
+		idle2,
+	]);
 
 	return (
 		<canvas

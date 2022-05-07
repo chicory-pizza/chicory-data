@@ -8,7 +8,7 @@ export type DogHairType = {
 
 export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 	{
-		internalName: 'Simple',
+		internalName: 'Simple (default)',
 		imageIndex: 5,
 		imageWithPaddingPath: require('../images/hair_padding/sprDog_hat_5.png'),
 	},
