@@ -12,9 +12,9 @@ import earImg from './images/sprDog_idle_ear_0.png';
 import {DOG_CLOTHES_LIST} from './types/DogClothesList';
 import {DOG_HAIR_LIST} from './types/DogHairList';
 import {DOG_HAT_LIST} from './types/DogHatList';
+import drawImageAsColor from '../util/drawImageAsColor';
 
-const WIDTH = 750;
-const HEIGHT = 750;
+const SIZE = 750;
 
 function useLoadImage(src: ?string) {
 	const [ready, setReady] = useState(false);
@@ -59,7 +59,7 @@ type Props = $ReadOnly<{
 }>;
 
 export default function DogPreview(props: Props): React$Node {
-	const canvasRef = useRef<?HTMLCanvasElement>(null);
+	const mainCanvasRef = useRef<?HTMLCanvasElement>(null);
 
 	// Clothes
 	const clothesInfo = DOG_CLOTHES_LIST.find((clothes) => {
@@ -99,7 +99,7 @@ export default function DogPreview(props: Props): React$Node {
 	const ear = useLoadImage(earImg);
 
 	useEffect(() => {
-		const canvas = canvasRef.current;
+		const canvas = mainCanvasRef.current;
 		if (!canvas || !idle2 || !clothes || !idle1 || !head || !hair || !ear) {
 			return;
 		}
@@ -110,37 +110,59 @@ export default function DogPreview(props: Props): React$Node {
 		const ctx = getCanvasRenderingContext(canvas, true);
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-		ctx.drawImage(idle2, 0, 0, 750, 750);
-		ctx.drawImage(clothes, 0, 0, 750, 750);
+		drawImageAsColor(ctx, idle2, props.skinColor, 0, 0, SIZE, SIZE);
+		drawImageAsColor(ctx, clothes, props.clothesColor, 0, 0, SIZE, SIZE);
 		if (layer2 && collar === 2) {
-			ctx.drawImage(layer2, 0, 0, 750, 750);
+			// Hiker
+			drawImageAsColor(ctx, layer2, props.hatColor, 0, 0, SIZE, SIZE);
 			layer2 = null;
 		}
-		ctx.drawImage(idle1, 0, 0, 750, 750);
+		drawImageAsColor(ctx, idle1, props.skinColor, 0, 0, SIZE, SIZE);
 		if (layer2 && collar == null) {
-			ctx.drawImage(layer2, 0, 0, 750, 750);
+			// Gorgeous
+			drawImageAsColor(
+				ctx,
+				layer2,
+				props.hatColor,
+				// this is from game code and this condition won't pass anyway
+				// collar === 1 ? props.clothesColor : props.hatColor,
+				0,
+				0,
+				SIZE,
+				SIZE
+			);
 		}
 		// This is for Horns which is not drawing correctly yet
 		// if (hatInfo.showHair != null && hatInfo.showHair > 2) {
-		// 	ctx.drawImage(hair, 0, 0, 750, 750);
+		// 	ctx.drawImage(hair, 0, 0, 0, 0, SIZE, SIZE);
 		// }
-		ctx.drawImage(head, 161, 48, 480, 480);
+		drawImageAsColor(ctx, head, props.skinColor, 161, 48, 480, 480);
 		if (
 			!hat ||
 			hatInfo.showHair === 1 ||
 			(hatInfo.showHair != null && hatInfo.showHair > 2)
 		) {
-			ctx.drawImage(hair, 0, 0, 750, 750);
+			drawImageAsColor(ctx, hair, props.skinColor, 0, 0, SIZE, SIZE);
 		}
 		if (hat && hatInfo.showHair !== 2) {
-			ctx.drawImage(hat, 0, 0, 750, 750);
+			drawImageAsColor(ctx, hat, props.hatColor, 0, 0, SIZE, SIZE);
 		}
 		if (layer2 && collar != null) {
-			ctx.drawImage(layer2, 0, 0, 750, 750);
+			// Collar: 1 - Royal
+			// Collar: 2 - Hiker
+			drawImageAsColor(
+				ctx,
+				layer2,
+				collar === 1 ? props.clothesColor : props.hatColor,
+				0,
+				0,
+				SIZE,
+				SIZE
+			);
 		}
-		ctx.drawImage(ear, 0, 0, 750, 750);
+		drawImageAsColor(ctx, ear, props.skinColor, 0, 0, SIZE, SIZE);
 		if (hat && hatInfo.showHair === 2) {
-			ctx.drawImage(hat, 0, 0, 750, 750);
+			drawImageAsColor(ctx, hat, props.hatColor, 0, 0, SIZE, SIZE);
 		}
 	}, [
 		clothes,
@@ -154,17 +176,20 @@ export default function DogPreview(props: Props): React$Node {
 		head,
 		idle1,
 		idle2,
+		props.skinColor,
+		props.clothesColor,
+		props.hatColor,
 	]);
 
 	return (
 		<canvas
 			className={styles.canvas}
-			ref={canvasRef}
-			width={WIDTH}
-			height={HEIGHT}
+			ref={mainCanvasRef}
+			width={SIZE}
+			height={SIZE}
 			style={{
-				width: WIDTH,
-				height: HEIGHT,
+				width: SIZE,
+				height: SIZE,
 			}}
 		/>
 	);
