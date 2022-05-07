@@ -3,7 +3,7 @@
 import {useMemo} from 'react';
 
 import CustomMenuWithMouseHoverOptions from './CustomMenuWithMouseHoverOptions';
-import {DOG_HAIR_LIST} from './types/DogHairList';
+import {DOG_CLOTHES_LIST} from './types/DogClothesList';
 
 type Props = $ReadOnly<{
 	onChange: (value: string) => mixed,
@@ -11,15 +11,15 @@ type Props = $ReadOnly<{
 	value: string,
 }>;
 
-export default function DogHairSelect({
+export default function DogClothesSelect({
 	onChange,
 	onPreviewChange,
 	value,
 }: Props): React$Node {
 	const options = useMemo(() => {
-		return DOG_HAIR_LIST.map((option) => {
+		return DOG_CLOTHES_LIST.map((option) => {
 			return {
-				label: option.internalName,
+				label: option.externalName,
 				value: option.internalName,
 			};
 		});

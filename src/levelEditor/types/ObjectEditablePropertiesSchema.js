@@ -835,7 +835,7 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCustomDog', [
 	{
 		key: 'clothes',
 		type: 'ENUM',
-		options: DOG_CLOTHES_LIST,
+		options: DOG_CLOTHES_LIST.map((hair) => hair.internalName),
 	},
 	{
 		key: 'color_body',
