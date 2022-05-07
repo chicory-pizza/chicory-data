@@ -5,7 +5,7 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 
 import LoadingBigBanner from './LoadingBigBanner';
 
-const App = lazy(() => import('./App'));
+const LevelEditorApp = lazy(() => import('./levelEditor/LevelEditorApp'));
 const PageNotFound = lazy(() => import('./PageNotFound'));
 
 const routes: React$Node = (
@@ -15,7 +15,7 @@ const routes: React$Node = (
 
 			<Route path="level">
 				<Route index element={<Navigate replace to="/level/0_0_0" />} />
-				<Route path=":levelId" element={<App />} />
+				<Route path=":levelId" element={<LevelEditorApp />} />
 			</Route>
 
 			<Route path="*" element={<PageNotFound />} />
