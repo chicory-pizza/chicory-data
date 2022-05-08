@@ -19,6 +19,7 @@ export default function DogEditorApp(): React$Node {
 	const [clothesColor, setClothesColor] = useState('#FFFFFF');
 	const [hatColor, setHatColor] = useState('#FFFFFF');
 	const [skinColor, setSkinColor] = useState('#FFFFFF');
+	const [skinOutlineColor, setSkinOutlineColor] = useState('#000000');
 
 	// Previews
 	const [previewClothes, setPreviewClothes] = useState<?string>(null);
@@ -42,6 +43,7 @@ export default function DogEditorApp(): React$Node {
 					hair={previewHair ?? hair}
 					height={750}
 					skinColor={skinColor}
+					skinOutlineColor={skinOutlineColor}
 					width={750}
 				/>
 
@@ -96,7 +98,7 @@ export default function DogEditorApp(): React$Node {
 					</div>
 
 					<div className={styles.selector}>
-						Skin:{' '}
+						Skin fill:{' '}
 						<input
 							type="color"
 							value={skinColor}
@@ -104,6 +106,16 @@ export default function DogEditorApp(): React$Node {
 								setSkinColor(ev.currentTarget.value);
 							}}
 						/>
+						<br />
+						Skin outline:{' '}
+						<input
+							type="color"
+							value={skinOutlineColor}
+							onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
+								setSkinOutlineColor(ev.currentTarget.value);
+							}}
+						/>
+						<br />
 					</div>
 				</div>
 			</ErrorBoundary>

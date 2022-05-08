@@ -6,10 +6,10 @@ import drawImageAsColor from '../util/drawImageAsColor';
 import getCanvasRenderingContext from '../util/getCanvasRenderingContext';
 
 import styles from './DogPreview.module.css';
-import headImg from './images/sprDog_head_0.png';
-import idle1Img from './images/sprDog_idle_A_0.png';
-import idle2Img from './images/sprDog_idle_B_0.png';
-import earImg from './images/sprDog_idle_ear_0.png';
+import headImgSrc from './images/sprDog_head_0.png';
+import idle1ImgSrc from './images/sprDog_idle_A_0.png';
+import idle2ImgSrc from './images/sprDog_idle_B_0.png';
+import earImgSrc from './images/sprDog_idle_ear_0.png';
 import {DOG_CLOTHES_LIST} from './types/DogClothesList';
 import {DOG_HAIR_LIST} from './types/DogHairList';
 import {DOG_HAT_LIST} from './types/DogHatList';
@@ -17,32 +17,30 @@ import {DOG_HAT_LIST} from './types/DogHatList';
 const SIZE = 750;
 
 function useLoadImage(src: ?string) {
-	const [ready, setReady] = useState(false);
+	const [prevSrc, setPrevSrc] = useState<?string>(null);
 	const img = useRef<?HTMLImageElement>(null);
 
 	useEffect(() => {
-		if (img.current == null) {
-			img.current = document.createElement('img');
-		}
-
 		if (src == null) {
 			return;
 		}
 
+		img.current = document.createElement('img');
 		const imgRef = img.current;
 
 		// todo need onerror state
-		if (src !== imgRef.src) {
-			setReady(false);
-		}
-
 		imgRef.onload = () => {
-			setReady(true);
+			setPrevSrc(src);
 		};
+
 		imgRef.src = src;
+
+		return () => {
+			img.current = null;
+		};
 	}, [src]);
 
-	if (src == null || !ready) {
+	if (src == null || prevSrc !== src) {
 		return null;
 	}
 
@@ -57,6 +55,7 @@ type Props = $ReadOnly<{
 	hair: string,
 	height: number,
 	skinColor: string,
+	skinOutlineColor?: string,
 	width: number,
 }>;
 
@@ -90,15 +89,15 @@ export default function DogPreview(props: Props): React$Node {
 		throw new Error('Invalid hair ' + props.hair);
 	}
 
-	const idle2 = useLoadImage(idle2Img);
+	const idle2 = useLoadImage(idle2ImgSrc);
 	const clothes = useLoadImage(clothesInfo.imageWithPaddingPath);
-	const idle1 = useLoadImage(idle1Img);
+	const idle1 = useLoadImage(idle1ImgSrc);
 	const clothesLayer2 = useLoadImage(clothesInfo.layer2ImagePath);
-	const head = useLoadImage(headImg);
+	const head = useLoadImage(headImgSrc);
 	const hair = useLoadImage(hairInfo.imageWithPaddingPath);
 	const hat = useLoadImage(hatInfo.imageWithPaddingPath);
 	const hatLayer2 = useLoadImage(hatInfo.layer2ImagePath);
-	const ear = useLoadImage(earImg);
+	const ear = useLoadImage(earImgSrc);
 
 	useEffect(() => {
 		const canvas = mainCanvasRef.current;
@@ -112,20 +111,60 @@ export default function DogPreview(props: Props): React$Node {
 		const ctx = getCanvasRenderingContext(canvas, true);
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-		drawImageAsColor(ctx, idle2, props.skinColor, 0, 0, SIZE, SIZE);
-		drawImageAsColor(ctx, clothes, props.clothesColor, 0, 0, SIZE, SIZE);
+		drawImageAsColor(
+			ctx,
+			idle2,
+			{
+				fillColor: props.skinColor,
+				outlineColor: props.skinOutlineColor,
+				cacheKey: idle2ImgSrc,
+			},
+			0,
+			0,
+			SIZE,
+			SIZE
+		);
+		drawImageAsColor(
+			ctx,
+			clothes,
+			{fillColor: props.clothesColor},
+			0,
+			0,
+			SIZE,
+			SIZE
+		);
 		if (layer2 && collar === 2) {
 			// Hiker
-			drawImageAsColor(ctx, layer2, props.hatColor, 0, 0, SIZE, SIZE);
+			drawImageAsColor(
+				ctx,
+				layer2,
+				{fillColor: props.hatColor},
+				0,
+				0,
+				SIZE,
+				SIZE
+			);
 			layer2 = null;
 		}
-		drawImageAsColor(ctx, idle1, props.skinColor, 0, 0, SIZE, SIZE);
+		drawImageAsColor(
+			ctx,
+			idle1,
+			{
+				fillColor: props.skinColor,
+				outlineColor: props.skinOutlineColor,
+				cacheKey: idle1ImgSrc,
+			},
+			0,
+			0,
+			SIZE,
+			SIZE
+		);
 		if (layer2 && collar == null) {
 			// Gorgeous
 			drawImageAsColor(
 				ctx,
 				layer2,
-				props.hatColor,
+				{fillColor: props.hatColor},
 				// this is from game code and this condition won't pass anyway
 				// collar === 1 ? props.clothesColor : props.hatColor,
 				0,
@@ -138,16 +177,40 @@ export default function DogPreview(props: Props): React$Node {
 		// if (hatInfo.showHair != null && hatInfo.showHair > 2) {
 		// 	ctx.drawImage(hair, 0, 0, 0, 0, SIZE, SIZE);
 		// }
-		drawImageAsColor(ctx, head, props.skinColor, 161, 48, 480, 480);
+		drawImageAsColor(
+			ctx,
+			head,
+			{
+				fillColor: props.skinColor,
+				outlineColor: props.skinOutlineColor,
+				cacheKey: headImgSrc,
+			},
+			161,
+			48,
+			480,
+			480
+		);
 		if (
 			!hat ||
 			hatInfo.showHair === 1 ||
 			(hatInfo.showHair != null && hatInfo.showHair > 2)
 		) {
-			drawImageAsColor(ctx, hair, props.skinColor, 0, 0, SIZE, SIZE);
+			drawImageAsColor(
+				ctx,
+				hair,
+				{
+					fillColor: props.skinColor,
+					outlineColor: props.skinOutlineColor,
+					cacheKey: 'hair_' + props.hair,
+				},
+				0,
+				0,
+				SIZE,
+				SIZE
+			);
 		}
 		if (hat && hatInfo.showHair !== 2) {
-			drawImageAsColor(ctx, hat, props.hatColor, 0, 0, SIZE, SIZE);
+			drawImageAsColor(ctx, hat, {fillColor: props.hatColor}, 0, 0, SIZE, SIZE);
 		}
 		if (layer2 && collar != null) {
 			// Collar: 1 - Royal
@@ -155,16 +218,28 @@ export default function DogPreview(props: Props): React$Node {
 			drawImageAsColor(
 				ctx,
 				layer2,
-				collar === 1 ? props.clothesColor : props.hatColor,
+				{fillColor: collar === 1 ? props.clothesColor : props.hatColor},
 				0,
 				0,
 				SIZE,
 				SIZE
 			);
 		}
-		drawImageAsColor(ctx, ear, props.skinColor, 0, 0, SIZE, SIZE);
+		drawImageAsColor(
+			ctx,
+			ear,
+			{
+				fillColor: props.skinColor,
+				outlineColor: props.skinOutlineColor,
+				cacheKey: earImgSrc,
+			},
+			0,
+			0,
+			SIZE,
+			SIZE
+		);
 		if (hat && hatInfo.showHair === 2) {
-			drawImageAsColor(ctx, hat, props.hatColor, 0, 0, SIZE, SIZE);
+			drawImageAsColor(ctx, hat, {fillColor: props.hatColor}, 0, 0, SIZE, SIZE);
 		}
 	}, [
 		clothes,
@@ -172,15 +247,17 @@ export default function DogPreview(props: Props): React$Node {
 		clothesLayer2,
 		ear,
 		hair,
-		hatLayer2,
 		hat,
 		hatInfo.showHair,
+		hatLayer2,
 		head,
 		idle1,
 		idle2,
-		props.skinColor,
 		props.clothesColor,
+		props.hair,
 		props.hatColor,
+		props.skinColor,
+		props.skinOutlineColor,
 	]);
 
 	return (
