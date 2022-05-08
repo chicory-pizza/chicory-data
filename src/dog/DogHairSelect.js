@@ -19,7 +19,7 @@ export default function DogHairSelect({
 	const options = useMemo(() => {
 		return DOG_HAIR_LIST.map((option) => {
 			return {
-				label: option.internalName,
+				label: option.externalName,
 				value: option.internalName,
 			};
 		});

@@ -136,11 +136,6 @@ export default function LevelInspector({
 
 	const onObjectEditProperty = useCallback(
 		(objectIndex: number, key: string, value: string | number) => {
-			const levelObjects = level.objects;
-			if (levelObjects == null) {
-				return;
-			}
-
 			dispatch({
 				type: 'editObjectPropertyOnLevel',
 				coordinates: currentCoordinates,
@@ -149,7 +144,7 @@ export default function LevelInspector({
 				value,
 			});
 		},
-		[currentCoordinates, dispatch, level.objects]
+		[currentCoordinates, dispatch]
 	);
 
 	const onActiveUiViewToggle = useCallback(

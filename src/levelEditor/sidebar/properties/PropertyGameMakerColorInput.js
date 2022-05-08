@@ -4,6 +4,7 @@ import {useCallback} from 'react';
 
 import convertBgrIntegerToRgb from '../../util/convertBgrIntegerToRgb';
 import convertHexToBgrInteger from '../../util/convertHexToBgrInteger';
+import convertRgbArrayToString from '../../util/convertRgbArrayToString';
 
 type Props = $ReadOnly<{
 	defaultValue: number,
@@ -28,18 +29,13 @@ export default function PropertyGameMakerColorInput({
 		[onEditProperty, propertyKey]
 	);
 
-	const converted = convertBgrIntegerToRgb(value ?? defaultValue);
-
 	return (
 		<input
 			onChange={onChange}
 			type="color"
-			value={
-				'#' +
-				converted[0].toString(16).padStart(2, '0') +
-				converted[1].toString(16).padStart(2, '0') +
-				converted[2].toString(16).padStart(2, '0')
-			}
+			value={convertRgbArrayToString(
+				convertBgrIntegerToRgb(value ?? defaultValue)
+			)}
 		/>
 	);
 }

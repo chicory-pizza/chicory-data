@@ -32,4 +32,19 @@ export type GameObjectType =
 			sound: string,
 			swimming?: '1' | '-1',
 			trans: '-2' | '0' | '1' | '2' | '3',
+	  }
+	| {
+			obj: 'objCustomDog',
+			x: number,
+			y: number,
+
+			animation: string,
+			clothes: string,
+			color_body: number,
+			color_head: number,
+			color_skin: number,
+			comment: string,
+			expression: string,
+			hair: string,
+			hat: string,
 	  };

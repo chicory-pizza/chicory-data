@@ -14,7 +14,7 @@ import DogPreview from './DogPreview';
 export default function DogEditorApp(): React$Node {
 	const [clothes, setClothes] = useState('Overalls');
 	const [hat, setHat] = useState('Bandana');
-	const [hair, setHair] = useState('Simple (default)');
+	const [hair, setHair] = useState('Simple');
 
 	const [clothesColor, setClothesColor] = useState('#FFFFFF');
 	const [hatColor, setHatColor] = useState('#FFFFFF');
@@ -40,7 +40,9 @@ export default function DogEditorApp(): React$Node {
 					hat={previewHat ?? hat}
 					hatColor={hatColor}
 					hair={previewHair ?? hair}
+					height={750}
 					skinColor={skinColor}
+					width={750}
 				/>
 
 				<div className={styles.code}>

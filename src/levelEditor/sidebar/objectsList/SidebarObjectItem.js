@@ -3,12 +3,14 @@
 import {memo, useEffect, useRef} from 'react';
 
 import CloseButton from '../../../common/CloseButton';
+import ErrorBoundary from '../../../common/ErrorBoundary';
 import usePrevious from '../../../util/usePrevious';
 import type {GameObjectType} from '../../types/GameObjectType';
 import {OBJECT_EDITABLE_PROPERTIES_SCHEMA} from '../../types/ObjectEditablePropertiesSchema';
 import PropertyNumberInput from '../properties/PropertyNumberInput';
 import SidebarEditableProperties from '../properties/SidebarEditableProperties';
 
+import SidebarObjectCustomDog from './SidebarObjectCustomDog';
 import styles from './SidebarObjectsItem.module.css';
 import SidebarObjectText from './SidebarObjectText';
 
@@ -94,14 +96,24 @@ function SidebarObjectItem(props: Props): React$Node {
 						/>
 					</div>
 
-					<SidebarEditableProperties
-						excludeProperties={['obj', 'x', 'y']}
-						onEditProperty={(key: string, value: string | number) => {
-							props.onObjectEditProperty(props.index, key, value);
-						}}
-						properties={props.obj}
-						schema={OBJECT_EDITABLE_PROPERTIES_SCHEMA.get(props.obj.obj) ?? []}
-					/>
+					{props.obj.obj === 'objCustomDog' ? (
+						<ErrorBoundary>
+							<SidebarObjectCustomDog obj={props.obj} />
+						</ErrorBoundary>
+					) : null}
+
+					<ErrorBoundary>
+						<SidebarEditableProperties
+							excludeProperties={['obj', 'x', 'y']}
+							onEditProperty={(key: string, value: string | number) => {
+								props.onObjectEditProperty(props.index, key, value);
+							}}
+							properties={props.obj}
+							schema={
+								OBJECT_EDITABLE_PROPERTIES_SCHEMA.get(props.obj.obj) ?? []
+							}
+						/>
+					</ErrorBoundary>
 				</div>
 			) : null}
 		</li>

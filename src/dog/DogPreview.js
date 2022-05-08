@@ -55,7 +55,9 @@ type Props = $ReadOnly<{
 	hat: string,
 	hatColor: string,
 	hair: string,
+	height: number,
 	skinColor: string,
+	width: number,
 }>;
 
 export default function DogPreview(props: Props): React$Node {
@@ -188,8 +190,8 @@ export default function DogPreview(props: Props): React$Node {
 			width={SIZE}
 			height={SIZE}
 			style={{
-				width: SIZE,
-				height: SIZE,
+				width: props.width,
+				height: props.height,
 			}}
 		/>
 	);

@@ -866,14 +866,14 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCustomDog', [
 		type: 'DOG_EXPRESSION',
 	},
 	{
-		key: 'hat',
-		type: 'ENUM',
-		options: DOG_HAT_LIST.map((hair) => hair.internalName),
-	},
-	{
 		key: 'hair',
 		type: 'ENUM',
 		options: DOG_HAIR_LIST.map((hair) => hair.internalName),
+	},
+	{
+		key: 'hat',
+		type: 'ENUM',
+		options: DOG_HAT_LIST.map((hair) => hair.internalName),
 	},
 ]);
 
