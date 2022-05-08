@@ -7,12 +7,13 @@ import LoadingBigBanner from './LoadingBigBanner';
 
 const DogEditorApp = lazy(() => import('./dog/DogEditorApp'));
 const LevelEditorApp = lazy(() => import('./levelEditor/LevelEditorApp'));
+const SplashScreen = lazy(() => import('./splash/SplashScreen'));
 const PageNotFound = lazy(() => import('./PageNotFound'));
 
 const routes: React$Node = (
 	<Suspense fallback={<LoadingBigBanner />}>
 		<Routes>
-			<Route path="/" element={<Navigate replace to="/level/0_0_0" />} />
+			<Route path="/" element={<SplashScreen />} />
 
 			<Route path="level">
 				<Route index element={<Navigate replace to="/level/0_0_0" />} />

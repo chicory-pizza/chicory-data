@@ -1,0 +1,63 @@
+.root {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding: 32px;
+	text-align: center;
+}
+
+.heading {
+	font-size: 2.5em;
+	margin-bottom: 32px;
+}
+
+.link {
+	background: #fff;
+	border: 1px solid #999;
+	display: block;
+	font-size: 1.5em;
+	margin-bottom: 16px;
+	max-width: 400px;
+	padding: 0.5em;
+	text-align: center;
+	text-decoration: none;
+	width: 100%;
+}
+
+.link:hover,
+.link:focus {
+	border-color: #333;
+}
+
+.icons {
+	display: flex;
+	margin-top: 64px;
+}
+
+.websiteLink {
+	opacity: 0.6;
+}
+
+.websiteLink + .websiteLink {
+	margin-left: 16px;
+}
+
+.websiteLink:hover,
+.websiteLink:active,
+.websiteLink:focus {
+	opacity: 1;
+}
+
+.discordIcon,
+.githubIcon {
+	width: 32px;
+	height: 32px;
+	display: block;
+	fill: #171515;
+}
+
+.websiteLink:hover .discordIcon,
+.websiteLink:active .discordIcon,
+.websiteLink:focus .discordIcon {
+	fill: #5865f2;
+}
