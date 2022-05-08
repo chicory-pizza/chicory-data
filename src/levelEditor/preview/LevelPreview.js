@@ -2,17 +2,16 @@
 
 import GeoPreview from '../common/GeoPreview';
 import {GEO_WIDTH, SCREEN_WIDTH} from '../GeoConstants';
-import type {GameObjectEntityType} from '../types/GameObjectEntityType';
+import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
+import type {PlaceableType} from '../types/PlaceableType';
 
 import LevelInGamePreview from './LevelInGamePreview';
 import styles from './LevelPreview.module.css';
 import LevelPreviewArrows from './LevelPreviewArrows';
-import LevelPreviewObjects from './LevelPreviewObjects';
-import LevelPreviewNoViews from './noviews/LevelPreviewNoViews';
 import LevelPreviewEntities from './LevelPreviewEntities';
-import type {PlaceableType} from './types/PlaceableType';
+import LevelPreviewNoViews from './noviews/LevelPreviewNoViews';
 
 type Props = $ReadOnly<{
 	activeUiViews: Array<LevelInspectorUiView>,
@@ -24,7 +23,7 @@ type Props = $ReadOnly<{
 	onMapMouseClick: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseLeave: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
-	onEntityClick: (entityIndex: number) => mixed,
+	onEntityClick: (entityIndex: number, entityType: GameEntityType) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 	decoIndexHover: ?number,
 	onDecoHover: (decoIndex: ?number) => mixed,
@@ -57,7 +56,7 @@ export default function LevelPreview(props: Props): React$Node {
 		>
 			{props.activeUiViews.includes('OBJECTS') ? (
 				<LevelPreviewEntities
-					levelEntities={props.level.objects}
+					level={props.level}
 					entityIndexHover={props.objectIndexHover}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onObjectHover}
@@ -82,7 +81,7 @@ export default function LevelPreview(props: Props): React$Node {
 
 			{props.activeUiViews.includes('DECOS') ? (
 				<LevelPreviewEntities
-					levelEntities={props.level.decos}
+					level={props.level}
 					entityIndexHover={props.decoIndexHover}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onDecoHover}

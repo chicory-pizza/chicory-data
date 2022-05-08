@@ -1,8 +1,0 @@
-.item {
-	position: absolute;
-	z-index: 3;
-}
-
-.itemHover {
-	background: rgb(216, 255, 85);
-}

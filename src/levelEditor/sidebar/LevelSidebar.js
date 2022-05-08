@@ -2,8 +2,10 @@
 
 import ErrorBoundary from '../../common/ErrorBoundary';
 import GeoPreview from '../common/GeoPreview';
+import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
+import type {PlaceableType} from '../types/PlaceableType';
 
 import styles from './LevelSidebar.module.css';
 import SidebarEntityList from './objectsList/SidebarEntityList';
@@ -11,7 +13,6 @@ import SidebarLevelProperties from './properties/SidebarLevelProperties';
 import SidebarEntityAdder from './SidebarEntityAdder';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
 import SidebarViewMenu from './SidebarViewMenu';
-import type {PlaceableType} from './types/PlaceableType';
 
 type Props = $ReadOnly<{
 	activeUiViews: Array<LevelInspectorUiView>,
@@ -21,11 +22,12 @@ type Props = $ReadOnly<{
 	objectsListItemsExpanded: Array<number>,
 	onActiveUiViewToggle: (uiView: LevelInspectorUiView) => mixed,
 	onAddingEntityLabel: (entity: PlaceableType) => mixed,
-	onEntityDelete: (objectIndex: number) => mixed,
+	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => mixed,
 	onEntityEditProperty: (
-		objectIndex: number,
+		entityIndex: number,
 		key: string,
-		value: string | number
+		value: string | number,
+		entityType: GameEntityType
 	) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 	setObjectsListItemsExpanded: (expandedIndexes: Array<number>) => mixed,
@@ -74,7 +76,7 @@ export default function LevelSidebar(props: Props): React$Node {
 
 				<ErrorBoundary>
 					<SidebarEntityList
-						levelEntities={props.level.objects ?? []}
+						levelObjects={props.level.objects ?? []}
 						type="OBJECT"
 						entityIndexHover={props.objectIndexHover}
 						entitiesListItemsExpanded={props.objectsListItemsExpanded}
@@ -88,7 +90,7 @@ export default function LevelSidebar(props: Props): React$Node {
 
 				<ErrorBoundary>
 					<SidebarEntityList
-						levelEntities={props.level.decos ?? []}
+						levelDecos={props.level.decos ?? []}
 						type="DECO"
 						entityIndexHover={props.decoIndexHover}
 						entitiesListItemsExpanded={props.decosListItemsExpanded}

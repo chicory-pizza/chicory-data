@@ -6,12 +6,14 @@ import type {GameObjectType} from '../../types/GameObjectType';
 import convertLevelIdToCoordinates from '../../util/convertLevelIdToCoordinates';
 
 type Props = $ReadOnly<{
-	obj: GameObjectType,
+	obj: ?GameObjectType,
 }>;
 
 export default function SidebarObjectText({obj}: Props): React$Node {
 	const [, setNewCoordinates] = useCurrentCoordinatesNonNullable();
-
+	if (obj == null) {
+		return 'Null';
+	}
 	const sliced = obj.obj.slice('obj'.length);
 
 	if (obj.obj === 'objPortal') {

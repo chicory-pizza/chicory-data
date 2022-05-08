@@ -2,23 +2,26 @@
 
 import {memo, useCallback, useState} from 'react';
 
-import type {GameEntityType} from '../../types/GameEntityType';
 import type {DecorationType} from '../../types/DecorationType';
+import type {GameEntityType} from '../../types/GameEntityType';
+import type {GameObjectType} from '../../types/GameObjectType';
 
 import SidebarEntityItem from './SidebarEntityItem';
 import styles from './SidebarEntityList.module.css';
 
 type Props = $ReadOnly<{
 	type: GameEntityType,
-	levelEntities: Array<DecorationType>,
+	levelObjects?: Array<GameObjectType>,
+	levelDecos?: Array<DecorationType>,
 	entityIndexHover: ?number,
 	entitiesListItemsExpanded: Array<number>,
-	name: String,
-	onEntityDelete: (entityIndex: number) => mixed,
+	name: string,
+	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => mixed,
 	onEntityEditProperty: (
 		entityIndex: number,
 		key: string,
-		value: string | number
+		value: string | number,
+		entityType: GameEntityType
 	) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
 	setEntitiesListItemsExpanded: (expandedIndexes: Array<number>) => mixed,
@@ -26,7 +29,8 @@ type Props = $ReadOnly<{
 
 function SidebarEntityList(props: Props): React$Node {
 	const {
-		levelEntities: unfilteredEntities,
+		levelObjects: unfilteredObjects,
+		levelDecos: unfilteredDecos,
 		entitiesListItemsExpanded: expandedUnfilteredEntityIndexes,
 		setEntitiesListItemsExpanded: setExpandedUnfilteredEntityIndexes,
 	} = props;
@@ -51,25 +55,37 @@ function SidebarEntityList(props: Props): React$Node {
 	);
 
 	const filterLowercase = filter.toLowerCase().trim();
-	const filteredEntities: $ReadOnlyArray<?DecorationType> =
-		filter === ''
-			? unfilteredEntities
-			: unfilteredEntities.map((ent) => {
-					let entName =
-						props.type === 'OBJECT'
-							? ent.obj.toLowerCase()
-							: ent.spr.toLowerCase();
 
-					if (!filterLowercase.startsWith('obj') && entName.startsWith('obj')) {
-						entName = entName.slice('obj'.length);
+	const filteredObjects: $ReadOnlyArray<?GameObjectType> = unfilteredObjects
+		? filter === ''
+			? unfilteredObjects
+			: unfilteredObjects.map((obj) => {
+					let objName = obj.obj.toLowerCase();
+					if (!filterLowercase.startsWith('obj')) {
+						objName = objName.slice('obj'.length);
 					}
 
-					return entName.includes(filterLowercase) ? ent : null;
-			  });
+					return objName.includes(filterLowercase) ? obj : null;
+			  })
+		: [];
+
+	const filteredDecos: $ReadOnlyArray<?DecorationType> = unfilteredDecos
+		? filter === ''
+			? unfilteredDecos
+			: unfilteredDecos.map((dec) => {
+					let decName = dec.spr.toLowerCase();
+					return decName.includes(filterLowercase) ? dec : null;
+			  })
+		: [];
+
+	const filteredEntities:
+		| $ReadOnlyArray<?DecorationType>
+		| $ReadOnlyArray<?GameObjectType> = filteredObjects ?? filteredDecos;
+
 	const filteredEntitiesCount =
 		filter === ''
 			? filteredEntities.length
-			: filteredEntities.filter((obj) => obj != null).length;
+			: filteredEntities.filter((ent) => ent != null).length;
 
 	const expandedFilteredEntityIndexes: Array<number> =
 		filter === ''
@@ -77,21 +93,21 @@ function SidebarEntityList(props: Props): React$Node {
 			: expandedUnfilteredEntityIndexes.filter(
 					(entityIndex) => filteredEntities[entityIndex] != null
 			  );
-
+	const unfilteredEntitiesLength: number = filteredEntities.length;
 	return (
 		<details className={styles.expander} open>
 			<summary>
-				{unfilteredEntities.length > 0
+				{unfilteredEntitiesLength > 0
 					? props.name +
 					  ' (' +
-					  (filteredEntitiesCount !== unfilteredEntities.length
-							? `${filteredEntitiesCount} of ${unfilteredEntities.length} shown`
-							: `${unfilteredEntities.length} total`) +
+					  (filteredEntitiesCount !== unfilteredEntitiesLength
+							? `${filteredEntitiesCount} of ${unfilteredEntitiesLength} shown`
+							: `${unfilteredEntitiesLength} total`) +
 					  ')'
 					: 'No ' + props.name.toLowerCase()}
 			</summary>
 
-			{unfilteredEntities.length > 0 ? (
+			{unfilteredEntitiesLength > 0 ? (
 				<div className={styles.filterWrap}>
 					<span className={styles.filterLabel}>Filter:</span>
 
@@ -108,26 +124,45 @@ function SidebarEntityList(props: Props): React$Node {
 			) : null}
 
 			<ul className={styles.list}>
-				{filteredEntities.map((ent, index) => {
-					if (ent == null) {
-						return null;
-					}
-
-					return (
-						<SidebarEntityItem
-							expanded={expandedUnfilteredEntityIndexes.includes(index)}
-							highlighted={props.entityIndexHover === index}
-							index={index}
-							key={index}
-							ent={ent}
-							onItemToggle={onItemToggle}
-							onEntityDelete={props.onEntityDelete}
-							onEntityEditProperty={props.onEntityEditProperty}
-							onEntityHover={props.onEntityHover}
-							type={props.type}
-						/>
-					);
-				})}
+				{unfilteredObjects
+					? filteredObjects.map((ent, index) => {
+							if (ent == null) {
+								return null;
+							}
+							return (
+								<SidebarEntityItem
+									expanded={expandedUnfilteredEntityIndexes.includes(index)}
+									highlighted={props.entityIndexHover === index}
+									index={index}
+									key={index}
+									obj={ent}
+									onItemToggle={onItemToggle}
+									onEntityDelete={props.onEntityDelete}
+									onEntityEditProperty={props.onEntityEditProperty}
+									onEntityHover={props.onEntityHover}
+									type={props.type}
+								/>
+							);
+					  })
+					: filteredDecos.map((ent, index) => {
+							if (ent == null) {
+								return null;
+							}
+							return (
+								<SidebarEntityItem
+									expanded={expandedUnfilteredEntityIndexes.includes(index)}
+									highlighted={props.entityIndexHover === index}
+									index={index}
+									key={index}
+									dec={ent}
+									onItemToggle={onItemToggle}
+									onEntityDelete={props.onEntityDelete}
+									onEntityEditProperty={props.onEntityEditProperty}
+									onEntityHover={props.onEntityHover}
+									type={props.type}
+								/>
+							);
+					  })}
 			</ul>
 
 			<div className={styles.actions}>

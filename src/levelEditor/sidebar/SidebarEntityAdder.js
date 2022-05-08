@@ -17,14 +17,16 @@ import type {SpriteType} from '../types/SpriteType';
 
 import styles from './SidebarEntityAdder.module.css';
 
-function gameObjectEntityTypeToOption(entity: GameObjectEntityType) {
+function gameObjectEntityTypeToOption(
+	entity: GameObjectEntityType | SpriteType
+) {
 	return {
 		label: entity.slice('obj'.length),
 		value: entity,
 	};
 }
 
-function decoTypeToOption(entity: GameObjectEntityType) {
+function decoTypeToOption(entity: GameObjectEntityType | SpriteType) {
 	return {
 		label: entity,
 		value: entity,
@@ -39,9 +41,19 @@ type Props = $ReadOnly<{
 function SidebarEntityAdder(props: Props): React$Node {
 	const [selected, setSelected] = useState(null);
 
+	const optionsDeco: $ReadOnlyArray<{
+		label: string,
+		options: $ReadOnlyArray<OptionType<GameObjectEntityType | SpriteType>>,
+	}> = [
+		{
+			label: 'Common',
+			options: SPRITES.map(decoTypeToOption),
+		},
+	];
+
 	const optionsObj: $ReadOnlyArray<{
 		label: string,
-		options: $ReadOnlyArray<OptionType<GameObjectEntityType>>,
+		options: $ReadOnlyArray<OptionType<GameObjectEntityType | SpriteType>>,
 	}> = [
 		{
 			label: 'Common',
@@ -54,16 +66,6 @@ function SidebarEntityAdder(props: Props): React$Node {
 		{
 			label: 'Game crash',
 			options: GAME_OBJECT_ENTITIES_CRASH.map(gameObjectEntityTypeToOption),
-		},
-	];
-
-	const optionsDeco: $ReadOnlyArray<{
-		label: string,
-		options: $ReadOnlyArray<OptionType<SpriteType>>,
-	}> = [
-		{
-			label: 'Common',
-			options: SPRITES.map(decoTypeToOption),
 		},
 	];
 

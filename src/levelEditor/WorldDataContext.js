@@ -5,10 +5,9 @@ import {createContext, useContext, useMemo} from 'react';
 import type {UndoReducerAction} from '../util/useUndoRedoReducer';
 import useUndoRedoReducer from '../util/useUndoRedoReducer';
 
-import type {GameObjectEntityType} from './types/GameObjectEntityType';
-import type {PlaceableType} from './types/PlaceableType';
-
+import type {GameEntityType} from './types/GameEntityType';
 import type {LevelType} from './types/LevelType';
+import type {PlaceableType} from './types/PlaceableType';
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 
 const WorldDataContext = createContext();
@@ -47,7 +46,7 @@ type ReducerAction =
 	| {
 			type: 'addEntityToLevel',
 			coordinates: [number, number, number],
-			objectEntity: PlaceableType,
+			entity: PlaceableType,
 			x: number,
 			y: number,
 	  }
@@ -57,13 +56,13 @@ type ReducerAction =
 			index: number,
 			key: string,
 			value: string | number,
-			entityType: string,
+			entityType: GameEntityType,
 	  }
 	| {
 			type: 'deleteEntityOnLevel',
 			coordinates: [number, number, number],
 			index: number,
-			entityType: String,
+			entityType: GameEntityType,
 	  }
 	| {
 			type: 'duplicateLevel',
@@ -155,66 +154,96 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 
 		case 'editEntityPropertyOnLevel': {
 			const [level, levelId] = getNonNullableLevel(state, action.coordinates);
-			let levelEntities = {};
-			let temp = '';
 			if (action.entityType === 'OBJECT') {
-				levelEntities = level.objects;
-				temp = 'objects';
+				const levelObjects = level.objects;
+				if (levelObjects == null || levelObjects.length === 0) {
+					return state;
+				}
+
+				if (
+					levelObjects[action.index][action.key] === action.value ||
+					(action.value === '' &&
+						levelObjects[action.index][action.key] == null)
+				) {
+					// If old and new values are the same, do nothing
+					return state;
+				}
+
+				return {
+					...state,
+					[levelId]: {
+						...level,
+						objects: levelObjects
+							.slice(0, action.index)
+							.concat({
+								...levelObjects[action.index],
+								[action.key]: action.value,
+							})
+							.concat(levelObjects.slice(action.index + 1)),
+					},
+				};
 			} else {
-				levelEntities = level.decos;
-				temp = 'decos';
-			}
+				const levelDecos = level.objects;
+				if (levelDecos == null || levelDecos.length === 0) {
+					return state;
+				}
 
-			if (levelEntities == null || levelEntities.length === 0) {
-				return state;
-			}
+				if (
+					levelDecos[action.index][action.key] === action.value ||
+					(action.value === '' && levelDecos[action.index][action.key] == null)
+				) {
+					// If old and new values are the same, do nothing
+					return state;
+				}
 
-			if (
-				levelEntities[action.index][action.key] === action.value ||
-				(action.value === '' && levelEntities[action.index][action.key] == null)
-			) {
-				// If old and new values are the same, do nothing
-				return state;
+				return {
+					...state,
+					[levelId]: {
+						...level,
+						decos: levelDecos
+							.slice(0, action.index)
+							.concat({
+								...levelDecos[action.index],
+								[action.key]: action.value,
+							})
+							.concat(levelDecos.slice(action.index + 1)),
+					},
+				};
 			}
-
-			return {
-				...state,
-				[levelId]: {
-					...level,
-					[temp]: levelEntities
-						.slice(0, action.index)
-						.concat({
-							...levelEntities[action.index],
-							[action.key]: action.value,
-						})
-						.concat(levelEntities.slice(action.index + 1)),
-				},
-			};
 		}
 
 		case 'deleteEntityOnLevel': {
 			const [level, levelId] = getNonNullableLevel(state, action.coordinates);
-			let levelEntities = {};
-			let temp = '';
+
 			if (action.entityType === 'OBJECT') {
-				levelEntities = level.objects;
-				temp = 'objects';
+				const levelObjects = level.objects;
+				if (levelObjects == null || levelObjects.length === 0) {
+					return state;
+				}
+				return {
+					...state,
+					[levelId]: {
+						...level,
+						objects: levelObjects
+							.slice(0, action.index)
+							.concat(levelObjects.slice(action.index + 1)),
+					},
+				};
 			} else {
-				levelEntities = level.decos;
-				temp = 'decos';
+				const levelDecos = level.decos;
+				if (levelDecos == null || levelDecos.length === 0) {
+					return state;
+				}
+				return {
+					...state,
+					[levelId]: {
+						...level,
+						decos: levelDecos
+							.slice(0, action.index)
+							.concat(levelDecos.slice(action.index + 1)),
+					},
+				};
 			}
-			if (levelEntities == null || levelEntities.length === 0) {
-				return state;
-			}
-			return {
-				...state,
-				[levelId]: {
-					...level,
-					[temp]: levelEntities
-						.slice(0, action.index)
-						.concat(levelEntities.slice(action.index + 1)),
-				},
-			};
 		}
 
 		case 'duplicateLevel':

@@ -7,13 +7,13 @@ import styles from './PropertyNumberInput.module.css';
 type Props = $ReadOnly<{
 	onCommitValue: (newValue: number | string) => mixed,
 	initialValue: number | string, // it could a number, string of number, or empty string,
-	step: number,
+	step?: number,
 }>;
 
 export default function PropertyNumberInput({
 	onCommitValue,
 	initialValue,
-	step = 1,
+	step,
 }: Props): React$Node {
 	const [inputValue, setInputValue] = useState(initialValue);
 	const [prevValue, setPrevValue] = useState(null);
@@ -44,7 +44,7 @@ export default function PropertyNumberInput({
 				}
 			}}
 			type="number"
-			step={step}
+			step={step ?? 1}
 			value={inputValue}
 		/>
 	);

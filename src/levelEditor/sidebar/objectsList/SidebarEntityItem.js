@@ -18,15 +18,17 @@ type Props = $ReadOnly<{
 	expanded: boolean,
 	highlighted: boolean,
 	index: number,
-	ent: DecorationType | GameObjectType,
-	onItemToggle: (objectIndex: number) => mixed,
-	onEntityDelete: (objectIndex: number) => mixed,
+	dec?: DecorationType,
+	obj?: GameObjectType,
+	onItemToggle: (entityIndex: number) => mixed,
+	onEntityDelete: (entitytIndex: number, entityType: GameEntityType) => mixed,
 	onEntityEditProperty: (
-		objectIndex: number,
+		entityIndex: number,
 		key: string,
-		value: string | number
+		value: string | number,
+		entityType: GameEntityType
 	) => mixed,
-	onEntityHover: (objectIndex: ?number) => mixed,
+	onEntityHover: (entityIndex: ?number) => mixed,
 	type: GameEntityType,
 }>;
 
@@ -70,11 +72,7 @@ function SidebarEntityItem(props: Props): React$Node {
 				</button>
 
 				<span className={styles.text}>
-					{props.type === 'OBJECT' ? (
-						<SidebarObjectText obj={props.ent} />
-					) : (
-						props.ent.spr
-					)}
+					{props.dec ? props.dec.spr : <SidebarObjectText obj={props.obj} />}
 				</span>
 
 				{props.highlighted ? (
@@ -82,9 +80,11 @@ function SidebarEntityItem(props: Props): React$Node {
 						color="#000"
 						label={
 							'Delete ' +
-							(props.type === 'OBJECT'
-								? props.ent.obj.slice('obj'.length)
-								: props.ent.spr)
+							(props.dec
+								? props.dec.spr
+								: props.obj
+								? props.obj.obj.slice('obj'.length)
+								: '')
 						}
 						onClick={() => props.onEntityDelete(props.index, props.type)}
 						size=".6em"
@@ -97,7 +97,9 @@ function SidebarEntityItem(props: Props): React$Node {
 					<div className={styles.objectCoordinates}>
 						<span className={styles.objectCoordinatesText}>X:</span>
 						<PropertyNumberInput
-							initialValue={props.ent.x}
+							initialValue={
+								props.dec ? props.dec.x : props.obj ? props.obj.x : 0
+							}
 							onCommitValue={(newValue: number | string) => {
 								props.onEntityEditProperty(
 									props.index,
@@ -110,7 +112,9 @@ function SidebarEntityItem(props: Props): React$Node {
 
 						<span className={styles.objectCoordinatesText}>Y:</span>
 						<PropertyNumberInput
-							initialValue={props.ent.y}
+							initialValue={
+								props.dec ? props.dec.y : props.obj ? props.obj.y : 0
+							}
 							onCommitValue={(newValue: number | string) => {
 								props.onEntityEditProperty(
 									props.index,
@@ -121,23 +125,23 @@ function SidebarEntityItem(props: Props): React$Node {
 							}}
 						/>
 					</div>
-					{props.type === 'OBJECT' ? (
+					{props.obj ? (
 						<SidebarEditableProperties
 							excludeProperties={['obj', 'x', 'y']}
 							onEditProperty={(key: string, value: string | number) => {
-								props.onEntityEditProperty(props.index, key, value);
+								props.onEntityEditProperty(props.index, key, value, props.type);
 							}}
-							properties={props.ent}
+							properties={props.obj}
 							schema={
-								OBJECT_EDITABLE_PROPERTIES_SCHEMA.get(props.ent.obj) ?? []
+								OBJECT_EDITABLE_PROPERTIES_SCHEMA.get(props.obj.obj) ?? []
 							}
 						/>
-					) : (
+					) : props.dec ? (
 						<>
 							<div className={styles.objectCoordinates}>
 								<span className={styles.objectCoordinatesText}>XS:</span>
 								<PropertyNumberInput
-									initialValue={props.ent.xs}
+									initialValue={props.dec.xs}
 									onCommitValue={(newValue: number | string) => {
 										props.onEntityEditProperty(
 											props.index,
@@ -151,7 +155,7 @@ function SidebarEntityItem(props: Props): React$Node {
 
 								<span className={styles.objectCoordinatesText}>YS:</span>
 								<PropertyNumberInput
-									initialValue={props.ent.ys}
+									initialValue={props.dec.ys}
 									onCommitValue={(newValue: number | string) => {
 										props.onEntityEditProperty(
 											props.index,
@@ -166,7 +170,7 @@ function SidebarEntityItem(props: Props): React$Node {
 
 							<div className={styles.objectCoordinatesText}>ang:</div>
 							<PropertyNumberInput
-								initialValue={props.ent.ang}
+								initialValue={props.dec.ang}
 								onCommitValue={(newValue: number | string) => {
 									props.onEntityEditProperty(
 										props.index,
@@ -177,7 +181,7 @@ function SidebarEntityItem(props: Props): React$Node {
 								}}
 							/>
 						</>
-					)}
+					) : null}
 				</div>
 			) : null}
 		</li>
