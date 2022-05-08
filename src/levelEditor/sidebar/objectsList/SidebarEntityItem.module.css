@@ -1,0 +1,49 @@
+.item {
+	margin-left: 8px;
+}
+
+.objHighlight {
+	background: rgb(216, 255, 85);
+}
+
+.decHighlight {
+	background: rgb(85, 96, 255);
+}
+
+.title {
+	display: flex;
+	align-items: center;
+	padding: 0 8px 0 0;
+}
+
+.toggleIcon {
+	background: none;
+	border: 0;
+	font-size: 0.8em;
+	height: 100%;
+	padding: 4px 4px 4px 8px;
+}
+
+.text {
+	flex-grow: 1;
+}
+
+.editor {
+	margin: 0 8px 0 24px;
+	padding-bottom: 8px;
+}
+
+.objectCoordinates {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.objectCoordinatesText {
+	flex-shrink: 0;
+	margin: 0 8px;
+}
+
+.objectCoordinatesText:first-child {
+	margin-left: 0;
+}

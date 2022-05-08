@@ -9,8 +9,7 @@ import styles from './LevelPreviewObjects.module.css';
 type Props = $ReadOnly<{
 	level: LevelType,
 	objectIndexHover: ?number,
-	onMapMouseLeave: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
-	onObjectClick: (objectIndex: number) => mixed,
+	onEntityClick: (entityIndex: number) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 }>;
 
@@ -31,7 +30,7 @@ function LevelPreviewObjects(props: Props): React$Node {
 					(props.objectIndexHover === index ? styles.itemHover : '')
 				}
 				key={index}
-				onClick={() => props.onObjectClick(index)}
+				onClick={() => props.onEntityClick(index, 'OBJECT')}
 				onMouseEnter={() => props.onObjectHover(index)}
 				onMouseLeave={() => props.onObjectHover(null)}
 				style={{

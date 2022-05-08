@@ -9,7 +9,7 @@ import {OBJECT_EDITABLE_PROPERTIES_SCHEMA} from '../../types/ObjectEditablePrope
 import PropertyNumberInput from '../properties/PropertyNumberInput';
 import SidebarEditableProperties from '../properties/SidebarEditableProperties';
 
-import styles from './SidebarObjectsItem.module.css';
+import styles from './SidebarEntityItem.module.css';
 import SidebarObjectText from './SidebarObjectText';
 
 type Props = $ReadOnly<{

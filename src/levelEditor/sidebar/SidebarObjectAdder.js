@@ -8,8 +8,9 @@ import {
 	GAME_OBJECT_ENTITIES,
 	GAME_OBJECT_ENTITIES_ADVANCED,
 	GAME_OBJECT_ENTITIES_CRASH,
-} from '../types/GameObjectEntities';
+} from '../types/EntityCategories';
 import type {GameObjectEntityType} from '../types/GameObjectEntityType';
+import type {PlaceableType} from '../types/PlaceableType';
 
 import styles from './SidebarObjectAdder.module.css';
 
@@ -21,7 +22,7 @@ function gameObjectEntityTypeToOption(entity: GameObjectEntityType) {
 }
 
 type Props = $ReadOnly<{
-	onAddingObjectEntity: (entity: GameObjectEntityType) => mixed,
+	onAddingEntityLabel: (entity: PlaceableType) => mixed,
 }>;
 
 function SidebarObjectAdder(props: Props): React$Node {
@@ -54,7 +55,11 @@ function SidebarObjectAdder(props: Props): React$Node {
 					maxMenuHeight={300}
 					onChange={(newOption) => {
 						setSelected(newOption);
-						props.onAddingObjectEntity(newOption.value);
+						let temp = {
+							type: 'OBJECT',
+							data: newOption.value,
+						};
+						props.onAddingEntityLabel(temp);
 					}}
 					options={options}
 					value={selected}
@@ -66,7 +71,11 @@ function SidebarObjectAdder(props: Props): React$Node {
 				disabled={selected == null}
 				onClick={() => {
 					if (selected && selected.value) {
-						props.onAddingObjectEntity(selected.value);
+						let temp = {
+							type: 'OBJECT',
+							data: selected.value,
+						};
+						props.onAddingEntityLabel(temp);
 					}
 				}}
 				type="button"

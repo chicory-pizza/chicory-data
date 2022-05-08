@@ -4,8 +4,8 @@ import {memo, useCallback, useState} from 'react';
 
 import type {GameObjectType} from '../../types/GameObjectType';
 
+import styles from './SidebarEntityList.module.css';
 import SidebarObjectItem from './SidebarObjectItem';
-import styles from './SidebarObjectsList.module.css';
 
 type Props = $ReadOnly<{
 	levelObjects: Array<GameObjectType>,

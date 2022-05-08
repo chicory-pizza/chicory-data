@@ -1,3 +1,3 @@
 // @flow strict
 
-export type LevelInspectorUiView = 'GEO' | 'INGAME' | 'OBJECTS';
+export type LevelInspectorUiView = 'GEO' | 'INGAME' | 'OBJECTS' | 'DECOS';

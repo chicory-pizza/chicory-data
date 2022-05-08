@@ -1,0 +1,12 @@
+.item {
+	position: absolute;
+	z-index: 3;
+}
+
+.objHover {
+	background: rgb(216, 255, 85);
+}
+
+.decoHover {
+	background: rgb(85, 96, 255);
+}

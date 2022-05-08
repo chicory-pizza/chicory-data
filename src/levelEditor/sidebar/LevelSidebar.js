@@ -2,16 +2,16 @@
 
 import ErrorBoundary from '../../common/ErrorBoundary';
 import GeoPreview from '../common/GeoPreview';
-import type {GameObjectEntityType} from '../types/GameObjectEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
 
 import styles from './LevelSidebar.module.css';
-import SidebarObjectsList from './objectsList/SidebarObjectsList';
+import SidebarEntityList from './objectsList/SidebarEntityList';
 import SidebarLevelProperties from './properties/SidebarLevelProperties';
+import SidebarEntityAdder from './SidebarEntityAdder';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
-import SidebarObjectAdder from './SidebarObjectAdder';
 import SidebarViewMenu from './SidebarViewMenu';
+import type {PlaceableType} from './types/PlaceableType';
 
 type Props = $ReadOnly<{
 	activeUiViews: Array<LevelInspectorUiView>,
@@ -20,15 +20,19 @@ type Props = $ReadOnly<{
 	objectIndexHover: ?number,
 	objectsListItemsExpanded: Array<number>,
 	onActiveUiViewToggle: (uiView: LevelInspectorUiView) => mixed,
-	onAddingObjectEntity: (entity: GameObjectEntityType) => mixed,
-	onObjectDelete: (objectIndex: number) => mixed,
-	onObjectEditProperty: (
+	onAddingEntityLabel: (entity: PlaceableType) => mixed,
+	onEntityDelete: (objectIndex: number) => mixed,
+	onEntityEditProperty: (
 		objectIndex: number,
 		key: string,
 		value: string | number
 	) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 	setObjectsListItemsExpanded: (expandedIndexes: Array<number>) => mixed,
+	decoIndexHover: ?number,
+	onDecoHover: (decoIndex: ?number) => mixed,
+	decosListItemsExpanded: Array<number>,
+	setDecosListItemsExpanded: (expandedIndexes: Array<number>) => mixed,
 }>;
 
 export default function LevelSidebar(props: Props): React$Node {
@@ -45,8 +49,13 @@ export default function LevelSidebar(props: Props): React$Node {
 
 			<div className={styles.group}>
 				<ErrorBoundary>
-					<SidebarObjectAdder
-						onAddingObjectEntity={props.onAddingObjectEntity}
+					<SidebarEntityAdder
+						onAddingEntityLabel={props.onAddingEntityLabel}
+						type="OBJECT"
+					/>
+					<SidebarEntityAdder
+						onAddingEntityLabel={props.onAddingEntityLabel}
+						type="DECO"
 					/>
 				</ErrorBoundary>
 			</div>
@@ -64,14 +73,30 @@ export default function LevelSidebar(props: Props): React$Node {
 				</ErrorBoundary>
 
 				<ErrorBoundary>
-					<SidebarObjectsList
-						levelObjects={props.level.objects ?? []}
-						objectIndexHover={props.objectIndexHover}
-						objectsListItemsExpanded={props.objectsListItemsExpanded}
-						onObjectDelete={props.onObjectDelete}
-						onObjectEditProperty={props.onObjectEditProperty}
-						onObjectHover={props.onObjectHover}
-						setObjectsListItemsExpanded={props.setObjectsListItemsExpanded}
+					<SidebarEntityList
+						levelEntities={props.level.objects ?? []}
+						type="OBJECT"
+						entityIndexHover={props.objectIndexHover}
+						entitiesListItemsExpanded={props.objectsListItemsExpanded}
+						onEntityDelete={props.onEntityDelete}
+						onEntityEditProperty={props.onEntityEditProperty}
+						onEntityHover={props.onObjectHover}
+						setEntitiesListItemsExpanded={props.setObjectsListItemsExpanded}
+						name="Objects"
+					/>
+				</ErrorBoundary>
+
+				<ErrorBoundary>
+					<SidebarEntityList
+						levelEntities={props.level.decos ?? []}
+						type="DECO"
+						entityIndexHover={props.decoIndexHover}
+						entitiesListItemsExpanded={props.decosListItemsExpanded}
+						onEntityDelete={props.onEntityDelete}
+						onEntityEditProperty={props.onEntityEditProperty}
+						onEntityHover={props.onDecoHover}
+						setEntitiesListItemsExpanded={props.setDecosListItemsExpanded}
+						name="Decos"
 					/>
 				</ErrorBoundary>
 			</div>

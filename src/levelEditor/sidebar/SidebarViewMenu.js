@@ -37,6 +37,14 @@ function SidebarViewMenu(props: Props): React$Node {
 				</MenuItem>
 
 				<MenuItem
+					checked={props.activeUiViews.includes('DECOS')}
+					onClick={(ev) => props.onActiveUiViewToggle('DECOS')}
+					type="checkbox"
+					value="DECOS"
+				>
+					Decorations
+				</MenuItem>
+				<MenuItem
 					checked={props.activeUiViews.includes('INGAME')}
 					disabled={process.env.REACT_APP_IN_GAME_SCREENSHOT_URL_PREFIX == null}
 					onClick={(ev) => props.onActiveUiViewToggle('INGAME')}
