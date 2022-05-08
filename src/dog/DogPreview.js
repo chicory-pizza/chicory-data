@@ -29,13 +29,15 @@ function useLoadImage(src: ?string) {
 		const imgRef = img.current;
 
 		// todo need onerror state
-		imgRef.onload = () => {
+		function onLoad() {
 			setPrevSrc(src);
-		};
+		}
 
+		imgRef.addEventListener('load', onLoad);
 		imgRef.src = src;
 
 		return () => {
+			imgRef.removeEventListener('load', onLoad);
 			img.current = null;
 		};
 	}, [src]);
