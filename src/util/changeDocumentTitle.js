@@ -1,6 +1,6 @@
 // @flow strict
 
-const APP_TITLE = 'Chicory: A Colorful Data';
+const APP_TITLE = 'Chicory: A Colorful Modding';
 
 export default function changeDocumentTitle(text: string) {
 	document.title =

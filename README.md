@@ -1,4 +1,4 @@
-# Chicory: A Colorful Data
+# Chicory: A Colorful Modding
 
 <img alt="Chicory: A Colorful Tale game logo" align="right" src="./src/icon144.png" width="72" />
 
