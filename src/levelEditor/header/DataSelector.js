@@ -78,7 +78,7 @@ export default function DataSelector(): React$Node {
 		<div className={styles.root}>
 			<div className={styles.space}>
 				<button type="button" onClick={openFile}>
-					Load custom level_data
+					Load
 				</button>
 			</div>
 

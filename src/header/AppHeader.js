@@ -9,9 +9,9 @@ import DiscordIcon from './DiscordIcon';
 import GitHubIcon from './GitHubIcon';
 
 type Props = $ReadOnly<{
-	dataSelector: React$Node,
-	levelSelector: React$Node,
-	levelSelectorSide: React$Node,
+	controls?: React$Node,
+	title: string,
+	titleSideStuff?: React$Node,
 }>;
 
 export default function AppHeader(props: Props): React$Node {
@@ -26,9 +26,9 @@ export default function AppHeader(props: Props): React$Node {
 
 			<div className={styles.content}>
 				<div className={styles.leftRight}>
-					<h1 className={styles.title}>Chicory: A Colorful Data</h1>
+					<h1 className={styles.title}>{props.title}</h1>
 
-					<div className={styles.dataSelector}>{props.dataSelector}</div>
+					<div className={styles.dataSelector}>{props.titleSideStuff}</div>
 
 					<a
 						className={styles.websiteLink}
@@ -51,11 +51,7 @@ export default function AppHeader(props: Props): React$Node {
 					</a>
 				</div>
 
-				<div className={styles.leftRight}>
-					<div className={styles.flexGrow}>{props.levelSelector}</div>
-
-					{props.levelSelectorSide}
-				</div>
+				{props.controls}
 			</div>
 		</header>
 	);

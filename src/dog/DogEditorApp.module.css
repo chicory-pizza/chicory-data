@@ -1,7 +1,16 @@
 .root {
 	display: flex;
 	flex-direction: column;
-	padding: 0 10px;
+	height: 100%;
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	border-top: 1px solid #000;
+	flex: 1;
+	overflow: scroll;
+	padding: 0 10px 10px;
 }
 
 .code {

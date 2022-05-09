@@ -11,7 +11,7 @@ export default async function renderLevelEditorRoute(): mixed {
 	);
 
 	await screen.findByText(
-		'Load custom level_data',
+		'Load',
 		{},
 		{
 			// Hacky fix for CI

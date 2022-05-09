@@ -30,21 +30,27 @@ export default function LevelEditorUI(): React$Node {
 	return (
 		<>
 			<AppHeader
-				dataSelector={
+				controls={
+					<div className={styles.leftRight}>
+						<div className={styles.flexGrow}>
+							{worldData ? (
+								<ErrorBoundary>
+									<LevelSelector />
+								</ErrorBoundary>
+							) : (
+								<div className={styles.levelSelectorPlaceholder} />
+							)}
+						</div>
+
+						<LevelEditorUndoRedo />
+					</div>
+				}
+				title="Level editor"
+				titleSideStuff={
 					<ErrorBoundary>
 						<DataSelector />
 					</ErrorBoundary>
 				}
-				levelSelector={
-					worldData ? (
-						<ErrorBoundary>
-							<LevelSelector />
-						</ErrorBoundary>
-					) : (
-						<div className={styles.levelSelectorPlaceholder} />
-					)
-				}
-				levelSelectorSide={<LevelEditorUndoRedo />}
 			/>
 
 			{validLevelId ? (

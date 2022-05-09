@@ -3,6 +3,7 @@
 import {useEffect, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
+import AppHeader from '../header/AppHeader';
 import changeDocumentTitle from '../util/changeDocumentTitle';
 
 import DogClothesSelect from './DogClothesSelect';
@@ -32,90 +33,92 @@ export default function DogEditorApp(): React$Node {
 
 	return (
 		<div className={styles.root}>
-			<h1>Drawdog maker</h1>
+			<AppHeader title="Drawdog maker" />
 
 			<ErrorBoundary>
-				<DogPreview
-					clothes={previewClothes ?? clothes}
-					clothesColor={clothesColor}
-					hat={previewHat ?? hat}
-					hatColor={hatColor}
-					hair={previewHair ?? hair}
-					height={750}
-					skinColor={skinColor}
-					skinOutlineColor={skinOutlineColor}
-					width={750}
-				/>
+				<div className={styles.main}>
+					<DogPreview
+						clothes={previewClothes ?? clothes}
+						clothesColor={clothesColor}
+						hat={previewHat ?? hat}
+						hatColor={hatColor}
+						hair={previewHair ?? hair}
+						height={750}
+						skinColor={skinColor}
+						skinOutlineColor={skinOutlineColor}
+						width={750}
+					/>
 
-				<div className={styles.code}>
-					<code>
-						/dog expression:normal clothes:{previewClothes ?? clothes} hat:
-						{previewHat ?? hat} body_col:{skinColor} clothes_col:{clothesColor}{' '}
-						hat_col:{hatColor}
-					</code>
-				</div>
-
-				<div className={styles.flex}>
-					<div className={styles.selector}>
-						Clothes:{' '}
-						<DogClothesSelect
-							onChange={setClothes}
-							onPreviewChange={setPreviewClothes}
-							value={clothes}
-						/>
-						<input
-							type="color"
-							value={clothesColor}
-							onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
-								setClothesColor(ev.currentTarget.value);
-							}}
-						/>
+					<div className={styles.code}>
+						<code>
+							/dog expression:normal clothes:{previewClothes ?? clothes} hat:
+							{previewHat ?? hat} body_col:{skinColor} clothes_col:
+							{clothesColor} hat_col:{hatColor}
+						</code>
 					</div>
 
-					<div className={styles.selector}>
-						Hat:{' '}
-						<DogHatSelect
-							onChange={setHat}
-							onPreviewChange={setPreviewHat}
-							value={hat}
-						/>
-						<input
-							type="color"
-							value={hatColor}
-							onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
-								setHatColor(ev.currentTarget.value);
-							}}
-						/>
-					</div>
+					<div className={styles.flex}>
+						<div className={styles.selector}>
+							Clothes:{' '}
+							<DogClothesSelect
+								onChange={setClothes}
+								onPreviewChange={setPreviewClothes}
+								value={clothes}
+							/>
+							<input
+								type="color"
+								value={clothesColor}
+								onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
+									setClothesColor(ev.currentTarget.value);
+								}}
+							/>
+						</div>
 
-					<div className={styles.selector}>
-						Hair:{' '}
-						<DogHairSelect
-							onChange={setHair}
-							onPreviewChange={setPreviewHair}
-							value={hair}
-						/>
-					</div>
+						<div className={styles.selector}>
+							Hat:{' '}
+							<DogHatSelect
+								onChange={setHat}
+								onPreviewChange={setPreviewHat}
+								value={hat}
+							/>
+							<input
+								type="color"
+								value={hatColor}
+								onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
+									setHatColor(ev.currentTarget.value);
+								}}
+							/>
+						</div>
 
-					<div className={styles.selector}>
-						Skin fill:{' '}
-						<input
-							type="color"
-							value={skinColor}
-							onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
-								setSkinColor(ev.currentTarget.value);
-							}}
-						/>
-						<br />
-						Skin outline:{' '}
-						<input
-							type="color"
-							value={skinOutlineColor}
-							onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
-								setSkinOutlineColor(ev.currentTarget.value);
-							}}
-						/>
-						<br />
+						<div className={styles.selector}>
+							Hair:{' '}
+							<DogHairSelect
+								onChange={setHair}
+								onPreviewChange={setPreviewHair}
+								value={hair}
+							/>
+						</div>
+
+						<div className={styles.selector}>
+							Skin fill:{' '}
+							<input
+								type="color"
+								value={skinColor}
+								onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
+									setSkinColor(ev.currentTarget.value);
+								}}
+							/>
+							<br />
+							Skin outline:{' '}
+							<input
+								type="color"
+								value={skinOutlineColor}
+								onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
+									setSkinOutlineColor(ev.currentTarget.value);
+								}}
+							/>
+							<br />
+						</div>
 					</div>
 				</div>
 			</ErrorBoundary>
