@@ -31,7 +31,7 @@ export default function LevelEditorUI(): React$Node {
 		<>
 			<AppHeader
 				controls={
-					<div className={styles.leftRight}>
+					<div className={styles.controls}>
 						<div className={styles.flexGrow}>
 							{worldData ? (
 								<ErrorBoundary>
