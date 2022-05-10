@@ -8,6 +8,7 @@ export type DogHatType = {
 
 	layer2ImagePath?: string,
 	showHair?: number,
+	showHairExtraImagePath?: string,
 };
 
 export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
@@ -460,7 +461,8 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 		externalName: 'Horns',
 		imageIndex: 88,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_88.png'),
-		showHair: 89, // not showing correctly :(
+		showHair: 89,
+		showHairExtraImagePath: require('../images/hat_padding/sprDog_hat_89.png'),
 	},
 ].sort((a, b) => {
 	if (a.externalName > b.externalName) {

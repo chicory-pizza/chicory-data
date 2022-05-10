@@ -16,6 +16,7 @@ export default function drawDogToCanvas(
 		clothes: CanvasImageSource,
 		idle1: CanvasImageSource,
 		clothesLayer2: ?CanvasImageSource,
+		hatShowHairExtra: ?CanvasImageSource,
 		head: CanvasImageSource,
 		hair: CanvasImageSource,
 		hat: ?CanvasImageSource,
@@ -102,10 +103,22 @@ export default function drawDogToCanvas(
 			SIZE
 		);
 	}
-	// This is for Horns which is not drawing correctly yet
-	// if (hatInfo.showHair != null && hatInfo.showHair > 2) {
-	// 	ctx.drawImage(hair, 0, 0, 0, 0, SIZE, SIZE);
-	// }
+	if (
+		images.hatShowHairExtra != null &&
+		options.hatInfo.showHair != null &&
+		options.hatInfo.showHair > 2
+	) {
+		// Horns
+		drawImageAsColor(
+			ctx,
+			images.hatShowHairExtra,
+			{fillColor: colors.hatColor},
+			0,
+			0,
+			SIZE,
+			SIZE
+		);
+	}
 	drawImageAsColor(
 		ctx,
 		images.head,

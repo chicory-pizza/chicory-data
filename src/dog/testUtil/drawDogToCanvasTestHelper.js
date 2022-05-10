@@ -77,6 +77,16 @@ export default async function renderDogToCanvasHelper(options: {
 							)
 					  )
 					: null,
+			hatShowHairExtra:
+				hatInfo.showHairExtraImagePath != null
+					? await loadImage(
+							path.resolve(
+								__dirname,
+								'../images/hat_padding/',
+								hatInfo.showHairExtraImagePath
+							)
+					  )
+					: null,
 			head: await loadImage(
 				path.resolve(__dirname, '../images/sprDog_head_0.png')
 			),

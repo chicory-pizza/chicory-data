@@ -30,6 +30,19 @@ test('hiker clothes', async () => {
 	expect(image).toMatchImageSnapshot();
 });
 
+test('horns hat', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Overalls',
+		clothesColor: '#ff0000',
+		hair: 'Pony',
+		hat: 'PLACEHOLDER_CLOTHES2',
+		hatColor: '#00ff00',
+		skinColor: '#0000ff',
+	});
+
+	expect(image).toMatchImageSnapshot();
+});
+
 test('Pancake', async () => {
 	const image = await drawDogToCanvasTestHelper({
 		clothes: 'Scarf',

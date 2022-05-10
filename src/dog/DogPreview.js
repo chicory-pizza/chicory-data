@@ -92,6 +92,7 @@ export default function DogPreview(props: Props): React$Node {
 	const clothes = useLoadImage(clothesInfo.imageWithPaddingPath);
 	const idle1 = useLoadImage(idle1ImgSrc);
 	const clothesLayer2 = useLoadImage(clothesInfo.layer2ImagePath);
+	const hatShowHairExtra = useLoadImage(hatInfo.showHairExtraImagePath);
 	const head = useLoadImage(headImgSrc);
 	const hair = useLoadImage(hairInfo.imageWithPaddingPath);
 	const hat = useLoadImage(hatInfo.imageWithPaddingPath);
@@ -111,6 +112,7 @@ export default function DogPreview(props: Props): React$Node {
 				clothes,
 				idle1,
 				clothesLayer2,
+				hatShowHairExtra,
 				head,
 				hair,
 				hat,
@@ -139,6 +141,7 @@ export default function DogPreview(props: Props): React$Node {
 		hat,
 		hatInfo,
 		hatLayer2,
+		hatShowHairExtra,
 		head,
 		idle1,
 		idle2,
