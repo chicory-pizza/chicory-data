@@ -30,7 +30,7 @@ function SidebarLevelProperties(props: Props): React$Node {
 		useState(false);
 
 	const onEditProperty = useCallback(
-		(key: string, value: string | number) => {
+		(key: string, value: string | number | null) => {
 			dispatch({
 				type: 'setLevelProperty',
 				coordinates: currentCoordinates,

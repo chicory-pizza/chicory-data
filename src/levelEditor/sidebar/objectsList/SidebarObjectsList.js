@@ -15,7 +15,7 @@ type Props = $ReadOnly<{
 	onObjectEditProperty: (
 		objectIndex: number,
 		key: string,
-		value: string | number
+		value: string | number | null
 	) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 	setObjectsListItemsExpanded: (expandedIndexes: Array<number>) => mixed,

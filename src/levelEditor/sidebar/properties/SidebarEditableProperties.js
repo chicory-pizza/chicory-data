@@ -14,7 +14,7 @@ import styles from './SidebarEditableProperties.module.css';
 
 type Props = $ReadOnly<{
 	excludeProperties: Array<string>,
-	onEditProperty: (key: string, value: string | number) => mixed,
+	onEditProperty: (key: string, value: string | number | null) => mixed,
 	properties: {...},
 	schema: Array<EditablePropertiesType>,
 }>;
@@ -56,7 +56,7 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 					input = (
 						<PropertyNumberInput
 							initialValue={props.properties[propertyKey] ?? ''}
-							onCommitValue={(newValue: number | string) => {
+							onCommitValue={(newValue: number | string | null) => {
 								props.onEditProperty(propertyKey, newValue);
 							}}
 						/>

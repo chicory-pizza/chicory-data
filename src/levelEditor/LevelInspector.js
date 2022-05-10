@@ -135,7 +135,7 @@ export default function LevelInspector({
 	);
 
 	const onObjectEditProperty = useCallback(
-		(objectIndex: number, key: string, value: string | number) => {
+		(objectIndex: number, key: string, value: string | number | null) => {
 			dispatch({
 				type: 'editObjectPropertyOnLevel',
 				coordinates: currentCoordinates,

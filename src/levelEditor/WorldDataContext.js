@@ -40,7 +40,7 @@ type ReducerAction =
 			type: 'setLevelProperty',
 			coordinates: [number, number, number],
 			key: string,
-			value: string | number,
+			value: string | number | null,
 	  }
 	| {
 			type: 'addObjectToLevel',
@@ -54,7 +54,7 @@ type ReducerAction =
 			coordinates: [number, number, number],
 			objectIndex: number,
 			key: string,
-			value: string | number,
+			value: string | number | null,
 	  }
 	| {
 			type: 'deleteObjectOnLevel',
@@ -107,12 +107,16 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 				return state;
 			}
 
+			const newProperties = {...level};
+			if (action.value !== null) {
+				newProperties[action.key] = action.value;
+			} else {
+				delete newProperties[action.key];
+			}
+
 			return {
 				...state,
-				[levelId]: {
-					...level,
-					[action.key]: action.value,
-				},
+				[levelId]: newProperties,
 			};
 		}
 
@@ -149,16 +153,20 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 				return state;
 			}
 
+			const newProperties = {...levelObjects[action.objectIndex]};
+			if (action.value !== null) {
+				newProperties[action.key] = action.value;
+			} else {
+				delete newProperties[action.key];
+			}
+
 			return {
 				...state,
 				[levelId]: {
 					...level,
 					objects: levelObjects
 						.slice(0, action.objectIndex)
-						.concat({
-							...levelObjects[action.objectIndex],
-							[action.key]: action.value,
-						})
+						.concat(newProperties)
 						.concat(levelObjects.slice(action.objectIndex + 1)),
 				},
 			};

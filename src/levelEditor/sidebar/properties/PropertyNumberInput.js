@@ -5,7 +5,7 @@ import {useState} from 'react';
 import styles from './PropertyNumberInput.module.css';
 
 type Props = $ReadOnly<{
-	onCommitValue: (newValue: number | string) => mixed,
+	onCommitValue: (newValue: number | string | null) => mixed,
 	initialValue: number | string, // it could a number, string of number, or empty string
 }>;
 
@@ -31,7 +31,7 @@ export default function PropertyNumberInput({
 				const value = ev.currentTarget.value;
 
 				if (value === '') {
-					setInputValue('');
+					setInputValue(null);
 				} else {
 					setInputValue(parseFloat(ev.currentTarget.value));
 				}

@@ -24,7 +24,7 @@ type Props = $ReadOnly<{
 	onObjectEditProperty: (
 		objectIndex: number,
 		key: string,
-		value: string | number
+		value: string | number | null
 	) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 }>;
@@ -82,7 +82,7 @@ function SidebarObjectItem(props: Props): React$Node {
 						<span className={styles.objectCoordinatesText}>X:</span>
 						<PropertyNumberInput
 							initialValue={props.obj.x}
-							onCommitValue={(newValue: number | string) => {
+							onCommitValue={(newValue: number | string | null) => {
 								props.onObjectEditProperty(props.index, 'x', newValue);
 							}}
 						/>
@@ -90,7 +90,7 @@ function SidebarObjectItem(props: Props): React$Node {
 						<span className={styles.objectCoordinatesText}>Y:</span>
 						<PropertyNumberInput
 							initialValue={props.obj.y}
-							onCommitValue={(newValue: number | string) => {
+							onCommitValue={(newValue: number | string | null) => {
 								props.onObjectEditProperty(props.index, 'y', newValue);
 							}}
 						/>
@@ -105,7 +105,7 @@ function SidebarObjectItem(props: Props): React$Node {
 					<ErrorBoundary>
 						<SidebarEditableProperties
 							excludeProperties={['obj', 'x', 'y']}
-							onEditProperty={(key: string, value: string | number) => {
+							onEditProperty={(key: string, value: string | number | null) => {
 								props.onObjectEditProperty(props.index, key, value);
 							}}
 							properties={props.obj}
