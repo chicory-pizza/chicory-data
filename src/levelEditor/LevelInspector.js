@@ -55,7 +55,11 @@ export default function LevelInspector({
 
 	// Events
 	function onMapMouseClick(ev: SyntheticMouseEvent<>) {
-		if (addingObjectEntity == null || mapMouseMoveCoordinates == null) {
+		if (
+			addingObjectEntity == null ||
+			mapMouseMoveCoordinates == null ||
+			!activeUiViews.includes('OBJECTS')
+		) {
 			return;
 		}
 
