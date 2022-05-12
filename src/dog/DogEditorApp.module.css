@@ -13,15 +13,16 @@
 	padding: 0 10px 10px;
 }
 
-.code {
-	margin-bottom: 10px;
-}
-
-.flex {
+.controls {
 	display: flex;
+	margin-bottom: 10px;
 }
 
 .selector {
 	margin-right: 10px;
 	min-width: 200px;
+}
+
+.chicorobot {
+	margin-bottom: 10px;
 }

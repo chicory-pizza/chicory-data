@@ -1,6 +1,6 @@
 // @flow strict
 
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 
 import styles from './DogPreview.module.css';
 import drawDogToCanvas from './drawDogToCanvas';
@@ -62,27 +62,33 @@ export default function DogPreview(props: Props): React$Node {
 	const mainCanvasRef = useRef<?HTMLCanvasElement>(null);
 
 	// Clothes
-	const clothesInfo = DOG_CLOTHES_LIST.find((clothes) => {
-		return props.clothes === clothes.internalName;
-	});
+	const clothesInfo = useMemo(() => {
+		return DOG_CLOTHES_LIST.find((clothes) => {
+			return props.clothes === clothes.internalName;
+		});
+	}, [props.clothes]);
 
 	if (!clothesInfo) {
 		throw new Error('Invalid clothes ' + props.clothes);
 	}
 
 	// Hat
-	const hatInfo = DOG_HAT_LIST.find((hat) => {
-		return props.hat === hat.internalName;
-	});
+	const hatInfo = useMemo(() => {
+		return DOG_HAT_LIST.find((hat) => {
+			return props.hat === hat.internalName;
+		});
+	}, [props.hat]);
 
 	if (!hatInfo) {
 		throw new Error('Invalid hat ' + props.hat);
 	}
 
 	// Hair
-	const hairInfo = DOG_HAIR_LIST.find((hair) => {
-		return props.hair === hair.internalName;
-	});
+	const hairInfo = useMemo(() => {
+		return DOG_HAIR_LIST.find((hair) => {
+			return props.hair === hair.internalName;
+		});
+	}, [props.hair]);
 
 	if (!hairInfo) {
 		throw new Error('Invalid hair ' + props.hair);

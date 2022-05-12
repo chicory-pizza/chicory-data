@@ -6,6 +6,7 @@ import ErrorBoundary from '../common/ErrorBoundary';
 import AppHeader from '../header/AppHeader';
 import changeDocumentTitle from '../util/changeDocumentTitle';
 
+import DogChicorobotCode from './DogChicorobotCode';
 import DogClothesSelect from './DogClothesSelect';
 import styles from './DogEditorApp.module.css';
 import DogHairSelect from './DogHairSelect';
@@ -35,8 +36,8 @@ export default function DogEditorApp(): React$Node {
 		<div className={styles.root}>
 			<AppHeader title="Drawdog maker" />
 
-			<ErrorBoundary>
-				<div className={styles.main}>
+			<div className={styles.main}>
+				<ErrorBoundary>
 					<DogPreview
 						clothes={previewClothes ?? clothes}
 						clothesColor={clothesColor}
@@ -49,15 +50,7 @@ export default function DogEditorApp(): React$Node {
 						width={750}
 					/>
 
-					<div className={styles.code}>
-						<code>
-							/dog expression:normal clothes:{previewClothes ?? clothes} hat:
-							{previewHat ?? hat} body_col:{skinColor} clothes_col:
-							{clothesColor} hat_col:{hatColor}
-						</code>
-					</div>
-
-					<div className={styles.flex}>
+					<div className={styles.controls}>
 						<div className={styles.selector}>
 							Clothes:{' '}
 							<DogClothesSelect
@@ -120,8 +113,20 @@ export default function DogEditorApp(): React$Node {
 							<br />
 						</div>
 					</div>
-				</div>
-			</ErrorBoundary>
+
+					<div className={styles.chicorobot}>
+						<ErrorBoundary>
+							<DogChicorobotCode
+								clothes={previewClothes ?? clothes}
+								clothesColor={clothesColor}
+								hat={previewHat ?? hat}
+								hatColor={hatColor}
+								skinColor={skinColor}
+							/>
+						</ErrorBoundary>
+					</div>
+				</ErrorBoundary>
+			</div>
 		</div>
 	);
 }

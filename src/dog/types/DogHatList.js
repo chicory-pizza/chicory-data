@@ -3,6 +3,7 @@
 export type DogHatType = {
 	internalName: string,
 	externalName: string,
+	chicorobotName: string,
 	imageIndex: number,
 	imageWithPaddingPath?: string,
 
@@ -15,11 +16,13 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'None',
 		externalName: 'None',
+		chicorobotName: 'None',
 		imageIndex: -1,
 	},
 	// {
 	// 	internalName: 'Custom Hat',
 	// 	externalName: 'Custom Hat',
+	// 	chicorobotName: 'Custom',
 	// 	imageIndex: 0,
 	// 	imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_0.png'),
 	// 	showHair: 2,
@@ -27,24 +30,28 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Bandana',
 		externalName: 'Bandana (default)',
+		chicorobotName: 'Bandana',
 		imageIndex: 0,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_0.png'),
 	},
 	{
 		internalName: 'Beanie',
 		externalName: 'Beanie',
+		chicorobotName: 'Beanie',
 		imageIndex: 1,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_1.png'),
 	},
 	{
 		internalName: 'Brimcap',
 		externalName: 'Brimcap',
+		chicorobotName: 'Brimcap',
 		imageIndex: 2,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_2.png'),
 	},
 	{
 		internalName: 'Strawhat',
 		externalName: 'Strawhat',
+		chicorobotName: 'Strawhat',
 		imageIndex: 3,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_3.png'),
 		showHair: 2,
@@ -52,6 +59,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Sunhat',
 		externalName: 'Sunhat',
+		chicorobotName: 'Sunhat',
 		imageIndex: 4,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_4.png'),
 		showHair: 2,
@@ -59,6 +67,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Headband',
 		externalName: 'Headband',
+		chicorobotName: 'Headband',
 		imageIndex: 8,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_8.png'),
 		showHair: 1,
@@ -66,6 +75,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Bow',
 		externalName: 'Bow',
+		chicorobotName: 'Bow',
 		imageIndex: 9,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_9.png'),
 		showHair: 1,
@@ -73,24 +83,28 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Scarf',
 		externalName: 'Scarf',
+		chicorobotName: 'Scarf',
 		imageIndex: -1,
 		layer2ImagePath: require('../images/clothes_padding/sprDog_body2_2.png'),
 	},
 	{
 		internalName: 'Kerchief',
 		externalName: 'Kerchief',
+		chicorobotName: 'Kerchief',
 		imageIndex: -1,
 		layer2ImagePath: require('../images/clothes_padding/sprDog_body2_1.png'),
 	},
 	{
 		internalName: 'Antenna',
 		externalName: 'Antenna',
+		chicorobotName: 'Antenna',
 		imageIndex: 12,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_12.png'),
 	},
 	{
 		internalName: 'Flower',
 		externalName: 'Flower',
+		chicorobotName: 'Flower',
 		imageIndex: 13,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_13.png'),
 		showHair: 1,
@@ -98,6 +112,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Howdy',
 		externalName: 'Howdy',
+		chicorobotName: 'Howdy',
 		imageIndex: 14,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_14.png'),
 		showHair: 2,
@@ -105,6 +120,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Shades',
 		externalName: 'Shades',
+		chicorobotName: 'Shades',
 		imageIndex: 15,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_15.png'),
 		showHair: 1,
@@ -112,6 +128,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Tinted Shades',
 		externalName: 'Tinted Shades',
+		chicorobotName: 'Tinted Shades',
 		imageIndex: 16,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_16.png'),
 		showHair: 1,
@@ -119,6 +136,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Line Shades',
 		externalName: 'Line Shades',
+		chicorobotName: 'Line Shades',
 		imageIndex: 17,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_17.png'),
 		showHair: 1,
@@ -126,6 +144,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Big Shades',
 		externalName: 'Big Shades',
+		chicorobotName: 'Big Shades',
 		imageIndex: 18,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_18.png'),
 		showHair: 1,
@@ -133,18 +152,21 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Beret',
 		externalName: 'Beret',
+		chicorobotName: 'Beret',
 		imageIndex: 19,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_19.png'),
 	},
 	{
 		internalName: 'Wielder Tie',
 		externalName: 'Wielder Wrap',
+		chicorobotName: 'Wielder Wrap',
 		imageIndex: 21,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_21.png'),
 	},
 	{
 		internalName: 'Rex Head',
 		externalName: 'Rex Head',
+		chicorobotName: 'Rex Head',
 		imageIndex: 20,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_20.png'),
 		showHair: 2,
@@ -152,6 +174,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Half-Moons',
 		externalName: 'Half-Moons',
+		chicorobotName: 'Half-Moons',
 		imageIndex: 23,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_23.png'),
 		showHair: 1,
@@ -159,12 +182,14 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Newsie',
 		externalName: 'Newsie',
+		chicorobotName: 'Newsie',
 		imageIndex: 22,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_22.png'),
 	},
 	{
 		internalName: 'Pointish Glasses',
 		externalName: 'Pointish Glasses',
+		chicorobotName: 'Pointish Glasses',
 		imageIndex: 26,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_26.png'),
 		showHair: 1,
@@ -172,6 +197,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Round Glasses',
 		externalName: 'Round Glasses',
+		chicorobotName: 'Round Glasses',
 		imageIndex: 24,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_24.png'),
 		showHair: 1,
@@ -179,6 +205,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Square Glasses',
 		externalName: 'Square Glasses',
+		chicorobotName: 'Square Glasses',
 		imageIndex: 25,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_25.png'),
 		showHair: 1,
@@ -186,6 +213,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Spellcaster',
 		externalName: 'Spellcaster',
+		chicorobotName: 'Spellcaster',
 		imageIndex: 27,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_27.png'),
 		showHair: 2,
@@ -193,18 +221,21 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Backwards',
 		externalName: 'Backwards',
+		chicorobotName: 'Backwards',
 		imageIndex: 28,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_28.png'),
 	},
 	{
 		internalName: 'Feather',
 		externalName: 'Feather',
+		chicorobotName: 'Feather',
 		imageIndex: 29,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_29.png'),
 	},
 	{
 		internalName: 'Ahoy',
 		externalName: 'Ahoy',
+		chicorobotName: 'Ahoy',
 		imageIndex: 30,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_30.png'),
 		showHair: 2,
@@ -212,12 +243,14 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Delivery',
 		externalName: 'Delivery',
+		chicorobotName: 'Delivery',
 		imageIndex: 31,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_31.png'),
 	},
 	{
 		internalName: 'Earmuffs',
 		externalName: 'Earmuffs',
+		chicorobotName: 'Earmuffs',
 		imageIndex: 32,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_32.png'),
 		showHair: 2,
@@ -225,6 +258,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Clown',
 		externalName: 'Clown',
+		chicorobotName: 'Clown',
 		imageIndex: 33,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_33.png'),
 		showHair: 1,
@@ -232,12 +266,14 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Wintry',
 		externalName: 'Wintry',
+		chicorobotName: 'Wintry',
 		imageIndex: 34,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_34.png'),
 	},
 	{
 		internalName: 'Eyepatch',
 		externalName: 'Eyepatch',
+		chicorobotName: 'Eyepatch',
 		imageIndex: 35,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_35.png'),
 		showHair: 1,
@@ -245,24 +281,28 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Gnome',
 		externalName: 'Gnome',
+		chicorobotName: 'Gnome',
 		imageIndex: 36,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_36.png'),
 	},
 	{
 		internalName: 'Mascot Head',
 		externalName: 'Mascot Head',
+		chicorobotName: 'Mascot Head',
 		imageIndex: 37,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_37.png'),
 	},
 	{
 		internalName: 'Spike Helmet',
 		externalName: 'Spike Helmet',
+		chicorobotName: 'Spike Helmet',
 		imageIndex: 38,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_38.png'),
 	},
 	{
 		internalName: 'Big Fungus',
 		externalName: 'Big Fungus',
+		chicorobotName: 'Big Fungus',
 		imageIndex: 39,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_39.png'),
 		showHair: 2,
@@ -270,18 +310,21 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Nautical',
 		externalName: 'Nautical',
+		chicorobotName: 'Nautical',
 		imageIndex: 40,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_40.png'),
 	},
 	{
 		internalName: 'Fungus',
 		externalName: 'Fungus',
+		chicorobotName: 'Fungus',
 		imageIndex: 41,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_41.png'),
 	},
 	{
 		internalName: 'Goggles',
 		externalName: 'Goggles',
+		chicorobotName: 'Goggles',
 		imageIndex: 42,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_42.png'),
 		showHair: 1,
@@ -289,6 +332,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Headphones',
 		externalName: 'Headphones',
+		chicorobotName: 'Headphones',
 		imageIndex: 78,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_78.png'),
 		showHair: 2,
@@ -296,18 +340,21 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Chef',
 		externalName: 'Chef',
+		chicorobotName: 'Chef',
 		imageIndex: 43,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_43.png'),
 	},
 	{
 		internalName: 'Foxy',
 		externalName: 'Foxy',
+		chicorobotName: 'Foxy',
 		imageIndex: 44,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_44.png'),
 	},
 	{
 		internalName: 'Sparkles',
 		externalName: 'Sparkles',
+		chicorobotName: 'Sparkles',
 		imageIndex: 45,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_45.png'),
 		showHair: 1,
@@ -315,6 +362,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Aviators',
 		externalName: 'Aviators',
+		chicorobotName: 'Aviators',
 		imageIndex: 46,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_46.png'),
 		showHair: 1,
@@ -322,6 +370,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Beak',
 		externalName: 'Beak',
+		chicorobotName: 'Beak',
 		imageIndex: 47,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_47.png'),
 		showHair: 1,
@@ -329,6 +378,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Rim Shades',
 		externalName: 'Rim Shades',
+		chicorobotName: 'Rim Shades',
 		imageIndex: 48,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_48.png'),
 		showHair: 1,
@@ -336,6 +386,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Bell',
 		externalName: 'Bell',
+		chicorobotName: 'Bell',
 		imageIndex: 49,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_49.png'),
 		showHair: 2,
@@ -343,18 +394,21 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Elf',
 		externalName: 'Elf',
+		chicorobotName: 'Elf',
 		imageIndex: 50,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_50.png'),
 	},
 	{
 		internalName: 'Gardener',
 		externalName: 'Gardener',
+		chicorobotName: 'Gardener',
 		imageIndex: 51,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_51.png'),
 	},
 	{
 		internalName: 'Stache',
 		externalName: 'Stache',
+		chicorobotName: 'Stache',
 		imageIndex: 52,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_52.png'),
 		showHair: 1,
@@ -362,6 +416,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Monocle',
 		externalName: 'Monocle',
+		chicorobotName: 'Monocle',
 		imageIndex: 53,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_53.png'),
 		showHair: 1,
@@ -369,6 +424,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Stormy',
 		externalName: 'Stormy',
+		chicorobotName: 'Stormy',
 		imageIndex: 54,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_54.png'),
 		showHair: 1,
@@ -376,6 +432,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Superstar',
 		externalName: 'Superstar',
+		chicorobotName: 'Superstar',
 		imageIndex: 55,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_55.png'),
 		showHair: 1,
@@ -383,30 +440,35 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Shawl',
 		externalName: 'Shawl',
+		chicorobotName: 'Shawl',
 		imageIndex: -1,
 		layer2ImagePath: require('../images/clothes_padding/sprDog_body2_9.png'),
 	},
 	{
 		internalName: 'Spike',
 		externalName: 'Spike',
+		chicorobotName: 'Spike',
 		imageIndex: -1,
 		layer2ImagePath: require('../images/clothes_padding/sprDog_body2_10.png'),
 	},
 	{
 		internalName: 'Studs',
 		externalName: 'Studs',
+		chicorobotName: 'Studs',
 		imageIndex: -1,
 		layer2ImagePath: require('../images/clothes_padding/sprDog_body2_11.png'),
 	},
 	{
 		internalName: 'Skate Helmet',
 		externalName: 'Skate Helmet',
+		chicorobotName: 'Skate Helmet',
 		imageIndex: 80,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_80.png'),
 	},
 	{
 		internalName: 'Mask',
 		externalName: 'Mask',
+		chicorobotName: 'Mask',
 		imageIndex: 81,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_81.png'),
 		showHair: 1,
@@ -414,6 +476,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Top Hat',
 		externalName: 'Top Hat',
+		chicorobotName: 'Top Hat',
 		imageIndex: 82,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_82.png'),
 		showHair: 2,
@@ -421,12 +484,14 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Hajib',
 		externalName: 'Headscarf',
+		chicorobotName: 'Headscarf',
 		imageIndex: 79,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_79.png'),
 	},
 	{
 		internalName: 'Beard',
 		externalName: 'Beard',
+		chicorobotName: 'Beard',
 		imageIndex: 84,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_84.png'),
 		showHair: 1,
@@ -434,6 +499,7 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Tiara',
 		externalName: 'Tiara',
+		chicorobotName: 'Tiara',
 		imageIndex: 87,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_87.png'),
 		showHair: 1,
@@ -441,24 +507,28 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 	{
 		internalName: 'Crown',
 		externalName: 'Crown',
+		chicorobotName: 'Crown',
 		imageIndex: 85,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_85.png'),
 	},
 	{
 		internalName: 'Earflap',
 		externalName: 'Earflaps',
+		chicorobotName: 'Earflaps',
 		imageIndex: 86,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_86.png'),
 	},
 	{
 		internalName: 'PLACEHOLDER_CLOTHES1',
 		externalName: 'Helm',
+		chicorobotName: 'Helm',
 		imageIndex: 83,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_83.png'),
 	},
 	{
 		internalName: 'PLACEHOLDER_CLOTHES2',
 		externalName: 'Horns',
+		chicorobotName: 'Horns',
 		imageIndex: 88,
 		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_88.png'),
 		showHair: 89,
