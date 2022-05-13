@@ -14,6 +14,8 @@ import {DOG_HAT_LIST} from '../types/DogHatList';
 export default async function renderDogToCanvasHelper(options: {
 	clothes: string,
 	clothesColor: string,
+	customClothesImage?: CanvasImageSource,
+	customHatImage?: CanvasImageSource,
 	hair: string,
 	hat: string,
 	hatColor: string,
@@ -57,13 +59,17 @@ export default async function renderDogToCanvasHelper(options: {
 			idle2: await loadImage(
 				path.resolve(__dirname, '../images/sprDog_idle_B_0.png')
 			),
-			clothes: await loadImage(
-				path.resolve(
-					__dirname,
-					'../images/clothes_padding/',
-					clothesInfo.imageWithPaddingPath
-				)
-			),
+			clothes:
+				clothesInfo.internalName === 'Custom Tee' &&
+				options.customClothesImage != null
+					? options.customClothesImage
+					: await loadImage(
+							path.resolve(
+								__dirname,
+								'../images/clothes_padding/',
+								clothesInfo.imageWithPaddingPath
+							)
+					  ),
 			idle1: await loadImage(
 				path.resolve(__dirname, '../images/sprDog_idle_A_0.png')
 			),
@@ -98,7 +104,9 @@ export default async function renderDogToCanvasHelper(options: {
 				)
 			),
 			hat:
-				hatInfo.imageWithPaddingPath != null
+				hatInfo.internalName === 'Custom Hat' && options.customHatImage != null
+					? options.customHatImage
+					: hatInfo.imageWithPaddingPath != null
 					? await loadImage(
 							path.resolve(
 								__dirname,

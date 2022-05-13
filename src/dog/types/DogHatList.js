@@ -19,14 +19,14 @@ export const DOG_HAT_LIST: $ReadOnlyArray<DogHatType> = [
 		chicorobotName: 'None',
 		imageIndex: -1,
 	},
-	// {
-	// 	internalName: 'Custom Hat',
-	// 	externalName: 'Custom Hat',
-	// 	chicorobotName: 'Custom',
-	// 	imageIndex: 0,
-	// 	imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_0.png'),
-	// 	showHair: 2,
-	// },
+	{
+		internalName: 'Custom Hat',
+		externalName: 'Custom Hat',
+		chicorobotName: 'Custom',
+		imageIndex: 0,
+		imageWithPaddingPath: require('../images/hat_padding/sprDog_hat_0.png'),
+		showHair: 2,
+	},
 	{
 		internalName: 'Bandana',
 		externalName: 'Bandana (default)',

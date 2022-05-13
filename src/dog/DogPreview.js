@@ -49,6 +49,8 @@ function useLoadImage(src: ?string) {
 type Props = $ReadOnly<{
 	clothes: string,
 	clothesColor: string,
+	customClothesImage: ?Image,
+	customHatImage: ?Image,
 	hat: string,
 	hatColor: string,
 	hair: string,
@@ -115,13 +117,20 @@ export default function DogPreview(props: Props): React$Node {
 			canvas,
 			{
 				idle2,
-				clothes,
+				clothes:
+					clothesInfo.internalName === 'Custom Tee' &&
+					props.customClothesImage != null
+						? props.customClothesImage
+						: clothes,
 				idle1,
 				clothesLayer2,
 				hatShowHairExtra,
 				head,
 				hair,
-				hat,
+				hat:
+					hatInfo.internalName === 'Custom Hat' && props.customHatImage != null
+						? props.customHatImage
+						: hat,
 				hatLayer2,
 				ear,
 			},
@@ -152,6 +161,8 @@ export default function DogPreview(props: Props): React$Node {
 		idle1,
 		idle2,
 		props.clothesColor,
+		props.customClothesImage,
+		props.customHatImage,
 		props.hatColor,
 		props.skinColor,
 		props.skinOutlineColor,
