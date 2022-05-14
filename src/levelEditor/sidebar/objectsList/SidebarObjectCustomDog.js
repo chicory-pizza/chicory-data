@@ -28,13 +28,18 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 						: '#ffffff'
 				}
 				customClothesImage={null}
-				customHatImage={null}
-				hat={typeof obj.hat === 'string' ? obj.hat : 'Bandana'}
-				hatColor={
-					typeof obj.color_head === 'number'
-						? convertRgbArrayToString(convertBgrIntegerToRgb(obj.color_head))
-						: '#ffffff'
-				}
+				hats={[
+					{
+						name: typeof obj.hat === 'string' ? obj.hat : 'Bandana',
+						color:
+							typeof obj.color_head === 'number'
+								? convertRgbArrayToString(
+										convertBgrIntegerToRgb(obj.color_head)
+								  )
+								: '#ffffff',
+						customImage: null,
+					},
+				]}
 				hair={typeof obj.hair === 'string' ? obj.hair : 'Simple'}
 				height={150}
 				skinColor={

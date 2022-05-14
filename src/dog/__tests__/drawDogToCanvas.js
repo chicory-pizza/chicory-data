@@ -12,8 +12,12 @@ test('basic dog', async () => {
 		clothes: 'Overalls',
 		clothesColor: '#ffffff',
 		hair: 'Simple',
-		hat: 'Bandana',
-		hatColor: '#ffffff',
+		hats: [
+			{
+				name: 'Bandana',
+				color: '#ffffff',
+			},
+		],
 		skinColor: '#ffffff',
 	});
 
@@ -25,8 +29,12 @@ test('hiker clothes', async () => {
 		clothes: 'Gi',
 		clothesColor: '#ff0000',
 		hair: 'Floofy',
-		hat: 'Beak',
-		hatColor: '#00ff00',
+		hats: [
+			{
+				name: 'Beak',
+				color: '#00ff00',
+			},
+		],
 		skinColor: '#0000ff',
 	});
 
@@ -38,34 +46,77 @@ test('horns hat', async () => {
 		clothes: 'Overalls',
 		clothesColor: '#ff0000',
 		hair: 'Pony',
-		hat: 'PLACEHOLDER_CLOTHES2',
-		hatColor: '#00ff00',
+		hats: [
+			{
+				name: 'PLACEHOLDER_CLOTHES2',
+				color: '#00ff00',
+			},
+		],
 		skinColor: '#0000ff',
 	});
 
 	expect(image).toMatchImageSnapshot();
 });
 
+test('multiple hats', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Overalls',
+		clothesColor: '#ffffff',
+		hair: 'Simple',
+		hats: [
+			{
+				name: 'Flower',
+				color: '#ff0000',
+			},
+			{
+				name: 'Foxy',
+				color: '#ff8800',
+			},
+			{
+				name: 'Pointish Glasses',
+				color: '#ffffff',
+			},
+			{
+				name: 'Scarf',
+				color: '#00aaff',
+			},
+		],
+		skinColor: '#ffffff',
+	});
+
+	expect(image).toMatchImageSnapshot();
+});
+
+// myself lol
 test('Pancake', async () => {
 	const image = await drawDogToCanvasTestHelper({
 		clothes: 'Scarf',
 		clothesColor: '#00f3dd',
 		hair: 'Hedgehog',
-		hat: 'Spellcaster',
-		hatColor: '#b69aff',
+		hats: [
+			{
+				name: 'Spellcaster',
+				color: '#b69aff',
+			},
+		],
 		skinColor: '#ffa694',
 	});
 
 	expect(image).toMatchImageSnapshot();
 });
 
+// drawdogs from various members from Discord!
 test('Burrito', async () => {
 	const image = await drawDogToCanvasTestHelper({
 		clothes: 'Wielder Cloak',
 		clothesColor: '#B432FF',
 		hair: 'Big Fluffy',
-		hat: 'Bow',
-		hatColor: '#8C44A4',
+		hats: [
+			{
+				name: 'Bow',
+				color: '#8C44A4',
+			},
+		],
 		skinColor: '#FFF2C9',
 	});
 
@@ -77,8 +128,12 @@ test('Cocoa', async () => {
 		clothes: 'Scarf',
 		clothesColor: '#DFDEF5',
 		hair: 'Simple',
-		hat: 'Round Glasses',
-		hatColor: '#B1E2E5',
+		hats: [
+			{
+				name: 'Round Glasses',
+				color: '#B1E2E5',
+			},
+		],
 		skinColor: '#665E58',
 	});
 
@@ -90,8 +145,12 @@ test('Hot Wings', async () => {
 		clothes: 'Wielder Cloak',
 		clothesColor: '#B696ED',
 		hair: 'Simple',
-		hat: 'Wielder Tie',
-		hatColor: '#B696ED',
+		hats: [
+			{
+				name: 'Wielder Tie',
+				color: '#B696ED',
+			},
+		],
 		skinColor: '#FFF5ED',
 	});
 
@@ -103,8 +162,12 @@ test('Lasagne', async () => {
 		clothes: 'Scarf',
 		clothesColor: '#F9A797',
 		hair: 'Simple',
-		hat: 'None',
-		hatColor: '#FA777F',
+		hats: [
+			{
+				name: 'None',
+				color: '#FA777F',
+			},
+		],
 		skinColor: '#FEFDAE',
 	});
 
@@ -116,8 +179,12 @@ test('Pizzy', async () => {
 		clothes: 'Princess',
 		clothesColor: '#42BDF5',
 		hair: 'Simple',
-		hat: 'Foxy',
-		hatColor: '#F4AA41',
+		hats: [
+			{
+				name: 'Foxy',
+				color: '#F4AA41',
+			},
+		],
 		skinColor: '#F4AA41',
 	});
 
@@ -129,8 +196,12 @@ test('Rice', async () => {
 		clothes: 'Kerchief',
 		clothesColor: '#81E9B5',
 		hair: 'Simple',
-		hat: 'Top Hat',
-		hatColor: '#A2FEF8',
+		hats: [
+			{
+				name: 'Top Hat',
+				color: '#A2FEF8',
+			},
+		],
 		skinColor: '#FFFFFF',
 	});
 
@@ -143,8 +214,12 @@ test('Azure', async () => {
 		clothes: 'Hoodie',
 		clothesColor: '#FF5B57',
 		hair: 'Simple',
-		hat: 'Kerchief',
-		hatColor: '#777CE1',
+		hats: [
+			{
+				name: 'Kerchief',
+				color: '#777CE1',
+			},
+		],
 		skinColor: '#1C2E89',
 		skinOutlineColor: '#03EFF9',
 	});
@@ -160,12 +235,18 @@ test('Cinnaroll', async () => {
 		customClothesImage: await loadImage(
 			path.resolve(__dirname, 'Custom_Tee_Cinnaroll.png')
 		),
-		customHatImage: await loadImage(
-			path.resolve(__dirname, 'Custom_Hat_Cinnaroll.png')
-		),
 		hair: 'Simple',
-		hat: 'Custom Hat',
-		hatColor: '#B996C2',
+		hat: '',
+		hatColor: '#',
+		hats: [
+			{
+				name: 'Custom Hat',
+				color: '#B996C2',
+				customImage: await loadImage(
+					path.resolve(__dirname, 'Custom_Hat_Cinnaroll.png')
+				),
+			},
+		],
 		skinColor: '#B38184',
 	});
 

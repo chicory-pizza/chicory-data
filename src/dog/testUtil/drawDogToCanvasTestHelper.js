@@ -7,6 +7,7 @@ import {loadImage} from 'canvas';
 
 import drawDogToCanvas from '../drawDogToCanvas';
 import {SIZE} from '../drawDogToCanvas';
+import type {ChosenHat} from '../drawDogToCanvas';
 import {DOG_CLOTHES_LIST} from '../types/DogClothesList';
 import {DOG_HAIR_LIST} from '../types/DogHairList';
 import {DOG_HAT_LIST} from '../types/DogHatList';
@@ -15,10 +16,8 @@ export default async function renderDogToCanvasHelper(options: {
 	clothes: string,
 	clothesColor: string,
 	customClothesImage?: CanvasImageSource,
-	customHatImage?: CanvasImageSource,
 	hair: string,
-	hat: string,
-	hatColor: string,
+	hats: $ReadOnlyArray<ChosenHat>,
 	skinColor: string,
 	skinOutlineColor?: string,
 }): Promise<Buffer> {
@@ -32,13 +31,57 @@ export default async function renderDogToCanvasHelper(options: {
 	}
 
 	// Hat
-	const hatInfo = DOG_HAT_LIST.find((hat) => {
-		return options.hat === hat.internalName;
-	});
+	const hats = await Promise.all(
+		options.hats.map(async (chosenHat) => {
+			// Hat
+			const hatInfo = DOG_HAT_LIST.find((hat) => {
+				return chosenHat.name === hat.internalName;
+			});
 
-	if (!hatInfo) {
-		throw new Error('Invalid hat ' + options.hat);
-	}
+			if (!hatInfo) {
+				throw new Error('Invalid hat ' + chosenHat.name);
+			}
+
+			return {
+				color: chosenHat.color,
+				hatInfo: hatInfo,
+
+				// Images
+				hatShowHairExtra:
+					hatInfo.showHairExtraImagePath != null
+						? await loadImage(
+								path.resolve(
+									__dirname,
+									'../images/hat_padding/',
+									hatInfo.showHairExtraImagePath
+								)
+						  )
+						: null,
+				hat:
+					hatInfo.internalName === 'Custom Hat' && chosenHat.customImage != null
+						? chosenHat.customImage
+						: hatInfo.imageWithPaddingPath != null
+						? await loadImage(
+								path.resolve(
+									__dirname,
+									'../images/hat_padding/',
+									hatInfo.imageWithPaddingPath
+								)
+						  )
+						: null,
+				hatLayer2:
+					hatInfo.layer2ImagePath != null
+						? await loadImage(
+								path.resolve(
+									__dirname,
+									'../images/clothes_padding/',
+									hatInfo.layer2ImagePath
+								)
+						  )
+						: null,
+			};
+		})
+	);
 
 	// Hair
 	const hairInfo = DOG_HAIR_LIST.find((hair) => {
@@ -83,16 +126,7 @@ export default async function renderDogToCanvasHelper(options: {
 							)
 					  )
 					: null,
-			hatShowHairExtra:
-				hatInfo.showHairExtraImagePath != null
-					? await loadImage(
-							path.resolve(
-								__dirname,
-								'../images/hat_padding/',
-								hatInfo.showHairExtraImagePath
-							)
-					  )
-					: null,
+
 			head: await loadImage(
 				path.resolve(__dirname, '../images/sprDog_head_0.png')
 			),
@@ -103,42 +137,20 @@ export default async function renderDogToCanvasHelper(options: {
 					hairInfo.imageWithPaddingPath
 				)
 			),
-			hat:
-				hatInfo.internalName === 'Custom Hat' && options.customHatImage != null
-					? options.customHatImage
-					: hatInfo.imageWithPaddingPath != null
-					? await loadImage(
-							path.resolve(
-								__dirname,
-								'../images/hat_padding/',
-								hatInfo.imageWithPaddingPath
-							)
-					  )
-					: null,
-			hatLayer2:
-				hatInfo.layer2ImagePath != null
-					? await loadImage(
-							path.resolve(
-								__dirname,
-								'../images/clothes_padding/',
-								hatInfo.layer2ImagePath
-							)
-					  )
-					: null,
+
 			ear: await loadImage(
 				path.resolve(__dirname, '../images/sprDog_idle_ear_0.png')
 			),
 		},
 		{
 			clothesColor: options.clothesColor,
-			hatColor: options.hatColor,
 			skinColor: options.skinColor,
 			skinOutlineColor: options.skinOutlineColor,
 		},
 		{
 			clothesInfo,
 			hairInfo,
-			hatInfo,
+			hats,
 		}
 	);
 

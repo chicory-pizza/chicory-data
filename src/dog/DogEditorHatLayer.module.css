@@ -1,0 +1,37 @@
+.label {
+	display: flex;
+	align-items: center;
+	margin: 0 8px 8px 0;
+}
+
+.select {
+	margin: 0 16px 8px 0;
+}
+
+.controls {
+	display: flex;
+	align-items: center;
+	margin: 0 0 8px 0;
+}
+
+.controlLabel {
+	margin-right: 8px;
+}
+
+.color {
+	margin-right: 16px;
+}
+
+.dimensions {
+	margin-left: 8px;
+}
+
+.layerName {
+	margin-right: 8px;
+}
+
+.layerButton {
+	width: 30px;
+	height: 30px;
+	margin-left: 4px;
+}

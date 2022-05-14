@@ -13,6 +13,12 @@ export const CUSTOM_CLOTHES_HEIGHT = 265;
 export const CUSTOM_HAT_WIDTH = 480;
 export const CUSTOM_HAT_HEIGHT = 480;
 
+export type ChosenHat = {
+	name: string,
+	color: string,
+	customImage: ?Image,
+};
+
 export default function drawDogToCanvas(
 	canvas: HTMLCanvasElement,
 	images: {
@@ -20,35 +26,42 @@ export default function drawDogToCanvas(
 		clothes: CanvasImageSource,
 		idle1: CanvasImageSource,
 		clothesLayer2: ?CanvasImageSource,
-		hatShowHairExtra: ?CanvasImageSource,
 		head: CanvasImageSource,
 		hair: CanvasImageSource,
-		hat: ?CanvasImageSource,
-		hatLayer2: ?CanvasImageSource,
 		ear: CanvasImageSource,
 	},
 	colors: {
 		clothesColor: string,
-		hatColor: string,
 		skinColor: string,
 		skinOutlineColor?: string,
 	},
 	options: {
 		clothesInfo: DogClothesType,
 		hairInfo: DogHairType,
-		hatInfo: DogHatType,
+		hats: $ReadOnlyArray<{
+			color: string,
+			hatInfo: DogHatType,
+
+			// Images
+			hatShowHairExtra: ?CanvasImageSource,
+			hat: ?CanvasImageSource,
+			hatLayer2: ?CanvasImageSource,
+		}>,
 	}
 ) {
-	let layer2 = images.hatLayer2 || images.clothesLayer2;
-	let collar = images.hatLayer2 ? null : options.clothesInfo.collar;
+	// The top-most hat layer wins
+	const gotAnyHatWithLayer2 = options.hats.find(
+		(hat) => hat.hatLayer2
+	)?.hatLayer2;
+
+	let hatOrClothesLayer2 = gotAnyHatWithLayer2 || images.clothesLayer2;
+	let clothesCollar: ?number = gotAnyHatWithLayer2
+		? null
+		: options.clothesInfo.collar;
 
 	const hasCustomClothes =
 		images.clothes.width <= CUSTOM_CLOTHES_WIDTH &&
 		images.clothes.height <= CUSTOM_CLOTHES_HEIGHT;
-	const hasCustomHat =
-		images.hat != null &&
-		images.hat.width <= CUSTOM_HAT_WIDTH &&
-		images.hat.height <= CUSTOM_HAT_HEIGHT;
 
 	const ctx = getCanvasRenderingContext(canvas, true);
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -66,6 +79,7 @@ export default function drawDogToCanvas(
 		SIZE,
 		SIZE
 	);
+
 	drawImageAsColor(
 		ctx,
 		images.clothes,
@@ -75,19 +89,21 @@ export default function drawDogToCanvas(
 		images.clothes.width,
 		images.clothes.height
 	);
-	if (layer2 && collar === 2) {
+
+	if (hatOrClothesLayer2 && clothesCollar === 2) {
 		// Hiker
 		drawImageAsColor(
 			ctx,
-			layer2,
-			{fillColor: colors.hatColor},
+			hatOrClothesLayer2,
+			{fillColor: options.hats[0].color},
 			0,
 			0,
 			SIZE,
 			SIZE
 		);
-		layer2 = null;
+		hatOrClothesLayer2 = null;
 	}
+
 	drawImageAsColor(
 		ctx,
 		images.idle1,
@@ -101,36 +117,61 @@ export default function drawDogToCanvas(
 		SIZE,
 		SIZE
 	);
-	if (layer2 && collar == null) {
-		// Gorgeous
-		drawImageAsColor(
-			ctx,
-			layer2,
-			{fillColor: colors.hatColor},
-			// this is from game code and this condition won't pass anyway
-			// collar === 1 ? colors.clothesColor : colors.hatColor,
-			0,
-			0,
-			SIZE,
-			SIZE
-		);
+
+	if (hatOrClothesLayer2 && clothesCollar == null) {
+		if (hatOrClothesLayer2 === images.clothesLayer2) {
+			// Gorgeous
+			drawImageAsColor(
+				ctx,
+				hatOrClothesLayer2,
+				{fillColor: options.hats[0].color},
+				// this is from game code and this condition won't pass anyway
+				// collar === 1 ? colors.clothesColor : colors.hatColor,
+				0,
+				0,
+				SIZE,
+				SIZE
+			);
+		} else {
+			for (let i = options.hats.length - 1; i >= 0; i -= 1) {
+				const hat = options.hats[i];
+				if (hat.hatLayer2) {
+					drawImageAsColor(
+						ctx,
+						hat.hatLayer2,
+						{fillColor: hat.color},
+						// this is from game code and this condition won't pass anyway
+						// collar === 1 ? colors.clothesColor : colors.hatColor,
+						0,
+						0,
+						SIZE,
+						SIZE
+					);
+				}
+			}
+		}
 	}
-	if (
-		images.hatShowHairExtra != null &&
-		options.hatInfo.showHair != null &&
-		options.hatInfo.showHair > 2
-	) {
-		// Horns
-		drawImageAsColor(
-			ctx,
-			images.hatShowHairExtra,
-			{fillColor: colors.hatColor},
-			0,
-			0,
-			SIZE,
-			SIZE
-		);
+
+	for (let i = options.hats.length - 1; i >= 0; i -= 1) {
+		const hat = options.hats[i];
+		if (
+			hat.hatShowHairExtra != null &&
+			hat.hatInfo.showHair != null &&
+			hat.hatInfo.showHair > 2
+		) {
+			// Horns
+			drawImageAsColor(
+				ctx,
+				hat.hatShowHairExtra,
+				{fillColor: hat.color},
+				0,
+				0,
+				SIZE,
+				SIZE
+			);
+		}
 	}
+
 	drawImageAsColor(
 		ctx,
 		images.head,
@@ -144,10 +185,17 @@ export default function drawDogToCanvas(
 		480,
 		480
 	);
+
 	if (
-		!images.hat ||
-		options.hatInfo.showHair === 1 ||
-		(options.hatInfo.showHair != null && options.hatInfo.showHair > 2)
+		options.hats.every((hat) => {
+			return (
+				// There are no hats at all
+				hat.hat == null ||
+				// Ensure all hats can show hair
+				hat.hatInfo.showHair === 1 ||
+				(hat.hatInfo.showHair != null && hat.hatInfo.showHair > 2)
+			);
+		})
 	) {
 		drawImageAsColor(
 			ctx,
@@ -163,30 +211,31 @@ export default function drawDogToCanvas(
 			SIZE
 		);
 	}
-	if (images.hat && options.hatInfo.showHair !== 2) {
-		drawImageAsColor(
-			ctx,
-			images.hat,
-			{fillColor: colors.hatColor},
-			0,
-			0,
-			SIZE,
-			SIZE
-		);
+
+	for (let i = options.hats.length - 1; i >= 0; i -= 1) {
+		const hat = options.hats[i];
+		if (hat.hat && hat.hatInfo.showHair !== 2) {
+			drawImageAsColor(ctx, hat.hat, {fillColor: hat.color}, 0, 0, SIZE, SIZE);
+		}
 	}
-	if (layer2 && collar != null) {
+
+	if (hatOrClothesLayer2 && clothesCollar != null) {
 		// Collar: 1 - Royal
 		// Collar: 2 - Hiker
 		drawImageAsColor(
 			ctx,
-			layer2,
-			{fillColor: collar === 1 ? colors.clothesColor : colors.hatColor},
+			hatOrClothesLayer2,
+			{
+				fillColor:
+					clothesCollar === 1 ? colors.clothesColor : options.hats[0].color,
+			},
 			0,
 			0,
 			SIZE,
 			SIZE
 		);
 	}
+
 	drawImageAsColor(
 		ctx,
 		images.ear,
@@ -200,15 +249,24 @@ export default function drawDogToCanvas(
 		SIZE,
 		SIZE
 	);
-	if (images.hat && options.hatInfo.showHair === 2) {
-		drawImageAsColor(
-			ctx,
-			images.hat,
-			{fillColor: colors.hatColor},
-			hasCustomHat ? 161 : 0,
-			hasCustomHat ? 48 : 0,
-			images.hat.width,
-			images.hat.height
-		);
+
+	for (let i = options.hats.length - 1; i >= 0; i -= 1) {
+		const hat = options.hats[i];
+		if (hat.hat && hat.hatInfo.showHair === 2) {
+			const hasCustomHat =
+				hat.hat != null &&
+				hat.hat.width <= CUSTOM_HAT_WIDTH &&
+				hat.hat.height <= CUSTOM_HAT_HEIGHT;
+
+			drawImageAsColor(
+				ctx,
+				hat.hat,
+				{fillColor: hat.color},
+				hasCustomHat ? 161 : 0,
+				hasCustomHat ? 48 : 0,
+				hat.hat.width,
+				hat.hat.height
+			);
+		}
 	}
 }

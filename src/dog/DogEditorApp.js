@@ -1,6 +1,6 @@
 // @flow strict
 
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useMemo, useReducer, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
 import AppHeader from '../header/AppHeader';
@@ -10,36 +10,58 @@ import DogChicorobotCode from './DogChicorobotCode';
 import DogClothesSelect from './DogClothesSelect';
 import styles from './DogEditorApp.module.css';
 import DogEditorFileInput from './DogEditorFileInput';
+import DogEditorHatLayer from './DogEditorHatLayer';
+import {reducer} from './DogEditorHatReducer';
 import DogHairSelect from './DogHairSelect';
-import DogHatSelect from './DogHatSelect';
 import DogPreview from './DogPreview';
 import {
 	CUSTOM_CLOTHES_HEIGHT,
 	CUSTOM_CLOTHES_WIDTH,
 	CUSTOM_HAT_HEIGHT,
 	CUSTOM_HAT_WIDTH,
+	SIZE,
 } from './drawDogToCanvas';
 
 export default function DogEditorApp(): React$Node {
 	const [clothes, setClothes] = useState('Overalls');
-	const [hat, setHat] = useState('Bandana');
+	const [hatsState, dispatchHats] = useReducer(reducer, {
+		hats: [
+			{
+				name: 'Bandana',
+				color: '#FFFFFF',
+				customImage: null,
+				previewName: null,
+			},
+		],
+	});
 	const [hair, setHair] = useState('Simple');
 
 	const [clothesColor, setClothesColor] = useState('#FFFFFF');
-	const [hatColor, setHatColor] = useState('#FFFFFF');
 	const [skinColor, setSkinColor] = useState('#FFFFFF');
 	const [skinOutlineColor, setSkinOutlineColor] = useState('#000000');
 
 	const [customClothesImage, setCustomClothesImage] = useState<?Image>(null);
-	const [customHatImage, setCustomHatImage] = useState<?Image>(null);
 
 	// Previews
 	const [previewClothes, setPreviewClothes] = useState<?string>(null);
-	const [previewHat, setPreviewHat] = useState<?string>(null);
 	const [previewHair, setPreviewHair] = useState<?string>(null);
+
+	const hatsInPreview = useMemo(() => {
+		return hatsState.hats.map((hat) => {
+			return {
+				name: hat.previewName ?? hat.name,
+				color: hat.color,
+				customImage: hat.customImage,
+			};
+		});
+	}, [hatsState]);
 
 	useEffect(() => {
 		changeDocumentTitle('Drawdog maker');
+	}, []);
+
+	const addNewHatLayer = useCallback(() => {
+		dispatchHats({type: 'addNewLayer'});
 	}, []);
 
 	const onNewClothesImage = useCallback(
@@ -62,29 +84,6 @@ export default function DogEditorApp(): React$Node {
 		[customClothesImage?.src]
 	);
 
-	const onNewHatImage = useCallback(
-		(img: Image) => {
-			// Free up any previous image
-			window.URL.revokeObjectURL(customHatImage?.src);
-
-			if (
-				img.width === CUSTOM_CLOTHES_WIDTH &&
-				img.height === CUSTOM_CLOTHES_HEIGHT
-			) {
-				alert(
-					'It looks like you are loading custom clothes as the custom hat, this is probably not what you intended'
-				);
-
-				window.URL.revokeObjectURL(img.src);
-				return;
-			}
-
-			setCustomHatImage(img);
-			setHat('Custom Hat');
-		},
-		[customHatImage?.src]
-	);
-
 	return (
 		<div className={styles.root}>
 			<AppHeader title="Drawdog maker" />
@@ -96,9 +95,7 @@ export default function DogEditorApp(): React$Node {
 							clothes={previewClothes ?? clothes}
 							clothesColor={clothesColor}
 							customClothesImage={customClothesImage}
-							customHatImage={customHatImage}
-							hat={previewHat ?? hat}
-							hatColor={hatColor}
+							hats={hatsInPreview}
 							hair={previewHair ?? hair}
 							height={750}
 							skinColor={skinColor}
@@ -107,9 +104,9 @@ export default function DogEditorApp(): React$Node {
 						/>
 					</div>
 
-					<div className={styles.controls}>
-						<div className={styles.selector}>
-							Clothes:{' '}
+					<div className={styles.grid}>
+						<div className={styles.label}>Clothes:</div>
+						<div className={styles.select}>
 							<DogClothesSelect
 								onChange={setClothes}
 								onPreviewChange={setPreviewClothes}
@@ -117,63 +114,58 @@ export default function DogEditorApp(): React$Node {
 							/>
 						</div>
 
-						<div className={styles.selector}>
-							Color:{' '}
-							<input
-								type="color"
-								value={clothesColor}
-								onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
-									setClothesColor(ev.currentTarget.value);
-								}}
-							/>
-						</div>
+						<div className={styles.controls}>
+							<div className={styles.controlLabel}>Color:</div>
+							<div className={styles.color}>
+								<input
+									type="color"
+									value={clothesColor}
+									onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
+										setClothesColor(ev.currentTarget.value);
+									}}
+								/>
+							</div>
 
-						<div className={styles.selector}>
-							Custom clothes:{' '}
+							<div className={styles.controlLabel}>Custom clothes:</div>
 							<DogEditorFileInput onFileLoad={onNewClothesImage} />
-						</div>
-					</div>
-
-					<div className={styles.controls}>
-						<div className={styles.selector}>
-							Hat:{' '}
-							<DogHatSelect
-								onChange={setHat}
-								onPreviewChange={setPreviewHat}
-								value={hat}
-							/>
+							<div className={styles.dimensions}>
+								({CUSTOM_CLOTHES_WIDTH}×{CUSTOM_CLOTHES_HEIGHT} or {SIZE}×{SIZE}
+								)
+							</div>
 						</div>
 
-						<div className={styles.selector}>
-							Color:{' '}
-							<input
-								type="color"
-								value={hatColor}
-								onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
-									setHatColor(ev.currentTarget.value);
-								}}
-							/>
-						</div>
+						{hatsState.hats.map((hat, index) => {
+							return (
+								<DogEditorHatLayer
+									dispatchHats={dispatchHats}
+									hat={hatsState.hats[index]}
+									key={index}
+									layer={index}
+									totalHatsCount={hatsState.hats.length}
+								/>
+							);
+						})}
 
-						<div className={styles.selector}>
-							Custom hat: <DogEditorFileInput onFileLoad={onNewHatImage} />
+						<div className={styles.addHatLayer}>
+							<button onClick={addNewHatLayer} type="button">
+								Add new hat layer
+							</button>
 						</div>
-					</div>
+						<div />
+						<div />
 
-					<div className={styles.controls}>
-						<div className={styles.selector}>
-							Hair:{' '}
+						<div className={styles.label}>Hair:</div>
+						<div className={styles.select}>
 							<DogHairSelect
 								onChange={setHair}
 								onPreviewChange={setPreviewHair}
 								value={hair}
 							/>
 						</div>
-					</div>
+						<div />
 
-					<div className={styles.controls}>
-						<div className={styles.selector}>
-							Skin fill:{' '}
+						<div className={styles.label}>Skin fill:</div>
+						<div className={styles.select + ' ' + styles.controls}>
 							<input
 								type="color"
 								value={skinColor}
@@ -181,8 +173,11 @@ export default function DogEditorApp(): React$Node {
 									setSkinColor(ev.currentTarget.value);
 								}}
 							/>
-							<br />
-							Skin outline:{' '}
+						</div>
+						<div />
+
+						<div className={styles.label}>Skin outline:</div>
+						<div className={styles.select + ' ' + styles.controls}>
 							<input
 								type="color"
 								value={skinOutlineColor}
@@ -190,8 +185,8 @@ export default function DogEditorApp(): React$Node {
 									setSkinOutlineColor(ev.currentTarget.value);
 								}}
 							/>
-							<br />
 						</div>
+						<div />
 					</div>
 
 					<div className={styles.chicorobot}>
@@ -199,8 +194,8 @@ export default function DogEditorApp(): React$Node {
 							<DogChicorobotCode
 								clothes={previewClothes ?? clothes}
 								clothesColor={clothesColor}
-								hat={previewHat ?? hat}
-								hatColor={hatColor}
+								hat={hatsState.hats[0].previewName ?? hatsState.hats[0].name}
+								hatColor={hatsState.hats[0].color}
 								skinColor={skinColor}
 							/>
 						</ErrorBoundary>
