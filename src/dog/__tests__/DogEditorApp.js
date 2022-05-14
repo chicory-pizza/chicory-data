@@ -1,3 +1,5 @@
+// @flow strict
+
 import {screen} from '@testing-library/react';
 
 import renderDogEditorRoute from '../testUtil/renderDogEditorRoute';

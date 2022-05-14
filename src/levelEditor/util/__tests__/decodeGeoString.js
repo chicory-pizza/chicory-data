@@ -1,3 +1,5 @@
+// @flow strict
+
 import decodeGeoString from '../decodeGeoString';
 
 test('decodes geo', async () => {

@@ -1,3 +1,5 @@
+// @flow strict
+
 import convertLevelIdToCoordinates from '../convertLevelIdToCoordinates';
 
 test('converts level IDs', async () => {

@@ -1,3 +1,5 @@
+// @flow strict
+
 import convertRgbArrayToString from '../convertRgbArrayToString';
 
 test('converts an array of 3 numbers to HEX', async () => {

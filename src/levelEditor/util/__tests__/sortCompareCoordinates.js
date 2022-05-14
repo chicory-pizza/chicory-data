@@ -1,3 +1,5 @@
+// @flow strict
+
 import sortCompareCoordinates from '../sortCompareCoordinates';
 
 test('sort coordinates', async () => {

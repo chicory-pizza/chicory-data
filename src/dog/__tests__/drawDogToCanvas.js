@@ -1,6 +1,10 @@
+// @flow strict
+
 import path from 'path';
 
+// $FlowFixMe[untyped-import]
 import {loadImage} from 'canvas';
+// $FlowFixMe[untyped-import]
 import {toMatchImageSnapshot} from 'jest-image-snapshot';
 
 import drawDogToCanvasTestHelper from '../testUtil/drawDogToCanvasTestHelper';
@@ -16,11 +20,13 @@ test('basic dog', async () => {
 			{
 				name: 'Bandana',
 				color: '#ffffff',
+				customImage: null,
 			},
 		],
 		skinColor: '#ffffff',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });
 
@@ -33,11 +39,13 @@ test('hiker clothes', async () => {
 			{
 				name: 'Beak',
 				color: '#00ff00',
+				customImage: null,
 			},
 		],
 		skinColor: '#0000ff',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });
 
@@ -50,11 +58,13 @@ test('horns hat', async () => {
 			{
 				name: 'PLACEHOLDER_CLOTHES2',
 				color: '#00ff00',
+				customImage: null,
 			},
 		],
 		skinColor: '#0000ff',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });
 
@@ -67,23 +77,28 @@ test('multiple hats', async () => {
 			{
 				name: 'Flower',
 				color: '#ff0000',
+				customImage: null,
 			},
 			{
 				name: 'Foxy',
 				color: '#ff8800',
+				customImage: null,
 			},
 			{
 				name: 'Pointish Glasses',
 				color: '#ffffff',
+				customImage: null,
 			},
 			{
 				name: 'Scarf',
 				color: '#00aaff',
+				customImage: null,
 			},
 		],
 		skinColor: '#ffffff',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });
 
@@ -97,11 +112,13 @@ test('Pancake', async () => {
 			{
 				name: 'Spellcaster',
 				color: '#b69aff',
+				customImage: null,
 			},
 		],
 		skinColor: '#ffa694',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });
 
@@ -115,11 +132,13 @@ test('Burrito', async () => {
 			{
 				name: 'Bow',
 				color: '#8C44A4',
+				customImage: null,
 			},
 		],
 		skinColor: '#FFF2C9',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });
 
@@ -132,11 +151,13 @@ test('Cocoa', async () => {
 			{
 				name: 'Round Glasses',
 				color: '#B1E2E5',
+				customImage: null,
 			},
 		],
 		skinColor: '#665E58',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });
 
@@ -149,11 +170,13 @@ test('Hot Wings', async () => {
 			{
 				name: 'Wielder Tie',
 				color: '#B696ED',
+				customImage: null,
 			},
 		],
 		skinColor: '#FFF5ED',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });
 
@@ -166,11 +189,13 @@ test('Lasagne', async () => {
 			{
 				name: 'None',
 				color: '#FA777F',
+				customImage: null,
 			},
 		],
 		skinColor: '#FEFDAE',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });
 
@@ -183,11 +208,13 @@ test('Pizzy', async () => {
 			{
 				name: 'Foxy',
 				color: '#F4AA41',
+				customImage: null,
 			},
 		],
 		skinColor: '#F4AA41',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });
 
@@ -200,11 +227,13 @@ test('Rice', async () => {
 			{
 				name: 'Top Hat',
 				color: '#A2FEF8',
+				customImage: null,
 			},
 		],
 		skinColor: '#FFFFFF',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });
 
@@ -216,14 +245,21 @@ test('Azure', async () => {
 		hair: 'Simple',
 		hats: [
 			{
+				name: 'Flower',
+				color: '#DF243F',
+				customImage: null,
+			},
+			{
 				name: 'Kerchief',
 				color: '#777CE1',
+				customImage: null,
 			},
 		],
 		skinColor: '#1C2E89',
 		skinOutlineColor: '#03EFF9',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });
 
@@ -236,8 +272,6 @@ test('Cinnaroll', async () => {
 			path.resolve(__dirname, 'Custom_Tee_Cinnaroll.png')
 		),
 		hair: 'Simple',
-		hat: '',
-		hatColor: '#',
 		hats: [
 			{
 				name: 'Custom Hat',
@@ -250,5 +284,6 @@ test('Cinnaroll', async () => {
 		skinColor: '#B38184',
 	});
 
+	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
 });

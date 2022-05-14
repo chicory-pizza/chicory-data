@@ -1,3 +1,5 @@
+// @flow strict
+
 import isSameCoordinates from '../isSameCoordinates';
 
 test('same coordinates', async () => {

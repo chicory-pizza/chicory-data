@@ -1,3 +1,5 @@
+// @flow strict
+
 import convertNullableCoordinatesToNonNull from '../convertNullableCoordinatesToNonNull';
 
 test('converts valid', async () => {

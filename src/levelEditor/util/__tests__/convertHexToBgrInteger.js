@@ -1,3 +1,5 @@
+// @flow strict
+
 import convertHexToBgrInteger from '../convertHexToBgrInteger';
 
 test('converts hex to BGR integers', async () => {

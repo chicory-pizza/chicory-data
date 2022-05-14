@@ -1,3 +1,5 @@
+// @flow strict
+
 import convertBgrIntegerToRgb from '../convertBgrIntegerToRgb';
 
 test('converts BGR colors to RGB', async () => {
