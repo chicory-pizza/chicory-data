@@ -2,6 +2,8 @@
 
 import GeoPreview from '../common/GeoPreview';
 import {GEO_WIDTH, SCREEN_WIDTH} from '../GeoConstants';
+// $FlowFixMe[untyped-import]
+import spritesData from '../spriteData.json';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
@@ -30,16 +32,31 @@ type Props = $ReadOnly<{
 }>;
 
 export default function LevelPreview(props: Props): React$Node {
-	const objects = props.level.objects;
-
 	// Show arrows around
-	// Some objects can be bit off-screen
+	// Some objects can be off-screen
 	let offscreenX = -25 - 8 * 2;
 	let offscreenY = -25 - 8 * 2;
-	objects?.forEach((obj) => {
-		offscreenX = Math.min(offscreenX, obj.x - 8);
-		offscreenY = Math.min(offscreenY, obj.y - 8);
-	});
+
+	if (props.activeUiViews.includes('OBJECT')) {
+		props.level.objects?.forEach((obj) => {
+			offscreenX = Math.min(offscreenX, obj.x - 8);
+			offscreenY = Math.min(offscreenY, obj.y - 8);
+		});
+	}
+
+	// Some decos can be off-screen
+	if (props.activeUiViews.includes('DECO')) {
+		props.level.decos?.forEach((deco) => {
+			offscreenX = Math.min(
+				offscreenX,
+				deco.x - spritesData[deco.spr].originx - 8
+			);
+			offscreenY = Math.min(
+				offscreenY,
+				deco.y - spritesData[deco.spr].originy - 8
+			);
+		});
+	}
 
 	return (
 		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
