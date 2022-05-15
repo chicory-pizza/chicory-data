@@ -7,3 +7,4 @@ package-lock.json
 
 src/levelEditor/level_data.json
 src/levelEditor/__mocks__/level_data.json
+src/levelEditor/spriteData.json

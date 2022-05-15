@@ -19,12 +19,21 @@ function SidebarViewMenu(props: Props): React$Node {
 		<div className={styles.root}>
 			<Menu menuButton={<MenuButton>Change view</MenuButton>}>
 				<MenuItem
-					checked={props.activeUiViews.includes('OBJECTS')}
-					onClick={(ev) => props.onActiveUiViewToggle('OBJECTS')}
+					checked={props.activeUiViews.includes('OBJECT')}
+					onClick={(ev) => props.onActiveUiViewToggle('OBJECT')}
 					type="checkbox"
-					value="OBJECTS"
+					value="OBJECT"
 				>
 					Objects
+				</MenuItem>
+
+				<MenuItem
+					checked={props.activeUiViews.includes('DECO')}
+					onClick={(ev) => props.onActiveUiViewToggle('DECO')}
+					type="checkbox"
+					value="DECO"
+				>
+					Decorations
 				</MenuItem>
 
 				<MenuItem
