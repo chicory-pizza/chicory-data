@@ -10,8 +10,9 @@ import type {PlaceableType} from '../types/PlaceableType';
 import styles from './LevelSidebar.module.css';
 import SidebarEntityList from './objectsList/SidebarEntityList';
 import SidebarLevelProperties from './properties/SidebarLevelProperties';
-import SidebarEntityAdder from './SidebarEntityAdder';
+import SidebarDecoAdder from './SidebarDecoAdder';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
+import SidebarObjectAdder from './SidebarObjectAdder';
 import SidebarViewMenu from './SidebarViewMenu';
 
 type Props = $ReadOnly<{
@@ -55,14 +56,9 @@ export default function LevelSidebar(props: Props): React$Node {
 
 			<div className={styles.group}>
 				<ErrorBoundary>
-					<SidebarEntityAdder
-						onAddingEntityLabel={props.onAddingEntityLabel}
-						type="OBJECT"
-					/>
-					<SidebarEntityAdder
-						onAddingEntityLabel={props.onAddingEntityLabel}
-						type="DECO"
-					/>
+					<SidebarObjectAdder onAddingEntityLabel={props.onAddingEntityLabel} />
+
+					<SidebarDecoAdder onAddingEntityLabel={props.onAddingEntityLabel} />
 				</ErrorBoundary>
 			</div>
 
