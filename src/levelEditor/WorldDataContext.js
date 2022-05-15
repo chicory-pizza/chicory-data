@@ -215,7 +215,7 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 					...state,
 					[levelId]: {
 						...level,
-						objects: levelDecos
+						decos: levelDecos
 							.slice(0, action.index)
 							.concat(newProperties)
 							.concat(levelDecos.slice(action.index + 1)),
