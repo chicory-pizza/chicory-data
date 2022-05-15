@@ -53,6 +53,7 @@ export default function LevelInspector({
 
 	useEffect(() => {
 		setSidebarObjectsListItemsExpanded([]);
+		setSidebarDecosListItemsExpanded([]);
 	}, [currentCoordinates]);
 
 	// Coordinates
