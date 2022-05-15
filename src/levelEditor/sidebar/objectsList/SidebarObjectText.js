@@ -11,7 +11,9 @@ type Props = $ReadOnly<{
 
 export default function SidebarObjectText({obj}: Props): React$Node {
 	const [, setNewCoordinates] = useCurrentCoordinatesNonNullable();
-
+	if (obj == null) {
+		return 'Null';
+	}
 	const sliced = obj.obj.slice('obj'.length);
 
 	if (obj.obj === 'objPortal') {

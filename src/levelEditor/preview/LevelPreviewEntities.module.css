@@ -3,6 +3,10 @@
 	z-index: 3;
 }
 
-.itemHover {
+.objHover {
 	background: rgb(216, 255, 85);
+}
+
+.decoHover {
+	background: rgb(182, 154, 255);
 }

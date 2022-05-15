@@ -2,8 +2,12 @@
 	margin-left: 8px;
 }
 
-.highlight {
+.objHighlight {
 	background: rgb(216, 255, 85);
+}
+
+.decHighlight {
+	background: rgb(182, 154, 255);
 }
 
 .title {
@@ -29,10 +33,16 @@
 	padding-bottom: 8px;
 }
 
-.objectCoordinates {
+.entryRoot {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	margin-top: 4px;
+}
+
+.label {
+	padding-right: 8px;
+	flex-shrink: 0;
 }
 
 .objectCoordinatesText {
