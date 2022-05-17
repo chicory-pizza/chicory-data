@@ -2,6 +2,8 @@
 
 import {useEffect, useMemo, useRef, useState} from 'react';
 
+import Spinner from '../common/Spinner';
+
 import styles from './DogPreview.module.css';
 import drawDogToCanvas from './drawDogToCanvas';
 import {SIZE} from './drawDogToCanvas';
@@ -265,16 +267,33 @@ export default function DogPreview(props: Props): React$Node {
 		props.skinOutlineColor,
 	]);
 
+	const loading =
+		!mainCanvasRef.current ||
+		!idle2 ||
+		!clothes ||
+		!idle1 ||
+		!head ||
+		!hair ||
+		!ear;
+
 	return (
-		<canvas
-			className={styles.canvas}
-			ref={mainCanvasRef}
-			width={SIZE}
-			height={SIZE}
-			style={{
-				width: props.width,
-				height: props.height,
-			}}
-		/>
+		<div className={styles.root}>
+			<canvas
+				className={styles.canvas + ' ' + (loading ? styles.canvasLoading : '')}
+				ref={mainCanvasRef}
+				width={SIZE}
+				height={SIZE}
+				style={{
+					width: props.width,
+					height: props.height,
+				}}
+			/>
+
+			{loading ? (
+				<div className={styles.loading} style={{width: props.width}}>
+					<Spinner size={32} />
+				</div>
+			) : null}
+		</div>
 	);
 }

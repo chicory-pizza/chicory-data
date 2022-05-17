@@ -91,17 +91,19 @@ export default function DogEditorApp(): React$Node {
 			<div className={styles.main}>
 				<ErrorBoundary>
 					<div className={styles.dog}>
-						<DogPreview
-							clothes={previewClothes ?? clothes}
-							clothesColor={clothesColor}
-							customClothesImage={customClothesImage}
-							hats={hatsInPreview}
-							hair={previewHair ?? hair}
-							height={750}
-							skinColor={skinColor}
-							skinOutlineColor={skinOutlineColor}
-							width={750}
-						/>
+						<ErrorBoundary>
+							<DogPreview
+								clothes={previewClothes ?? clothes}
+								clothesColor={clothesColor}
+								customClothesImage={customClothesImage}
+								hats={hatsInPreview}
+								hair={previewHair ?? hair}
+								height={750}
+								skinColor={skinColor}
+								skinOutlineColor={skinOutlineColor}
+								width={750}
+							/>
+						</ErrorBoundary>
 					</div>
 
 					<div className={styles.grid}>
