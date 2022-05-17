@@ -11,8 +11,12 @@
 .addingObjectItem {
 	pointer-events: none;
 	position: absolute;
-	z-index: 2;
+	z-index: 6;
 	transform: translate(-50%, -50%);
+}
+
+.addingDecoSprite {
+	position: absolute;
 }
 
 .object {
