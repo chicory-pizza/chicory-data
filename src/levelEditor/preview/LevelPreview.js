@@ -58,6 +58,31 @@ export default function LevelPreview(props: Props): React$Node {
 		});
 	}
 
+	//Draw sprite when adding a decoration
+	const urlPrefix = process.env.REACT_APP_SPRITES_URL_PREFIX;
+	let addingDeco;
+	if (props.addingEntityLabel && props.addingEntityLabel.type === 'DECO') {
+		const deco = props.addingEntityLabel.data;
+		if (urlPrefix != null) {
+			const src = urlPrefix + deco + '.png';
+			addingDeco = (
+				<img
+					className={styles.addingDecoSprite}
+					alt={deco}
+					src={src}
+					width={spritesData[deco].width}
+					height={spritesData[deco].height}
+					style={{
+						left: -spritesData[deco].originx,
+						top: -spritesData[deco].originy,
+					}}
+				/>
+			);
+		} else {
+			addingDeco = deco;
+		}
+	}
+
 	return (
 		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 		<div
@@ -85,7 +110,13 @@ export default function LevelPreview(props: Props): React$Node {
 			props.mapMouseMoveCoordinates != null &&
 			props.activeUiViews.includes(props.addingEntityLabel.type) ? (
 				<div
-					className={styles.addingObjectItem}
+					className={
+						styles.addingObjectItem +
+						' ' +
+						(props.addingEntityLabel.type === 'OBJECT'
+							? styles.object
+							: styles.deco)
+					}
 					style={{
 						left: props.mapMouseMoveCoordinates[0],
 						top: props.mapMouseMoveCoordinates[1],
@@ -93,7 +124,7 @@ export default function LevelPreview(props: Props): React$Node {
 				>
 					{props.addingEntityLabel.type === 'OBJECT'
 						? props.addingEntityLabel.data.slice('obj'.length)
-						: props.addingEntityLabel.data}
+						: addingDeco}
 				</div>
 			) : null}
 
