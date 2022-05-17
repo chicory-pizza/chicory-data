@@ -1,4 +1,10 @@
-.item {
+.itemObj {
+	position: absolute;
+	z-index: 4;
+	transform: translate(-50%, -50%);
+}
+
+.itemDeco {
 	position: absolute;
 	z-index: 3;
 }
@@ -8,5 +14,6 @@
 }
 
 .decoHover {
-	background: rgb(182, 154, 255);
+	outline: solid 5px;
+	outline-color: rgb(182, 154, 255);
 }

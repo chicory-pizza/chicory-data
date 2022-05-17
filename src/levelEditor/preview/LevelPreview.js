@@ -85,7 +85,13 @@ export default function LevelPreview(props: Props): React$Node {
 			props.mapMouseMoveCoordinates != null &&
 			props.activeUiViews.includes(props.addingEntityLabel.type) ? (
 				<div
-					className={styles.addingObjectItem}
+					className={
+						styles.addingObjectItem +
+						' ' +
+						(props.addingEntityLabel.type === 'OBJECT'
+							? styles.object
+							: styles.deco)
+					}
 					style={{
 						left: props.mapMouseMoveCoordinates[0],
 						top: props.mapMouseMoveCoordinates[1],

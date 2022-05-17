@@ -5,7 +5,7 @@ module.exports = (app) => {
 	app.use((req, res, next) => {
 		const inGameScreenshotHost =
 			process.env.REACT_APP_IN_GAME_SCREENSHOT_URL_PREFIX;
-
+		const sprite = process.env.REACT_APP_SPRITES_URL_PREFIX;
 		// https://github.com/w3c/webappsec-csp/issues/7
 		const host = req.hostname + ':' + req.socket.localPort;
 		const userAgent = req.get('User-Agent');
@@ -45,6 +45,7 @@ module.exports = (app) => {
 						'data:',
 						'blob:',
 						inGameScreenshotHost ?? '',
+						sprite ?? '',
 					].join(' '),
 					"frame-ancestors 'none'",
 					"base-uri 'none'",

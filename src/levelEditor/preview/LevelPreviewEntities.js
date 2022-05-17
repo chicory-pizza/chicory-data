@@ -29,7 +29,7 @@ function LevelPreviewEntities(props: Props): React$Node {
 				// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 				<div
 					className={
-						styles.item +
+						styles.itemObj +
 						' ' +
 						(props.entityIndexHover === index ? styles.objHover : '')
 					}
@@ -53,11 +53,38 @@ function LevelPreviewEntities(props: Props): React$Node {
 		}
 
 		return levelDecos.map((dec, index) => {
+			const urlPrefix = process.env.REACT_APP_SPRITES_URL_PREFIX;
+			const originx = spritesData[dec.spr].originx;
+			const originy = spritesData[dec.spr].originy;
+
+			let decoElement;
+			if (urlPrefix == null) {
+				// Add sprite toggle here
+				decoElement = dec.spr;
+			} else {
+				const src = urlPrefix + dec.spr + '.png';
+				decoElement = (
+					<img
+						alt={dec.spr}
+						key={src}
+						src={src}
+						width={spritesData[dec.spr].width}
+						height={spritesData[dec.spr].height}
+						style={{
+							transformOrigin: `${originx}px ${originy}px`,
+							transform: `scaleX(${dec.xs}) scaleY(${dec.ys}) rotate(${
+								-1 * Math.sign(dec.xs) * dec.ang
+							}deg)`,
+						}}
+					/>
+				);
+			}
+
 			return (
 				// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 				<div
 					className={
-						styles.item +
+						styles.itemDeco +
 						' ' +
 						(props.entityIndexHover === index ? styles.decoHover : '')
 					}
@@ -66,11 +93,11 @@ function LevelPreviewEntities(props: Props): React$Node {
 					onMouseEnter={() => props.onEntityHover(index)}
 					onMouseLeave={() => props.onEntityHover(null)}
 					style={{
-						left: dec.x - spritesData[dec.spr].originx,
-						top: dec.y - spritesData[dec.spr].originy,
+						left: dec.x - originx,
+						top: dec.y - originy,
 					}}
 				>
-					{dec.spr}
+					{decoElement}
 				</div>
 			);
 		});
