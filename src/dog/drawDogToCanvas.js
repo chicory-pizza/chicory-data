@@ -13,6 +13,35 @@ export const CUSTOM_CLOTHES_HEIGHT = 265;
 export const CUSTOM_HAT_WIDTH = 480;
 export const CUSTOM_HAT_HEIGHT = 480;
 
+const HAT_ORIGIN_X = 385;
+const HAT_ORIGIN_Y = 420;
+const HEAD_ORIGIN_X = 225;
+const HEAD_ORIGIN_Y = 370;
+const CLOTHES_ORIGIN_X = 375;
+const CLOTHES_ORIGIN_Y = 599;
+const IDLE_ORIGIN_X = 375;
+const IDLE_ORIGIN_Y = 650;
+
+const HEAD_ANIM_X = -2.5;
+const HEAD_ANIM_Y = -45.6;
+const CLOTHES_ANIM_X = -4.55;
+const CLOTHES_ANIM_Y = -12.05;
+
+const DOG_RES_SCALE = 5;
+
+const HAT_TRANSLATED_X =
+	IDLE_ORIGIN_X + (-HAT_ORIGIN_X + HEAD_ANIM_X * DOG_RES_SCALE);
+const HAT_TRANSLATED_Y =
+	IDLE_ORIGIN_Y + (-HAT_ORIGIN_Y + HEAD_ANIM_Y * DOG_RES_SCALE);
+const HEAD_TRANSLATED_X =
+	IDLE_ORIGIN_X + (-HEAD_ORIGIN_X + HEAD_ANIM_X * DOG_RES_SCALE);
+const HEAD_TRANSLATED_Y =
+	IDLE_ORIGIN_Y + (-HEAD_ORIGIN_Y + HEAD_ANIM_Y * DOG_RES_SCALE);
+const CLOTHES_TRANSLATED_X =
+	IDLE_ORIGIN_X + (-CLOTHES_ORIGIN_X + CLOTHES_ANIM_X * DOG_RES_SCALE);
+const CLOTHES_TRANSLATED_Y =
+	IDLE_ORIGIN_Y + (-CLOTHES_ORIGIN_Y + CLOTHES_ANIM_Y * DOG_RES_SCALE);
+
 export type ChosenHat = {
 	name: string,
 	color: string,
@@ -84,8 +113,8 @@ export default function drawDogToCanvas(
 		ctx,
 		images.clothes,
 		{fillColor: colors.clothesColor},
-		hasCustomClothes ? 255 : 0,
-		hasCustomClothes ? 424 : 0,
+		hasCustomClothes ? 255 + CLOTHES_TRANSLATED_X : CLOTHES_TRANSLATED_X,
+		hasCustomClothes ? 424 + CLOTHES_TRANSLATED_Y : CLOTHES_TRANSLATED_Y,
 		images.clothes.width,
 		images.clothes.height
 	);
@@ -96,8 +125,8 @@ export default function drawDogToCanvas(
 			ctx,
 			hatOrClothesLayer2,
 			{fillColor: options.hats[0].color},
-			0,
-			0,
+			CLOTHES_TRANSLATED_X,
+			CLOTHES_TRANSLATED_Y,
 			SIZE,
 			SIZE
 		);
@@ -127,8 +156,8 @@ export default function drawDogToCanvas(
 				{fillColor: options.hats[0].color},
 				// this is from game code and this condition won't pass anyway
 				// collar === 1 ? colors.clothesColor : colors.hatColor,
-				0,
-				0,
+				CLOTHES_TRANSLATED_X,
+				CLOTHES_TRANSLATED_Y,
 				SIZE,
 				SIZE
 			);
@@ -142,8 +171,8 @@ export default function drawDogToCanvas(
 						{fillColor: hat.color},
 						// this is from game code and this condition won't pass anyway
 						// collar === 1 ? colors.clothesColor : colors.hatColor,
-						0,
-						0,
+						HAT_TRANSLATED_X,
+						HAT_TRANSLATED_Y,
 						SIZE,
 						SIZE
 					);
@@ -164,8 +193,8 @@ export default function drawDogToCanvas(
 				ctx,
 				hat.hatShowHairExtra,
 				{fillColor: hat.color},
-				0,
-				0,
+				HAT_TRANSLATED_X,
+				HAT_TRANSLATED_Y,
 				SIZE,
 				SIZE
 			);
@@ -180,8 +209,8 @@ export default function drawDogToCanvas(
 			outlineColor: colors.skinOutlineColor,
 			cacheKey: 'head',
 		},
-		161,
-		48,
+		HEAD_TRANSLATED_X,
+		HEAD_TRANSLATED_Y,
 		480,
 		480
 	);
@@ -205,8 +234,8 @@ export default function drawDogToCanvas(
 				outlineColor: colors.skinOutlineColor,
 				cacheKey: 'hair_' + options.hairInfo.internalName,
 			},
-			0,
-			0,
+			HAT_TRANSLATED_X,
+			HAT_TRANSLATED_Y,
 			SIZE,
 			SIZE
 		);
@@ -215,7 +244,15 @@ export default function drawDogToCanvas(
 	for (let i = options.hats.length - 1; i >= 0; i -= 1) {
 		const hat = options.hats[i];
 		if (hat.hat && hat.hatInfo.showHair !== 2) {
-			drawImageAsColor(ctx, hat.hat, {fillColor: hat.color}, 0, 0, SIZE, SIZE);
+			drawImageAsColor(
+				ctx,
+				hat.hat,
+				{fillColor: hat.color},
+				HAT_TRANSLATED_X,
+				HAT_TRANSLATED_Y,
+				SIZE,
+				SIZE
+			);
 		}
 	}
 
@@ -229,8 +266,8 @@ export default function drawDogToCanvas(
 				fillColor:
 					clothesCollar === 1 ? colors.clothesColor : options.hats[0].color,
 			},
-			0,
-			0,
+			HAT_TRANSLATED_X,
+			HAT_TRANSLATED_Y,
 			SIZE,
 			SIZE
 		);
@@ -262,8 +299,8 @@ export default function drawDogToCanvas(
 				ctx,
 				hat.hat,
 				{fillColor: hat.color},
-				hasCustomHat ? 161 : 0,
-				hasCustomHat ? 48 : 0,
+				hasCustomHat ? 161 + HAT_TRANSLATED_X : HAT_TRANSLATED_X,
+				hasCustomHat ? 48 + HAT_TRANSLATED_Y : HAT_TRANSLATED_Y,
 				hat.hat.width,
 				hat.hat.height
 			);
