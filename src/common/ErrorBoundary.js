@@ -3,6 +3,7 @@
 import {Component} from 'react';
 
 type Props = $ReadOnly<{
+	canReload?: boolean,
 	children: React$Node,
 }>;
 
@@ -19,11 +20,23 @@ export default class ErrorBoundary extends Component<Props, State> {
 		return {error};
 	}
 
+	reload: () => void = () => {
+		this.setState({error: null});
+	};
+
 	render(): React$Node {
 		if (this.state.error) {
 			return (
 				<div>
 					⚠️ Oops, something went wrong: <code>{this.state.error.message}</code>
+					{this.props.canReload === true ? (
+						<>
+							{' '}
+							<button onClick={this.reload} type="button">
+								Reload
+							</button>
+						</>
+					) : null}
 				</div>
 			);
 		}

@@ -91,7 +91,7 @@ export default function DogEditorApp(): React$Node {
 			<div className={styles.main}>
 				<ErrorBoundary>
 					<div className={styles.dog}>
-						<ErrorBoundary>
+						<ErrorBoundary canReload={true}>
 							<DogPreview
 								clothes={previewClothes ?? clothes}
 								clothesColor={clothesColor}
