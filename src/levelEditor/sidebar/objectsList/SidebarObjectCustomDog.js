@@ -21,6 +21,7 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 	return (
 		<div className={styles.center}>
 			<DogPreview
+				animation="idle"
 				clothes={typeof obj.clothes === 'string' ? obj.clothes : 'Overalls'}
 				clothesColor={
 					typeof obj.color_body === 'number'

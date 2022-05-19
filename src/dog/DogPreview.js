@@ -3,120 +3,23 @@
 import {useEffect, useMemo, useRef, useState} from 'react';
 
 import Spinner from '../common/Spinner';
+import useInterval from '../util/useInterval';
+import useVisibilityChange from '../util/useVisibilityChange';
 
 import styles from './DogPreview.module.css';
 import drawDogToCanvas from './drawDogToCanvas';
 import {SIZE} from './drawDogToCanvas';
 import type {ChosenHat} from './drawDogToCanvas';
 import headImgSrc from './images/sprDog_head_0.png';
-import idle1ImgSrc from './images/sprDog_idle_A_0.png';
-import idle2ImgSrc from './images/sprDog_idle_B_0.png';
-import earImgSrc from './images/sprDog_idle_ear_0.png';
+import DOG_ANIMATIONS from './types/DogAnimations';
 import {DOG_CLOTHES_LIST} from './types/DogClothesList';
 import {DOG_HAIR_LIST} from './types/DogHairList';
 import {DOG_HAT_LIST} from './types/DogHatList';
-
-function useLoadImage(currentSrc: ?string) {
-	const [loadedSrc, setLoadedSrc] = useState<?string>(null);
-	const img = useRef<?HTMLImageElement>(null);
-
-	useEffect(() => {
-		if (currentSrc == null) {
-			return;
-		}
-
-		const imgRef = document.createElement('img');
-		img.current = imgRef;
-
-		// todo need onerror state
-		function onLoad() {
-			setLoadedSrc(currentSrc);
-		}
-
-		imgRef.addEventListener('load', onLoad);
-		imgRef.src = currentSrc;
-
-		return () => {
-			imgRef.removeEventListener('load', onLoad);
-			img.current = null;
-		};
-	}, [currentSrc]);
-
-	if (currentSrc == null || loadedSrc !== currentSrc) {
-		return null;
-	}
-
-	return img.current;
-}
-
-// This destroys and reloads pairs of images and is less peformant than just one
-function useLoadMultipleImages(currentSrcs: {
-	[key: string]: ?string,
-}): ?{[key: string]: ?HTMLImageElement} {
-	const [loadedSrcs, setLoadedSrcs] = useState<{[key: string]: ?string}>({});
-	const imgs = useRef<{[key: string]: ?HTMLImageElement}>({});
-	const onLoads = useRef<{[key: string]: () => mixed}>({});
-
-	useEffect(() => {
-		const newLoadedSrcs = {};
-		Object.keys(currentSrcs).forEach((key) => {
-			const src = currentSrcs[key];
-			if (src == null) {
-				newLoadedSrcs[key] = null;
-				return;
-			}
-
-			const imgRef = document.createElement('img');
-			imgs.current[key] = imgRef;
-
-			// todo need onerror state
-			onLoads.current[key] = () => {
-				setLoadedSrcs((loadedSrcs) => {
-					return {
-						...loadedSrcs,
-						[key]: currentSrcs[key],
-					};
-				});
-			};
-
-			imgRef.addEventListener('load', onLoads.current[key]);
-			imgRef.src = src;
-		});
-		setLoadedSrcs(newLoadedSrcs);
-
-		return () => {
-			// Ideally, we should try to recycle/cache but it gets really complicated...
-			setLoadedSrcs({});
-
-			Object.keys(currentSrcs).forEach((key) => {
-				if (imgs.current[key]) {
-					// eslint-disable-next-line react-hooks/exhaustive-deps
-					imgs.current[key].removeEventListener('load', onLoads.current[key]);
-
-					// eslint-disable-next-line react-hooks/exhaustive-deps
-					delete onLoads.current[key];
-
-					// eslint-disable-next-line react-hooks/exhaustive-deps
-					delete imgs.current[key];
-				}
-			});
-		};
-	}, [currentSrcs]);
-
-	const currentSrcKeys = Object.keys(currentSrcs);
-	const loadedSrcKeys = Object.keys(loadedSrcs);
-	if (currentSrcKeys.length !== loadedSrcKeys.length) {
-		return null;
-	}
-
-	if (!currentSrcKeys.every((key) => currentSrcs[key] === loadedSrcs[key])) {
-		return null;
-	}
-
-	return imgs.current;
-}
+import useLoadImage from './useLoadImage';
+import useLoadMultipleImages from './useLoadMultipleImages';
 
 type Props = $ReadOnly<{
+	animation: 'idle', // only this for now
 	clothes: string,
 	clothesColor: string,
 	customClothesImage: ?Image,
@@ -192,17 +95,59 @@ export default function DogPreview(props: Props): React$Node {
 		throw new Error('Invalid hair ' + props.hair);
 	}
 
-	const idle2 = useLoadImage(idle2ImgSrc);
+	// Animation
+	const animationInfo = DOG_ANIMATIONS.get(props.animation);
+	if (animationInfo == null) {
+		throw new Error('Invalid animation ' + props.animation);
+	}
+
+	const [animationIndex, setAnimationIndex] = useState(0);
+	const isPageVisible = useVisibilityChange();
+	useInterval(
+		() => {
+			setAnimationIndex(
+				animationIndex < animationInfo.headAnim.length - 1
+					? animationIndex + 1
+					: 0
+			);
+		},
+		isPageVisible && animationInfo.headAnim.length > 0 ? 200 : null
+	);
+
+	const animationImagesToLoad = useMemo(() => {
+		const images: {[key: string]: ?string} = {};
+		for (let i = 0; i < animationInfo.headAnim.length; i += 1) {
+			images['idle1_' + i] = animationInfo.idle1[i];
+			images['idle2_' + i] = animationInfo.idle2[i];
+			images['ear_' + i] = animationInfo.ear[i];
+		}
+		return images;
+	}, [animationInfo]);
+
+	const animationImages = useLoadMultipleImages(animationImagesToLoad);
+
 	const clothes = useLoadImage(clothesInfo.imageWithPaddingPath);
-	const idle1 = useLoadImage(idle1ImgSrc);
 	const clothesLayer2 = useLoadImage(clothesInfo.layer2ImagePath);
 	const head = useLoadImage(headImgSrc);
 	const hair = useLoadImage(hairInfo.imageWithPaddingPath);
-	const ear = useLoadImage(earImgSrc);
 
 	useEffect(() => {
 		const canvas = mainCanvasRef.current;
-		if (!canvas || !idle2 || !clothes || !idle1 || !head || !hair || !ear) {
+		if (
+			!canvas ||
+			!animationImages ||
+			!clothes ||
+			!head ||
+			!hair ||
+			animationImages['idle2_' + animationIndex] == null
+		) {
+			return;
+		}
+
+		const idle2 = animationImages['idle2_' + animationIndex];
+		const idle1 = animationImages['idle1_' + animationIndex];
+		const ear = animationImages['ear_' + animationIndex];
+		if (!idle2 || !idle1 || !ear) {
 			return;
 		}
 
@@ -227,6 +172,11 @@ export default function DogPreview(props: Props): React$Node {
 				skinOutlineColor: props.skinOutlineColor,
 			},
 			{
+				animationCacheKey: props.animation + '_' + animationIndex + '_',
+				clothesAnimationTranslateX: animationInfo.bodyAnim[animationIndex].x,
+				clothesAnimationTranslateY: animationInfo.bodyAnim[animationIndex].y,
+				headAnimationTranslateX: animationInfo.headAnim[animationIndex].x,
+				headAnimationTranslateY: animationInfo.headAnim[animationIndex].y,
 				clothesInfo,
 				hairInfo,
 				hats: hats.map((hat, index) => {
@@ -250,17 +200,18 @@ export default function DogPreview(props: Props): React$Node {
 			}
 		);
 	}, [
+		animationImages,
+		animationIndex,
+		animationInfo,
 		clothes,
 		clothesInfo,
 		clothesLayer2,
-		ear,
 		hair,
 		hairInfo,
 		hats,
 		hatsImages,
 		head,
-		idle1,
-		idle2,
+		props.animation,
 		props.clothesColor,
 		props.customClothesImage,
 		props.skinColor,
@@ -268,13 +219,7 @@ export default function DogPreview(props: Props): React$Node {
 	]);
 
 	const loading =
-		!mainCanvasRef.current ||
-		!idle2 ||
-		!clothes ||
-		!idle1 ||
-		!head ||
-		!hair ||
-		!ear;
+		!mainCanvasRef.current || !animationImages || !clothes || !head || !hair;
 
 	return (
 		<div className={styles.root}>

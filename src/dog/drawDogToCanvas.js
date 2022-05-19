@@ -22,25 +22,7 @@ const CLOTHES_ORIGIN_Y = 599;
 const IDLE_ORIGIN_X = 375;
 const IDLE_ORIGIN_Y = 650;
 
-const HEAD_ANIM_X = -2.5;
-const HEAD_ANIM_Y = -45.6;
-const CLOTHES_ANIM_X = -4.55;
-const CLOTHES_ANIM_Y = -12.05;
-
 const DOG_RES_SCALE = 5;
-
-const HAT_TRANSLATED_X =
-	IDLE_ORIGIN_X + (-HAT_ORIGIN_X + HEAD_ANIM_X * DOG_RES_SCALE);
-const HAT_TRANSLATED_Y =
-	IDLE_ORIGIN_Y + (-HAT_ORIGIN_Y + HEAD_ANIM_Y * DOG_RES_SCALE);
-const HEAD_TRANSLATED_X =
-	IDLE_ORIGIN_X + (-HEAD_ORIGIN_X + HEAD_ANIM_X * DOG_RES_SCALE);
-const HEAD_TRANSLATED_Y =
-	IDLE_ORIGIN_Y + (-HEAD_ORIGIN_Y + HEAD_ANIM_Y * DOG_RES_SCALE);
-const CLOTHES_TRANSLATED_X =
-	IDLE_ORIGIN_X + (-CLOTHES_ORIGIN_X + CLOTHES_ANIM_X * DOG_RES_SCALE);
-const CLOTHES_TRANSLATED_Y =
-	IDLE_ORIGIN_Y + (-CLOTHES_ORIGIN_Y + CLOTHES_ANIM_Y * DOG_RES_SCALE);
 
 export type ChosenHat = {
 	name: string,
@@ -65,6 +47,11 @@ export default function drawDogToCanvas(
 		skinOutlineColor?: string,
 	},
 	options: {
+		animationCacheKey: string,
+		clothesAnimationTranslateX: number,
+		clothesAnimationTranslateY: number,
+		headAnimationTranslateX: number,
+		headAnimationTranslateY: number,
 		clothesInfo: DogClothesType,
 		hairInfo: DogHairType,
 		hats: $ReadOnlyArray<{
@@ -92,6 +79,29 @@ export default function drawDogToCanvas(
 		images.clothes.width <= CUSTOM_CLOTHES_WIDTH &&
 		images.clothes.height <= CUSTOM_CLOTHES_HEIGHT;
 
+	// Animation translated offsets
+	const hatTranslatedX =
+		IDLE_ORIGIN_X +
+		(-HAT_ORIGIN_X + options.headAnimationTranslateX * DOG_RES_SCALE);
+	const hatTranslatedY =
+		IDLE_ORIGIN_Y +
+		(-HAT_ORIGIN_Y + options.headAnimationTranslateY * DOG_RES_SCALE);
+
+	const headTranslatedX =
+		IDLE_ORIGIN_X +
+		(-HEAD_ORIGIN_X + options.headAnimationTranslateX * DOG_RES_SCALE);
+	const headTranslatedY =
+		IDLE_ORIGIN_Y +
+		(-HEAD_ORIGIN_Y + options.headAnimationTranslateY * DOG_RES_SCALE);
+
+	const clothesTranslatedX =
+		IDLE_ORIGIN_X +
+		(-CLOTHES_ORIGIN_X + options.clothesAnimationTranslateX * DOG_RES_SCALE);
+	const clothesTranslatedY =
+		IDLE_ORIGIN_Y +
+		(-CLOTHES_ORIGIN_Y + options.clothesAnimationTranslateY * DOG_RES_SCALE);
+
+	// Start drawing!
 	const ctx = getCanvasRenderingContext(canvas, true);
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -101,7 +111,7 @@ export default function drawDogToCanvas(
 		{
 			fillColor: colors.skinColor,
 			outlineColor: colors.skinOutlineColor,
-			cacheKey: 'idle2',
+			cacheKey: options.animationCacheKey + 'idle2',
 		},
 		0,
 		0,
@@ -113,8 +123,8 @@ export default function drawDogToCanvas(
 		ctx,
 		images.clothes,
 		{fillColor: colors.clothesColor},
-		hasCustomClothes ? 255 + CLOTHES_TRANSLATED_X : CLOTHES_TRANSLATED_X,
-		hasCustomClothes ? 424 + CLOTHES_TRANSLATED_Y : CLOTHES_TRANSLATED_Y,
+		hasCustomClothes ? 255 + clothesTranslatedX : clothesTranslatedX,
+		hasCustomClothes ? 424 + clothesTranslatedY : clothesTranslatedY,
 		images.clothes.width,
 		images.clothes.height
 	);
@@ -125,8 +135,8 @@ export default function drawDogToCanvas(
 			ctx,
 			hatOrClothesLayer2,
 			{fillColor: options.hats[0].color},
-			CLOTHES_TRANSLATED_X,
-			CLOTHES_TRANSLATED_Y,
+			clothesTranslatedX,
+			clothesTranslatedY,
 			SIZE,
 			SIZE
 		);
@@ -139,7 +149,7 @@ export default function drawDogToCanvas(
 		{
 			fillColor: colors.skinColor,
 			outlineColor: colors.skinOutlineColor,
-			cacheKey: 'idle1',
+			cacheKey: options.animationCacheKey + 'idle1',
 		},
 		0,
 		0,
@@ -156,8 +166,8 @@ export default function drawDogToCanvas(
 				{fillColor: options.hats[0].color},
 				// this is from game code and this condition won't pass anyway
 				// collar === 1 ? colors.clothesColor : colors.hatColor,
-				CLOTHES_TRANSLATED_X,
-				CLOTHES_TRANSLATED_Y,
+				clothesTranslatedX,
+				clothesTranslatedY,
 				SIZE,
 				SIZE
 			);
@@ -171,8 +181,8 @@ export default function drawDogToCanvas(
 						{fillColor: hat.color},
 						// this is from game code and this condition won't pass anyway
 						// collar === 1 ? colors.clothesColor : colors.hatColor,
-						HAT_TRANSLATED_X,
-						HAT_TRANSLATED_Y,
+						hatTranslatedX,
+						hatTranslatedY,
 						SIZE,
 						SIZE
 					);
@@ -193,8 +203,8 @@ export default function drawDogToCanvas(
 				ctx,
 				hat.hatShowHairExtra,
 				{fillColor: hat.color},
-				HAT_TRANSLATED_X,
-				HAT_TRANSLATED_Y,
+				hatTranslatedX,
+				hatTranslatedY,
 				SIZE,
 				SIZE
 			);
@@ -209,8 +219,8 @@ export default function drawDogToCanvas(
 			outlineColor: colors.skinOutlineColor,
 			cacheKey: 'head',
 		},
-		HEAD_TRANSLATED_X,
-		HEAD_TRANSLATED_Y,
+		headTranslatedX,
+		headTranslatedY,
 		480,
 		480
 	);
@@ -234,8 +244,8 @@ export default function drawDogToCanvas(
 				outlineColor: colors.skinOutlineColor,
 				cacheKey: 'hair_' + options.hairInfo.internalName,
 			},
-			HAT_TRANSLATED_X,
-			HAT_TRANSLATED_Y,
+			hatTranslatedX,
+			hatTranslatedY,
 			SIZE,
 			SIZE
 		);
@@ -248,8 +258,8 @@ export default function drawDogToCanvas(
 				ctx,
 				hat.hat,
 				{fillColor: hat.color},
-				HAT_TRANSLATED_X,
-				HAT_TRANSLATED_Y,
+				hatTranslatedX,
+				hatTranslatedY,
 				SIZE,
 				SIZE
 			);
@@ -266,8 +276,8 @@ export default function drawDogToCanvas(
 				fillColor:
 					clothesCollar === 1 ? colors.clothesColor : options.hats[0].color,
 			},
-			HAT_TRANSLATED_X,
-			HAT_TRANSLATED_Y,
+			hatTranslatedX,
+			hatTranslatedY,
 			SIZE,
 			SIZE
 		);
@@ -279,7 +289,7 @@ export default function drawDogToCanvas(
 		{
 			fillColor: colors.skinColor,
 			outlineColor: colors.skinOutlineColor,
-			cacheKey: 'ear',
+			cacheKey: options.animationCacheKey + 'ear',
 		},
 		0,
 		0,
@@ -299,8 +309,8 @@ export default function drawDogToCanvas(
 				ctx,
 				hat.hat,
 				{fillColor: hat.color},
-				hasCustomHat ? 161 + HAT_TRANSLATED_X : HAT_TRANSLATED_X,
-				hasCustomHat ? 48 + HAT_TRANSLATED_Y : HAT_TRANSLATED_Y,
+				hasCustomHat ? 161 + hatTranslatedX : hatTranslatedX,
+				hasCustomHat ? 48 + hatTranslatedY : hatTranslatedY,
 				hat.hat.width,
 				hat.hat.height
 			);

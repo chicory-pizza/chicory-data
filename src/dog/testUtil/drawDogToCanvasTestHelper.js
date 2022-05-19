@@ -8,6 +8,7 @@ import {loadImage} from 'canvas';
 import drawDogToCanvas from '../drawDogToCanvas';
 import {SIZE} from '../drawDogToCanvas';
 import type {ChosenHat} from '../drawDogToCanvas';
+import DOG_ANIMATIONS from '../types/DogAnimations';
 import {DOG_CLOTHES_LIST} from '../types/DogClothesList';
 import {DOG_HAIR_LIST} from '../types/DogHairList';
 import {DOG_HAT_LIST} from '../types/DogHatList';
@@ -92,6 +93,27 @@ export default async function renderDogToCanvasHelper(options: {
 		throw new Error('Invalid hair ' + options.hair);
 	}
 
+	// Animation
+	const animation = 'idle'; // only this for now
+	const animationInfo = DOG_ANIMATIONS.get(animation);
+	if (animationInfo == null) {
+		throw new Error('Invalid animation ' + animation);
+	}
+
+	const idle2 = path.resolve(
+		__dirname,
+		'../images/dog_animations/' + animation + '/' + animationInfo.idle2[0]
+	);
+	const idle1 = path.resolve(
+		__dirname,
+		'../images/dog_animations/' + animation + '/' + animationInfo.idle1[0]
+	);
+	const ear = path.resolve(
+		__dirname,
+		'../images/dog_animations/' + animation + '/' + animationInfo.ear[0]
+	);
+
+	// Start drawing!
 	const canvas = document.createElement('canvas');
 	canvas.width = SIZE;
 	canvas.height = SIZE;
@@ -99,9 +121,7 @@ export default async function renderDogToCanvasHelper(options: {
 	drawDogToCanvas(
 		canvas,
 		{
-			idle2: await loadImage(
-				path.resolve(__dirname, '../images/sprDog_idle_B_0.png')
-			),
+			idle2: await loadImage(idle2),
 			clothes:
 				clothesInfo.internalName === 'Custom Tee' &&
 				options.customClothesImage != null
@@ -113,9 +133,7 @@ export default async function renderDogToCanvasHelper(options: {
 								clothesInfo.imageWithPaddingPath
 							)
 					  ),
-			idle1: await loadImage(
-				path.resolve(__dirname, '../images/sprDog_idle_A_0.png')
-			),
+			idle1: await loadImage(idle1),
 			clothesLayer2:
 				clothesInfo.layer2ImagePath != null
 					? await loadImage(
@@ -138,9 +156,7 @@ export default async function renderDogToCanvasHelper(options: {
 				)
 			),
 
-			ear: await loadImage(
-				path.resolve(__dirname, '../images/sprDog_idle_ear_0.png')
-			),
+			ear: await loadImage(ear),
 		},
 		{
 			clothesColor: options.clothesColor,
@@ -148,6 +164,11 @@ export default async function renderDogToCanvasHelper(options: {
 			skinOutlineColor: options.skinOutlineColor,
 		},
 		{
+			animationCacheKey: animation + '_0_',
+			clothesAnimationTranslateX: animationInfo.bodyAnim[0].x,
+			clothesAnimationTranslateY: animationInfo.bodyAnim[0].y,
+			headAnimationTranslateX: animationInfo.headAnim[0].x,
+			headAnimationTranslateY: animationInfo.headAnim[0].y,
 			clothesInfo,
 			hairInfo,
 			hats,
