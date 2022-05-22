@@ -102,6 +102,26 @@ test('multiple hats', async () => {
 	expect(image).toMatchImageSnapshot();
 });
 
+test('expression', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Avast',
+		clothesColor: '#ff0000',
+		expression: 'cheeky',
+		hair: 'Bob',
+		hats: [
+			{
+				name: 'Ahoy',
+				color: '#00ff00',
+				customImage: null,
+			},
+		],
+		skinColor: '#0000ff',
+	});
+
+	// $FlowFixMe[incompatible-call]
+	expect(image).toMatchImageSnapshot();
+});
+
 // myself lol
 test('Pancake', async () => {
 	const image = await drawDogToCanvasTestHelper({

@@ -12,6 +12,7 @@ import styles from './DogEditorApp.module.css';
 import DogEditorFileInput from './DogEditorFileInput';
 import DogEditorHatLayer from './DogEditorHatLayer';
 import {reducer} from './DogEditorHatReducer';
+import DogExpressionSelect from './DogExpressionSelect';
 import DogHairSelect from './DogHairSelect';
 import DogPreview from './DogPreview';
 import {
@@ -35,6 +36,7 @@ export default function DogEditorApp(): React$Node {
 		],
 	});
 	const [hair, setHair] = useState('Simple');
+	const [expression, setExpression] = useState('normal');
 
 	const [clothesColor, setClothesColor] = useState('#FFFFFF');
 	const [skinColor, setSkinColor] = useState('#FFFFFF');
@@ -45,6 +47,7 @@ export default function DogEditorApp(): React$Node {
 	// Previews
 	const [previewClothes, setPreviewClothes] = useState<?string>(null);
 	const [previewHair, setPreviewHair] = useState<?string>(null);
+	const [previewExpression, setPreviewExpression] = useState<?string>(null);
 
 	const hatsInPreview = useMemo(() => {
 		return hatsState.hats.map((hat) => {
@@ -97,6 +100,7 @@ export default function DogEditorApp(): React$Node {
 								clothes={previewClothes ?? clothes}
 								clothesColor={clothesColor}
 								customClothesImage={customClothesImage}
+								expression={previewExpression ?? expression}
 								hats={hatsInPreview}
 								hair={previewHair ?? hair}
 								height={750}
@@ -190,6 +194,16 @@ export default function DogEditorApp(): React$Node {
 							/>
 						</div>
 						<div />
+
+						<div className={styles.label}>Expression:</div>
+						<div className={styles.select}>
+							<DogExpressionSelect
+								onChange={setExpression}
+								onPreviewChange={setPreviewExpression}
+								value={expression}
+							/>
+						</div>
+						<div />
 					</div>
 
 					<div className={styles.chicorobot}>
@@ -197,6 +211,7 @@ export default function DogEditorApp(): React$Node {
 							<DogChicorobotCode
 								clothes={previewClothes ?? clothes}
 								clothesColor={clothesColor}
+								expression={previewExpression ?? expression}
 								hat={hatsState.hats[0].previewName ?? hatsState.hats[0].name}
 								hatColor={hatsState.hats[0].color}
 								skinColor={skinColor}

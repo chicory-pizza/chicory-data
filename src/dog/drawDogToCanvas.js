@@ -15,14 +15,23 @@ export const CUSTOM_HAT_HEIGHT = 480;
 
 const HAT_ORIGIN_X = 385;
 const HAT_ORIGIN_Y = 420;
-const HEAD_ORIGIN_X = 225;
-const HEAD_ORIGIN_Y = 370;
 const CLOTHES_ORIGIN_X = 375;
 const CLOTHES_ORIGIN_Y = 599;
 const IDLE_ORIGIN_X = 375;
 const IDLE_ORIGIN_Y = 650;
 
 const DOG_RES_SCALE = 5;
+
+const HEAD_BIG_SIZE = 480;
+function getHeadOrigin(head: CanvasImageSource): [number, number] {
+	// sprDog_head_0 is bigger
+	if (head.width === HEAD_BIG_SIZE && head.height === HEAD_BIG_SIZE) {
+		return [225, 370];
+	}
+
+	// 150x150
+	return [77 * 5, 84 * 5];
+}
 
 export type ChosenHat = {
 	name: string,
@@ -50,6 +59,7 @@ export default function drawDogToCanvas(
 		animationCacheKey: string,
 		clothesAnimationTranslateX: number,
 		clothesAnimationTranslateY: number,
+		expressionCacheKey: string,
 		headAnimationTranslateX: number,
 		headAnimationTranslateY: number,
 		clothesInfo: DogClothesType,
@@ -89,10 +99,12 @@ export default function drawDogToCanvas(
 
 	const headTranslatedX =
 		IDLE_ORIGIN_X +
-		(-HEAD_ORIGIN_X + options.headAnimationTranslateX * DOG_RES_SCALE);
+		(-getHeadOrigin(images.head)[0] +
+			options.headAnimationTranslateX * DOG_RES_SCALE);
 	const headTranslatedY =
 		IDLE_ORIGIN_Y +
-		(-HEAD_ORIGIN_Y + options.headAnimationTranslateY * DOG_RES_SCALE);
+		(-getHeadOrigin(images.head)[1] +
+			options.headAnimationTranslateY * DOG_RES_SCALE);
 
 	const clothesTranslatedX =
 		IDLE_ORIGIN_X +
@@ -217,12 +229,16 @@ export default function drawDogToCanvas(
 		{
 			fillColor: colors.skinColor,
 			outlineColor: colors.skinOutlineColor,
-			cacheKey: 'head',
+			cacheKey: options.expressionCacheKey + '_head',
 		},
 		headTranslatedX,
 		headTranslatedY,
-		480,
-		480
+		images.head.width === HEAD_BIG_SIZE && images.head.height === HEAD_BIG_SIZE
+			? HEAD_BIG_SIZE
+			: SIZE,
+		images.head.width === HEAD_BIG_SIZE && images.head.height === HEAD_BIG_SIZE
+			? HEAD_BIG_SIZE
+			: SIZE
 	);
 
 	if (

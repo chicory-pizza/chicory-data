@@ -10,9 +10,9 @@ import styles from './DogPreview.module.css';
 import drawDogToCanvas from './drawDogToCanvas';
 import {SIZE} from './drawDogToCanvas';
 import type {ChosenHat} from './drawDogToCanvas';
-import headImgSrc from './images/sprDog_head_0.png';
 import DOG_ANIMATIONS from './types/DogAnimations';
 import {DOG_CLOTHES_LIST} from './types/DogClothesList';
+import {DOG_EXPRESSION_LIST} from './types/DogExpressionList';
 import {DOG_HAIR_LIST} from './types/DogHairList';
 import {DOG_HAT_LIST} from './types/DogHatList';
 import useLoadImage from './useLoadImage';
@@ -23,6 +23,7 @@ type Props = $ReadOnly<{
 	clothes: string,
 	clothesColor: string,
 	customClothesImage: ?Image,
+	expression: string,
 	hats: $ReadOnlyArray<ChosenHat>,
 	hair: string,
 	height: number,
@@ -95,6 +96,17 @@ export default function DogPreview(props: Props): React$Node {
 		throw new Error('Invalid hair ' + props.hair);
 	}
 
+	// Expression
+	const expressionInfo = useMemo(() => {
+		return DOG_EXPRESSION_LIST.find((expression) => {
+			return props.expression === expression.value;
+		});
+	}, [props.expression]);
+
+	if (!expressionInfo) {
+		throw new Error('Invalid expression ' + props.expression);
+	}
+
 	// Animation
 	const animationInfo = DOG_ANIMATIONS.get(props.animation);
 	if (animationInfo == null) {
@@ -128,7 +140,7 @@ export default function DogPreview(props: Props): React$Node {
 
 	const clothes = useLoadImage(clothesInfo.imageWithPaddingPath);
 	const clothesLayer2 = useLoadImage(clothesInfo.layer2ImagePath);
-	const head = useLoadImage(headImgSrc);
+	const head = useLoadImage(expressionInfo.image);
 	const hair = useLoadImage(hairInfo.imageWithPaddingPath);
 
 	useEffect(() => {
@@ -175,6 +187,7 @@ export default function DogPreview(props: Props): React$Node {
 				animationCacheKey: props.animation + '_' + animationIndex + '_',
 				clothesAnimationTranslateX: animationInfo.bodyAnim[animationIndex].x,
 				clothesAnimationTranslateY: animationInfo.bodyAnim[animationIndex].y,
+				expressionCacheKey: props.expression,
 				headAnimationTranslateX: animationInfo.headAnim[animationIndex].x,
 				headAnimationTranslateY: animationInfo.headAnim[animationIndex].y,
 				clothesInfo,
@@ -214,6 +227,7 @@ export default function DogPreview(props: Props): React$Node {
 		props.animation,
 		props.clothesColor,
 		props.customClothesImage,
+		props.expression,
 		props.skinColor,
 		props.skinOutlineColor,
 	]);

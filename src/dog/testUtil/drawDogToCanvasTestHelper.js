@@ -10,6 +10,7 @@ import {SIZE} from '../drawDogToCanvas';
 import type {ChosenHat} from '../drawDogToCanvas';
 import DOG_ANIMATIONS from '../types/DogAnimations';
 import {DOG_CLOTHES_LIST} from '../types/DogClothesList';
+import {DOG_EXPRESSION_LIST} from '../types/DogExpressionList';
 import {DOG_HAIR_LIST} from '../types/DogHairList';
 import {DOG_HAT_LIST} from '../types/DogHatList';
 
@@ -17,6 +18,7 @@ export default async function renderDogToCanvasHelper(options: {
 	clothes: string,
 	clothesColor: string,
 	customClothesImage?: CanvasImageSource,
+	expression?: string,
 	hair: string,
 	hats: $ReadOnlyArray<ChosenHat>,
 	skinColor: string,
@@ -93,6 +95,19 @@ export default async function renderDogToCanvasHelper(options: {
 		throw new Error('Invalid hair ' + options.hair);
 	}
 
+	// Expression
+	const expression = options.expression;
+	let expressionInfo;
+	if (expression != null) {
+		expressionInfo = DOG_EXPRESSION_LIST.find((expression) => {
+			return options.expression === expression.value;
+		});
+
+		if (!expressionInfo) {
+			throw new Error('Invalid expression ' + expression);
+		}
+	}
+
 	// Animation
 	const animation = 'idle'; // only this for now
 	const animationInfo = DOG_ANIMATIONS.get(animation);
@@ -146,7 +161,13 @@ export default async function renderDogToCanvasHelper(options: {
 					: null,
 
 			head: await loadImage(
-				path.resolve(__dirname, '../images/sprDog_head_0.png')
+				expressionInfo != null
+					? path.resolve(
+							__dirname,
+							'../images/dog_expressions/',
+							expressionInfo.image
+					  )
+					: path.resolve(__dirname, '../images/sprDog_head_0.png')
 			),
 			hair: await loadImage(
 				path.resolve(
@@ -167,6 +188,7 @@ export default async function renderDogToCanvasHelper(options: {
 			animationCacheKey: animation + '_0_',
 			clothesAnimationTranslateX: animationInfo.bodyAnim[0].x,
 			clothesAnimationTranslateY: animationInfo.bodyAnim[0].y,
+			expressionCacheKey: options.expression ?? 'head',
 			headAnimationTranslateX: animationInfo.headAnim[0].x,
 			headAnimationTranslateY: animationInfo.headAnim[0].y,
 			clothesInfo,
