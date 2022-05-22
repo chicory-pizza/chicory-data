@@ -15,6 +15,7 @@ import {reducer} from './DogEditorHatReducer';
 import DogExpressionSelect from './DogExpressionSelect';
 import DogHairSelect from './DogHairSelect';
 import DogPreview from './DogPreview';
+import DogSpeech from './DogSpeech';
 import {
 	CUSTOM_CLOTHES_HEIGHT,
 	CUSTOM_CLOTHES_WIDTH,
@@ -93,6 +94,8 @@ export default function DogEditorApp(): React$Node {
 
 			<div className={styles.main}>
 				<ErrorBoundary>
+					<DogSpeech />
+
 					<div className={styles.dog}>
 						<ErrorBoundary canReload={true}>
 							<DogPreview
