@@ -1,0 +1,39 @@
+{
+	"short_name": "Chicory Modding",
+	"name": "Chicory: A Colorful Modding",
+	"icons": [
+		{
+			"src": "favicon.ico",
+			"sizes": "48x48 32x32 16x16",
+			"type": "image/x-icon"
+		},
+		{
+			"src": "/icon192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "/icon512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": "/",
+	"background_color": "#EEEEEE",
+	"display": "minimal-ui",
+	"scope": "/",
+	"theme_color": "#000000",
+	"shortcuts": [
+		{
+			"name": "⛰ Level editor",
+			"short_name": "Level editor",
+			"url": "/level/0_0_0"
+		},
+		{
+			"name": "🐶 Drawdog maker",
+			"short_name": "Drawdog maker",
+			"url": "/dog"
+		}
+	],
+	"description": "Modding tools for Chicory: A Colorful Tale, such as level viewer and editor"
+}
