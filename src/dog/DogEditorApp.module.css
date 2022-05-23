@@ -6,15 +6,20 @@
 
 .main {
 	display: flex;
-	flex-direction: column;
 	border-top: 1px solid #000;
 	flex: 1;
 	overflow: scroll;
-	padding: 0 10px 250px;
+	padding: 0 10px;
 }
 
 .dog {
 	margin-bottom: 10px;
+}
+
+.editorControls {
+	display: flex;
+	flex-direction: column;
+	padding: 10px 0 250px;
 }
 
 .grid {

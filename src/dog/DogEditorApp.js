@@ -93,135 +93,141 @@ export default function DogEditorApp(): React$Node {
 			<AppHeader title="Drawdog maker" />
 
 			<div className={styles.main}>
-				<ErrorBoundary>
-					<DogSpeech />
+				<div>
+					<ErrorBoundary>
+						<DogSpeech />
 
-					<div className={styles.dog}>
-						<ErrorBoundary canReload={true}>
-							<DogPreview
-								animation="idle"
-								clothes={previewClothes ?? clothes}
-								clothesColor={clothesColor}
-								customClothesImage={customClothesImage}
-								expression={previewExpression ?? expression}
-								hats={hatsInPreview}
-								hair={previewHair ?? hair}
-								height={750}
-								skinColor={skinColor}
-								skinOutlineColor={skinOutlineColor}
-								width={750}
-							/>
-						</ErrorBoundary>
-					</div>
-
-					<div className={styles.grid}>
-						<div className={styles.label}>Clothes:</div>
-						<div className={styles.select}>
-							<DogClothesSelect
-								onChange={setClothes}
-								onPreviewChange={setPreviewClothes}
-								value={clothes}
-							/>
+						<div className={styles.dog}>
+							<ErrorBoundary canReload={true}>
+								<DogPreview
+									animation="idle"
+									clothes={previewClothes ?? clothes}
+									clothesColor={clothesColor}
+									customClothesImage={customClothesImage}
+									expression={previewExpression ?? expression}
+									hats={hatsInPreview}
+									hair={previewHair ?? hair}
+									height={750}
+									skinColor={skinColor}
+									skinOutlineColor={skinOutlineColor}
+									width={750}
+								/>
+							</ErrorBoundary>
 						</div>
+					</ErrorBoundary>
+				</div>
 
-						<div className={styles.controls}>
-							<div className={styles.controlLabel}>Color:</div>
-							<div className={styles.color}>
+				<div className={styles.editorControls}>
+					<ErrorBoundary>
+						<div className={styles.grid}>
+							<div className={styles.label}>Clothes:</div>
+							<div className={styles.select}>
+								<DogClothesSelect
+									onChange={setClothes}
+									onPreviewChange={setPreviewClothes}
+									value={clothes}
+								/>
+							</div>
+
+							<div className={styles.controls}>
+								<div className={styles.controlLabel}>Color:</div>
+								<div className={styles.color}>
+									<input
+										type="color"
+										value={clothesColor}
+										onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
+											setClothesColor(ev.currentTarget.value);
+										}}
+									/>
+								</div>
+
+								<div className={styles.controlLabel}>Custom clothes:</div>
+								<DogEditorFileInput onFileLoad={onNewClothesImage} />
+								<div className={styles.dimensions}>
+									({CUSTOM_CLOTHES_WIDTH}×{CUSTOM_CLOTHES_HEIGHT} or {SIZE}×
+									{SIZE})
+								</div>
+							</div>
+
+							{hatsState.hats.map((hat, index) => {
+								return (
+									<DogEditorHatLayer
+										dispatchHats={dispatchHats}
+										hat={hatsState.hats[index]}
+										key={index}
+										layer={index}
+										totalHatsCount={hatsState.hats.length}
+									/>
+								);
+							})}
+
+							<div className={styles.addHatLayer}>
+								<button onClick={addNewHatLayer} type="button">
+									Add new hat layer
+								</button>
+							</div>
+							<div />
+							<div />
+
+							<div className={styles.label}>Hair:</div>
+							<div className={styles.select}>
+								<DogHairSelect
+									onChange={setHair}
+									onPreviewChange={setPreviewHair}
+									value={hair}
+								/>
+							</div>
+							<div />
+
+							<div className={styles.label}>Skin fill:</div>
+							<div className={styles.select + ' ' + styles.controls}>
 								<input
 									type="color"
-									value={clothesColor}
+									value={skinColor}
 									onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
-										setClothesColor(ev.currentTarget.value);
+										setSkinColor(ev.currentTarget.value);
 									}}
 								/>
 							</div>
+							<div />
 
-							<div className={styles.controlLabel}>Custom clothes:</div>
-							<DogEditorFileInput onFileLoad={onNewClothesImage} />
-							<div className={styles.dimensions}>
-								({CUSTOM_CLOTHES_WIDTH}×{CUSTOM_CLOTHES_HEIGHT} or {SIZE}×{SIZE}
-								)
-							</div>
-						</div>
-
-						{hatsState.hats.map((hat, index) => {
-							return (
-								<DogEditorHatLayer
-									dispatchHats={dispatchHats}
-									hat={hatsState.hats[index]}
-									key={index}
-									layer={index}
-									totalHatsCount={hatsState.hats.length}
+							<div className={styles.label}>Skin outline:</div>
+							<div className={styles.select + ' ' + styles.controls}>
+								<input
+									type="color"
+									value={skinOutlineColor}
+									onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
+										setSkinOutlineColor(ev.currentTarget.value);
+									}}
 								/>
-							);
-						})}
+							</div>
+							<div />
 
-						<div className={styles.addHatLayer}>
-							<button onClick={addNewHatLayer} type="button">
-								Add new hat layer
-							</button>
+							<div className={styles.label}>Expression:</div>
+							<div className={styles.select}>
+								<DogExpressionSelect
+									onChange={setExpression}
+									onPreviewChange={setPreviewExpression}
+									value={expression}
+								/>
+							</div>
+							<div />
 						</div>
-						<div />
-						<div />
 
-						<div className={styles.label}>Hair:</div>
-						<div className={styles.select}>
-							<DogHairSelect
-								onChange={setHair}
-								onPreviewChange={setPreviewHair}
-								value={hair}
-							/>
+						<div className={styles.chicorobot}>
+							<ErrorBoundary>
+								<DogChicorobotCode
+									clothes={previewClothes ?? clothes}
+									clothesColor={clothesColor}
+									expression={previewExpression ?? expression}
+									hat={hatsState.hats[0].previewName ?? hatsState.hats[0].name}
+									hatColor={hatsState.hats[0].color}
+									skinColor={skinColor}
+								/>
+							</ErrorBoundary>
 						</div>
-						<div />
-
-						<div className={styles.label}>Skin fill:</div>
-						<div className={styles.select + ' ' + styles.controls}>
-							<input
-								type="color"
-								value={skinColor}
-								onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
-									setSkinColor(ev.currentTarget.value);
-								}}
-							/>
-						</div>
-						<div />
-
-						<div className={styles.label}>Skin outline:</div>
-						<div className={styles.select + ' ' + styles.controls}>
-							<input
-								type="color"
-								value={skinOutlineColor}
-								onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
-									setSkinOutlineColor(ev.currentTarget.value);
-								}}
-							/>
-						</div>
-						<div />
-
-						<div className={styles.label}>Expression:</div>
-						<div className={styles.select}>
-							<DogExpressionSelect
-								onChange={setExpression}
-								onPreviewChange={setPreviewExpression}
-								value={expression}
-							/>
-						</div>
-						<div />
-					</div>
-
-					<div className={styles.chicorobot}>
-						<ErrorBoundary>
-							<DogChicorobotCode
-								clothes={previewClothes ?? clothes}
-								clothesColor={clothesColor}
-								expression={previewExpression ?? expression}
-								hat={hatsState.hats[0].previewName ?? hatsState.hats[0].name}
-								hatColor={hatsState.hats[0].color}
-								skinColor={skinColor}
-							/>
-						</ErrorBoundary>
-					</div>
-				</ErrorBoundary>
+					</ErrorBoundary>
+				</div>
 			</div>
 		</div>
 	);
