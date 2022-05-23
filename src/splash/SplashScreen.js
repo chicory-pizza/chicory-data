@@ -7,13 +7,13 @@ import {Link} from 'react-router-dom';
 import DiscordIcon from '../header/DiscordIcon';
 import GitHubIcon from '../header/GitHubIcon';
 
-import logoImg from './logo.gif';
+import SplashChicoryLogo from './SplashChicoryLogo';
 import styles from './SplashScreen.module.css';
 
 export default function SplashScreen(): React$Node {
 	return (
 		<div className={styles.root}>
-			<img src={logoImg} width={350} height={197} alt="Chicory logo" />
+			<SplashChicoryLogo />
 
 			<h1 className={styles.heading}>Chicory: A Colorful Modding</h1>
 

@@ -1,0 +1,11 @@
+.logo {
+	background: url('logo_sprite.png') no-repeat;
+	background-size: 350px 3546px;
+	background-position: 0 197px; /* hide it */
+	width: 350px;
+	height: 197px;
+}
+
+.logoFallback {
+	background-position: 0 -3349px;
+}
