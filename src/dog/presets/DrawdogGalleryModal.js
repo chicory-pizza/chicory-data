@@ -57,7 +57,9 @@ export default function DrawdogGalleryModal(props: Props): React$Node {
 							// eslint-disable-next-line jsx-a11y/anchor-is-valid
 							<a
 								href="#"
+								onBlur={() => onMouseLeave(preset)}
 								onClick={() => onSelect(preset)}
+								onFocus={() => onMouseEnter(preset)}
 								onMouseEnter={() => onMouseEnter(preset)}
 								onMouseLeave={() => onMouseLeave(preset)}
 								className={styles.preset}

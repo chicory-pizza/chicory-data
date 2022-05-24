@@ -12,11 +12,15 @@
 	transition: transform 0.1s ease;
 }
 
-.preset:hover {
+.preset:hover,
+.preset:active,
+.preset:focus {
 	color: rgb(255, 166, 148);
 }
 
-.preset:hover .dogPreview {
+.preset:hover .dogPreview,
+.preset:active .dogPreview,
+.preset:focus .dogPreview {
 	transform: scale(1.05);
 }
 
