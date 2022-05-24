@@ -2,30 +2,3 @@
 	display: grid;
 	grid-template-columns: repeat(4, auto);
 }
-
-.preset {
-	cursor: pointer;
-	margin-bottom: 10px;
-}
-
-.dogPreview {
-	transition: transform 0.1s ease;
-}
-
-.preset:hover,
-.preset:active,
-.preset:focus {
-	color: rgb(255, 166, 148);
-}
-
-.preset:hover .dogPreview,
-.preset:active .dogPreview,
-.preset:focus .dogPreview {
-	transform: scale(1.05);
-}
-
-.name {
-	margin-top: 5px;
-	padding: 5px;
-	text-align: center;
-}
