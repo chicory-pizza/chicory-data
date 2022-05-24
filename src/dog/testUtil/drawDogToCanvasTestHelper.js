@@ -17,12 +17,12 @@ import {DOG_HAT_LIST} from '../types/DogHatList';
 export default async function renderDogToCanvasHelper(options: {
 	clothes: string,
 	clothesColor: string,
-	customClothesImage?: CanvasImageSource,
+	customClothesImage?: ?CanvasImageSource,
 	expression?: string,
 	hair: string,
 	hats: $ReadOnlyArray<{
 		...ChosenHat,
-		customImage: ?Image,
+		customImage: ?CanvasImageSource,
 	}>,
 	skinColor: string,
 	skinOutlineColor?: string,

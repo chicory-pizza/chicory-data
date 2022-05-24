@@ -7,28 +7,11 @@ import {loadImage} from 'canvas';
 // $FlowFixMe[untyped-import]
 import {toMatchImageSnapshot} from 'jest-image-snapshot';
 
+import {DRAWDOG_PRESETS} from '../presets/DrawdogPresets';
+import type {DrawdogPreset} from '../presets/DrawdogPresets';
 import drawDogToCanvasTestHelper from '../testUtil/drawDogToCanvasTestHelper';
 
 expect.extend({toMatchImageSnapshot});
-
-test('basic dog', async () => {
-	const image = await drawDogToCanvasTestHelper({
-		clothes: 'Overalls',
-		clothesColor: '#ffffff',
-		hair: 'Simple',
-		hats: [
-			{
-				name: 'Bandana',
-				color: '#ffffff',
-				customImage: null,
-			},
-		],
-		skinColor: '#ffffff',
-	});
-
-	// $FlowFixMe[incompatible-call]
-	expect(image).toMatchImageSnapshot();
-});
 
 test('hiker clothes', async () => {
 	const image = await drawDogToCanvasTestHelper({
@@ -122,187 +105,37 @@ test('expression', async () => {
 	expect(image).toMatchImageSnapshot();
 });
 
-// myself lol
-test('Pancake', async () => {
-	const image = await drawDogToCanvasTestHelper({
-		clothes: 'Scarf',
-		clothesColor: '#00f3dd',
-		hair: 'Hedgehog',
-		hats: [
-			{
-				name: 'Spellcaster',
-				color: '#b69aff',
-				customImage: null,
-			},
-		],
-		skinColor: '#ffa694',
-	});
-
-	// $FlowFixMe[incompatible-call]
-	expect(image).toMatchImageSnapshot();
-});
-
-// drawdogs from various members from Discord!
-test('Burrito', async () => {
-	const image = await drawDogToCanvasTestHelper({
-		clothes: 'Wielder Cloak',
-		clothesColor: '#B432FF',
-		hair: 'Big Fluffy',
-		hats: [
-			{
-				name: 'Bow',
-				color: '#8C44A4',
-				customImage: null,
-			},
-		],
-		skinColor: '#FFF2C9',
-	});
-
-	// $FlowFixMe[incompatible-call]
-	expect(image).toMatchImageSnapshot();
-});
-
-test('Cocoa', async () => {
-	const image = await drawDogToCanvasTestHelper({
-		clothes: 'Scarf',
-		clothesColor: '#DFDEF5',
-		hair: 'Simple',
-		hats: [
-			{
-				name: 'Round Glasses',
-				color: '#B1E2E5',
-				customImage: null,
-			},
-		],
-		skinColor: '#665E58',
-	});
-
-	// $FlowFixMe[incompatible-call]
-	expect(image).toMatchImageSnapshot();
-});
-
-test('Hot Wings', async () => {
-	const image = await drawDogToCanvasTestHelper({
-		clothes: 'Wielder Cloak',
-		clothesColor: '#B696ED',
-		hair: 'Simple',
-		hats: [
-			{
-				name: 'Wielder Tie',
-				color: '#B696ED',
-				customImage: null,
-			},
-		],
-		skinColor: '#FFF5ED',
-	});
-
-	// $FlowFixMe[incompatible-call]
-	expect(image).toMatchImageSnapshot();
-});
-
-test('Lasagne', async () => {
-	const image = await drawDogToCanvasTestHelper({
-		clothes: 'Scarf',
-		clothesColor: '#F9A797',
-		hair: 'Simple',
-		hats: [
-			{
-				name: 'None',
-				color: '#FA777F',
-				customImage: null,
-			},
-		],
-		skinColor: '#FEFDAE',
-	});
-
-	// $FlowFixMe[incompatible-call]
-	expect(image).toMatchImageSnapshot();
-});
-
-test('Pizzy', async () => {
-	const image = await drawDogToCanvasTestHelper({
-		clothes: 'Princess',
-		clothesColor: '#42BDF5',
-		hair: 'Simple',
-		hats: [
-			{
-				name: 'Foxy',
-				color: '#F4AA41',
-				customImage: null,
-			},
-		],
-		skinColor: '#F4AA41',
-	});
-
-	// $FlowFixMe[incompatible-call]
-	expect(image).toMatchImageSnapshot();
-});
-
-test('Rice', async () => {
-	const image = await drawDogToCanvasTestHelper({
-		clothes: 'Kerchief',
-		clothesColor: '#81E9B5',
-		hair: 'Simple',
-		hats: [
-			{
-				name: 'Top Hat',
-				color: '#A2FEF8',
-				customImage: null,
-			},
-		],
-		skinColor: '#FFFFFF',
-	});
-
-	// $FlowFixMe[incompatible-call]
-	expect(image).toMatchImageSnapshot();
-});
-
-// for custom outline color
-test('Azure', async () => {
-	const image = await drawDogToCanvasTestHelper({
-		clothes: 'Hoodie',
-		clothesColor: '#FF5B57',
-		hair: 'Simple',
-		hats: [
-			{
-				name: 'Flower',
-				color: '#DF243F',
-				customImage: null,
-			},
-			{
-				name: 'Kerchief',
-				color: '#777CE1',
-				customImage: null,
-			},
-		],
-		skinColor: '#1C2E89',
-		skinOutlineColor: '#03EFF9',
-	});
-
-	// $FlowFixMe[incompatible-call]
-	expect(image).toMatchImageSnapshot();
-});
-
-// for custom clothes/hat
-test('Cinnaroll', async () => {
-	const image = await drawDogToCanvasTestHelper({
-		clothes: 'Custom Tee',
-		clothesColor: '#CB5587',
-		customClothesImage: await loadImage(
-			path.resolve(__dirname, '../presets/Custom_Tee_Cinnaroll.png')
+// Presets
+test.each(DRAWDOG_PRESETS)('$name', async (preset: DrawdogPreset) => {
+	const newPreset = {
+		clothes: preset.clothes,
+		clothesColor: preset.clothesColor,
+		customClothesImage:
+			preset.customClothesImage != null
+				? await loadImage(
+						path.resolve(__dirname, '../presets/', preset.customClothesImage)
+				  )
+				: null,
+		expression: preset.expression,
+		hair: preset.hair,
+		hats: await Promise.all(
+			preset.hats.map(async (hat) => {
+				return {
+					...hat,
+					customImage:
+						hat.customImage != null
+							? await loadImage(
+									path.resolve(__dirname, '../presets/', hat.customImage)
+							  )
+							: null,
+				};
+			})
 		),
-		hair: 'Simple',
-		hats: [
-			{
-				name: 'Custom Hat',
-				color: '#B996C2',
-				customImage: await loadImage(
-					path.resolve(__dirname, '../presets/Custom_Hat_Cinnaroll.png')
-				),
-			},
-		],
-		skinColor: '#B38184',
-	});
+		skinColor: preset.skinColor,
+		skinOutlineColor: preset.skinOutlineColor,
+	};
+
+	const image = await drawDogToCanvasTestHelper(newPreset);
 
 	// $FlowFixMe[incompatible-call]
 	expect(image).toMatchImageSnapshot();
