@@ -4,7 +4,7 @@ export type DrawdogPreset = {
 	clothes: string,
 	clothesColor: string,
 	customClothesImage?: string,
-	expression?: string,
+	expression?: string, // default is 'normal'
 	hair: string,
 	hats: $ReadOnlyArray<{
 		name: string,
@@ -30,6 +30,24 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		],
 		name: 'Pizza (default)',
 		skinColor: '#ffffff',
+	},
+
+	// Drawdogs from various members from Discord!
+	//
+	// Please sort this list A-Z
+	{
+		clothes: 'Mailbag',
+		clothesColor: '#81E9B5',
+		hair: 'Simple',
+		hats: [
+			{
+				name: 'Kerchief',
+				color: '#FC777D',
+				customImage: null,
+			},
+		],
+		skinColor: '#FEF2C9',
+		name: 'Apple Pie',
 	},
 	{
 		clothes: 'Hoodie',
@@ -66,6 +84,20 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		skinColor: '#FFF2C9',
 	},
 	{
+		clothes: 'Smock',
+		clothesColor: '#0FC3A2',
+		hair: 'Dreds',
+		hats: [
+			{
+				name: 'None',
+				color: '#FFFFFF',
+				customImage: null,
+			},
+		],
+		name: 'Chicken',
+		skinColor: '#FEC52B',
+	},
+	{
 		clothes: 'Custom Tee',
 		clothesColor: '#CB5587',
 		customClothesImage: require('./Custom_Tee_Cinnaroll.png'),
@@ -97,6 +129,7 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	{
 		clothes: 'Wielder Cloak',
 		clothesColor: '#B696ED',
+		expression: 'closed',
 		hair: 'Simple',
 		hats: [
 			{
@@ -123,6 +156,7 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		skinColor: '#FEFDAE',
 	},
 	{
+		// myself lol
 		clothes: 'Scarf',
 		clothesColor: '#00f3dd',
 		hair: 'Hedgehog',
@@ -151,6 +185,20 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		skinColor: '#F4AA41',
 	},
 	{
+		clothes: 'College',
+		clothesColor: '#8AD8FB',
+		hair: 'Bellhair',
+		hats: [
+			{
+				name: 'Sparkles',
+				color: '#E898C1',
+				customImage: null,
+			},
+		],
+		name: 'Ramen',
+		skinColor: '#FFF9D9',
+	},
+	{
 		clothes: 'Kerchief',
 		clothesColor: '#81E9B5',
 		hair: 'Simple',
@@ -163,5 +211,21 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		],
 		name: 'Rice',
 		skinColor: '#FFFFFF',
+	},
+	{
+		clothes: 'Custom Tee',
+		clothesColor: '#E3C861',
+		customClothesImage: require('./Custom_Tee_Stir_Fry.png'),
+		expression: 'angry',
+		hair: 'Simple',
+		hats: [
+			{
+				name: 'Custom Hat',
+				color: '#E3C861',
+				customImage: require('./Custom_Hat_Stir_Fry.png'),
+			},
+		],
+		name: 'Stir Fry',
+		skinColor: '#00C6FF',
 	},
 ];
