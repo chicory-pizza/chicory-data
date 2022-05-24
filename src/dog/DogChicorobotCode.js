@@ -4,6 +4,7 @@ import {useMemo} from 'react';
 
 import {DOG_CLOTHES_LIST} from './types/DogClothesList';
 import {DOG_EXPRESSION_LIST} from './types/DogExpressionList';
+import {DOG_HAIR_LIST} from './types/DogHairList';
 import {DOG_HAT_LIST} from './types/DogHatList';
 
 type Props = $ReadOnly<{
@@ -12,7 +13,7 @@ type Props = $ReadOnly<{
 	expression: string,
 	hat: string,
 	hatColor: string,
-	// hair: string,
+	hair: string,
 	skinColor: string,
 }>;
 
@@ -39,6 +40,17 @@ export default function DogChicorobotCode(props: Props): React$Node {
 		throw new Error('Invalid hat ' + props.hat);
 	}
 
+	// Hair
+	const hairInfo = useMemo(() => {
+		return DOG_HAIR_LIST.find((hair) => {
+			return props.hair === hair.internalName;
+		});
+	}, [props.hair]);
+
+	if (!hairInfo) {
+		throw new Error('Invalid hair ' + props.hair);
+	}
+
 	// Expression
 	const expressionInfo = useMemo(() => {
 		return DOG_EXPRESSION_LIST.find((expression) => {
@@ -55,7 +67,8 @@ export default function DogChicorobotCode(props: Props): React$Node {
 			<code>
 				/dog expression:{expressionInfo.chicorobotName} clothes:
 				{clothesInfo.chicorobotName} hat:
-				{hatInfo.chicorobotName} body_col:{props.skinColor} clothes_col:
+				{hatInfo.chicorobotName} hair:{hairInfo.chicorobotName} body_col:
+				{props.skinColor} clothes_col:
 				{props.clothesColor} hat_col:{props.hatColor}
 			</code>
 		</>

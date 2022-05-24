@@ -242,6 +242,7 @@ export default function DogEditorApp(): React$Node {
 									expression={previewExpression ?? expression}
 									hat={hatsState.hats[0].previewName ?? hatsState.hats[0].name}
 									hatColor={hatsState.hats[0].color}
+									hair={previewHair ?? hair}
 									skinColor={skinColor}
 								/>
 							</ErrorBoundary>
