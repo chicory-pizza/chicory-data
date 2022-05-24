@@ -3,7 +3,6 @@
 import {useCallback, useEffect, useMemo, useReducer, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
-import AppHeader from '../header/AppHeader';
 import changeDocumentTitle from '../util/changeDocumentTitle';
 
 import DogChicorobotCode from './DogChicorobotCode';
@@ -12,6 +11,7 @@ import styles from './DogEditorApp.module.css';
 import DogEditorFileInput from './DogEditorFileInput';
 import DogEditorHatLayer from './DogEditorHatLayer';
 import {reducer} from './DogEditorHatReducer';
+import DogEditorHeader from './DogEditorHeader';
 import DogExpressionSelect from './DogExpressionSelect';
 import DogHairSelect from './DogHairSelect';
 import DogPreview from './DogPreview';
@@ -23,9 +23,10 @@ import {
 	CUSTOM_HAT_WIDTH,
 	SIZE,
 } from './drawDogToCanvas';
+import type {DrawdogPreset} from './presets/DrawdogPresets';
 
 export default function DogEditorApp(): React$Node {
-	const [clothes, setClothes] = useState('Overalls');
+	const [clothes, setClothes] = useState<string>('Overalls');
 	const [hatsState, dispatchHats] = useReducer(reducer, {
 		hats: [
 			{
@@ -36,14 +37,14 @@ export default function DogEditorApp(): React$Node {
 			},
 		],
 	});
-	const [hair, setHair] = useState('Simple');
-	const [expression, setExpression] = useState('normal');
+	const [hair, setHair] = useState<string>('Simple');
+	const [expression, setExpression] = useState<string>('normal');
 
-	const [clothesColor, setClothesColor] = useState('#FFFFFF');
-	const [skinColor, setSkinColor] = useState('#FFFFFF');
-	const [skinOutlineColor, setSkinOutlineColor] = useState('#000000');
+	const [clothesColor, setClothesColor] = useState<string>('#FFFFFF');
+	const [skinColor, setSkinColor] = useState<string>('#FFFFFF');
+	const [skinOutlineColor, setSkinOutlineColor] = useState<string>('#000000');
 
-	const [customClothesImage, setCustomClothesImage] = useState<?Image>(null);
+	const [customClothesImage, setCustomClothesImage] = useState<?string>(null);
 
 	// Previews
 	const [previewClothes, setPreviewClothes] = useState<?string>(null);
@@ -68,29 +69,50 @@ export default function DogEditorApp(): React$Node {
 		dispatchHats({type: 'addNewLayer'});
 	}, []);
 
-	const onNewClothesImage = useCallback(
-		(img: Image) => {
-			// Free up any previous image
-			window.URL.revokeObjectURL(customClothesImage?.src);
+	const onPresetSelect = useCallback((preset: DrawdogPreset) => {
+		setClothes(preset.clothes);
+		setClothesColor(preset.clothesColor);
+		setCustomClothesImage(preset.customClothesImage);
+		setExpression(preset.expression ?? 'normal');
+		dispatchHats({
+			type: 'replaceAllLayers',
+			hats: preset.hats.map((hat) => {
+				return {
+					...hat,
+					previewName: null,
+				};
+			}),
+		});
+		setHair(preset.hair);
+		setSkinColor(preset.skinColor);
+		setSkinOutlineColor(preset.skinOutlineColor ?? '#000000');
+	}, []);
 
+	const onNewClothesImage = useCallback((dataUrl: string) => {
+		const img = new Image();
+
+		img.onload = () => {
 			if (img.width === CUSTOM_HAT_WIDTH && img.height === CUSTOM_HAT_HEIGHT) {
 				alert(
-					'It looks like you are loading a custom hat as the custom clothes, this is probably not what you intended'
+					'It looks like you are loading a custom hat as the custom clothes, this is probably not what you intended.'
 				);
-
-				window.URL.revokeObjectURL(img.src);
 				return;
 			}
 
-			setCustomClothesImage(img);
+			setCustomClothesImage(dataUrl);
 			setClothes('Custom Tee');
-		},
-		[customClothesImage?.src]
-	);
+		};
+
+		img.onerror = () => {
+			alert('There was a problem loading the image.');
+		};
+
+		img.src = dataUrl;
+	}, []);
 
 	return (
 		<div className={styles.root}>
-			<AppHeader title="Drawdog maker" />
+			<DogEditorHeader onPresetSelect={onPresetSelect} />
 
 			<div className={styles.main}>
 				<div>

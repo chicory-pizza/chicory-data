@@ -4,7 +4,7 @@
 import {fileOpen} from 'browser-fs-access';
 
 type Props = $ReadOnly<{
-	onFileLoad: (img: Image) => mixed,
+	onFileLoad: (dataUrl: string) => mixed,
 }>;
 
 export default function DogEditorFileInput(props: Props): React$Node {
@@ -13,14 +13,23 @@ export default function DogEditorFileInput(props: Props): React$Node {
 			extensions: ['.png'],
 		});
 
-		const img = new Image();
-		img.onload = () => {
-			props.onFileLoad(img);
+		const reader = new FileReader();
+		reader.onload = (buffer: ProgressEvent) => {
+			const reader = buffer.currentTarget;
+			if (
+				!(reader instanceof FileReader) ||
+				typeof reader.result !== 'string'
+			) {
+				throw new Error();
+			}
+
+			props.onFileLoad(reader.result);
 		};
-		img.onerror = () => {
-			alert('There was a problem loading the image');
+		reader.onerror = (ex) => {
+			console.error(ex);
+			alert('There was a problem loading the image.');
 		};
-		img.src = URL.createObjectURL(blob);
+		reader.readAsDataURL(blob);
 	}
 
 	return (

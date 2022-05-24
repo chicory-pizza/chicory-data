@@ -22,7 +22,7 @@ type Props = $ReadOnly<{
 	animation: 'idle', // only this for now
 	clothes: string,
 	clothesColor: string,
-	customClothesImage: ?Image,
+	customClothesImage: ?string,
 	expression: string,
 	hats: $ReadOnlyArray<ChosenHat>,
 	hair: string,
@@ -76,8 +76,7 @@ export default function DogPreview(props: Props): React$Node {
 		const tempHats: {[key: string]: ?string} = {};
 		for (let i = 0; i < hats.length; i += 1) {
 			tempHats['hatShowHairExtra_' + i] = hats[i].hatShowHairExtra ?? null;
-			tempHats['hat_' + i] =
-				typeof hats[i].hat === 'string' ? hats[i].hat : null;
+			tempHats['hat_' + i] = hats[i].hat ?? null;
 			tempHats['hatLayer2_' + i] = hats[i].hatLayer2 ?? null;
 		}
 		return tempHats;
@@ -138,7 +137,12 @@ export default function DogPreview(props: Props): React$Node {
 
 	const animationImages = useLoadMultipleImages(animationImagesToLoad);
 
-	const clothes = useLoadImage(clothesInfo.imageWithPaddingPath);
+	const clothes = useLoadImage(
+		clothesInfo.internalName === 'Custom Tee' &&
+			props.customClothesImage != null
+			? props.customClothesImage
+			: clothesInfo.imageWithPaddingPath
+	);
 	const clothesLayer2 = useLoadImage(clothesInfo.layer2ImagePath);
 	const head = useLoadImage(expressionInfo.image);
 	const hair = useLoadImage(hairInfo.imageWithPaddingPath);
@@ -167,11 +171,7 @@ export default function DogPreview(props: Props): React$Node {
 			canvas,
 			{
 				idle2,
-				clothes:
-					clothesInfo.internalName === 'Custom Tee' &&
-					props.customClothesImage != null
-						? props.customClothesImage
-						: clothes,
+				clothes,
 				idle1,
 				clothesLayer2,
 				head,

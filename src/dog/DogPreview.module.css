@@ -25,6 +25,7 @@
 	opacity: 0;
 	animation: fadeIn 1s ease;
 	animation-delay: 0.5s;
+	animation-fill-mode: both;
 	animation-iteration-count: 1;
 }
 

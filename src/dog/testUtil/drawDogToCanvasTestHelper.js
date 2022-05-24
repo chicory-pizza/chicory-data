@@ -20,7 +20,10 @@ export default async function renderDogToCanvasHelper(options: {
 	customClothesImage?: CanvasImageSource,
 	expression?: string,
 	hair: string,
-	hats: $ReadOnlyArray<ChosenHat>,
+	hats: $ReadOnlyArray<{
+		...ChosenHat,
+		customImage: ?Image,
+	}>,
 	skinColor: string,
 	skinOutlineColor?: string,
 }): Promise<Buffer> {

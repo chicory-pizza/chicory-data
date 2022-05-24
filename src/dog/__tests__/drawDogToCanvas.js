@@ -289,7 +289,7 @@ test('Cinnaroll', async () => {
 		clothes: 'Custom Tee',
 		clothesColor: '#CB5587',
 		customClothesImage: await loadImage(
-			path.resolve(__dirname, 'Custom_Tee_Cinnaroll.png')
+			path.resolve(__dirname, '../presets/Custom_Tee_Cinnaroll.png')
 		),
 		hair: 'Simple',
 		hats: [
@@ -297,7 +297,7 @@ test('Cinnaroll', async () => {
 				name: 'Custom Hat',
 				color: '#B996C2',
 				customImage: await loadImage(
-					path.resolve(__dirname, 'Custom_Hat_Cinnaroll.png')
+					path.resolve(__dirname, '../presets/Custom_Hat_Cinnaroll.png')
 				),
 			},
 		],

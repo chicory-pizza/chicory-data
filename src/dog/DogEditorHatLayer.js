@@ -89,31 +89,36 @@ export default function DogEditorHatLayer({
 	}, [dispatchHats, layer]);
 
 	const onNewHatImage = useCallback(
-		(img: Image) => {
-			// Free up any previous image
-			window.URL.revokeObjectURL(hat.customImage?.src);
+		(dataUrl: string) => {
+			const img = new Image();
 
-			if (
-				img.width === CUSTOM_CLOTHES_WIDTH &&
-				img.height === CUSTOM_CLOTHES_HEIGHT
-			) {
-				alert(
-					'It looks like you are loading custom clothes as the custom hat, this is probably not what you intended'
-				);
+			img.onload = () => {
+				if (
+					img.width === CUSTOM_CLOTHES_WIDTH &&
+					img.height === CUSTOM_CLOTHES_HEIGHT
+				) {
+					alert(
+						'It looks like you are loading custom clothes as the custom hat, this is probably not what you intended.'
+					);
+					return;
+				}
 
-				window.URL.revokeObjectURL(img.src);
-				return;
-			}
+				dispatchHats({
+					type: 'setLayerProperties',
+					layer: layer,
+					hat: {
+						...hat,
+						name: 'Custom Hat',
+						customImage: dataUrl,
+					},
+				});
+			};
 
-			dispatchHats({
-				type: 'setLayerProperties',
-				layer: layer,
-				hat: {
-					...hat,
-					name: 'Custom Hat',
-					customImage: img,
-				},
-			});
+			img.onerror = () => {
+				alert('There was a problem loading the image.');
+			};
+
+			img.src = dataUrl;
 		},
 		[dispatchHats, hat, layer]
 	);

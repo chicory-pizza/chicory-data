@@ -13,6 +13,7 @@ type HatState = $ReadOnly<{
 
 export type HatReducerAction =
 	| {type: 'addNewLayer'}
+	| {type: 'replaceAllLayers', hats: $ReadOnlyArray<ChosenHatWithPreview>}
 	| {type: 'setLayerProperties', layer: number, hat: ChosenHatWithPreview}
 	| {type: 'moveLayerUp', layer: number}
 	| {type: 'moveLayerDown', layer: number}
@@ -32,6 +33,12 @@ export function reducer(state: HatState, action: HatReducerAction): HatState {
 						previewName: null,
 					},
 				],
+			};
+
+		case 'replaceAllLayers':
+			return {
+				...state,
+				hats: action.hats,
 			};
 
 		case 'setLayerProperties':

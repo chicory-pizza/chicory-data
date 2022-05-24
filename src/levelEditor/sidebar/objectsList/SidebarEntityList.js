@@ -37,7 +37,7 @@ function SidebarEntityList(props: Props): React$Node {
 		setEntitiesListItemsExpanded: setExpandedUnfilteredEntityIndexes,
 	} = props;
 
-	const [filter, setFilter] = useState('');
+	const [filter, setFilter] = useState<string>('');
 
 	const onItemToggle = useCallback(
 		(objectIndex: number) => {

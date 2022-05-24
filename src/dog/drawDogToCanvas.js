@@ -36,7 +36,7 @@ function getHeadOrigin(head: CanvasImageSource): [number, number] {
 export type ChosenHat = {
 	name: string,
 	color: string,
-	customImage: ?Image,
+	customImage: ?string,
 };
 
 export default function drawDogToCanvas(
