@@ -188,8 +188,6 @@ export default function DogEditorApp(): React$Node {
 									Add new hat layer
 								</button>
 							</div>
-							<div />
-							<div />
 
 							<div className={styles.label}>Hair:</div>
 							<div className={styles.select}>
