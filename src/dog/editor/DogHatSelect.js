@@ -2,8 +2,9 @@
 
 import {useMemo} from 'react';
 
+import {DOG_HAT_LIST} from '../types/DogHatList';
+
 import CustomMenuWithMouseHoverOptions from './CustomMenuWithMouseHoverOptions';
-import {DOG_HAT_LIST} from './types/DogHatList';
 
 type Props = $ReadOnly<{
 	onChange: (value: string) => mixed,

@@ -2,8 +2,9 @@
 
 import {useMemo} from 'react';
 
+import {DOG_EXPRESSION_LIST} from '../types/DogExpressionList';
+
 import CustomMenuWithMouseHoverOptions from './CustomMenuWithMouseHoverOptions';
-import {DOG_EXPRESSION_LIST} from './types/DogExpressionList';
 
 type Props = $ReadOnly<{
 	onChange: (value: string) => mixed,

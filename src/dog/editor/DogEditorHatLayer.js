@@ -2,21 +2,21 @@
 
 import {useCallback} from 'react';
 
-import CloseIcon from '../common/CloseIcon';
-
-import DogEditorFileInput from './DogEditorFileInput';
-import styles from './DogEditorHatLayer.module.css';
+import CloseIcon from '../../common/CloseIcon';
 import type {
 	ChosenHatWithPreview,
 	HatReducerAction,
-} from './DogEditorHatReducer';
-import DogHatSelect from './DogHatSelect';
+} from '../DogEditorHatReducer';
 import {
 	CUSTOM_CLOTHES_HEIGHT,
 	CUSTOM_CLOTHES_WIDTH,
 	CUSTOM_HAT_WIDTH,
 	SIZE,
-} from './drawDogToCanvas';
+} from '../drawDogToCanvas';
+
+import DogEditorFileInput from './DogEditorFileInput';
+import styles from './DogEditorHatLayer.module.css';
+import DogHatSelect from './DogHatSelect';
 
 type Props = $ReadOnly<{
 	dispatchHats: (action: HatReducerAction) => void,

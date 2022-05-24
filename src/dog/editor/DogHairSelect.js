@@ -2,8 +2,9 @@
 
 import {useMemo} from 'react';
 
+import {DOG_HAIR_LIST} from '../types/DogHairList';
+
 import CustomMenuWithMouseHoverOptions from './CustomMenuWithMouseHoverOptions';
-import {DOG_HAIR_LIST} from './types/DogHairList';
 
 type Props = $ReadOnly<{
 	onChange: (value: string) => mixed,

@@ -6,14 +6,9 @@ import ErrorBoundary from '../common/ErrorBoundary';
 import changeDocumentTitle from '../util/changeDocumentTitle';
 
 import DogChicorobotCode from './DogChicorobotCode';
-import DogClothesSelect from './DogClothesSelect';
 import styles from './DogEditorApp.module.css';
-import DogEditorFileInput from './DogEditorFileInput';
-import DogEditorHatLayer from './DogEditorHatLayer';
 import {reducer} from './DogEditorHatReducer';
 import DogEditorHeader from './DogEditorHeader';
-import DogExpressionSelect from './DogExpressionSelect';
-import DogHairSelect from './DogHairSelect';
 import DogPreview from './DogPreview';
 import DogSpeech from './DogSpeech';
 import {
@@ -23,6 +18,11 @@ import {
 	CUSTOM_HAT_WIDTH,
 	SIZE,
 } from './drawDogToCanvas';
+import DogClothesSelect from './editor/DogClothesSelect';
+import DogEditorFileInput from './editor/DogEditorFileInput';
+import DogEditorHatLayer from './editor/DogEditorHatLayer';
+import DogExpressionSelect from './editor/DogExpressionSelect';
+import DogHairSelect from './editor/DogHairSelect';
 import type {DrawdogPreset} from './presets/DrawdogPresets';
 
 export default function DogEditorApp(): React$Node {

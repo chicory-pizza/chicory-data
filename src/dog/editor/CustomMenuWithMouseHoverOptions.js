@@ -4,8 +4,8 @@ import {memo, useCallback, useEffect} from 'react';
 // $FlowFixMe[untyped-import]
 import {components} from 'react-select';
 
-import CustomSelect from '../common/CustomSelect';
-import type {OptionType} from '../common/CustomSelect';
+import CustomSelect from '../../common/CustomSelect';
+import type {OptionType} from '../../common/CustomSelect';
 
 type Props = $ReadOnly<{
 	onChange: (value: string) => mixed,
