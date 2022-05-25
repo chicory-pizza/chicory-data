@@ -1,7 +1,6 @@
 // @flow strict
 
 import {encode} from 'base64-arraybuffer';
-// $FlowFixMe[untyped-import]
 import {fileOpen, fileSave} from 'browser-fs-access';
 // $FlowFixMe[untyped-import]
 import {deflate} from 'pako';

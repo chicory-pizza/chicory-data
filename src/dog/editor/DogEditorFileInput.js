@@ -1,6 +1,5 @@
 // @flow strict
 
-// $FlowFixMe[untyped-import]
 import {fileOpen} from 'browser-fs-access';
 
 type Props = $ReadOnly<{

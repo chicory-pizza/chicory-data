@@ -1,6 +1,5 @@
 // @flow strict
 
-// $FlowFixMe[untyped-import]
 import {fileOpen, fileSave} from 'browser-fs-access';
 import {useRef, useState} from 'react';
 
