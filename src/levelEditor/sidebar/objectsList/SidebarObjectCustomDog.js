@@ -1,8 +1,8 @@
 // @flow strict
 
 import DogPreview from '../../../dog/DogPreview';
+import convertBgrIntegerToRgb from '../../../util/convertBgrIntegerToRgb';
 import type {GameObjectType} from '../../types/GameObjectType';
-import convertBgrIntegerToRgb from '../../util/convertBgrIntegerToRgb';
 import convertRgbArrayToString from '../../util/convertRgbArrayToString';
 
 import styles from './SidebarObjectCustomDog.module.css';

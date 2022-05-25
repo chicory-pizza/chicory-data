@@ -1,0 +1,25 @@
+.root {
+	display: flex;
+	align-items: center;
+	padding: 10px 0;
+}
+
+.textInput {
+	margin-left: 10px;
+	text-align: center;
+	width: 80px;
+}
+
+.rgbInput {
+	margin-left: 4px;
+	text-align: center;
+	width: 60px;
+}
+
+.rgbInput:first-child {
+	margin-left: 10px;
+}
+
+.label {
+	margin-left: 10px;
+}

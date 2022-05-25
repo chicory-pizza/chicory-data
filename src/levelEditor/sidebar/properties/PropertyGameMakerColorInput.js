@@ -2,8 +2,8 @@
 
 import {useCallback} from 'react';
 
-import convertBgrIntegerToRgb from '../../util/convertBgrIntegerToRgb';
-import convertHexToBgrInteger from '../../util/convertHexToBgrInteger';
+import convertBgrIntegerToRgb from '../../../util/convertBgrIntegerToRgb';
+import convertHexToBgrInteger from '../../../util/convertHexToBgrInteger';
 import convertRgbArrayToString from '../../util/convertRgbArrayToString';
 
 type Props = $ReadOnly<{
