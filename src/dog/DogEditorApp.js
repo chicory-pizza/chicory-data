@@ -126,25 +126,23 @@ export default function DogEditorApp(): React$Node {
 
 			<div className={styles.main}>
 				<div>
-					<ErrorBoundary>
+					<ErrorBoundary canReload={true}>
 						<DogSpeech />
 
 						<div className={styles.dog}>
-							<ErrorBoundary canReload={true}>
-								<DogPreview
-									animation="idle"
-									clothes={previewClothes ?? clothes}
-									clothesColor={clothesColor}
-									customClothesImage={customClothesImage}
-									expression={previewExpression ?? expression}
-									hats={hatsInPreview}
-									hair={previewHair ?? hair}
-									height={750}
-									skinColor={skinColor}
-									skinOutlineColor={skinOutlineColor}
-									width={750}
-								/>
-							</ErrorBoundary>
+							<DogPreview
+								animation="idle"
+								clothes={previewClothes ?? clothes}
+								clothesColor={clothesColor}
+								customClothesImage={customClothesImage}
+								expression={previewExpression ?? expression}
+								hats={hatsInPreview}
+								hair={previewHair ?? hair}
+								height={750}
+								skinColor={skinColor}
+								skinOutlineColor={skinOutlineColor}
+								width={750}
+							/>
 						</div>
 					</ErrorBoundary>
 				</div>
