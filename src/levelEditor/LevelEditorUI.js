@@ -6,7 +6,7 @@ import ErrorBoundary from '../common/ErrorBoundary';
 import AppHeader from '../header/AppHeader';
 import LoadingBigBanner from '../LoadingBigBanner';
 
-import DataSelector from './header/DataSelector';
+import LevelEditorDataSelector from './header/LevelEditorDataSelector';
 import LevelEditorUndoRedo from './header/LevelEditorUndoRedo';
 import LevelSelector from './header/LevelSelector';
 import styles from './LevelEditorUI.module.css';
@@ -48,7 +48,7 @@ export default function LevelEditorUI(): React$Node {
 				title="Level editor"
 				titleSideStuff={
 					<ErrorBoundary>
-						<DataSelector />
+						<LevelEditorDataSelector />
 					</ErrorBoundary>
 				}
 			/>

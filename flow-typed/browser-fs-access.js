@@ -1,11 +1,21 @@
 // @flow strict
 
-type FileSystemHandleKind = 'directory' | 'file';
+type FileSystemHandlePermissionDescriptor = {
+	mode?: 'read' | 'readwrite',
+};
 
 declare class FileSystemHandle {
-	+kind: FileSystemHandleKind;
+	+kind: 'directory' | 'file';
 	+name: string;
+
 	isSameEntry(other: FileSystemHandle): boolean;
+
+	queryPermission: (
+		descriptor?: FileSystemHandlePermissionDescriptor
+	) => Promise<PermissionState>;
+	requestPermission: (
+		descriptor?: FileSystemHandlePermissionDescriptor
+	) => Promise<PermissionState>;
 }
 
 declare class FileSystemFileHandle extends FileSystemHandle {
@@ -35,7 +45,7 @@ declare module 'browser-fs-access' {
 		multiple?: boolean,
 
 		// Suggested directory in which the file picker opens. A well-known directory or a file handle.
-		startIn?: WellKnownDirectory,
+		startIn?: WellKnownDirectory | FileSystemHandle,
 
 		// By specifying an ID, the user agent can remember different directories for different IDs.
 		id?: string,
@@ -64,7 +74,7 @@ declare module 'browser-fs-access' {
 			fileName?: string,
 
 			// Suggested directory in which the file picker opens. A well-known directory or a file handle.
-			startIn?: WellKnownDirectory,
+			startIn?: WellKnownDirectory | FileSystemHandle,
 
 			// By specifying an ID, the user agent can remember different directories for different IDs.
 			id?: string,
@@ -75,7 +85,7 @@ declare module 'browser-fs-access' {
 			// Suggested file extensions (with leading '.'), defaults to `''`.
 			extensions?: Array<string>,
 		},
-		existingHandle?: ?any, // FileSystemFileHandle
+		existingHandle?: ?FileSystemFileHandle,
 		throwIfExistingHandleNotGood?: boolean,
 		filePickerShown?: ?() => void
 	): Promise<?FileSystemFileHandle>;

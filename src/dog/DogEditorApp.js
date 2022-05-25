@@ -112,7 +112,17 @@ export default function DogEditorApp(): React$Node {
 
 	return (
 		<div className={styles.root}>
-			<DogEditorHeader onPresetSelect={onPresetSelect} />
+			<DogEditorHeader
+				clothes={clothes}
+				clothesColor={clothesColor}
+				customClothesImage={customClothesImage}
+				expression={expression}
+				hair={hair}
+				hats={hatsInPreview}
+				onPresetSelect={onPresetSelect}
+				skinColor={skinColor}
+				skinOutlineColor={skinOutlineColor}
+			/>
 
 			<div className={styles.main}>
 				<div>
