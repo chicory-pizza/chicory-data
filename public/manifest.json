@@ -33,6 +33,11 @@
 			"name": "🐶 Drawdog maker",
 			"short_name": "Drawdog maker",
 			"url": "/dog"
+		},
+		{
+			"name": "🎨 Color palettes",
+			"short_name": "Color palettes",
+			"url": "/palette"
 		}
 	],
 	"description": "Modding tools for Chicory: A Colorful Tale, such as level viewer and editor"

@@ -8,6 +8,7 @@ import LoadingBigBanner from './LoadingBigBanner';
 const DogEditorApp = lazy(() => import('./dog/DogEditorApp'));
 const LevelEditorApp = lazy(() => import('./levelEditor/LevelEditorApp'));
 const SplashScreen = lazy(() => import('./splash/SplashScreen'));
+const PaletteApp = lazy(() => import('./palette/PaletteApp'));
 const PageNotFound = lazy(() => import('./PageNotFound'));
 
 const routes: React$Node = (
@@ -22,6 +23,10 @@ const routes: React$Node = (
 
 			<Route path="dog">
 				<Route index element={<DogEditorApp />} />
+			</Route>
+
+			<Route path="palette">
+				<Route index element={<PaletteApp />} />
 			</Route>
 
 			<Route path="*" element={<PageNotFound />} />

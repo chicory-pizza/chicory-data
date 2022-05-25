@@ -3,12 +3,13 @@
 import {encode} from 'base64-arraybuffer';
 import {fileOpen, fileSave} from 'browser-fs-access';
 import {deflate} from 'pako';
-import {Fragment, useState} from 'react';
+import {useState} from 'react';
 // $FlowFixMe[untyped-import]
 import tinycolor from 'tinycolor2';
 
 import CustomModal from '../../common/CustomModal';
 import MessageBox from '../../common/MessageBox';
+import ColorGrid from '../../palette/ColorGrid';
 import getCanvasRenderingContext from '../../util/getCanvasRenderingContext';
 import GeoPreview from '../common/GeoPreview';
 import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
@@ -70,6 +71,19 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 	const {dispatch} = useWorldDataNonNullable();
 
 	const [errorMessage, setErrorMessage] = useState<?string>(null);
+
+	// Palettes
+	const palettes = PIXEL_COLORS_EXPLANATIONS.map((explanation) => {
+		return {
+			description: explanation.description,
+			colors: explanation.colors.map((colorIndex) => {
+				const colorObj = tinycolor(PIXEL_COLORS.get(colorIndex));
+				const rgb = colorObj.toRgb();
+
+				return [rgb.r, rgb.g, rgb.b];
+			}),
+		};
+	});
 
 	async function openFile() {
 		const blob = await fileOpen({
@@ -213,52 +227,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 
 						<p className={styles.explanation}>Use these colors for terrain:</p>
 
-						<div className={styles.grid}>
-							{PIXEL_COLORS_EXPLANATIONS.map((explanation) => {
-								return (
-									<Fragment key={explanation.description}>
-										<div className={styles.colorItem}>
-											{explanation.description}
-										</div>
-
-										{explanation.colors.map((colorIndex, index) => {
-											const color = PIXEL_COLORS.get(colorIndex);
-
-											const colorObj = tinycolor(color);
-											const rgb = colorObj.toRgb();
-
-											return (
-												<Fragment key={colorIndex}>
-													{index !== 0 ? <div></div> : null}
-
-													<div
-														className={
-															styles.colorItem + ' ' + styles.colorBoxWrap
-														}
-													>
-														<div
-															className={styles.colorBox}
-															key={colorIndex}
-															style={{background: PIXEL_COLORS.get(colorIndex)}}
-														></div>
-													</div>
-
-													<div className={styles.colorItem}>
-														{colorObj.toHexString()}
-													</div>
-
-													<div className={styles.colorItem}>R: {rgb.r}</div>
-
-													<div className={styles.colorItem}>G: {rgb.g}</div>
-
-													<div className={styles.colorItem}>B: {rgb.b}</div>
-												</Fragment>
-											);
-										})}
-									</Fragment>
-								);
-							})}
-						</div>
+						<ColorGrid palettes={palettes} />
 					</div>
 
 					<div className={styles.contentRight}>

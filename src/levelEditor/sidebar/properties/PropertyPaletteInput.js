@@ -5,7 +5,10 @@ import {memo, useCallback} from 'react';
 import {components} from 'react-select';
 
 import CustomSelect from '../../../common/CustomSelect';
-import {LEVEL_PALETTE_LIST, PALETTE_COLORS} from '../../types/LevelPaletteList';
+import {
+	LEVEL_PALETTE_LIST,
+	PALETTE_COLORS,
+} from '../../../palette/types/PaletteColorsList';
 
 import styles from './PropertyPaletteInput.module.css';
 

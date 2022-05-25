@@ -25,6 +25,10 @@ export default function SplashScreen(): React$Node {
 				🐶 Drawdog maker
 			</Link>
 
+			<Link to="/palette" className={styles.link}>
+				🎨 Color palettes
+			</Link>
+
 			<div className={styles.icons}>
 				<a
 					className={styles.websiteLink}
