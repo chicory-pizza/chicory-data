@@ -2,7 +2,6 @@
 
 import {encode} from 'base64-arraybuffer';
 import {fileOpen, fileSave} from 'browser-fs-access';
-// $FlowFixMe[untyped-import]
 import {deflate} from 'pako';
 import {Fragment, useState} from 'react';
 // $FlowFixMe[untyped-import]
@@ -142,6 +141,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 					type: 'setLevelProperty',
 					coordinates: currentCoordinates,
 					key: 'geo',
+					// $FlowFixMe[incompatible-call]
 					value: encode(deflated),
 				});
 				props.onModalRequestClose();
