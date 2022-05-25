@@ -27,6 +27,7 @@ export default function DrawdogGalleryModal({
 
 	const onSelect = useCallback(
 		(preset) => {
+			setDogMouseOver(null);
 			onPresetSelect(preset);
 			onModalRequestClose();
 		},
