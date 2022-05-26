@@ -50,6 +50,7 @@ export default function ColorCalculator(): React$Node {
 						setColor(ev.currentTarget.value);
 					}}
 					placeholder="#00f3dd"
+					title="Hex code (e.g. #00f3dd)"
 					value={color}
 				/>
 			</span>
@@ -66,6 +67,7 @@ export default function ColorCalculator(): React$Node {
 							r: parseInt(ev.currentTarget.value, 10),
 						});
 					}}
+					title="Red (0 to 255)"
 					value={currentRgb.r}
 				/>
 				<input
@@ -78,6 +80,7 @@ export default function ColorCalculator(): React$Node {
 							g: parseInt(ev.currentTarget.value, 10),
 						});
 					}}
+					title="Green (0 to 255)"
 					value={currentRgb.g}
 				/>
 				<input
@@ -90,6 +93,7 @@ export default function ColorCalculator(): React$Node {
 							b: parseInt(ev.currentTarget.value, 10),
 						});
 					}}
+					title="Blue (0 to 255)"
 					value={currentRgb.b}
 				/>
 			</span>

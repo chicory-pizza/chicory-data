@@ -35,23 +35,45 @@ const CUSTOM_STYLES = {
 	control(provided, state) {
 		return {
 			...provided,
-			borderColor: '#999',
+			background: 'var(--input-background-color)',
+			borderColor: 'var(--input-border-color)',
 			borderRadius: 0,
 			cursor: 'pointer',
 			transition: 'none',
 			'&:hover': {
-				borderColor: '#333',
+				borderColor: 'var(--input-border-hover-color)',
 			},
 		};
 	},
+	indicatorSeparator(provided, state) {
+		return {
+			...provided,
+			backgroundColor: 'var(--input-border-color)',
+		};
+	},
+	menuList(provided, state) {
+		return {
+			...provided,
+			background: 'var(--input-background-color)',
+		};
+	},
 	menuPortal(provided, state) {
-		return {...provided, zIndex: 99};
+		return {
+			...provided,
+			zIndex: 99,
+		};
 	},
 	option(provided, state) {
 		return {
 			...provided,
 			color: '',
 			cursor: 'pointer',
+		};
+	},
+	singleValue(provided, state) {
+		return {
+			...provided,
+			color: 'var(--body-text-color)',
 		};
 	},
 };

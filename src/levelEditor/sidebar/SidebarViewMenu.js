@@ -3,8 +3,10 @@
 // $FlowFixMe[untyped-import]
 import {Menu, MenuButton, MenuItem} from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
+import '@szhsin/react-menu/dist/theme-dark.css';
 import {memo} from 'react';
 
+import useDarkMode from '../../util/useDarkMode';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 
 import styles from './SidebarViewMenu.module.css';
@@ -15,9 +17,14 @@ type Props = $ReadOnly<{
 }>;
 
 function SidebarViewMenu(props: Props): React$Node {
+	const isDarkMode = useDarkMode();
+
 	return (
 		<div className={styles.root}>
-			<Menu menuButton={<MenuButton>Change view</MenuButton>}>
+			<Menu
+				menuButton={<MenuButton>Change view</MenuButton>}
+				theming={isDarkMode ? 'dark' : undefined}
+			>
 				<MenuItem
 					checked={props.activeUiViews.includes('OBJECT')}
 					onClick={(ev) => props.onActiveUiViewToggle('OBJECT')}
