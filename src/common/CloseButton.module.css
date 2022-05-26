@@ -1,5 +1,6 @@
 .button {
 	background: none;
+	color: inherit;
 	border: 0;
 	opacity: 0.5;
 	padding: 0;

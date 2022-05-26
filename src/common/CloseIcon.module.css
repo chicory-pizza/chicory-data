@@ -1,4 +1,4 @@
 .svg {
 	display: block;
-	fill: var(--body-text-color);
+	fill: currentColor;
 }
