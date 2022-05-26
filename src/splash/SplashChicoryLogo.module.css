@@ -9,3 +9,9 @@
 .logoFallback {
 	background-position: 0 -3349px;
 }
+
+@media (prefers-color-scheme: dark) {
+	.logo {
+		filter: invert(100%);
+	}
+}

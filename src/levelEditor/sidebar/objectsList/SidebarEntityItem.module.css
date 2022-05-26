@@ -4,6 +4,7 @@
 
 .objHighlight {
 	background: rgb(216, 255, 85);
+	color: #000;
 }
 
 .decHighlight {
@@ -22,6 +23,12 @@
 	font-size: 0.8em;
 	height: 100%;
 	padding: 4px 4px 4px 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+	.objHighlight .toggleIcon {
+		color: #000;
+	}
 }
 
 .text {

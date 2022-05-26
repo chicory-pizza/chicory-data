@@ -13,7 +13,7 @@
 
 .link {
 	background: #fff;
-	border: 1px solid #999;
+	border: 1px solid var(--input-border-color);
 	display: block;
 	font-size: 1.5em;
 	margin-bottom: 16px;
@@ -24,9 +24,15 @@
 	width: 100%;
 }
 
+@media (prefers-color-scheme: dark) {
+	.link {
+		background: #000;
+	}
+}
+
 .link:hover,
 .link:focus {
-	border-color: #333;
+	border-color: var(--input-border-hover-color);
 }
 
 .icons {
@@ -53,7 +59,7 @@
 	width: 32px;
 	height: 32px;
 	display: block;
-	fill: #171515;
+	fill: var(--body-text-color);
 }
 
 .websiteLink:hover .discordIcon,

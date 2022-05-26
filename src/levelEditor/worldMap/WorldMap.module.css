@@ -1,5 +1,5 @@
 .root {
-	border-top: 1px solid #000;
+	border-top: 1px solid var(--editor-border-color);
 	min-height: 60px;
 	height: 100px;
 	overflow-y: scroll;

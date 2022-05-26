@@ -19,6 +19,35 @@ body {
 	color: #000;
 	cursor: default;
 	margin: 0;
+
+	--body-text-color: #000;
+
+	--input-background-color: #fff;
+	--input-border-color: #999;
+	--input-border-hover-color: #333;
+	--input-text-color: #000;
+	--button-background-color: #eee;
+
+	--editor-border-color: #000;
+	--leveleditor-stripe-color: #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background: #1c1c1c;
+		color: #fff;
+
+		--body-text-color: #fff;
+
+		--input-background-color: #3b3b3b;
+		--input-border-color: #666;
+		--input-border-hover-color: #888;
+		--input-text-color: #fff;
+		--button-background-color: #3b3b3b;
+
+		--editor-border-color: #666;
+		--leveleditor-stripe-color: #333;
+	}
 }
 
 body,
@@ -66,8 +95,15 @@ input[type='search'],
 input[type='number'],
 button,
 select {
-	border: 1px solid #999;
+	background: var(--input-background-color);
+	border: 1px solid var(--input-border-color);
+	color: var(--input-text-color);
 	padding: 2px;
+}
+
+button,
+select {
+	background: var(--button-background-color);
 }
 
 input[type='text']:hover,
@@ -80,7 +116,7 @@ button:hover,
 button:focus,
 select:hover,
 select:focus {
-	border-color: #333;
+	border-color: var(--input-border-hover-color);
 }
 
 ::-webkit-inner-spin-button {
@@ -88,8 +124,6 @@ select:focus {
 }
 
 button {
-	background: #eee;
-	color: #000;
 	font-size: 1em;
 	padding: 2px 8px;
 }
@@ -116,4 +150,15 @@ button[disabled] {
 
 .ReactModal__Overlay {
 	z-index: 9;
+}
+
+@media (prefers-color-scheme: dark) {
+	.ReactModal__Overlay {
+		background-color: rgba(0, 0, 0, 0.75) !important;
+	}
+
+	.ReactModal__Content {
+		background: #000 !important;
+		border-color: var(--input-border-color) !important;
+	}
 }

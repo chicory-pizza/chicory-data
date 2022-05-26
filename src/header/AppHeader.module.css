@@ -42,7 +42,7 @@
 	width: 20px;
 	height: 20px;
 	display: block;
-	fill: #171515;
+	fill: var(--body-text-color);
 }
 
 .websiteLink:hover .discordIcon,

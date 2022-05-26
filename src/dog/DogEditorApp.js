@@ -125,7 +125,7 @@ export default function DogEditorApp(): React$Node {
 			/>
 
 			<div className={styles.main}>
-				<div>
+				<div className={styles.dogPreviewWithSpeech}>
 					<ErrorBoundary canReload={true}>
 						<DogSpeech />
 

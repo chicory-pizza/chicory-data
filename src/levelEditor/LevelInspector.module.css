@@ -9,10 +9,10 @@
 		45deg,
 		transparent,
 		transparent 4px,
-		#ccc 4px,
-		#ccc 8px
+		var(--leveleditor-stripe-color) 4px,
+		var(--leveleditor-stripe-color) 8px
 	);
-	border: solid #000;
+	border: solid var(--editor-border-color);
 	border-width: 1px 1px 0 0;
 	flex-grow: 1;
 	overflow: scroll;
