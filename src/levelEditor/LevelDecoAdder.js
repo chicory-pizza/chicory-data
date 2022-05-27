@@ -54,7 +54,9 @@ function LevelDecoAdder(props: Props): React$Node {
 							className={styles.deco}
 							href="#"
 							key={sprite}
-							onClick={() => {
+							onClick={(ev: SyntheticMouseEvent<HTMLAnchorElement>) => {
+								ev.preventDefault();
+
 								props.onAddingEntityLabel({
 									type: 'DECO',
 									data: sprite,
