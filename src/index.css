@@ -119,6 +119,10 @@ select:focus {
 	border-color: var(--input-border-hover-color);
 }
 
+label > input[type='checkbox'] {
+	margin-right: 6px;
+}
+
 ::-webkit-inner-spin-button {
 	opacity: 1;
 }

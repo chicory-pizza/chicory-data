@@ -17,6 +17,19 @@
 	.dog {
 		background: #555;
 	}
+
+	.invertColors .dog {
+		background: transparent;
+	}
+}
+
+.invertColors {
+	filter: invert(100%);
+}
+
+.invertColors,
+.invertColors .dog {
+	background: #fff;
 }
 
 .dog {
@@ -65,7 +78,7 @@
 	margin-left: 8px;
 }
 
-.addHatLayer {
+.fullWidthControl {
 	margin-bottom: 8px;
 	grid-column: 1 / 5;
 }

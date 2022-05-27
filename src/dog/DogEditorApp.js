@@ -46,6 +46,8 @@ export default function DogEditorApp(): React$Node {
 
 	const [customClothesImage, setCustomClothesImage] = useState<?string>(null);
 
+	const [invertColors, setInvertColors] = useState(false);
+
 	// Previews
 	const [previewClothes, setPreviewClothes] = useState<?string>(null);
 	const [previewHair, setPreviewHair] = useState<?string>(null);
@@ -125,7 +127,13 @@ export default function DogEditorApp(): React$Node {
 			/>
 
 			<div className={styles.main}>
-				<div className={styles.dogPreviewWithSpeech}>
+				<div
+					className={
+						styles.dogPreviewWithSpeech +
+						' ' +
+						(invertColors ? styles.invertColors : '')
+					}
+				>
 					<ErrorBoundary canReload={true}>
 						<DogSpeech />
 
@@ -191,7 +199,7 @@ export default function DogEditorApp(): React$Node {
 								);
 							})}
 
-							<div className={styles.addHatLayer}>
+							<div className={styles.fullWidthControl}>
 								<button onClick={addNewHatLayer} type="button">
 									Add new hat layer
 								</button>
@@ -240,6 +248,19 @@ export default function DogEditorApp(): React$Node {
 								/>
 							</div>
 							<div />
+
+							<div className={styles.fullWidthControl}>
+								<label>
+									<input
+										type="checkbox"
+										onChange={(ev) => {
+											setInvertColors(ev.currentTarget.checked);
+										}}
+										value={invertColors}
+									/>
+									Invert colors
+								</label>
+							</div>
 						</div>
 
 						<div className={styles.chicorobot}>
