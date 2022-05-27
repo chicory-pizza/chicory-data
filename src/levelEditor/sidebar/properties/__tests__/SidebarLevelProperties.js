@@ -5,6 +5,8 @@ import userEvent from '@testing-library/user-event';
 
 import renderLevelEditorRoute from '../../../testUtil/renderLevelEditorRoute';
 
+jest.setTimeout(10000); // hack, sigh
+
 test('deletes the level if confirmed', async () => {
 	await renderLevelEditorRoute();
 
