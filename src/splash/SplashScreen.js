@@ -29,6 +29,14 @@ export default function SplashScreen(): React$Node {
 				🎨 Color palettes
 			</Link>
 
+			<a
+				className={styles.link}
+				href="https://docs.google.com/spreadsheets/d/1RCRK68APK2YovAyr5QhjddNkknHaAGoHCcA0do3UYfs/edit"
+				target="_blank"
+			>
+				📝 Text viewer
+			</a>
+
 			<div className={styles.icons}>
 				<a
 					className={styles.websiteLink}
