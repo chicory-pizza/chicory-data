@@ -2,16 +2,11 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-}
-
-@media (prefers-color-scheme: dark) {
-	.root {
-		background: #222;
-	}
+	padding: 0 8px;
 }
 
 .search {
-	margin: 10px 0;
+	margin: 8px 0;
 }
 
 .searchInput {
@@ -25,7 +20,7 @@
 }
 
 .noResults {
-	margin: 10px 0;
+	margin: 8px 0;
 }
 
 .deco {
@@ -40,6 +35,12 @@
 	color: var(--body-text-color);
 	padding: 4px;
 	text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+	.deco {
+		background: #222;
+	}
 }
 
 .deco:hover,
