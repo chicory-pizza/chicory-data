@@ -21,11 +21,11 @@
 }
 
 .object {
-	background: rgb(216, 255, 85);
+	background: var(--luncheon-green);
 }
 
 .deco {
-	background: rgb(182, 154, 255);
+	background: var(--luncheon-purple);
 }
 
 .geoCanvas {

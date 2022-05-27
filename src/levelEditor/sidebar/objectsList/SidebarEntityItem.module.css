@@ -3,12 +3,12 @@
 }
 
 .objHighlight {
-	background: rgb(216, 255, 85);
+	background: var(--luncheon-green);
 	color: #000;
 }
 
 .decHighlight {
-	background: rgb(182, 154, 255);
+	background: var(--luncheon-purple);
 }
 
 .title {

@@ -6,7 +6,7 @@
 }
 
 .currentBox {
-	background-color: rgb(216, 255, 85);
+	background-color: var(--luncheon-green);
 }
 
 .text {

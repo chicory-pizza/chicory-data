@@ -10,10 +10,9 @@
 }
 
 .objHover {
-	background: rgb(216, 255, 85);
+	background: var(--luncheon-green);
 }
 
 .decoHover {
-	outline: solid 5px;
-	outline-color: rgb(182, 154, 255);
+	outline: 5px solid var(--luncheon-purple);
 }

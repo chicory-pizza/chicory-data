@@ -1,6 +1,6 @@
 .spinner {
-	border-color: rgb(182, 154, 255) rgb(182, 154, 255) transparent
-		rgb(182, 154, 255);
+	border-color: var(--luncheon-purple) var(--luncheon-purple) transparent
+		var(--luncheon-purple);
 	border-style: solid;
 	border-width: 3px;
 	border-radius: 50%;

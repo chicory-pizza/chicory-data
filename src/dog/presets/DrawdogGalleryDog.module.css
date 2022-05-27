@@ -10,7 +10,7 @@
 .preset:hover,
 .preset:active,
 .preset:focus {
-	color: rgb(255, 166, 148);
+	color: var(--luncheon-orange);
 }
 
 .preset:hover .dogPreview,

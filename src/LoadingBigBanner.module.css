@@ -37,17 +37,17 @@
 }
 
 .text1 {
-	color: rgb(0, 243, 221);
+	color: var(--luncheon-teal);
 }
 
 .text2 {
-	color: rgb(216, 255, 85);
+	color: var(--luncheon-green);
 }
 
 .text3 {
-	color: rgb(255, 166, 148);
+	color: var(--luncheon-orange);
 }
 
 .text4 {
-	color: rgb(182, 154, 255);
+	color: var(--luncheon-purple);
 }

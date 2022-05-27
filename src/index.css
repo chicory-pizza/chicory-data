@@ -20,6 +20,11 @@ body {
 	cursor: default;
 	margin: 0;
 
+	--luncheon-teal: rgb(0, 243, 221);
+	--luncheon-green: rgb(216, 255, 85);
+	--luncheon-orange: rgb(255, 166, 148);
+	--luncheon-purple: rgb(182, 154, 255);
+
 	--body-text-color: #000;
 
 	--input-background-color: #fff;
@@ -62,7 +67,7 @@ select {
 }
 
 a {
-	color: rgb(182, 154, 255);
+	color: var(--luncheon-purple);
 }
 
 pre,
@@ -138,7 +143,7 @@ button[disabled] {
 }
 
 :focus {
-	outline: 1px solid rgb(182, 154, 255);
+	outline: 1px solid var(--luncheon-purple);
 }
 
 #noscript-error {

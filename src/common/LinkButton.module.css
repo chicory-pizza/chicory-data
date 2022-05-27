@@ -1,7 +1,7 @@
 .button {
 	background: transparent;
 	border: 0;
-	color: rgb(182, 154, 255);
+	color: var(--luncheon-purple);
 	display: inline;
 	padding: 0;
 	text-decoration: underline;
