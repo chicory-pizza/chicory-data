@@ -1,5 +1,11 @@
 .root {
-	display: flex;
+	display: grid;
+	grid-template-columns: auto 324px; /* 81 * 4 for GeoPreview */
+	grid-template-rows: 1fr min-content;
+	grid-template-areas:
+		'preview sidebar'
+		'decos sidebar';
+
 	flex: 1;
 	min-height: 0;
 }
@@ -14,6 +20,16 @@
 	);
 	border: solid var(--editor-border-color);
 	border-width: 1px 1px 0 0;
-	flex-grow: 1;
+	grid-row: 1;
 	overflow: scroll;
+
+	grid-area: preview;
+}
+
+.decos {
+	height: 300px;
+	overflow-y: auto;
+	resize: vertical; /* a bit janky... */
+
+	grid-area: decos;
 }

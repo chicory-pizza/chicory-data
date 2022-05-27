@@ -5,6 +5,7 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 import ErrorBoundary from '../common/ErrorBoundary';
 import ConsoleNoJest from '../util/ConsoleNoJest';
 
+import LevelDecoAdder from './LevelDecoAdder';
 import styles from './LevelInspector.module.css';
 import LevelPreview from './preview/LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
@@ -230,6 +231,14 @@ export default function LevelInspector({
 					/>
 				</ErrorBoundary>
 			</div>
+
+			{activeUiViews.includes('DECO') ? (
+				<div className={styles.decos}>
+					<ErrorBoundary>
+						<LevelDecoAdder onAddingEntityLabel={setAddingEntityLabel} />
+					</ErrorBoundary>
+				</div>
+			) : null}
 
 			<ErrorBoundary>
 				<LevelSidebar
