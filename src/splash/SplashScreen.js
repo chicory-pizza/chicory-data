@@ -25,6 +25,14 @@ export default function SplashScreen(): React$Node {
 				🐶 Drawdog maker
 			</Link>
 
+			<a
+				className={styles.link}
+				href="https://map.chicory.pizza"
+				target="_blank"
+			>
+				🗺 Map viewer
+			</a>
+
 			<Link to="/palette" className={styles.link}>
 				🎨 Color palettes
 			</Link>
