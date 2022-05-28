@@ -51,6 +51,12 @@ const CUSTOM_STYLES = {
 			backgroundColor: 'var(--input-border-color)',
 		};
 	},
+	input(provided, state) {
+		return {
+			...provided,
+			color: 'var(--input-text-color)',
+		};
+	},
 	menuList(provided, state) {
 		return {
 			...provided,
