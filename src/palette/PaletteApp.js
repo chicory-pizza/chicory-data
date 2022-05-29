@@ -5,6 +5,7 @@ import {useEffect} from 'react';
 import ErrorBoundary from '../common/ErrorBoundary';
 import AppHeader from '../header/AppHeader';
 import changeDocumentTitle from '../util/changeDocumentTitle';
+import useMobileViewport from '../util/useMobileViewport';
 
 import ColorCalculator from './ColorCalculator';
 import ColorGrid from './ColorGrid';
@@ -12,6 +13,8 @@ import styles from './PaletteApp.module.css';
 import {PALETTE_COLORS} from './types/PaletteColorsList';
 
 export default function PaletteApp(): React$Node {
+	useMobileViewport();
+
 	useEffect(() => {
 		changeDocumentTitle('Color palettes');
 	}, []);

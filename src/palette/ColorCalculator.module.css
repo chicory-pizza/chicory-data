@@ -4,20 +4,23 @@
 	padding: 10px 0;
 }
 
+.labelText {
+	margin-right: 10px;
+}
+
 .textInput {
-	margin-left: 10px;
 	text-align: center;
 	width: 80px;
 }
 
 .rgbInput {
-	margin-left: 4px;
+	margin-right: 4px;
 	text-align: center;
 	width: 60px;
 }
 
-.rgbInput:first-child {
-	margin-left: 10px;
+.rgbInput:last-child {
+	margin-right: 0;
 }
 
 .label {

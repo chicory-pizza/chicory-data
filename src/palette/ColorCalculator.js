@@ -39,8 +39,9 @@ export default function ColorCalculator(): React$Node {
 				value={color}
 			/>
 
-			<span className={styles.label}>
-				Hex:
+			<label className={styles.label}>
+				<span className={styles.labelText}>Hex:</span>
+
 				<input
 					type="text"
 					className={styles.textInput}
@@ -53,10 +54,11 @@ export default function ColorCalculator(): React$Node {
 					title="Hex code (e.g. #00f3dd)"
 					value={color}
 				/>
-			</span>
+			</label>
 
 			<span className={styles.label}>
-				RGB:
+				<span className={styles.labelText}>RGB:</span>
+
 				<input
 					type="number"
 					className={styles.rgbInput}
@@ -98,8 +100,9 @@ export default function ColorCalculator(): React$Node {
 				/>
 			</span>
 
-			<span className={styles.label}>
-				GML:
+			<label className={styles.label}>
+				<span className={styles.labelText}>GML:</span>
+
 				<input
 					type="text"
 					inputMode="numeric"
@@ -116,7 +119,7 @@ export default function ColorCalculator(): React$Node {
 					placeholder="14545664"
 					value={convertHexToBgrInteger(color)}
 				/>
-			</span>
+			</label>
 		</div>
 	);
 }

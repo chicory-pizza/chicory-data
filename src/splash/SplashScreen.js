@@ -6,11 +6,14 @@ import {Link} from 'react-router-dom';
 
 import DiscordIcon from '../header/DiscordIcon';
 import GitHubIcon from '../header/GitHubIcon';
+import useMobileViewport from '../util/useMobileViewport';
 
 import SplashChicoryLogo from './SplashChicoryLogo';
 import styles from './SplashScreen.module.css';
 
 export default function SplashScreen(): React$Node {
+	useMobileViewport();
+
 	return (
 		<div className={styles.root}>
 			<SplashChicoryLogo />
