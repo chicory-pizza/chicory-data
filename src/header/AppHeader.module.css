@@ -3,11 +3,32 @@
 	align-items: center;
 
 	min-height: 102px;
-	padding-left: 8px;
+}
+
+.backToHome {
+	display: flex;
+	align-items: center;
+
+	height: 100%;
+}
+
+.backToHomeArrow {
+	height: 100%;
+	width: 24px;
+	margin-right: 8px;
+	color: var(--body-text-color);
+	opacity: 0.3;
+}
+
+.backToHome:hover .backToHomeArrow,
+.backToHome:active .backToHomeArrow,
+.backToHome:focus .backToHomeArrow {
+	background: var(--luncheon-purple);
+	opacity: 1;
 }
 
 .content {
-	padding: 0 8px;
+	padding: 0 8px 0 16px;
 	flex: 1;
 }
 
