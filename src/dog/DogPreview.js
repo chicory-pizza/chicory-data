@@ -20,16 +20,15 @@ import useLoadMultipleImages from './useLoadMultipleImages';
 
 type Props = $ReadOnly<{
 	animation: 'idle', // only this for now
+	canvasClassName?: string,
 	clothes: string,
 	clothesColor: string,
 	customClothesImage: ?string,
 	expression: string,
 	hats: $ReadOnlyArray<ChosenHat>,
 	hair: string,
-	height: number,
 	skinColor: string,
 	skinOutlineColor?: string,
-	width: number,
 }>;
 
 export default function DogPreview(props: Props): React$Node {
@@ -238,18 +237,20 @@ export default function DogPreview(props: Props): React$Node {
 	return (
 		<div className={styles.root}>
 			<canvas
-				className={styles.canvas + ' ' + (loading ? styles.canvasLoading : '')}
+				className={
+					styles.canvas +
+					' ' +
+					(loading ? styles.canvasLoading : '') +
+					' ' +
+					(props.canvasClassName ?? '')
+				}
 				ref={mainCanvasRef}
 				width={SIZE}
 				height={SIZE}
-				style={{
-					width: props.width,
-					height: props.height,
-				}}
 			/>
 
 			{loading ? (
-				<div className={styles.loading} style={{width: props.width}}>
+				<div className={styles.loading}>
 					<Spinner size={32} />
 				</div>
 			) : null}

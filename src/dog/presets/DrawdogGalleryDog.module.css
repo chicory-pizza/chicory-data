@@ -19,6 +19,18 @@
 	transform: scale(1.05);
 }
 
+.dogPreviewCanvas {
+	width: 100%;
+	height: auto;
+}
+
+@media (min-width: 600px) {
+	.dogPreviewCanvas {
+		width: 250px;
+		height: 250px;
+	}
+}
+
 .name {
 	margin-top: 5px;
 	padding: 5px;

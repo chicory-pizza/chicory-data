@@ -22,6 +22,7 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 		<div className={styles.center}>
 			<DogPreview
 				animation="idle"
+				canvasClassName={styles.dogPreviewCanvas}
 				clothes={typeof obj.clothes === 'string' ? obj.clothes : 'Overalls'}
 				clothesColor={
 					typeof obj.color_body === 'number'
@@ -45,13 +46,11 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 					},
 				]}
 				hair={typeof obj.hair === 'string' ? obj.hair : 'Simple'}
-				height={150}
 				skinColor={
 					typeof obj.color_skin === 'number'
 						? convertRgbArrayToString(convertBgrIntegerToRgb(obj.color_skin))
 						: '#ffffff'
 				}
-				width={150}
 			/>
 		</div>
 	);

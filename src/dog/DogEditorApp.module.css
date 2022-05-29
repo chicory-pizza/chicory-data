@@ -5,17 +5,19 @@
 
 .main {
 	display: flex;
+	flex-direction: column;
 	border-top: 1px solid var(--editor-border-color);
 	flex: 1;
 	padding: 0 10px 0 0;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 801px) {
 	.root {
 		height: 100%;
 	}
 
 	.main {
+		flex-direction: row;
 		overflow: scroll;
 	}
 }
@@ -44,6 +46,22 @@
 	margin-bottom: 10px;
 }
 
+.dogPreviewCanvas {
+	width: 100%;
+}
+
+@media (min-width: 801px) {
+	.dogPreviewCanvas {
+		width: 375px;
+	}
+}
+
+@media (min-width: 1441px) {
+	.dogPreviewCanvas {
+		width: 750px;
+	}
+}
+
 .editorControls {
 	display: flex;
 	flex-direction: column;
@@ -52,7 +70,7 @@
 
 .grid {
 	display: inline-grid;
-	grid-template-columns: auto auto 266px 1fr;
+	grid-template-columns: auto auto 1fr;
 
 	margin-bottom: 10px;
 }
@@ -65,13 +83,14 @@
 }
 
 .select {
-	margin: 0 16px 8px 0;
+	margin: 0 0 8px 0;
 }
 
 .controls {
 	display: flex;
 	align-items: center;
 	margin: 0 0 8px 0;
+	grid-column: 1 / 4;
 }
 
 .controlLabel {
@@ -88,7 +107,25 @@
 
 .fullWidthControl {
 	margin-bottom: 8px;
-	grid-column: 1 / 5;
+	grid-column: 1 / 4;
+}
+
+@media (min-width: 801px) {
+	.grid {
+		grid-template-columns: auto auto 266px 1fr;
+	}
+
+	.select {
+		margin-right: 16px;
+	}
+
+	.controls {
+		grid-column: auto;
+	}
+
+	.fullWidthControl {
+		grid-column: 1 / 5;
+	}
 }
 
 .chicorobot {

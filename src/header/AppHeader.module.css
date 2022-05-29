@@ -35,9 +35,6 @@
 }
 
 .titleWrapper {
-	/* display: flex;
-	align-items: center; */
-
 	display: grid;
 	align-items: center;
 	grid-template-columns: 1fr auto;

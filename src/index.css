@@ -176,3 +176,10 @@ button[disabled] {
 		border-color: var(--input-border-color) !important;
 	}
 }
+
+@media (max-width: 599px) {
+	.ReactModal__Content {
+		border: none !important;
+		max-height: 100% !important;
+	}
+}

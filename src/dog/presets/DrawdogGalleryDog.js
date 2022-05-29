@@ -33,16 +33,15 @@ export default function DrawdogGalleryDog(props: Props): React$Node {
 			<div className={styles.dogPreview}>
 				<DogPreview
 					animation="idle"
+					canvasClassName={styles.dogPreviewCanvas}
 					clothes={preset.clothes}
 					clothesColor={preset.clothesColor}
 					customClothesImage={preset.customClothesImage ?? null}
 					expression={props.forceExpression ?? preset.expression ?? 'normal'}
 					hats={preset.hats}
 					hair={preset.hair}
-					height={250}
 					skinColor={preset.skinColor}
 					skinOutlineColor={preset.skinOutlineColor}
-					width={250}
 				/>
 			</div>
 

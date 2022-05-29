@@ -4,6 +4,7 @@ import {useCallback, useEffect, useMemo, useReducer, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
 import changeDocumentTitle from '../util/changeDocumentTitle';
+import useMobileViewport from '../util/useMobileViewport';
 
 import DogChicorobotCode from './DogChicorobotCode';
 import styles from './DogEditorApp.module.css';
@@ -26,6 +27,8 @@ import DogHairSelect from './editor/DogHairSelect';
 import type {DrawdogPreset} from './presets/DrawdogPresets';
 
 export default function DogEditorApp(): React$Node {
+	useMobileViewport();
+
 	const [clothes, setClothes] = useState<string>('Overalls');
 	const [hatsState, dispatchHats] = useReducer(reducer, {
 		hats: [
@@ -140,16 +143,15 @@ export default function DogEditorApp(): React$Node {
 						<div className={styles.dog}>
 							<DogPreview
 								animation="idle"
+								canvasClassName={styles.dogPreviewCanvas}
 								clothes={previewClothes ?? clothes}
 								clothesColor={clothesColor}
 								customClothesImage={customClothesImage}
 								expression={previewExpression ?? expression}
 								hats={hatsInPreview}
 								hair={previewHair ?? hair}
-								height={750}
 								skinColor={skinColor}
 								skinOutlineColor={skinOutlineColor}
-								width={750}
 							/>
 						</div>
 					</ErrorBoundary>
