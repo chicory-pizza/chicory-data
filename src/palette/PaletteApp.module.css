@@ -1,7 +1,6 @@
 .root {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
 }
 
 .main {
@@ -15,9 +14,12 @@
 }
 
 @media (min-width: 600px) {
+	.root {
+		height: 100%;
+	}
+
 	.main {
 		overflow-y: scroll;
-
 		align-items: center;
 	}
 }

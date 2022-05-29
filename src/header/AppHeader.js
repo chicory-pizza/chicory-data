@@ -44,30 +44,32 @@ export default function AppHeader(props: Props): React$Node {
 			</Link>
 
 			<div className={styles.content}>
-				<div className={styles.leftRight}>
+				<div className={styles.titleWrapper}>
 					<h1 className={styles.title}>{props.title}</h1>
 
 					<div className={styles.dataSelector}>{props.titleSideStuff}</div>
 
-					<a
-						className={styles.websiteLink}
-						href="/discord"
-						rel="noopener"
-						target="_blank"
-						title="Join the Chicory fan Discord"
-					>
-						<DiscordIcon className={styles.discordIcon} />
-					</a>
+					<div className={styles.links}>
+						<a
+							className={styles.websiteLink}
+							href="/discord"
+							rel="noopener"
+							target="_blank"
+							title="Join the Chicory fan Discord"
+						>
+							<DiscordIcon className={styles.discordIcon} />
+						</a>
 
-					<a
-						className={styles.websiteLink}
-						href="https://github.com/chicory-pizza/chicory-data"
-						rel="noopener"
-						target="_blank"
-						title="View this project on GitHub"
-					>
-						<GitHubIcon className={styles.githubIcon} />
-					</a>
+						<a
+							className={styles.websiteLink}
+							href="https://github.com/chicory-pizza/chicory-data"
+							rel="noopener"
+							target="_blank"
+							title="View this project on GitHub"
+						>
+							<GitHubIcon className={styles.githubIcon} />
+						</a>
+					</div>
 				</div>
 
 				{props.controls}
