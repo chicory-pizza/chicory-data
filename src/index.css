@@ -55,6 +55,11 @@ body {
 	}
 }
 
+::selection {
+	background: var(--luncheon-orange);
+	color: #000;
+}
+
 body,
 input[type='text'],
 input[type='search'],
