@@ -15,3 +15,22 @@
 		filter: invert(100%);
 	}
 }
+
+.postAnimate {
+	/* (1000 / (60 / 14)) * 3 */
+	animation: postAnimate 0.7s steps(1) infinite;
+}
+
+@keyframes postAnimate {
+	0% {
+		background-position: 0 -2955px;
+	}
+
+	33% {
+		background-position: 0 -3152px;
+	}
+
+	66% {
+		background-position: 0 -3349px;
+	}
+}

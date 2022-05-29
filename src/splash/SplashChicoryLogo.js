@@ -15,6 +15,8 @@ export default function SplashChicoryLogo(): React$Node {
 	const [animationIndex, setAnimationIndex] = useState(0);
 	const [fallback, setFallback] = useState(false);
 
+	const postAnimate = !fallback && !(animationIndex < 15);
+
 	useEffect(() => {
 		const img = new Image();
 
@@ -32,23 +34,28 @@ export default function SplashChicoryLogo(): React$Node {
 	const isPageVisible = useVisibilityChange();
 	useInterval(
 		() => {
-			setAnimationIndex(animationIndex < 17 ? animationIndex + 1 : 15);
+			setAnimationIndex(animationIndex + 1);
 		},
-		loaded && !fallback && isPageVisible
-			? animationIndex < 15
-				? 1000 / (60 / 5)
-				: 1000 / (60 / 14)
+		loaded && !fallback && !postAnimate && isPageVisible
+			? 1000 / (60 / 5)
 			: null
 	);
 
 	return (
 		<div
 			aria-label="Chicory logo"
-			className={styles.logo + ' ' + (fallback ? styles.logoFallback : '')}
+			className={
+				styles.logo +
+				' ' +
+				(fallback ? styles.logoFallback : '') +
+				' ' +
+				(postAnimate ? styles.postAnimate : '')
+			}
 			style={{
-				backgroundPosition: loaded
-					? '0 ' + -FRAME_HEIGHT * animationIndex + 'px'
-					: '',
+				backgroundPosition:
+					loaded && !postAnimate
+						? '0 ' + -FRAME_HEIGHT * animationIndex + 'px'
+						: '',
 			}}
 		/>
 	);
