@@ -14,7 +14,11 @@ type HatState = $ReadOnly<{
 export type HatReducerAction =
 	| {type: 'addNewLayer'}
 	| {type: 'replaceAllLayers', hats: $ReadOnlyArray<ChosenHatWithPreview>}
-	| {type: 'setLayerProperties', layer: number, hat: ChosenHatWithPreview}
+	| {
+			type: 'setLayerProperties',
+			layer: number,
+			hat: $Shape<ChosenHatWithPreview>,
+	  }
 	| {type: 'moveLayerUp', layer: number}
 	| {type: 'moveLayerDown', layer: number}
 	| {type: 'deleteLayer', layer: number};
@@ -46,7 +50,10 @@ export function reducer(state: HatState, action: HatReducerAction): HatState {
 				...state,
 				hats: state.hats
 					.slice(0, action.layer)
-					.concat(action.hat)
+					.concat({
+						...state.hats[action.layer],
+						...action.hat,
+					})
 					.concat(state.hats.slice(action.layer + 1)),
 			};
 

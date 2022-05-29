@@ -39,9 +39,8 @@ export default function DogEditorHatLayer({
 
 			dispatchHats({
 				type: 'setLayerProperties',
-				layer: layer,
+				layer,
 				hat: {
-					...hat,
 					name,
 				},
 			});
@@ -57,9 +56,8 @@ export default function DogEditorHatLayer({
 
 			dispatchHats({
 				type: 'setLayerProperties',
-				layer: layer,
+				layer,
 				hat: {
-					...hat,
 					previewName,
 				},
 			});
@@ -105,9 +103,8 @@ export default function DogEditorHatLayer({
 
 				dispatchHats({
 					type: 'setLayerProperties',
-					layer: layer,
+					layer,
 					hat: {
-						...hat,
 						name: 'Custom Hat',
 						customImage: dataUrl,
 					},
@@ -120,7 +117,7 @@ export default function DogEditorHatLayer({
 
 			img.src = dataUrl;
 		},
-		[dispatchHats, hat, layer]
+		[dispatchHats, layer]
 	);
 
 	return (
@@ -187,9 +184,8 @@ export default function DogEditorHatLayer({
 
 							dispatchHats({
 								type: 'setLayerProperties',
-								layer: layer,
+								layer,
 								hat: {
-									...hat,
 									color: ev.currentTarget.value,
 								},
 							});
