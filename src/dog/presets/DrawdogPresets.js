@@ -112,6 +112,20 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		skinColor: '#FEC52B',
 	},
 	{
+		clothes: 'Big Star',
+		clothesColor: '#c9ffe2',
+		hair: 'Floofy',
+		hats: [
+			{
+				name: 'Scarf',
+				color: '#FFFFFF',
+				customImage: null,
+			},
+		],
+		name: 'Chips',
+		skinColor: '#ffebfc',
+	},
+	{
 		clothes: 'Custom Tee',
 		clothesColor: '#CB5587',
 		customClothesImage: require('./Custom_Tee_Cinnaroll.png'),
@@ -197,6 +211,20 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		],
 		name: 'Pizzy',
 		skinColor: '#F4AA41',
+	},
+	{
+		clothes: 'College',
+		clothesColor: '#1086eb',
+		hair: 'Simple',
+		hats: [
+			{
+				name: 'Kerchief',
+				color: '#baec34',
+				customImage: null,
+			},
+		],
+		name: 'Popcorn',
+		skinColor: '#dfc591',
 	},
 	{
 		clothes: 'College',
