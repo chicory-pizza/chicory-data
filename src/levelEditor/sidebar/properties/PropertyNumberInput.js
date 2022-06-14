@@ -43,6 +43,9 @@ export default function PropertyNumberInput({
 					onCommitValue(inputValue);
 				}
 			}}
+			onWheel={(ev: SyntheticWheelEvent<HTMLInputElement>) => {
+				ev.currentTarget.blur();
+			}}
 			type="number"
 			step={step ?? 1}
 			value={inputValue}
