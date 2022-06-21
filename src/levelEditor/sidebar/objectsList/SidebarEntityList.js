@@ -54,7 +54,7 @@ function SidebarEntityList(props: Props): React$Node {
 		[setExpandedUnfilteredEntityIndexes]
 	);
 
-	const filterLowercase = filter.toLowerCase().trim();
+	const filterLowercase = filter.toLowerCase().trim().replace(/ /g, '_');
 
 	const filteredObjects: $ReadOnlyArray<?GameObjectType> = unfilteredObjects
 		? filter === ''
