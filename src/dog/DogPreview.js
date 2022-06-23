@@ -1,6 +1,8 @@
 // @flow strict
 
 import {useEffect, useMemo, useRef, useState} from 'react';
+// $FlowFixMe[untyped-import]
+import {useInView} from 'react-intersection-observer';
 
 import Spinner from '../common/Spinner';
 import useInterval from '../util/useInterval';
@@ -113,6 +115,7 @@ export default function DogPreview(props: Props): React$Node {
 
 	const [animationIndex, setAnimationIndex] = useState(0);
 	const isPageVisible = useVisibilityChange();
+	const {ref: intersectionObserverRef, inView} = useInView();
 	useInterval(
 		() => {
 			setAnimationIndex(
@@ -121,7 +124,7 @@ export default function DogPreview(props: Props): React$Node {
 					: 0
 			);
 		},
-		isPageVisible && animationInfo.headAnim.length > 0 ? 200 : null
+		isPageVisible && inView && animationInfo.headAnim.length > 0 ? 200 : null
 	);
 
 	const animationImagesToLoad = useMemo(() => {
@@ -235,7 +238,7 @@ export default function DogPreview(props: Props): React$Node {
 		!mainCanvasRef.current || !animationImages || !clothes || !head || !hair;
 
 	return (
-		<div className={styles.root}>
+		<div className={styles.root} ref={intersectionObserverRef}>
 			<canvas
 				className={
 					styles.canvas +
