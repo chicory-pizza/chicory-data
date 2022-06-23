@@ -1,0 +1,15 @@
+.coordinatesRoot {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-top: 4px;
+}
+
+.coordinatesText {
+	flex-shrink: 0;
+	margin: 0 8px;
+}
+
+.coordinatesText:first-child {
+	margin-left: 0;
+}

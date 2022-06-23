@@ -1,38 +1,49 @@
 // @flow strict
 
-import {memo, useCallback, useState} from 'react';
+import {useCallback, useState} from 'react';
 
 import type {DecorationType} from '../../types/DecorationType';
 import type {GameEntityType} from '../../types/GameEntityType';
 import type {GameObjectType} from '../../types/GameObjectType';
+import type {SidebarEntityPropertiesComponentType} from '../properties/SidebarEntityPropertiesComponentType';
 
 import SidebarEntityItem from './SidebarEntityItem';
 import styles from './SidebarEntityList.module.css';
 
-type Props = $ReadOnly<{
-	type: GameEntityType,
-	levelObjects?: Array<GameObjectType>,
-	levelDecos?: Array<DecorationType>,
-	entityIndexHover: ?number,
+type Props<
+	Entity: GameObjectType | DecorationType,
+	EntityType: GameEntityType
+> = $ReadOnly<{
+	entities: Array<Entity>,
 	entitiesListItemsExpanded: Array<number>,
+	entityHighlightClassName: string,
+	entityIndexHover: ?number,
+	entityPropertiesComponent: React$ComponentType<
+		SidebarEntityPropertiesComponentType<Entity, EntityType>
+	>,
+	getEntityName: (entity: Entity, filter: string) => string,
 	name: string,
-	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => mixed,
+	onEntityDelete: (entityIndex: number, entityType: EntityType) => mixed,
 	onEntityEditProperty: (
 		entityIndex: number,
 		key: string,
 		value: string | number | null,
-		entityType: GameEntityType
+		entityType: EntityType
 	) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
+	renderItemDisplayText: (entity: Entity) => React$Node,
 	setEntitiesListItemsExpanded: (
 		expandedIndexes: Array<number> | ((Array<number>) => Array<number>)
 	) => mixed,
+	type: EntityType,
 }>;
 
-function SidebarEntityList(props: Props): React$Node {
+export default function SidebarEntityList<
+	Entity: GameObjectType | DecorationType,
+	EntityType: GameEntityType
+>(props: Props<Entity, EntityType>): React$MixedElement {
 	const {
-		levelObjects: unfilteredObjects,
-		levelDecos: unfilteredDecos,
+		entities: unfilteredEntities,
 		entitiesListItemsExpanded: expandedUnfilteredEntityIndexes,
 		setEntitiesListItemsExpanded: setExpandedUnfilteredEntityIndexes,
 	} = props;
@@ -56,32 +67,17 @@ function SidebarEntityList(props: Props): React$Node {
 
 	const filterLowercase = filter.toLowerCase().trim().replace(/ /g, '_');
 
-	const filteredObjects: $ReadOnlyArray<?GameObjectType> = unfilteredObjects
+	const filteredEntities: $ReadOnlyArray<?Entity> = unfilteredEntities
 		? filter === ''
-			? unfilteredObjects
-			: unfilteredObjects.map((obj) => {
-					let objName = obj.obj.toLowerCase();
-					if (!filterLowercase.startsWith('obj')) {
-						objName = objName.slice('obj'.length);
-					}
+			? unfilteredEntities
+			: unfilteredEntities.map((entity) => {
+					const entityName = props
+						.getEntityName(entity, filterLowercase)
+						.toLowerCase();
 
-					return objName.includes(filterLowercase) ? obj : null;
+					return entityName.includes(filterLowercase) ? entity : null;
 			  })
 		: [];
-
-	const filteredDecos: $ReadOnlyArray<?DecorationType> = unfilteredDecos
-		? filter === ''
-			? unfilteredDecos
-			: unfilteredDecos.map((dec) => {
-					let decName = dec.spr.toLowerCase();
-					return decName.includes(filterLowercase) ? dec : null;
-			  })
-		: [];
-
-	const filteredEntities:
-		| $ReadOnlyArray<?DecorationType>
-		| $ReadOnlyArray<?GameObjectType> =
-		filteredObjects.length > 0 ? filteredObjects : filteredDecos;
 
 	const filteredEntitiesCount =
 		filter === ''
@@ -94,7 +90,9 @@ function SidebarEntityList(props: Props): React$Node {
 			: expandedUnfilteredEntityIndexes.filter(
 					(entityIndex) => filteredEntities[entityIndex] != null
 			  );
-	const unfilteredEntitiesLength: number = filteredEntities.length;
+
+	const unfilteredEntitiesLength = filteredEntities.length;
+
 	return (
 		<details className={styles.expander} open>
 			<summary>
@@ -125,45 +123,30 @@ function SidebarEntityList(props: Props): React$Node {
 			) : null}
 
 			<ul className={styles.list}>
-				{unfilteredObjects
-					? filteredObjects.map((ent, index) => {
-							if (ent == null) {
-								return null;
-							}
-							return (
-								<SidebarEntityItem
-									expanded={expandedUnfilteredEntityIndexes.includes(index)}
-									highlighted={props.entityIndexHover === index}
-									index={index}
-									key={index}
-									obj={ent}
-									onItemToggle={onItemToggle}
-									onEntityDelete={props.onEntityDelete}
-									onEntityEditProperty={props.onEntityEditProperty}
-									onEntityHover={props.onEntityHover}
-									type={props.type}
-								/>
-							);
-					  })
-					: filteredDecos.map((ent, index) => {
-							if (ent == null) {
-								return null;
-							}
-							return (
-								<SidebarEntityItem
-									expanded={expandedUnfilteredEntityIndexes.includes(index)}
-									highlighted={props.entityIndexHover === index}
-									index={index}
-									key={index}
-									dec={ent}
-									onItemToggle={onItemToggle}
-									onEntityDelete={props.onEntityDelete}
-									onEntityEditProperty={props.onEntityEditProperty}
-									onEntityHover={props.onEntityHover}
-									type={props.type}
-								/>
-							);
-					  })}
+				{filteredEntities.map((ent, index) => {
+					if (ent == null) {
+						return null;
+					}
+
+					return (
+						<SidebarEntityItem
+							entity={ent}
+							entityPropertiesComponent={props.entityPropertiesComponent}
+							expanded={expandedUnfilteredEntityIndexes.includes(index)}
+							getEntityName={props.getEntityName}
+							highlighted={props.entityIndexHover === index}
+							highlightClassName={props.entityHighlightClassName}
+							index={index}
+							key={index}
+							onItemToggle={onItemToggle}
+							onEntityDelete={props.onEntityDelete}
+							onEntityEditProperty={props.onEntityEditProperty}
+							onEntityHover={props.onEntityHover}
+							renderItemDisplayText={props.renderItemDisplayText}
+							type={props.type}
+						/>
+					);
+				})}
 			</ul>
 
 			<div className={styles.actions}>
@@ -219,8 +202,3 @@ function SidebarEntityList(props: Props): React$Node {
 		</details>
 	);
 }
-
-export default (memo<Props>(SidebarEntityList): React$AbstractComponent<
-	Props,
-	mixed
->);

@@ -8,7 +8,8 @@ import type {LevelType} from '../types/LevelType';
 import type {PlaceableType} from '../types/PlaceableType';
 
 import styles from './LevelSidebar.module.css';
-import SidebarEntityList from './objectsList/SidebarEntityList';
+import SidebarDecoList from './objectsList/SidebarDecoList';
+import SidebarObjectList from './objectsList/SidebarObjectList';
 import SidebarLevelProperties from './properties/SidebarLevelProperties';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
 import SidebarObjectAdder from './SidebarObjectAdder';
@@ -72,30 +73,26 @@ export default function LevelSidebar(props: Props): React$Node {
 				</ErrorBoundary>
 
 				<ErrorBoundary>
-					<SidebarEntityList
+					<SidebarObjectList
 						levelObjects={props.level.objects ?? []}
-						type="OBJECT"
 						entityIndexHover={props.objectIndexHover}
 						entitiesListItemsExpanded={props.objectsListItemsExpanded}
 						onEntityDelete={props.onEntityDelete}
 						onEntityEditProperty={props.onEntityEditProperty}
 						onEntityHover={props.onObjectHover}
 						setEntitiesListItemsExpanded={props.setObjectsListItemsExpanded}
-						name="Objects"
 					/>
 				</ErrorBoundary>
 
 				<ErrorBoundary>
-					<SidebarEntityList
+					<SidebarDecoList
 						levelDecos={props.level.decos ?? []}
-						type="DECO"
 						entityIndexHover={props.decoIndexHover}
 						entitiesListItemsExpanded={props.decosListItemsExpanded}
 						onEntityDelete={props.onEntityDelete}
 						onEntityEditProperty={props.onEntityEditProperty}
 						onEntityHover={props.onDecoHover}
 						setEntitiesListItemsExpanded={props.setDecosListItemsExpanded}
-						name="Decos"
 					/>
 				</ErrorBoundary>
 			</div>

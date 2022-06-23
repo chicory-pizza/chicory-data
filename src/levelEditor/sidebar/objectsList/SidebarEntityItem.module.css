@@ -2,15 +2,6 @@
 	margin-left: 8px;
 }
 
-.objHighlight {
-	background: var(--luncheon-green);
-	color: #000;
-}
-
-.decHighlight {
-	background: var(--luncheon-purple);
-}
-
 .title {
 	display: flex;
 	align-items: center;
@@ -20,15 +11,10 @@
 .toggleIcon {
 	background: none;
 	border: 0;
+	color: inherit;
 	font-size: 0.8em;
 	height: 100%;
 	padding: 4px 4px 4px 8px;
-}
-
-@media (prefers-color-scheme: dark) {
-	.objHighlight .toggleIcon {
-		color: #000;
-	}
 }
 
 .text {
@@ -40,23 +26,18 @@
 	padding-bottom: 8px;
 }
 
-.entryRoot {
+.coordinatesRoot {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	margin-top: 4px;
 }
 
-.label {
-	padding-right: 8px;
-	flex-shrink: 0;
-}
-
-.objectCoordinatesText {
+.coordinatesText {
 	flex-shrink: 0;
 	margin: 0 8px;
 }
 
-.objectCoordinatesText:first-child {
+.coordinatesText:first-child {
 	margin-left: 0;
 }
