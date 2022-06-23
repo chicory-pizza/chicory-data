@@ -129,6 +129,7 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		clothes: 'Custom Tee',
 		clothesColor: '#CB5587',
 		customClothesImage: require('./Custom_Tee_Cinnaroll.png'),
+		expression: 'smit',
 		hair: 'Simple',
 		hats: [
 			{
@@ -229,6 +230,7 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	{
 		clothes: 'College',
 		clothesColor: '#1086eb',
+		expression: 'cheeky',
 		hair: 'Simple',
 		hats: [
 			{
