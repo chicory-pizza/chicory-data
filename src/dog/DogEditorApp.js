@@ -3,6 +3,7 @@
 import {useCallback, useEffect, useMemo, useReducer, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
+import MessageBox from '../common/MessageBox';
 import changeDocumentTitle from '../util/changeDocumentTitle';
 import useMobileViewport from '../util/useMobileViewport';
 
@@ -65,6 +66,13 @@ export default function DogEditorApp(): React$Node {
 			};
 		});
 	}, [hatsState]);
+
+	// Chicorobot notices
+	// Doing this for now until the editor state is moved to one reducer state
+	const hasMultipleHatLayers = hatsState.hats.length > 1;
+	const hasNonBlackSkinOutlineColor = skinOutlineColor !== '#000000';
+	const showChicorobotNotice =
+		hasMultipleHatLayers || hasNonBlackSkinOutlineColor || invertColors;
 
 	useEffect(() => {
 		changeDocumentTitle('Drawdog maker');
@@ -278,6 +286,31 @@ export default function DogEditorApp(): React$Node {
 								/>
 							</ErrorBoundary>
 						</div>
+
+						{showChicorobotNotice ? (
+							<div className={styles.chicorobotNotices}>
+								{hasMultipleHatLayers ? (
+									<MessageBox
+										message="Multiple hat layers are not supported in Chicorobot, only the 1st hat layer will be shown"
+										type="INFO"
+									/>
+								) : null}
+
+								{hasNonBlackSkinOutlineColor ? (
+									<MessageBox
+										message="Non-black skin outline colors are not supported in Chicorobot"
+										type="INFO"
+									/>
+								) : null}
+
+								{invertColors ? (
+									<MessageBox
+										message="Inverted colors are not supported in Chicorobot"
+										type="INFO"
+									/>
+								) : null}
+							</div>
+						) : null}
 					</ErrorBoundary>
 				</div>
 			</div>
