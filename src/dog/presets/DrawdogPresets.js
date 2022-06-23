@@ -199,6 +199,20 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		skinColor: '#ffa694',
 	},
 	{
+		clothes: 'Kerchief',
+		clothesColor: '#887ded',
+		hair: 'Topknot',
+		hats: [
+			{
+				name: 'Round Glasses',
+				color: '#ffd481',
+				customImage: null,
+			},
+		],
+		name: 'Pipoca',
+		skinColor: '#e4c18b',
+	},
+	{
 		clothes: 'Princess',
 		clothesColor: '#42BDF5',
 		hair: 'Simple',
@@ -225,20 +239,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		],
 		name: 'Popcorn',
 		skinColor: '#dfc591',
-	},
-	{
-		clothes: 'Kerchief',
-		clothesColor: '#887ded',
-		hair: 'Topknot',
-		hats: [
-			{
-				name: 'Round Glasses',
-				color: '#ffd481',
-				customImage: null,
-			},
-		],
-		name: 'Pipoca',
-		skinColor: '#e4c18b',
 	},
 	{
 		clothes: 'College',
