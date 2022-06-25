@@ -37,79 +37,79 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	// Please sort this list A-Z
 	{
 		clothes: 'Mailbag',
-		clothesColor: '#81E9B5',
+		clothesColor: '#81e9b5',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Kerchief',
-				color: '#FC777D',
+				color: '#fc777d',
 				customImage: null,
 			},
 		],
-		skinColor: '#FEF2C9',
+		skinColor: '#fef2c9',
 		name: 'Apple Pie',
 	},
 	{
 		clothes: 'Hoodie',
-		clothesColor: '#FF5B57',
+		clothesColor: '#ff5b57',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Flower',
-				color: '#DF243F',
+				color: '#df243f',
 				customImage: null,
 			},
 			{
 				name: 'Kerchief',
-				color: '#777CE1',
+				color: '#777ce1',
 				customImage: null,
 			},
 		],
-		skinColor: '#1C2E89',
+		skinColor: '#1c2e89',
 		name: 'Azure Pancakes',
-		skinOutlineColor: '#03EFF9',
+		skinOutlineColor: '#03eff9',
 	},
 	{
 		clothes: 'Wielder Cloak',
-		clothesColor: '#B432FF',
+		clothesColor: '#b432ff',
 		hair: 'Big Fluffy',
 		hats: [
 			{
 				name: 'Bow',
-				color: '#8C44A4',
+				color: '#8c44a4',
 				customImage: null,
 			},
 		],
 		name: 'Burrito',
-		skinColor: '#FFF2C9',
+		skinColor: '#fff2c9',
 	},
 	{
 		clothes: 'Scarf',
-		clothesColor: '#FFFFAE',
+		clothesColor: '#ffffae',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Strawhat',
-				color: '#F38A8A',
+				color: '#f38a8a',
 				customImage: null,
 			},
 		],
 		name: 'Caldereta',
-		skinColor: '#FFDC80',
+		skinColor: '#ffdc80',
 	},
 	{
 		clothes: 'Smock',
-		clothesColor: '#0FC3A2',
+		clothesColor: '#0fc3a2',
 		hair: 'Dreds',
 		hats: [
 			{
 				name: 'None',
-				color: '#FFFFFF',
+				color: '#ffffff',
 				customImage: null,
 			},
 		],
 		name: 'Chicken',
-		skinColor: '#FEC52B',
+		skinColor: '#fec52b',
 	},
 	{
 		clothes: 'Big Star',
@@ -118,7 +118,7 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		hats: [
 			{
 				name: 'Scarf',
-				color: '#FFFFFF',
+				color: '#ffffff',
 				customImage: null,
 			},
 		],
@@ -127,62 +127,62 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	},
 	{
 		clothes: 'Custom Tee',
-		clothesColor: '#CB5587',
+		clothesColor: '#cb5587',
 		customClothesImage: require('./Custom_Tee_Cinnaroll.png'),
 		expression: 'smit',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Custom Hat',
-				color: '#B996C2',
+				color: '#b996c2',
 				customImage: require('./Custom_Hat_Cinnaroll.png'),
 			},
 		],
 		name: 'Cinnaroll',
-		skinColor: '#B38184',
+		skinColor: '#b38184',
 	},
 	{
 		clothes: 'Scarf',
-		clothesColor: '#DFDEF5',
+		clothesColor: '#dfdef5',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Round Glasses',
-				color: '#B1E2E5',
+				color: '#b1e2e5',
 				customImage: null,
 			},
 		],
 		name: 'Cocoa',
-		skinColor: '#665E58',
+		skinColor: '#665e58',
 	},
 	{
 		clothes: 'Wielder Cloak',
-		clothesColor: '#B696ED',
+		clothesColor: '#b696ed',
 		expression: 'closed',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Wielder Tie',
-				color: '#B696ED',
+				color: '#b696ed',
 				customImage: null,
 			},
 		],
 		name: 'Hot Wings',
-		skinColor: '#FFF5ED',
+		skinColor: '#fff5ed',
 	},
 	{
 		clothes: 'Scarf',
-		clothesColor: '#F9A797',
+		clothesColor: '#f9a797',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'None',
-				color: '#FA777F',
+				color: '#fa777f',
 				customImage: null,
 			},
 		],
 		name: 'Lasagne',
-		skinColor: '#FEFDAE',
+		skinColor: '#fefdae',
 	},
 	{
 		// myself lol
@@ -191,9 +191,15 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		hair: 'Hedgehog',
 		hats: [
 			{
-				name: 'Spellcaster',
+				name: 'None',
 				color: '#b69aff',
 				customImage: null,
+			},
+			{
+				// Originally Spellcaster
+				name: 'Custom Hat',
+				color: '#ffffff',
+				customImage: require('./Custom_Hat_Pancake.png'),
 			},
 		],
 		name: 'Pancake',
@@ -215,17 +221,17 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	},
 	{
 		clothes: 'Princess',
-		clothesColor: '#42BDF5',
+		clothesColor: '#42bdf5',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Foxy',
-				color: '#F4AA41',
+				color: '#f4aa41',
 				customImage: null,
 			},
 		],
 		name: 'Pizzy',
-		skinColor: '#F4AA41',
+		skinColor: '#f4aa41',
 	},
 	{
 		clothes: 'College',
@@ -244,47 +250,47 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	},
 	{
 		clothes: 'College',
-		clothesColor: '#8AD8FB',
+		clothesColor: '#8ad8fb',
 		hair: 'Bellhair',
 		hats: [
 			{
 				name: 'Sparkles',
-				color: '#E898C1',
+				color: '#e898c1',
 				customImage: null,
 			},
 		],
 		name: 'Ramen',
-		skinColor: '#FFF9D9',
+		skinColor: '#fff9d9',
 	},
 	{
 		clothes: 'Kerchief',
-		clothesColor: '#81E9B5',
+		clothesColor: '#81e9b5',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Top Hat',
-				color: '#A2FEF8',
+				color: '#a2fef8',
 				customImage: null,
 			},
 		],
 		name: 'Rice',
-		skinColor: '#FFFFFF',
+		skinColor: '#ffffff',
 	},
 	{
 		clothes: 'Custom Tee',
-		clothesColor: '#E3C861',
+		clothesColor: '#e3c861',
 		customClothesImage: require('./Custom_Tee_Stir_Fry.png'),
 		expression: 'angry',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Custom Hat',
-				color: '#E3C861',
+				color: '#e3c861',
 				customImage: require('./Custom_Hat_Stir_Fry.png'),
 			},
 		],
 		name: 'Stir Fry',
-		skinColor: '#00C6FF',
+		skinColor: '#00c6ff',
 	},
 	{
 		clothes: 'Kerchief',

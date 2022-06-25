@@ -64,18 +64,22 @@ export default function drawImageAsColor(
 
 	// Fill the whole canvas with a color but only to already drawn areas
 	// https://stackoverflow.com/a/26505047
-	tempCtx.globalCompositeOperation = 'source-atop';
-	tempCtx.fillStyle = options.fillColor;
-	tempCtx.fillRect(0, 0, width, height);
-	tempCtx.globalCompositeOperation = 'source-over';
+	if (options.fillColor !== '#ffffff') {
+		tempCtx.globalCompositeOperation = 'source-atop';
+		tempCtx.fillStyle = options.fillColor;
+		tempCtx.fillRect(0, 0, width, height);
+		tempCtx.globalCompositeOperation = 'source-over';
+	}
 
 	// Now draw the original image to the real canvas
 	ctx.drawImage(image, x, y, width, height);
 
 	// Fill in the colors
-	ctx.globalCompositeOperation = 'multiply';
-	ctx.drawImage(tempCtx.canvas, x, y, width, height);
-	ctx.globalCompositeOperation = 'source-over';
+	if (options.fillColor !== '#ffffff') {
+		ctx.globalCompositeOperation = 'multiply';
+		ctx.drawImage(tempCtx.canvas, x, y, width, height);
+		ctx.globalCompositeOperation = 'source-over';
+	}
 
 	// Draw colorized outlines
 	if (
