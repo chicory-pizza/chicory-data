@@ -45,6 +45,16 @@ const CUSTOM_STYLES = {
 			},
 		};
 	},
+	dropdownIndicator(provided, state) {
+		return {
+			...provided,
+			color: 'var(--input-border-color)',
+			transition: 'none',
+			'&:hover': {
+				color: 'var(--input-border-hover-color)',
+			},
+		};
+	},
 	indicatorSeparator(provided, state) {
 		return {
 			...provided,
