@@ -1,5 +1,7 @@
 // @flow strict
 
+import transformImageImport from '../../util/transformImageImport';
+
 const DOG_ANIMATIONS: Map<
 	string,
 	{
@@ -21,34 +23,154 @@ const DOG_ANIMATIONS: Map<
 
 DOG_ANIMATIONS.set('idle', {
 	idle1: [
-		require('../images/dog_animations/idle/sprDog_idle_A_0.png'),
-		require('../images/dog_animations/idle/sprDog_idle_A_1.png'),
-		require('../images/dog_animations/idle/sprDog_idle_A_2.png'),
-		require('../images/dog_animations/idle/sprDog_idle_A_3.png'),
-		require('../images/dog_animations/idle/sprDog_idle_A_4.png'),
-		require('../images/dog_animations/idle/sprDog_idle_A_5.png'),
-		require('../images/dog_animations/idle/sprDog_idle_A_6.png'),
-		require('../images/dog_animations/idle/sprDog_idle_A_7.png'),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_A_0.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_A_1.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_A_2.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_A_3.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_A_4.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_A_5.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_A_6.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_A_7.png',
+				import.meta.url
+			)
+		),
 	],
 	idle2: [
-		require('../images/dog_animations/idle/sprDog_idle_B_0.png'),
-		require('../images/dog_animations/idle/sprDog_idle_B_1.png'),
-		require('../images/dog_animations/idle/sprDog_idle_B_2.png'),
-		require('../images/dog_animations/idle/sprDog_idle_B_3.png'),
-		require('../images/dog_animations/idle/sprDog_idle_B_4.png'),
-		require('../images/dog_animations/idle/sprDog_idle_B_5.png'),
-		require('../images/dog_animations/idle/sprDog_idle_B_6.png'),
-		require('../images/dog_animations/idle/sprDog_idle_B_7.png'),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_B_0.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_B_1.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_B_2.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_B_3.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_B_4.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_B_5.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_B_6.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_B_7.png',
+				import.meta.url
+			)
+		),
 	],
 	ear: [
-		require('../images/dog_animations/idle/sprDog_idle_ear_0.png'),
-		require('../images/dog_animations/idle/sprDog_idle_ear_1.png'),
-		require('../images/dog_animations/idle/sprDog_idle_ear_2.png'),
-		require('../images/dog_animations/idle/sprDog_idle_ear_3.png'),
-		require('../images/dog_animations/idle/sprDog_idle_ear_4.png'),
-		require('../images/dog_animations/idle/sprDog_idle_ear_5.png'),
-		require('../images/dog_animations/idle/sprDog_idle_ear_6.png'),
-		require('../images/dog_animations/idle/sprDog_idle_ear_7.png'),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_ear_0.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_ear_1.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_ear_2.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_ear_3.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_ear_4.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_ear_5.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_ear_6.png',
+				import.meta.url
+			)
+		),
+		transformImageImport(
+			new URL(
+				'../images/dog_animations/idle/sprDog_idle_ear_7.png',
+				import.meta.url
+			)
+		),
 	],
 	headAnim: [
 		{x: -2.5, y: -45.6, ang: 0.32},

@@ -1,10 +1,11 @@
 import '@testing-library/jest-dom';
 import ReactModal from 'react-modal';
 
-import './util/shimRequestIdleCallback';
+import '../util/shimRequestIdleCallback';
 
-jest.mock('./util/ConsoleNoJest');
-jest.mock('./levelEditor/level_data.json');
+jest.mock('../util/ConsoleNoJest');
+jest.mock('../util/transformImageImport');
+jest.mock('../levelEditor/level_data.json');
 
 Element.prototype.scrollIntoView = jest.fn();
 

@@ -55,35 +55,17 @@ export default async function renderDogToCanvasHelper(options: {
 				// Images
 				hatShowHairExtra:
 					hatInfo.showHairExtraImagePath != null
-						? await loadImage(
-								path.resolve(
-									__dirname,
-									'../images/hat_padding/',
-									hatInfo.showHairExtraImagePath
-								)
-						  )
+						? await loadImage(hatInfo.showHairExtraImagePath)
 						: null,
 				hat:
 					hatInfo.internalName === 'Custom Hat' && chosenHat.customImage != null
 						? chosenHat.customImage
 						: hatInfo.imageWithPaddingPath != null
-						? await loadImage(
-								path.resolve(
-									__dirname,
-									'../images/hat_padding/',
-									hatInfo.imageWithPaddingPath
-								)
-						  )
+						? await loadImage(hatInfo.imageWithPaddingPath)
 						: null,
 				hatLayer2:
 					hatInfo.layer2ImagePath != null
-						? await loadImage(
-								path.resolve(
-									__dirname,
-									'../images/clothes_padding/',
-									hatInfo.layer2ImagePath
-								)
-						  )
+						? await loadImage(hatInfo.layer2ImagePath)
 						: null,
 			};
 		})
@@ -118,18 +100,9 @@ export default async function renderDogToCanvasHelper(options: {
 		throw new Error('Invalid animation ' + animation);
 	}
 
-	const idle2 = path.resolve(
-		__dirname,
-		'../images/dog_animations/' + animation + '/' + animationInfo.idle2[0]
-	);
-	const idle1 = path.resolve(
-		__dirname,
-		'../images/dog_animations/' + animation + '/' + animationInfo.idle1[0]
-	);
-	const ear = path.resolve(
-		__dirname,
-		'../images/dog_animations/' + animation + '/' + animationInfo.ear[0]
-	);
+	const idle2 = animationInfo.idle2[0];
+	const idle1 = animationInfo.idle1[0];
+	const ear = animationInfo.ear[0];
 
 	// Start drawing!
 	const canvas = document.createElement('canvas');
@@ -144,41 +117,19 @@ export default async function renderDogToCanvasHelper(options: {
 				clothesInfo.internalName === 'Custom Tee' &&
 				options.customClothesImage != null
 					? options.customClothesImage
-					: await loadImage(
-							path.resolve(
-								__dirname,
-								'../images/clothes_padding/',
-								clothesInfo.imageWithPaddingPath
-							)
-					  ),
+					: await loadImage(clothesInfo.imageWithPaddingPath),
 			idle1: await loadImage(idle1),
 			clothesLayer2:
 				clothesInfo.layer2ImagePath != null
-					? await loadImage(
-							path.resolve(
-								__dirname,
-								'../images/clothes_padding/',
-								clothesInfo.layer2ImagePath
-							)
-					  )
+					? await loadImage(clothesInfo.layer2ImagePath)
 					: null,
 
 			head: await loadImage(
 				expressionInfo != null
-					? path.resolve(
-							__dirname,
-							'../images/dog_expressions/',
-							expressionInfo.image
-					  )
+					? expressionInfo.image
 					: path.resolve(__dirname, '../images/sprDog_head_0.png')
 			),
-			hair: await loadImage(
-				path.resolve(
-					__dirname,
-					'../images/hair_padding/',
-					hairInfo.imageWithPaddingPath
-				)
-			),
+			hair: await loadImage(hairInfo.imageWithPaddingPath),
 
 			ear: await loadImage(ear),
 		},

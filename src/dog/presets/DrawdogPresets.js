@@ -1,5 +1,7 @@
 // @flow strict
 
+import transformImageImport from '../../util/transformImageImport';
+
 export type DrawdogPreset = {
 	clothes: string,
 	clothesColor: string,
@@ -128,14 +130,18 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	{
 		clothes: 'Custom Tee',
 		clothesColor: '#cb5587',
-		customClothesImage: require('./Custom_Tee_Cinnaroll.png'),
+		customClothesImage: transformImageImport(
+			new URL('./Custom_Tee_Cinnaroll.png', import.meta.url)
+		),
 		expression: 'smit',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Custom Hat',
 				color: '#b996c2',
-				customImage: require('./Custom_Hat_Cinnaroll.png'),
+				customImage: transformImageImport(
+					new URL('./Custom_Hat_Cinnaroll.png', import.meta.url)
+				),
 			},
 		],
 		name: 'Cinnaroll',
@@ -199,7 +205,9 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 				// Originally Spellcaster
 				name: 'Custom Hat',
 				color: '#ffffff',
-				customImage: require('./Custom_Hat_Pancake.png'),
+				customImage: transformImageImport(
+					new URL('./Custom_Hat_Pancake.png', import.meta.url)
+				),
 			},
 		],
 		name: 'Pancake',
@@ -279,14 +287,18 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	{
 		clothes: 'Custom Tee',
 		clothesColor: '#e3c861',
-		customClothesImage: require('./Custom_Tee_Stir_Fry.png'),
+		customClothesImage: transformImageImport(
+			new URL('./Custom_Tee_Stir_Fry.png', import.meta.url)
+		),
 		expression: 'angry',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Custom Hat',
 				color: '#e3c861',
-				customImage: require('./Custom_Hat_Stir_Fry.png'),
+				customImage: transformImageImport(
+					new URL('./Custom_Hat_Stir_Fry.png', import.meta.url)
+				),
 			},
 		],
 		name: 'Stir Fry',

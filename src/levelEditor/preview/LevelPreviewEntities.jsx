@@ -53,7 +53,7 @@ function LevelPreviewEntities(props: Props): React$Node {
 		}
 
 		return levelDecos.map((dec, index) => {
-			const urlPrefix = process.env.REACT_APP_SPRITES_URL_PREFIX;
+			const urlPrefix = import.meta.env.VITE_SPRITES_URL_PREFIX;
 			const originx = spritesData[dec.spr].originx;
 			const originy = spritesData[dec.spr].originy;
 

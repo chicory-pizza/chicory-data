@@ -2,7 +2,7 @@
 
 import ErrorBoundary from '../../../common/ErrorBoundary';
 import type {DecorationType} from '../../types/DecorationType';
-import type {SidebarEntityPropertiesComponentType} from '../properties/SidebarEntityPropertiesComponentType';
+import type {SidebarEntityPropertiesComponentType} from './SidebarEntityPropertiesComponentType';
 
 import PropertyNumberInput from './PropertyNumberInput';
 import styles from './SidebarDecoProperties.module.css';

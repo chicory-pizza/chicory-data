@@ -59,7 +59,7 @@ export default function LevelPreview(props: Props): React$Node {
 	}
 
 	//Draw sprite when adding a decoration
-	const urlPrefix = process.env.REACT_APP_SPRITES_URL_PREFIX;
+	const urlPrefix = import.meta.env.VITE_SPRITES_URL_PREFIX;
 	let addingDeco;
 	if (props.addingEntityLabel && props.addingEntityLabel.type === 'DECO') {
 		const deco = props.addingEntityLabel.data;

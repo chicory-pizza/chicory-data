@@ -1,5 +1,7 @@
 // @flow strict
 
+import transformImageImport from '../../util/transformImageImport';
+
 export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 	value: string,
 	label: string,
@@ -10,140 +12,252 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 		value: 'normal',
 		label: '(None)',
 		chicorobotName: 'normal',
-		image: require('../images/sprDog_head_0.png'),
-		// image: require('../images/dog_expressions/sprDog_expression_0.png'),
+		image: transformImageImport(
+			new URL('../images/sprDog_head_0.png', import.meta.url)
+		),
+		// image: transformImageImport(new URL('../images/dog_expressions/sprDog_expression_0.png', import.meta.url)),
 	},
 	{
 		value: 'small',
 		label: 'small',
 		chicorobotName: 'small',
-		image: require('../images/dog_expressions/sprDog_expression_0.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_0.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'closed',
 		label: 'closed',
 		chicorobotName: 'closed',
-		image: require('../images/dog_expressions/sprDog_expression_1.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_1.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'grin',
 		label: 'grin',
 		chicorobotName: 'grin',
-		image: require('../images/dog_expressions/sprDog_expression_2.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_2.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'angry',
 		label: 'angry/grr/gr/grrr',
 		chicorobotName: 'grr',
-		image: require('../images/dog_expressions/sprDog_expression_3.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_3.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'nervous',
 		label: 'nervous',
 		chicorobotName: 'nervous',
-		image: require('../images/dog_expressions/sprDog_expression_4.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_4.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'gah',
 		label: 'gah/gasp',
 		chicorobotName: 'gasp',
-		image: require('../images/dog_expressions/sprDog_expression_5.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_5.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'heee',
 		label: 'heee',
 		chicorobotName: 'heee',
-		image: require('../images/dog_expressions/sprDog_expression_6.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_6.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'whoa',
 		label: 'whoa',
 		chicorobotName: 'whoa',
-		image: require('../images/dog_expressions/sprDog_expression_7.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_7.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'sorry',
 		label: 'sorry',
 		chicorobotName: 'sorry',
-		image: require('../images/dog_expressions/sprDog_expression_8.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_8.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'stop',
 		label: 'stop',
 		chicorobotName: 'stop',
-		image: require('../images/dog_expressions/sprDog_expression_9.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_9.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'ouch',
 		label: 'ouch/ow',
 		chicorobotName: 'ouch',
-		image: require('../images/dog_expressions/sprDog_expression_10.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_10.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'worry',
 		label: 'worry/worried',
 		chicorobotName: 'worry',
-		image: require('../images/dog_expressions/sprDog_expression_11.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_11.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'knockdown',
 		label: 'knockdown',
 		chicorobotName: 'knockdown',
-		image: require('../images/dog_expressions/sprDog_expression_12.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_12.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'smit',
 		label: 'smit/swoon',
 		chicorobotName: 'smit',
-		image: require('../images/dog_expressions/sprDog_expression_13.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_13.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'smile',
 		label: 'smile',
 		chicorobotName: 'smile',
-		image: require('../images/dog_expressions/sprDog_expression_14.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_14.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'cheeky',
 		label: 'cheeky',
 		chicorobotName: 'cheeky',
-		image: require('../images/dog_expressions/sprDog_expression_15.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_15.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'hmph',
 		label: 'hmph/hmf',
 		chicorobotName: 'hmph',
-		image: require('../images/dog_expressions/sprDog_expression_16.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_16.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'ok',
 		label: 'ok',
 		chicorobotName: 'okay',
-		image: require('../images/dog_expressions/sprDog_expression_17.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_17.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'depressed',
 		label: 'depressed',
 		chicorobotName: 'depressed',
-		image: require('../images/dog_expressions/sprDog_expression_19.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_19.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'embarass',
 		label: 'embarass',
 		chicorobotName: 'embarassed',
-		image: require('../images/dog_expressions/sprDog_expression_20.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_20.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'closed_sad',
 		label: 'closed_sad',
 		chicorobotName: 'closed sad',
-		image: require('../images/dog_expressions/sprDog_expression_21.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_21.png',
+				import.meta.url
+			)
+		),
 	},
 	{
 		value: 'evil',
 		label: 'evil',
 		chicorobotName: 'evil',
-		image: require('../images/dog_expressions/sprDog_expression_18.png'),
+		image: transformImageImport(
+			new URL(
+				'../images/dog_expressions/sprDog_expression_18.png',
+				import.meta.url
+			)
+		),
 	},
 ].sort((a, b) => {
 	if (a.value < b.value) {

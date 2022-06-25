@@ -4,7 +4,7 @@ import ErrorBoundary from '../../../common/ErrorBoundary';
 import type {GameObjectType} from '../../types/GameObjectType';
 import {OBJECT_EDITABLE_PROPERTIES_SCHEMA} from '../../types/ObjectEditablePropertiesSchema';
 import SidebarObjectCustomDog from '../objectsList/SidebarObjectCustomDog';
-import type {SidebarEntityPropertiesComponentType} from '../properties/SidebarEntityPropertiesComponentType';
+import type {SidebarEntityPropertiesComponentType} from './SidebarEntityPropertiesComponentType';
 
 import SidebarEditableProperties from './SidebarEditableProperties';
 

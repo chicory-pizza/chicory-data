@@ -16,7 +16,7 @@ type Props = $ReadOnly<{
 function LevelDecoAdder(props: Props): React$Node {
 	const [filter, setFilter] = useState<string>('');
 
-	const urlPrefix = process.env.REACT_APP_SPRITES_URL_PREFIX;
+	const urlPrefix = import.meta.env.VITE_SPRITES_URL_PREFIX;
 
 	const filterLowercase = filter.toLowerCase().trim().replace(/ /g, '_');
 	const filteredSprites = SPRITES.filter((sprite) => {

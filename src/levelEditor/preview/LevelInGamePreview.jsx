@@ -31,7 +31,7 @@ export default function LevelInGamePreview({
 		);
 	}
 
-	const urlPrefix = process.env.REACT_APP_IN_GAME_SCREENSHOT_URL_PREFIX;
+	const urlPrefix = import.meta.env.VITE_IN_GAME_SCREENSHOT_URL_PREFIX;
 	if (urlPrefix == null) {
 		return (
 			<div className={styles.root}>

@@ -1,4 +1,5 @@
-build/
+dist/
+
 coverage/
 
 flow-typed/npm/
