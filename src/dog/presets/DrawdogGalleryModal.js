@@ -34,17 +34,28 @@ export default function DrawdogGalleryModal({
 		[onModalRequestClose, onPresetSelect]
 	);
 
-	const onHoverEnter = useCallback((preset) => {
-		let randomExpression = randomItem(DOG_EXPRESSION_LIST).value;
-		if (randomExpression === 'normal') {
-			randomExpression = 'small';
-		}
+	const onHoverEnter = useCallback(
+		(preset) => {
+			if (preset.name === dogMouseOver?.name) {
+				// Already set
+				return;
+			}
 
-		setDogMouseOver({
-			name: preset.name,
-			expression: randomExpression,
-		});
-	}, []);
+			let randomExpression;
+			do {
+				randomExpression = randomItem(DOG_EXPRESSION_LIST).value;
+			} while (
+				randomExpression === 'normal' ||
+				randomExpression === preset.expression
+			);
+
+			setDogMouseOver({
+				name: preset.name,
+				expression: randomExpression,
+			});
+		},
+		[dogMouseOver?.name]
+	);
 
 	const onHoverLeave = useCallback(
 		(preset) => {
