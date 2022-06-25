@@ -87,6 +87,6 @@ declare module 'browser-fs-access' {
 		},
 		existingHandle?: ?FileSystemFileHandle,
 		throwIfExistingHandleNotGood?: boolean,
-		filePickerShown?: ?() => void
+		filePickerShown?: ?(handle: ?FileSystemFileHandle) => void
 	): Promise<?FileSystemFileHandle>;
 }
