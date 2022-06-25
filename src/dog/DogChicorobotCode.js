@@ -62,15 +62,12 @@ export default function DogChicorobotCode(props: Props): React$Node {
 		throw new Error('Invalid expression ' + props.expression);
 	}
 	return (
-		<>
-			Chicorobot:{' '}
-			<code>
-				/dog expression:{expressionInfo.chicorobotName} clothes:
-				{clothesInfo.chicorobotName} hat:
-				{hatInfo.chicorobotName} hair:{hairInfo.chicorobotName} body_col:
-				{props.skinColor} clothes_col:
-				{props.clothesColor} hat_col:{props.hatColor}
-			</code>
-		</>
+		<code>
+			/dog expression:{expressionInfo.chicorobotName} clothes:
+			{clothesInfo.chicorobotName} hat:
+			{hatInfo.chicorobotName} hair:{hairInfo.chicorobotName} body_col:
+			{props.skinColor} clothes_col:
+			{props.clothesColor} hat_col:{props.hatColor}
+		</code>
 	);
 }

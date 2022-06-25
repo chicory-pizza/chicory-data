@@ -3,7 +3,7 @@
 import styles from './MessageBox.module.css';
 
 type Props = $ReadOnly<{
-	message: string,
+	message: React$Node,
 	type: 'ERROR' | 'INFO',
 }>;
 

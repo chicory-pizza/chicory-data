@@ -71,8 +71,15 @@ export default function DogEditorApp(): React$Node {
 	// Doing this for now until the editor state is moved to one reducer state
 	const hasMultipleHatLayers = hatsState.hats.length > 1;
 	const hasNonBlackSkinOutlineColor = skinOutlineColor !== '#000000';
+	const hasCustomClothes =
+		clothes === 'Custom Tee' || previewClothes === 'Custom Tee';
+	const hasCustomHat = hatsInPreview.some((hat) => hat.name === 'Custom Hat');
 	const showChicorobotNotice =
-		hasMultipleHatLayers || hasNonBlackSkinOutlineColor || invertColors;
+		hasMultipleHatLayers ||
+		hasNonBlackSkinOutlineColor ||
+		hasCustomClothes ||
+		hasCustomHat ||
+		invertColors;
 
 	useEffect(() => {
 		changeDocumentTitle('Drawdog maker');
@@ -274,43 +281,73 @@ export default function DogEditorApp(): React$Node {
 						</div>
 
 						<div className={styles.chicorobot}>
-							<ErrorBoundary>
-								<DogChicorobotCode
-									clothes={previewClothes ?? clothes}
-									clothesColor={clothesColor}
-									expression={previewExpression ?? expression}
-									hat={hatsState.hats[0].previewName ?? hatsState.hats[0].name}
-									hatColor={hatsState.hats[0].color}
-									hair={previewHair ?? hair}
-									skinColor={skinColor}
-								/>
-							</ErrorBoundary>
+							<details>
+								<summary>Chicorobot slash command</summary>
+
+								<ErrorBoundary>
+									<DogChicorobotCode
+										clothes={previewClothes ?? clothes}
+										clothesColor={clothesColor}
+										expression={previewExpression ?? expression}
+										hat={
+											hatsState.hats[0].previewName ?? hatsState.hats[0].name
+										}
+										hatColor={hatsState.hats[0].color}
+										hair={previewHair ?? hair}
+										skinColor={skinColor}
+									/>
+								</ErrorBoundary>
+
+								{showChicorobotNotice ? (
+									<div className={styles.chicorobotNotices}>
+										{hasCustomClothes ? (
+											<MessageBox
+												message={
+													<>
+														Custom clothes need to manually uploaded using{' '}
+														<code>custom_clothes:</code>
+													</>
+												}
+												type="INFO"
+											/>
+										) : null}
+
+										{hasCustomHat ? (
+											<MessageBox
+												message={
+													<>
+														Custom hats need to manually uploaded using{' '}
+														<code>custom_hat:</code>
+													</>
+												}
+												type="INFO"
+											/>
+										) : null}
+
+										{hasMultipleHatLayers ? (
+											<MessageBox
+												message="Multiple hat layers are not supported, only the 1st hat layer will be shown"
+												type="INFO"
+											/>
+										) : null}
+
+										{hasNonBlackSkinOutlineColor ? (
+											<MessageBox
+												message="Non-black skin outline colors are not supported"
+												type="INFO"
+											/>
+										) : null}
+
+										{invertColors ? (
+											<MessageBox
+												message="Inverted colors are not supported"
+												type="INFO"
+											/>
+										) : null}
+									</div>
+								) : null}
+							</details>
 						</div>
-
-						{showChicorobotNotice ? (
-							<div className={styles.chicorobotNotices}>
-								{hasMultipleHatLayers ? (
-									<MessageBox
-										message="Multiple hat layers are not supported in Chicorobot, only the 1st hat layer will be shown"
-										type="INFO"
-									/>
-								) : null}
-
-								{hasNonBlackSkinOutlineColor ? (
-									<MessageBox
-										message="Non-black skin outline colors are not supported in Chicorobot"
-										type="INFO"
-									/>
-								) : null}
-
-								{invertColors ? (
-									<MessageBox
-										message="Inverted colors are not supported in Chicorobot"
-										type="INFO"
-									/>
-								) : null}
-							</div>
-						) : null}
 					</ErrorBoundary>
 				</div>
 			</div>
