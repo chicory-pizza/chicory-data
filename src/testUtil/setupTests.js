@@ -23,6 +23,24 @@ window.matchMedia = (query) => {
 	};
 };
 
+window.IntersectionObserver = class IntersectionObserver {
+	disconnect() {
+		return null;
+	}
+
+	observe() {
+		return null;
+	}
+
+	takeRecords() {
+		return null;
+	}
+
+	unobserve() {
+		return null;
+	}
+};
+
 // For react-modal
 const fakeAppRoot = document.createElement('div');
 ReactModal.setAppElement(fakeAppRoot);
