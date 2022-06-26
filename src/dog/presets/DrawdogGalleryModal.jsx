@@ -22,6 +22,8 @@ export default function DrawdogGalleryModal({
 	onModalRequestClose,
 	onPresetSelect,
 }: Props): React$Node {
+	const [playAnimations, setPlayAnimations] = useState(true);
+
 	const [dogMouseOver, setDogMouseOver] =
 		useState<?{name: string, expression: string}>(null);
 
@@ -73,24 +75,38 @@ export default function DrawdogGalleryModal({
 			titleText="Drawdog gallery"
 		>
 			{isOpen ? (
-				<div className={styles.grid}>
-					{DRAWDOG_PRESETS.map((preset) => {
-						return (
-							<DrawdogGalleryDog
-								forceExpression={
-									dogMouseOver != null && dogMouseOver.name === preset.name
-										? dogMouseOver.expression
-										: null
-								}
-								key={preset.name}
-								onHoverEnter={onHoverEnter}
-								onHoverLeave={onHoverLeave}
-								onSelect={onSelect}
-								preset={preset}
-							/>
-						);
-					})}
-				</div>
+				<>
+					<label>
+						<input
+							type="checkbox"
+							checked={playAnimations}
+							onChange={(ev) => {
+								setPlayAnimations(ev.currentTarget.checked);
+							}}
+						/>
+						Play animations
+					</label>
+
+					<div className={styles.grid}>
+						{DRAWDOG_PRESETS.map((preset) => {
+							return (
+								<DrawdogGalleryDog
+									forceExpression={
+										dogMouseOver != null && dogMouseOver.name === preset.name
+											? dogMouseOver.expression
+											: null
+									}
+									key={preset.name}
+									onHoverEnter={onHoverEnter}
+									onHoverLeave={onHoverLeave}
+									onSelect={onSelect}
+									playAnimations={playAnimations}
+									preset={preset}
+								/>
+							);
+						})}
+					</div>
+				</>
 			) : null}
 		</CustomModal>
 	);

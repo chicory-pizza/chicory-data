@@ -10,6 +10,7 @@ type Props = $ReadOnly<{
 	onHoverEnter: (preset: DrawdogPreset) => mixed,
 	onHoverLeave: (preset: DrawdogPreset) => mixed,
 	onSelect: (preset: DrawdogPreset) => mixed,
+	playAnimations: boolean,
 	preset: DrawdogPreset,
 }>;
 
@@ -40,6 +41,7 @@ export default function DrawdogGalleryDog(props: Props): React$Node {
 					expression={props.forceExpression ?? preset.expression ?? 'normal'}
 					hats={preset.hats}
 					hair={preset.hair}
+					playAnimations={props.playAnimations}
 					skinColor={preset.skinColor}
 					skinOutlineColor={preset.skinOutlineColor}
 				/>

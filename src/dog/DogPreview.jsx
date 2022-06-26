@@ -29,6 +29,7 @@ type Props = $ReadOnly<{
 	expression: string,
 	hats: $ReadOnlyArray<ChosenHat>,
 	hair: string,
+	playAnimations?: boolean,
 	skinColor: string,
 	skinOutlineColor?: string,
 }>;
@@ -114,6 +115,7 @@ export default function DogPreview(props: Props): React$Node {
 	}
 
 	const [animationIndex, setAnimationIndex] = useState(0);
+	const playAnimations = props.playAnimations ?? true;
 	const isPageVisible = useVisibilityChange();
 	const {ref: intersectionObserverRef, inView} = useInView();
 	useInterval(
@@ -124,7 +126,12 @@ export default function DogPreview(props: Props): React$Node {
 					: 0
 			);
 		},
-		isPageVisible && inView && animationInfo.headAnim.length > 0 ? 200 : null
+		playAnimations &&
+			isPageVisible &&
+			inView &&
+			animationInfo.headAnim.length > 0
+			? 200
+			: null
 	);
 
 	const animationImagesToLoad = useMemo(() => {

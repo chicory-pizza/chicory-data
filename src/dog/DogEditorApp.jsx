@@ -51,6 +51,7 @@ export default function DogEditorApp(): React$Node {
 
 	const [customClothesImage, setCustomClothesImage] = useState<?string>(null);
 
+	const [playAnimations, setPlayAnimations] = useState(true);
 	const [invertColors, setInvertColors] = useState(false);
 
 	const [speechFont, setSpeechFont] = useState('Domigorgon');
@@ -176,6 +177,7 @@ export default function DogEditorApp(): React$Node {
 								expression={previewExpression ?? expression}
 								hats={hatsInPreview}
 								hair={previewHair ?? hair}
+								playAnimations={playAnimations}
 								skinColor={skinColor}
 								skinOutlineColor={skinOutlineColor}
 							/>
@@ -274,6 +276,19 @@ export default function DogEditorApp(): React$Node {
 								/>
 							</div>
 							<div />
+
+							<div className={styles.fullWidthControl}>
+								<label>
+									<input
+										type="checkbox"
+										checked={playAnimations}
+										onChange={(ev) => {
+											setPlayAnimations(ev.currentTarget.checked);
+										}}
+									/>
+									Play animation
+								</label>
+							</div>
 
 							<div className={styles.fullWidthControl}>
 								<label>
