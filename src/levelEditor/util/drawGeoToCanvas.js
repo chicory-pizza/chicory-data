@@ -20,7 +20,7 @@ export default function drawGeoToCanvas({
 
 	// pixels
 	geo.forEach((pixel, index) => {
-		let fill = PIXEL_COLORS.get(pixel);
+		const fill = PIXEL_COLORS.get(pixel);
 		if (fill == null) {
 			console.warn('unknown pixel color ' + pixel);
 			return null;

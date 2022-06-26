@@ -81,7 +81,7 @@ export default function drawDogToCanvas(
 	)?.hatLayer2;
 
 	let hatOrClothesLayer2 = gotAnyHatWithLayer2 || images.clothesLayer2;
-	let clothesCollar: ?number = gotAnyHatWithLayer2
+	const clothesCollar: ?number = gotAnyHatWithLayer2
 		? null
 		: options.clothesInfo.collar;
 

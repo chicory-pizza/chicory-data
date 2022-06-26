@@ -9,6 +9,9 @@
 		"plugin:jsx-a11y/recommended"
 	],
 	"rules": {
+		"no-var": "error",
+		"prefer-const": "warn",
+
 		// Prettier already handles this
 		"no-mixed-spaces-and-tabs": "off",
 

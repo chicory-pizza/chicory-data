@@ -26,10 +26,7 @@ export type Blocker = {
  *
  * @see https://reactrouter.com/api/useBlocker
  */
-export function useBlocker(
-	blocker: (transition: Blocker) => mixed,
-	when: boolean
-) {
+function useBlocker(blocker: (transition: Blocker) => mixed, when: boolean) {
 	const {navigator} = useContext(NavigationContext);
 
 	useEffect(() => {
