@@ -47,6 +47,7 @@ function SidebarObjectList(props: Props): React$MixedElement {
 			onEntityDelete={props.onEntityDelete}
 			onEntityEditProperty={props.onEntityEditProperty}
 			onEntityHover={props.onEntityHover}
+			openByDefault={false}
 			renderItemDisplayText={renderItemDisplayText}
 			setEntitiesListItemsExpanded={props.setEntitiesListItemsExpanded}
 			type="DECO"

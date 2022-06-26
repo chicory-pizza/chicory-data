@@ -53,6 +53,7 @@ function SidebarObjectList(props: Props): React$MixedElement {
 			onEntityDelete={props.onEntityDelete}
 			onEntityEditProperty={props.onEntityEditProperty}
 			onEntityHover={props.onEntityHover}
+			openByDefault={true}
 			renderItemDisplayText={renderItemDisplayText}
 			setEntitiesListItemsExpanded={props.setEntitiesListItemsExpanded}
 			type="OBJECT"

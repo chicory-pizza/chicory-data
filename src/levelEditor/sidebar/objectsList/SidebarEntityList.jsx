@@ -31,6 +31,7 @@ type Props<
 		entityType: EntityType
 	) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
+	openByDefault: boolean,
 	renderItemDisplayText: (entity: Entity) => React$Node,
 	setEntitiesListItemsExpanded: (
 		expandedIndexes: Array<number> | ((Array<number>) => Array<number>)
@@ -94,7 +95,7 @@ export default function SidebarEntityList<
 	const unfilteredEntitiesLength = filteredEntities.length;
 
 	return (
-		<details className={styles.expander} open>
+		<details className={styles.expander} open={props.openByDefault}>
 			<summary>
 				{unfilteredEntitiesLength > 0
 					? props.name +
