@@ -8,6 +8,12 @@ import {FONT_LIST} from '../types/FontList';
 import CustomMenuWithMouseHoverOptions from './CustomMenuWithMouseHoverOptions.jsx';
 import styles from './DogSpeechEditor.module.css';
 
+function formatOptionLabel(option) {
+	const fontStyle = getFontStyle(option.value);
+
+	return <span className={fontStyle}>{option.label}</span>;
+}
+
 type Props = $ReadOnly<{
 	font: string,
 	onFontChange: (value: string) => mixed,
@@ -19,7 +25,7 @@ type Props = $ReadOnly<{
 	text: string,
 }>;
 
-export default function DogSpeechEditor(props: Props): React$Node {
+export default function DogSpeechEditor(props: Props): React$MixedElement {
 	const fontStyle = getFontStyle(props.previewFont ?? props.font);
 
 	const options = useMemo(() => {
@@ -51,6 +57,7 @@ export default function DogSpeechEditor(props: Props): React$Node {
 					<div className={styles.label}>Font:</div>
 					<div className={styles.selectControl}>
 						<CustomMenuWithMouseHoverOptions
+							formatOptionLabel={formatOptionLabel}
 							onChange={props.onFontChange}
 							onPreviewChange={props.onPreviewFontChange}
 							options={options}

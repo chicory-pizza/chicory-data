@@ -19,6 +19,7 @@ type Props<T> = $ReadOnly<{
 			mixed
 		>,
 	},
+	formatOptionLabel?: (option: OptionType<T>) => React$MixedElement,
 	maxMenuHeight: number,
 	onChange: (newOption: OptionType<T>) => mixed,
 	onMenuClose?: () => void,
@@ -106,10 +107,11 @@ const CUSTOM_THEME = (theme) => {
 	};
 };
 
-export default function CustomSelect<T>(props: Props<T>): React$Node {
+export default function CustomSelect<T>(props: Props<T>): React$MixedElement {
 	return (
 		<Select
 			components={props.components}
+			formatOptionLabel={props.formatOptionLabel}
 			maxMenuHeight={props.maxMenuHeight}
 			menuPortalTarget={document.body}
 			onChange={props.onChange}

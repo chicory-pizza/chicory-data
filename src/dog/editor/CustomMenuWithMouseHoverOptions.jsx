@@ -8,6 +8,7 @@ import CustomSelect from '../../common/CustomSelect';
 import type {OptionType} from '../../common/CustomSelect';
 
 type Props = $ReadOnly<{
+	formatOptionLabel?: (option: OptionType<string>) => React$MixedElement,
 	onChange: (value: string) => mixed,
 	onPreviewChange: (value: ?string) => mixed,
 	options: Array<OptionType<string>>,
@@ -15,11 +16,12 @@ type Props = $ReadOnly<{
 }>;
 
 function CustomMenuWithMouseHoverOptions({
+	formatOptionLabel,
 	onChange,
 	onPreviewChange,
 	options,
 	value,
-}: Props): React$Node {
+}: Props): React$MixedElement {
 	const onOptionChange = useCallback(
 		(newValue) => {
 			onChange(newValue.value);
@@ -44,6 +46,7 @@ function CustomMenuWithMouseHoverOptions({
 	return (
 		<CustomSelect
 			components={{Option}}
+			formatOptionLabel={formatOptionLabel}
 			maxMenuHeight={300}
 			onChange={onOptionChange}
 			onMenuClose={onMenuClose}

@@ -1,8 +1,6 @@
 // @flow strict
 
 import {memo, useCallback} from 'react';
-// $FlowFixMe[untyped-import]
-import {components} from 'react-select';
 
 import CustomSelect from '../../../common/CustomSelect';
 import {
@@ -12,18 +10,12 @@ import {
 
 import styles from './PropertyPaletteInput.module.css';
 
-function PaletteDetail({
-	children,
-	value,
-}: {
-	children: React$Node,
-	value: string,
-}) {
-	const colors = PALETTE_COLORS.get(value);
+function formatOptionLabel(option) {
+	const colors = PALETTE_COLORS.get(option.value);
 
 	return (
 		<div className={styles.option}>
-			<span className={styles.optionText}>{children}</span>
+			<span className={styles.optionText}>{option.label}</span>
 
 			{colors != null ? (
 				<div className={styles.optionColors}>
@@ -41,22 +33,6 @@ function PaletteDetail({
 				</div>
 			) : null}
 		</div>
-	);
-}
-
-function SingleValue(props) {
-	return (
-		<components.SingleValue {...props}>
-			<PaletteDetail value={props.data.value}>{props.children}</PaletteDetail>
-		</components.SingleValue>
-	);
-}
-
-function Option(props) {
-	return (
-		<components.Option {...props}>
-			<PaletteDetail value={props.data.value}>{props.children}</PaletteDetail>
-		</components.Option>
 	);
 }
 
@@ -93,7 +69,7 @@ function PropertyPaletteInput({
 
 	return (
 		<CustomSelect
-			components={{Option, SingleValue}}
+			formatOptionLabel={formatOptionLabel}
 			maxMenuHeight={300}
 			onChange={onChange}
 			options={selectOptions}
