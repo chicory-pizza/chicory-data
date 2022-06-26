@@ -25,6 +25,7 @@ import DogEditorFileInput from './editor/DogEditorFileInput';
 import DogEditorHatLayer from './editor/DogEditorHatLayer';
 import DogExpressionSelect from './editor/DogExpressionSelect';
 import DogHairSelect from './editor/DogHairSelect';
+import DogSpeechEditor from './editor/DogSpeechEditor.jsx';
 import type {DrawdogPreset} from './presets/DrawdogPresets';
 
 export default function DogEditorApp(): React$Node {
@@ -52,10 +53,15 @@ export default function DogEditorApp(): React$Node {
 
 	const [invertColors, setInvertColors] = useState(false);
 
+	const [speechFont, setSpeechFont] = useState('Domigorgon');
+	const [speechShowBubble, setSpeechShowBubble] = useState(true);
+	const [speechText, setSpeechText] = useState('Hello!');
+
 	// Previews
 	const [previewClothes, setPreviewClothes] = useState<?string>(null);
 	const [previewHair, setPreviewHair] = useState<?string>(null);
 	const [previewExpression, setPreviewExpression] = useState<?string>(null);
+	const [previewSpeechFont, setPreviewSpeechFont] = useState<?string>(null);
 
 	const hatsInPreview = useMemo(() => {
 		return hatsState.hats.map((hat) => {
@@ -153,7 +159,12 @@ export default function DogEditorApp(): React$Node {
 					}
 				>
 					<ErrorBoundary canReload={true}>
-						<DogSpeech />
+						<div className={!speechShowBubble ? styles.speechHidden : ''}>
+							<DogSpeech
+								font={previewSpeechFont ?? speechFont}
+								text={speechText}
+							/>
+						</div>
 
 						<div className={styles.dog}>
 							<DogPreview
@@ -184,7 +195,7 @@ export default function DogEditorApp(): React$Node {
 								/>
 							</div>
 
-							<div className={styles.controls}>
+							<div className={styles.clothesControls}>
 								<div className={styles.controlLabel}>Color:</div>
 								<div className={styles.color}>
 									<input
@@ -233,7 +244,7 @@ export default function DogEditorApp(): React$Node {
 							<div />
 
 							<div className={styles.label}>Skin fill:</div>
-							<div className={styles.select + ' ' + styles.controls}>
+							<div className={styles.colorControl}>
 								<input
 									type="color"
 									value={skinColor}
@@ -242,10 +253,9 @@ export default function DogEditorApp(): React$Node {
 									}}
 								/>
 							</div>
-							<div />
 
 							<div className={styles.label}>Skin outline:</div>
-							<div className={styles.select + ' ' + styles.controls}>
+							<div className={styles.colorControl}>
 								<input
 									type="color"
 									value={skinOutlineColor}
@@ -254,7 +264,6 @@ export default function DogEditorApp(): React$Node {
 									}}
 								/>
 							</div>
-							<div />
 
 							<div className={styles.label}>Expression:</div>
 							<div className={styles.select}>
@@ -270,14 +279,31 @@ export default function DogEditorApp(): React$Node {
 								<label>
 									<input
 										type="checkbox"
+										checked={invertColors}
 										onChange={(ev) => {
 											setInvertColors(ev.currentTarget.checked);
 										}}
-										value={invertColors}
 									/>
 									Invert colors
 								</label>
 							</div>
+						</div>
+
+						<div className={styles.speechEditor}>
+							<details open>
+								<summary>Speech bubble</summary>
+
+								<DogSpeechEditor
+									font={speechFont}
+									onFontChange={setSpeechFont}
+									onPreviewFontChange={setPreviewSpeechFont}
+									onShowBubbleChange={setSpeechShowBubble}
+									onTextChange={setSpeechText}
+									previewFont={previewSpeechFont}
+									showBubble={speechShowBubble}
+									text={speechText}
+								/>
+							</details>
 						</div>
 
 						<div className={styles.chicorobot}>

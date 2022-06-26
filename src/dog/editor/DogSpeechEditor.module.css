@@ -1,0 +1,43 @@
+.root {
+	margin-top: 10px;
+}
+
+.fullWidthControl {
+	margin-bottom: 8px;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: max-content auto;
+	margin-bottom: -8px;
+}
+
+.label {
+	display: flex;
+	align-items: center;
+	margin: 0 8px 8px 0;
+}
+
+.selectControl {
+	margin-bottom: 8px;
+}
+
+.textControl {
+	margin-bottom: 8px;
+}
+
+@media (min-width: 801px) {
+	.selectControl {
+		width: 266px;
+	}
+}
+
+.textInput {
+	display: block;
+	font-size: 2em;
+	height: 100px;
+	min-height: 100px;
+	padding: 10px;
+	resize: vertical;
+	width: 100%;
+}

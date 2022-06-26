@@ -7,20 +7,33 @@
 
 .speechWrap {
 	margin: 0 auto -100px;
-	max-width: 750px;
+	padding: 0 20px 0;
 	width: fit-content;
+}
+
+@media (min-width: 801px) {
+	.speechWrap {
+		max-width: 375px;
+	}
+}
+
+@media (min-width: 1441px) {
+	.speechWrap {
+		max-width: 750px;
+	}
 }
 
 .speechBody {
 	background: url('./images/speech_body.svg') 50% 100% no-repeat;
 	background-size: 100% 100%;
 	color: #fff;
-	cursor: text;
 	font-size: 2em;
 	object-fit: fill;
 	outline: 0;
+	overflow-wrap: break-word;
 	padding: 1.2em;
 	text-align: center;
+	white-space: pre-wrap;
 }
 
 .speechArrow {

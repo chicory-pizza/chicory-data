@@ -1,0 +1,44 @@
+/* https://www.dafont.com/domigorgon.font */
+@font-face {
+	font-family: 'Domigorgon';
+	src: url('./domigorgon-webfont.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* https://www.dafont.com/five-cents.font */
+@font-face {
+	font-family: 'Five Cents';
+	src: url('./fivecents.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* https://www.dafont.com/lulusfont.font */
+@font-face {
+	font-family: 'Lulus';
+	src: url('./lulu_s_font-webfont.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* https://www.dafont.com/metafors.font */
+@font-face {
+	font-family: 'Metafors';
+	src: url('./metafors-regular-webfont.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* https://www.dafont.com/shannnn.font */
+@font-face {
+	font-family: 'Shannnn';
+	src: url('./shannnn-webfont.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}

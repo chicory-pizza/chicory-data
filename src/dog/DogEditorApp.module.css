@@ -21,6 +21,11 @@
 	}
 }
 
+.dogPreviewWithSpeech,
+.dog {
+	background: #fff;
+}
+
 @media (prefers-color-scheme: dark) {
 	.dogPreviewWithSpeech,
 	.dog {
@@ -39,6 +44,10 @@
 .invertColors,
 .invertColors .dog {
 	background: #fff;
+}
+
+.speechHidden {
+	display: none;
 }
 
 .dog {
@@ -67,6 +76,7 @@
 	padding: 8px 8px 250px 8px;
 }
 
+/* On small screens, there are 3 columns, then it changes to 4 columns on bigger screens */
 .grid {
 	display: inline-grid;
 	grid-template-columns: auto auto 1fr;
@@ -85,7 +95,7 @@
 	margin: 0 0 8px 0;
 }
 
-.controls {
+.clothesControls {
 	display: flex;
 	align-items: center;
 	margin: 0 0 8px 0;
@@ -104,6 +114,13 @@
 	margin-left: 8px;
 }
 
+.colorControl {
+	display: flex;
+	align-items: center;
+	margin: 0 0 8px 0;
+	grid-column: 3 / 4;
+}
+
 .fullWidthControl {
 	margin-bottom: 8px;
 	grid-column: 1 / 4;
@@ -118,13 +135,21 @@
 		margin-right: 16px;
 	}
 
-	.controls {
+	.clothesControls {
 		grid-column: auto;
+	}
+
+	.colorControl {
+		grid-column: 3 / 5;
 	}
 
 	.fullWidthControl {
 		grid-column: 1 / 5;
 	}
+}
+
+.speechEditor {
+	margin-bottom: 10px;
 }
 
 .chicorobot {
