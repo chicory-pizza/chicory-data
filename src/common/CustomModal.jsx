@@ -9,6 +9,7 @@ import ErrorBoundary from './ErrorBoundary';
 type Props = $ReadOnly<{
 	children: React$Node,
 	isOpen: boolean,
+	onAfterOpen?: () => void,
 	onRequestClose: () => void,
 	titleText: string,
 }>;
@@ -18,6 +19,7 @@ export default function CustomModal(props: Props): React$Node {
 		<ReactModal
 			contentLabel={props.titleText}
 			isOpen={props.isOpen}
+			onAfterOpen={props.onAfterOpen}
 			onRequestClose={props.onRequestClose}
 			style={{
 				overlay: {
