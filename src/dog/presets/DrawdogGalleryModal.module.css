@@ -33,10 +33,6 @@
 	}
 }
 
-.hidden {
-	display: none;
-}
-
 .noResults {
 	display: flex;
 	align-items: center;

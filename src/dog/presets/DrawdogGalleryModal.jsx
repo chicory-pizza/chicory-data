@@ -130,7 +130,7 @@ export default function DrawdogGalleryModal({
 								.includes(filterLowercase);
 
 							return (
-								<div className={hidden ? styles.hidden : ''} key={preset.name}>
+								<div hidden={hidden} key={preset.name}>
 									<DrawdogGalleryDog
 										forceExpression={
 											dogMouseOver != null && dogMouseOver.name === preset.name

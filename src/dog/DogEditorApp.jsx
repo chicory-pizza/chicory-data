@@ -160,7 +160,7 @@ export default function DogEditorApp(): React$Node {
 					}
 				>
 					<ErrorBoundary canReload={true}>
-						<div className={!speechShowBubble ? styles.speechHidden : ''}>
+						<div hidden={!speechShowBubble}>
 							<DogSpeech
 								font={previewSpeechFont ?? speechFont}
 								text={speechText}
