@@ -5,3 +5,9 @@ tasks:
 ports:
   - port: 3000
     onOpen: open-browser # saving files don't work inside iframe :(
+
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint
+    - flowtype.flow-for-vscode
+    - esbenp.prettier-vscode
