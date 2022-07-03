@@ -8,6 +8,8 @@ Note that this tool directly exposes game internals and doesn't hide anything, i
 
 ## Development
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/chicory-pizza/chicory-data)
+
 Requirements:
 
 - [Node v16+](https://nodejs.org)

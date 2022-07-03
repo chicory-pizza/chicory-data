@@ -38,6 +38,16 @@ export default defineConfig(({command, mode}) => {
 					  }
 					: false,
 			port: 3000,
+
+			// https://mattjennings.io/blog/how-to-enable-hmr-for-sveltekit-on-gitpod
+			hmr: process.env.GITPOD_WORKSPACE_URL
+				? {
+						// removes the protocol and replaces it with the port we're connecting to
+						host: process.env.GITPOD_WORKSPACE_URL.replace('https://', '3000-'),
+						protocol: 'wss',
+						clientPort: 443,
+				  }
+				: true,
 		},
 	};
 });
@@ -70,6 +80,13 @@ function getServerHeaders(env) {
 				// https://github.com/w3c/webappsec-csp/issues/7
 				// For Vite dev server, only needed on old Safari versions, uncomment if needed
 				// 'ws://127.0.0.1:3000',
+
+				process.env.GITPOD_WORKSPACE_URL
+					? process.env.GITPOD_WORKSPACE_URL.replace(
+							'https://',
+							'wss://3000-'
+					  ) + ':3000'
+					: '',
 			].join(' '),
 
 			// unsafe-inline: For react-select (https://github.com/JedWatson/react-select/issues/2030)
@@ -86,7 +103,7 @@ function getServerHeaders(env) {
 				sprite ?? '',
 			].join(' '),
 
-			"frame-ancestors 'none'",
+			process.env.GITPOD_WORKSPACE_URL ? '' : "frame-ancestors 'none'",
 			"base-uri 'none'",
 			"object-src 'none'",
 		].join(';'),
