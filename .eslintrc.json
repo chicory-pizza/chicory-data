@@ -9,6 +9,7 @@
 		"plugin:jsx-a11y/recommended"
 	],
 	"rules": {
+		"no-constant-binary-expression": "error",
 		"no-var": "error",
 		"prefer-const": "warn",
 
