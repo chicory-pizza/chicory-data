@@ -42,6 +42,7 @@ export default function LevelEditorDataSelector(): React$Node {
 			blob,
 			{
 				fileName: 'level_data',
+				description: 'JSON',
 			},
 			existingHandle
 		);

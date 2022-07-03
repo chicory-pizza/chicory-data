@@ -88,6 +88,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 	async function openFile() {
 		const blob = await fileOpen({
 			extensions: ['.png'],
+			description: 'PNG image',
 		});
 
 		setErrorMessage(null);
@@ -186,6 +187,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 			fileSave(blob, {
 				fileName: `Level Geometry (${currentCoordinates[0]}_${currentCoordinates[1]}_${currentCoordinates[2]})`,
 				extensions: ['.png'],
+				description: 'PNG image',
 			});
 		});
 	}

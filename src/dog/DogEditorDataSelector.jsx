@@ -69,6 +69,7 @@ export default function LevelEditorDataSelector(props: Props): React$Node {
 			blob,
 			{
 				fileName: 'drawdog.json',
+				description: 'JSON',
 			},
 			existingHandle
 		);

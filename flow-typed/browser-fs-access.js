@@ -37,56 +37,64 @@ type WellKnownDirectory =
 
 declare module 'browser-fs-access' {
 	/**
-	 * For opening files, dynamically either loads the File System Access API module
-	 * or the legacy method.
+	 * Opens file(s) from disk.
 	 */
 	declare function fileOpen(options?: {
-		// Set to `true` for allowing multiple files, defaults to `false`.
+		// Allow multiple files to be selected. Defaults to `false`.
 		multiple?: boolean,
 
-		// Suggested directory in which the file picker opens. A well-known directory or a file handle.
 		startIn?: WellKnownDirectory | FileSystemHandle,
 
 		// By specifying an ID, the user agent can remember different directories for different IDs.
 		id?: string,
 
-		// Include an option to not apply any filter in the file picker, defaults to `false`.
 		excludeAcceptAllOption?: boolean,
 
-		// List of allowed file extensions (with leading '.'), defaults to `''`.
+		// Acceptable file extensions. Defaults to `[""]`.
 		extensions?: Array<string>,
 
-		// Textual description for file dialog , defaults to `''`.
-		description?: string,
+		// Suggested file description. Defaults to `""`.
+		description: string,
 
-		// List of allowed MIME types, defaults to `*/*`.
+		// Acceptable MIME types. Defaults to `[]`.
 		mimeTypes?: Array<string>,
 	}): Promise<FileWithHandle>;
 
 	/**
-	 * For saving files, dynamically either loads the File System Access API module
-	 * or the legacy method.
+	 * Saves a file to disk.
 	 */
 	declare function fileSave(
+		// To-be-saved `Blob` or `Response`
 		blobOrPromiseBlobOrResponse: Blob | Promise<Blob> | Response,
+
 		options?: {
-			// Suggested file name to use, defaults to `''`.
+			// Suggested file name. Defaults to `"Untitled"`.
 			fileName?: string,
 
-			// Suggested directory in which the file picker opens. A well-known directory or a file handle.
 			startIn?: WellKnownDirectory | FileSystemHandle,
 
 			// By specifying an ID, the user agent can remember different directories for different IDs.
 			id?: string,
 
-			// Include an option to not apply any filter in the file picker, defaults to `false`.
 			excludeAcceptAllOption?: boolean,
 
-			// Suggested file extensions (with leading '.'), defaults to `''`.
+			// Acceptable file extensions. Defaults to `[""]`.
 			extensions?: Array<string>,
+
+			// Suggested file description. Defaults to `""`.
+			description: string,
+
+			// Acceptable MIME types. Defaults to `[]`.
+			mimeTypes?: Array<string>,
 		},
+
+		// A potentially existing file handle for a file to save to. Defaults to `null`.
 		existingHandle?: ?FileSystemFileHandle,
+
+		// Determines whether to throw (rather than open a new file save dialog) when `existingHandle` is no longer good. Defaults to `false`.
 		throwIfExistingHandleNotGood?: boolean,
+
+		// A callback to be called when the file picker was shown (which only happens when no `existingHandle` is provided). Defaults to `null`.
 		filePickerShown?: ?(handle: ?FileSystemFileHandle) => void
 	): Promise<?FileSystemFileHandle>;
 }

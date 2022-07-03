@@ -10,6 +10,7 @@ export default function DogEditorFileInput(props: Props): React$Node {
 	async function openFile() {
 		const blob = await fileOpen({
 			extensions: ['.png'],
+			description: 'PNG image',
 		});
 
 		const reader = new FileReader();
