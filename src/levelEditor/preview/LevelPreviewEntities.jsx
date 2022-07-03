@@ -66,16 +66,11 @@ function LevelPreviewEntities(props: Props): React$Node {
 				decoElement = (
 					<img
 						alt={dec.spr}
+						title={dec.spr}
 						key={src}
 						src={src}
 						width={spritesData[dec.spr].width}
 						height={spritesData[dec.spr].height}
-						style={{
-							transformOrigin: `${originx}px ${originy}px`,
-							transform: `scaleX(${dec.xs}) scaleY(${dec.ys}) rotate(${
-								-1 * Math.sign(dec.xs) * dec.ang
-							}deg)`,
-						}}
 					/>
 				);
 			}
@@ -95,6 +90,10 @@ function LevelPreviewEntities(props: Props): React$Node {
 					style={{
 						left: dec.x - originx,
 						top: dec.y - originy,
+						transformOrigin: `${originx}px ${originy}px`,
+						transform: `scaleX(${dec.xs}) scaleY(${dec.ys}) rotate(${
+							-1 * Math.sign(dec.xs) * dec.ang
+						}deg)`,
 					}}
 				>
 					{decoElement}
