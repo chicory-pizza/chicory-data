@@ -9,5 +9,6 @@ ports:
 vscode:
   extensions:
     - dbaeumer.vscode-eslint
-    - flowtype.flow-for-vscode
+    - editorconfig.editorconfig
     - esbenp.prettier-vscode
+    - flowtype.flow-for-vscode
