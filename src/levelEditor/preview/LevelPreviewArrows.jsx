@@ -4,9 +4,7 @@ import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
 
 import styles from './LevelPreviewArrows.module.css';
 
-type Props = $ReadOnly<{}>;
-
-export default function LevelPreviewArrows(props: Props): React$Node {
+export default function LevelPreviewArrows(): React$Node {
 	const [currentCoordinates, setNewCoordinates] =
 		useCurrentCoordinatesNonNullable();
 

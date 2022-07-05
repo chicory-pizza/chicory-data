@@ -12,7 +12,8 @@ import type {PlaceableType} from '../types/PlaceableType';
 import LevelInGamePreview from './LevelInGamePreview';
 import styles from './LevelPreview.module.css';
 import LevelPreviewArrows from './LevelPreviewArrows';
-import LevelPreviewEntities from './LevelPreviewEntities';
+import LevelPreviewDecos from './LevelPreviewDecos';
+import LevelPreviewObjects from './LevelPreviewObjects';
 import LevelPreviewNoViews from './noviews/LevelPreviewNoViews';
 
 type Props = $ReadOnly<{
@@ -97,12 +98,11 @@ export default function LevelPreview(props: Props): React$Node {
 			}}
 		>
 			{props.activeUiViews.includes('OBJECT') ? (
-				<LevelPreviewEntities
+				<LevelPreviewObjects
 					level={props.level}
 					entityIndexHover={props.objectIndexHover}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onObjectHover}
-					type="OBJECT"
 				/>
 			) : null}
 
@@ -129,12 +129,11 @@ export default function LevelPreview(props: Props): React$Node {
 			) : null}
 
 			{props.activeUiViews.includes('DECO') ? (
-				<LevelPreviewEntities
+				<LevelPreviewDecos
 					level={props.level}
 					entityIndexHover={props.decoIndexHover}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onDecoHover}
-					type="DECO"
 				/>
 			) : null}
 
