@@ -9,12 +9,13 @@ import {
 	GAME_OBJECT_ENTITIES_CRASH,
 } from '../types/GameObjectEntities';
 import type {GameObjectEntityType} from '../types/GameObjectEntityType';
+import getGameObjectSimpleName from '../util/getGameObjectSimpleName';
 
 import SidebarEntityAdder from './SidebarEntityAdder';
 
 function gameObjectEntityTypeToOption(entity: GameObjectEntityType) {
 	return {
-		label: entity.slice('obj'.length),
+		label: getGameObjectSimpleName(entity),
 		value: entity,
 	};
 }

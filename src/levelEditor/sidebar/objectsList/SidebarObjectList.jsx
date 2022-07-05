@@ -4,6 +4,7 @@ import {memo, useCallback} from 'react';
 
 import type {GameEntityType} from '../../types/GameEntityType';
 import type {GameObjectType} from '../../types/GameObjectType';
+import getGameObjectSimpleName from '../../util/getGameObjectSimpleName';
 import SidebarObjectProperties from '../properties/SidebarObjectProperties';
 
 import SidebarEntityList from './SidebarEntityList';
@@ -31,7 +32,7 @@ function SidebarObjectList(props: Props): React$MixedElement {
 	const getEntityName = useCallback((entity, filterText) => {
 		const objName = entity.obj;
 		if (!filterText.startsWith('obj')) {
-			return objName.slice('obj'.length);
+			return getGameObjectSimpleName(objName);
 		}
 
 		return objName;

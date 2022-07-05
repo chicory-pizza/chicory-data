@@ -4,6 +4,7 @@ import LinkButton from '../../../common/LinkButton';
 import {useCurrentCoordinatesNonNullable} from '../../CurrentCoordinatesContext';
 import type {GameObjectType} from '../../types/GameObjectType';
 import convertLevelIdToCoordinates from '../../util/convertLevelIdToCoordinates';
+import getGameObjectSimpleName from '../../util/getGameObjectSimpleName';
 
 type Props = $ReadOnly<{
 	obj: GameObjectType,
@@ -11,7 +12,8 @@ type Props = $ReadOnly<{
 
 export default function SidebarObjectText({obj}: Props): React$Node {
 	const [, setNewCoordinates] = useCurrentCoordinatesNonNullable();
-	const sliced = obj.obj.slice('obj'.length);
+
+	const sliced = getGameObjectSimpleName(obj.obj);
 
 	if (obj.obj === 'objPortal') {
 		const newLevelId = typeof obj.dest === 'string' ? obj.dest : null;
@@ -25,7 +27,6 @@ export default function SidebarObjectText({obj}: Props): React$Node {
 						&nbsp;(
 						<LinkButton
 							onClick={() => {
-								// todo add validation
 								setNewCoordinates(
 									convertLevelIdToCoordinates(newLevelId.replace(/,/g, '_'))
 								);

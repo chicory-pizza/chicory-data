@@ -4,6 +4,7 @@ import {memo} from 'react';
 
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
+import getGameObjectSimpleName from '../util/getGameObjectSimpleName';
 
 import styles from './LevelPreviewObjects.module.css';
 
@@ -38,7 +39,7 @@ function LevelPreviewObjects(props: Props): React$Node {
 					top: obj.y,
 				}}
 			>
-				{obj.obj.slice('obj'.length)}
+				{getGameObjectSimpleName(obj.obj)}
 			</div>
 		);
 	});

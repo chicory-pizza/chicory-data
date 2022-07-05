@@ -8,6 +8,7 @@ import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
 import type {PlaceableType} from '../types/PlaceableType';
+import getGameObjectSimpleName from '../util/getGameObjectSimpleName';
 
 import LevelInGamePreview from './LevelInGamePreview';
 import styles from './LevelPreview.module.css';
@@ -123,7 +124,7 @@ export default function LevelPreview(props: Props): React$Node {
 					}}
 				>
 					{props.addingEntityLabel.type === 'OBJECT'
-						? props.addingEntityLabel.data.slice('obj'.length)
+						? getGameObjectSimpleName(props.addingEntityLabel.data)
 						: addingDeco}
 				</div>
 			) : null}
