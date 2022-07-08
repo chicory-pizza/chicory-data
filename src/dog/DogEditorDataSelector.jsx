@@ -49,6 +49,7 @@ export default function LevelEditorDataSelector(props: Props): React$Node {
 					? props.customClothesImage
 					: undefined,
 			expression: props.expression,
+			hair: props.hair,
 			hats: props.hats.map((hat) => {
 				return {
 					...hat,
@@ -58,7 +59,6 @@ export default function LevelEditorDataSelector(props: Props): React$Node {
 							: null,
 				};
 			}),
-			hair: props.hair,
 			skinColor: props.skinColor,
 			skinOutlineColor: props.skinOutlineColor,
 		};
