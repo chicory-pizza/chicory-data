@@ -128,6 +128,20 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		skinColor: '#ffebfc',
 	},
 	{
+		clothes: 'Cord Coat',
+		clothesColor: '#a25d68',
+		hair: 'Big Fluffy',
+		hats: [
+			{
+				name: 'Goggles',
+				color: '#a25d68',
+				customImage: null,
+			},
+		],
+		name: 'Cinnabuns',
+		skinColor: '#fea694',
+	},
+	{
 		clothes: 'Custom Tee',
 		clothesColor: '#cb5587',
 		customClothesImage: transformImageImport(
@@ -203,6 +217,34 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		],
 		name: 'Lasagne',
 		skinColor: '#fefdae',
+	},
+	{
+		clothes: 'Smock',
+		clothesColor: '#47d3ff',
+		hair: 'Simple',
+		hats: [
+			{
+				name: 'Flower',
+				color: '#fe05e1',
+				customImage: null,
+			},
+		],
+		name: 'Minty :>',
+		skinColor: '#bbebdc',
+	},
+	{
+		clothes: 'Cute Dress',
+		clothesColor: '#b871f3',
+		hair: 'Simple',
+		hats: [
+			{
+				name: 'Foxy',
+				color: '#ff7080',
+				customImage: null,
+			},
+		],
+		name: 'Mulberry',
+		skinColor: '#ffe8c2',
 	},
 	{
 		// myself lol
@@ -299,23 +341,32 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		skinColor: '#ffffff',
 	},
 	{
-		clothes: 'Bard',
-		clothesColor: '#8c8cfe',
-		hair: 'Floofy',
+		clothes: 'Wielder Cloak',
+		clothesColor: '#a178fe',
+		hair: 'Pony',
 		hats: [
 			{
 				name: 'Bow',
-				color: '#9ec79f',
-				customImage: null,
-			},
-			{
-				name: 'Half-Moons',
-				color: '#ffffff',
+				color: '#fec62c',
 				customImage: null,
 			},
 		],
-		name: 'Spark',
-		skinColor: '#d3c3c3',
+		name: 'Sour Gummi',
+		skinColor: '#ffffff',
+	},
+	{
+		clothes: 'High Nooner',
+		clothesColor: '#ea7c4b',
+		hair: 'Simple',
+		hats: [
+			{
+				name: 'Ahoy',
+				color: '#b56777',
+				customImage: null,
+			},
+		],
+		name: 'Spaghetti',
+		skinColor: '#ffeabf',
 	},
 	{
 		clothes: 'Custom Tee',
