@@ -59,6 +59,7 @@ export default function LevelEditorDataSelector(): React$Node {
 				lastSaveTime={lastSaveTime}
 				onFileLoad={onFileLoad}
 				onFileSave={onFileSave}
+				saveButtonLabel="Save"
 			/>
 
 			<LevelEditorBeforeUnloadPrompt lastSaveTime={lastSaveTime} />

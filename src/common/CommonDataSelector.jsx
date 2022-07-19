@@ -13,6 +13,7 @@ type Props = $ReadOnly<{
 	onFileSave: (
 		existingHandle: ?FileSystemFileHandle
 	) => Promise<?FileSystemFileHandle>,
+	saveButtonLabel: string,
 }>;
 
 export default function CommonDataSelector(props: Props): React$Node {
@@ -64,7 +65,7 @@ export default function CommonDataSelector(props: Props): React$Node {
 				onClick={saveFile}
 				type="button"
 			>
-				Save
+				{props.saveButtonLabel}
 			</button>
 
 			<CommonDataSaveTimestamp lastSaveTime={props.lastSaveTime} />

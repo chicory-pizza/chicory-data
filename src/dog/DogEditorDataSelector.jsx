@@ -85,6 +85,7 @@ export default function LevelEditorDataSelector(props: Props): React$Node {
 			lastSaveTime={lastSaveTime}
 			onFileLoad={onFileLoad}
 			onFileSave={onFileSave}
+			saveButtonLabel="Save as JSON"
 		/>
 	);
 }
