@@ -19,7 +19,7 @@ type Props<T> = $ReadOnly<{
 			mixed
 		>,
 	},
-	formatOptionLabel?: (option: OptionType<T>) => React$MixedElement,
+	formatOptionLabel?: (option: OptionType<T>) => React$Node,
 	maxMenuHeight: number,
 	onChange: (newOption: OptionType<T>) => mixed,
 	onMenuClose?: () => void,

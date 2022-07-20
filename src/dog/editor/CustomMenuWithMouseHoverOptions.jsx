@@ -8,7 +8,7 @@ import CustomSelect from '../../common/CustomSelect';
 import type {OptionType} from '../../common/CustomSelect';
 
 type Props = $ReadOnly<{
-	formatOptionLabel?: (option: OptionType<string>) => React$MixedElement,
+	formatOptionLabel?: (option: OptionType<string>) => React$Node,
 	onChange: (value: string) => mixed,
 	onPreviewChange: (value: ?string) => mixed,
 	options: Array<OptionType<string>>,

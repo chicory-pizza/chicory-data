@@ -8,6 +8,7 @@ export type DogHairType = {
 	chicorobotName: string,
 	imageIndex: number,
 	imageWithPaddingPath: string,
+	imageWithTrimmedPath: string,
 };
 
 export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
@@ -19,6 +20,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_5.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_5.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Flip',
@@ -27,6 +31,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 6,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_6.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_6.png', import.meta.url)
 		),
 	},
 	{
@@ -37,6 +44,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_7.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_7.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Big Fluffy',
@@ -45,6 +55,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 10,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_10.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_10.png', import.meta.url)
 		),
 	},
 	{
@@ -55,6 +68,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_11.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_11.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Mullet',
@@ -63,6 +79,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 56,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_56.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_56.png', import.meta.url)
 		),
 	},
 	{
@@ -73,6 +92,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_57.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_57.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Pony',
@@ -81,6 +103,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 58,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_58.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_58.png', import.meta.url)
 		),
 	},
 	{
@@ -91,6 +116,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_59.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_59.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Boyband',
@@ -99,6 +127,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 60,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_60.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_60.png', import.meta.url)
 		),
 	},
 	{
@@ -109,6 +140,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_61.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_61.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Shortcurl',
@@ -117,6 +151,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 62,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_62.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_62.png', import.meta.url)
 		),
 	},
 	{
@@ -127,6 +164,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_63.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_63.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Bob',
@@ -135,6 +175,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 64,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_64.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_64.png', import.meta.url)
 		),
 	},
 	{
@@ -145,6 +188,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_65.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_65.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Dreds',
@@ -153,6 +199,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 66,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_66.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_66.png', import.meta.url)
 		),
 	},
 	{
@@ -163,6 +212,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_67.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_67.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Fro',
@@ -171,6 +223,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 68,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_68.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_68.png', import.meta.url)
 		),
 	},
 	{
@@ -181,6 +236,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_69.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_69.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Pigtails',
@@ -189,6 +247,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 70,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_70.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_70.png', import.meta.url)
 		),
 	},
 	{
@@ -199,6 +260,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_71.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_71.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Spikehawk',
@@ -207,6 +271,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 72,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_72.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_72.png', import.meta.url)
 		),
 	},
 	{
@@ -217,6 +284,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_73.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_73.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Topknot',
@@ -225,6 +295,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 74,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_74.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_74.png', import.meta.url)
 		),
 	},
 	{
@@ -235,6 +308,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_75.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_75.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Hawk',
@@ -243,6 +319,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 76,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_76.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_76.png', import.meta.url)
 		),
 	},
 	{
@@ -253,6 +332,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_77.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_77.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Highback',
@@ -261,6 +343,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 90,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_90.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_90.png', import.meta.url)
 		),
 	},
 	{
@@ -271,6 +356,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_91.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_91.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Mofro',
@@ -279,6 +367,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 92,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_92.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_92.png', import.meta.url)
 		),
 	},
 	{
@@ -289,6 +380,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_93.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_93.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Frizz',
@@ -298,6 +392,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_94.png', import.meta.url)
 		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_94.png', import.meta.url)
+		),
 	},
 	{
 		internalName: 'Curleye',
@@ -306,6 +403,9 @@ export const DOG_HAIR_LIST: $ReadOnlyArray<DogHairType> = [
 		imageIndex: 95,
 		imageWithPaddingPath: transformImageImport(
 			new URL('../images/hair_padding/sprDog_hat_95.png', import.meta.url)
+		),
+		imageWithTrimmedPath: transformImageImport(
+			new URL('../images/hair_trimmed/sprDog_hat_95.png', import.meta.url)
 		),
 	},
 ].sort((a, b) => {
