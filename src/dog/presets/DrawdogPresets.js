@@ -11,7 +11,7 @@ export type DrawdogPreset = {
 	hats: $ReadOnlyArray<{
 		name: string,
 		color: string,
-		customImage: ?string,
+		customImage?: ?string,
 	}>,
 	name: string,
 	skinColor: string,
@@ -27,7 +27,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Bandana',
 				color: '#ffffff',
-				customImage: null,
 			},
 		],
 		name: 'Pizza (default)',
@@ -45,7 +44,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Kerchief',
 				color: '#fc777d',
-				customImage: null,
 			},
 		],
 		skinColor: '#fef2c9',
@@ -59,12 +57,10 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Flower',
 				color: '#df243f',
-				customImage: null,
 			},
 			{
 				name: 'Kerchief',
 				color: '#777ce1',
-				customImage: null,
 			},
 		],
 		skinColor: '#1c2e89',
@@ -79,7 +75,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Bow',
 				color: '#8c44a4',
-				customImage: null,
 			},
 		],
 		name: 'Burrito',
@@ -93,7 +88,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Strawhat',
 				color: '#f38a8a',
-				customImage: null,
 			},
 		],
 		name: 'Caldereta',
@@ -107,7 +101,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'None',
 				color: '#ffffff',
-				customImage: null,
 			},
 		],
 		name: 'Chicken',
@@ -121,7 +114,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Scarf',
 				color: '#ffffff',
-				customImage: null,
 			},
 		],
 		name: 'Chips',
@@ -169,7 +161,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Round Glasses',
 				color: '#b1e2e5',
-				customImage: null,
 			},
 		],
 		name: 'Cocoa',
@@ -184,7 +175,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Wielder Tie',
 				color: '#b696ed',
-				customImage: null,
 			},
 		],
 		name: 'Hot Wings',
@@ -198,7 +188,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Beanie',
 				color: '#fea694',
-				customImage: null,
 			},
 		],
 		name: 'Jaffa Cake',
@@ -212,7 +201,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'None',
 				color: '#fa777f',
-				customImage: null,
 			},
 		],
 		name: 'Lasagne',
@@ -226,7 +214,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Bow',
 				color: '#b25aa0',
-				customImage: null,
 			},
 		],
 		name: 'Meatloaf',
@@ -240,7 +227,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Flower',
 				color: '#fe05e1',
-				customImage: null,
 			},
 		],
 		name: 'Minty :>',
@@ -254,7 +240,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Foxy',
 				color: '#ff7080',
-				customImage: null,
 			},
 		],
 		name: 'Mulberry',
@@ -269,7 +254,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'None',
 				color: '#b69aff',
-				customImage: null,
 			},
 			{
 				// Originally Spellcaster
@@ -291,7 +275,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Round Glasses',
 				color: '#ffd481',
-				customImage: null,
 			},
 		],
 		name: 'Pipoca',
@@ -305,7 +288,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Foxy',
 				color: '#f4aa41',
-				customImage: null,
 			},
 		],
 		name: 'Pizzy',
@@ -320,7 +302,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Kerchief',
 				color: '#baec34',
-				customImage: null,
 			},
 		],
 		name: 'Popcorn',
@@ -334,7 +315,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Sparkles',
 				color: '#e898c1',
-				customImage: null,
 			},
 		],
 		name: 'Ramen',
@@ -348,7 +328,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Top Hat',
 				color: '#a2fef8',
-				customImage: null,
 			},
 		],
 		name: 'Rice',
@@ -362,7 +341,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Bow',
 				color: '#fec62c',
-				customImage: null,
 			},
 		],
 		name: 'Sour Gummi',
@@ -376,7 +354,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Ahoy',
 				color: '#b56777',
-				customImage: null,
 			},
 		],
 		name: 'Spaghetti',
@@ -410,7 +387,6 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			{
 				name: 'Half-Moons',
 				color: '#3ce2c5',
-				customImage: null,
 			},
 		],
 		name: 'Taco',

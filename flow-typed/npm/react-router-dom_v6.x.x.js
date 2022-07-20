@@ -1,5 +1,5 @@
-// flow-typed signature: 41f1a9833e1392a829f1b5e690652bd1
-// flow-typed version: 33952c2eec/react-router-dom_v6.x.x/flow_>=v0.104.x
+// flow-typed signature: 78dc7c448940b4fd3611832c7db0db62
+// flow-typed version: df736c39bb/react-router-dom_v6.x.x/flow_>=v0.104.x
 
 declare module "react-router-dom" {
   declare export var BrowserRouter: React$ComponentType<{|
@@ -160,14 +160,6 @@ declare module "react-router-dom" {
     replace?: boolean;
     state?: any;
   |}) => null;
-
-  declare export var Route: React$ComponentType<{|
-    caseSensitive?: boolean,
-    children?: React$Node,
-    element?: React$Element<any> | null,
-    index?: boolean,
-    path?: string,
-  |}>
 
   declare export var Routes: React$ComponentType<{|
     children?: React$Node,
