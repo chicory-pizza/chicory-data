@@ -29,7 +29,7 @@
 @media (prefers-color-scheme: dark) {
 	.dogPreviewWithSpeech,
 	.dog {
-		background: #555;
+		background: #777;
 	}
 
 	.invertColors .dog {

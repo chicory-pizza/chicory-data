@@ -36,7 +36,7 @@ export default function DogEditorApp(): React$Node {
 		hats: [
 			{
 				name: 'Bandana',
-				color: '#FFFFFF',
+				color: '#ffffff',
 				customImage: null,
 				previewName: null,
 			},
@@ -45,8 +45,8 @@ export default function DogEditorApp(): React$Node {
 	const [hair, setHair] = useState<string>('Simple');
 	const [expression, setExpression] = useState<string>('normal');
 
-	const [clothesColor, setClothesColor] = useState<string>('#FFFFFF');
-	const [skinColor, setSkinColor] = useState<string>('#FFFFFF');
+	const [clothesColor, setClothesColor] = useState<string>('#ffffff');
+	const [skinColor, setSkinColor] = useState<string>('#ffffff');
 	const [skinOutlineColor, setSkinOutlineColor] = useState<string>('#000000');
 
 	const [customClothesImage, setCustomClothesImage] = useState<?string>(null);
