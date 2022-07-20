@@ -292,8 +292,8 @@ export default function drawDogToCanvas(
 				fillColor:
 					clothesCollar === 1 ? colors.clothesColor : options.hats[0].color,
 			},
-			hatTranslatedX,
-			hatTranslatedY,
+			clothesTranslatedX,
+			clothesTranslatedY,
 			SIZE,
 			SIZE
 		);

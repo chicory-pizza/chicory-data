@@ -13,6 +13,19 @@ import drawDogToCanvasTestHelper from '../testUtil/drawDogToCanvasTestHelper';
 
 expect.extend({toMatchImageSnapshot});
 
+test('bard clothes', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Bard',
+		clothesColor: '#ff0000',
+		hair: 'Simple',
+		hats: [],
+		skinColor: '#0000ff',
+	});
+
+	// $FlowFixMe[incompatible-call]
+	expect(image).toMatchImageSnapshot();
+});
+
 test('hiker clothes', async () => {
 	const image = await drawDogToCanvasTestHelper({
 		clothes: 'Gi',
