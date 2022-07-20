@@ -193,11 +193,15 @@ export default function DogEditorHatLayer({
 					/>
 				</div>
 
-				<div className={styles.controlLabel}>Custom hat:</div>
-				<DogEditorFileInput onFileLoad={onNewHatImage} />
-				<div className={styles.dimensions}>
-					({CUSTOM_HAT_WIDTH}×{CUSTOM_HAT_WIDTH} or {SIZE}×{SIZE})
-				</div>
+				{hat.name === 'Custom Hat' ? (
+					<>
+						<div className={styles.controlLabel}>Custom hat:</div>
+						<DogEditorFileInput onFileLoad={onNewHatImage} />
+						<div className={styles.dimensions}>
+							({CUSTOM_HAT_WIDTH}×{CUSTOM_HAT_WIDTH} or {SIZE}×{SIZE})
+						</div>
+					</>
+				) : null}
 			</div>
 		</>
 	);

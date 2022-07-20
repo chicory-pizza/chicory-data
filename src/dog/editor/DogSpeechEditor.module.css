@@ -41,3 +41,9 @@
 	resize: vertical;
 	width: 100%;
 }
+
+@media (min-width: 801px) {
+	.textInput {
+		max-width: 600px;
+	}
+}

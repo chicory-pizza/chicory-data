@@ -188,63 +188,6 @@ export default function DogEditorApp(): React$Node {
 				<div className={styles.editorControls}>
 					<ErrorBoundary>
 						<div className={styles.grid}>
-							<div className={styles.label}>Clothes:</div>
-							<div className={styles.select}>
-								<DogClothesSelect
-									onChange={setClothes}
-									onPreviewChange={setPreviewClothes}
-									value={clothes}
-								/>
-							</div>
-
-							<div className={styles.clothesControls}>
-								<div className={styles.controlLabel}>Color:</div>
-								<div className={styles.color}>
-									<input
-										type="color"
-										value={clothesColor}
-										onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
-											setClothesColor(ev.currentTarget.value);
-										}}
-									/>
-								</div>
-
-								<div className={styles.controlLabel}>Custom clothes:</div>
-								<DogEditorFileInput onFileLoad={onNewClothesImage} />
-								<div className={styles.dimensions}>
-									({CUSTOM_CLOTHES_WIDTH}×{CUSTOM_CLOTHES_HEIGHT} or {SIZE}×
-									{SIZE})
-								</div>
-							</div>
-
-							{hatsState.hats.map((hat, index) => {
-								return (
-									<DogEditorHatLayer
-										dispatchHats={dispatchHats}
-										hat={hatsState.hats[index]}
-										key={index}
-										layer={index}
-										totalHatsCount={hatsState.hats.length}
-									/>
-								);
-							})}
-
-							<div className={styles.fullWidthControl}>
-								<button onClick={addNewHatLayer} type="button">
-									Add new hat layer
-								</button>
-							</div>
-
-							<div className={styles.label}>Hair:</div>
-							<div className={styles.select}>
-								<DogHairSelect
-									onChange={setHair}
-									onPreviewChange={setPreviewHair}
-									value={hair}
-								/>
-							</div>
-							<div />
-
 							<div className={styles.label}>Skin fill:</div>
 							<div className={styles.colorControl}>
 								<input
@@ -266,18 +209,110 @@ export default function DogEditorApp(): React$Node {
 									}}
 								/>
 							</div>
+						</div>
 
-							<div className={styles.label}>Expression:</div>
-							<div className={styles.select}>
-								<DogExpressionSelect
-									onChange={setExpression}
-									onPreviewChange={setPreviewExpression}
-									value={expression}
-								/>
+						<details className={styles.detailsGroup} open>
+							<summary>Head</summary>
+
+							<div className={styles.grid}>
+								{hatsState.hats.map((hat, index) => {
+									return (
+										<DogEditorHatLayer
+											dispatchHats={dispatchHats}
+											hat={hatsState.hats[index]}
+											key={index}
+											layer={index}
+											totalHatsCount={hatsState.hats.length}
+										/>
+									);
+								})}
+
+								<div className={styles.fullWidthControl}>
+									<button onClick={addNewHatLayer} type="button">
+										Add new hat layer
+									</button>
+								</div>
+
+								<div className={styles.label}>Hair:</div>
+								<div className={styles.select}>
+									<DogHairSelect
+										onChange={setHair}
+										onPreviewChange={setPreviewHair}
+										value={hair}
+									/>
+								</div>
+								<div />
+
+								<div className={styles.label}>Expression:</div>
+								<div className={styles.select}>
+									<DogExpressionSelect
+										onChange={setExpression}
+										onPreviewChange={setPreviewExpression}
+										value={expression}
+									/>
+								</div>
+								<div />
 							</div>
-							<div />
+						</details>
 
-							<div className={styles.fullWidthControl}>
+						<details className={styles.detailsGroup} open>
+							<summary>Body</summary>
+
+							<div className={styles.grid}>
+								<div className={styles.label}>Clothes:</div>
+								<div className={styles.select}>
+									<DogClothesSelect
+										onChange={setClothes}
+										onPreviewChange={setPreviewClothes}
+										value={clothes}
+									/>
+								</div>
+
+								<div className={styles.clothesControls}>
+									<div className={styles.controlLabel}>Color:</div>
+									<div className={styles.color}>
+										<input
+											type="color"
+											value={clothesColor}
+											onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
+												setClothesColor(ev.currentTarget.value);
+											}}
+										/>
+									</div>
+
+									{clothes === 'Custom Tee' || customClothesImage != null ? (
+										<>
+											<div className={styles.controlLabel}>Custom clothes:</div>
+											<DogEditorFileInput onFileLoad={onNewClothesImage} />
+											<div className={styles.dimensions}>
+												({CUSTOM_CLOTHES_WIDTH}×{CUSTOM_CLOTHES_HEIGHT} or{' '}
+												{SIZE}×{SIZE})
+											</div>
+										</>
+									) : null}
+								</div>
+							</div>
+						</details>
+
+						<details className={styles.detailsGroup} open>
+							<summary>Speech bubble</summary>
+
+							<DogSpeechEditor
+								font={speechFont}
+								onFontChange={setSpeechFont}
+								onPreviewFontChange={setPreviewSpeechFont}
+								onShowBubbleChange={setSpeechShowBubble}
+								onTextChange={setSpeechText}
+								previewFont={previewSpeechFont}
+								showBubble={speechShowBubble}
+								text={speechText}
+							/>
+						</details>
+
+						<details className={styles.detailsGroup} open>
+							<summary>Misc</summary>
+
+							<div className={styles.checkbox}>
 								<label>
 									<input
 										type="checkbox"
@@ -290,7 +325,7 @@ export default function DogEditorApp(): React$Node {
 								</label>
 							</div>
 
-							<div className={styles.fullWidthControl}>
+							<div className={styles.checkbox}>
 								<label>
 									<input
 										type="checkbox"
@@ -302,93 +337,72 @@ export default function DogEditorApp(): React$Node {
 									Invert colors
 								</label>
 							</div>
-						</div>
+						</details>
 
-						<div className={styles.speechEditor}>
-							<details open>
-								<summary>Speech bubble</summary>
+						<details className={styles.detailsGroup}>
+							<summary>Chicorobot slash command</summary>
 
-								<DogSpeechEditor
-									font={speechFont}
-									onFontChange={setSpeechFont}
-									onPreviewFontChange={setPreviewSpeechFont}
-									onShowBubbleChange={setSpeechShowBubble}
-									onTextChange={setSpeechText}
-									previewFont={previewSpeechFont}
-									showBubble={speechShowBubble}
-									text={speechText}
+							<ErrorBoundary>
+								<DogChicorobotCode
+									clothes={previewClothes ?? clothes}
+									clothesColor={clothesColor}
+									expression={previewExpression ?? expression}
+									hat={hatsState.hats[0].previewName ?? hatsState.hats[0].name}
+									hatColor={hatsState.hats[0].color}
+									hair={previewHair ?? hair}
+									skinColor={skinColor}
 								/>
-							</details>
-						</div>
+							</ErrorBoundary>
 
-						<div className={styles.chicorobot}>
-							<details>
-								<summary>Chicorobot slash command</summary>
+							{showChicorobotNotice ? (
+								<div className={styles.chicorobotNotices}>
+									{hasCustomClothes ? (
+										<MessageBox
+											message={
+												<>
+													Custom clothes need to manually uploaded using{' '}
+													<code>custom_clothes:</code>
+												</>
+											}
+											type="INFO"
+										/>
+									) : null}
 
-								<ErrorBoundary>
-									<DogChicorobotCode
-										clothes={previewClothes ?? clothes}
-										clothesColor={clothesColor}
-										expression={previewExpression ?? expression}
-										hat={
-											hatsState.hats[0].previewName ?? hatsState.hats[0].name
-										}
-										hatColor={hatsState.hats[0].color}
-										hair={previewHair ?? hair}
-										skinColor={skinColor}
-									/>
-								</ErrorBoundary>
+									{hasCustomHat ? (
+										<MessageBox
+											message={
+												<>
+													Custom hats need to manually uploaded using{' '}
+													<code>custom_hat:</code>
+												</>
+											}
+											type="INFO"
+										/>
+									) : null}
 
-								{showChicorobotNotice ? (
-									<div className={styles.chicorobotNotices}>
-										{hasCustomClothes ? (
-											<MessageBox
-												message={
-													<>
-														Custom clothes need to manually uploaded using{' '}
-														<code>custom_clothes:</code>
-													</>
-												}
-												type="INFO"
-											/>
-										) : null}
+									{hasMultipleHatLayers ? (
+										<MessageBox
+											message="Multiple hat layers are not supported, only the 1st hat layer will be shown"
+											type="INFO"
+										/>
+									) : null}
 
-										{hasCustomHat ? (
-											<MessageBox
-												message={
-													<>
-														Custom hats need to manually uploaded using{' '}
-														<code>custom_hat:</code>
-													</>
-												}
-												type="INFO"
-											/>
-										) : null}
+									{hasNonBlackSkinOutlineColor ? (
+										<MessageBox
+											message="Non-black skin outline colors are not supported"
+											type="INFO"
+										/>
+									) : null}
 
-										{hasMultipleHatLayers ? (
-											<MessageBox
-												message="Multiple hat layers are not supported, only the 1st hat layer will be shown"
-												type="INFO"
-											/>
-										) : null}
-
-										{hasNonBlackSkinOutlineColor ? (
-											<MessageBox
-												message="Non-black skin outline colors are not supported"
-												type="INFO"
-											/>
-										) : null}
-
-										{invertColors ? (
-											<MessageBox
-												message="Inverted colors are not supported"
-												type="INFO"
-											/>
-										) : null}
-									</div>
-								) : null}
-							</details>
-						</div>
+									{invertColors ? (
+										<MessageBox
+											message="Inverted colors are not supported"
+											type="INFO"
+										/>
+									) : null}
+								</div>
+							) : null}
+						</details>
 					</ErrorBoundary>
 				</div>
 			</div>
