@@ -1,9 +1,9 @@
 // @flow strict
 
 import {memo, useEffect, useRef} from 'react';
+import {usePrevious} from 'react-use';
 
 import CloseButton from '../../../common/CloseButton';
-import usePrevious from '../../../util/usePrevious';
 import type {DecorationType} from '../../types/DecorationType';
 import type {GameEntityType} from '../../types/GameEntityType';
 import type {GameObjectType} from '../../types/GameObjectType';

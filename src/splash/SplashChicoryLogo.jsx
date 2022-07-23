@@ -1,8 +1,8 @@
 // @flow strict
 
 import {useEffect, useState} from 'react';
+import {useInterval} from 'react-use';
 
-import useInterval from '../util/useInterval';
 import useReducedMotion from '../util/useReducedMotion';
 import useVisibilityChange from '../util/useVisibilityChange';
 

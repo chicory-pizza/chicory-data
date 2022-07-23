@@ -1,8 +1,7 @@
 // @flow strict
 
 import {useState} from 'react';
-
-import useInterval from '../util/useInterval';
+import {useInterval} from 'react-use';
 
 // $FlowFixMe[prop-missing]
 const rtf = new Intl.RelativeTimeFormat('en');

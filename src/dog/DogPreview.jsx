@@ -3,9 +3,9 @@
 import {useEffect, useMemo, useRef, useState} from 'react';
 // $FlowFixMe[untyped-import]
 import {useInView} from 'react-intersection-observer';
+import {useInterval} from 'react-use';
 
 import Spinner from '../common/Spinner';
-import useInterval from '../util/useInterval';
 import useVisibilityChange from '../util/useVisibilityChange';
 
 import styles from './DogPreview.module.css';
