@@ -3,6 +3,7 @@
 import {useEffect, useState} from 'react';
 
 import useInterval from '../util/useInterval';
+import useReducedMotion from '../util/useReducedMotion';
 import useVisibilityChange from '../util/useVisibilityChange';
 
 import logoImg from './logo_sprite.png';
@@ -14,6 +15,7 @@ export default function SplashChicoryLogo(): React$Node {
 	const [loaded, setLoaded] = useState(false);
 	const [animationIndex, setAnimationIndex] = useState(0);
 	const [fallback, setFallback] = useState(false);
+	const isReducedMotion = useReducedMotion();
 
 	const postAnimate = !fallback && !(animationIndex < 15);
 
@@ -36,7 +38,7 @@ export default function SplashChicoryLogo(): React$Node {
 		() => {
 			setAnimationIndex(animationIndex + 1);
 		},
-		loaded && !fallback && !postAnimate && isPageVisible
+		loaded && !fallback && !postAnimate && !isReducedMotion && isPageVisible
 			? 1000 / (60 / 5)
 			: null
 	);
@@ -53,7 +55,7 @@ export default function SplashChicoryLogo(): React$Node {
 			}
 			style={{
 				backgroundPosition:
-					loaded && !postAnimate
+					loaded && !postAnimate && !isReducedMotion
 						? '0 ' + -FRAME_HEIGHT * animationIndex + 'px'
 						: '',
 			}}

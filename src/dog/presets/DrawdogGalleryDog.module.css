@@ -7,6 +7,12 @@
 	transition: transform 0.1s ease;
 }
 
+@media (prefers-reduced-motion: reduce) {
+	.dogPreview {
+		transition: none;
+	}
+}
+
 .preset:hover,
 .preset:active,
 .preset:focus {

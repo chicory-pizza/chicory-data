@@ -3,6 +3,7 @@
 import {useCallback, useRef, useState} from 'react';
 
 import CustomModal from '../../common/CustomModal';
+import isReducedMotion from '../../util/isReducedMotion';
 import randomItem from '../../util/randomItem';
 import {DOG_EXPRESSION_LIST} from '../types/DogExpressionList';
 
@@ -26,7 +27,7 @@ export default function DrawdogGalleryModal({
 	const searchInputRef = useRef<?HTMLInputElement>();
 
 	const [filter, setFilter] = useState('');
-	const [playAnimations, setPlayAnimations] = useState(true);
+	const [playAnimations, setPlayAnimations] = useState(!isReducedMotion());
 
 	const [dogMouseOver, setDogMouseOver] =
 		useState<?{name: string, expression: string}>(null);

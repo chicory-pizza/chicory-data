@@ -5,6 +5,7 @@ import {useCallback, useEffect, useMemo, useReducer, useState} from 'react';
 import ErrorBoundary from '../common/ErrorBoundary';
 import MessageBox from '../common/MessageBox';
 import changeDocumentTitle from '../util/changeDocumentTitle';
+import isReducedMotion from '../util/isReducedMotion';
 import useMobileViewport from '../util/useMobileViewport';
 
 import DogChicorobotCode from './DogChicorobotCode';
@@ -51,7 +52,7 @@ export default function DogEditorApp(): React$Node {
 
 	const [customClothesImage, setCustomClothesImage] = useState<?string>(null);
 
-	const [playAnimations, setPlayAnimations] = useState(true);
+	const [playAnimations, setPlayAnimations] = useState(!isReducedMotion());
 	const [invertColors, setInvertColors] = useState(false);
 
 	const [speechFont, setSpeechFont] = useState('Domigorgon');

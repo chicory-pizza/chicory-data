@@ -34,3 +34,10 @@
 		background-position: 0 -3349px;
 	}
 }
+
+@media (prefers-reduced-motion: reduce) {
+	.logo {
+		animation: none;
+		background-position: 0 -3349px;
+	}
+}

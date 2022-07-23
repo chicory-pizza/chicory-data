@@ -36,6 +36,13 @@
 	}
 }
 
+@media (prefers-reduced-motion: reduce) {
+	.root {
+		animation-duration: 0s;
+		animation-delay: 0.5s;
+	}
+}
+
 .text1 {
 	color: var(--luncheon-teal);
 }
