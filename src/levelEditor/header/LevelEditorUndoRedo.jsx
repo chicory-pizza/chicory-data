@@ -1,34 +1,16 @@
 // @flow strict
 
+import AppHeaderUndoRedo from '../../header/AppHeaderUndoRedo.jsx';
 import {useWorldDataNullable} from '../WorldDataContext';
 
-import styles from './LevelEditorUndoRedo.module.css';
-
-export default function LevelEditorUndoRedo(): React$Node {
+export default function LevelEditorUndoRedo(): React$MixedElement {
 	const {dispatch, canUndo, canRedo} = useWorldDataNullable();
 
-	function undo() {
-		dispatch({type: 'undo'});
-	}
-
-	function redo() {
-		dispatch({type: 'redo'});
-	}
-
 	return (
-		<div className={styles.root}>
-			<button
-				className={styles.space}
-				disabled={!canUndo}
-				type="button"
-				onClick={undo}
-			>
-				Undo
-			</button>
-
-			<button disabled={!canRedo} onClick={redo} type="button">
-				Redo
-			</button>
-		</div>
+		<AppHeaderUndoRedo
+			canRedo={canRedo}
+			canUndo={canUndo}
+			dispatch={dispatch}
+		/>
 	);
 }

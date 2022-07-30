@@ -3,88 +3,84 @@
 import {useCallback} from 'react';
 
 import CloseIcon from '../../common/CloseIcon';
-import type {
-	ChosenHatWithPreview,
-	HatReducerAction,
-} from '../DogEditorHatReducer';
+import type {ReducerAction} from '../DogEditorContext';
 import {
 	CUSTOM_CLOTHES_HEIGHT,
 	CUSTOM_CLOTHES_WIDTH,
 	CUSTOM_HAT_WIDTH,
 	SIZE,
 } from '../drawDogToCanvas';
+import type {ChosenHat} from '../drawDogToCanvas';
 
 import DogEditorFileInput from './DogEditorFileInput';
 import styles from './DogEditorHatLayer.module.css';
 import DogHatSelect from './DogHatSelect';
 
 type Props = $ReadOnly<{
-	dispatchHats: (action: HatReducerAction) => void,
-	hat: ChosenHatWithPreview,
+	dispatch: (action: ReducerAction) => void,
+	hat: ChosenHat,
 	layer: number,
+	previewName: ?string,
+	setPreviewName: (layer: number, previewName: ?string) => mixed,
 	totalHatsCount: number,
 }>;
 
 export default function DogEditorHatLayer({
-	dispatchHats,
+	dispatch,
 	hat,
 	layer,
+	previewName,
+	setPreviewName,
 	totalHatsCount,
-}: Props): React$Node {
+}: Props): React$MixedElement {
 	const onHatInfoChange = useCallback(
 		(name) => {
 			if (hat.name === name) {
 				return;
 			}
 
-			dispatchHats({
-				type: 'setLayerProperties',
+			dispatch({
+				type: 'setHatLayerProperties',
 				layer,
 				hat: {
 					name,
 				},
 			});
 		},
-		[dispatchHats, hat, layer]
+		[dispatch, hat, layer]
 	);
 
 	const onPreviewChange = useCallback(
-		(previewName) => {
-			if (hat.previewName === previewName) {
+		(newPreviewName) => {
+			if (previewName === newPreviewName) {
 				return;
 			}
 
-			dispatchHats({
-				type: 'setLayerProperties',
-				layer,
-				hat: {
-					previewName,
-				},
-			});
+			setPreviewName(layer, newPreviewName);
 		},
-		[dispatchHats, hat, layer]
+		[layer, previewName, setPreviewName]
 	);
 
 	const moveLayerUp = useCallback(() => {
-		dispatchHats({
-			type: 'moveLayerUp',
+		dispatch({
+			type: 'moveHatLayerUp',
 			layer,
 		});
-	}, [dispatchHats, layer]);
+	}, [dispatch, layer]);
 
 	const moveLayerDown = useCallback(() => {
-		dispatchHats({
-			type: 'moveLayerDown',
+		dispatch({
+			type: 'moveHatLayerDown',
 			layer,
 		});
-	}, [dispatchHats, layer]);
+	}, [dispatch, layer]);
 
 	const deleteLayer = useCallback(() => {
-		dispatchHats({
-			type: 'deleteLayer',
+		dispatch({
+			type: 'deleteHatLayer',
 			layer,
 		});
-	}, [dispatchHats, layer]);
+	}, [dispatch, layer]);
 
 	const onNewHatImage = useCallback(
 		(dataUrl: string) => {
@@ -101,8 +97,8 @@ export default function DogEditorHatLayer({
 					return;
 				}
 
-				dispatchHats({
-					type: 'setLayerProperties',
+				dispatch({
+					type: 'setHatLayerProperties',
 					layer,
 					hat: {
 						name: 'Custom Hat',
@@ -117,7 +113,7 @@ export default function DogEditorHatLayer({
 
 			img.src = dataUrl;
 		},
-		[dispatchHats, layer]
+		[dispatch, layer]
 	);
 
 	return (
@@ -182,8 +178,8 @@ export default function DogEditorHatLayer({
 								return;
 							}
 
-							dispatchHats({
-								type: 'setLayerProperties',
+							dispatch({
+								type: 'setHatLayerProperties',
 								layer,
 								hat: {
 									color: ev.currentTarget.value,

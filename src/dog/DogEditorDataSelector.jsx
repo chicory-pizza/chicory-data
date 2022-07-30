@@ -5,22 +5,20 @@ import {useState} from 'react';
 
 import CommonDataSelector from '../common/CommonDataSelector';
 
+import {useDogEditorContext} from './DogEditorContext';
 import type {ChosenHat} from './drawDogToCanvas';
 import type {DrawdogPreset} from './presets/DrawdogPresets';
 
 type Props = $ReadOnly<{
-	clothes: string,
-	clothesColor: string,
-	customClothesImage: ?string,
-	expression: string,
 	hats: $ReadOnlyArray<ChosenHat>,
-	hair: string,
 	onPresetSelect: (preset: DrawdogPreset) => mixed,
-	skinColor: string,
-	skinOutlineColor?: string,
 }>;
 
-export default function LevelEditorDataSelector(props: Props): React$Node {
+export default function LevelEditorDataSelector(
+	props: Props
+): React$MixedElement {
+	const {dogState} = useDogEditorContext();
+
 	const [lastSaveTime, setLastSaveTime] = useState<?number>(null);
 
 	function onFileLoad(reader: FileReader) {
@@ -42,14 +40,14 @@ export default function LevelEditorDataSelector(props: Props): React$Node {
 
 	async function onFileSave(existingHandle: ?FileSystemFileHandle) {
 		const data: $Diff<DrawdogPreset, {name: string}> = {
-			clothes: props.clothes,
-			clothesColor: props.clothesColor,
+			clothes: dogState.clothes,
+			clothesColor: dogState.clothesColor,
 			customClothesImage:
-				props.clothes === 'Custom Tee' && props.customClothesImage != null
-					? props.customClothesImage
+				dogState.clothes === 'Custom Tee' && dogState.customClothesImage != null
+					? dogState.customClothesImage
 					: undefined,
-			expression: props.expression,
-			hair: props.hair,
+			expression: dogState.expression,
+			hair: dogState.hair,
 			hats: props.hats.map((hat) => {
 				return {
 					...hat,
@@ -59,8 +57,8 @@ export default function LevelEditorDataSelector(props: Props): React$Node {
 							: null,
 				};
 			}),
-			skinColor: props.skinColor,
-			skinOutlineColor: props.skinOutlineColor,
+			skinColor: dogState.skinColor,
+			skinOutlineColor: dogState.skinOutlineColor,
 		};
 
 		const blob = new Blob([JSON.stringify(data, null, '\t')]);
