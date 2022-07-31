@@ -2,6 +2,7 @@
 
 import {useState} from 'react';
 
+import MessageBox from '../../../common/MessageBox.jsx';
 import DogPreview from '../../../dog/DogPreview';
 import DrawdogGalleryModal from '../../../dog/presets/DrawdogGalleryModal';
 import type {DrawdogPreset} from '../../../dog/presets/DrawdogPresets';
@@ -74,9 +75,20 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 				/>
 			</div>
 
-			<button onClick={() => setIsGalleryModalOpen(true)} type="button">
+			<button
+				className={styles.galleryButton}
+				onClick={() => setIsGalleryModalOpen(true)}
+				type="button"
+			>
 				Choose from gallery
 			</button>
+
+			{obj.clothes === 'Custom Tee' || obj.hat === 'Custom Hat' ? (
+				<MessageBox
+					message="Custom clothes/hat will show the current player's custom art instead"
+					type="INFO"
+				/>
+			) : null}
 
 			<DrawdogGalleryModal
 				isOpen={isGalleryModalOpen}
