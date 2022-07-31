@@ -3,7 +3,7 @@
 import ErrorBoundary from '../../../common/ErrorBoundary';
 import type {GameObjectType} from '../../types/GameObjectType';
 import {OBJECT_EDITABLE_PROPERTIES_SCHEMA} from '../../types/ObjectEditablePropertiesSchema';
-import SidebarObjectCustomDog from '../objectsList/SidebarObjectCustomDog';
+import SidebarObjectCustomDogLoader from '../objectsList/SidebarObjectCustomDogLoader';
 
 import SidebarEditableProperties from './SidebarEditableProperties';
 import type {SidebarEntityPropertiesComponentType} from './SidebarEntityPropertiesComponentType';
@@ -17,7 +17,7 @@ export default function SidebarObjectProperties(
 		<>
 			{entity.obj === 'objCustomDog' ? (
 				<ErrorBoundary>
-					<SidebarObjectCustomDog obj={entity} />
+					<SidebarObjectCustomDogLoader obj={entity} />
 				</ErrorBoundary>
 			) : null}
 

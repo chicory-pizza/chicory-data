@@ -8,7 +8,7 @@ import convertRgbArrayToString from '../../util/convertRgbArrayToString';
 
 import styles from './SidebarObjectCustomDog.module.css';
 
-type Props = $ReadOnly<{
+export type Props = $ReadOnly<{
 	obj: GameObjectType,
 }>;
 
