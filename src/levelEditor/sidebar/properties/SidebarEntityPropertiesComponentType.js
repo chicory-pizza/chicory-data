@@ -4,10 +4,11 @@ export type SidebarEntityPropertiesComponentType<Entity, EntityType> =
 	$ReadOnly<{
 		entity: Entity,
 		index: number,
-		onEntityEditProperty: (
+		onEntityEditProperties: (
 			entityIndex: number,
-			key: string,
-			value: string | number | null,
+			properties: {
+				[key: string]: string | number | null,
+			},
 			entityType: EntityType
 		) => mixed,
 		type: EntityType,

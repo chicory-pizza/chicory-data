@@ -25,7 +25,11 @@ export default function SidebarObjectProperties(
 				<SidebarEditableProperties
 					excludeProperties={['obj', 'x', 'y']}
 					onEditProperty={(key: string, value: string | number | null) => {
-						props.onEntityEditProperty(props.index, key, value, props.type);
+						props.onEntityEditProperties(
+							props.index,
+							{[key]: value},
+							props.type
+						);
 					}}
 					properties={entity}
 					schema={OBJECT_EDITABLE_PROPERTIES_SCHEMA.get(entity.obj) ?? []}

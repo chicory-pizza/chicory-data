@@ -16,10 +16,11 @@ type Props = $ReadOnly<{
 	entityIndexHover: ?number,
 	entitiesListItemsExpanded: Array<number>,
 	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => mixed,
-	onEntityEditProperty: (
+	onEntityEditProperties: (
 		entityIndex: number,
-		key: string,
-		value: string | number | null,
+		properties: {
+			[key: string]: string | number | null,
+		},
 		entityType: GameEntityType
 	) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
@@ -52,7 +53,7 @@ function SidebarObjectList(props: Props): React$MixedElement {
 			getEntityName={getEntityName}
 			name="Objects"
 			onEntityDelete={props.onEntityDelete}
-			onEntityEditProperty={props.onEntityEditProperty}
+			onEntityEditProperties={props.onEntityEditProperties}
 			onEntityHover={props.onEntityHover}
 			openByDefault={true}
 			renderItemDisplayText={renderItemDisplayText}

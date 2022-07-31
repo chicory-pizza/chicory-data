@@ -51,11 +51,12 @@ type ReducerAction =
 			y: number,
 	  }
 	| {
-			type: 'editEntityPropertyOnLevel',
+			type: 'editEntityPropertiesOnLevel',
 			coordinates: [number, number, number],
 			index: number,
-			key: string,
-			value: string | number | null,
+			properties: {
+				[key: string]: string | number | null,
+			},
 			entityType: GameEntityType,
 	  }
 	| {
@@ -156,28 +157,39 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 			}
 		}
 
-		case 'editEntityPropertyOnLevel': {
+		case 'editEntityPropertiesOnLevel': {
 			const [level, levelId] = getNonNullableLevel(state, action.coordinates);
+
+			let hasChanged = false;
 			if (action.entityType === 'OBJECT') {
 				const levelObjects = level.objects;
 				if (levelObjects == null || levelObjects.length === 0) {
 					return state;
 				}
 
-				if (
-					levelObjects[action.index][action.key] === action.value ||
-					(action.value === '' &&
-						levelObjects[action.index][action.key] == null)
-				) {
-					// If old and new values are the same, do nothing
-					return state;
-				}
-
 				const newProperties = {...levelObjects[action.index]};
-				if (action.value !== null) {
-					newProperties[action.key] = action.value;
-				} else {
-					delete newProperties[action.key];
+				Object.keys(action.properties).forEach((key) => {
+					const value = action.properties[key];
+
+					if (
+						levelObjects[action.index][key] === value ||
+						(value === '' && levelObjects[action.index][key] == null)
+					) {
+						// If old and new values are the same, do nothing
+						return;
+					}
+
+					hasChanged = true;
+
+					if (value !== null) {
+						newProperties[key] = value;
+					} else {
+						delete newProperties[key];
+					}
+				});
+
+				if (!hasChanged) {
+					return state;
 				}
 
 				return {
@@ -190,38 +202,48 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 							.concat(levelObjects.slice(action.index + 1)),
 					},
 				};
-			} else {
-				const levelDecos = level.decos;
-				if (levelDecos == null || levelDecos.length === 0) {
-					return state;
-				}
+			}
+
+			const levelDecos = level.decos;
+			if (levelDecos == null || levelDecos.length === 0) {
+				return state;
+			}
+
+			const newProperties = {...levelDecos[action.index]};
+			Object.keys(action.properties).forEach((key) => {
+				const value = action.properties[key];
 
 				if (
-					levelDecos[action.index][action.key] === action.value ||
-					(action.value === '' && levelDecos[action.index][action.key] == null)
+					levelDecos[action.index][key] === value ||
+					(value === '' && levelDecos[action.index][key] == null)
 				) {
 					// If old and new values are the same, do nothing
-					return state;
+					return;
 				}
 
-				const newProperties = {...levelDecos[action.index]};
-				if (action.value !== null) {
-					newProperties[action.key] = action.value;
+				hasChanged = true;
+
+				if (value !== null) {
+					newProperties[key] = value;
 				} else {
-					delete newProperties[action.key];
+					delete newProperties[key];
 				}
+			});
 
-				return {
-					...state,
-					[levelId]: {
-						...level,
-						decos: levelDecos
-							.slice(0, action.index)
-							.concat(newProperties)
-							.concat(levelDecos.slice(action.index + 1)),
-					},
-				};
+			if (!hasChanged) {
+				return state;
 			}
+
+			return {
+				...state,
+				[levelId]: {
+					...level,
+					decos: levelDecos
+						.slice(0, action.index)
+						.concat(newProperties)
+						.concat(levelDecos.slice(action.index + 1)),
+				},
+			};
 		}
 
 		case 'deleteEntityOnLevel': {

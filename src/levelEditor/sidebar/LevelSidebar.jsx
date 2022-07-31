@@ -24,10 +24,11 @@ type Props = $ReadOnly<{
 	onActiveUiViewToggle: (uiView: LevelInspectorUiView) => mixed,
 	onAddingEntityLabel: (entity: PlaceableType) => mixed,
 	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => mixed,
-	onEntityEditProperty: (
+	onEntityEditProperties: (
 		entityIndex: number,
-		key: string,
-		value: string | number | null,
+		properties: {
+			[key: string]: string | number | null,
+		},
 		entityType: GameEntityType
 	) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
@@ -78,7 +79,7 @@ export default function LevelSidebar(props: Props): React$Node {
 						entityIndexHover={props.objectIndexHover}
 						entitiesListItemsExpanded={props.objectsListItemsExpanded}
 						onEntityDelete={props.onEntityDelete}
-						onEntityEditProperty={props.onEntityEditProperty}
+						onEntityEditProperties={props.onEntityEditProperties}
 						onEntityHover={props.onObjectHover}
 						setEntitiesListItemsExpanded={props.setObjectsListItemsExpanded}
 					/>
@@ -90,7 +91,7 @@ export default function LevelSidebar(props: Props): React$Node {
 						entityIndexHover={props.decoIndexHover}
 						entitiesListItemsExpanded={props.decosListItemsExpanded}
 						onEntityDelete={props.onEntityDelete}
-						onEntityEditProperty={props.onEntityEditProperty}
+						onEntityEditProperties={props.onEntityEditProperties}
 						onEntityHover={props.onDecoHover}
 						setEntitiesListItemsExpanded={props.setDecosListItemsExpanded}
 					/>

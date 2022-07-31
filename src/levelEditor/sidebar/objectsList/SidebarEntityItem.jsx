@@ -27,10 +27,11 @@ type Props<
 	index: number,
 	onItemToggle: (entityIndex: number) => mixed,
 	onEntityDelete: (entitytIndex: number, entityType: EntityType) => mixed,
-	onEntityEditProperty: (
+	onEntityEditProperties: (
 		entityIndex: number,
-		key: string,
-		value: string | number | null,
+		properties: {
+			[key: string]: string | number | null,
+		},
 		entityType: EntityType
 	) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
@@ -95,10 +96,9 @@ function SidebarEntityItem<
 						<PropertyNumberInput
 							initialValue={props.entity.x}
 							onCommitValue={(newValue: number | string | null) => {
-								props.onEntityEditProperty(
+								props.onEntityEditProperties(
 									props.index,
-									'x',
-									newValue,
+									{x: newValue},
 									props.type
 								);
 							}}
@@ -108,10 +108,9 @@ function SidebarEntityItem<
 						<PropertyNumberInput
 							initialValue={props.entity.y}
 							onCommitValue={(newValue: number | string | null) => {
-								props.onEntityEditProperty(
+								props.onEntityEditProperties(
 									props.index,
-									'y',
-									newValue,
+									{y: newValue},
 									props.type
 								);
 							}}
@@ -121,7 +120,7 @@ function SidebarEntityItem<
 					<props.entityPropertiesComponent
 						entity={props.entity}
 						index={props.index}
-						onEntityEditProperty={props.onEntityEditProperty}
+						onEntityEditProperties={props.onEntityEditProperties}
 						type={props.type}
 					/>
 				</div>

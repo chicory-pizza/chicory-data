@@ -24,10 +24,11 @@ type Props<
 	getEntityName: (entity: Entity, filter: string) => string,
 	name: string,
 	onEntityDelete: (entityIndex: number, entityType: EntityType) => mixed,
-	onEntityEditProperty: (
+	onEntityEditProperties: (
 		entityIndex: number,
-		key: string,
-		value: string | number | null,
+		properties: {
+			[key: string]: string | number | null,
+		},
 		entityType: EntityType
 	) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
@@ -141,7 +142,7 @@ export default function SidebarEntityList<
 							key={index}
 							onItemToggle={onItemToggle}
 							onEntityDelete={props.onEntityDelete}
-							onEntityEditProperty={props.onEntityEditProperty}
+							onEntityEditProperties={props.onEntityEditProperties}
 							onEntityHover={props.onEntityHover}
 							renderItemDisplayText={props.renderItemDisplayText}
 							type={props.type}

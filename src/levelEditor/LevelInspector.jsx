@@ -181,19 +181,19 @@ export default function LevelInspector({
 		[currentCoordinates, dispatch]
 	);
 
-	const onEntityEditProperty = useCallback(
+	const onEntityEditProperties = useCallback(
 		(
 			index: number,
-			key: string,
-			value: string | number | null,
+			properties: {
+				[key: string]: string | number | null,
+			},
 			type: GameEntityType
 		) => {
 			dispatch({
-				type: 'editEntityPropertyOnLevel',
+				type: 'editEntityPropertiesOnLevel',
 				coordinates: currentCoordinates,
 				index,
-				key,
-				value,
+				properties,
 				entityType: type,
 			});
 		},
@@ -250,7 +250,7 @@ export default function LevelInspector({
 					onActiveUiViewToggle={onActiveUiViewToggle}
 					onAddingEntityLabel={setAddingEntityLabel}
 					onEntityDelete={onEntityDelete}
-					onEntityEditProperty={onEntityEditProperty}
+					onEntityEditProperties={onEntityEditProperties}
 					onObjectHover={setObjectIndexHover}
 					setObjectsListItemsExpanded={setSidebarObjectsListItemsExpanded}
 					decoIndexHover={decoIndexHover}

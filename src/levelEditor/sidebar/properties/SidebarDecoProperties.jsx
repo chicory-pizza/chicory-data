@@ -19,7 +19,11 @@ export default function SidebarDecoProperties(
 				<PropertyNumberInput
 					initialValue={deco.xs}
 					onCommitValue={(newValue: number | string | null) => {
-						props.onEntityEditProperty(props.index, 'xs', newValue, props.type);
+						props.onEntityEditProperties(
+							props.index,
+							{xs: newValue},
+							props.type
+						);
 					}}
 					step={0.05}
 				/>
@@ -28,7 +32,11 @@ export default function SidebarDecoProperties(
 				<PropertyNumberInput
 					initialValue={deco.ys}
 					onCommitValue={(newValue: number | string | null) => {
-						props.onEntityEditProperty(props.index, 'ys', newValue, props.type);
+						props.onEntityEditProperties(
+							props.index,
+							{ys: newValue},
+							props.type
+						);
 					}}
 					step={0.05}
 				/>
@@ -39,10 +47,9 @@ export default function SidebarDecoProperties(
 				<PropertyNumberInput
 					initialValue={deco.ang}
 					onCommitValue={(newValue: number | string | null) => {
-						props.onEntityEditProperty(
+						props.onEntityEditProperties(
 							props.index,
-							'ang',
-							newValue,
+							{ang: newValue},
 							props.type
 						);
 					}}
