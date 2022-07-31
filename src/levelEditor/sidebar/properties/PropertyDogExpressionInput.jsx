@@ -39,7 +39,7 @@ function PropertyDogExpressionInput({
 			maxMenuHeight={300}
 			onChange={onChange}
 			options={selectOptions}
-			value={selectedValue}
+			value={selectedValue ?? null}
 		/>
 	);
 }
