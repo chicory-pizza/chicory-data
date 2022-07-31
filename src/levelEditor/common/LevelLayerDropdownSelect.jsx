@@ -21,7 +21,7 @@ export default function LevelLayerDropdownSelect(props: Props): React$Node {
 	const currentLevelId = props.selectedCoordinates
 		? convertCoordinatesToLevelId(props.selectedCoordinates)
 		: null;
-	let currentSelectOption = useRef();
+	const currentSelectOption = useRef();
 
 	const levelIds = useMemo(() => {
 		return Object.keys(props.levels).sort((a, b) => {
