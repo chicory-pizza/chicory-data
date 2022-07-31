@@ -17,7 +17,11 @@ export default function SidebarObjectProperties(
 		<>
 			{entity.obj === 'objCustomDog' ? (
 				<ErrorBoundary>
-					<SidebarObjectCustomDogLoader obj={entity} />
+					<SidebarObjectCustomDogLoader
+						entityIndex={props.index}
+						editProperties={props.onEntityEditProperties}
+						obj={entity}
+					/>
 				</ErrorBoundary>
 			) : null}
 

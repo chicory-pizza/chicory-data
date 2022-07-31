@@ -2,7 +2,7 @@
 
 import {Suspense, lazy} from 'react';
 
-import Spinner from '../../../common/Spinner.jsx';
+import Spinner from '../../../common/Spinner';
 import type {Props} from '../objectsList/SidebarObjectCustomDog';
 
 import styles from './SidebarObjectCustomDogLoader.module.css';
@@ -15,12 +15,18 @@ export default function SidebarObjectCustomDogLoader(props: Props): React$Node {
 	return (
 		<Suspense
 			fallback={
-				<div className={styles.loader}>
-					<Spinner size={32} />
-				</div>
+				<>
+					<div className={styles.loader}>
+						<Spinner size={32} />
+					</div>
+
+					<button type="button" disabled>
+						Choose from gallery
+					</button>
+				</>
 			}
 		>
-			<SidebarObjectCustomDog obj={props.obj} />
+			<SidebarObjectCustomDog {...props} />
 		</Suspense>
 	);
 }
