@@ -1,7 +1,5 @@
 // @flow strict
 
-import {ENABLE_OBJ_CUSTOM_DOG} from '../../FeatureFlags';
-
 import type {GameObjectEntityType} from './GameObjectEntityType';
 
 // I know it's duplicated :(
@@ -272,9 +270,12 @@ export const GAME_OBJECT_ENTITIES: $ReadOnlyArray<GameObjectEntityType> = [
 	'objYuzu',
 	'objZoomdisable',
 	'objZucchini',
+];
 
-	ENABLE_OBJ_CUSTOM_DOG ? 'objCustomDog' : undefined,
-].filter(Boolean);
+// Game objects that require mods
+export const GAME_OBJECT_ENTITIES_MODS: $ReadOnlyArray<GameObjectEntityType> = [
+	'objCustomDog',
+];
 
 // Other game objects scrapped from the game scripts
 // Some don't really work properly when placed standalone on a level

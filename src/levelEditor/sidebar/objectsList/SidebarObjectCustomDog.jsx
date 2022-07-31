@@ -2,6 +2,7 @@
 
 import DogPreview from '../../../dog/DogPreview';
 import convertBgrIntegerToRgb from '../../../util/convertBgrIntegerToRgb';
+import useReducedMotion from '../../../util/useReducedMotion';
 import type {GameObjectType} from '../../types/GameObjectType';
 import convertRgbArrayToString from '../../util/convertRgbArrayToString';
 
@@ -12,6 +13,8 @@ type Props = $ReadOnly<{
 }>;
 
 export default function SidebarObjectCustomDog(props: Props): React$Node {
+	const isReducedMotion = useReducedMotion();
+
 	const obj = props.obj;
 
 	if (obj.obj !== 'objCustomDog') {
@@ -46,6 +49,7 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 					},
 				]}
 				hair={typeof obj.hair === 'string' ? obj.hair : 'Simple'}
+				playAnimations={!isReducedMotion}
 				skinColor={
 					typeof obj.color_skin === 'number'
 						? convertRgbArrayToString(convertBgrIntegerToRgb(obj.color_skin))

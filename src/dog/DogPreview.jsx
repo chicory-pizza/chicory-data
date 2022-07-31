@@ -29,7 +29,7 @@ type Props = $ReadOnly<{
 	expression: string,
 	hats: $ReadOnlyArray<ChosenHat>,
 	hair: string,
-	playAnimations?: boolean,
+	playAnimations: boolean,
 	skinColor: string,
 	skinOutlineColor?: string,
 }>;

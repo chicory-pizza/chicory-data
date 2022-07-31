@@ -5,6 +5,7 @@ import {memo} from 'react';
 import type {OptionType} from '../../common/CustomSelect';
 import {
 	GAME_OBJECT_ENTITIES,
+	GAME_OBJECT_ENTITIES_MODS,
 	GAME_OBJECT_ENTITIES_ADVANCED,
 	GAME_OBJECT_ENTITIES_CRASH,
 } from '../types/GameObjectEntities';
@@ -35,6 +36,10 @@ function SidebarObjectAdder(props: Props): React$Node {
 		{
 			label: 'Common',
 			options: GAME_OBJECT_ENTITIES.map(gameObjectEntityTypeToOption),
+		},
+		{
+			label: 'Mods',
+			options: GAME_OBJECT_ENTITIES_MODS.map(gameObjectEntityTypeToOption),
 		},
 		{
 			label: 'Added from game scripts',
