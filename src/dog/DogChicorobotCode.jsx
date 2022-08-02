@@ -2,72 +2,29 @@
 
 import {useMemo} from 'react';
 
-import {DOG_CLOTHES_LIST} from './types/DogClothesList';
-import {DOG_EXPRESSION_LIST} from './types/DogExpressionList';
-import {DOG_HAIR_LIST} from './types/DogHairList';
-import {DOG_HAT_LIST} from './types/DogHatList';
+import getChicorobotCode from './getChicorobotCode';
+import type {ChicorobotDog} from './getChicorobotCode';
 
-type Props = $ReadOnly<{
-	clothes: string,
-	clothesColor: string,
-	expression: string,
-	hat: string,
-	hatColor: string,
-	hair: string,
-	skinColor: string,
-}>;
-
-export default function DogChicorobotCode(props: Props): React$Node {
-	// Clothes
-	const clothesInfo = useMemo(() => {
-		return DOG_CLOTHES_LIST.find((clothes) => {
-			return props.clothes === clothes.internalName;
+export default function DogChicorobotCode(props: ChicorobotDog): React$Node {
+	const code = useMemo(() => {
+		return getChicorobotCode({
+			clothes: props.clothes,
+			clothesColor: props.clothesColor,
+			expression: props.expression,
+			hat: props.hat,
+			hatColor: props.hatColor,
+			hair: props.hair,
+			skinColor: props.skinColor,
 		});
-	}, [props.clothes]);
+	}, [
+		props.clothes,
+		props.clothesColor,
+		props.expression,
+		props.hair,
+		props.hat,
+		props.hatColor,
+		props.skinColor,
+	]);
 
-	if (!clothesInfo) {
-		throw new Error('Invalid clothes ' + props.clothes);
-	}
-
-	// Hat
-	const hatInfo = useMemo(() => {
-		return DOG_HAT_LIST.find((hat) => {
-			return props.hat === hat.internalName;
-		});
-	}, [props.hat]);
-
-	if (!hatInfo) {
-		throw new Error('Invalid hat ' + props.hat);
-	}
-
-	// Hair
-	const hairInfo = useMemo(() => {
-		return DOG_HAIR_LIST.find((hair) => {
-			return props.hair === hair.internalName;
-		});
-	}, [props.hair]);
-
-	if (!hairInfo) {
-		throw new Error('Invalid hair ' + props.hair);
-	}
-
-	// Expression
-	const expressionInfo = useMemo(() => {
-		return DOG_EXPRESSION_LIST.find((expression) => {
-			return props.expression === expression.value;
-		});
-	}, [props.expression]);
-
-	if (!expressionInfo) {
-		throw new Error('Invalid expression ' + props.expression);
-	}
-	return (
-		<code>
-			/dog expression:{expressionInfo.chicorobotName} clothes:
-			{clothesInfo.chicorobotName} hat:
-			{hatInfo.chicorobotName} hair:{hairInfo.chicorobotName} body_col:
-			{props.skinColor} clothes_col:
-			{props.clothesColor} hat_col:{props.hatColor}
-		</code>
-	);
+	return <code>{code}</code>;
 }
