@@ -1,8 +1,7 @@
 // @flow strict
 
-import {fileOpen} from 'browser-fs-access';
-import {useRef} from 'react';
-
+import CommonDataLoadButton from './CommonDataLoadButton';
+import CommonDataSaveButton from './CommonDataSaveButton';
 import CommonDataSaveTimestamp from './CommonDataSaveTimestamp';
 import styles from './CommonDataSelector.module.css';
 
@@ -16,57 +15,21 @@ type Props = $ReadOnly<{
 	saveButtonLabel: string,
 }>;
 
-export default function CommonDataSelector(props: Props): React$Node {
-	const saveFileHandleRef = useRef<?FileSystemFileHandle>(null);
-
-	async function openFile() {
-		const blob = await fileOpen();
-
-		const reader = new FileReader();
-		reader.onload = (buffer: ProgressEvent) => {
-			const reader = buffer.currentTarget;
-			if (!(reader instanceof FileReader)) {
-				throw new Error('Expected file reader');
-			}
-
-			props.onFileLoad(reader);
-		};
-		reader.onerror = (ex) => {
-			console.error(ex);
-			alert('There was a problem reading the file.');
-		};
-		reader.readAsText(blob);
-	}
-
-	async function saveFile() {
-		try {
-			saveFileHandleRef.current = await props.onFileSave(
-				saveFileHandleRef.current
-			);
-		} catch (ex) {
-			if (ex.name !== 'AbortError') {
-				console.error(ex);
-				alert('There was a problem saving the file.');
-			}
-		}
-	}
-
+export default function CommonDataSelector(props: Props): React$MixedElement {
 	return (
 		<div className={styles.root}>
 			<div className={styles.space}>
-				<button type="button" onClick={openFile}>
-					Load
-				</button>
+				<CommonDataLoadButton onFileLoad={props.onFileLoad} />
 			</div>
 
-			<button
-				className={styles.space}
-				disabled={props.isSaveDisabled}
-				onClick={saveFile}
-				type="button"
-			>
-				{props.saveButtonLabel}
-			</button>
+			<CommonDataSaveButton
+				buttonProps={{
+					className: styles.space,
+					disabled: props.isSaveDisabled,
+				}}
+				label={props.saveButtonLabel}
+				onFileSave={props.onFileSave}
+			/>
 
 			<CommonDataSaveTimestamp lastSaveTime={props.lastSaveTime} />
 		</div>
