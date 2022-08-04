@@ -34,8 +34,10 @@ export default function DogEditorApp(): React$MixedElement {
 		clothes,
 		clothesColor,
 		customClothesImage,
+		earColor,
 		expression,
 		hair,
+		hasCustomEarColor,
 		hats,
 		skinColor,
 		skinOutlineColor,
@@ -135,8 +137,10 @@ export default function DogEditorApp(): React$MixedElement {
 					clothes: preset.clothes,
 					clothesColor: preset.clothesColor,
 					customClothesImage: preset.customClothesImage,
+					earColor: preset.earColor ?? preset.skinColor,
 					expression: preset.expression ?? 'normal',
 					hair: preset.hair,
+					hasCustomEarColor: preset.earColor != null,
 					hats: preset.hats,
 					skinColor: preset.skinColor,
 					skinOutlineColor: preset.skinOutlineColor ?? '#000000',
@@ -242,6 +246,7 @@ export default function DogEditorApp(): React$MixedElement {
 								clothes={previewClothes ?? clothes}
 								clothesColor={clothesColor}
 								customClothesImage={customClothesImage}
+								earColor={hasCustomEarColor ? earColor : skinColor}
 								expression={previewExpression ?? expression}
 								hats={hatsInPreview}
 								hair={previewHair ?? hair}
@@ -321,7 +326,6 @@ export default function DogEditorApp(): React$MixedElement {
 										value={hair}
 									/>
 								</div>
-								<div />
 
 								<div className={styles.label}>Expression:</div>
 								<div className={styles.select}>
@@ -331,7 +335,48 @@ export default function DogEditorApp(): React$MixedElement {
 										value={expression}
 									/>
 								</div>
-								<div />
+
+								<div className={styles.fullWidthControl}>
+									<label>
+										<input
+											type="checkbox"
+											checked={hasCustomEarColor}
+											onChange={(ev) => {
+												dispatch({
+													type: 'setProperties',
+													properties: {
+														earColor:
+															earColor === '#ffffff' ? skinColor : earColor,
+														hasCustomEarColor: ev.currentTarget.checked,
+													},
+												});
+											}}
+										/>
+										Use custom ear color
+									</label>
+								</div>
+
+								{hasCustomEarColor ? (
+									<>
+										<div className={styles.label}>Ear color:</div>
+										<div className={styles.colorControl}>
+											<input
+												type="color"
+												value={earColor}
+												onChange={(
+													ev: SyntheticInputEvent<HTMLInputElement>
+												) => {
+													dispatch({
+														type: 'setProperties',
+														properties: {
+															earColor: ev.currentTarget.value,
+														},
+													});
+												}}
+											/>
+										</div>
+									</>
+								) : null}
 							</div>
 						</details>
 

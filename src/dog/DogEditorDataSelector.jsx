@@ -46,6 +46,7 @@ export default function LevelEditorDataSelector(
 				dogState.clothes === 'Custom Tee' && dogState.customClothesImage != null
 					? dogState.customClothesImage
 					: undefined,
+			earColor: dogState.earColor != null ? dogState.earColor : undefined,
 			expression: dogState.expression,
 			hair: dogState.hair,
 			hats: props.hats.map((hat) => {

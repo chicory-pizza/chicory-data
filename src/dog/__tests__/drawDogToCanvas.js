@@ -98,6 +98,20 @@ test('multiple hats', async () => {
 	expect(image).toMatchImageSnapshot();
 });
 
+test('different ear color', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Overalls',
+		clothesColor: '#ff0000',
+		earColor: '#00ff00',
+		hair: 'Simple',
+		hats: [],
+		skinColor: '#0000ff',
+	});
+
+	// $FlowFixMe[incompatible-call]
+	expect(image).toMatchImageSnapshot();
+});
+
 test('expression', async () => {
 	const image = await drawDogToCanvasTestHelper({
 		clothes: 'Avast',

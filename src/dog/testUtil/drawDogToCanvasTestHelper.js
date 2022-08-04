@@ -17,6 +17,7 @@ import {DOG_HAT_LIST} from '../types/DogHatList';
 export default async function renderDogToCanvasHelper(options: {
 	clothes: string,
 	clothesColor: string,
+	earColor?: string,
 	customClothesImage?: ?CanvasImageSource,
 	expression?: string,
 	hair: string,
@@ -135,6 +136,7 @@ export default async function renderDogToCanvasHelper(options: {
 		},
 		{
 			clothesColor: options.clothesColor,
+			earColor: options.earColor ?? options.skinColor,
 			skinColor: options.skinColor,
 			skinOutlineColor: options.skinOutlineColor,
 		},

@@ -5,6 +5,7 @@ import transformImageImport from '../../util/transformImageImport';
 export type DrawdogPreset = {
 	clothes: string,
 	clothesColor: string,
+	earColor?: string,
 	customClothesImage?: string,
 	expression?: string, // default is 'normal'
 	hair: string,

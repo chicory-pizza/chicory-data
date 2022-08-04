@@ -37,6 +37,11 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 		return null;
 	}
 
+	const skinColor =
+		typeof obj.color_skin === 'number'
+			? convertRgbArrayToString(convertBgrIntegerToRgb(obj.color_skin))
+			: '#ffffff';
+
 	return (
 		<>
 			<div className={styles.center}>
@@ -50,6 +55,7 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 							: '#ffffff'
 					}
 					customClothesImage={null}
+					earColor={skinColor}
 					expression={
 						typeof obj.expression === 'string' ? obj.expression : 'normal'
 					}
@@ -67,11 +73,7 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 					]}
 					hair={typeof obj.hair === 'string' ? obj.hair : 'Simple'}
 					playAnimations={!isReducedMotion}
-					skinColor={
-						typeof obj.color_skin === 'number'
-							? convertRgbArrayToString(convertBgrIntegerToRgb(obj.color_skin))
-							: '#ffffff'
-					}
+					skinColor={skinColor}
 				/>
 			</div>
 

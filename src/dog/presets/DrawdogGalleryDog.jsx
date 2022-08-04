@@ -38,6 +38,7 @@ export default function DrawdogGalleryDog(props: Props): React$Node {
 					clothes={preset.clothes}
 					clothesColor={preset.clothesColor}
 					customClothesImage={preset.customClothesImage ?? null}
+					earColor={preset.earColor ?? preset.skinColor}
 					expression={props.forceExpression ?? preset.expression ?? 'normal'}
 					hats={preset.hats}
 					hair={preset.hair}

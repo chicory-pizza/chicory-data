@@ -26,6 +26,7 @@ type Props = $ReadOnly<{
 	clothes: string,
 	clothesColor: string,
 	customClothesImage: ?string,
+	earColor: string,
 	expression: string,
 	hats: $ReadOnlyArray<ChosenHat>,
 	hair: string,
@@ -189,6 +190,7 @@ export default function DogPreview(props: Props): React$Node {
 			},
 			{
 				clothesColor: props.clothesColor,
+				earColor: props.earColor,
 				skinColor: props.skinColor,
 				skinOutlineColor: props.skinOutlineColor,
 			},
@@ -236,6 +238,7 @@ export default function DogPreview(props: Props): React$Node {
 		props.animation,
 		props.clothesColor,
 		props.customClothesImage,
+		props.earColor,
 		props.expression,
 		props.skinColor,
 		props.skinOutlineColor,

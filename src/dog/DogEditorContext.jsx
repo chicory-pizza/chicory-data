@@ -13,8 +13,10 @@ type DogState = $ReadOnly<{
 	clothes: string,
 	clothesColor: string,
 	customClothesImage: ?string,
+	earColor: string,
 	expression: string,
 	hair: string,
+	hasCustomEarColor: boolean,
 	hats: $ReadOnlyArray<ChosenHat>,
 	skinColor: string,
 	skinOutlineColor: string,
@@ -136,8 +138,10 @@ export function DogEditorProvider({children}: Props): React$MixedElement {
 		clothes: 'Overalls',
 		clothesColor: '#ffffff',
 		customClothesImage: null,
+		earColor: '#ffffff',
 		expression: 'normal',
 		hair: 'Simple',
+		hasCustomEarColor: false,
 		hats: [
 			{
 				name: 'Bandana',

@@ -52,6 +52,7 @@ export default function drawDogToCanvas(
 	},
 	colors: {
 		clothesColor: string,
+		earColor: string,
 		skinColor: string,
 		skinOutlineColor?: string,
 	},
@@ -303,7 +304,7 @@ export default function drawDogToCanvas(
 		ctx,
 		images.ear,
 		{
-			fillColor: colors.skinColor,
+			fillColor: colors.earColor ?? colors.skinColor,
 			outlineColor: colors.skinOutlineColor,
 			cacheKey: options.animationCacheKey + 'ear',
 		},
