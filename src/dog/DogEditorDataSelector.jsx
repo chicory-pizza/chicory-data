@@ -3,9 +3,13 @@
 import {fileSave} from 'browser-fs-access';
 import {useState} from 'react';
 
-import CommonDataSelector from '../common/CommonDataSelector';
+import CommonDataLoadButton from '../common/CommonDataLoadButton';
+import CommonDataSaveButton from '../common/CommonDataSaveButton';
+import CommonDataSaveTimestamp from '../common/CommonDataSaveTimestamp';
 
 import {useDogEditorContext} from './DogEditorContext';
+import styles from './DogEditorDataSelector.module.css';
+import DogEditorGifMaker from './DogEditorGifMaker';
 import type {ChosenHat} from './drawDogToCanvas';
 import type {DrawdogPreset} from './presets/DrawdogPresets';
 
@@ -79,12 +83,24 @@ export default function LevelEditorDataSelector(
 	}
 
 	return (
-		<CommonDataSelector
-			isSaveDisabled={false}
-			lastSaveTime={lastSaveTime}
-			onFileLoad={onFileLoad}
-			onFileSave={onFileSave}
-			saveButtonLabel="Save as JSON"
-		/>
+		<div className={styles.root}>
+			<div className={styles.space}>
+				<CommonDataLoadButton onFileLoad={onFileLoad} />
+			</div>
+
+			<CommonDataSaveButton
+				buttonProps={{
+					className: styles.space,
+				}}
+				label="Save as JSON"
+				onFileSave={onFileSave}
+			/>
+
+			<div className={styles.space}>
+				<DogEditorGifMaker />
+			</div>
+
+			<CommonDataSaveTimestamp lastSaveTime={lastSaveTime} />
+		</div>
 	);
 }

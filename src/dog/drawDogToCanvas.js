@@ -58,6 +58,7 @@ export default function drawDogToCanvas(
 	},
 	options: {
 		animationCacheKey: string,
+		backgroundFillColor?: ?string,
 		clothesAnimationTranslateX: number,
 		clothesAnimationTranslateY: number,
 		expressionCacheKey: string,
@@ -117,6 +118,11 @@ export default function drawDogToCanvas(
 	// Start drawing!
 	const ctx = getCanvasRenderingContext(canvas, true);
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+	if (options.backgroundFillColor != null) {
+		ctx.fillStyle = options.backgroundFillColor;
+		ctx.fillRect(0, 0, SIZE, SIZE);
+	}
 
 	drawImageAsColor(
 		ctx,

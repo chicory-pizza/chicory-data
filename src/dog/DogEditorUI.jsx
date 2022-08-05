@@ -10,7 +10,6 @@ import DogChicorobotCode from './DogChicorobotCode';
 import {useDogEditorContext} from './DogEditorContext';
 import DogEditorHeader from './DogEditorHeader';
 import styles from './DogEditorUI.module.css';
-import DogPreview from './DogPreview';
 import DogSpeech from './DogSpeech';
 import {
 	CUSTOM_CLOTHES_HEIGHT,
@@ -27,6 +26,7 @@ import DogExpressionSelect from './editor/DogExpressionSelect';
 import DogHairSelect from './editor/DogHairSelect';
 import DogSpeechEditor from './editor/DogSpeechEditor.jsx';
 import type {DrawdogPreset} from './presets/DrawdogPresets';
+import DogPreviewWithAutoPlayAnimation from './preview/DogPreviewWithAutoPlayAnimation';
 
 export default function DogEditorApp(): React$MixedElement {
 	const {dispatch, dogState} = useDogEditorContext();
@@ -240,7 +240,7 @@ export default function DogEditorApp(): React$MixedElement {
 						</div>
 
 						<div className={styles.dog}>
-							<DogPreview
+							<DogPreviewWithAutoPlayAnimation
 								animation="idle"
 								canvasClassName={styles.dogPreviewCanvas}
 								clothes={previewClothes ?? clothes}

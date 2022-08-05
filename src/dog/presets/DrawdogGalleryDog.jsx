@@ -1,6 +1,6 @@
 // @flow strict
 
-import DogPreview from '../DogPreview';
+import DogPreviewWithAutoPlayAnimation from '../preview/DogPreviewWithAutoPlayAnimation';
 
 import styles from './DrawdogGalleryDog.module.css';
 import type {DrawdogPreset} from './DrawdogPresets';
@@ -32,7 +32,7 @@ export default function DrawdogGalleryDog(props: Props): React$Node {
 			className={styles.preset}
 		>
 			<div className={styles.dogPreview}>
-				<DogPreview
+				<DogPreviewWithAutoPlayAnimation
 					animation="idle"
 					canvasClassName={styles.dogPreviewCanvas}
 					clothes={preset.clothes}

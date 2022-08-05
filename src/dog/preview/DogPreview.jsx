@@ -1,27 +1,25 @@
 // @flow strict
 
-import {useEffect, useMemo, useRef, useState} from 'react';
-// $FlowFixMe[untyped-import]
-import {useInView} from 'react-intersection-observer';
-import {useInterval} from 'react-use';
+import {useEffect, useMemo, useRef} from 'react';
 
-import Spinner from '../common/Spinner';
-import useVisibilityChange from '../util/useVisibilityChange';
+import Spinner from '../../common/Spinner';
+import drawDogToCanvas from '../drawDogToCanvas';
+import {SIZE} from '../drawDogToCanvas';
+import type {ChosenHat} from '../drawDogToCanvas';
+import DOG_ANIMATIONS from '../types/DogAnimations';
+import {DOG_CLOTHES_LIST} from '../types/DogClothesList';
+import {DOG_EXPRESSION_LIST} from '../types/DogExpressionList';
+import {DOG_HAIR_LIST} from '../types/DogHairList';
+import {DOG_HAT_LIST} from '../types/DogHatList';
+import useLoadImage from '../useLoadImage';
+import useLoadMultipleImages from '../useLoadMultipleImages';
 
 import styles from './DogPreview.module.css';
-import drawDogToCanvas from './drawDogToCanvas';
-import {SIZE} from './drawDogToCanvas';
-import type {ChosenHat} from './drawDogToCanvas';
-import DOG_ANIMATIONS from './types/DogAnimations';
-import {DOG_CLOTHES_LIST} from './types/DogClothesList';
-import {DOG_EXPRESSION_LIST} from './types/DogExpressionList';
-import {DOG_HAIR_LIST} from './types/DogHairList';
-import {DOG_HAT_LIST} from './types/DogHatList';
-import useLoadImage from './useLoadImage';
-import useLoadMultipleImages from './useLoadMultipleImages';
 
-type Props = $ReadOnly<{
+export type Props = $ReadOnly<{
 	animation: 'idle', // only this for now
+	animationIndex: number,
+	backgroundFillColor?: string,
 	canvasClassName?: string,
 	clothes: string,
 	clothesColor: string,
@@ -30,13 +28,18 @@ type Props = $ReadOnly<{
 	expression: string,
 	hats: $ReadOnlyArray<ChosenHat>,
 	hair: string,
-	playAnimations: boolean,
+	onCanvasFrameDrawn?: (
+		canvasRef: HTMLCanvasElement,
+		animationIndex: number
+	) => mixed,
 	skinColor: string,
 	skinOutlineColor?: string,
 }>;
 
 export default function DogPreview(props: Props): React$Node {
 	const mainCanvasRef = useRef<?HTMLCanvasElement>(null);
+
+	const {animationIndex, onCanvasFrameDrawn} = props;
 
 	// Clothes
 	const clothesInfo = useMemo(() => {
@@ -115,26 +118,6 @@ export default function DogPreview(props: Props): React$Node {
 		throw new Error('Invalid animation ' + props.animation);
 	}
 
-	const [animationIndex, setAnimationIndex] = useState(0);
-	const playAnimations = props.playAnimations ?? true;
-	const isPageVisible = useVisibilityChange();
-	const {ref: intersectionObserverRef, inView} = useInView();
-	useInterval(
-		() => {
-			setAnimationIndex(
-				animationIndex < animationInfo.headAnim.length - 1
-					? animationIndex + 1
-					: 0
-			);
-		},
-		playAnimations &&
-			isPageVisible &&
-			inView &&
-			animationInfo.headAnim.length > 0
-			? 200
-			: null
-	);
-
 	const animationImagesToLoad = useMemo(() => {
 		const images: {[key: string]: ?string} = {};
 		for (let i = 0; i < animationInfo.headAnim.length; i += 1) {
@@ -196,6 +179,7 @@ export default function DogPreview(props: Props): React$Node {
 			},
 			{
 				animationCacheKey: props.animation + '_' + animationIndex + '_',
+				backgroundFillColor: props.backgroundFillColor,
 				clothesAnimationTranslateX: animationInfo.bodyAnim[animationIndex].x,
 				clothesAnimationTranslateY: animationInfo.bodyAnim[animationIndex].y,
 				expressionCacheKey: props.expression,
@@ -223,6 +207,10 @@ export default function DogPreview(props: Props): React$Node {
 				}),
 			}
 		);
+
+		if (onCanvasFrameDrawn && mainCanvasRef.current) {
+			onCanvasFrameDrawn(mainCanvasRef.current, animationIndex);
+		}
 	}, [
 		animationImages,
 		animationIndex,
@@ -235,7 +223,9 @@ export default function DogPreview(props: Props): React$Node {
 		hats,
 		hatsImages,
 		head,
+		onCanvasFrameDrawn,
 		props.animation,
+		props.backgroundFillColor,
 		props.clothesColor,
 		props.customClothesImage,
 		props.earColor,
@@ -248,7 +238,7 @@ export default function DogPreview(props: Props): React$Node {
 		!mainCanvasRef.current || !animationImages || !clothes || !head || !hair;
 
 	return (
-		<div className={styles.root} ref={intersectionObserverRef}>
+		<div className={styles.root}>
 			<canvas
 				className={
 					styles.canvas +
