@@ -21,7 +21,7 @@ type Props = $ReadOnly<{
 	playAnimations: boolean,
 }>;
 
-export default function DogPreviewWithAutoPlayAnimation(
+export default function DogPreviewWithAutoplayAnimation(
 	props: Props
 ): React$MixedElement {
 	const animationInfo = DOG_ANIMATIONS.get(props.animation);

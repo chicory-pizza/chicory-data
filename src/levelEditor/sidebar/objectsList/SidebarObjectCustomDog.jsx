@@ -5,7 +5,7 @@ import {useState} from 'react';
 import MessageBox from '../../../common/MessageBox.jsx';
 import DrawdogGalleryModal from '../../../dog/presets/DrawdogGalleryModal';
 import type {DrawdogPreset} from '../../../dog/presets/DrawdogPresets';
-import DogPreviewWithAutoPlayAnimation from '../../../dog/preview/DogPreviewWithAutoPlayAnimation';
+import DogPreviewWithAutoplayAnimation from '../../../dog/preview/DogPreviewWithAutoplayAnimation';
 import convertBgrIntegerToRgb from '../../../util/convertBgrIntegerToRgb';
 import convertHexToBgrInteger from '../../../util/convertHexToBgrInteger';
 import useReducedMotion from '../../../util/useReducedMotion';
@@ -45,7 +45,7 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 	return (
 		<>
 			<div className={styles.center}>
-				<DogPreviewWithAutoPlayAnimation
+				<DogPreviewWithAutoplayAnimation
 					animation="idle"
 					canvasClassName={styles.dogPreviewCanvas}
 					clothes={typeof obj.clothes === 'string' ? obj.clothes : 'Overalls'}
