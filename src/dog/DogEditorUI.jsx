@@ -3,10 +3,10 @@
 import {useCallback, useMemo, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
-import MessageBox from '../common/MessageBox';
 import isReducedMotion from '../util/isReducedMotion';
 
 import DogChicorobotCode from './DogChicorobotCode';
+import DogChicorobotNotices from './DogChicorobotNotices';
 import {useDogEditorContext} from './DogEditorContext';
 import DogEditorHeader from './DogEditorHeader';
 import styles from './DogEditorUI.module.css';
@@ -24,7 +24,7 @@ import DogEditorFileInput from './editor/DogEditorFileInput';
 import DogEditorHatLayer from './editor/DogEditorHatLayer';
 import DogExpressionSelect from './editor/DogExpressionSelect';
 import DogHairSelect from './editor/DogHairSelect';
-import DogSpeechEditor from './editor/DogSpeechEditor.jsx';
+import DogSpeechEditor from './editor/DogSpeechEditor';
 import type {DrawdogPreset} from './presets/DrawdogPresets';
 import DogPreviewWithAutoplayAnimation from './preview/DogPreviewWithAutoplayAnimation';
 
@@ -65,20 +65,6 @@ export default function DogEditorApp(): React$MixedElement {
 			};
 		});
 	}, [hats, previewHats]);
-
-	// Chicorobot notices
-	// Doing this for now until the editor state is moved to one reducer state
-	const hasMultipleHatLayers = hats.length > 1;
-	const hasNonBlackSkinOutlineColor = skinOutlineColor !== '#000000';
-	const hasCustomClothes =
-		clothes === 'Custom Tee' || previewClothes === 'Custom Tee';
-	const hasCustomHat = hatsInPreview.some((hat) => hat.name === 'Custom Hat');
-	const showChicorobotNotice =
-		hasMultipleHatLayers ||
-		hasNonBlackSkinOutlineColor ||
-		hasCustomClothes ||
-		hasCustomHat ||
-		invertColors;
 
 	const onHairChange = useCallback(
 		(value: string) => {
@@ -484,54 +470,12 @@ export default function DogEditorApp(): React$MixedElement {
 								/>
 							</ErrorBoundary>
 
-							{showChicorobotNotice ? (
-								<div className={styles.chicorobotNotices}>
-									{hasCustomClothes ? (
-										<MessageBox
-											message={
-												<>
-													Custom clothes need to manually uploaded using{' '}
-													<code>custom_clothes:</code>
-												</>
-											}
-											type="INFO"
-										/>
-									) : null}
-
-									{hasCustomHat ? (
-										<MessageBox
-											message={
-												<>
-													Custom hats need to manually uploaded using{' '}
-													<code>custom_hat:</code>
-												</>
-											}
-											type="INFO"
-										/>
-									) : null}
-
-									{hasMultipleHatLayers ? (
-										<MessageBox
-											message="Multiple hat layers are not supported, only the 1st hat layer will be shown"
-											type="INFO"
-										/>
-									) : null}
-
-									{hasNonBlackSkinOutlineColor ? (
-										<MessageBox
-											message="Non-black skin outline colors are not supported"
-											type="INFO"
-										/>
-									) : null}
-
-									{invertColors ? (
-										<MessageBox
-											message="Inverted colors are not supported"
-											type="INFO"
-										/>
-									) : null}
-								</div>
-							) : null}
+							<DogChicorobotNotices
+								clothes={previewClothes ?? clothes}
+								hats={hatsInPreview}
+								invertColors={invertColors}
+								skinOutlineColor={skinOutlineColor}
+							/>
 						</details>
 					</ErrorBoundary>
 				</div>
