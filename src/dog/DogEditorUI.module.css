@@ -73,10 +73,10 @@
 	width: 100%;
 }
 
-/* On small screens, there are 3 columns, then it changes to 4 columns on bigger screens */
+/* Different grid on small/large screens */
 .grid {
-	display: inline-grid;
-	grid-template-columns: auto auto 1fr;
+	display: grid;
+	grid-template-columns: auto auto 1fr auto;
 }
 
 .label {
@@ -86,8 +86,13 @@
 	grid-column: 1 / 3;
 }
 
-.select {
+.selectMenu {
 	margin: 0 0 8px 0;
+	grid-column: 3 / 4;
+}
+
+.selectModalLauncher {
+	margin: 0 0 8px 8px;
 }
 
 .clothesControls {
@@ -123,11 +128,16 @@
 
 @media (min-width: 801px) {
 	.grid {
+		display: inline-grid;
 		grid-template-columns: auto auto 266px 1fr;
 	}
 
-	.select {
+	.selectMenu {
 		margin-right: 16px;
+	}
+
+	.selectModalLauncher {
+		margin-left: 0;
 	}
 
 	.clothesControls {

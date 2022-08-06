@@ -1,20 +1,24 @@
 // @flow strict
 
-import type {Props as DrawdogGridModalProps} from '../grid/DrawdogGridModal';
 import DrawdogGridModal from '../grid/DrawdogGridModal';
 
 import type {DrawdogPreset} from './DrawdogPresets';
 import {DRAWDOG_PRESETS} from './DrawdogPresets';
 
 type Props = $ReadOnly<{
-	...$Diff<
-		DrawdogGridModalProps,
-		{
-			presets: $ReadOnlyArray<DrawdogPreset>,
-		}
-	>,
+	isOpen: boolean,
+	onModalRequestClose: () => void,
+	onPresetSelect: (preset: DrawdogPreset) => mixed,
 }>;
 
 export default function DrawdogGalleryModal(props: Props): React$Node {
-	return <DrawdogGridModal {...props} presets={DRAWDOG_PRESETS} />;
+	return (
+		<DrawdogGridModal
+			{...props}
+			canChangeExpressionOnMouseOver={true}
+			canPlayAnimations={true}
+			presets={DRAWDOG_PRESETS}
+			title="Drawdog gallery"
+		/>
+	);
 }

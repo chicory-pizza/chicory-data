@@ -14,22 +14,30 @@ import noResultsImage from './drawdoggridmodal-noresults.png';
 import styles from './DrawdogGridModal.module.css';
 
 export type Props = $ReadOnly<{
+	canChangeExpressionOnMouseOver: boolean,
+	canPlayAnimations: boolean,
 	isOpen: boolean,
 	onModalRequestClose: () => void,
 	onPresetSelect: (preset: DrawdogPreset) => mixed,
 	presets: $ReadOnlyArray<DrawdogPreset>,
+	title: string,
 }>;
 
 export default function DrawdogGridModal({
+	canChangeExpressionOnMouseOver,
+	canPlayAnimations,
 	isOpen,
 	onModalRequestClose,
 	onPresetSelect,
 	presets,
+	title,
 }: Props): React$MixedElement {
 	const searchInputRef = useRef<?HTMLInputElement>();
 
 	const [filter, setFilter] = useState('');
-	const [playAnimations, setPlayAnimations] = useState(!isReducedMotion());
+	const [playAnimations, setPlayAnimations] = useState(
+		canPlayAnimations && !isReducedMotion()
+	);
 
 	const [dogMouseOver, setDogMouseOver] =
 		useState<?{name: string, expression: string}>(null);
@@ -95,7 +103,7 @@ export default function DrawdogGridModal({
 			isOpen={isOpen}
 			onAfterOpen={onModalAfterOpen}
 			onRequestClose={onModalRequestClose}
-			titleText="Drawdog gallery"
+			titleText={title}
 		>
 			{isOpen ? (
 				<ErrorBoundary>
@@ -114,16 +122,18 @@ export default function DrawdogGridModal({
 							/>
 						</label>
 
-						<label>
-							<input
-								type="checkbox"
-								checked={playAnimations}
-								onChange={(ev) => {
-									setPlayAnimations(ev.currentTarget.checked);
-								}}
-							/>
-							Play animations
-						</label>
+						{canPlayAnimations ? (
+							<label>
+								<input
+									type="checkbox"
+									checked={playAnimations}
+									onChange={(ev) => {
+										setPlayAnimations(ev.currentTarget.checked);
+									}}
+								/>
+								Play animations
+							</label>
+						) : null}
 					</div>
 
 					<div className={styles.grid}>
@@ -140,7 +150,9 @@ export default function DrawdogGridModal({
 												? dogMouseOver.expression
 												: null
 										}
-										onHoverEnter={onHoverEnter}
+										onHoverEnter={
+											canChangeExpressionOnMouseOver ? onHoverEnter : null
+										}
 										onHoverLeave={onHoverLeave}
 										onSelect={onSelect}
 										playAnimations={!hidden && playAnimations}

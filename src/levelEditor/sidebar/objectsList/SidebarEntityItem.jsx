@@ -81,7 +81,6 @@ function SidebarEntityItem<
 
 				{props.highlighted ? (
 					<CloseButton
-						color="#000"
 						label={'Delete ' + props.getEntityName(props.entity, '')}
 						onClick={() => props.onEntityDelete(props.index, props.type)}
 						size=".6em"

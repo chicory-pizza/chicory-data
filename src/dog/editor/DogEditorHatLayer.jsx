@@ -2,7 +2,7 @@
 
 import {useCallback} from 'react';
 
-import CloseIcon from '../../common/CloseIcon';
+import CloseIcon from '../../common/icons/CloseIcon';
 import type {ReducerAction} from '../DogEditorContext';
 import {
 	CUSTOM_CLOTHES_HEIGHT,
@@ -153,7 +153,7 @@ export default function DogEditorHatLayer({
 							title="Delete this layer"
 							type="button"
 						>
-							<CloseIcon color="#000" size="0.6em" />
+							<CloseIcon size="0.6em" />
 						</button>
 					</>
 				) : null}

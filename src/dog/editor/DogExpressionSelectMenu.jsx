@@ -12,7 +12,7 @@ type Props = $ReadOnly<{
 	value: string,
 }>;
 
-export default function DogExpressionSelect({
+export default function DogExpressionSelectMenu({
 	onChange,
 	onPreviewChange,
 	value,

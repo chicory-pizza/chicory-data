@@ -7,7 +7,7 @@ import styles from './DrawdogGalleryDog.module.css';
 
 type Props = $ReadOnly<{
 	forceExpression: ?string,
-	onHoverEnter: (preset: DrawdogPreset) => mixed,
+	onHoverEnter: ?(preset: DrawdogPreset) => mixed,
 	onHoverLeave: (preset: DrawdogPreset) => mixed,
 	onSelect: (preset: DrawdogPreset) => mixed,
 	playAnimations: boolean,
@@ -15,7 +15,7 @@ type Props = $ReadOnly<{
 }>;
 
 export default function DrawdogGalleryDog(props: Props): React$Node {
-	const preset = props.preset;
+	const {onHoverEnter, preset} = props;
 
 	return (
 		// eslint-disable-next-line jsx-a11y/anchor-is-valid
@@ -26,8 +26,8 @@ export default function DrawdogGalleryDog(props: Props): React$Node {
 				ev.preventDefault();
 				props.onSelect(preset);
 			}}
-			onFocus={() => props.onHoverEnter(preset)}
-			onMouseEnter={() => props.onHoverEnter(preset)}
+			onFocus={onHoverEnter != null ? () => onHoverEnter(preset) : null}
+			onMouseEnter={onHoverEnter != null ? () => onHoverEnter(preset) : null}
 			onMouseLeave={() => props.onHoverLeave(preset)}
 			className={styles.preset}
 		>

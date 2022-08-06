@@ -40,7 +40,6 @@ export default function CustomModal(props: Props): React$Node {
 				<h2 className={styles.titleText}>{props.titleText}</h2>
 
 				<CloseButton
-					color="#000"
 					label="Close dialog"
 					onClick={props.onRequestClose}
 					size=".8em"

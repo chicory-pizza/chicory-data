@@ -22,7 +22,8 @@ import type {ChosenHat} from './drawDogToCanvas';
 import DogClothesSelect from './editor/DogClothesSelect';
 import DogEditorFileInput from './editor/DogEditorFileInput';
 import DogEditorHatLayer from './editor/DogEditorHatLayer';
-import DogExpressionSelect from './editor/DogExpressionSelect';
+import DogExpressionSelectMenu from './editor/DogExpressionSelectMenu';
+import DogExpressionSelectModalLauncher from './editor/DogExpressionSelectModalLauncher';
 import DogHairSelect from './editor/DogHairSelect';
 import DogSpeechEditor from './editor/DogSpeechEditor';
 import type {DrawdogPreset} from './presets/DrawdogPresets';
@@ -307,7 +308,7 @@ export default function DogEditorApp(): React$MixedElement {
 								</div>
 
 								<div className={styles.label}>Hair:</div>
-								<div className={styles.select}>
+								<div className={styles.selectMenu}>
 									<DogHairSelect
 										onChange={onHairChange}
 										onPreviewChange={setPreviewHair}
@@ -316,11 +317,16 @@ export default function DogEditorApp(): React$MixedElement {
 								</div>
 
 								<div className={styles.label}>Expression:</div>
-								<div className={styles.select}>
-									<DogExpressionSelect
+								<div className={styles.selectMenu}>
+									<DogExpressionSelectMenu
 										onChange={onExpressionChange}
 										onPreviewChange={setPreviewExpression}
 										value={expression}
+									/>
+								</div>
+								<div className={styles.selectModalLauncher}>
+									<DogExpressionSelectModalLauncher
+										onChange={onExpressionChange}
 									/>
 								</div>
 
@@ -373,7 +379,7 @@ export default function DogEditorApp(): React$MixedElement {
 
 							<div className={styles.grid}>
 								<div className={styles.label}>Clothes:</div>
-								<div className={styles.select}>
+								<div className={styles.selectMenu}>
 									<DogClothesSelect
 										onChange={onClothesChange}
 										onPreviewChange={setPreviewClothes}

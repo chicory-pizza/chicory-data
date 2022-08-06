@@ -1,10 +1,9 @@
 // @flow strict
 
 import styles from './CloseButton.module.css';
-import CloseIcon from './CloseIcon';
+import CloseIcon from './icons/CloseIcon';
 
 type Props = $ReadOnly<{
-	color: string,
 	label: string,
 	onClick: (ev: SyntheticMouseEvent<HTMLButtonElement>) => mixed,
 	size: string,
@@ -19,7 +18,7 @@ export default function CloseButton(props: Props): React$Node {
 			title={props.label}
 			type="button"
 		>
-			<CloseIcon color={props.color} size={props.size} />
+			<CloseIcon size={props.size} />
 		</button>
 	);
 }
