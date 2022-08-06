@@ -1,9 +1,9 @@
 // @flow strict
 
+import type {DrawdogPreset} from '../presets/DrawdogPresets';
 import DogPreviewWithAutoplayAnimation from '../preview/DogPreviewWithAutoplayAnimation';
 
 import styles from './DrawdogGalleryDog.module.css';
-import type {DrawdogPreset} from './DrawdogPresets';
 
 type Props = $ReadOnly<{
 	forceExpression: ?string,
