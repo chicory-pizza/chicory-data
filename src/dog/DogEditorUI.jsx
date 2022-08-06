@@ -207,7 +207,9 @@ export default function DogEditorApp(): React$MixedElement {
 
 	return (
 		<div className={styles.root}>
-			<DogEditorHeader hats={hatsInPreview} onPresetSelect={onPresetSelect} />
+			<ErrorBoundary>
+				<DogEditorHeader hats={hatsInPreview} onPresetSelect={onPresetSelect} />
+			</ErrorBoundary>
 
 			<div className={styles.main}>
 				<div
@@ -470,12 +472,15 @@ export default function DogEditorApp(): React$MixedElement {
 								/>
 							</ErrorBoundary>
 
-							<DogChicorobotNotices
-								clothes={previewClothes ?? clothes}
-								hats={hatsInPreview}
-								invertColors={invertColors}
-								skinOutlineColor={skinOutlineColor}
-							/>
+							<ErrorBoundary>
+								<DogChicorobotNotices
+									clothes={previewClothes ?? clothes}
+									expression={previewExpression ?? expression}
+									hats={hatsInPreview}
+									invertColors={invertColors}
+									skinOutlineColor={skinOutlineColor}
+								/>
+							</ErrorBoundary>
 						</details>
 					</ErrorBoundary>
 				</div>

@@ -55,12 +55,16 @@ export default function getChicorobotCode(dog: ChicorobotDog): string {
 
 	return [
 		`/dog`,
-		`expression:${expressionInfo.chicorobotName}`,
+		expressionInfo.chicorobotName != null
+			? `expression:${expressionInfo.chicorobotName}`
+			: '',
 		`clothes:${clothesInfo.chicorobotName}`,
 		`hat:${hatInfo.chicorobotName}`,
 		`hair:${hairInfo.chicorobotName}`,
 		`body_col:${dog.skinColor}`,
 		`clothes_col:${dog.clothesColor}`,
 		`hat_col:${dog.hatColor}`,
-	].join(' ');
+	]
+		.filter(Boolean)
+		.join(' ');
 }

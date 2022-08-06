@@ -5,7 +5,7 @@ import transformImageImport from '../../util/transformImageImport';
 export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 	value: string,
 	label: string,
-	chicorobotName: string,
+	chicorobotName: ?string,
 	image: string,
 }> = [
 	{
@@ -257,6 +257,70 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				'../images/dog_expressions/sprDog_expression_18.png',
 				import.meta.url
 			)
+		),
+	},
+	{
+		value: 'confused',
+		label: 'confused',
+		chicorobotName: null,
+		image: transformImageImport(
+			new URL('../images/dog_expressions/custom_confused.png', import.meta.url)
+		),
+	},
+	{
+		value: 'content',
+		label: 'content',
+		chicorobotName: null,
+		image: transformImageImport(
+			new URL('../images/dog_expressions/custom_content.png', import.meta.url)
+		),
+	},
+	{
+		value: 'feral',
+		label: 'feral',
+		chicorobotName: null,
+		image: transformImageImport(
+			new URL('../images/dog_expressions/custom_feral.png', import.meta.url)
+		),
+	},
+	{
+		value: 'gleeful',
+		label: 'gleeful',
+		chicorobotName: null,
+		image: transformImageImport(
+			new URL('../images/dog_expressions/custom_gleeful.png', import.meta.url)
+		),
+	},
+	{
+		value: 'joyful',
+		label: 'joyful',
+		chicorobotName: null,
+		image: transformImageImport(
+			new URL('../images/dog_expressions/custom_joyful.png', import.meta.url)
+		),
+	},
+	{
+		value: 'mortified',
+		label: 'mortified',
+		chicorobotName: null,
+		image: transformImageImport(
+			new URL('../images/dog_expressions/custom_mortified.png', import.meta.url)
+		),
+	},
+	{
+		value: 'regretful',
+		label: 'regretful',
+		chicorobotName: null,
+		image: transformImageImport(
+			new URL('../images/dog_expressions/custom_regretful.png', import.meta.url)
+		),
+	},
+	{
+		value: 'sad_hours',
+		label: 'sad_hours',
+		chicorobotName: null,
+		image: transformImageImport(
+			new URL('../images/dog_expressions/custom_sad_hours.png', import.meta.url)
 		),
 	},
 ].sort((a, b) => {
