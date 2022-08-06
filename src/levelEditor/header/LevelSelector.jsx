@@ -66,7 +66,7 @@ export default function LevelSelector(): React$Node {
 		setPrevCoordinates(currentCoordinates);
 	}
 
-	function changeLevelBySelect(coordinates) {
+	function changeLevelBySelect(coordinates: [number, number, number]) {
 		setNewCoordinates(coordinates);
 		setDraftCoordinates([coordinates[0], coordinates[1], coordinates[2]]);
 	}

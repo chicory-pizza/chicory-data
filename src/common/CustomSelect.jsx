@@ -11,11 +11,11 @@ export type OptionType<T> = {
 type Props<T> = $ReadOnly<{
 	components?: {
 		Option?: React$AbstractComponent<
-			{children: React$Node, data: OptionType<T>, isFocused: boolean},
+			{children: React$Node, data: OptionType<T>, isFocused: boolean, ...},
 			mixed
 		>,
 		SingleValue?: React$AbstractComponent<
-			{children: React$Node, data: OptionType<T>},
+			{children: React$Node, data: OptionType<T>, ...},
 			mixed
 		>,
 	},
@@ -33,7 +33,7 @@ type Props<T> = $ReadOnly<{
 }>;
 
 const CUSTOM_STYLES = {
-	control(provided, state) {
+	control(provided: {[property: string]: string}, state: {...}) {
 		return {
 			...provided,
 			background: 'var(--input-background-color)',
@@ -46,7 +46,7 @@ const CUSTOM_STYLES = {
 			},
 		};
 	},
-	dropdownIndicator(provided, state) {
+	dropdownIndicator(provided: {[property: string]: string}, state: {...}) {
 		return {
 			...provided,
 			color: 'var(--input-border-color)',
@@ -56,38 +56,38 @@ const CUSTOM_STYLES = {
 			},
 		};
 	},
-	indicatorSeparator(provided, state) {
+	indicatorSeparator(provided: {[property: string]: string}, state: {...}) {
 		return {
 			...provided,
 			backgroundColor: 'var(--input-border-color)',
 		};
 	},
-	input(provided, state) {
+	input(provided: {[property: string]: string}, state: {...}) {
 		return {
 			...provided,
 			color: 'var(--input-text-color)',
 		};
 	},
-	menuList(provided, state) {
+	menuList(provided: {[property: string]: string}, state: {...}) {
 		return {
 			...provided,
 			background: 'var(--input-background-color)',
 		};
 	},
-	menuPortal(provided, state) {
+	menuPortal(provided: {[property: string]: string}, state: {...}) {
 		return {
 			...provided,
 			zIndex: 99,
 		};
 	},
-	option(provided, state) {
+	option(provided: {[property: string]: string}, state: {...}) {
 		return {
 			...provided,
 			color: '',
 			cursor: 'pointer',
 		};
 	},
-	singleValue(provided, state) {
+	singleValue(provided: {[property: string]: string}, state: {...}) {
 		return {
 			...provided,
 			color: 'var(--body-text-color)',
@@ -95,7 +95,29 @@ const CUSTOM_STYLES = {
 	},
 };
 
-const CUSTOM_THEME = (theme) => {
+const CUSTOM_THEME = (theme: {
+	borderRadius: number,
+	colors: {
+		primary: string,
+		primary75: string,
+		primary50: string,
+		primary25: string,
+		danger: string,
+		dangerLight: string,
+		neutral0: string,
+		neutral5: string,
+		neutral10: string,
+		neutral20: string,
+		neutral30: string,
+		neutral40: string,
+		neutral50: string,
+		neutral60: string,
+		neutral70: string,
+		neutral80: string,
+		neutral90: string,
+	},
+	spacing: {baseUnit: number, controlHeight: number, menuGutter: number},
+}) => {
 	return {
 		...theme,
 		colors: {

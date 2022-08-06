@@ -3,6 +3,7 @@
 import {memo, useCallback} from 'react';
 
 import CustomSelect from '../../../common/CustomSelect';
+import type {OptionType} from '../../../common/CustomSelect';
 import {
 	LEVEL_PALETTE_LIST,
 	PALETTE_COLORS,
@@ -10,7 +11,7 @@ import {
 
 import styles from './PropertyPaletteInput.module.css';
 
-function formatOptionLabel(option) {
+function formatOptionLabel(option: OptionType<string>) {
 	const colors = PALETTE_COLORS.get(option.value);
 
 	return (

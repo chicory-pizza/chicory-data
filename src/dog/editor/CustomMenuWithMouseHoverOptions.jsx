@@ -33,7 +33,14 @@ function CustomMenuWithMouseHoverOptions({
 		onPreviewChange(null);
 	}, [onPreviewChange]);
 
-	function Option(props) {
+	function Option(
+		props: $ReadOnly<{
+			children: React$Node,
+			data: OptionType<string>,
+			isFocused: boolean,
+			...
+		}>
+	) {
 		useEffect(() => {
 			if (props.isFocused) {
 				onPreviewChange(props.data.value);

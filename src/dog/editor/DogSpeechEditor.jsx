@@ -2,13 +2,14 @@
 
 import {useMemo} from 'react';
 
+import type {OptionType} from '../../common/CustomSelect';
 import getFontStyle from '../../fonts/getFontStyle';
 import {FONT_LIST} from '../types/FontList';
 
-import CustomMenuWithMouseHoverOptions from './CustomMenuWithMouseHoverOptions.jsx';
+import CustomMenuWithMouseHoverOptions from './CustomMenuWithMouseHoverOptions';
 import styles from './DogSpeechEditor.module.css';
 
-function formatOptionLabel(option) {
+function formatOptionLabel(option: OptionType<string>) {
 	const fontStyle = getFontStyle(option.value);
 
 	return <span className={fontStyle}>{option.label}</span>;

@@ -5,7 +5,12 @@
 // From https://developers.google.com/web/updates/2015/08/using-requestidlecallback licensed under the Apache 2.0 License
 window.requestIdleCallback =
 	window.requestIdleCallback ||
-	function (cb) {
+	function (
+		cb: (deadline: {
+			didTimeout: boolean,
+			timeRemaining: () => number,
+		}) => void
+	) {
 		const start = Date.now();
 
 		return setTimeout(() => {
@@ -20,6 +25,6 @@ window.requestIdleCallback =
 
 window.cancelIdleCallback =
 	window.cancelIdleCallback ||
-	function (id) {
+	function (id: ?TimeoutID) {
 		clearTimeout(id);
 	};
