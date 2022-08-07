@@ -98,6 +98,7 @@ input[type='color'] {
 input[type='text'],
 input[type='search'],
 input[type='number'],
+input[type='color'],
 textarea,
 button,
 select {
@@ -112,12 +113,18 @@ select {
 	background: var(--button-background-color);
 }
 
+input[type='color'] {
+	padding: 0;
+}
+
 input[type='text']:hover,
 input[type='text']:focus,
 input[type='search']:hover,
 input[type='search']:focus,
 input[type='number']:hover,
 input[type='number']:focus,
+input[type='color']:hover,
+input[type='color']:focus,
 textarea:hover,
 textarea:focus,
 button:hover,
