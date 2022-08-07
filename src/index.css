@@ -177,7 +177,7 @@ button[disabled] {
 	}
 
 	.ReactModal__Content {
-		background: #000 !important;
+		background: #1c1c1c !important;
 		border-color: var(--input-border-color) !important;
 	}
 }
