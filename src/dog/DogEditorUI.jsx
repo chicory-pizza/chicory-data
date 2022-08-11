@@ -24,7 +24,8 @@ import DogEditorFileInput from './editor/DogEditorFileInput';
 import DogEditorHatLayer from './editor/DogEditorHatLayer';
 import DogExpressionSelectMenu from './editor/DogExpressionSelectMenu';
 import DogExpressionSelectModalLauncher from './editor/DogExpressionSelectModalLauncher';
-import DogHairSelect from './editor/DogHairSelect';
+import DogHairSelectMenu from './editor/DogHairSelectMenu';
+import DogHairSelectModalLauncher from './editor/DogHairSelectModalLauncher';
 import DogSpeechEditor from './editor/DogSpeechEditor';
 import type {DrawdogPreset} from './presets/DrawdogPresets';
 import DogPreviewWithAutoplayAnimation from './preview/DogPreviewWithAutoplayAnimation';
@@ -309,11 +310,14 @@ export default function DogEditorApp(): React$MixedElement {
 
 								<div className={styles.label}>Hair:</div>
 								<div className={styles.selectMenu}>
-									<DogHairSelect
+									<DogHairSelectMenu
 										onChange={onHairChange}
 										onPreviewChange={setPreviewHair}
 										value={hair}
 									/>
+								</div>
+								<div className={styles.selectModalLauncher}>
+									<DogHairSelectModalLauncher onChange={onHairChange} />
 								</div>
 
 								<div className={styles.label}>Expression:</div>

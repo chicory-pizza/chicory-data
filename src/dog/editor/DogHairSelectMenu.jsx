@@ -14,11 +14,11 @@ type Props = $ReadOnly<{
 	value: string,
 }>;
 
-export default function DogHairSelect({
+export default function DogHairSelectMenu({
 	onChange,
 	onPreviewChange,
 	value,
-}: Props): React$Node {
+}: Props): React$MixedElement {
 	const menuOptions = useMemo(() => {
 		return DOG_HAIR_LIST.map((option) => {
 			return {
