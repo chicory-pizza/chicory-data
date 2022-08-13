@@ -3,15 +3,15 @@
 import {fileSave} from 'browser-fs-access';
 import {useState} from 'react';
 
-import CommonDataLoadButton from '../common/CommonDataLoadButton';
-import CommonDataSaveButton from '../common/CommonDataSaveButton';
-import CommonDataSaveTimestamp from '../common/CommonDataSaveTimestamp';
+import CommonDataLoadButton from '../../common/CommonDataLoadButton';
+import CommonDataSaveButton from '../../common/CommonDataSaveButton';
+import CommonDataSaveTimestamp from '../../common/CommonDataSaveTimestamp';
+import {useDogEditorContext} from '../DogEditorContext';
+import type {ChosenHat} from '../drawDogToCanvas';
+import type {DrawdogPreset} from '../presets/DrawdogPresets';
 
-import {useDogEditorContext} from './DogEditorContext';
 import styles from './DogEditorDataSelector.module.css';
 import DogEditorGifMaker from './DogEditorGifMaker';
-import type {ChosenHat} from './drawDogToCanvas';
-import type {DrawdogPreset} from './presets/DrawdogPresets';
 
 type Props = $ReadOnly<{
 	hats: $ReadOnlyArray<ChosenHat>,

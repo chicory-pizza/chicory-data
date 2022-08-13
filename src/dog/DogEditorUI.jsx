@@ -8,7 +8,6 @@ import isReducedMotion from '../util/isReducedMotion';
 import DogChicorobotCode from './DogChicorobotCode';
 import DogChicorobotNotices from './DogChicorobotNotices';
 import {useDogEditorContext} from './DogEditorContext';
-import DogEditorHeader from './DogEditorHeader';
 import styles from './DogEditorUI.module.css';
 import DogSpeech from './DogSpeech';
 import {
@@ -27,6 +26,7 @@ import DogExpressionSelectModalLauncher from './editor/DogExpressionSelectModalL
 import DogHairSelectMenu from './editor/DogHairSelectMenu';
 import DogHairSelectModalLauncher from './editor/DogHairSelectModalLauncher';
 import DogSpeechEditor from './editor/DogSpeechEditor';
+import DogEditorHeader from './header/DogEditorHeader';
 import type {DrawdogPreset} from './presets/DrawdogPresets';
 import DogPreviewWithAutoplayAnimation from './preview/DogPreviewWithAutoplayAnimation';
 

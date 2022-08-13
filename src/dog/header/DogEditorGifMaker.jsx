@@ -3,9 +3,9 @@
 import GIF from 'gif.js';
 import {useRef, useState} from 'react';
 
-import {useDogEditorContext} from './DogEditorContext';
-import DogPreview from './preview/DogPreview';
-import DOG_ANIMATIONS from './types/DogAnimations';
+import {useDogEditorContext} from '../DogEditorContext';
+import DogPreview from '../preview/DogPreview';
+import DOG_ANIMATIONS from '../types/DogAnimations';
 
 export default function DogEditorGifMaker(): React$MixedElement {
 	const {dogState} = useDogEditorContext();
@@ -21,7 +21,7 @@ export default function DogEditorGifMaker(): React$MixedElement {
 			quality: 10,
 			workers: 2,
 			workerScript: new URL(
-				'../../node_modules/gif.js/dist/gif.worker.js',
+				'../../../node_modules/gif.js/dist/gif.worker.js',
 				import.meta.url
 			).toString(),
 		});

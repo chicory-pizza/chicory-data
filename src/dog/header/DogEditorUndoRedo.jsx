@@ -1,8 +1,8 @@
 // @flow strict
 
-import AppHeaderUndoRedo from '../header/AppHeaderUndoRedo';
+import AppHeaderUndoRedo from '../../header/AppHeaderUndoRedo';
 
-import {useDogEditorContext} from './DogEditorContext';
+import {useDogEditorContext} from '../DogEditorContext';
 
 export default function DogEditorUndoRedo(): React$MixedElement {
 	const {dispatch, canUndo, canRedo} = useDogEditorContext();
