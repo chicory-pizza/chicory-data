@@ -24,7 +24,7 @@ export default function DogEditorRandomButton(): React$MixedElement {
 
 		do {
 			hat = randomItem(DOG_HAT_LIST).internalName;
-		} while (clothes === 'Custom Hat');
+		} while (hat === 'Custom Hat');
 
 		const expression = randomItem(DOG_EXPRESSION_LIST).value;
 		const hair = randomItem(DOG_HAIR_LIST).internalName;
