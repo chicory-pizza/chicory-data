@@ -32,6 +32,7 @@ export type Props = $ReadOnly<{
 		canvasRef: HTMLCanvasElement,
 		animationIndex: number
 	) => mixed,
+	showBody: boolean,
 	skinColor: string,
 	skinOutlineColor?: string,
 }>;
@@ -205,6 +206,7 @@ export default function DogPreview(props: Props): React$Node {
 						hatLayer2: hatsImages ? hatsImages['hatLayer2_' + index] : null,
 					};
 				}),
+				showBody: props.showBody,
 			}
 		);
 
@@ -232,6 +234,7 @@ export default function DogPreview(props: Props): React$Node {
 		props.expression,
 		props.skinColor,
 		props.skinOutlineColor,
+		props.showBody,
 	]);
 
 	const loading =

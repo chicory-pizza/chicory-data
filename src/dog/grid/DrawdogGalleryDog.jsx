@@ -12,10 +12,11 @@ type Props = $ReadOnly<{
 	onSelect: (preset: DrawdogPreset) => mixed,
 	playAnimations: boolean,
 	preset: DrawdogPreset,
+	showBody: boolean,
 }>;
 
 export default function DrawdogGalleryDog(props: Props): React$Node {
-	const {onHoverEnter, preset} = props;
+	const {onHoverEnter, preset, showBody} = props;
 
 	return (
 		// eslint-disable-next-line jsx-a11y/anchor-is-valid
@@ -43,6 +44,7 @@ export default function DrawdogGalleryDog(props: Props): React$Node {
 					hats={preset.hats}
 					hair={preset.hair}
 					playAnimations={props.playAnimations}
+					showBody={showBody}
 					skinColor={preset.skinColor}
 					skinOutlineColor={preset.skinOutlineColor}
 				/>

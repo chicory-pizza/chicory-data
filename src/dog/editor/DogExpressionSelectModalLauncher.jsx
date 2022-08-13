@@ -69,6 +69,7 @@ export default function DogExpressionSelectModalLauncher({
 					}
 				}}
 				presets={presets}
+				showBody={dogState.bodyShow}
 				title="Select expression"
 			/>
 		</>

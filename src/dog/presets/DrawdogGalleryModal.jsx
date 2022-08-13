@@ -18,6 +18,7 @@ export default function DrawdogGalleryModal(props: Props): React$Node {
 			canChangeExpressionOnMouseOver={true}
 			canPlayAnimations={true}
 			presets={DRAWDOG_PRESETS}
+			showBody={true}
 			title="Drawdog gallery"
 		/>
 	);

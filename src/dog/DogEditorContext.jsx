@@ -10,6 +10,7 @@ import type {ChosenHat} from './drawDogToCanvas';
 const DogEditorContext = createContext();
 
 type DogState = $ReadOnly<{
+	bodyShow: boolean,
 	clothes: string,
 	clothesColor: string,
 	customClothesImage: ?string,
@@ -135,6 +136,7 @@ export function DogEditorProvider({children}: Props): React$MixedElement {
 		currentState: dogState,
 		dispatch,
 	} = useUndoRedoReducer(reducer, {
+		bodyShow: true,
 		clothes: 'Overalls',
 		clothesColor: '#ffffff',
 		customClothesImage: null,

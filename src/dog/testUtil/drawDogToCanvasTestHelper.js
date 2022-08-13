@@ -25,6 +25,7 @@ export default async function renderDogToCanvasHelper(options: {
 		...ChosenHat,
 		customImage: ?CanvasImageSource,
 	}>,
+	showBody?: boolean,
 	skinColor: string,
 	skinOutlineColor?: string,
 }): Promise<Buffer> {
@@ -150,6 +151,7 @@ export default async function renderDogToCanvasHelper(options: {
 			clothesInfo,
 			hairInfo,
 			hats,
+			showBody: options.showBody ?? true,
 		}
 	);
 

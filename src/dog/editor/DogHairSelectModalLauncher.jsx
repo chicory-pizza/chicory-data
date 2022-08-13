@@ -97,6 +97,7 @@ export default function DogHairSelectModalLauncher({
 					}
 				}}
 				presets={presets}
+				showBody={dogState.bodyShow}
 				title="Select hair"
 			/>
 		</>

@@ -89,6 +89,7 @@ export default function DogEditorGifMaker(): React$MixedElement {
 						hats={dogState.hats}
 						hair={dogState.hair}
 						onCanvasFrameDrawn={onCanvasFrameDrawn}
+						showBody={dogState.bodyShow}
 						skinColor={dogState.skinColor}
 						skinOutlineColor={dogState.skinOutlineColor}
 					/>

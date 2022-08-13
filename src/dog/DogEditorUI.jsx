@@ -33,6 +33,7 @@ import DogPreviewWithAutoplayAnimation from './preview/DogPreviewWithAutoplayAni
 export default function DogEditorApp(): React$MixedElement {
 	const {dispatch, dogState} = useDogEditorContext();
 	const {
+		bodyShow: showBody,
 		clothes,
 		clothesColor,
 		customClothesImage,
@@ -241,6 +242,7 @@ export default function DogEditorApp(): React$MixedElement {
 								hats={hatsInPreview}
 								hair={previewHair ?? hair}
 								playAnimations={playAnimations}
+								showBody={showBody}
 								skinColor={skinColor}
 								skinOutlineColor={skinOutlineColor}
 							/>
@@ -382,43 +384,70 @@ export default function DogEditorApp(): React$MixedElement {
 							<summary>Body</summary>
 
 							<div className={styles.grid}>
-								<div className={styles.label}>Clothes:</div>
-								<div className={styles.selectMenu}>
-									<DogClothesSelect
-										onChange={onClothesChange}
-										onPreviewChange={setPreviewClothes}
-										value={clothes}
-									/>
-								</div>
-
-								<div className={styles.clothesControls}>
-									<div className={styles.controlLabel}>Color:</div>
-									<div className={styles.color}>
+								<div className={styles.fullWidthControl}>
+									<label>
 										<input
-											type="color"
-											value={clothesColor}
-											onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
+											type="checkbox"
+											checked={showBody}
+											onChange={(ev) => {
 												dispatch({
 													type: 'setProperties',
 													properties: {
-														clothesColor: ev.currentTarget.value,
+														bodyShow: ev.currentTarget.checked,
 													},
 												});
 											}}
 										/>
-									</div>
-
-									{clothes === 'Custom Tee' || customClothesImage != null ? (
-										<>
-											<div className={styles.controlLabel}>Custom clothes:</div>
-											<DogEditorFileInput onFileLoad={onNewClothesImage} />
-											<div className={styles.dimensions}>
-												({CUSTOM_CLOTHES_WIDTH}×{CUSTOM_CLOTHES_HEIGHT} or{' '}
-												{SIZE}×{SIZE})
-											</div>
-										</>
-									) : null}
+										Show body
+									</label>
 								</div>
+
+								{showBody ? (
+									<>
+										<div className={styles.label}>Clothes:</div>
+										<div className={styles.selectMenu}>
+											<DogClothesSelect
+												onChange={onClothesChange}
+												onPreviewChange={setPreviewClothes}
+												value={clothes}
+											/>
+										</div>
+
+										<div className={styles.clothesControls}>
+											<div className={styles.controlLabel}>Color:</div>
+											<div className={styles.color}>
+												<input
+													type="color"
+													value={clothesColor}
+													onChange={(
+														ev: SyntheticInputEvent<HTMLInputElement>
+													) => {
+														dispatch({
+															type: 'setProperties',
+															properties: {
+																clothesColor: ev.currentTarget.value,
+															},
+														});
+													}}
+												/>
+											</div>
+
+											{clothes === 'Custom Tee' ||
+											customClothesImage != null ? (
+												<>
+													<div className={styles.controlLabel}>
+														Custom clothes:
+													</div>
+													<DogEditorFileInput onFileLoad={onNewClothesImage} />
+													<div className={styles.dimensions}>
+														({CUSTOM_CLOTHES_WIDTH}×{CUSTOM_CLOTHES_HEIGHT} or{' '}
+														{SIZE}×{SIZE})
+													</div>
+												</>
+											) : null}
+										</div>
+									</>
+								) : null}
 							</div>
 						</details>
 

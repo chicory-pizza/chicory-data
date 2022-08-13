@@ -20,6 +20,7 @@ export type Props = $ReadOnly<{
 	onModalRequestClose: () => void,
 	onPresetSelect: (preset: DrawdogPreset) => mixed,
 	presets: $ReadOnlyArray<DrawdogPreset>,
+	showBody: boolean,
 	title: string,
 }>;
 
@@ -30,6 +31,7 @@ export default function DrawdogGridModal({
 	onModalRequestClose,
 	onPresetSelect,
 	presets,
+	showBody,
 	title,
 }: Props): React$MixedElement {
 	const searchInputRef = useRef<?HTMLInputElement>();
@@ -157,6 +159,7 @@ export default function DrawdogGridModal({
 										onSelect={onSelect}
 										playAnimations={!hidden && playAnimations}
 										preset={preset}
+										showBody={showBody}
 									/>
 								</div>
 							);

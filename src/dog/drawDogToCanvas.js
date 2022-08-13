@@ -75,6 +75,7 @@ export default function drawDogToCanvas(
 			hat: ?CanvasImageSource,
 			hatLayer2: ?CanvasImageSource,
 		}>,
+		showBody: boolean,
 	}
 ) {
 	// The top-most hat layer wins
@@ -124,87 +125,89 @@ export default function drawDogToCanvas(
 		ctx.fillRect(0, 0, SIZE, SIZE);
 	}
 
-	drawImageAsColor(
-		ctx,
-		images.idle2,
-		{
-			fillColor: colors.skinColor,
-			outlineColor: colors.skinOutlineColor,
-			cacheKey: options.animationCacheKey + 'idle2',
-		},
-		0,
-		0,
-		SIZE,
-		SIZE
-	);
-
-	drawImageAsColor(
-		ctx,
-		images.clothes,
-		{fillColor: colors.clothesColor},
-		hasCustomClothes ? 255 + clothesTranslatedX : clothesTranslatedX,
-		hasCustomClothes ? 424 + clothesTranslatedY : clothesTranslatedY,
-		images.clothes.width,
-		images.clothes.height
-	);
-
-	if (hatOrClothesLayer2 && clothesCollar === 2) {
-		// Hiker
+	if (options.showBody !== false) {
 		drawImageAsColor(
 			ctx,
-			hatOrClothesLayer2,
-			{fillColor: options.hats[0].color},
-			clothesTranslatedX,
-			clothesTranslatedY,
+			images.idle2,
+			{
+				fillColor: colors.skinColor,
+				outlineColor: colors.skinOutlineColor,
+				cacheKey: options.animationCacheKey + 'idle2',
+			},
+			0,
+			0,
 			SIZE,
 			SIZE
 		);
-		hatOrClothesLayer2 = null;
-	}
 
-	drawImageAsColor(
-		ctx,
-		images.idle1,
-		{
-			fillColor: colors.skinColor,
-			outlineColor: colors.skinOutlineColor,
-			cacheKey: options.animationCacheKey + 'idle1',
-		},
-		0,
-		0,
-		SIZE,
-		SIZE
-	);
+		drawImageAsColor(
+			ctx,
+			images.clothes,
+			{fillColor: colors.clothesColor},
+			hasCustomClothes ? 255 + clothesTranslatedX : clothesTranslatedX,
+			hasCustomClothes ? 424 + clothesTranslatedY : clothesTranslatedY,
+			images.clothes.width,
+			images.clothes.height
+		);
 
-	if (hatOrClothesLayer2 && clothesCollar == null) {
-		if (hatOrClothesLayer2 === images.clothesLayer2) {
-			// Gorgeous
+		if (hatOrClothesLayer2 && clothesCollar === 2) {
+			// Hiker
 			drawImageAsColor(
 				ctx,
 				hatOrClothesLayer2,
 				{fillColor: options.hats[0].color},
-				// this is from game code and this condition won't pass anyway
-				// collar === 1 ? colors.clothesColor : colors.hatColor,
 				clothesTranslatedX,
 				clothesTranslatedY,
 				SIZE,
 				SIZE
 			);
-		} else {
-			for (let i = options.hats.length - 1; i >= 0; i -= 1) {
-				const hat = options.hats[i];
-				if (hat.hatLayer2) {
-					drawImageAsColor(
-						ctx,
-						hat.hatLayer2,
-						{fillColor: hat.color},
-						// this is from game code and this condition won't pass anyway
-						// collar === 1 ? colors.clothesColor : colors.hatColor,
-						hatTranslatedX,
-						hatTranslatedY,
-						SIZE,
-						SIZE
-					);
+			hatOrClothesLayer2 = null;
+		}
+
+		drawImageAsColor(
+			ctx,
+			images.idle1,
+			{
+				fillColor: colors.skinColor,
+				outlineColor: colors.skinOutlineColor,
+				cacheKey: options.animationCacheKey + 'idle1',
+			},
+			0,
+			0,
+			SIZE,
+			SIZE
+		);
+
+		if (hatOrClothesLayer2 && clothesCollar == null) {
+			if (hatOrClothesLayer2 === images.clothesLayer2) {
+				// Gorgeous
+				drawImageAsColor(
+					ctx,
+					hatOrClothesLayer2,
+					{fillColor: options.hats[0].color},
+					// this is from game code and this condition won't pass anyway
+					// collar === 1 ? colors.clothesColor : colors.hatColor,
+					clothesTranslatedX,
+					clothesTranslatedY,
+					SIZE,
+					SIZE
+				);
+			} else {
+				for (let i = options.hats.length - 1; i >= 0; i -= 1) {
+					const hat = options.hats[i];
+					if (hat.hatLayer2) {
+						drawImageAsColor(
+							ctx,
+							hat.hatLayer2,
+							{fillColor: hat.color},
+							// this is from game code and this condition won't pass anyway
+							// collar === 1 ? colors.clothesColor : colors.hatColor,
+							hatTranslatedX,
+							hatTranslatedY,
+							SIZE,
+							SIZE
+						);
+					}
 				}
 			}
 		}

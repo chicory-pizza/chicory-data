@@ -112,6 +112,21 @@ test('different ear color', async () => {
 	expect(image).toMatchImageSnapshot();
 });
 
+test('hide body', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Overalls',
+		clothesColor: '#ff0000',
+		earColor: '#00ff00',
+		hair: 'Simple',
+		hats: [],
+		skinColor: '#0000ff',
+		showBody: false,
+	});
+
+	// $FlowFixMe[incompatible-call]
+	expect(image).toMatchImageSnapshot();
+});
+
 test('expression', async () => {
 	const image = await drawDogToCanvasTestHelper({
 		clothes: 'Avast',

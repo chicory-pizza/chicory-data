@@ -73,6 +73,7 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 					]}
 					hair={typeof obj.hair === 'string' ? obj.hair : 'Simple'}
 					playAnimations={!isReducedMotion}
+					showBody={true}
 					skinColor={skinColor}
 				/>
 			</div>
