@@ -8,9 +8,9 @@ import type {DrawdogPreset} from '../../../dog/presets/DrawdogPresets';
 import DogPreviewWithAutoplayAnimation from '../../../dog/preview/DogPreviewWithAutoplayAnimation';
 import convertBgrIntegerToRgb from '../../../util/convertBgrIntegerToRgb';
 import convertHexToBgrInteger from '../../../util/convertHexToBgrInteger';
+import convertRgbArrayToString from '../../../util/convertRgbArrayToString';
 import useReducedMotion from '../../../util/useReducedMotion';
 import type {GameObjectType} from '../../types/GameObjectType';
-import convertRgbArrayToString from '../../util/convertRgbArrayToString';
 
 import styles from './SidebarObjectCustomDog.module.css';
 

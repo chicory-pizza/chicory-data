@@ -4,9 +4,9 @@ import {useCallback, useState} from 'react';
 // $FlowFixMe[untyped-import]
 import tinycolor from 'tinycolor2';
 
-import convertRgbArrayToString from '../levelEditor/util/convertRgbArrayToString';
 import convertBgrIntegerToRgb from '../util/convertBgrIntegerToRgb';
 import convertHexToBgrInteger from '../util/convertHexToBgrInteger';
+import convertRgbArrayToString from '../util/convertRgbArrayToString';
 
 import styles from './ColorCalculator.module.css';
 

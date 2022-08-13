@@ -1,6 +1,6 @@
 // @flow strict
 
-import convertRgbArrayToString from '../../levelEditor/util/convertRgbArrayToString';
+import convertRgbArrayToString from '../../util/convertRgbArrayToString';
 import randomItem from '../../util/randomItem';
 import {useDogEditorContext} from '../DogEditorContext';
 import {DOG_CLOTHES_LIST} from '../types/DogClothesList';
