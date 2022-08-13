@@ -10,6 +10,7 @@ import type {DrawdogPreset} from '../presets/DrawdogPresets';
 
 import DogEditorDataSelector from './DogEditorDataSelector';
 import styles from './DogEditorHeader.module.css';
+import DogEditorRandomButton from './DogEditorRandomButton';
 import DogEditorUndoRedo from './DogEditorUndoRedo';
 
 type Props = $ReadOnly<{
@@ -29,6 +30,8 @@ export default function DogEditorHeader(props: Props): React$MixedElement {
 							<button onClick={() => setIsGalleryModalOpen(true)} type="button">
 								Gallery
 							</button>
+
+							<DogEditorRandomButton />
 						</div>
 
 						<DogEditorUndoRedo />

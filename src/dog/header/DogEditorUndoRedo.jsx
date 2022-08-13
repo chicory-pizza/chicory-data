@@ -1,7 +1,6 @@
 // @flow strict
 
 import AppHeaderUndoRedo from '../../header/AppHeaderUndoRedo';
-
 import {useDogEditorContext} from '../DogEditorContext';
 
 export default function DogEditorUndoRedo(): React$MixedElement {
