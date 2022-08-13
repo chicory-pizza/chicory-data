@@ -3,7 +3,7 @@
 import {memo} from 'react';
 
 // $FlowFixMe[untyped-import]
-import spritesData from '../spriteData.json';
+import spriteData from '../spriteData.json';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
 
@@ -24,25 +24,38 @@ function LevelPreviewDecos(props: Props): React$Node {
 
 	return levelDecos.map((dec, index) => {
 		const urlPrefix = import.meta.env.VITE_SPRITES_URL_PREFIX;
-		const originx = spritesData[dec.spr].originx;
-		const originy = spritesData[dec.spr].originy;
 
-		let decoElement;
-		if (urlPrefix == null) {
-			// Add sprite toggle here
-			decoElement = dec.spr;
-		} else {
+		const sprite = spriteData[dec.spr];
+
+		let image: string | React$MixedElement = dec.spr;
+		const style = {
+			left: dec.x,
+			top: dec.y,
+			transformOrigin: '',
+			transform: '',
+		};
+		if (sprite != null && urlPrefix != null) {
 			const src = urlPrefix + dec.spr + '.png';
-			decoElement = (
+			image = (
 				<img
 					alt={dec.spr}
 					title={dec.spr}
 					key={src}
 					src={src}
-					width={spritesData[dec.spr].width}
-					height={spritesData[dec.spr].height}
+					width={sprite.width}
+					height={sprite.height}
 				/>
 			);
+
+			const originx = sprite.originx;
+			const originy = sprite.originy;
+
+			style.left = dec.x - originx;
+			style.top = dec.y - originy;
+			style.transformOrigin = `${originx}px ${originy}px`;
+			style.transform = `scaleX(${dec.xs}) scaleY(${dec.ys}) rotate(${
+				-1 * Math.sign(dec.xs) * dec.ang
+			}deg)`;
 		}
 
 		return (
@@ -57,16 +70,9 @@ function LevelPreviewDecos(props: Props): React$Node {
 				onClick={() => props.onEntityClick(index, 'DECO')}
 				onMouseEnter={() => props.onEntityHover(index)}
 				onMouseLeave={() => props.onEntityHover(null)}
-				style={{
-					left: dec.x - originx,
-					top: dec.y - originy,
-					transformOrigin: `${originx}px ${originy}px`,
-					transform: `scaleX(${dec.xs}) scaleY(${dec.ys}) rotate(${
-						-1 * Math.sign(dec.xs) * dec.ang
-					}deg)`,
-				}}
+				style={style}
 			>
-				{decoElement}
+				{image}
 			</div>
 		);
 	});

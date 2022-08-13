@@ -57,7 +57,9 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 					customClothesImage={null}
 					earColor={skinColor}
 					expression={
-						typeof obj.expression === 'string' ? obj.expression : 'normal'
+						typeof obj.expression === 'string' && obj.expression !== ''
+							? obj.expression
+							: 'normal'
 					}
 					hats={[
 						{

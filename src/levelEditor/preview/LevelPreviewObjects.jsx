@@ -6,6 +6,7 @@ import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
 import getGameObjectSimpleName from '../util/getGameObjectSimpleName';
 
+import LevelPreviewCustomDog from './LevelPreviewCustomDog';
 import styles from './LevelPreviewObjects.module.css';
 
 type Props = $ReadOnly<{
@@ -22,6 +23,8 @@ function LevelPreviewObjects(props: Props): React$Node {
 	}
 
 	return levelObjects.map((obj, index) => {
+		const isCustomDog = obj.obj === 'objCustomDog';
+
 		return (
 			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 			<div
@@ -36,10 +39,17 @@ function LevelPreviewObjects(props: Props): React$Node {
 				onMouseLeave={() => props.onEntityHover(null)}
 				style={{
 					left: obj.x,
-					top: obj.y,
+					top:
+						obj.y +
+						// Need to adjust Y position here so the whole box is moved
+						(isCustomDog ? -110 / 2 : 0),
 				}}
 			>
-				{getGameObjectSimpleName(obj.obj)}
+				{isCustomDog ? (
+					<LevelPreviewCustomDog obj={obj} />
+				) : (
+					getGameObjectSimpleName(obj.obj)
+				)}
 			</div>
 		);
 	});

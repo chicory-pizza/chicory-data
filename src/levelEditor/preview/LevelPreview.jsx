@@ -3,7 +3,7 @@
 import GeoPreview from '../common/GeoPreview';
 import {GEO_WIDTH, SCREEN_WIDTH} from '../GeoConstants';
 // $FlowFixMe[untyped-import]
-import spritesData from '../spriteData.json';
+import spriteData from '../spriteData.json';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
@@ -49,14 +49,13 @@ export default function LevelPreview(props: Props): React$Node {
 	// Some decos can be off-screen
 	if (props.activeUiViews.includes('DECO')) {
 		props.level.decos?.forEach((deco) => {
-			offscreenX = Math.min(
-				offscreenX,
-				deco.x - spritesData[deco.spr].originx - 8
-			);
-			offscreenY = Math.min(
-				offscreenY,
-				deco.y - spritesData[deco.spr].originy - 8
-			);
+			const sprite = spriteData[deco.spr];
+			if (!sprite) {
+				return;
+			}
+
+			offscreenX = Math.min(offscreenX, deco.x - sprite.originx - 8);
+			offscreenY = Math.min(offscreenY, deco.y - sprite.originy - 8);
 		});
 	}
 
@@ -72,11 +71,11 @@ export default function LevelPreview(props: Props): React$Node {
 					className={styles.addingDecoSprite}
 					alt={deco}
 					src={src}
-					width={spritesData[deco].width}
-					height={spritesData[deco].height}
+					width={spriteData[deco].width}
+					height={spriteData[deco].height}
 					style={{
-						left: -spritesData[deco].originx,
-						top: -spritesData[deco].originy,
+						left: -spriteData[deco].originx,
+						top: -spriteData[deco].originy,
 					}}
 				/>
 			);
