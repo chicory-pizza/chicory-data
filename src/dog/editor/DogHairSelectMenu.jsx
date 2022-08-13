@@ -2,7 +2,7 @@
 
 import {useCallback, useMemo} from 'react';
 
-import CustomSelectOptionLabelImage from '../../common/CustomSelectOptionLabelImage.jsx';
+import CustomSelectOptionLabelImage from '../../common/CustomSelectOptionLabelImage';
 import CustomSelectOptionLabelWithImage from '../../common/CustomSelectOptionLabelWithImage';
 import {DOG_HAIR_LIST} from '../types/DogHairList';
 

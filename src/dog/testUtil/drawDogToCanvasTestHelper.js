@@ -14,7 +14,7 @@ import {DOG_EXPRESSION_LIST} from '../types/DogExpressionList';
 import {DOG_HAIR_LIST} from '../types/DogHairList';
 import {DOG_HAT_LIST} from '../types/DogHatList';
 
-export default async function renderDogToCanvasHelper(options: {
+export default async function drawDogToCanvasTestHelper(options: {
 	clothes: string,
 	clothesColor: string,
 	earColor?: string,

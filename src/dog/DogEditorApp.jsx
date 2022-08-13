@@ -7,7 +7,7 @@ import changeDocumentTitle from '../util/changeDocumentTitle';
 import useMobileViewport from '../util/useMobileViewport';
 
 import {DogEditorProvider} from './DogEditorContext';
-import DogEditorUI from './DogEditorUI.jsx';
+import DogEditorUI from './DogEditorUI';
 
 export default function DogEditorApp(): React$MixedElement {
 	useMobileViewport();

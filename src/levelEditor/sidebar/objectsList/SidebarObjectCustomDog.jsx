@@ -2,7 +2,7 @@
 
 import {useState} from 'react';
 
-import MessageBox from '../../../common/MessageBox.jsx';
+import MessageBox from '../../../common/MessageBox';
 import DrawdogGalleryModal from '../../../dog/presets/DrawdogGalleryModal';
 import type {DrawdogPreset} from '../../../dog/presets/DrawdogPresets';
 import DogPreviewWithAutoplayAnimation from '../../../dog/preview/DogPreviewWithAutoplayAnimation';

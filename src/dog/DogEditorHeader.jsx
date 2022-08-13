@@ -7,7 +7,7 @@ import AppHeader from '../header/AppHeader';
 
 import DogEditorDataSelector from './DogEditorDataSelector';
 import styles from './DogEditorHeader.module.css';
-import DogEditorUndoRedo from './DogEditorUndoRedo.jsx';
+import DogEditorUndoRedo from './DogEditorUndoRedo';
 import type {ChosenHat} from './drawDogToCanvas';
 import DrawdogGalleryModal from './presets/DrawdogGalleryModal';
 import type {DrawdogPreset} from './presets/DrawdogPresets';

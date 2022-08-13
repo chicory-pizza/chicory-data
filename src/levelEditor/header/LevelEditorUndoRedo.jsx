@@ -1,6 +1,6 @@
 // @flow strict
 
-import AppHeaderUndoRedo from '../../header/AppHeaderUndoRedo.jsx';
+import AppHeaderUndoRedo from '../../header/AppHeaderUndoRedo';
 import {useWorldDataNullable} from '../WorldDataContext';
 
 export default function LevelEditorUndoRedo(): React$MixedElement {
