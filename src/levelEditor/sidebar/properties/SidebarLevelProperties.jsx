@@ -58,7 +58,9 @@ function SidebarLevelProperties(props: Props): React$Node {
 				type: 'setRawLevel',
 				coordinates: currentCoordinates,
 				level:
-					initialWorldData[convertCoordinatesToLevelId(currentCoordinates)],
+					initialWorldData.default[
+						convertCoordinatesToLevelId(currentCoordinates)
+					],
 			});
 		});
 	}
