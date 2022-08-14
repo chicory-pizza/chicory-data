@@ -17,11 +17,15 @@ function PropertyDogExpressionInput({
 	value,
 }: Props): React$Node {
 	const selectOptions = DOG_EXPRESSION_LIST.map((option) => {
+		if (!option.inGame) {
+			return null;
+		}
+
 		return {
 			label: option.label,
 			value: option.value,
 		};
-	});
+	}).filter(Boolean);
 
 	const selectedValue = selectOptions.find((option) => {
 		return option.value === value;
