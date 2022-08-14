@@ -833,6 +833,12 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCustomDog', [
 		options: DOG_ANIMATION_LIST,
 	},
 	{
+		key: 'brush',
+		type: 'NUMBER',
+		default: 0,
+		help: 'Set to 1 to show a brush',
+	},
+	{
 		key: 'clothes',
 		type: 'ENUM',
 		options: DOG_CLOTHES_LIST.map((hair) => hair.internalName),
