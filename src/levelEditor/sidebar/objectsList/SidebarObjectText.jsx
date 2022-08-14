@@ -47,5 +47,9 @@ export default function SidebarObjectText({obj}: Props): React$Node {
 		return `${sliced} (${obj.name})`;
 	}
 
+	if (obj.obj === 'objCustomDog' && typeof obj.comment === 'string') {
+		return `${sliced} (${obj.comment})`;
+	}
+
 	return sliced;
 }

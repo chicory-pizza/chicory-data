@@ -38,7 +38,9 @@ export type GameObjectType =
 			x: number,
 			y: number,
 
+			angle: number,
 			animation: string,
+			brush: number,
 			clothes: string,
 			color_body: number,
 			color_head: number,
@@ -47,4 +49,6 @@ export type GameObjectType =
 			expression: string,
 			hair: string,
 			hat: string,
+			xscale: number,
+			yscale: number,
 	  };
