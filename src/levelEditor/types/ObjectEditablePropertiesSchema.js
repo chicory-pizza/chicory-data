@@ -828,6 +828,12 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objWind', [
 
 OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCustomDog', [
 	{
+		key: 'angle',
+		type: 'NUMBER',
+		default: 0,
+		help: '0 for default',
+	},
+	{
 		key: 'animation',
 		type: 'ENUM',
 		options: DOG_ANIMATION_LIST,
@@ -880,6 +886,18 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCustomDog', [
 		key: 'hat',
 		type: 'ENUM',
 		options: DOG_HAT_LIST.map((hair) => hair.internalName),
+	},
+	{
+		key: 'xscale',
+		type: 'NUMBER',
+		default: 1,
+		help: 'Horizontal scale, set to negative (such as -1) to flip horizontally (face to the left)',
+	},
+	{
+		key: 'yscale',
+		type: 'NUMBER',
+		default: 1,
+		help: 'Vertical scale, set to negative (such as -1) to flip vertically',
 	},
 ]);
 
