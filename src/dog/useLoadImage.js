@@ -11,8 +11,8 @@ export default function useLoadImage(currentSrc: ?string): ?HTMLImageElement {
 			return;
 		}
 
-		const imgRef = document.createElement('img');
-		img.current = imgRef;
+		img.current = document.createElement('img');
+		const imgRef = img.current;
 
 		// todo need onerror state
 		function onLoad() {
@@ -28,7 +28,12 @@ export default function useLoadImage(currentSrc: ?string): ?HTMLImageElement {
 		};
 	}, [currentSrc]);
 
-	if (currentSrc == null || loadedSrc !== currentSrc) {
+	if (
+		currentSrc == null ||
+		loadedSrc !== currentSrc ||
+		img.current == null ||
+		img.current.src !== currentSrc // src of previous image may not be fully loaded yet and useEffect hasn't got the chance to run yet, returning it will result in 0x0 image
+	) {
 		return null;
 	}
 
