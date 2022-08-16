@@ -11,7 +11,7 @@
 	left: 0;
 	right: 0;
 
-	font-size: 6em;
+	font-size: 3em;
 	letter-spacing: 4px;
 	padding: 0.4em 0.6em;
 	margin: 0 auto;
@@ -20,6 +20,12 @@
 	animation: root 1s ease-in-out;
 	animation-delay: 0.1s;
 	animation-fill-mode: both;
+}
+
+@media (min-width: 801px) {
+	.root {
+		font-size: 6em;
+	}
 }
 
 @keyframes root {
