@@ -21,6 +21,11 @@
 	}
 }
 
+.dogPreviewWithSpeech {
+	flex-shrink: 0;
+	overflow-y: auto;
+}
+
 .dogPreviewWithSpeech,
 .dog {
 	background: #fff;
@@ -69,9 +74,14 @@
 .editorControls {
 	display: flex;
 	flex-direction: column;
-	overflow: scroll;
 	padding: 0 10px 10px;
 	width: 100%;
+}
+
+@media (min-width: 801px) {
+	.editorControls {
+		overflow-y: scroll;
+	}
 }
 
 /* Different grid on small/large screens */
