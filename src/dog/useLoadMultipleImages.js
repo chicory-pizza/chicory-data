@@ -43,7 +43,6 @@ export default function useLoadMultipleImages(currentSrcs: {
 
 			Object.keys(currentSrcs).forEach((key) => {
 				if (imgs.current[key]) {
-					// eslint-disable-next-line react-hooks/exhaustive-deps
 					imgs.current[key].removeEventListener('load', onLoads.current[key]);
 
 					// eslint-disable-next-line react-hooks/exhaustive-deps

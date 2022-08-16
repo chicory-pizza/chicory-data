@@ -143,13 +143,14 @@ export default function DogPreview(props: Props): React$Node {
 
 	useEffect(() => {
 		const canvas = mainCanvasRef.current;
+
 		if (
 			!canvas ||
 			!animationImages ||
 			!clothes ||
+			!hatsImages ||
 			!head ||
-			!hair ||
-			animationImages['idle2_' + animationIndex] == null
+			!hair
 		) {
 			return;
 		}
@@ -238,7 +239,12 @@ export default function DogPreview(props: Props): React$Node {
 	]);
 
 	const loading =
-		!mainCanvasRef.current || !animationImages || !clothes || !head || !hair;
+		!mainCanvasRef.current ||
+		!animationImages ||
+		!clothes ||
+		!hatsImages ||
+		!head ||
+		!hair;
 
 	return (
 		<div className={styles.root}>
