@@ -14,7 +14,8 @@ import type {ChosenHat} from '../drawDogToCanvas';
 
 import DogEditorFileInput from './DogEditorFileInput';
 import styles from './DogEditorHatLayer.module.css';
-import DogHatSelect from './DogHatSelect';
+import DogHatSelectMenu from './DogHatSelectMenu';
+import DogHatSelectModalLauncher from './DogHatSelectModalLauncher';
 
 type Props = $ReadOnly<{
 	dispatch: (action: ReducerAction) => void,
@@ -160,15 +161,21 @@ export default function DogEditorHatLayer({
 			</div>
 
 			<div className={styles.select}>
-				<DogHatSelect
-					onChange={onHatInfoChange}
-					onPreviewChange={onPreviewChange}
-					value={hat.name}
-				/>
+				<div className={styles.selectMenu}>
+					<DogHatSelectMenu
+						onChange={onHatInfoChange}
+						onPreviewChange={onPreviewChange}
+						value={hat.name}
+					/>
+				</div>
+			</div>
+
+			<div className={styles.selectModalLauncher}>
+				<DogHatSelectModalLauncher layer={layer} onChange={onHatInfoChange} />
 			</div>
 
 			<div className={styles.controls}>
-				<div className={styles.controlLabel}>Color:</div>
+				<div>Color:</div>
 				<div className={styles.color}>
 					<input
 						type="color"
@@ -191,11 +198,9 @@ export default function DogEditorHatLayer({
 
 				{hat.name === 'Custom Hat' ? (
 					<>
-						<div className={styles.controlLabel}>Custom hat:</div>
-						<DogEditorFileInput onFileLoad={onNewHatImage} />
-						<div className={styles.dimensions}>
-							({CUSTOM_HAT_WIDTH}×{CUSTOM_HAT_WIDTH} or {SIZE}×{SIZE})
-						</div>
+						<div>Custom hat:</div>
+						<DogEditorFileInput onFileLoad={onNewHatImage} />({CUSTOM_HAT_WIDTH}
+						×{CUSTOM_HAT_WIDTH} or {SIZE}×{SIZE})
 					</>
 				) : null}
 			</div>

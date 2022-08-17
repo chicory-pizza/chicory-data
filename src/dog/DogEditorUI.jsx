@@ -311,7 +311,7 @@ export default function DogEditorApp(): React$MixedElement {
 								</div>
 
 								<div className={styles.label}>Hair:</div>
-								<div className={styles.selectMenu}>
+								<div className={styles.select}>
 									<DogHairSelectMenu
 										onChange={onHairChange}
 										onPreviewChange={setPreviewHair}
@@ -323,7 +323,7 @@ export default function DogEditorApp(): React$MixedElement {
 								</div>
 
 								<div className={styles.label}>Expression:</div>
-								<div className={styles.selectMenu}>
+								<div className={styles.select}>
 									<DogExpressionSelectMenu
 										onChange={onExpressionChange}
 										onPreviewChange={setPreviewExpression}
@@ -405,7 +405,7 @@ export default function DogEditorApp(): React$MixedElement {
 								{showBody ? (
 									<>
 										<div className={styles.label}>Clothes:</div>
-										<div className={styles.selectMenu}>
+										<div className={styles.select}>
 											<DogClothesSelect
 												onChange={onClothesChange}
 												onPreviewChange={setPreviewClothes}

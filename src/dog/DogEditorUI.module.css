@@ -98,7 +98,7 @@
 	grid-column: 1 / 3;
 }
 
-.selectMenu {
+.select {
 	margin: 0 0 8px 0;
 	grid-column: 3 / 4;
 }
@@ -141,11 +141,11 @@
 @media (min-width: 801px) {
 	.grid {
 		display: inline-grid;
-		grid-template-columns: auto auto 266px 1fr;
+		grid-template-columns: auto auto 266px auto 1fr;
 	}
 
-	.selectMenu {
-		margin-right: 16px;
+	.select {
+		margin-right: 8px;
 	}
 
 	.selectModalLauncher {
@@ -157,11 +157,11 @@
 	}
 
 	.colorControl {
-		grid-column: 3 / 5;
+		grid-column: 3 / 6;
 	}
 
 	.fullWidthControl {
-		grid-column: 1 / 5;
+		grid-column: 1 / 6;
 	}
 }
 

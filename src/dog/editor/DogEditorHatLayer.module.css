@@ -5,7 +5,17 @@
 }
 
 .select {
+	display: flex;
+	align-items: center;
 	margin: 0 0 8px 0;
+}
+
+.selectMenu {
+	width: 100%;
+}
+
+.selectModalLauncher {
+	margin: 0 0 8px 8px;
 }
 
 .controls {
@@ -13,28 +23,26 @@
 	align-items: center;
 	margin: 0 0 8px 0;
 	grid-column: 1 / 5;
+	gap: 8px;
 }
 
 @media (min-width: 801px) {
 	.select {
-		margin-right: 16px;
+		margin-right: 8px;
+	}
+
+	.selectModalLauncher {
+		margin-left: 0;
 	}
 
 	.controls {
-		grid-column: 4 / 5;
+		grid-column: 5 / 6;
+		margin-left: 8px;
 	}
 }
 
-.controlLabel {
-	margin-right: 8px;
-}
-
 .color {
-	margin-right: 16px;
-}
-
-.dimensions {
-	margin-left: 8px;
+	margin-right: 8px;
 }
 
 .layerName {
