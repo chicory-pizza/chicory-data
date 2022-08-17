@@ -99,8 +99,14 @@
 }
 
 .select {
+	display: flex;
+	align-items: center;
 	margin: 0 0 8px 0;
 	grid-column: 3 / 4;
+}
+
+.selectMenu {
+	width: 100%;
 }
 
 .selectModalLauncher {
@@ -111,7 +117,7 @@
 	display: flex;
 	align-items: center;
 	margin: 0 0 8px 0;
-	grid-column: 1 / 4;
+	grid-column: 1 / 5;
 }
 
 .controlLabel {
@@ -130,12 +136,12 @@
 	display: flex;
 	align-items: center;
 	margin: 0 0 8px 0;
-	grid-column: 3 / 4;
+	grid-column: 3 / 5;
 }
 
 .fullWidthControl {
 	margin-bottom: 8px;
-	grid-column: 1 / 4;
+	grid-column: 1 / 5;
 }
 
 @media (min-width: 801px) {
@@ -154,6 +160,7 @@
 
 	.clothesControls {
 		grid-column: auto;
+		margin-left: 8px;
 	}
 
 	.colorControl {

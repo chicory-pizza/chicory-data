@@ -12,7 +12,7 @@ type Props = $ReadOnly<{
 	value: string,
 }>;
 
-export default function DogClothesSelect({
+export default function DogClothesSelectMenu({
 	onChange,
 	onPreviewChange,
 	value,

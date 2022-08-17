@@ -18,7 +18,8 @@ import {
 	SIZE,
 } from './drawDogToCanvas';
 import type {ChosenHat} from './drawDogToCanvas';
-import DogClothesSelect from './editor/DogClothesSelect';
+import DogClothesSelectMenu from './editor/DogClothesSelectMenu';
+import DogClothesSelectModalLauncher from './editor/DogClothesSelectModalLauncher';
 import DogEditorFileInput from './editor/DogEditorFileInput';
 import DogEditorHatLayer from './editor/DogEditorHatLayer';
 import DogExpressionSelectMenu from './editor/DogExpressionSelectMenu';
@@ -312,11 +313,13 @@ export default function DogEditorApp(): React$MixedElement {
 
 								<div className={styles.label}>Hair:</div>
 								<div className={styles.select}>
-									<DogHairSelectMenu
-										onChange={onHairChange}
-										onPreviewChange={setPreviewHair}
-										value={hair}
-									/>
+									<div className={styles.selectMenu}>
+										<DogHairSelectMenu
+											onChange={onHairChange}
+											onPreviewChange={setPreviewHair}
+											value={hair}
+										/>
+									</div>
 								</div>
 								<div className={styles.selectModalLauncher}>
 									<DogHairSelectModalLauncher onChange={onHairChange} />
@@ -324,11 +327,13 @@ export default function DogEditorApp(): React$MixedElement {
 
 								<div className={styles.label}>Expression:</div>
 								<div className={styles.select}>
-									<DogExpressionSelectMenu
-										onChange={onExpressionChange}
-										onPreviewChange={setPreviewExpression}
-										value={expression}
-									/>
+									<div className={styles.selectMenu}>
+										<DogExpressionSelectMenu
+											onChange={onExpressionChange}
+											onPreviewChange={setPreviewExpression}
+											value={expression}
+										/>
+									</div>
 								</div>
 								<div className={styles.selectModalLauncher}>
 									<DogExpressionSelectModalLauncher
@@ -406,10 +411,18 @@ export default function DogEditorApp(): React$MixedElement {
 									<>
 										<div className={styles.label}>Clothes:</div>
 										<div className={styles.select}>
-											<DogClothesSelect
+											<div className={styles.selectMenu}>
+												<DogClothesSelectMenu
+													onChange={onClothesChange}
+													onPreviewChange={setPreviewClothes}
+													value={clothes}
+												/>
+											</div>
+										</div>
+
+										<div className={styles.selectModalLauncher}>
+											<DogClothesSelectModalLauncher
 												onChange={onClothesChange}
-												onPreviewChange={setPreviewClothes}
-												value={clothes}
 											/>
 										</div>
 
