@@ -17,10 +17,10 @@ const HAT_ORIGIN_X = 385;
 const HAT_ORIGIN_Y = 420;
 const CLOTHES_ORIGIN_X = 375;
 const CLOTHES_ORIGIN_Y = 599;
-const IDLE_ORIGIN_X = 375;
-const IDLE_ORIGIN_Y = 650;
+export const IDLE_ORIGIN_X = 375;
+export const IDLE_ORIGIN_Y = 650;
 
-const DOG_RES_SCALE = 5;
+export const DOG_RES_SCALE = 5;
 
 const HEAD_BIG_SIZE = 480;
 function getHeadOrigin(head: CanvasImageSource): [number, number] {
