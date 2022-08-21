@@ -170,10 +170,10 @@ export default function DrawdogGridModal({
 						<div className={styles.noResults}>
 							No dogs
 							<img
-								alt=":DrawdogDespair:"
+								alt=":chicory_is_straight:"
 								className={styles.noResultsImage}
 								height={78 / 2}
-								title=":DrawdogDespair:"
+								title=":chicory_is_straight:"
 								src={noResultsImage}
 								width={128 / 2}
 							/>
