@@ -9,7 +9,7 @@ import type {ChosenHat} from './drawDogToCanvas';
 
 const DogEditorContext = createContext();
 
-type DogState = $ReadOnly<{
+export type DogState = $ReadOnly<{
 	bodyShow: boolean,
 	clothes: string,
 	clothesColor: string,

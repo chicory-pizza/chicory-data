@@ -4,6 +4,7 @@ import {useMemo, useState} from 'react';
 
 import {useDogEditorContext} from '../DogEditorContext';
 import DrawdogGridModal from '../grid/DrawdogGridModal';
+import convertDogEditorStateToPreset from '../presets/convertDogEditorStateToPreset';
 import {DOG_HAIR_LIST} from '../types/DogHairList';
 import {DOG_HAT_LIST} from '../types/DogHatList';
 
@@ -54,29 +55,13 @@ export default function DogHairSelectModalLauncher({
 				  ];
 
 			return {
-				clothes: dogState.clothes,
-				clothesColor: dogState.clothesColor,
-				customClothesImage: dogState.customClothesImage ?? undefined,
-				earColor: dogState.earColor,
-				expression: dogState.expression,
+				...convertDogEditorStateToPreset(dogState),
 				hair: hair.internalName,
 				hats,
 				name: hair.externalName,
-				skinColor: dogState.skinColor,
-				skinOutlineColor: dogState.skinOutlineColor,
 			};
 		});
-	}, [
-		dogState.clothes,
-		dogState.clothesColor,
-		dogState.customClothesImage,
-		dogState.earColor,
-		dogState.expression,
-		dogState.hats,
-		dogState.skinColor,
-		dogState.skinOutlineColor,
-		isModalOpen,
-	]);
+	}, [dogState, isModalOpen]);
 
 	return (
 		<>
