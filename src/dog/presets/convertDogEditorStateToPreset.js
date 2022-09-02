@@ -11,7 +11,9 @@ export default function convertDogEditorStateToPreset(
 		clothes: dogState.clothes,
 		clothesColor: dogState.clothesColor,
 		customClothesImage: dogState.customClothesImage ?? undefined,
-		earColor: dogState.earColor,
+		earColor: dogState.hasCustomEarColor
+			? dogState.earColor
+			: dogState.skinColor,
 		expression: dogState.expression,
 		hair: dogState.hair,
 		hats: dogState.hats,
