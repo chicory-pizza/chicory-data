@@ -4,15 +4,9 @@ import {useCallback} from 'react';
 
 import CloseIcon from '../../common/icons/CloseIcon';
 import type {ReducerAction} from '../DogEditorContext';
-import {
-	CUSTOM_CLOTHES_HEIGHT,
-	CUSTOM_CLOTHES_WIDTH,
-	CUSTOM_HAT_WIDTH,
-	SIZE,
-} from '../drawDogToCanvas';
 import type {ChosenHat} from '../drawDogToCanvas';
 
-import DogEditorFileInput from './DogEditorFileInput';
+import DogEditorCustomHatImageModalLauncher from './customImagePrompt/DogEditorCustomHatImageModalLauncher';
 import styles from './DogEditorHatLayer.module.css';
 import DogHatSelectMenu from './DogHatSelectMenu';
 import DogHatSelectModalLauncher from './DogHatSelectModalLauncher';
@@ -82,40 +76,6 @@ export default function DogEditorHatLayer({
 			layer,
 		});
 	}, [dispatch, layer]);
-
-	const onNewHatImage = useCallback(
-		(dataUrl: string) => {
-			const img = new Image();
-
-			img.onload = () => {
-				if (
-					img.width === CUSTOM_CLOTHES_WIDTH &&
-					img.height === CUSTOM_CLOTHES_HEIGHT
-				) {
-					alert(
-						'It looks like you are loading custom clothes as the custom hat, this is probably not what you intended.'
-					);
-					return;
-				}
-
-				dispatch({
-					type: 'setHatLayerProperties',
-					layer,
-					hat: {
-						name: 'Custom Hat',
-						customImage: dataUrl,
-					},
-				});
-			};
-
-			img.onerror = () => {
-				alert('There was a problem loading the image.');
-			};
-
-			img.src = dataUrl;
-		},
-		[dispatch, layer]
-	);
 
 	return (
 		<>
@@ -197,11 +157,7 @@ export default function DogEditorHatLayer({
 				</div>
 
 				{hat.name === 'Custom Hat' ? (
-					<>
-						<div>Custom hat:</div>
-						<DogEditorFileInput onFileLoad={onNewHatImage} />({CUSTOM_HAT_WIDTH}
-						×{CUSTOM_HAT_WIDTH} or {SIZE}×{SIZE})
-					</>
+					<DogEditorCustomHatImageModalLauncher layer={layer} />
 				) : null}
 			</div>
 		</>

@@ -4,6 +4,7 @@ import GIF from 'gif.js';
 import {useRef, useState} from 'react';
 
 import {useDogEditorContext} from '../DogEditorContext';
+import convertDogEditorStateToDogPreview from '../editor/convertDogEditorStateToDogPreview';
 import DogPreview from '../preview/DogPreview';
 import DOG_ANIMATIONS from '../types/DogAnimations';
 
@@ -74,24 +75,12 @@ export default function DogEditorGifMaker(): React$MixedElement {
 			{saving ? (
 				<div hidden>
 					<DogPreview
+						{...convertDogEditorStateToDogPreview(dogState)}
 						animation={animation}
 						animationIndex={animationIndex}
 						backgroundFillColor="#fff"
-						clothes={dogState.clothes}
-						clothesColor={dogState.clothesColor}
-						customClothesImage={dogState.customClothesImage}
-						earColor={
-							dogState.hasCustomEarColor
-								? dogState.earColor
-								: dogState.skinColor
-						}
-						expression={dogState.expression}
-						hats={dogState.hats}
-						hair={dogState.hair}
 						onCanvasFrameDrawn={onCanvasFrameDrawn}
 						showBody={dogState.bodyShow}
-						skinColor={dogState.skinColor}
-						skinOutlineColor={dogState.skinOutlineColor}
 					/>
 				</div>
 			) : null}

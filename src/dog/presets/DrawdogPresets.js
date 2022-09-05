@@ -2,11 +2,11 @@
 
 import transformImageImport from '../../util/transformImageImport';
 
-export type DrawdogPreset = {
+export type DrawdogPreset = $ReadOnly<{
 	clothes: string,
 	clothesColor: string,
-	earColor?: string,
 	customClothesImage?: string,
+	earColor?: string,
 	expression?: string, // default is 'normal'
 	hair: string,
 	hats: $ReadOnlyArray<{
@@ -17,7 +17,7 @@ export type DrawdogPreset = {
 	name: string,
 	skinColor: string,
 	skinOutlineColor?: string,
-};
+}>;
 
 export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	{
