@@ -528,6 +528,9 @@ export default function DogEditorApp(): React$MixedElement {
 								<DogChicorobotNotices
 									clothes={previewClothes ?? clothes}
 									expression={previewExpression ?? expression}
+									hasCustomEarColor={
+										hasCustomEarColor && earColor !== skinColor
+									}
 									hats={hatsInPreview}
 									invertColors={invertColors}
 									skinOutlineColor={skinOutlineColor}

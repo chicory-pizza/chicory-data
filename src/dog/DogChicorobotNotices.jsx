@@ -9,6 +9,7 @@ import {DOG_EXPRESSION_LIST} from './types/DogExpressionList';
 type Props = $ReadOnly<{
 	clothes: string,
 	expression: string,
+	hasCustomEarColor: boolean,
 	hats: $ReadOnlyArray<ChosenHat>,
 	invertColors: boolean,
 	skinOutlineColor: string,
@@ -35,6 +36,7 @@ export default function DogChicorobotNotices(props: Props): React$MixedElement {
 		hasMultipleHatLayers ||
 		hasCustomHat ||
 		hasCustomClothes ||
+		props.hasCustomEarColor ||
 		hasUnofficialExpression ||
 		props.invertColors;
 
@@ -78,6 +80,13 @@ export default function DogChicorobotNotices(props: Props): React$MixedElement {
 							<code>custom_clothes:</code>
 						</>
 					}
+					type="INFO"
+				/>
+			) : null}
+
+			{props.hasCustomEarColor ? (
+				<MessageBox
+					message="Custom ear colors are not supported and will use the skin color"
 					type="INFO"
 				/>
 			) : null}
