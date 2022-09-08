@@ -50,7 +50,7 @@ export default function LevelEditorDataSelector(
 				dogState.clothes === 'Custom Tee' && dogState.customClothesImage != null
 					? dogState.customClothesImage
 					: undefined,
-			earColor: dogState.earColor != null ? dogState.earColor : undefined,
+			earColor: dogState.hasCustomEarColor ? dogState.earColor : undefined,
 			expression: dogState.expression,
 			hair: dogState.hair,
 			hats: props.hats.map((hat) => {
@@ -59,11 +59,14 @@ export default function LevelEditorDataSelector(
 					customImage:
 						hat.name === 'Custom Hat' && hat.customImage != null
 							? hat.customImage
-							: null,
+							: undefined,
 				};
 			}),
 			skinColor: dogState.skinColor,
-			skinOutlineColor: dogState.skinOutlineColor,
+			skinOutlineColor:
+				dogState.skinOutlineColor !== '#000000'
+					? dogState.skinOutlineColor
+					: undefined,
 		};
 
 		const blob = new Blob([JSON.stringify(data, null, '\t')]);
