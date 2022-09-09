@@ -6,6 +6,7 @@ import type {EditablePropertiesType} from '../../types/EditablePropertiesSchemaT
 
 import PropertyDogExpressionInput from './PropertyDogExpressionInput';
 import PropertyGameMakerColorInput from './PropertyGameMakerColorInput';
+import PropertyImageBufferInput from './PropertyImageBufferInput';
 import PropertyNumberInput from './PropertyNumberInput';
 import PropertyPaletteInput from './PropertyPaletteInput';
 import PropertySelectInput from './PropertySelectInput';
@@ -90,6 +91,14 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 					input = (
 						<PropertyGameMakerColorInput
 							defaultValue={propertyType.default}
+							onEditProperty={props.onEditProperty}
+							propertyKey={propertyKey}
+							value={props.properties[propertyKey]}
+						/>
+					);
+				} else if (propertyType?.type === 'IMAGE_BUFFER') {
+					input = (
+						<PropertyImageBufferInput
 							onEditProperty={props.onEditProperty}
 							propertyKey={propertyKey}
 							value={props.properties[propertyKey]}

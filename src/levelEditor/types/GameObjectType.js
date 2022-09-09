@@ -46,6 +46,8 @@ export type GameObjectType =
 			color_head: number,
 			color_skin: number,
 			comment: string,
+			custom_clothes?: string,
+			custom_hat?: string,
 			expression: string,
 			hair: string,
 			hat: string,

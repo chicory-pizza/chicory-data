@@ -874,6 +874,16 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCustomDog', [
 		help: 'For your own reference, does not affect anything else',
 	},
 	{
+		key: 'custom_clothes',
+		type: 'IMAGE_BUFFER',
+		help: 'Used to show custom clothes',
+	},
+	{
+		key: 'custom_hat',
+		type: 'IMAGE_BUFFER',
+		help: 'Used to show custom hat',
+	},
+	{
 		key: 'expression',
 		type: 'DOG_EXPRESSION',
 	},

@@ -31,4 +31,9 @@ export type EditablePropertiesType =
 			type: 'GM_COLOR',
 			default: number,
 			help?: string,
+	  }
+	| {
+			key: string,
+			type: 'IMAGE_BUFFER',
+			help?: string,
 	  };

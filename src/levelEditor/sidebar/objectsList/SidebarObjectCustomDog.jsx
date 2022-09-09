@@ -1,18 +1,41 @@
 // @flow strict
 
+import {encode} from 'base64-arraybuffer';
+import {deflate} from 'pako';
 import {useState} from 'react';
 
 import MessageBox from '../../../common/MessageBox';
 import DrawdogGalleryModal from '../../../dog/presets/DrawdogGalleryModal';
 import type {DrawdogPreset} from '../../../dog/presets/DrawdogPresets';
-import DogPreviewWithAutoplayAnimation from '../../../dog/preview/DogPreviewWithAutoplayAnimation';
-import convertBgrIntegerToRgb from '../../../util/convertBgrIntegerToRgb';
 import convertHexToBgrInteger from '../../../util/convertHexToBgrInteger';
-import convertRgbArrayToString from '../../../util/convertRgbArrayToString';
-import useReducedMotion from '../../../util/useReducedMotion';
+import ObjCustomDogPreview from '../../common/ObjCustomDogPreview';
 import type {GameObjectType} from '../../types/GameObjectType';
 
 import styles from './SidebarObjectCustomDog.module.css';
+
+async function loadImage(url: ?string): Promise<?string> {
+	if (url == null) {
+		return;
+	}
+
+	const response = await fetch(url);
+	const blob = await response.blob();
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onloadend = () => {
+			const result = reader.result;
+			if (!(result instanceof ArrayBuffer)) {
+				reject('FileReader result should be ArrayBuffer');
+				return;
+			}
+
+			// $FlowFixMe[incompatible-call]
+			resolve(encode(deflate(result)));
+		};
+		reader.onerror = reject;
+		reader.readAsArrayBuffer(blob);
+	});
+}
 
 export type Props = $ReadOnly<{
 	entityIndex: number,
@@ -29,54 +52,17 @@ export type Props = $ReadOnly<{
 export default function SidebarObjectCustomDog(props: Props): React$Node {
 	const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
 
-	const isReducedMotion = useReducedMotion();
-
 	const obj = props.obj;
-
 	if (obj.obj !== 'objCustomDog') {
 		return null;
 	}
 
-	const skinColor =
-		typeof obj.color_skin === 'number'
-			? convertRgbArrayToString(convertBgrIntegerToRgb(obj.color_skin))
-			: '#ffffff';
-
 	return (
 		<>
 			<div className={styles.center}>
-				<DogPreviewWithAutoplayAnimation
-					animation="idle"
+				<ObjCustomDogPreview
 					canvasClassName={styles.dogPreviewCanvas}
-					clothes={typeof obj.clothes === 'string' ? obj.clothes : 'Overalls'}
-					clothesColor={
-						typeof obj.color_body === 'number'
-							? convertRgbArrayToString(convertBgrIntegerToRgb(obj.color_body))
-							: '#ffffff'
-					}
-					customClothesImage={null}
-					earColor={skinColor}
-					expression={
-						typeof obj.expression === 'string' && obj.expression !== ''
-							? obj.expression
-							: 'normal'
-					}
-					hats={[
-						{
-							name: typeof obj.hat === 'string' ? obj.hat : 'Bandana',
-							color:
-								typeof obj.color_head === 'number'
-									? convertRgbArrayToString(
-											convertBgrIntegerToRgb(obj.color_head)
-									  )
-									: '#ffffff',
-							customImage: null,
-						},
-					]}
-					hair={typeof obj.hair === 'string' ? obj.hair : 'Simple'}
-					playAnimations={!isReducedMotion}
-					showBody={true}
-					skinColor={skinColor}
+					obj={obj}
 				/>
 			</div>
 
@@ -88,9 +74,18 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 				Choose from gallery
 			</button>
 
-			{obj.clothes === 'Custom Tee' || obj.hat === 'Custom Hat' ? (
+			{obj.clothes === 'Custom Tee' &&
+			(obj.custom_clothes == null || obj.custom_clothes === '') ? (
 				<MessageBox
-					message="Custom clothes/hat will show the current player's custom art instead"
+					message="No custom clothes image selected, the current player's custom clothes will be shown instead"
+					type="INFO"
+				/>
+			) : null}
+
+			{obj.hat === 'Custom Hat' &&
+			(obj.custom_hat == null || obj.custom_hat === '') ? (
+				<MessageBox
+					message="No custom hat image selected, the current player's custom hat will be shown instead"
 					type="INFO"
 				/>
 			) : null}
@@ -98,7 +93,12 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 			<DrawdogGalleryModal
 				isOpen={isGalleryModalOpen}
 				onModalRequestClose={() => setIsGalleryModalOpen(false)}
-				onPresetSelect={(preset: DrawdogPreset) => {
+				onPresetSelect={async (preset: DrawdogPreset) => {
+					const [customClothesImage, customHatImage] = await Promise.all([
+						loadImage(preset.customClothesImage),
+						loadImage(preset.hats[0].customImage),
+					]);
+
 					props.editProperties(
 						props.entityIndex,
 						{
@@ -107,6 +107,8 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 							color_head: convertHexToBgrInteger(preset.hats[0].color),
 							color_skin: convertHexToBgrInteger(preset.skinColor),
 							comment: preset.name,
+							custom_clothes: customClothesImage ?? '',
+							custom_hat: customHatImage ?? '',
 							hair: preset.hair,
 							hat: preset.hats[0].name,
 						},

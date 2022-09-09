@@ -147,7 +147,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 					}
 				}
 
-				window.URL.revokeObjectURL(img.src);
+				URL.revokeObjectURL(img.src);
 
 				const encoded = new Uint8Array(pixels);
 				const deflated = deflate(encoded);
