@@ -38,7 +38,7 @@ function LevelPreviewObjects(props: Props): React$Node {
 			}px`;
 
 			if (typeof obj.angle === 'number' && obj.angle !== 0) {
-				transforms.push(`rotate(-${obj.angle}deg)`);
+				transforms.push(`rotate(${-obj.angle}deg)`);
 			}
 
 			if (typeof obj.xscale === 'number') {
