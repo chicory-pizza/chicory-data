@@ -884,6 +884,12 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCustomDog', [
 		help: 'Used to show custom hat',
 	},
 	{
+		key: 'dialogue',
+		type: 'STRING',
+		default: '',
+		help: 'Dialogue text when you speak to this character, only available if interactable. Use ~ to split to a new dialogue box.',
+	},
+	{
 		key: 'expression',
 		type: 'DOG_EXPRESSION',
 	},
@@ -896,6 +902,18 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCustomDog', [
 		key: 'hat',
 		type: 'ENUM',
 		options: DOG_HAT_LIST.map((hair) => hair.internalName),
+	},
+	{
+		key: 'interactable',
+		type: 'NUMBER',
+		default: 0,
+		help: 'Set to 1 to enable talking',
+	},
+	{
+		key: 'npc_name',
+		type: 'STRING',
+		default: '',
+		help: "This character's name that appears when you walk up to them, only seen if interactable",
 	},
 	{
 		key: 'xscale',

@@ -106,11 +106,11 @@ export default function SidebarObjectCustomDog(props: Props): React$Node {
 							color_body: convertHexToBgrInteger(preset.clothesColor),
 							color_head: convertHexToBgrInteger(preset.hats[0].color),
 							color_skin: convertHexToBgrInteger(preset.skinColor),
-							comment: preset.name,
 							custom_clothes: customClothesImage ?? '',
 							custom_hat: customHatImage ?? '',
 							hair: preset.hair,
 							hat: preset.hats[0].name,
+							npc_name: preset.name,
 						},
 						'OBJECT'
 					);

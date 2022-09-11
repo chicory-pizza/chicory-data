@@ -48,9 +48,12 @@ export type GameObjectType =
 			comment: string,
 			custom_clothes?: string,
 			custom_hat?: string,
+			dialogue?: string,
 			expression: string,
 			hair: string,
 			hat: string,
+			interactable?: number,
+			npc_name?: string,
 			xscale: number,
 			yscale: number,
 	  };
