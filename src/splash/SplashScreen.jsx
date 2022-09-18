@@ -51,7 +51,7 @@ export default function SplashScreen(): React$Node {
 			<div className={styles.icons}>
 				<a
 					className={styles.websiteLink}
-					href="/discord"
+					href="https://discord.chicory.pizza"
 					rel="noopener"
 					target="_blank"
 					title="Join the Chicory fan Discord"

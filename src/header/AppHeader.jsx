@@ -52,7 +52,7 @@ export default function AppHeader(props: Props): React$Node {
 					<div className={styles.links}>
 						<a
 							className={styles.websiteLink}
-							href="/discord"
+							href="https://discord.chicory.pizza"
 							rel="noopener"
 							target="_blank"
 							title="Join the Chicory fan Discord"
