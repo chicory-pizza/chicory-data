@@ -138,7 +138,7 @@ export default function DogPreview(props: Props): React$Node {
 			: clothesInfo.imageWithPaddingPath
 	);
 	const clothesLayer2 = useLoadImage(clothesInfo.layer2ImagePath);
-	const head = useLoadImage(expressionInfo.image);
+	const head = useLoadImage(expressionInfo.imageHQ ?? expressionInfo.image);
 	const hair = useLoadImage(hairInfo.imageWithPaddingPath);
 
 	useEffect(() => {

@@ -7,6 +7,7 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 	label: string,
 	chicorobotName: ?string,
 	image: string,
+	imageHQ?: string, // HQ image used for big preview area
 	inGame: boolean, // Some expressions like 'feral' are custom and not available in-game
 }> = [
 	{
@@ -29,6 +30,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				import.meta.url
 			)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/small.png', import.meta.url)
+		),
 		inGame: true,
 	},
 	{
@@ -40,6 +44,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				'../images/dog_expressions/sprDog_expression_1.png',
 				import.meta.url
 			)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/closed.png', import.meta.url)
 		),
 		inGame: true,
 	},
@@ -53,6 +60,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				import.meta.url
 			)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/grin.png', import.meta.url)
+		),
 		inGame: true,
 	},
 	{
@@ -64,6 +74,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				'../images/dog_expressions/sprDog_expression_3.png',
 				import.meta.url
 			)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/angry.png', import.meta.url)
 		),
 		inGame: true,
 	},
@@ -77,6 +90,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				import.meta.url
 			)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/nervous.png', import.meta.url)
+		),
 		inGame: true,
 	},
 	{
@@ -88,6 +104,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				'../images/dog_expressions/sprDog_expression_5.png',
 				import.meta.url
 			)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/gah.png', import.meta.url)
 		),
 		inGame: true,
 	},
@@ -101,6 +120,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				import.meta.url
 			)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/heee.png', import.meta.url)
+		),
 		inGame: true,
 	},
 	{
@@ -112,6 +134,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				'../images/dog_expressions/sprDog_expression_7.png',
 				import.meta.url
 			)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/whoa.png', import.meta.url)
 		),
 		inGame: true,
 	},
@@ -125,6 +150,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				import.meta.url
 			)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/sorry.png', import.meta.url)
+		),
 		inGame: true,
 	},
 	{
@@ -136,6 +164,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				'../images/dog_expressions/sprDog_expression_9.png',
 				import.meta.url
 			)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/stop.png', import.meta.url)
 		),
 		inGame: true,
 	},
@@ -149,6 +180,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				import.meta.url
 			)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/ouch.png', import.meta.url)
+		),
 		inGame: true,
 	},
 	{
@@ -160,6 +194,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				'../images/dog_expressions/sprDog_expression_11.png',
 				import.meta.url
 			)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/worry.png', import.meta.url)
 		),
 		inGame: true,
 	},
@@ -173,6 +210,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				import.meta.url
 			)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/knockdown.png', import.meta.url)
+		),
 		inGame: true,
 	},
 	{
@@ -184,6 +224,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				'../images/dog_expressions/sprDog_expression_13.png',
 				import.meta.url
 			)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/smit.png', import.meta.url)
 		),
 		inGame: true,
 	},
@@ -197,6 +240,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				import.meta.url
 			)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/smile.png', import.meta.url)
+		),
 		inGame: true,
 	},
 	{
@@ -208,6 +254,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				'../images/dog_expressions/sprDog_expression_15.png',
 				import.meta.url
 			)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/cheeky.png', import.meta.url)
 		),
 		inGame: true,
 	},
@@ -221,6 +270,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				import.meta.url
 			)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/hmph.png', import.meta.url)
+		),
 		inGame: true,
 	},
 	{
@@ -232,6 +284,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				'../images/dog_expressions/sprDog_expression_17.png',
 				import.meta.url
 			)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/ok.png', import.meta.url)
 		),
 		inGame: true,
 	},
@@ -245,6 +300,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				import.meta.url
 			)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/depressed.png', import.meta.url)
+		),
 		inGame: true,
 	},
 	{
@@ -256,6 +314,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				'../images/dog_expressions/sprDog_expression_20.png',
 				import.meta.url
 			)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/embarass.png', import.meta.url)
 		),
 		inGame: true,
 	},
@@ -269,6 +330,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				import.meta.url
 			)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/closed_sad.png', import.meta.url)
+		),
 		inGame: true,
 	},
 	{
@@ -281,6 +345,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 				import.meta.url
 			)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/evil.png', import.meta.url)
+		),
 		inGame: true,
 	},
 	{
@@ -289,6 +356,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 		chicorobotName: null,
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_confused.png', import.meta.url)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/confused.png', import.meta.url)
 		),
 		inGame: false,
 	},
@@ -299,6 +369,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_content.png', import.meta.url)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/content.png', import.meta.url)
+		),
 		inGame: false,
 	},
 	{
@@ -307,6 +380,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 		chicorobotName: null,
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_feral.png', import.meta.url)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/feral.png', import.meta.url)
 		),
 		inGame: false,
 	},
@@ -317,6 +393,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_gleeful.png', import.meta.url)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/gleeful.png', import.meta.url)
+		),
 		inGame: false,
 	},
 	{
@@ -325,6 +404,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 		chicorobotName: null,
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_joyful.png', import.meta.url)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/joyful.png', import.meta.url)
 		),
 		inGame: false,
 	},
@@ -335,6 +417,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_mortified.png', import.meta.url)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/mortified.png', import.meta.url)
+		),
 		inGame: false,
 	},
 	{
@@ -344,6 +429,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_regretful.png', import.meta.url)
 		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/regretful.png', import.meta.url)
+		),
 		inGame: false,
 	},
 	{
@@ -352,6 +440,9 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 		chicorobotName: null,
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_sad_hours.png', import.meta.url)
+		),
+		imageHQ: transformImageImport(
+			new URL('../images/dog_expressions_hq/sad_hours.png', import.meta.url)
 		),
 		inGame: false,
 	},

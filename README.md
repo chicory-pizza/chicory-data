@@ -33,6 +33,8 @@ This project used to be bootstrapped with [Create React App](https://create-reac
 
 The web app is licensed under the [MPL 2.0 License](https://www.mozilla.org/en-US/MPL/2.0/).
 
+High resolution dog expressions by PlasmaFlare.
+
 :chicory_is_straight: emote by [moon--and--star](https://moon--and--star.tumblr.com).
 
 Original game assets are from the Chicory: A Colorful Tale game (duh).
