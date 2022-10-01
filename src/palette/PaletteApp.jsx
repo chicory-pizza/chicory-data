@@ -1,10 +1,8 @@
 // @flow strict
 
-import {useEffect} from 'react';
-
 import ErrorBoundary from '../common/ErrorBoundary';
 import AppHeader from '../header/AppHeader';
-import changeDocumentTitle from '../util/changeDocumentTitle';
+import useDocumentTitle from '../util/useDocumentTitle';
 import useMobileViewport from '../util/useMobileViewport';
 
 import ColorCalculator from './ColorCalculator';
@@ -15,9 +13,7 @@ import {PALETTE_COLORS} from './types/PaletteColorsList';
 export default function PaletteApp(): React$Node {
 	useMobileViewport();
 
-	useEffect(() => {
-		changeDocumentTitle('Color palettes');
-	}, []);
+	useDocumentTitle('Color palettes');
 
 	const palettes = [];
 	for (const [title, palette] of PALETTE_COLORS) {

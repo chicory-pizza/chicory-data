@@ -1,8 +1,8 @@
 // @flow strict
 
-import {useEffect, useMemo, useState} from 'react';
+import {useMemo, useState} from 'react';
 
-import changeDocumentTitle from '../../util/changeDocumentTitle';
+import useDocumentTitle from '../../util/useDocumentTitle';
 import LevelLayerDropdownSelect from '../common/LevelLayerDropdownSelect';
 import LevelLayerNumberInputs from '../common/LevelLayerNumberInputs';
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
@@ -36,16 +36,18 @@ export default function LevelSelector(): React$Node {
 	}, [currentCoordinates, worldData]);
 
 	// Change title
-	useEffect(() => {
+	const levelLabel = useMemo(() => {
 		if (currentCoordinates == null) {
-			return;
+			return '';
 		}
 
 		const level: ?LevelType =
 			worldData[convertCoordinatesToLevelId(currentCoordinates)];
 
-		changeDocumentTitle(getLevelLabel(currentCoordinates, level));
+		return getLevelLabel(currentCoordinates, level);
 	}, [currentCoordinates, worldData]);
+
+	useDocumentTitle(levelLabel);
 
 	// Inputs
 	const [draftCoordinates, setDraftCoordinates] = useState<

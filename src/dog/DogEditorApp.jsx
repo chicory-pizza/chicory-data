@@ -1,9 +1,7 @@
 // @flow strict
 
-import {useEffect} from 'react';
-
 import ErrorBoundary from '../common/ErrorBoundary';
-import changeDocumentTitle from '../util/changeDocumentTitle';
+import useDocumentTitle from '../util/useDocumentTitle';
 import useMobileViewport from '../util/useMobileViewport';
 
 import {DogEditorProvider} from './DogEditorContext';
@@ -12,9 +10,7 @@ import DogEditorUI from './DogEditorUI';
 export default function DogEditorApp(): React$MixedElement {
 	useMobileViewport();
 
-	useEffect(() => {
-		changeDocumentTitle('Drawdog maker');
-	}, []);
+	useDocumentTitle('Drawdog maker');
 
 	return (
 		<ErrorBoundary>
