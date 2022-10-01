@@ -34,6 +34,8 @@ type Props = $ReadOnly<{
 }>;
 
 export default function LevelPreview(props: Props): React$Node {
+	const {addingEntityLabel, mapMouseMoveCoordinates} = props;
+
 	// Show arrows around
 	// Some objects can be off-screen
 	let offscreenX = -25 - 8 * 2;
@@ -59,11 +61,11 @@ export default function LevelPreview(props: Props): React$Node {
 		});
 	}
 
-	//Draw sprite when adding a decoration
+	// Draw sprite when adding a decoration
 	const urlPrefix = import.meta.env.VITE_SPRITES_URL_PREFIX;
 	let addingDeco;
-	if (props.addingEntityLabel && props.addingEntityLabel.type === 'DECO') {
-		const deco = props.addingEntityLabel.data;
+	if (addingEntityLabel && addingEntityLabel.type === 'DECO') {
+		const deco = addingEntityLabel.data;
 		if (urlPrefix != null) {
 			const src = urlPrefix + deco + '.png';
 			addingDeco = (
@@ -106,24 +108,22 @@ export default function LevelPreview(props: Props): React$Node {
 				/>
 			) : null}
 
-			{props.addingEntityLabel != null &&
-			props.mapMouseMoveCoordinates != null &&
-			props.activeUiViews.includes(props.addingEntityLabel.type) ? (
+			{addingEntityLabel != null &&
+			mapMouseMoveCoordinates != null &&
+			props.activeUiViews.includes(addingEntityLabel.type) ? (
 				<div
 					className={
 						styles.addingObjectItem +
 						' ' +
-						(props.addingEntityLabel.type === 'OBJECT'
-							? styles.object
-							: styles.deco)
+						(addingEntityLabel.type === 'OBJECT' ? styles.object : styles.deco)
 					}
 					style={{
-						left: props.mapMouseMoveCoordinates[0],
-						top: props.mapMouseMoveCoordinates[1],
+						left: mapMouseMoveCoordinates[0],
+						top: mapMouseMoveCoordinates[1],
 					}}
 				>
-					{props.addingEntityLabel.type === 'OBJECT'
-						? getGameObjectSimpleName(props.addingEntityLabel.data)
+					{addingEntityLabel.type === 'OBJECT'
+						? getGameObjectSimpleName(addingEntityLabel.data)
 						: addingDeco}
 				</div>
 			) : null}

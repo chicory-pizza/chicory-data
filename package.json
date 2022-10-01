@@ -44,7 +44,7 @@
     "canvas": "2.10.1",
     "eslint": "8.24.0",
     "eslint-config-react-app": "7.0.1",
-    "flow-bin": "0.187.1",
+    "flow-bin": "0.188.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "28.1.3",
     "jest-environment-jsdom": "28.1.3",
