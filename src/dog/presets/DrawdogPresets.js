@@ -461,8 +461,21 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 				color: '#f7ef18',
 			},
 		],
-		name: 'Steak',
+		name: 'Steak (Archmage Ansrit)',
 		skinColor: '#ffffff',
+	},
+	{
+		clothes: 'Wielder Cloak',
+		clothesColor: '#736172',
+		hair: 'Simple',
+		hats: [
+			{
+				name: 'Howdy',
+				color: '#5c05ed',
+			},
+		],
+		name: 'Steak (Dumpy)',
+		skinColor: '#f2be61',
 	},
 	{
 		clothes: 'Custom Tee',
