@@ -111,7 +111,7 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 				return state;
 			}
 
-			const newProperties = {...level};
+			const newProperties = Object.assign({}, level);
 			if (action.value !== null) {
 				newProperties[action.key] = action.value;
 			} else {
@@ -167,7 +167,7 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 					return state;
 				}
 
-				const newProperties = {...levelObjects[action.index]};
+				const newProperties = Object.assign({}, levelObjects[action.index]);
 				Object.keys(action.properties).forEach((key) => {
 					const value = action.properties[key];
 
@@ -209,7 +209,7 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 				return state;
 			}
 
-			const newProperties = {...levelDecos[action.index]};
+			const newProperties = Object.assign({}, levelDecos[action.index]);
 			Object.keys(action.properties).forEach((key) => {
 				const value = action.properties[key];
 
@@ -302,7 +302,7 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 			};
 
 		case 'deleteLevel': {
-			const newLevels = {...state};
+			const newLevels = Object.assign({}, state);
 			delete newLevels[convertCoordinatesToLevelId(action.coordinates)];
 			return newLevels;
 		}
