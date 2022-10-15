@@ -180,7 +180,7 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 			new URL('./Custom_Tee_Cinnaroll.png', import.meta.url)
 		),
 		expression: 'smit',
-		hair: 'Simple',
+		hair: 'Shortcurl',
 		hats: [
 			{
 				name: 'Custom Hat',
