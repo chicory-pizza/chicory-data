@@ -350,10 +350,12 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 		),
 		inGame: true,
 	},
+
+	// Custom
 	{
 		value: 'confused',
 		label: 'confused',
-		chicorobotName: null,
+		chicorobotName: 'custom confused',
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_confused.png', import.meta.url)
 		),
@@ -365,7 +367,7 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 	{
 		value: 'content',
 		label: 'content',
-		chicorobotName: null,
+		chicorobotName: 'custom content',
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_content.png', import.meta.url)
 		),
@@ -377,7 +379,7 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 	{
 		value: 'feral',
 		label: 'feral',
-		chicorobotName: null,
+		chicorobotName: 'custom feral',
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_feral.png', import.meta.url)
 		),
@@ -389,7 +391,7 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 	{
 		value: 'gleeful',
 		label: 'gleeful',
-		chicorobotName: null,
+		chicorobotName: 'custom gleeful',
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_gleeful.png', import.meta.url)
 		),
@@ -401,7 +403,7 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 	{
 		value: 'joyful',
 		label: 'joyful',
-		chicorobotName: null,
+		chicorobotName: 'custom joyful',
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_joyful.png', import.meta.url)
 		),
@@ -413,7 +415,7 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 	{
 		value: 'mortified',
 		label: 'mortified',
-		chicorobotName: null,
+		chicorobotName: 'custom mortified',
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_mortified.png', import.meta.url)
 		),
@@ -425,7 +427,7 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 	{
 		value: 'regretful',
 		label: 'regretful',
-		chicorobotName: null,
+		chicorobotName: 'custom regretful',
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_regretful.png', import.meta.url)
 		),
@@ -437,7 +439,7 @@ export const DOG_EXPRESSION_LIST: $ReadOnlyArray<{
 	{
 		value: 'sad_hours',
 		label: 'sad_hours',
-		chicorobotName: null,
+		chicorobotName: 'custom sad hours',
 		image: transformImageImport(
 			new URL('../images/dog_expressions/custom_sad_hours.png', import.meta.url)
 		),
