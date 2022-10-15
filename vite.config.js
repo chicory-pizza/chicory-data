@@ -63,6 +63,7 @@ function getServerHeaders(env) {
 		'X-XSS-Protection': '0',
 		'X-Frame-Options': 'DENY',
 		// 'Strict-Transport-Security': 'max-age=31536000', // irrelevant during dev
+		'Cross-Origin-Embedder-Policy': 'require-corp',
 		'Cross-Origin-Opener-Policy': 'same-origin',
 		'Cross-Origin-Resource-Policy': 'same-site',
 		'Permissions-Policy': 'interest-cohort=()',
@@ -109,6 +110,6 @@ function getServerHeaders(env) {
 		].join(';'),
 
 		'Feature-Policy':
-			"accelerometer 'none';ambient-light-sensor 'none';battery 'none';camera 'none';display-capture 'none';geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';usb 'none';xr-spatial-tracking 'none';",
+			"accelerometer 'none';ambient-light-sensor 'none';battery 'none';bluetooth 'none';camera 'none';display-capture 'none';gamepad 'none';geolocation 'none';gyroscope 'none';hid 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';serial 'none';usb 'none';xr-spatial-tracking 'none';",
 	};
 }
