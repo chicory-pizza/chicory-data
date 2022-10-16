@@ -40,16 +40,20 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	// Please sort this list A-Z
 	{
 		clothes: 'Mailbag',
-		clothesColor: '#81e9b5',
+		clothesColor: '#316df5',
+		earColor: '#3a3a3a',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Kerchief',
-				color: '#fc777d',
+				color: '#cf5058',
 			},
 		],
-		skinColor: '#fef2c9',
+		headSkinImage: transformImageImport(
+			new URL('./Custom_Head_Skin_Apple_Pie.png', import.meta.url)
+		),
 		name: 'Apple Pie',
+		skinColor: '#ffffff',
 	},
 	{
 		clothes: 'Hoodie',
@@ -65,8 +69,8 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 				color: '#777ce1',
 			},
 		],
-		skinColor: '#1c2e89',
 		name: 'Azure Pancakes',
+		skinColor: '#1c2e89',
 		skinOutlineColor: '#03eff9',
 	},
 	{

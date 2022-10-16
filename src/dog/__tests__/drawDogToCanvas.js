@@ -158,6 +158,7 @@ test.each(DRAWDOG_PRESETS)('$name', async (preset: DrawdogPreset) => {
 						path.resolve(__dirname, '../presets/', preset.customClothesImage)
 				  )
 				: null,
+		earColor: preset.earColor,
 		expression: preset.expression,
 		hair: preset.hair,
 		hats: await Promise.all(
