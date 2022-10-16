@@ -9,6 +9,7 @@ export default function convertDogEditorStateToDogPreview(
 	clothes: string,
 	clothesColor: string,
 	customClothesImage?: string,
+	headSkinImage?: string,
 	earColor: string,
 	expression: string,
 	hair: string,
@@ -26,6 +27,7 @@ export default function convertDogEditorStateToDogPreview(
 		expression: dogState.expression,
 		hair: dogState.hair,
 		hats: dogState.hats,
+		headSkinImage: dogState.headSkinImage ?? undefined,
 		skinColor: dogState.skinColor,
 		skinOutlineColor: dogState.skinOutlineColor,
 	};

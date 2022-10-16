@@ -62,6 +62,7 @@ export default function LevelEditorDataSelector(
 							: undefined,
 				};
 			}),
+			headSkinImage: dogState.headSkinImage ?? undefined,
 			skinColor: dogState.skinColor,
 			skinOutlineColor:
 				dogState.skinOutlineColor !== '#000000'

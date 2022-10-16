@@ -43,6 +43,7 @@ export default function DrawdogGalleryDog(props: Props): React$Node {
 					expression={props.forceExpression ?? preset.expression ?? 'normal'}
 					hats={preset.hats}
 					hair={preset.hair}
+					headSkinImage={preset.headSkinImage ?? null}
 					playAnimations={props.playAnimations}
 					showBody={showBody}
 					skinColor={preset.skinColor}

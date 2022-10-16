@@ -173,6 +173,12 @@ test.each(DRAWDOG_PRESETS)('$name', async (preset: DrawdogPreset) => {
 				};
 			})
 		),
+		headSkinImage:
+			preset.headSkinImage != null
+				? await loadImage(
+						path.resolve(__dirname, '../presets/', preset.headSkinImage)
+				  )
+				: null,
 		skinColor: preset.skinColor,
 		skinOutlineColor: preset.skinOutlineColor,
 	};

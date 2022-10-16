@@ -10,6 +10,7 @@ type Props = $ReadOnly<{
 	clothes: string,
 	expression: string,
 	hasCustomEarColor: boolean,
+	hasHeadSkinImage: boolean,
 	hats: $ReadOnlyArray<ChosenHat>,
 	invertColors: boolean,
 	skinOutlineColor: string,
@@ -36,6 +37,7 @@ export default function DogChicorobotNotices(props: Props): React$MixedElement {
 		hasMultipleHatLayers ||
 		hasCustomHat ||
 		hasCustomClothes ||
+		props.hasHeadSkinImage ||
 		props.hasCustomEarColor ||
 		hasUnofficialExpression ||
 		props.invertColors;
@@ -84,6 +86,10 @@ export default function DogChicorobotNotices(props: Props): React$MixedElement {
 				/>
 			) : null}
 
+			{props.hasHeadSkinImage ? (
+				<MessageBox message="Head skin is not supported" type="INFO" />
+			) : null}
+
 			{props.hasCustomEarColor ? (
 				<MessageBox
 					message="Custom ear colors are not supported and will use the skin color"
@@ -92,10 +98,7 @@ export default function DogChicorobotNotices(props: Props): React$MixedElement {
 			) : null}
 
 			{hasUnofficialExpression ? (
-				<MessageBox
-					message="Expression is unofficial and not supported"
-					type="INFO"
-				/>
+				<MessageBox message="This expression is not supported" type="INFO" />
 			) : null}
 
 			{props.invertColors ? (

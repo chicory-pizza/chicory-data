@@ -1,0 +1,40 @@
+.editorUiButtons {
+	display: flex;
+	gap: 8px;
+}
+
+.list {
+	list-style: decimal;
+	margin-left: 20px;
+}
+
+.explanation {
+	margin-bottom: 8px;
+}
+
+.templateImage {
+	background: repeating-linear-gradient(
+		45deg,
+		transparent,
+		transparent 4px,
+		var(--leveleditor-stripe-color) 4px,
+		var(--leveleditor-stripe-color) 8px
+	);
+	border: 1px solid var(--input-border-color);
+	display: block;
+	margin-bottom: 16px;
+}
+
+.errorMessage {
+	margin-top: 16px;
+}
+
+.dogPreview {
+	width: 100%;
+}
+
+.previewArea {
+	margin-top: 20px;
+	border-top: 1px solid var(--input-border-color);
+	padding-top: 20px;
+}

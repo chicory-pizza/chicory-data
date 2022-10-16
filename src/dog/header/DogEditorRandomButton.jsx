@@ -64,6 +64,7 @@ export default function DogEditorRandomButton(): React$MixedElement {
 						customImage: null,
 					},
 				],
+				headSkinImage: null,
 				skinColor,
 				skinOutlineColor: '#000000',
 			},

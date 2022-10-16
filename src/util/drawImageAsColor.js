@@ -11,9 +11,10 @@ export default function drawImageAsColor(
 	ctx: CanvasRenderingContext2D,
 	image: CanvasImageSource,
 	options: {
+		cacheKey?: string,
+		customOverlayImage?: ?CanvasImageSource,
 		fillColor: string,
 		outlineColor?: string,
-		cacheKey?: string,
 	},
 	x: number,
 	y: number,
@@ -71,11 +72,18 @@ export default function drawImageAsColor(
 		tempCtx.globalCompositeOperation = 'source-over';
 	}
 
+	// Overlay/skin
+	if (options.customOverlayImage != null) {
+		tempCtx.globalCompositeOperation = 'source-atop';
+		tempCtx.drawImage(options.customOverlayImage, 0, 0, width, height);
+		tempCtx.globalCompositeOperation = 'source-over';
+	}
+
 	// Now draw the original image to the real canvas
 	ctx.drawImage(image, x, y, width, height);
 
 	// Fill in the colors
-	if (options.fillColor !== '#ffffff') {
+	if (options.fillColor !== '#ffffff' || options.customOverlayImage != null) {
 		ctx.globalCompositeOperation = 'multiply';
 		ctx.drawImage(tempCtx.canvas, x, y, width, height);
 		ctx.globalCompositeOperation = 'source-over';

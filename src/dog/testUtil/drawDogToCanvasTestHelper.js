@@ -25,6 +25,7 @@ export default async function drawDogToCanvasTestHelper(options: {
 		...ChosenHat,
 		customImage: ?CanvasImageSource,
 	}>,
+	headSkinImage?: ?CanvasImageSource,
 	showBody?: boolean,
 	skinColor: string,
 	skinOutlineColor?: string,
@@ -131,6 +132,7 @@ export default async function drawDogToCanvasTestHelper(options: {
 					? expressionInfo.imageHQ ?? expressionInfo.image
 					: path.resolve(__dirname, '../images/sprDog_head_0.png')
 			),
+			headSkin: options.headSkinImage,
 			hair: await loadImage(hairInfo.imageWithPaddingPath),
 
 			ear: await loadImage(ear),

@@ -4,29 +4,18 @@ import {useCallback, useState} from 'react';
 
 import CustomModal from '../../../common/CustomModal';
 import ErrorBoundary from '../../../common/ErrorBoundary';
+import CloseIcon from '../../../common/icons/CloseIcon';
 import MessageBox from '../../../common/MessageBox';
 import {useDogEditorContext} from '../../DogEditorContext';
-import {
-	CUSTOM_CLOTHES_HEIGHT,
-	CUSTOM_CLOTHES_WIDTH,
-	CUSTOM_HAT_HEIGHT,
-	CUSTOM_HAT_WIDTH,
-	SIZE,
-} from '../../drawDogToCanvas';
+import {CUSTOM_HAT_HEIGHT, CUSTOM_HAT_WIDTH} from '../../drawDogToCanvas';
 import templateImage from '../../images/sprDog_head_0.png';
 import DogPreview from '../../preview/DogPreview';
 import convertDogEditorStateToDogPreview from '../convertDogEditorStateToDogPreview';
 import DogEditorFileInput from '../DogEditorFileInput';
 
-import styles from './DogEditorCustomHatImageModalLauncher.module.css';
+import styles from './DogEditorCustomHeadSkinModalLauncher.module.css';
 
-type Props = $ReadOnly<{
-	layer: number,
-}>;
-
-export default function DogEditorCustomHatImageModalLauncher({
-	layer,
-}: Props): React$MixedElement {
+export default function DogEditorCustomHeadSkinModalLauncher(): React$MixedElement {
 	const {dispatch, dogState} = useDogEditorContext();
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,19 +29,20 @@ export default function DogEditorCustomHatImageModalLauncher({
 	const [imageDataUrl, setImageDataUrl] = useState<?string>(null);
 	const [errorMessage, setErrorMessage] = useState<?string>(null);
 
-	const onNewHatImage = useCallback((dataUrl: string) => {
+	const onNewHeadOverlayImage = useCallback((dataUrl: string) => {
 		setImageDataUrl(null);
 		setErrorMessage(null);
 
 		const img = new Image();
 
 		img.onload = () => {
-			if (
-				img.width === CUSTOM_CLOTHES_WIDTH &&
-				img.height === CUSTOM_CLOTHES_HEIGHT
-			) {
+			if (img.width !== CUSTOM_HAT_WIDTH || img.height !== CUSTOM_HAT_HEIGHT) {
 				setErrorMessage(
-					'It looks like you are loading custom clothes as the custom hat, this is probably not what you intended.'
+					'The image resolution should be ' +
+						CUSTOM_HAT_WIDTH +
+						'×' +
+						CUSTOM_HAT_HEIGHT +
+						'.'
 				);
 				return;
 			}
@@ -69,53 +59,78 @@ export default function DogEditorCustomHatImageModalLauncher({
 
 	const onConfirmButtonClick = useCallback(() => {
 		dispatch({
-			type: 'setHatLayerProperties',
-			layer,
-			hat: {
-				name: 'Custom Hat',
-				customImage: imageDataUrl,
+			type: 'setProperties',
+			properties: {
+				headSkinImage: imageDataUrl,
 			},
 		});
 
 		onModalRequestClose();
-	}, [dispatch, imageDataUrl, layer, onModalRequestClose]);
+	}, [dispatch, imageDataUrl, onModalRequestClose]);
+
+	const onRemoveButtonClick = useCallback(() => {
+		dispatch({
+			type: 'setProperties',
+			properties: {
+				headSkinImage: null,
+			},
+		});
+	}, [dispatch]);
 
 	return (
 		<>
-			<button type="button" onClick={() => setIsModalOpen(true)}>
-				Select image
-			</button>
+			<div className={styles.editorUiButtons}>
+				<button onClick={() => setIsModalOpen(true)} type="button">
+					Select image
+				</button>
+
+				{dogState.headSkinImage != null ? (
+					<button
+						aria-label="Remove head skin"
+						onClick={onRemoveButtonClick}
+						title="Remove head skin"
+						type="button"
+					>
+						<CloseIcon size="0.6em" />
+					</button>
+				) : null}
+			</div>
 
 			<CustomModal
 				isOpen={isModalOpen}
 				onRequestClose={onModalRequestClose}
-				titleText="Select custom hat image"
+				titleText="Select head skin image"
 			>
 				{isModalOpen ? (
 					<ErrorBoundary>
-						<p className={styles.explanation}>
-							Save and use this template face to draw a custom hat.
-						</p>
+						<ol className={styles.list}>
+							<li className={styles.explanation}>
+								Save this image to use as a template.
+							</li>
 
-						<p className={styles.explanation}>
-							Your exported image should be a PNG and have a resolution of{' '}
-							{CUSTOM_HAT_WIDTH}×{CUSTOM_HAT_HEIGHT} or {SIZE}×{SIZE}.
-						</p>
+							<li className={styles.explanation}>
+								Your drawing will be applied on the head as a skin.
+							</li>
 
-						<p className={styles.explanation}>
-							Remember to hide the template face when exporting your final
-							image.
-						</p>
+							<li className={styles.explanation}>
+								Hide the template face before exporting your image.
+							</li>
+
+							<li className={styles.explanation}>
+								Export your image as a PNG with resolution of {CUSTOM_HAT_WIDTH}
+								×{CUSTOM_HAT_HEIGHT}.
+							</li>
+						</ol>
 
 						<img
 							src={templateImage}
-							alt="Custom hat template"
+							alt="Head template"
 							className={styles.templateImage}
 							width={CUSTOM_HAT_WIDTH}
 							height={CUSTOM_HAT_HEIGHT}
 						/>
 
-						<DogEditorFileInput onFileLoad={onNewHatImage} />
+						<DogEditorFileInput onFileLoad={onNewHeadOverlayImage} />
 
 						{errorMessage != null ? (
 							<div className={styles.errorMessage}>
@@ -126,7 +141,7 @@ export default function DogEditorCustomHatImageModalLauncher({
 						{imageDataUrl != null ? (
 							<div className={styles.previewArea}>
 								<p className={styles.explanation}>
-									Preview your custom hat, confirm if everything looks good.
+									Preview your head skin, confirm if everything looks good.
 								</p>
 
 								<DogPreview
@@ -134,14 +149,8 @@ export default function DogEditorCustomHatImageModalLauncher({
 									animation="idle"
 									animationIndex={0}
 									canvasClassName={styles.dogPreview}
-									hats={dogState.hats
-										.slice(0, layer)
-										.concat({
-											name: dogState.hats[layer].name,
-											color: dogState.hats[layer].color,
-											customImage: imageDataUrl,
-										})
-										.concat(dogState.hats.slice(layer + 1))}
+									hats={dogState.hats}
+									headSkinImage={imageDataUrl}
 									showBody={true}
 								/>
 

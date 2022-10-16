@@ -28,6 +28,7 @@ export type Props = $ReadOnly<{
 	expression: string,
 	hats: $ReadOnlyArray<ChosenHat>,
 	hair: string,
+	headSkinImage: ?string,
 	onCanvasFrameDrawn?: (
 		canvasRef: HTMLCanvasElement,
 		animationIndex: number
@@ -113,6 +114,9 @@ export default function DogPreview(props: Props): React$Node {
 		throw new Error('Invalid expression ' + props.expression);
 	}
 
+	// Head skin
+	const headSkin = useLoadImage(props.headSkinImage);
+
 	// Animation
 	const animationInfo = DOG_ANIMATIONS.get(props.animation);
 	if (animationInfo == null) {
@@ -170,6 +174,7 @@ export default function DogPreview(props: Props): React$Node {
 				idle1,
 				clothesLayer2,
 				head,
+				headSkin,
 				hair,
 				ear,
 			},
@@ -217,7 +222,8 @@ export default function DogPreview(props: Props): React$Node {
 	}, [
 		animationImages,
 		animationIndex,
-		animationInfo,
+		animationInfo.bodyAnim,
+		animationInfo.headAnim,
 		clothes,
 		clothesInfo,
 		clothesLayer2,
@@ -226,16 +232,16 @@ export default function DogPreview(props: Props): React$Node {
 		hats,
 		hatsImages,
 		head,
+		headSkin,
 		onCanvasFrameDrawn,
 		props.animation,
 		props.backgroundFillColor,
 		props.clothesColor,
-		props.customClothesImage,
 		props.earColor,
 		props.expression,
+		props.showBody,
 		props.skinColor,
 		props.skinOutlineColor,
-		props.showBody,
 	]);
 
 	const loading =

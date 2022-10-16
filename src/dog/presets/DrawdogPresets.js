@@ -14,6 +14,7 @@ export type DrawdogPreset = $ReadOnly<{
 		color: string,
 		customImage?: ?string,
 	}>,
+	headSkinImage?: string,
 	name: string,
 	skinColor: string,
 	skinOutlineColor?: string,
@@ -78,6 +79,9 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 				color: '#de3cdf',
 			},
 		],
+		headSkinImage: transformImageImport(
+			new URL('./Custom_Head_Skin_Biscuit.png', import.meta.url)
+		),
 		name: 'Biscuit',
 		skinColor: '#ffa02a',
 	},

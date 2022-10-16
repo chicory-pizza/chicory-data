@@ -73,6 +73,7 @@ export default function ObjCustomDogPreview({
 					customImage: customHatImage,
 				},
 			]}
+			headSkinImage={null}
 			skinColor={skinColor}
 			showBody={true}
 		/>

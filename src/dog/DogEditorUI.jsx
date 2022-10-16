@@ -18,6 +18,7 @@ import {
 	SIZE,
 } from './drawDogToCanvas';
 import type {ChosenHat} from './drawDogToCanvas';
+import DogEditorCustomHeadSkinModalLauncher from './editor/customImagePrompt/DogEditorCustomHeadSkinModalLauncher';
 import DogClothesSelectMenu from './editor/DogClothesSelectMenu';
 import DogClothesSelectModalLauncher from './editor/DogClothesSelectModalLauncher';
 import DogEditorFileInput from './editor/DogEditorFileInput';
@@ -43,6 +44,7 @@ export default function DogEditorApp(): React$MixedElement {
 		hair,
 		hasCustomEarColor,
 		hats,
+		headSkinImage,
 		skinColor,
 		skinOutlineColor,
 		speechFont,
@@ -132,6 +134,7 @@ export default function DogEditorApp(): React$MixedElement {
 					hair: preset.hair,
 					hasCustomEarColor: preset.earColor != null,
 					hats: preset.hats,
+					headSkinImage: preset.headSkinImage,
 					skinColor: preset.skinColor,
 					skinOutlineColor: preset.skinOutlineColor ?? '#000000',
 				},
@@ -242,6 +245,7 @@ export default function DogEditorApp(): React$MixedElement {
 								expression={previewExpression ?? expression}
 								hats={hatsInPreview}
 								hair={previewHair ?? hair}
+								headSkinImage={headSkinImage}
 								playAnimations={playAnimations}
 								showBody={showBody}
 								skinColor={skinColor}
@@ -339,6 +343,11 @@ export default function DogEditorApp(): React$MixedElement {
 									<DogExpressionSelectModalLauncher
 										onChange={onExpressionChange}
 									/>
+								</div>
+
+								<div className={styles.label}>Head skin:</div>
+								<div className={styles.select}>
+									<DogEditorCustomHeadSkinModalLauncher />
 								</div>
 
 								<div className={styles.fullWidthControl}>
@@ -531,6 +540,7 @@ export default function DogEditorApp(): React$MixedElement {
 									hasCustomEarColor={
 										hasCustomEarColor && earColor !== skinColor
 									}
+									hasHeadSkinImage={headSkinImage != null}
 									hats={hatsInPreview}
 									invertColors={invertColors}
 									skinOutlineColor={skinOutlineColor}
