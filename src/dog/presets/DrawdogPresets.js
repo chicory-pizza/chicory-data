@@ -183,7 +183,7 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	},
 	{
 		clothes: 'Custom Tee',
-		clothesColor: '#cb5587',
+		clothesColor: '#f482ba',
 		customClothesImage: transformImageImport(
 			new URL('./Custom_Tee_Cinnaroll.png', import.meta.url)
 		),
@@ -192,7 +192,7 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		hats: [
 			{
 				name: 'Custom Hat',
-				color: '#b996c2',
+				color: '#ff7f31',
 				customImage: transformImageImport(
 					new URL('./Custom_Hat_Cinnaroll.png', import.meta.url)
 				),
@@ -253,6 +253,19 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		],
 		name: 'Hot Wings',
 		skinColor: '#fff5ed',
+	},
+	{
+		clothes: 'Wielder Cloak',
+		clothesColor: '#eb884f',
+		hair: 'Bob',
+		hats: [
+			{
+				name: 'None',
+				color: '#57bcc0',
+			},
+		],
+		name: 'Ice Cream',
+		skinColor: '#ffdc80',
 	},
 	{
 		clothes: 'College',
@@ -356,6 +369,19 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	},
 	{
 		clothes: 'Kerchief',
+		clothesColor: '#940000',
+		hair: 'Emo',
+		hats: [
+			{
+				name: 'Spike',
+				color: '#c20000',
+			},
+		],
+		skinColor: '#474747',
+		name: 'Pesto',
+	},
+	{
+		clothes: 'Kerchief',
 		clothesColor: '#887ded',
 		hair: 'Topknot',
 		hats: [
@@ -369,16 +395,16 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	},
 	{
 		clothes: 'Princess',
-		clothesColor: '#42bdf5',
+		clothesColor: '#61d5cb',
 		hair: 'Simple',
 		hats: [
 			{
 				name: 'Foxy',
-				color: '#f4aa41',
+				color: '#ff9800',
 			},
 		],
 		name: 'Pizzy',
-		skinColor: '#f4aa41',
+		skinColor: '#ff9600',
 	},
 	{
 		clothes: 'College',
