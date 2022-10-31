@@ -65,7 +65,7 @@ function getServerHeaders(env) {
 		// 'Strict-Transport-Security': 'max-age=31536000', // irrelevant during dev
 		'Cross-Origin-Embedder-Policy': 'require-corp',
 		'Cross-Origin-Opener-Policy': 'same-origin',
-		'Cross-Origin-Resource-Policy': 'same-site',
+		'Cross-Origin-Resource-Policy': 'same-origin',
 		'Permissions-Policy': 'interest-cohort=()',
 
 		'Content-Security-Policy': [
