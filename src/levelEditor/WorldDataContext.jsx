@@ -111,7 +111,7 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 				return state;
 			}
 
-			const newProperties = Object.assign({}, level);
+			const newProperties: {[key: string]: mixed} = {...level};
 			if (action.value !== null) {
 				newProperties[action.key] = action.value;
 			} else {
@@ -167,7 +167,9 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 					return state;
 				}
 
-				const newProperties = Object.assign({}, levelObjects[action.index]);
+				const newProperties: {[key: string]: mixed} = {
+					...levelObjects[action.index],
+				};
 				Object.keys(action.properties).forEach((key) => {
 					const value = action.properties[key];
 
@@ -209,7 +211,9 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 				return state;
 			}
 
-			const newProperties = Object.assign({}, levelDecos[action.index]);
+			const newProperties: {[key: string]: mixed} = {
+				...levelDecos[action.index],
+			};
 			Object.keys(action.properties).forEach((key) => {
 				const value = action.properties[key];
 

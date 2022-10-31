@@ -22,7 +22,6 @@ untyped-type-import=error
 
 [options]
 emoji=true
-enforce_local_inference_annotations=true
 exact_by_default=true
 inference_mode=constrain_writes
 react.runtime=automatic
