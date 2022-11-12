@@ -19,6 +19,7 @@ unnecessary-invariant=error
 unnecessary-optional-chain=error
 unsafe-getters-setters=error
 untyped-type-import=error
+unused-promise-in-async-scope=error
 
 [options]
 emoji=true
