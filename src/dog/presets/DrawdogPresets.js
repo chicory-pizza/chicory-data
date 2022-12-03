@@ -260,7 +260,7 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		hair: 'Bob',
 		hats: [
 			{
-				name: 'None',
+				name: 'Beret',
 				color: '#57bcc0',
 			},
 		],
