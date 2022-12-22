@@ -10,7 +10,6 @@
 
 [lints]
 deprecated-type=error
-deprecated-utility=error
 implicit-inexact-object=error
 nonstrict-import=error
 sketchy-null=error
