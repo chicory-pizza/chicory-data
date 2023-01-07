@@ -349,6 +349,22 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		skinColor: '#ffe8c2',
 	},
 	{
+		clothes: 'Wielder Cloak',
+		clothesColor: '#ff379f',
+		hair: 'Simple',
+		hats: [
+			{
+				name: 'Custom Hat',
+				color: '#524bab',
+				customImage: transformImageImport(
+					new URL('./Custom_Hat_Noodles.png', import.meta.url)
+				),
+			},
+		],
+		name: 'Noodles',
+		skinColor: '#ffffff',
+	},
+	{
 		// myself lol
 		clothes: 'Scarf',
 		clothesColor: '#00f3dd',
