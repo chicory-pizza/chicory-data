@@ -171,7 +171,7 @@ export default function SidebarEntityList<
 
 												return previous;
 											},
-											[]
+											([]: Array<number>)
 										)
 									)
 								)

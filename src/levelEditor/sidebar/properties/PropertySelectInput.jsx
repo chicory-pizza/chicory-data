@@ -3,6 +3,7 @@
 import {memo, useCallback} from 'react';
 
 import CustomSelect from '../../../common/CustomSelect';
+import type {OptionType} from '../../../common/CustomSelect';
 
 type Props = $ReadOnly<{
 	onEditProperty: (key: string, value: string | number) => mixed,
@@ -29,7 +30,7 @@ function PropertySelectInput({
 	});
 
 	const onChange = useCallback(
-		(newValue) => {
+		(newValue: OptionType<string>) => {
 			onEditProperty(propertyKey, newValue.value);
 		},
 		[onEditProperty, propertyKey]

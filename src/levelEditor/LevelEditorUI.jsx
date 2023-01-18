@@ -22,7 +22,11 @@ export default function LevelEditorUI(): React$Node {
 
 	let validLevelId = true;
 	try {
-		convertLevelIdToCoordinates(levelId);
+		if (levelId != null) {
+			convertLevelIdToCoordinates(levelId);
+		} else {
+			validLevelId = false;
+		}
 	} catch (ex) {
 		validLevelId = false;
 	}

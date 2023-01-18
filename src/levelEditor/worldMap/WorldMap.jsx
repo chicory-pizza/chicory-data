@@ -42,7 +42,7 @@ export default function WorldMap(): React$Node {
 
 			previous.push(coordinates);
 			return previous;
-		}, [])
+		}, ([]: Array<[number, number, number]>))
 		.sort((a, b) => {
 			return sortCompareCoordinates(a, b);
 		});

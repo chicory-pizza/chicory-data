@@ -34,7 +34,7 @@ function useBlocker(blocker: (transition: Blocker) => mixed, when: boolean) {
 			return;
 		}
 
-		const unblock = navigator.block((transition) => {
+		const unblock: () => void = navigator.block((transition) => {
 			blocker({
 				...transition,
 				retry() {

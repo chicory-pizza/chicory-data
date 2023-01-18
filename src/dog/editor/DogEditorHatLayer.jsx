@@ -29,7 +29,7 @@ export default function DogEditorHatLayer({
 	totalHatsCount,
 }: Props): React$MixedElement {
 	const onHatInfoChange = useCallback(
-		(name) => {
+		(name: string) => {
 			if (hat.name === name) {
 				return;
 			}
@@ -46,7 +46,7 @@ export default function DogEditorHatLayer({
 	);
 
 	const onPreviewChange = useCallback(
-		(newPreviewName) => {
+		(newPreviewName: ?string) => {
 			if (previewName === newPreviewName) {
 				return;
 			}

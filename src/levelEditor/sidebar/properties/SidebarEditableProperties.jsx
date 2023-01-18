@@ -23,7 +23,7 @@ type Props = $ReadOnly<{
 export default function SidebarEditableProperties(props: Props): React$Node {
 	const propertyKeys = Array.from(
 		new Set(
-			Object.keys(props.properties).concat(
+			(Object.keys(props.properties): $ReadOnlyArray<string>).concat(
 				props.schema.map((type) => {
 					return type.key;
 				})

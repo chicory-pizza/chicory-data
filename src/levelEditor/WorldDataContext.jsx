@@ -10,8 +10,6 @@ import type {LevelType} from './types/LevelType';
 import type {PlaceableType} from './types/PlaceableType';
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 
-const WorldDataContext = createContext();
-
 type WorldType = {[levelId: string]: LevelType};
 
 function getNonNullableLevel(
@@ -326,6 +324,8 @@ type ContextValue = $ReadOnly<{
 type Props = $ReadOnly<{
 	children: React$Node,
 }>;
+
+const WorldDataContext = createContext<?ContextValue>();
 
 export function WorldDataProvider({children}: Props): React$Node {
 	const {

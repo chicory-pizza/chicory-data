@@ -7,11 +7,11 @@ type UndoState<T> = {
 	currentIndex: number,
 };
 
-function canUndo<T>(state: UndoState<T>) {
+function canUndo<T>(state: UndoState<T>): boolean {
 	return state.currentIndex > 0;
 }
 
-function canRedo<T>(state: UndoState<T>) {
+function canRedo<T>(state: UndoState<T>): boolean {
 	return state.currentIndex < state.history.length - 1;
 }
 

@@ -14,10 +14,14 @@ export function useCurrentCoordinates(): [
 
 	const coordinates = useMemo(() => {
 		try {
-			return convertLevelIdToCoordinates(levelId);
+			if (levelId != null) {
+				return convertLevelIdToCoordinates(levelId);
+			}
 		} catch (ex) {
 			return null;
 		}
+
+		return null;
 	}, [levelId]);
 
 	const navigate = useNavigate();

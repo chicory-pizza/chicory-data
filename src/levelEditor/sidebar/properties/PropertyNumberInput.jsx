@@ -15,8 +15,10 @@ export default function PropertyNumberInput({
 	initialValue,
 	step = 1,
 }: Props): React$Node {
-	const [inputValue, setInputValue] = useState(initialValue);
-	const [prevValue, setPrevValue] = useState(null);
+	const [inputValue, setInputValue] = useState<number | string | null>(
+		initialValue
+	);
+	const [prevValue, setPrevValue] = useState<number | string | null>(null);
 
 	if (initialValue !== prevValue) {
 		setInputValue(initialValue);

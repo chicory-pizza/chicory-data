@@ -2,9 +2,11 @@
 
 import {useCallback, useMemo} from 'react';
 
+import type {OptionType} from '../../common/CustomSelect';
 import CustomSelectOptionLabelImage from '../../common/CustomSelectOptionLabelImage';
 import CustomSelectOptionLabelWithImage from '../../common/CustomSelectOptionLabelWithImage';
 import {DOG_HAIR_LIST} from '../types/DogHairList';
+import type {DogHairType} from '../types/DogHairList';
 
 import CustomMenuWithMouseHoverOptions from './CustomMenuWithMouseHoverOptions';
 
@@ -29,7 +31,7 @@ export default function DogHairSelectMenu({
 	}, []);
 
 	const hairListAsKey = useMemo(() => {
-		const list = new Map();
+		const list = new Map<string, DogHairType>();
 
 		DOG_HAIR_LIST.forEach((option) => {
 			list.set(option.internalName, option);
@@ -39,7 +41,7 @@ export default function DogHairSelectMenu({
 	}, []);
 
 	const formatOptionLabel = useCallback(
-		(option) => {
+		(option: OptionType<string>) => {
 			const hair = hairListAsKey.get(option.value);
 
 			if (!hair) {

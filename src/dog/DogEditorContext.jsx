@@ -7,8 +7,6 @@ import useUndoRedoReducer from '../util/useUndoRedoReducer';
 
 import type {ChosenHat} from './drawDogToCanvas';
 
-const DogEditorContext = createContext();
-
 export type DogState = $ReadOnly<{
 	bodyShow: boolean,
 	clothes: string,
@@ -129,6 +127,8 @@ type ContextValue = $ReadOnly<{
 type Props = $ReadOnly<{
 	children: React$Node,
 }>;
+
+const DogEditorContext = createContext<?ContextValue>(null);
 
 export function DogEditorProvider({children}: Props): React$MixedElement {
 	const {

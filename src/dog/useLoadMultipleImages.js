@@ -12,7 +12,7 @@ export default function useLoadMultipleImages(currentSrcs: {
 
 	useEffect(() => {
 		const newLoadedSrcs: {[key: string]: ?string} = {};
-		Object.keys(currentSrcs).forEach((key) => {
+		Object.keys(currentSrcs).forEach((key: string) => {
 			const src = currentSrcs[key];
 			if (src == null) {
 				newLoadedSrcs[key] = null;

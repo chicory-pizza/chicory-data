@@ -3,6 +3,7 @@
 import {memo, useCallback} from 'react';
 
 import CustomSelect from '../../../common/CustomSelect';
+import type {OptionType} from '../../../common/CustomSelect';
 import {DOG_EXPRESSION_LIST} from '../../../dog/types/DogExpressionList';
 
 type Props = $ReadOnly<{
@@ -32,7 +33,7 @@ function PropertyDogExpressionInput({
 	});
 
 	const onChange = useCallback(
-		(newValue) => {
+		(newValue: OptionType<string>) => {
 			onEditProperty(propertyKey, newValue.value);
 		},
 		[onEditProperty, propertyKey]

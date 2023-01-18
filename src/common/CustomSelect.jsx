@@ -24,10 +24,10 @@ type Props<T> = $ReadOnly<{
 	onChange: (newOption: OptionType<T>) => mixed,
 	onMenuClose?: () => void,
 	options:
-		| $ReadOnlyArray<OptionType<T>>
-		| $ReadOnlyArray<{
+		| Array<OptionType<T>>
+		| Array<{
 				label: string,
-				options: $ReadOnlyArray<OptionType<T>>,
+				options: Array<OptionType<T>>,
 		  }>,
 	value: ?OptionType<T>,
 }>;

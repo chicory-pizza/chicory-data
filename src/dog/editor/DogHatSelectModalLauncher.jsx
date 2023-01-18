@@ -5,6 +5,7 @@ import {useMemo, useState} from 'react';
 import {useDogEditorContext} from '../DogEditorContext';
 import DrawdogGridModal from '../grid/DrawdogGridModal';
 import convertDogEditorStateToPreset from '../presets/convertDogEditorStateToPreset';
+import type {DrawdogPreset} from '../presets/DrawdogPresets';
 import {DOG_HAT_LIST} from '../types/DogHatList';
 
 import ModalLauncherButton from './ModalLauncherButton';
@@ -24,7 +25,7 @@ export default function DogHatSelectModalLauncher({
 
 	const presets = useMemo(() => {
 		if (!isModalOpen) {
-			return [];
+			return ([]: $ReadOnlyArray<DrawdogPreset>);
 		}
 
 		return DOG_HAT_LIST.map((hat) => {

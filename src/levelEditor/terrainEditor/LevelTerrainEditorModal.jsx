@@ -10,6 +10,7 @@ import tinycolor from 'tinycolor2';
 import CustomModal from '../../common/CustomModal';
 import MessageBox from '../../common/MessageBox';
 import ColorGrid from '../../palette/ColorGrid';
+import type {Palette} from '../../palette/ColorGrid';
 import getCanvasRenderingContext from '../../util/getCanvasRenderingContext';
 import GeoPreview from '../common/GeoPreview';
 import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
@@ -73,17 +74,19 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 	const [errorMessage, setErrorMessage] = useState<?string>(null);
 
 	// Palettes
-	const palettes = PIXEL_COLORS_EXPLANATIONS.map((explanation) => {
-		return {
-			description: explanation.description,
-			colors: explanation.colors.map((colorIndex) => {
-				const colorObj = tinycolor(PIXEL_COLORS.get(colorIndex));
-				const rgb = colorObj.toRgb();
+	const palettes: $ReadOnlyArray<Palette> = PIXEL_COLORS_EXPLANATIONS.map(
+		(explanation) => {
+			return {
+				description: explanation.description,
+				colors: explanation.colors.map((colorIndex) => {
+					const colorObj = tinycolor(PIXEL_COLORS.get(colorIndex));
+					const rgb = colorObj.toRgb();
 
-				return [rgb.r, rgb.g, rgb.b];
-			}),
-		};
-	});
+					return [rgb.r, rgb.g, rgb.b];
+				}),
+			};
+		}
+	);
 
 	async function openFile() {
 		const blob = await fileOpen({

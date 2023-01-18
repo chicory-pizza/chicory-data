@@ -28,7 +28,7 @@ function WorldMapButton(props: Props): React$Node {
 	const geo = level?.geo;
 	const isCurrent = props.isCurrent;
 
-	const [geoPreview, setGeoPreview] = useState(null);
+	const [geoPreview, setGeoPreview] = useState<?string>(null);
 	const currentBox = useRef<?HTMLButtonElement>(null);
 
 	const sublabel =

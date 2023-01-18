@@ -3,6 +3,7 @@
 import {useCallback, useMemo, useRef} from 'react';
 
 import CustomSelect from '../../common/CustomSelect';
+import type {OptionType} from '../../common/CustomSelect';
 import type {LevelType} from '../types/LevelType';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
@@ -21,7 +22,7 @@ export default function LevelLayerDropdownSelect(props: Props): React$Node {
 	const currentLevelId = props.selectedCoordinates
 		? convertCoordinatesToLevelId(props.selectedCoordinates)
 		: null;
-	const currentSelectOption = useRef();
+	const currentSelectOption = useRef<?OptionType<string>>();
 
 	const levelIds = useMemo(() => {
 		return Object.keys(props.levels).sort((a, b) => {
@@ -33,7 +34,13 @@ export default function LevelLayerDropdownSelect(props: Props): React$Node {
 	}, [props.levels]);
 
 	const layersGrouped = useMemo(() => {
-		const map = new Map();
+		const map = new Map<
+			number,
+			{
+				label: string,
+				options: Array<OptionType<string>>,
+			}
+		>();
 
 		levelIds.forEach((id) => {
 			const coordinates = convertLevelIdToCoordinates(id);
@@ -62,7 +69,7 @@ export default function LevelLayerDropdownSelect(props: Props): React$Node {
 	}, [currentLevelId, levelIds, props.levels]);
 
 	const onOptionChange = useCallback(
-		(newOption) => {
+		(newOption: OptionType<string>) => {
 			onNewCoordinatesSet(convertLevelIdToCoordinates(newOption.value));
 		},
 		[onNewCoordinatesSet]

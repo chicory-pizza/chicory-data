@@ -25,7 +25,7 @@ type Props<EntityType, Data> = $ReadOnly<{
 export default function SidebarEntityAdder<EntityType, Data>(
 	props: Props<EntityType, Data>
 ): React$Node {
-	const [selected, setSelected] = useState(null);
+	const [selected, setSelected] = useState<?OptionType<Data>>(null);
 
 	return (
 		<div className={styles.root}>
@@ -34,7 +34,7 @@ export default function SidebarEntityAdder<EntityType, Data>(
 			<div className={styles.select}>
 				<CustomSelect
 					maxMenuHeight={300}
-					onChange={(newOption) => {
+					onChange={(newOption: OptionType<Data>) => {
 						setSelected(newOption);
 						props.onAddingEntityLabel({
 							type: props.entityType,

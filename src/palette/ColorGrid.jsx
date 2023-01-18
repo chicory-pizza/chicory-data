@@ -6,11 +6,13 @@ import tinycolor from 'tinycolor2';
 
 import styles from './ColorGrid.module.css';
 
+export type Palette = {
+	colors: $ReadOnlyArray<[number, number, number]>,
+	description: string,
+};
+
 type Props = $ReadOnly<{
-	palettes: Array<{
-		description: string,
-		colors: Array<[number, number, number]>,
-	}>,
+	palettes: $ReadOnlyArray<Palette>,
 }>;
 
 export default function ColorGrid(props: Props): React$Node {

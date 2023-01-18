@@ -53,7 +53,7 @@ export default function DrawdogGridModal({
 	}, []);
 
 	const onSelect = useCallback(
-		(preset) => {
+		(preset: DrawdogPreset) => {
 			setDogMouseOver(null);
 			onPresetSelect(preset);
 			onModalRequestClose();
@@ -62,7 +62,7 @@ export default function DrawdogGridModal({
 	);
 
 	const onHoverEnter = useCallback(
-		(preset) => {
+		(preset: DrawdogPreset) => {
 			if (preset.name === dogMouseOver?.name) {
 				// Already set
 				return;
@@ -85,7 +85,7 @@ export default function DrawdogGridModal({
 	);
 
 	const onHoverLeave = useCallback(
-		(preset) => {
+		(preset: DrawdogPreset) => {
 			if (preset.name === dogMouseOver?.name) {
 				setDogMouseOver(null);
 			}

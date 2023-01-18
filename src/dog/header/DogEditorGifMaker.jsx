@@ -12,7 +12,7 @@ export default function DogEditorGifMaker(): React$MixedElement {
 	const {dogState} = useDogEditorContext();
 
 	const [saving, setSaving] = useState(false);
-	const gifRef = useRef();
+	const gifRef = useRef<?GIF>();
 	const [animationIndex, setAnimationIndex] = useState(0);
 
 	const animation = 'idle'; // only this for now
@@ -55,7 +55,7 @@ export default function DogEditorGifMaker(): React$MixedElement {
 			if (animationIndex < animationInfo.headAnim.length - 1) {
 				setAnimationIndex(animationIndex + 1);
 			} else {
-				gif.once('finished', (blob) => {
+				gif.once('finished', (blob: Blob) => {
 					window.open(URL.createObjectURL(blob));
 
 					setSaving(false);

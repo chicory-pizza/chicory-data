@@ -14,7 +14,7 @@ export default function PropertyTextInput({
 	initialValue,
 }: Props): React$Node {
 	const [inputValue, setInputValue] = useState(initialValue);
-	const [prevValue, setPrevValue] = useState(null);
+	const [prevValue, setPrevValue] = useState<?string>(null);
 
 	if (initialValue !== prevValue) {
 		setInputValue(initialValue);

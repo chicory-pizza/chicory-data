@@ -23,7 +23,7 @@ function CustomMenuWithMouseHoverOptions({
 	value,
 }: Props): React$MixedElement {
 	const onOptionChange = useCallback(
-		(newValue) => {
+		(newValue: OptionType<string>) => {
 			onChange(newValue.value);
 		},
 		[onChange]

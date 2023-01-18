@@ -30,16 +30,19 @@ type Props = $ReadOnly<{
 }>;
 
 function SidebarObjectList(props: Props): React$MixedElement {
-	const getEntityName = useCallback((entity, filterText) => {
-		const objName = entity.obj;
-		if (!filterText.startsWith('obj')) {
-			return getGameObjectSimpleName(objName);
-		}
+	const getEntityName = useCallback(
+		(entity: GameObjectType, filterText: string) => {
+			const objName = entity.obj;
+			if (!filterText.startsWith('obj')) {
+				return getGameObjectSimpleName(objName);
+			}
 
-		return objName;
-	}, []);
+			return objName;
+		},
+		[]
+	);
 
-	const renderItemDisplayText = useCallback((entity) => {
+	const renderItemDisplayText = useCallback((entity: GameObjectType) => {
 		return <SidebarObjectText obj={entity} />;
 	}, []);
 

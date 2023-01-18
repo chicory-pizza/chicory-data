@@ -62,7 +62,7 @@ function PropertyPaletteInput({
 	});
 
 	const onChange = useCallback(
-		(newValue) => {
+		(newValue: OptionType<string>) => {
 			onEditProperty(propertyKey, newValue.value);
 		},
 		[onEditProperty, propertyKey]

@@ -12,7 +12,7 @@ test('deletes the level if confirmed', async () => {
 
 	await screen.findByText('Delete level');
 
-	window.confirm = jest.fn().mockReturnValue(true);
+	window.confirm = jest.fn(() => true);
 
 	await userEvent.click(screen.getByText('Delete level'));
 
@@ -25,7 +25,7 @@ test('does not delete the level if cancelled', async () => {
 
 	await screen.findByText('Delete level');
 
-	window.confirm = jest.fn().mockReturnValue(false);
+	window.confirm = jest.fn(() => false);
 
 	await userEvent.click(screen.getByText('Delete level'));
 

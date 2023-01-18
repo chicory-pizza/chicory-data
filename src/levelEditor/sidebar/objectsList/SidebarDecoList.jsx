@@ -28,11 +28,14 @@ type Props = $ReadOnly<{
 }>;
 
 function SidebarObjectList(props: Props): React$MixedElement {
-	const getEntityName = useCallback((entity, filterText) => {
-		return entity.spr;
-	}, []);
+	const getEntityName = useCallback(
+		(entity: DecorationType, filterText: string) => {
+			return entity.spr;
+		},
+		[]
+	);
 
-	const renderItemDisplayText = useCallback((entity) => {
+	const renderItemDisplayText = useCallback((entity: DecorationType) => {
 		return entity.spr;
 	}, []);
 
