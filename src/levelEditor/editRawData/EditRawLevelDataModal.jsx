@@ -50,6 +50,8 @@ export default function EditRawLevelDataModal(props: Props): React$Node {
 			level,
 		});
 
+		setPrevLevel(level);
+
 		props.onModalRequestClose();
 	}
 
