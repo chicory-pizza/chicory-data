@@ -5,7 +5,6 @@ import {useState} from 'react';
 import CustomModal from '../../common/CustomModal';
 import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
 import type {LevelType} from '../types/LevelType';
-import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 import getLevelLabel from '../util/getLevelLabel';
 import {useWorldDataNonNullable} from '../WorldDataContext';
 
@@ -18,23 +17,19 @@ type Props = $ReadOnly<{
 }>;
 
 export default function EditRawLevelDataModal(props: Props): React$Node {
-	const {worldData, dispatch} = useWorldDataNonNullable();
+	const {dispatch} = useWorldDataNonNullable();
 	const [currentCoordinates] = useCurrentCoordinatesNonNullable();
-	const [prevCoordinates, setPrevCoordinates] = useState(currentCoordinates);
+	const [prevLevel, setPrevLevel] = useState(props.level);
 
 	const [draftText, setDraftText] = useState(getLatestDataText());
 
-	if (currentCoordinates !== prevCoordinates && props.isOpen) {
+	if (props.isOpen && props.level !== prevLevel) {
 		setDraftText(getLatestDataText());
-		setPrevCoordinates(currentCoordinates);
+		setPrevLevel(props.level);
 	}
 
 	function getLatestDataText() {
-		return JSON.stringify(
-			worldData[convertCoordinatesToLevelId(currentCoordinates)],
-			null,
-			2
-		);
+		return JSON.stringify(props.level, null, 2);
 	}
 
 	function onFormSubmit(ev: SyntheticEvent<HTMLFormElement>) {
