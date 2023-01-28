@@ -18,6 +18,7 @@ type Props = $ReadOnly<{
 	onEditProperty: (key: string, value: string | number | null) => mixed,
 	properties: {...},
 	schema: Array<EditablePropertiesType>,
+	testIdPrefix?: string,
 }>;
 
 export default function SidebarEditableProperties(props: Props): React$Node {
@@ -112,6 +113,11 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 							onCommitValue={(newValue: string) => {
 								props.onEditProperty(propertyKey, newValue);
 							}}
+							testId={
+								props.testIdPrefix != null
+									? props.testIdPrefix + '-' + propertyKey
+									: null
+							}
 						/>
 					);
 				}

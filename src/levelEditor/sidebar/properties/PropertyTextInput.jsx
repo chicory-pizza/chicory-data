@@ -5,13 +5,15 @@ import {useState} from 'react';
 import styles from './PropertyTextInput.module.css';
 
 type Props = $ReadOnly<{
-	onCommitValue: (newValue: string) => mixed,
 	initialValue: string,
+	onCommitValue: (newValue: string) => mixed,
+	testId?: ?string,
 }>;
 
 export default function PropertyTextInput({
-	onCommitValue,
 	initialValue,
+	onCommitValue,
+	testId,
 }: Props): React$Node {
 	const [inputValue, setInputValue] = useState(initialValue);
 	const [prevValue, setPrevValue] = useState<?string>(null);
@@ -24,6 +26,7 @@ export default function PropertyTextInput({
 	return (
 		<input
 			className={styles.input}
+			data-testid={testId}
 			onBlur={() => {
 				onCommitValue(inputValue);
 			}}

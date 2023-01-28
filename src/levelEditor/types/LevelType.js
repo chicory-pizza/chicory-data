@@ -2,7 +2,6 @@
 
 import type {DecorationType} from './DecorationType';
 import type {GameObjectType} from './GameObjectType';
-import type {LevelNameType} from './LevelNameType';
 import type {LevelTitleType} from './LevelTitleType';
 
 /*
@@ -48,7 +47,7 @@ export type LevelType = {
 	foley: string,
 	geo: string,
 	music: string,
-	name: LevelNameType,
+	name: string,
 	object_id: string | number,
 	objects?: Array<GameObjectType>,
 	palette: string,

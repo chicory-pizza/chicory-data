@@ -4,6 +4,7 @@ import {memo, useCallback, useState} from 'react';
 
 import {useCurrentCoordinatesNonNullable} from '../../CurrentCoordinatesContext';
 import DuplicateLevelModal from '../../duplicateLevel/DuplicateLevelModal';
+import EditRawLevelDataModal from '../../editRawData/EditRawLevelDataModal';
 import LevelTerrainEditorModal from '../../terrainEditor/LevelTerrainEditorModal';
 import {LEVEL_EDITABLE_PROPERTIES_SCHEMA} from '../../types/LevelEditablePropertiesSchema';
 import type {LevelType} from '../../types/LevelType';
@@ -28,6 +29,7 @@ function SidebarLevelProperties(props: Props): React$Node {
 		useState(false);
 	const [isDuplicateLevelModalOpen, setIsDuplicateLevelModalOpen] =
 		useState(false);
+	const [isEditRawDataModalOpen, setIsEditRawDataModalOpen] = useState(false);
 
 	const onEditProperty = useCallback(
 		(key: string, value: string | number | null) => {
@@ -93,6 +95,7 @@ function SidebarLevelProperties(props: Props): React$Node {
 					onEditProperty={onEditProperty}
 					properties={props.level}
 					schema={LEVEL_EDITABLE_PROPERTIES_SCHEMA}
+					testIdPrefix="sidebarlevelproperties"
 				/>
 
 				<button
@@ -109,6 +112,14 @@ function SidebarLevelProperties(props: Props): React$Node {
 					type="button"
 				>
 					Duplicate level
+				</button>
+
+				<button
+					className={styles.actionButton}
+					onClick={() => setIsEditRawDataModalOpen(true)}
+					type="button"
+				>
+					Edit raw data
 				</button>
 
 				<button
@@ -138,6 +149,12 @@ function SidebarLevelProperties(props: Props): React$Node {
 				isOpen={isDuplicateLevelModalOpen}
 				level={props.level}
 				onModalRequestClose={() => setIsDuplicateLevelModalOpen(false)}
+			/>
+
+			<EditRawLevelDataModal
+				isOpen={isEditRawDataModalOpen}
+				level={props.level}
+				onModalRequestClose={() => setIsEditRawDataModalOpen(false)}
 			/>
 		</details>
 	);
