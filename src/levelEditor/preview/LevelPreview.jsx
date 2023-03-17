@@ -22,8 +22,10 @@ type Props = $ReadOnly<{
 	addingEntityLabel: ?PlaceableType,
 	currentCoordinates: [number, number, number],
 	level: LevelType,
+	geoPaintBuffer: ?Uint8Array,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
+	paintBufferUpdate: ?number,
 	onMapMouseClick: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseLeave: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
@@ -151,6 +153,8 @@ export default function LevelPreview(props: Props): React$Node {
 						mapMouseMoveCoordinates={null}
 						scale={SCREEN_WIDTH / GEO_WIDTH}
 						useDevicePixelRatio={true}
+						geoPaintBuffer={props.geoPaintBuffer}
+						paintBufferUpdate={props.paintBufferUpdate}
 					/>
 				</div>
 			) : null}

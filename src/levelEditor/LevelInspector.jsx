@@ -1,5 +1,7 @@
 // @flow strict
 
+import {encode} from 'base64-arraybuffer';
+import {deflate} from 'pako';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
@@ -13,6 +15,9 @@ import type {GameEntityType} from './types/GameEntityType';
 import type {LevelInspectorUiView} from './types/LevelInspectorUiView';
 import type {LevelType} from './types/LevelType';
 import type {PlaceableType} from './types/PlaceableType';
+import type {EditorToolType} from '/types/EditorToolType';
+import decodeGeoString from './util/decodeGeoString';
+import paintBresenham from './util/paintGeo';
 import {useWorldDataNonNullable} from './WorldDataContext';
 
 type Props = $ReadOnly<{
@@ -27,6 +32,7 @@ export default function LevelInspector({
 	const {dispatch} = useWorldDataNonNullable();
 
 	const previousLevelRef = useRef<?LevelType>(null);
+	const [isPainting, setIsPainting] = useState(false);
 
 	useEffect(() => {
 		if (level !== previousLevelRef.current) {
@@ -39,6 +45,12 @@ export default function LevelInspector({
 	const [activeUiViews, setActiveUiViews] = useState<
 		Array<LevelInspectorUiView>
 	>(['GEO', 'OBJECT']);
+
+	const [geoPaintBuffer, setGeoPaintBuffer] = useState<Uint8Array>(
+		new Uint8Array([])
+	);
+	const [paintBufferUpdate, setPaintBufferUpdate] = useState(0);
+	const prevCoordinates = useRef<?[number, number]>(null);
 
 	// Sidebar
 	const [addingEntityLabel, setAddingEntityLabel] =
@@ -83,23 +95,97 @@ export default function LevelInspector({
 		}
 	}
 
-	const onMapMouseLeave = useCallback(
-		(ev: SyntheticMouseEvent<>) => {
-			setMapMouseMoveCoordinates(null);
+	function onMapMouseDown(ev: SyntheticMouseEvent<HTMLDivElement>) {
+		if (mapMouseMoveCoordinates == null) {
+			return;
+		}
+
+		setIsPainting(true);
+		paint(mapMouseMoveCoordinates);
+	}
+
+	function onMapMouseUp(ev: SyntheticMouseEvent<HTMLDivElement>) {
+		onPaintDone(ev);
+	}
+
+	const paint = useCallback(
+		(mouseCoords: [number, number]) => {
+			const geoCopy = paintBresenham(
+				6,
+				geoPaintBuffer,
+				mouseCoords,
+				prevCoordinates.current,
+				1
+			);
+
+			if (geoCopy) {
+				setGeoPaintBuffer(geoCopy);
+				setPaintBufferUpdate(paintBufferUpdate + 1);
+			}
+
+			prevCoordinates.current = mouseCoords;
 		},
-		[setMapMouseMoveCoordinates]
+		[geoPaintBuffer, paintBufferUpdate]
+	);
+
+	function onPaintDone(ev: SyntheticMouseEvent<HTMLDivElement>) {
+		if (isPainting) {
+			setIsPainting(false);
+			prevCoordinates.current = null;
+
+			const currGeo = decodeGeoString(level.geo);
+			geoPaintBuffer.forEach((pixel, index) => {
+				currGeo[index] = pixel;
+			});
+
+			dispatch({
+				type: 'setLevelProperty',
+				coordinates: currentCoordinates,
+				key: 'geo',
+				// $FlowFixMe[incompatible-call]
+				value: encode(deflate(currGeo)),
+			});
+
+			setGeoPaintBuffer([]);
+			setPaintBufferUpdate(paintBufferUpdate + 1);
+		}
+	}
+
+	const onMapMouseLeave = useCallback(
+		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
+			if (isPainting) {
+				const rect = ev.currentTarget.getBoundingClientRect();
+
+				const mouseMapCoords = [
+					parseInt(ev.clientX - rect.left, 10),
+					parseInt(ev.clientY - rect.top, 10),
+				];
+
+				paint(mouseMapCoords);
+			}
+
+			setMapMouseMoveCoordinates(null);
+			prevCoordinates.current = null;
+		},
+		[setMapMouseMoveCoordinates, isPainting, paint]
 	);
 
 	const onMapMouseMove = useCallback(
 		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
 			const rect = ev.currentTarget.getBoundingClientRect();
 
-			setMapMouseMoveCoordinates([
+			const mouseMapCoords = [
 				parseInt(ev.clientX - rect.left, 10),
 				parseInt(ev.clientY - rect.top, 10),
-			]);
+			];
+
+			setMapMouseMoveCoordinates(mouseMapCoords);
+
+			if (isPainting) {
+				paint(mouseMapCoords);
+			}
 		},
-		[setMapMouseMoveCoordinates]
+		[setMapMouseMoveCoordinates, isPainting, paint]
 	);
 
 	const onEntityClick = useCallback(
@@ -211,7 +297,12 @@ export default function LevelInspector({
 	}, []);
 
 	return (
-		<div className={styles.root}>
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+		<div
+			className={styles.root}
+			onMouseDown={onMapMouseDown}
+			onMouseUp={onMapMouseUp}
+		>
 			<div className={styles.preview}>
 				<ErrorBoundary>
 					<LevelPreview
@@ -219,6 +310,8 @@ export default function LevelInspector({
 						addingEntityLabel={addingEntityLabel}
 						currentCoordinates={currentCoordinates}
 						level={level}
+						geoPaintBuffer={geoPaintBuffer}
+						paintBufferUpdate={paintBufferUpdate}
 						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 						objectIndexHover={objectIndexHover}
 						onMapMouseClick={onMapMouseClick}

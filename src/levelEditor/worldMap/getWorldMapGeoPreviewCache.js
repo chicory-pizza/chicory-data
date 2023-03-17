@@ -26,6 +26,7 @@ export default function getWorldMapGeoPreviewCache(geo: string): string {
 		ctx,
 		geo: decodedGeo,
 		scale: dpr,
+		geoPaintBuffer: null,
 	});
 
 	const url = canvas.toDataURL();
