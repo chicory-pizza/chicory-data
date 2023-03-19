@@ -18,7 +18,7 @@ import type {LevelInspectorUiView} from './types/LevelInspectorUiView';
 import type {LevelType} from './types/LevelType';
 import type {PlaceableType} from './types/PlaceableType';
 import decodeGeoString from './util/decodeGeoString';
-import {paintBresenham, floodFill} from './util/paintGeo';
+import {paintBresenham, floodFill, pickColor} from './util/paintGeo';
 import {useWorldDataNonNullable} from './WorldDataContext';
 
 type Props = $ReadOnly<{
@@ -110,6 +110,8 @@ export default function LevelInspector({
 				paint(mapMouseMoveCoordinates);
 			} else if (editorToolType === 'Fill') {
 				doFloodFill(mapMouseMoveCoordinates);
+			} else if (editorToolType === 'Eyedropper') {
+				doEyedropper(mapMouseMoveCoordinates);
 			}
 		},
 		[mapMouseMoveCoordinates, editorToolType, paintBufferUpdate]
@@ -142,20 +144,25 @@ export default function LevelInspector({
 	);
 
 	function doFloodFill(mouseCoords: [number, number]) {
-		const currGeo = floodFill(
+		const newGeo = floodFill(
 			paintColor,
 			decodeGeoString(level.geo),
 			mouseCoords
 		);
-		console.log(currGeo);
 		dispatch({
 			type: 'setLevelProperty',
 			coordinates: currentCoordinates,
 			key: 'geo',
 			// $FlowFixMe[incompatible-call]
-			value: encode(deflate(currGeo)),
+			value: encode(deflate(newGeo)),
 		});
 		setPaintBufferUpdate(paintBufferUpdate + 1);
+	}
+
+	function doEyedropper(mouseCoords: [number, number]) {
+		const currGeo = decodeGeoString(level.geo);
+		const pickedColor = pickColor(currGeo, mouseCoords);
+		setPaintColor(pickedColor);
 	}
 
 	const onEditorToolTypeUpdate = useCallback(

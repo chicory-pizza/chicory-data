@@ -214,3 +214,15 @@ export function floodFill(
 
 	return decodedGeo;
 }
+
+export function pickColor(
+	decodedGeo: Uint8Array,
+	mapMouseCoords: ?[number, number]
+): number {
+	const geoCoords = mouseCoordsToGeoCoords(mapMouseCoords);
+	if (isOutOfGeoBounds(geoCoords)) {
+		return 0;
+	}
+	const index = coordsToIndex(geoCoords);
+	return decodedGeo[index];
+}
