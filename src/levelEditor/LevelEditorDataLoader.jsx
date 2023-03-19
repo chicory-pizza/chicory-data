@@ -30,16 +30,21 @@ export default function LevelEditorDataLoader(props: Props): React$Node {
 	useEffect(() => {
 		if (worldData == null) {
 			// $FlowFixMe[untyped-import]
-			import('./level_data.json').then((initialWorldData) => {
-				dispatch({
-					type: 'setWorldData',
-					worldData: initialWorldData.default,
-				});
+			import('./level_data.json')
+				.then((initialWorldData) => {
+					dispatch({
+						type: 'setWorldData',
+						worldData: initialWorldData.default,
+					});
 
-				dispatch({
-					type: 'clearUndoHistory',
+					dispatch({
+						type: 'clearUndoHistory',
+					});
+				})
+				.catch((ex) => {
+					console.error(ex);
+					alert('There was a problem loading the original level data.');
 				});
-			});
 		}
 	}, [dispatch, worldData]);
 

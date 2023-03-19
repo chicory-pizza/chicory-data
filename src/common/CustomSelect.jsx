@@ -25,9 +25,14 @@ type Props<T> = $ReadOnly<{
 	onMenuClose?: () => void,
 	options:
 		| Array<OptionType<T>>
+		| $ReadOnlyArray<OptionType<T>>
 		| Array<{
 				label: string,
 				options: Array<OptionType<T>>,
+		  }>
+		| $ReadOnlyArray<{
+				label: string,
+				options: $ReadOnlyArray<OptionType<T>>,
 		  }>,
 	value: ?OptionType<T>,
 }>;

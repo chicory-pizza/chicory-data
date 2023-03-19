@@ -169,7 +169,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 			}
 		};
 		img.onerror = () => {
-			setErrorMessage('There was a problem loading the image');
+			setErrorMessage('There was a problem loading the image.');
 		};
 		img.src = URL.createObjectURL(blob);
 	}
@@ -191,6 +191,11 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 				fileName: `Level Geometry (${currentCoordinates[0]}_${currentCoordinates[1]}_${currentCoordinates[2]})`,
 				extensions: ['.png'],
 				description: 'PNG image',
+			}).catch((ex) => {
+				if (ex.name !== 'AbortError') {
+					console.error(ex);
+					alert('There was a problem saving the level terrain image.');
+				}
 			});
 		});
 	}

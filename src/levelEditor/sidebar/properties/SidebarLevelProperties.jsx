@@ -43,7 +43,7 @@ function SidebarLevelProperties(props: Props): React$Node {
 		[currentCoordinates, dispatch]
 	);
 
-	function onRestoreGameDefaultButtonClick() {
+	async function onRestoreGameDefaultButtonClick() {
 		if (
 			!window.confirm(
 				`Are you sure you want to restore level ${currentCoordinates.join(
@@ -54,8 +54,10 @@ function SidebarLevelProperties(props: Props): React$Node {
 			return;
 		}
 
-		// $FlowFixMe[untyped-import]
-		import('../../level_data.json').then((initialWorldData) => {
+		try {
+			// $FlowFixMe[untyped-import]
+			const initialWorldData = await import('../../level_data.json');
+
 			dispatch({
 				type: 'setRawLevel',
 				coordinates: currentCoordinates,
@@ -64,7 +66,10 @@ function SidebarLevelProperties(props: Props): React$Node {
 						convertCoordinatesToLevelId(currentCoordinates)
 					],
 			});
-		});
+		} catch (ex) {
+			console.error(ex);
+			alert('There was a problem loading the original level data.');
+		}
 	}
 
 	function onDeleteLevelButtonClick() {
