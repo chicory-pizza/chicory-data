@@ -12,7 +12,7 @@ Note that this tool directly exposes game internals and doesn't hide anything, i
 
 Requirements:
 
-- [Node v16+](https://nodejs.org)
+- [Node v18+](https://nodejs.org)
 
 Steps:
 
