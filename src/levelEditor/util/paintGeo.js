@@ -147,7 +147,10 @@ function coordsToIndex(coords: [number, number]) {
 	return coords[0] + coords[1] * GEO_WIDTH;
 }
 
-function mouseCoordsToGeoCoords(mouseCoords: [number, number]) {
+function mouseCoordsToGeoCoords(mouseCoords: ?[number, number]) {
+	if (mouseCoords == null) {
+		return [0, 0];
+	}
 	const factor = SCREEN_WIDTH / GEO_WIDTH;
 
 	const x = Math.max(

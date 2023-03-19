@@ -17,6 +17,8 @@ type Props = $ReadOnly<{
 	editorToolType: EditorToolType,
 	onSelectPaintColor: (paintColor: number) => mixed,
 	currentPaintColor: number,
+	brushSize: number,
+	onBrushSizeUpdate: (brushSize: number) => mixed,
 }>;
 
 export default function LevelToolbar(props: Props): React$Node {
@@ -65,8 +67,16 @@ export default function LevelToolbar(props: Props): React$Node {
 				</div>
 			</div>
 			<div>
-				Brush Size:
-				<input type="range" min="1" max="20" />
+				Brush Size: <label>{props.brushSize}</label>
+				<input
+					type="range"
+					min="1"
+					max="20"
+					value={props.brushSize}
+					onChange={(e) => {
+						props.onBrushSizeUpdate(e.target.value);
+					}}
+				/>
 			</div>
 			Palette Selection:
 			{PIXEL_COLORS_EXPLANATIONS.map((color, _) => {

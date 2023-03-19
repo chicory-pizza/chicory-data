@@ -55,6 +55,7 @@ export default function LevelInspector({
 	const [editorToolType, setEditorToolType] =
 		useState<EditorToolType>('Select');
 	const [paintColor, setPaintColor] = useState<number>(0);
+	const [brushSize, setBrushSize] = useState<number>(1);
 
 	// Sidebar
 	const [addingEntityLabel, setAddingEntityLabel] =
@@ -130,7 +131,7 @@ export default function LevelInspector({
 				geoPaintBuffer,
 				mouseCoords,
 				prevCoordinates.current,
-				1
+				brushSize
 			);
 
 			if (geoCopy) {
@@ -140,7 +141,7 @@ export default function LevelInspector({
 
 			prevCoordinates.current = mouseCoords;
 		},
-		[geoPaintBuffer, paintBufferUpdate, paintColor]
+		[geoPaintBuffer, paintBufferUpdate, paintColor, brushSize]
 	);
 
 	function doFloodFill(mouseCoords: [number, number]) {
@@ -177,6 +178,13 @@ export default function LevelInspector({
 			setPaintColor(newPaintColor);
 		},
 		[setPaintColor]
+	);
+
+	const onBrushSizeUpdate = useCallback(
+		(newBrushSize: number) => {
+			setBrushSize(newBrushSize);
+		},
+		[setBrushSize]
 	);
 
 	function onPaintDone(ev: SyntheticMouseEvent<HTMLDivElement>) {
@@ -384,6 +392,8 @@ export default function LevelInspector({
 							editorToolType={editorToolType}
 							currentPaintColor={paintColor}
 							onSelectPaintColor={onSelectPaintColor}
+							brushSize={brushSize}
+							onBrushSizeUpdate={onBrushSizeUpdate}
 						/>
 					</ErrorBoundary>
 				</div>
