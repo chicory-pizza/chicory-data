@@ -106,7 +106,7 @@ export default function LevelInspector({
 				return;
 			}
 
-			if (editorToolType === 'Paint') {
+			if (editorToolType === 'Brush') {
 				setIsPainting(true);
 				paint(mapMouseMoveCoordinates);
 			} else if (editorToolType === 'Fill') {
@@ -119,7 +119,7 @@ export default function LevelInspector({
 	);
 
 	function onMapMouseUp(ev: SyntheticMouseEvent<HTMLDivElement>) {
-		if (editorToolType === 'Paint') {
+		if (editorToolType === 'Brush') {
 			onPaintDone(ev);
 		}
 	}
@@ -212,7 +212,7 @@ export default function LevelInspector({
 
 	const onMapMouseLeave = useCallback(
 		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
-			if (editorToolType === 'Paint' && isPainting) {
+			if (editorToolType === 'Brush' && isPainting) {
 				const rect = ev.currentTarget.getBoundingClientRect();
 
 				const mouseMapCoords = [
@@ -348,6 +348,9 @@ export default function LevelInspector({
 	const onActiveUiViewToggle = useCallback((uiView: LevelInspectorUiView) => {
 		setActiveUiViews((activeUiViews) => {
 			if (activeUiViews.includes(uiView)) {
+				if (uiView === 'GEO') {
+					setEditorToolType('Select');
+				}
 				return activeUiViews.filter((index) => index !== uiView);
 			}
 

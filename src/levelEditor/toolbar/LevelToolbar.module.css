@@ -21,6 +21,7 @@
 	width: 5em;
 	height: 5em;
 	margin-bottom: 0.5em;
+	border: 1px solid #000;
 }
 .colorContainer {
 	display: flex;
@@ -37,8 +38,7 @@
 }
 
 .colorBox {
-	border-right: 1px solid #000;
-	border-top: 1px solid #000;
+	border: 1px solid #000;
 	width: 30px;
 	height: 20px;
 	padding-left: 25px;

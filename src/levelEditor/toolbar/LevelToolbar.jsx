@@ -22,17 +22,7 @@ type Props = $ReadOnly<{
 }>;
 
 export default function LevelToolbar(props: Props): React$Node {
-	const toolTypes = ['Select', 'Paint', 'Fill', 'Eyedropper'];
-
-	useEffect(() => {
-		// Double guard to prevent user from painting when terrain view is not visible becaue why not
-		props.onEditorToolTypeUpdate('Select');
-
-		return () => {
-			props.onEditorToolTypeUpdate('Select');
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	const toolTypes = ['Select', 'Brush', 'Fill', 'Eyedropper'];
 
 	const [colorDescription, setColorDescription] =
 		useState<?ToolbarColorItem>(null);

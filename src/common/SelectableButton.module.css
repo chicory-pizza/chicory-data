@@ -2,5 +2,5 @@
 	background-color: auto;
 }
 .selected {
-	background-color: #6c89df;
+	background-color: var(--luncheon-purple);
 }
