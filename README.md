@@ -4,30 +4,13 @@
 
 Modding tools for Chicory: A Colorful Tale, such as level viewer and editor.
 
+[Check out the website live at https://data.chicory.pizza](https://data.chicory.pizza)
+
 Note that this tool directly exposes game internals and doesn't hide anything, it's recommended to complete the game (ideally to 100% completion) if you don't want to be spoiled.
 
 ## Development
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/chicory-pizza/chicory-data)
-
-Requirements:
-
-- [Node v18+](https://nodejs.org)
-
-Steps:
-
-1. git clone
-2. npm install
-3. npm start
-
-This should open the web app at http://localhost:3000
-
-### Extra notes
-
-This project used to be bootstrapped with [Create React App](https://create-react-app.dev/docs/getting-started/) but it's now migrated to [Vite](https://vitejs.dev), because of this, there are a few quirks that is normally not seen on other Vite projects:
-
-- [Jest](https://jestjs.io) is used instead of [Vitest](https://vitest.dev) as [canvas in jsdom](https://github.com/vitest-dev/vitest/issues/740) doesn't work on Vitest
-- `babel.config.js` is only used by Jest
+Check out CONTRIBUTING.md for the full guide!
 
 ## License
 
