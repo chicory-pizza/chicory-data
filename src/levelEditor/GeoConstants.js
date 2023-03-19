@@ -69,3 +69,23 @@ export const PIXEL_COLORS_EXPLANATIONS = [
 		colors: [255, 254, 253, 252, 251, 250, 249, 248, 247, 246, 244, 243, 242],
 	},
 ];
+
+export type ToolbarColorItem = {
+	description: string,
+};
+// For use of displaying in toolbar
+const TOOLBAR_COLOR_LOOKUP: Map<number, ToolbarColorItem> = new Map();
+for (const colorItem of PIXEL_COLORS_EXPLANATIONS) {
+	colorItem.colors.forEach((color, arrayIndex) => {
+		let description = colorItem.description;
+		if (description === 'Higher ground layers') {
+			description = 'Height ' + arrayIndex;
+		}
+
+		TOOLBAR_COLOR_LOOKUP.set(color, {
+			description: description,
+		});
+	});
+}
+
+export {TOOLBAR_COLOR_LOOKUP};

@@ -11,8 +11,13 @@
 	grid-area: toolbar;
 }
 
+.tools {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 0.5em;
+}
+
 .colorDisplay {
-	background-color: red;
 	width: 5em;
 	height: 5em;
 	margin-bottom: 0.5em;
@@ -21,5 +26,21 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 1em;
+	padding: 0.5em;
+}
+
+.colorSelect {
+	text-align: left;
+	padding-left: 5px;
+	padding-right: 5px;
+	white-space: nowrap;
+}
+
+.colorBox {
+	border-right: 1px solid #000;
+	border-top: 1px solid #000;
+	width: 30px;
+	height: 20px;
+	padding-left: 25px;
+	margin-right: 0.5em;
 }

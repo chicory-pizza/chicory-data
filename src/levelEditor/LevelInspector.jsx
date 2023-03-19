@@ -47,12 +47,14 @@ export default function LevelInspector({
 		Array<LevelInspectorUiView>
 	>(['GEO', 'OBJECT']);
 
+	// Toolbar
 	const [geoPaintBuffer, setGeoPaintBuffer] = useState<Array<number>>([]);
 	const [paintBufferUpdate, setPaintBufferUpdate] = useState(0);
 	const prevCoordinates = useRef<?[number, number]>(null);
 
 	const [editorToolType, setEditorToolType] =
 		useState<EditorToolType>('Select');
+	const [paintColor, setPaintColor] = useState<number>(0);
 
 	// Sidebar
 	const [addingEntityLabel, setAddingEntityLabel] =
@@ -122,7 +124,7 @@ export default function LevelInspector({
 	const paint = useCallback(
 		(mouseCoords: [number, number]) => {
 			const geoCopy = paintBresenham(
-				6,
+				paintColor,
 				geoPaintBuffer,
 				mouseCoords,
 				prevCoordinates.current,
@@ -136,11 +138,15 @@ export default function LevelInspector({
 
 			prevCoordinates.current = mouseCoords;
 		},
-		[geoPaintBuffer, paintBufferUpdate]
+		[geoPaintBuffer, paintBufferUpdate, paintColor]
 	);
 
 	function doFloodFill(mouseCoords: [number, number]) {
-		const currGeo = floodFill(6, decodeGeoString(level.geo), mouseCoords);
+		const currGeo = floodFill(
+			paintColor,
+			decodeGeoString(level.geo),
+			mouseCoords
+		);
 		console.log(currGeo);
 		dispatch({
 			type: 'setLevelProperty',
@@ -157,6 +163,13 @@ export default function LevelInspector({
 			setEditorToolType(toolType);
 		},
 		[setEditorToolType]
+	);
+
+	const onSelectPaintColor = useCallback(
+		(newPaintColor: number) => {
+			setPaintColor(newPaintColor);
+		},
+		[setPaintColor]
 	);
 
 	function onPaintDone(ev: SyntheticMouseEvent<HTMLDivElement>) {
@@ -362,6 +375,8 @@ export default function LevelInspector({
 						<LevelToolbar
 							onEditorToolTypeUpdate={onEditorToolTypeUpdate}
 							editorToolType={editorToolType}
+							currentPaintColor={paintColor}
+							onSelectPaintColor={onSelectPaintColor}
 						/>
 					</ErrorBoundary>
 				</div>
