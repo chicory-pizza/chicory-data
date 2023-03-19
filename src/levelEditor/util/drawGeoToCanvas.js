@@ -13,7 +13,7 @@ export default function drawGeoToCanvas({
 	ctx: CanvasRenderingContext2D,
 	geo: Uint8Array,
 	scale: number,
-	geoPaintBuffer: ?Uint8Array,
+	geoPaintBuffer: ?Array<number>,
 }) {
 	ctx.scale(scale, scale);
 

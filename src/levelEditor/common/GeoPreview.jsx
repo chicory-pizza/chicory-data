@@ -20,7 +20,7 @@ type Props = $ReadOnly<{
 	mapMouseMoveCoordinates: ?[number, number],
 	scale: number,
 	useDevicePixelRatio: boolean,
-	geoPaintBuffer: ?Uint8Array,
+	geoPaintBuffer: ?Array<number>,
 	paintBufferUpdate?: ?number,
 }>;
 

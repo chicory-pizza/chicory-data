@@ -22,7 +22,7 @@ type Props = $ReadOnly<{
 	addingEntityLabel: ?PlaceableType,
 	currentCoordinates: [number, number, number],
 	level: LevelType,
-	geoPaintBuffer: ?Uint8Array,
+	geoPaintBuffer: ?Array<number>,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
 	paintBufferUpdate: ?number,

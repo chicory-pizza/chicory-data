@@ -184,6 +184,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 			ctx,
 			geo: decodedGeo,
 			scale: 1,
+			geoPaintBuffer: null,
 		});
 
 		canvas.toBlob((blob) => {

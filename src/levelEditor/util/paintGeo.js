@@ -9,13 +9,13 @@ import {SCREEN_WIDTH, GEO_WIDTH, GEO_HEIGHT} from '../GeoConstants';
 // Adapated from Wikipedia (https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm#Similar_algorithms)
 export default function paintBresenham(
 	color: number,
-	geoBitmap: Uint8Array,
+	paintBuffer: Array<number>,
 	mapMouseMoveCoordinates: ?[number, number],
 	previous: ?[number, number],
 	size: number
-): Uint8Array {
+): Array<number> {
 	if (mapMouseMoveCoordinates === null) {
-		return geoBitmap;
+		return paintBuffer;
 	}
 
 	const mouse = mapMouseMoveCoordinates;
@@ -30,30 +30,30 @@ export default function paintBresenham(
 	);
 
 	if (previous == null) {
-		colorPixel(x1, y1, color, geoBitmap, size);
+		colorPixel(x1, y1, color, paintBuffer, size);
 	} else {
 		const x0 = Math.floor(previous[0] / factor);
 		const y0 = Math.floor(previous[1] / factor);
 
 		if (x0 === x1 && y0 === y1) {
-			return geoBitmap;
+			return paintBuffer;
 		}
 
 		if (Math.abs(y1 - y0) < Math.abs(x1 - x0)) {
 			if (x0 > x1) {
-				plotLineLow(x1, y1, x0, y0, color, geoBitmap, size);
+				plotLineLow(x1, y1, x0, y0, color, paintBuffer, size);
 			} else {
-				plotLineLow(x0, y0, x1, y1, color, geoBitmap, size);
+				plotLineLow(x0, y0, x1, y1, color, paintBuffer, size);
 			}
 		} else {
 			if (y0 > y1) {
-				plotLineHigh(x1, y1, x0, y0, color, geoBitmap, size);
+				plotLineHigh(x1, y1, x0, y0, color, paintBuffer, size);
 			} else {
-				plotLineHigh(x0, y0, x1, y1, color, geoBitmap, size);
+				plotLineHigh(x0, y0, x1, y1, color, paintBuffer, size);
 			}
 		}
 	}
-	return geoBitmap;
+	return paintBuffer;
 }
 
 function plotLineLow(
@@ -62,7 +62,7 @@ function plotLineLow(
 	x1: number,
 	y1: number,
 	color: number,
-	geoBitmap: Uint8Array,
+	paintBuffer: Array<number>,
 	size: number
 ) {
 	const dx = x1 - x0;
@@ -78,7 +78,7 @@ function plotLineLow(
 	let y = y0;
 
 	for (let x = x0; x <= x1; x++) {
-		colorPixel(x, y, color, geoBitmap, size);
+		colorPixel(x, y, color, paintBuffer, size);
 		if (D > 0) {
 			y = y + yi;
 			D = D + 2 * (dy - dx);
@@ -94,7 +94,7 @@ function plotLineHigh(
 	x1: number,
 	y1: number,
 	color: number,
-	geoBitmap: Uint8Array,
+	paintBuffer: Array<number>,
 	size: number
 ) {
 	let dx = x1 - x0;
@@ -110,7 +110,7 @@ function plotLineHigh(
 	let x = x0;
 
 	for (let y = y0; y <= y1; y++) {
-		colorPixel(x, y, color, geoBitmap, size);
+		colorPixel(x, y, color, paintBuffer, size);
 		if (D > 0) {
 			x = x + xi;
 			D = D + 2 * (dx - dy);
@@ -124,7 +124,7 @@ function colorPixel(
 	xi: number,
 	yi: number,
 	color: number,
-	geoBitmap: Uint8Array,
+	paintBuffer: Array<number>,
 	size: number
 ) {
 	const l = Math.floor(size / 2);
@@ -138,7 +138,7 @@ function colorPixel(
 			const ya = Math.min(GEO_HEIGHT - 1, Math.max(0, Math.floor(y)));
 
 			const index = xa + ya * 81;
-			geoBitmap[index] = color;
+			paintBuffer[index] = color;
 		}
 	}
 }
