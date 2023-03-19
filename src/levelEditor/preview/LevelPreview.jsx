@@ -8,6 +8,7 @@ import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
 import type {PlaceableType} from '../types/PlaceableType';
+import type {EditorToolType} from '../types/EditorToolType';
 import getGameObjectSimpleName from '../util/getGameObjectSimpleName';
 
 import LevelInGamePreview from './LevelInGamePreview';
@@ -26,6 +27,7 @@ type Props = $ReadOnly<{
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
 	paintBufferUpdate: ?number,
+	editorToolType: EditorToolType,
 	onMapMouseClick: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseLeave: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
@@ -104,6 +106,7 @@ export default function LevelPreview(props: Props): React$Node {
 			{props.activeUiViews.includes('OBJECT') ? (
 				<LevelPreviewObjects
 					level={props.level}
+					editorToolType={props.editorToolType}
 					entityIndexHover={props.objectIndexHover}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onObjectHover}
@@ -133,6 +136,7 @@ export default function LevelPreview(props: Props): React$Node {
 			{props.activeUiViews.includes('DECO') ? (
 				<LevelPreviewDecos
 					level={props.level}
+					editorToolType={props.editorToolType}
 					entityIndexHover={props.decoIndexHover}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onDecoHover}

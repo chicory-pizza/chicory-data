@@ -6,3 +6,8 @@
 .hover {
 	outline: 5px solid var(--luncheon-purple);
 }
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.2;
+}

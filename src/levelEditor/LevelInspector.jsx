@@ -370,6 +370,7 @@ export default function LevelInspector({
 						currentCoordinates={currentCoordinates}
 						level={level}
 						geoPaintBuffer={geoPaintBuffer}
+						editorToolType={editorToolType}
 						paintBufferUpdate={paintBufferUpdate}
 						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 						objectIndexHover={objectIndexHover}

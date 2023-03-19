@@ -7,3 +7,8 @@
 .hover {
 	background: var(--luncheon-green);
 }
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
