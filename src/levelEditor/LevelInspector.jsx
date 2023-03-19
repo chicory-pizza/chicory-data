@@ -11,13 +11,14 @@ import LevelDecoAdder from './LevelDecoAdder';
 import styles from './LevelInspector.module.css';
 import LevelPreview from './preview/LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
+import LevelToolbar from './toolbar/LevelToolbar';
+import type {EditorToolType} from './types/EditorToolType';
 import type {GameEntityType} from './types/GameEntityType';
 import type {LevelInspectorUiView} from './types/LevelInspectorUiView';
 import type {LevelType} from './types/LevelType';
 import type {PlaceableType} from './types/PlaceableType';
-import type {EditorToolType} from '/types/EditorToolType';
 import decodeGeoString from './util/decodeGeoString';
-import paintBresenham from './util/paintGeo';
+import {paintBresenham, floodFill} from './util/paintGeo';
 import {useWorldDataNonNullable} from './WorldDataContext';
 
 type Props = $ReadOnly<{
@@ -46,11 +47,12 @@ export default function LevelInspector({
 		Array<LevelInspectorUiView>
 	>(['GEO', 'OBJECT']);
 
-	const [geoPaintBuffer, setGeoPaintBuffer] = useState<Uint8Array>(
-		new Uint8Array([])
-	);
+	const [geoPaintBuffer, setGeoPaintBuffer] = useState<Array<number>>([]);
 	const [paintBufferUpdate, setPaintBufferUpdate] = useState(0);
 	const prevCoordinates = useRef<?[number, number]>(null);
+
+	const [editorToolType, setEditorToolType] =
+		useState<EditorToolType>('Select');
 
 	// Sidebar
 	const [addingEntityLabel, setAddingEntityLabel] =
@@ -95,17 +97,26 @@ export default function LevelInspector({
 		}
 	}
 
-	function onMapMouseDown(ev: SyntheticMouseEvent<HTMLDivElement>) {
-		if (mapMouseMoveCoordinates == null) {
-			return;
-		}
+	const onMapMouseDown = useCallback(
+		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
+			if (mapMouseMoveCoordinates == null) {
+				return;
+			}
 
-		setIsPainting(true);
-		paint(mapMouseMoveCoordinates);
-	}
+			if (editorToolType === 'Paint') {
+				setIsPainting(true);
+				paint(mapMouseMoveCoordinates);
+			} else if (editorToolType === 'Fill') {
+				doFloodFill(mapMouseMoveCoordinates);
+			}
+		},
+		[mapMouseMoveCoordinates, editorToolType, paintBufferUpdate]
+	);
 
 	function onMapMouseUp(ev: SyntheticMouseEvent<HTMLDivElement>) {
-		onPaintDone(ev);
+		if (editorToolType === 'Paint') {
+			onPaintDone(ev);
+		}
 	}
 
 	const paint = useCallback(
@@ -126,6 +137,26 @@ export default function LevelInspector({
 			prevCoordinates.current = mouseCoords;
 		},
 		[geoPaintBuffer, paintBufferUpdate]
+	);
+
+	function doFloodFill(mouseCoords: [number, number]) {
+		const currGeo = floodFill(6, decodeGeoString(level.geo), mouseCoords);
+		console.log(currGeo);
+		dispatch({
+			type: 'setLevelProperty',
+			coordinates: currentCoordinates,
+			key: 'geo',
+			// $FlowFixMe[incompatible-call]
+			value: encode(deflate(currGeo)),
+		});
+		setPaintBufferUpdate(paintBufferUpdate + 1);
+	}
+
+	const onEditorToolTypeUpdate = useCallback(
+		(toolType: EditorToolType) => {
+			setEditorToolType(toolType);
+		},
+		[setEditorToolType]
 	);
 
 	function onPaintDone(ev: SyntheticMouseEvent<HTMLDivElement>) {
@@ -153,7 +184,7 @@ export default function LevelInspector({
 
 	const onMapMouseLeave = useCallback(
 		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
-			if (isPainting) {
+			if (editorToolType === 'Paint' && isPainting) {
 				const rect = ev.currentTarget.getBoundingClientRect();
 
 				const mouseMapCoords = [
@@ -167,7 +198,7 @@ export default function LevelInspector({
 			setMapMouseMoveCoordinates(null);
 			prevCoordinates.current = null;
 		},
-		[setMapMouseMoveCoordinates, isPainting, paint]
+		[setMapMouseMoveCoordinates, isPainting, paint, editorToolType]
 	);
 
 	const onMapMouseMove = useCallback(
@@ -324,6 +355,17 @@ export default function LevelInspector({
 					/>
 				</ErrorBoundary>
 			</div>
+
+			{activeUiViews.includes('GEO') ? (
+				<div className={styles.toolbar}>
+					<ErrorBoundary>
+						<LevelToolbar
+							onEditorToolTypeUpdate={onEditorToolTypeUpdate}
+							editorToolType={editorToolType}
+						/>
+					</ErrorBoundary>
+				</div>
+			) : null}
 
 			{activeUiViews.includes('DECO') ? (
 				<div className={styles.decos}>

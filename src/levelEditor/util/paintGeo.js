@@ -7,33 +7,24 @@ import {SCREEN_WIDTH, GEO_WIDTH, GEO_HEIGHT} from '../GeoConstants';
 
 // Paint a line between two points
 // Adapated from Wikipedia (https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm#Similar_algorithms)
-export default function paintBresenham(
+
+export function paintBresenham(
 	color: number,
 	paintBuffer: Array<number>,
-	mapMouseMoveCoordinates: ?[number, number],
+	mapMouseCoords: ?[number, number],
 	previous: ?[number, number],
 	size: number
 ): Array<number> {
-	if (mapMouseMoveCoordinates === null) {
+	if (mapMouseCoords == null) {
 		return paintBuffer;
 	}
 
-	const mouse = mapMouseMoveCoordinates;
-	const factor = SCREEN_WIDTH / GEO_WIDTH;
-	const x1 = Math.max(
-		0,
-		Math.min(GEO_WIDTH - 1, Math.floor(mouse[0] / factor))
-	);
-	const y1 = Math.max(
-		0,
-		Math.min(GEO_HEIGHT - 1, Math.floor(mouse[1] / factor))
-	);
+	const [x1, y1] = mouseCoordsToGeoCoords(mapMouseCoords);
 
 	if (previous == null) {
 		colorPixel(x1, y1, color, paintBuffer, size);
 	} else {
-		const x0 = Math.floor(previous[0] / factor);
-		const y0 = Math.floor(previous[1] / factor);
+		const [x0, y0] = mouseCoordsToGeoCoords(previous);
 
 		if (x0 === x1 && y0 === y1) {
 			return paintBuffer;
@@ -141,4 +132,85 @@ function colorPixel(
 			paintBuffer[index] = color;
 		}
 	}
+}
+
+function isOutOfGeoBounds(coords: [number, number]) {
+	return (
+		coords[0] < 0 ||
+		coords[0] >= GEO_WIDTH ||
+		coords[1] < 0 ||
+		coords[1] >= GEO_HEIGHT
+	);
+}
+
+function coordsToIndex(coords: [number, number]) {
+	return coords[0] + coords[1] * GEO_WIDTH;
+}
+
+function mouseCoordsToGeoCoords(mouseCoords: [number, number]) {
+	const factor = SCREEN_WIDTH / GEO_WIDTH;
+
+	const x = Math.max(
+		0,
+		Math.min(GEO_WIDTH - 1, Math.floor(mouseCoords[0] / factor))
+	);
+	const y = Math.max(
+		0,
+		Math.min(GEO_HEIGHT - 1, Math.floor(mouseCoords[1] / factor))
+	);
+	return [x, y];
+}
+
+export function floodFill(
+	color: number,
+	decodedGeo: Uint8Array,
+	mapMouseCoords: ?[number, number]
+): Uint8Array {
+	if (mapMouseCoords == null) {
+		return decodedGeo;
+	}
+
+	const geoCoords = mouseCoordsToGeoCoords(mapMouseCoords);
+
+	if (isOutOfGeoBounds(geoCoords)) {
+		return decodedGeo;
+	}
+	const visitStack: Array<[number, number]> = [];
+	const visited: Array<boolean> = [];
+	const startingIndex = coordsToIndex(geoCoords);
+	const matchingColor = decodedGeo[startingIndex];
+
+	visitStack.push(geoCoords);
+
+	while (visitStack.length > 0) {
+		const currCoords = visitStack.pop();
+		const currIndex = coordsToIndex(currCoords);
+		visited[currIndex] = true;
+		decodedGeo[currIndex] = color;
+
+		// Check in all orthogonal directions
+		const coordsToCheck = [
+			[currCoords[0] + 1, currCoords[1]],
+			[currCoords[0] - 1, currCoords[1]],
+			[currCoords[0], currCoords[1] + 1],
+			[currCoords[0], currCoords[1] - 1],
+		];
+
+		for (const coordToCheck of coordsToCheck) {
+			if (isOutOfGeoBounds(coordToCheck)) {
+				continue;
+			}
+			const indexToCheck = coordsToIndex(coordToCheck);
+			if (
+				visited[indexToCheck] === true ||
+				decodedGeo[indexToCheck] !== matchingColor
+			) {
+				continue;
+			}
+
+			visitStack.push(coordToCheck);
+		}
+	}
+
+	return decodedGeo;
 }

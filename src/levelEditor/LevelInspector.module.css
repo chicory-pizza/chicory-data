@@ -1,10 +1,10 @@
 .root {
 	display: grid;
-	grid-template-columns: auto 324px; /* 81 * 4 for GeoPreview */
+	grid-template-columns: min-content auto 324px; /* 81 * 4 for GeoPreview */
 	grid-template-rows: 1fr min-content;
 	grid-template-areas:
-		'preview sidebar'
-		'decos sidebar';
+		'toolbar preview sidebar'
+		'toolbar decos sidebar';
 
 	flex: 1;
 	min-height: 0;
@@ -32,4 +32,9 @@
 	resize: vertical; /* a bit janky... */
 
 	grid-area: decos;
+}
+
+.toolbar {
+	grid-area: toolbar;
+	overflow-y: auto;
 }

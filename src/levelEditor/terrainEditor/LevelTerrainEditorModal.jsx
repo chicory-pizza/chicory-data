@@ -221,6 +221,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 								scale={1}
 								useDevicePixelRatio={false}
 								paintBufferUpdate={null}
+								geoPaintBuffer={null}
 							/>
 
 							<button
