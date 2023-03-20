@@ -23,6 +23,11 @@
 	margin-bottom: 0.5em;
 	border: 1px solid #000;
 }
+
+.range {
+	width: 100%;
+}
+
 .colorContainer {
 	display: flex;
 	flex-direction: column;
@@ -35,6 +40,7 @@
 	padding-left: 5px;
 	padding-right: 5px;
 	white-space: nowrap;
+	width: 100%;
 }
 
 .colorBox {

@@ -91,7 +91,8 @@ summary,
 label,
 input[type='checkbox'],
 input[type='radio'],
-input[type='color'] {
+input[type='color'],
+input[type='range'] {
 	cursor: pointer;
 }
 
