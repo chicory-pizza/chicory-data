@@ -20,6 +20,8 @@ type Props = $ReadOnly<{
 	mapMouseMoveCoordinates: ?[number, number],
 	scale: number,
 	useDevicePixelRatio: boolean,
+	geoPaintBuffer: ?Array<number>,
+	paintBufferUpdate?: ?number,
 }>;
 
 export default function GeoPreview(props: Props): React$Node {
@@ -51,6 +53,7 @@ export default function GeoPreview(props: Props): React$Node {
 			ctx,
 			geo: decodedGeo,
 			scale: props.scale * dpr,
+			geoPaintBuffer: props.geoPaintBuffer,
 		});
 
 		ctx.scale(props.scale * dpr, props.scale * dpr);
@@ -76,7 +79,14 @@ export default function GeoPreview(props: Props): React$Node {
 		}
 
 		ctx.setTransform(1, 0, 0, 1, 0, 0);
-	}, [decodedGeo, dpr, props.mapMouseMoveCoordinates, props.scale]);
+	}, [
+		decodedGeo,
+		dpr,
+		props.mapMouseMoveCoordinates,
+		props.scale,
+		props.paintBufferUpdate,
+		props.geoPaintBuffer,
+	]);
 
 	if (decodedGeo == null) {
 		return "⚠️ Can't generate map preview";

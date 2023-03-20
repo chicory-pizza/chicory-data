@@ -7,6 +7,7 @@ import {
 	IDLE_ORIGIN_X,
 	IDLE_ORIGIN_Y,
 } from '../../dog/drawDogToCanvas';
+import type {EditorToolType} from '../types/EditorToolType';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
 import getGameObjectSimpleName from '../util/getGameObjectSimpleName';
@@ -16,6 +17,7 @@ import styles from './LevelPreviewObjects.module.css';
 
 type Props = $ReadOnly<{
 	level: LevelType,
+	editorToolType: EditorToolType,
 	entityIndexHover: ?number,
 	onEntityClick: (entityIndex: number, entityType: GameEntityType) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
@@ -56,7 +58,9 @@ function LevelPreviewObjects(props: Props): React$Node {
 				className={
 					styles.item +
 					' ' +
-					(props.entityIndexHover === index ? styles.hover : '')
+					(props.entityIndexHover === index ? styles.hover : '') +
+					' ' +
+					(props.editorToolType !== 'Select' ? styles.disabled : '')
 				}
 				key={index}
 				onClick={() => props.onEntityClick(index, 'OBJECT')}

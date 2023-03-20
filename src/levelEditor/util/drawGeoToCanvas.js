@@ -7,11 +7,13 @@ export default function drawGeoToCanvas({
 	ctx,
 	geo,
 	scale,
+	geoPaintBuffer,
 }: {
 	canvas: HTMLCanvasElement,
 	ctx: CanvasRenderingContext2D,
 	geo: Uint8Array,
 	scale: number,
+	geoPaintBuffer: ?Array<number>,
 }) {
 	ctx.scale(scale, scale);
 
@@ -20,9 +22,14 @@ export default function drawGeoToCanvas({
 
 	// pixels
 	geo.forEach((pixel, index) => {
-		const fill = PIXEL_COLORS.get(pixel);
+		let pixelToUse = pixel;
+		if (geoPaintBuffer != null && geoPaintBuffer[index] != null) {
+			pixelToUse = geoPaintBuffer[index];
+		}
+
+		const fill = PIXEL_COLORS.get(pixelToUse);
 		if (fill == null) {
-			console.warn('unknown pixel color ' + pixel);
+			console.warn('unknown pixel color ' + pixelToUse);
 			return null;
 		}
 

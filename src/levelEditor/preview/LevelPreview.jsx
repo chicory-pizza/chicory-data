@@ -4,6 +4,7 @@ import GeoPreview from '../common/GeoPreview';
 import {GEO_WIDTH, SCREEN_WIDTH} from '../GeoConstants';
 // $FlowFixMe[untyped-import]
 import spriteData from '../spriteData.json';
+import type {EditorToolType} from '../types/EditorToolType';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
@@ -22,8 +23,11 @@ type Props = $ReadOnly<{
 	addingEntityLabel: ?PlaceableType,
 	currentCoordinates: [number, number, number],
 	level: LevelType,
+	geoPaintBuffer: ?Array<number>,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
+	paintBufferUpdate: ?number,
+	editorToolType: EditorToolType,
 	onMapMouseClick: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseLeave: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
@@ -102,6 +106,7 @@ export default function LevelPreview(props: Props): React$Node {
 			{props.activeUiViews.includes('OBJECT') ? (
 				<LevelPreviewObjects
 					level={props.level}
+					editorToolType={props.editorToolType}
 					entityIndexHover={props.objectIndexHover}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onObjectHover}
@@ -131,6 +136,7 @@ export default function LevelPreview(props: Props): React$Node {
 			{props.activeUiViews.includes('DECO') ? (
 				<LevelPreviewDecos
 					level={props.level}
+					editorToolType={props.editorToolType}
 					entityIndexHover={props.decoIndexHover}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onDecoHover}
@@ -151,6 +157,8 @@ export default function LevelPreview(props: Props): React$Node {
 						mapMouseMoveCoordinates={null}
 						scale={SCREEN_WIDTH / GEO_WIDTH}
 						useDevicePixelRatio={true}
+						geoPaintBuffer={props.geoPaintBuffer}
+						paintBufferUpdate={props.paintBufferUpdate}
 					/>
 				</div>
 			) : null}

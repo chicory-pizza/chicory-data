@@ -1,5 +1,7 @@
 // @flow strict
 
+import {encode} from 'base64-arraybuffer';
+import {deflate} from 'pako';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
@@ -9,10 +11,14 @@ import LevelDecoAdder from './LevelDecoAdder';
 import styles from './LevelInspector.module.css';
 import LevelPreview from './preview/LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
+import LevelToolbar from './toolbar/LevelToolbar';
+import type {EditorToolType} from './types/EditorToolType';
 import type {GameEntityType} from './types/GameEntityType';
 import type {LevelInspectorUiView} from './types/LevelInspectorUiView';
 import type {LevelType} from './types/LevelType';
 import type {PlaceableType} from './types/PlaceableType';
+import decodeGeoString from './util/decodeGeoString';
+import {paintBresenham, floodFill, pickColor} from './util/paintGeo';
 import {useWorldDataNonNullable} from './WorldDataContext';
 
 type Props = $ReadOnly<{
@@ -27,6 +33,7 @@ export default function LevelInspector({
 	const {dispatch} = useWorldDataNonNullable();
 
 	const previousLevelRef = useRef<?LevelType>(null);
+	const [isPainting, setIsPainting] = useState(false);
 
 	useEffect(() => {
 		if (level !== previousLevelRef.current) {
@@ -39,6 +46,16 @@ export default function LevelInspector({
 	const [activeUiViews, setActiveUiViews] = useState<
 		Array<LevelInspectorUiView>
 	>(['GEO', 'OBJECT']);
+
+	// Toolbar
+	const [geoPaintBuffer, setGeoPaintBuffer] = useState<Array<number>>([]);
+	const [paintBufferUpdate, setPaintBufferUpdate] = useState(0);
+	const prevCoordinates = useRef<?[number, number]>(null);
+
+	const [editorToolType, setEditorToolType] =
+		useState<EditorToolType>('Select');
+	const [paintColor, setPaintColor] = useState<number>(0);
+	const [brushSize, setBrushSize] = useState<number>(1);
 
 	// Sidebar
 	const [addingEntityLabel, setAddingEntityLabel] =
@@ -83,23 +100,135 @@ export default function LevelInspector({
 		}
 	}
 
-	const onMapMouseLeave = useCallback(
-		(ev: SyntheticMouseEvent<>) => {
-			setMapMouseMoveCoordinates(null);
+	function onMapMouseUp(ev: SyntheticMouseEvent<HTMLDivElement>) {
+		if (editorToolType === 'Brush') {
+			if (isPainting) {
+				setIsPainting(false);
+				prevCoordinates.current = null;
+
+				const currGeo = decodeGeoString(level.geo);
+				geoPaintBuffer.forEach((pixel, index) => {
+					currGeo[index] = pixel;
+				});
+
+				dispatch({
+					type: 'setLevelProperty',
+					coordinates: currentCoordinates,
+					key: 'geo',
+					// $FlowFixMe[incompatible-call]
+					value: encode(deflate(currGeo)),
+				});
+
+				setGeoPaintBuffer([]);
+				setPaintBufferUpdate(paintBufferUpdate + 1);
+			}
+		}
+	}
+
+	const paint = useCallback(
+		(mouseCoords: [number, number]) => {
+			const geoCopy = paintBresenham(
+				paintColor,
+				geoPaintBuffer,
+				mouseCoords,
+				prevCoordinates.current,
+				brushSize
+			);
+
+			if (geoCopy) {
+				setGeoPaintBuffer(geoCopy);
+				setPaintBufferUpdate(paintBufferUpdate + 1);
+			}
+
+			prevCoordinates.current = mouseCoords;
 		},
-		[setMapMouseMoveCoordinates]
+		[geoPaintBuffer, paintBufferUpdate, paintColor, brushSize]
+	);
+
+	const doFloodFill = useCallback(
+		(mouseCoords: [number, number]) => {
+			const newGeo = floodFill(
+				paintColor,
+				decodeGeoString(level.geo),
+				mouseCoords
+			);
+			dispatch({
+				type: 'setLevelProperty',
+				coordinates: currentCoordinates,
+				key: 'geo',
+				// $FlowFixMe[incompatible-call]
+				value: encode(deflate(newGeo)),
+			});
+			setPaintBufferUpdate(paintBufferUpdate + 1);
+		},
+		[currentCoordinates, dispatch, level.geo, paintBufferUpdate, paintColor]
+	);
+
+	const doEyedropper = useCallback(
+		(mouseCoords: [number, number]) => {
+			const currGeo = decodeGeoString(level.geo);
+			const pickedColor = pickColor(currGeo, mouseCoords);
+			setPaintColor(pickedColor);
+		},
+		[level.geo]
+	);
+
+	const onMapMouseDown = useCallback(
+		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
+			if (mapMouseMoveCoordinates == null) {
+				return;
+			}
+
+			if (editorToolType === 'Brush') {
+				setIsPainting(true);
+				paint(mapMouseMoveCoordinates);
+			} else if (editorToolType === 'Fill') {
+				doFloodFill(mapMouseMoveCoordinates);
+			} else if (editorToolType === 'Eyedropper') {
+				doEyedropper(mapMouseMoveCoordinates);
+			}
+		},
+		[mapMouseMoveCoordinates, editorToolType, paint, doFloodFill, doEyedropper]
+	);
+
+	const onMapMouseLeave = useCallback(
+		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
+			// Without this code, if the user holds down the button while quickly moving the
+			// cursor to be outside the geo preview, `onMapMouseMove` will not fire to paint
+			// the pixels between `prevCoordinates` and the cursor. We need `onMapMouseLeave` to cover this.
+			if (editorToolType === 'Brush' && isPainting) {
+				const rect = ev.currentTarget.getBoundingClientRect();
+
+				const mouseMapCoords = [
+					parseInt(ev.clientX - rect.left, 10),
+					parseInt(ev.clientY - rect.top, 10),
+				];
+
+				paint(mouseMapCoords);
+			}
+
+			setMapMouseMoveCoordinates(null);
+			prevCoordinates.current = null;
+		},
+		[setMapMouseMoveCoordinates, isPainting, paint, editorToolType]
 	);
 
 	const onMapMouseMove = useCallback(
 		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
 			const rect = ev.currentTarget.getBoundingClientRect();
 
-			setMapMouseMoveCoordinates([
+			const mouseMapCoords = [
 				parseInt(ev.clientX - rect.left, 10),
 				parseInt(ev.clientY - rect.top, 10),
-			]);
+			];
+
+			setMapMouseMoveCoordinates(mouseMapCoords);
+
+			if (isPainting) {
+				paint(mouseMapCoords);
+			}
 		},
-		[setMapMouseMoveCoordinates]
+		[setMapMouseMoveCoordinates, isPainting, paint]
 	);
 
 	const onEntityClick = useCallback(
@@ -203,6 +332,9 @@ export default function LevelInspector({
 	const onActiveUiViewToggle = useCallback((uiView: LevelInspectorUiView) => {
 		setActiveUiViews((activeUiViews) => {
 			if (activeUiViews.includes(uiView)) {
+				if (uiView === 'GEO') {
+					setEditorToolType('Select');
+				}
 				return activeUiViews.filter((index) => index !== uiView);
 			}
 
@@ -211,7 +343,12 @@ export default function LevelInspector({
 	}, []);
 
 	return (
-		<div className={styles.root}>
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+		<div
+			className={styles.root}
+			onMouseDown={onMapMouseDown}
+			onMouseUp={onMapMouseUp}
+		>
 			<div className={styles.preview}>
 				<ErrorBoundary>
 					<LevelPreview
@@ -219,6 +356,9 @@ export default function LevelInspector({
 						addingEntityLabel={addingEntityLabel}
 						currentCoordinates={currentCoordinates}
 						level={level}
+						geoPaintBuffer={geoPaintBuffer}
+						editorToolType={editorToolType}
+						paintBufferUpdate={paintBufferUpdate}
 						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 						objectIndexHover={objectIndexHover}
 						onMapMouseClick={onMapMouseClick}
@@ -231,6 +371,21 @@ export default function LevelInspector({
 					/>
 				</ErrorBoundary>
 			</div>
+
+			{activeUiViews.includes('GEO') ? (
+				<div className={styles.toolbar}>
+					<ErrorBoundary>
+						<LevelToolbar
+							onEditorToolTypeUpdate={setEditorToolType}
+							editorToolType={editorToolType}
+							currentPaintColor={paintColor}
+							onSelectPaintColor={setPaintColor}
+							brushSize={brushSize}
+							onBrushSizeUpdate={setBrushSize}
+						/>
+					</ErrorBoundary>
+				</div>
+			) : null}
 
 			{activeUiViews.includes('DECO') ? (
 				<div className={styles.decos}>

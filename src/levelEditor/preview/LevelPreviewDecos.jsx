@@ -4,6 +4,7 @@ import {memo} from 'react';
 
 // $FlowFixMe[untyped-import]
 import spriteData from '../spriteData.json';
+import type {EditorToolType} from '../types/EditorToolType';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
 
@@ -11,6 +12,7 @@ import styles from './LevelPreviewDecos.module.css';
 
 type Props = $ReadOnly<{
 	level: LevelType,
+	editorToolType: EditorToolType,
 	entityIndexHover: ?number,
 	onEntityClick: (entityIndex: number, entityType: GameEntityType) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
@@ -64,7 +66,9 @@ function LevelPreviewDecos(props: Props): React$Node {
 				className={
 					styles.item +
 					' ' +
-					(props.entityIndexHover === index ? styles.hover : '')
+					(props.entityIndexHover === index ? styles.hover : '') +
+					' ' +
+					(props.editorToolType !== 'Select' ? styles.disabled : '')
 				}
 				key={index}
 				onClick={() => props.onEntityClick(index, 'DECO')}

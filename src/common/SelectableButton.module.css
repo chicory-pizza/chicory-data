@@ -1,0 +1,6 @@
+.unselected {
+	background-color: auto;
+}
+.selected {
+	background-color: var(--luncheon-purple);
+}

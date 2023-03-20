@@ -184,6 +184,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 			ctx,
 			geo: decodedGeo,
 			scale: 1,
+			geoPaintBuffer: null,
 		});
 
 		canvas.toBlob((blob) => {
@@ -219,6 +220,8 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 								mapMouseMoveCoordinates={null}
 								scale={1}
 								useDevicePixelRatio={false}
+								paintBufferUpdate={null}
+								geoPaintBuffer={null}
 							/>
 
 							<button

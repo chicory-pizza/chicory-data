@@ -1,0 +1,46 @@
+.toolbar {
+	border-top: 1px solid var(--editor-border-color);
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+	min-height: 0;
+	white-space: pre-wrap;
+	word-break: break-word;
+	padding: 8px;
+
+	grid-area: toolbar;
+}
+
+.tools {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 0.5em;
+}
+
+.colorDisplay {
+	width: 5em;
+	height: 5em;
+	margin-bottom: 0.5em;
+	border: 1px solid #000;
+}
+.colorContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0.5em;
+}
+
+.colorSelect {
+	text-align: left;
+	padding-left: 5px;
+	padding-right: 5px;
+	white-space: nowrap;
+}
+
+.colorBox {
+	border: 1px solid #000;
+	width: 30px;
+	height: 20px;
+	padding-left: 25px;
+	margin-right: 0.5em;
+}

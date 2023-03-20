@@ -52,6 +52,8 @@ export default function LevelSidebar(props: Props): React$Node {
 					mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
 					scale={4}
 					useDevicePixelRatio={true}
+					geoPaintBuffer={null}
+					paintBufferUpdate={null}
 				/>
 			</ErrorBoundary>
 
