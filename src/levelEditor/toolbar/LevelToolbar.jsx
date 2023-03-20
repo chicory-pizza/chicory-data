@@ -25,11 +25,7 @@ type Props = $ReadOnly<{
 export default function LevelToolbar(props: Props): React$Node {
 	const toolTypes = ['Select', 'Brush', 'Fill', 'Eyedropper'];
 
-	const [colorDescription, setColorDescription] =
-		useState<?ToolbarColorItem>(null);
-	useEffect(() => {
-		setColorDescription(TOOLBAR_COLOR_LOOKUP.get(props.currentPaintColor));
-	}, [props.currentPaintColor]);
+	const colorDescription = TOOLBAR_COLOR_LOOKUP.get(props.currentPaintColor);
 
 	return (
 		<div className={styles.toolbar}>
@@ -72,9 +68,10 @@ export default function LevelToolbar(props: Props): React$Node {
 			Palette Selection:
 			{PIXEL_COLORS_EXPLANATIONS.map((color, _) => {
 				return color.colors.map((colorIndex, arrayIndex) => {
-					let description = color.description;
-					if (description === 'Higher ground layers') {
-						description = 'Height ' + arrayIndex;
+					const colorDescription = TOOLBAR_COLOR_LOOKUP.get(colorIndex);
+					let description = 'N/A';
+					if (colorDescription != null) {
+						description = colorDescription.description;
 					}
 
 					return (

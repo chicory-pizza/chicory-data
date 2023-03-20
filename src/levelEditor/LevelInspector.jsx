@@ -102,7 +102,26 @@ export default function LevelInspector({
 
 	function onMapMouseUp(ev: SyntheticMouseEvent<HTMLDivElement>) {
 		if (editorToolType === 'Brush') {
-			onPaintDone(ev);
+			if (isPainting) {
+				setIsPainting(false);
+				prevCoordinates.current = null;
+
+				const currGeo = decodeGeoString(level.geo);
+				geoPaintBuffer.forEach((pixel, index) => {
+					currGeo[index] = pixel;
+				});
+
+				dispatch({
+					type: 'setLevelProperty',
+					coordinates: currentCoordinates,
+					key: 'geo',
+					// $FlowFixMe[incompatible-call]
+					value: encode(deflate(currGeo)),
+				});
+
+				setGeoPaintBuffer([]);
+				setPaintBufferUpdate(paintBufferUpdate + 1);
+			}
 		}
 	}
 
@@ -154,50 +173,6 @@ export default function LevelInspector({
 		[level.geo]
 	);
 
-	const onEditorToolTypeUpdate = useCallback(
-		(toolType: EditorToolType) => {
-			setEditorToolType(toolType);
-		},
-		[setEditorToolType]
-	);
-
-	const onSelectPaintColor = useCallback(
-		(newPaintColor: number) => {
-			setPaintColor(newPaintColor);
-		},
-		[setPaintColor]
-	);
-
-	const onBrushSizeUpdate = useCallback(
-		(newBrushSize: number) => {
-			setBrushSize(newBrushSize);
-		},
-		[setBrushSize]
-	);
-
-	function onPaintDone(ev: SyntheticMouseEvent<HTMLDivElement>) {
-		if (isPainting) {
-			setIsPainting(false);
-			prevCoordinates.current = null;
-
-			const currGeo = decodeGeoString(level.geo);
-			geoPaintBuffer.forEach((pixel, index) => {
-				currGeo[index] = pixel;
-			});
-
-			dispatch({
-				type: 'setLevelProperty',
-				coordinates: currentCoordinates,
-				key: 'geo',
-				// $FlowFixMe[incompatible-call]
-				value: encode(deflate(currGeo)),
-			});
-
-			setGeoPaintBuffer([]);
-			setPaintBufferUpdate(paintBufferUpdate + 1);
-		}
-	}
-
 	const onMapMouseDown = useCallback(
 		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
 			if (mapMouseMoveCoordinates == null) {
@@ -218,6 +193,9 @@ export default function LevelInspector({
 
 	const onMapMouseLeave = useCallback(
 		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
+			// Without this code, if the user holds down the button while quickly moving the
+			// cursor to be outside the geo preview, `onMapMouseMove` will not fire to paint
+			// the pixels between `prevCoordinates` and the cursor. We need `onMapMouseLeave` to cover this.
 			if (editorToolType === 'Brush' && isPainting) {
 				const rect = ev.currentTarget.getBoundingClientRect();
 
@@ -398,12 +376,12 @@ export default function LevelInspector({
 				<div className={styles.toolbar}>
 					<ErrorBoundary>
 						<LevelToolbar
-							onEditorToolTypeUpdate={onEditorToolTypeUpdate}
+							onEditorToolTypeUpdate={setEditorToolType}
 							editorToolType={editorToolType}
 							currentPaintColor={paintColor}
-							onSelectPaintColor={onSelectPaintColor}
+							onSelectPaintColor={setPaintColor}
 							brushSize={brushSize}
-							onBrushSizeUpdate={onBrushSizeUpdate}
+							onBrushSizeUpdate={setBrushSize}
 						/>
 					</ErrorBoundary>
 				</div>
