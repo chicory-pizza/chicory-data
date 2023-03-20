@@ -68,8 +68,8 @@ function LevelDecoAdder(props: Props): React$Node {
 								<img
 									alt={sprite}
 									className={styles.image}
-									src={urlPrefix + sprite + '.png'}
 									loading="lazy"
+									src={urlPrefix + sprite + '.png'}
 								/>
 							) : null}
 

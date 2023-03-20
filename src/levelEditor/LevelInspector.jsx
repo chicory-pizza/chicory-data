@@ -355,19 +355,19 @@ export default function LevelInspector({
 						activeUiViews={activeUiViews}
 						addingEntityLabel={addingEntityLabel}
 						currentCoordinates={currentCoordinates}
-						level={level}
-						geoPaintBuffer={geoPaintBuffer}
+						decoIndexHover={decoIndexHover}
 						editorToolType={editorToolType}
-						paintBufferUpdate={paintBufferUpdate}
+						geoPaintBuffer={geoPaintBuffer}
+						level={level}
 						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 						objectIndexHover={objectIndexHover}
+						onDecoHover={setDecoIndexHover}
+						onEntityClick={onEntityClick}
 						onMapMouseClick={onMapMouseClick}
 						onMapMouseLeave={onMapMouseLeave}
 						onMapMouseMove={onMapMouseMove}
-						onEntityClick={onEntityClick}
 						onObjectHover={setObjectIndexHover}
-						decoIndexHover={decoIndexHover}
-						onDecoHover={setDecoIndexHover}
+						paintBufferUpdate={paintBufferUpdate}
 					/>
 				</ErrorBoundary>
 			</div>
@@ -376,12 +376,12 @@ export default function LevelInspector({
 				<div className={styles.toolbar}>
 					<ErrorBoundary>
 						<LevelToolbar
-							onEditorToolTypeUpdate={setEditorToolType}
-							editorToolType={editorToolType}
-							currentPaintColor={paintColor}
-							onSelectPaintColor={setPaintColor}
 							brushSize={brushSize}
+							currentPaintColor={paintColor}
+							editorToolType={editorToolType}
 							onBrushSizeUpdate={setBrushSize}
+							onEditorToolTypeUpdate={setEditorToolType}
+							onSelectPaintColor={setPaintColor}
 						/>
 					</ErrorBoundary>
 				</div>
@@ -398,20 +398,20 @@ export default function LevelInspector({
 			<ErrorBoundary>
 				<LevelSidebar
 					activeUiViews={activeUiViews}
+					decoIndexHover={decoIndexHover}
+					decosListItemsExpanded={sidebarDecosListItemsExpanded}
 					level={level}
 					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					objectIndexHover={objectIndexHover}
 					objectsListItemsExpanded={sidebarObjectsListItemsExpanded}
 					onActiveUiViewToggle={onActiveUiViewToggle}
 					onAddingEntityLabel={setAddingEntityLabel}
+					onDecoHover={setDecoIndexHover}
 					onEntityDelete={onEntityDelete}
 					onEntityEditProperties={onEntityEditProperties}
 					onObjectHover={setObjectIndexHover}
-					setObjectsListItemsExpanded={setSidebarObjectsListItemsExpanded}
-					decoIndexHover={decoIndexHover}
-					onDecoHover={setDecoIndexHover}
-					decosListItemsExpanded={sidebarDecosListItemsExpanded}
 					setDecosListItemsExpanded={setSidebarDecosListItemsExpanded}
+					setObjectsListItemsExpanded={setSidebarObjectsListItemsExpanded}
 				/>
 			</ErrorBoundary>
 		</div>

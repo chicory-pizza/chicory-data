@@ -243,8 +243,8 @@ export default function DogEditorApp(): React$MixedElement {
 								customClothesImage={customClothesImage}
 								earColor={hasCustomEarColor ? earColor : skinColor}
 								expression={previewExpression ?? expression}
-								hats={hatsInPreview}
 								hair={previewHair ?? hair}
+								hats={hatsInPreview}
 								headSkinImage={headSkinImage}
 								playAnimations={playAnimations}
 								showBody={showBody}
@@ -261,8 +261,6 @@ export default function DogEditorApp(): React$MixedElement {
 							<div className={styles.label}>Skin fill:</div>
 							<div className={styles.colorControl}>
 								<input
-									type="color"
-									value={skinColor}
 									onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
 										dispatch({
 											type: 'setProperties',
@@ -271,14 +269,14 @@ export default function DogEditorApp(): React$MixedElement {
 											},
 										});
 									}}
+									type="color"
+									value={skinColor}
 								/>
 							</div>
 
 							<div className={styles.label}>Skin outline:</div>
 							<div className={styles.colorControl}>
 								<input
-									type="color"
-									value={skinOutlineColor}
 									onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
 										dispatch({
 											type: 'setProperties',
@@ -287,6 +285,8 @@ export default function DogEditorApp(): React$MixedElement {
 											},
 										});
 									}}
+									type="color"
+									value={skinOutlineColor}
 								/>
 							</div>
 						</div>
@@ -353,7 +353,6 @@ export default function DogEditorApp(): React$MixedElement {
 								<div className={styles.fullWidthControl}>
 									<label>
 										<input
-											type="checkbox"
 											checked={hasCustomEarColor}
 											onChange={(ev) => {
 												dispatch({
@@ -365,6 +364,7 @@ export default function DogEditorApp(): React$MixedElement {
 													},
 												});
 											}}
+											type="checkbox"
 										/>
 										Use custom ear color
 									</label>
@@ -375,8 +375,6 @@ export default function DogEditorApp(): React$MixedElement {
 										<div className={styles.label}>Ear color:</div>
 										<div className={styles.colorControl}>
 											<input
-												type="color"
-												value={earColor}
 												onChange={(
 													ev: SyntheticInputEvent<HTMLInputElement>
 												) => {
@@ -387,6 +385,8 @@ export default function DogEditorApp(): React$MixedElement {
 														},
 													});
 												}}
+												type="color"
+												value={earColor}
 											/>
 										</div>
 									</>
@@ -401,7 +401,6 @@ export default function DogEditorApp(): React$MixedElement {
 								<div className={styles.fullWidthControl}>
 									<label>
 										<input
-											type="checkbox"
 											checked={showBody}
 											onChange={(ev) => {
 												dispatch({
@@ -411,6 +410,7 @@ export default function DogEditorApp(): React$MixedElement {
 													},
 												});
 											}}
+											type="checkbox"
 										/>
 										Show body
 									</label>
@@ -439,8 +439,6 @@ export default function DogEditorApp(): React$MixedElement {
 											<div className={styles.controlLabel}>Color:</div>
 											<div className={styles.color}>
 												<input
-													type="color"
-													value={clothesColor}
 													onChange={(
 														ev: SyntheticInputEvent<HTMLInputElement>
 													) => {
@@ -451,6 +449,8 @@ export default function DogEditorApp(): React$MixedElement {
 															},
 														});
 													}}
+													type="color"
+													value={clothesColor}
 												/>
 											</div>
 
@@ -494,11 +494,11 @@ export default function DogEditorApp(): React$MixedElement {
 							<div className={styles.checkbox}>
 								<label>
 									<input
-										type="checkbox"
 										checked={playAnimations}
 										onChange={(ev) => {
 											setPlayAnimations(ev.currentTarget.checked);
 										}}
+										type="checkbox"
 									/>
 									Play animation
 								</label>
@@ -507,11 +507,11 @@ export default function DogEditorApp(): React$MixedElement {
 							<div className={styles.checkbox}>
 								<label>
 									<input
-										type="checkbox"
 										checked={invertColors}
 										onChange={(ev) => {
 											setInvertColors(ev.currentTarget.checked);
 										}}
+										type="checkbox"
 									/>
 									Invert colors
 								</label>
@@ -526,9 +526,9 @@ export default function DogEditorApp(): React$MixedElement {
 									clothes={previewClothes ?? clothes}
 									clothesColor={clothesColor}
 									expression={previewExpression ?? expression}
+									hair={previewHair ?? hair}
 									hat={previewHats[0] ?? hats[0].name}
 									hatColor={hats[0].color}
-									hair={previewHair ?? hair}
 									skinColor={skinColor}
 								/>
 							</ErrorBoundary>

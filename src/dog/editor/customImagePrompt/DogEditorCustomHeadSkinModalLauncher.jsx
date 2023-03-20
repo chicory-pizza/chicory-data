@@ -123,11 +123,11 @@ export default function DogEditorCustomHeadSkinModalLauncher(): React$MixedEleme
 						</ol>
 
 						<img
-							src={templateImage}
 							alt="Head template"
 							className={styles.templateImage}
-							width={CUSTOM_HAT_WIDTH}
 							height={CUSTOM_HAT_HEIGHT}
+							src={templateImage}
+							width={CUSTOM_HAT_WIDTH}
 						/>
 
 						<DogEditorFileInput onFileLoad={onNewHeadOverlayImage} />

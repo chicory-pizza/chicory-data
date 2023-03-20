@@ -21,6 +21,7 @@ export default function DrawdogGalleryDog(props: Props): React$Node {
 	return (
 		// eslint-disable-next-line jsx-a11y/anchor-is-valid
 		<a
+			className={styles.preset}
 			href="#"
 			onBlur={() => props.onHoverLeave(preset)}
 			onClick={(ev) => {
@@ -30,7 +31,6 @@ export default function DrawdogGalleryDog(props: Props): React$Node {
 			onFocus={onHoverEnter != null ? () => onHoverEnter(preset) : null}
 			onMouseEnter={onHoverEnter != null ? () => onHoverEnter(preset) : null}
 			onMouseLeave={() => props.onHoverLeave(preset)}
-			className={styles.preset}
 		>
 			<div className={styles.dogPreview}>
 				<DogPreviewWithAutoplayAnimation
@@ -41,8 +41,8 @@ export default function DrawdogGalleryDog(props: Props): React$Node {
 					customClothesImage={preset.customClothesImage ?? null}
 					earColor={preset.earColor ?? preset.skinColor}
 					expression={props.forceExpression ?? preset.expression ?? 'normal'}
-					hats={preset.hats}
 					hair={preset.hair}
+					hats={preset.hats}
 					headSkinImage={preset.headSkinImage ?? null}
 					playAnimations={props.playAnimations}
 					showBody={showBody}

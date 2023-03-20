@@ -33,7 +33,7 @@ export default function DogEditorFileInput(props: Props): React$Node {
 	}
 
 	return (
-		<button type="button" onClick={openFile}>
+		<button onClick={openFile} type="button">
 			Open image
 		</button>
 	);

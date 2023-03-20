@@ -216,12 +216,12 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 
 						<div className={styles.geoPreview}>
 							<GeoPreview
+								geoPaintBuffer={null}
 								level={props.level}
 								mapMouseMoveCoordinates={null}
+								paintBufferUpdate={null}
 								scale={1}
 								useDevicePixelRatio={false}
-								paintBufferUpdate={null}
-								geoPaintBuffer={null}
 							/>
 
 							<button
@@ -247,7 +247,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 						<p className={styles.explanation}>Then load your image:</p>
 
 						<div className={styles.fileInput}>
-							<button type="button" onClick={openFile}>
+							<button onClick={openFile} type="button">
 								Load image
 							</button>
 						</div>

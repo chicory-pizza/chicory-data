@@ -136,14 +136,14 @@ export default function SidebarEntityList<
 							entityPropertiesComponent={props.entityPropertiesComponent}
 							expanded={expandedUnfilteredEntityIndexes.includes(index)}
 							getEntityName={props.getEntityName}
-							highlighted={props.entityIndexHover === index}
 							highlightClassName={props.entityHighlightClassName}
+							highlighted={props.entityIndexHover === index}
 							index={index}
 							key={index}
-							onItemToggle={onItemToggle}
 							onEntityDelete={props.onEntityDelete}
 							onEntityEditProperties={props.onEntityEditProperties}
 							onEntityHover={props.onEntityHover}
+							onItemToggle={onItemToggle}
 							renderItemDisplayText={props.renderItemDisplayText}
 							type={props.type}
 						/>

@@ -16,10 +16,10 @@ export default function AppHeaderUndoRedo(props: Props): React$MixedElement {
 			<button
 				className={styles.space}
 				disabled={!props.canUndo}
-				type="button"
 				onClick={() => {
 					props.dispatch({type: 'undo'});
 				}}
+				type="button"
 			>
 				Undo
 			</button>

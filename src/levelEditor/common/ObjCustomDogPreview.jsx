@@ -74,8 +74,8 @@ export default function ObjCustomDogPreview({
 				},
 			]}
 			headSkinImage={null}
-			skinColor={skinColor}
 			showBody={true}
+			skinColor={skinColor}
 		/>
 	);
 }

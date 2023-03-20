@@ -82,7 +82,7 @@ export default function DogEditorCustomHatImageModalLauncher({
 
 	return (
 		<>
-			<button type="button" onClick={() => setIsModalOpen(true)}>
+			<button onClick={() => setIsModalOpen(true)} type="button">
 				Select image
 			</button>
 
@@ -108,11 +108,11 @@ export default function DogEditorCustomHatImageModalLauncher({
 						</p>
 
 						<img
-							src={templateImage}
 							alt="Custom hat template"
 							className={styles.templateImage}
-							width={CUSTOM_HAT_WIDTH}
 							height={CUSTOM_HAT_HEIGHT}
+							src={templateImage}
+							width={CUSTOM_HAT_WIDTH}
 						/>
 
 						<DogEditorFileInput onFileLoad={onNewHatImage} />

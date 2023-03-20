@@ -27,7 +27,7 @@ export default function CommonDataLoadButton(props: Props): React$MixedElement {
 	}
 
 	return (
-		<button type="button" onClick={openFile}>
+		<button onClick={openFile} type="button">
 			Load
 		</button>
 	);

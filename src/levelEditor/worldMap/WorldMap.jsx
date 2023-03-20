@@ -59,10 +59,10 @@ export default function WorldMap(): React$Node {
 							currentCoordinates != null &&
 							isSameCoordinates(currentCoordinates, coordinates)
 						}
-						level={level}
-						levelId={levelId}
 						// optimization: try to recycle if possible
 						key={coordinates[1] + '_' + coordinates[2]}
+						level={level}
+						levelId={levelId}
 						minX={minX}
 						minY={minY}
 						onSetNewCoordinates={setNewCoordinates}

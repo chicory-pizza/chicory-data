@@ -68,7 +68,7 @@ export default function DogEditorGifMaker(): React$MixedElement {
 
 	return (
 		<>
-			<button onClick={onGifSave} disabled={saving} type="button">
+			<button disabled={saving} onClick={onGifSave} type="button">
 				Save as GIF
 			</button>
 

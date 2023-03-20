@@ -11,6 +11,7 @@ const SplashScreen = lazy(() => import('./splash/SplashScreen'));
 const PaletteApp = lazy(() => import('./palette/PaletteApp'));
 const PageNotFound = lazy(() => import('./PageNotFound'));
 
+/* eslint-disable react/jsx-sort-props */
 const routes: React$Node = (
 	<Suspense fallback={<LoadingBigBanner />}>
 		<Routes>

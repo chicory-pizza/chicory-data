@@ -48,12 +48,12 @@ export default function LevelSidebar(props: Props): React$Node {
 		<div className={styles.sidebar}>
 			<ErrorBoundary>
 				<GeoPreview
+					geoPaintBuffer={null}
 					level={props.level}
 					mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
+					paintBufferUpdate={null}
 					scale={4}
 					useDevicePixelRatio={true}
-					geoPaintBuffer={null}
-					paintBufferUpdate={null}
 				/>
 			</ErrorBoundary>
 
@@ -77,9 +77,9 @@ export default function LevelSidebar(props: Props): React$Node {
 
 				<ErrorBoundary>
 					<SidebarObjectList
-						levelObjects={props.level.objects ?? []}
-						entityIndexHover={props.objectIndexHover}
 						entitiesListItemsExpanded={props.objectsListItemsExpanded}
+						entityIndexHover={props.objectIndexHover}
+						levelObjects={props.level.objects ?? []}
 						onEntityDelete={props.onEntityDelete}
 						onEntityEditProperties={props.onEntityEditProperties}
 						onEntityHover={props.onObjectHover}
@@ -89,9 +89,9 @@ export default function LevelSidebar(props: Props): React$Node {
 
 				<ErrorBoundary>
 					<SidebarDecoList
-						levelDecos={props.level.decos ?? []}
-						entityIndexHover={props.decoIndexHover}
 						entitiesListItemsExpanded={props.decosListItemsExpanded}
+						entityIndexHover={props.decoIndexHover}
+						levelDecos={props.level.decos ?? []}
 						onEntityDelete={props.onEntityDelete}
 						onEntityEditProperties={props.onEntityEditProperties}
 						onEntityHover={props.onDecoHover}

@@ -21,6 +21,7 @@
 		"flowtype/require-readonly-react-props": "error",
 
 		"react/button-has-type": "error",
+		"react/jsx-sort-props": "warn",
 		"react/prop-types": "off",
 
 		"import/order": [

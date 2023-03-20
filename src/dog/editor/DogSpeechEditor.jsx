@@ -43,11 +43,11 @@ export default function DogSpeechEditor(props: Props): React$MixedElement {
 			<div className={styles.fullWidthControl}>
 				<label>
 					<input
-						type="checkbox"
 						checked={props.showBubble}
 						onChange={(ev) => {
 							props.onShowBubbleChange(ev.currentTarget.checked);
 						}}
+						type="checkbox"
 					/>
 					Show speech bubble
 				</label>

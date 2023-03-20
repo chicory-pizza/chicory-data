@@ -18,10 +18,10 @@ export default function SelectableButton({
 	return (
 		<button
 			{...otherProps}
-			type="button"
 			className={
 				(selected ? styles.selected : styles.unselected) + ' ' + className
 			}
+			type="button"
 		>
 			{children}
 		</button>

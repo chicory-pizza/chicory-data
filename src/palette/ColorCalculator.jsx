@@ -32,10 +32,10 @@ export default function ColorCalculator(): React$Node {
 	return (
 		<div className={styles.root}>
 			<input
-				type="color"
 				onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
 					setColor(ev.currentTarget.value);
 				}}
+				type="color"
 				value={color}
 			/>
 
@@ -43,7 +43,6 @@ export default function ColorCalculator(): React$Node {
 				<span className={styles.labelText}>Hex:</span>
 
 				<input
-					type="text"
 					className={styles.textInput}
 					data-testid="colorcalculator-hex"
 					maxLength={7}
@@ -52,6 +51,7 @@ export default function ColorCalculator(): React$Node {
 					}}
 					placeholder="#00f3dd"
 					title="Hex code (e.g. #00f3dd)"
+					type="text"
 					value={color}
 				/>
 			</label>
@@ -60,7 +60,6 @@ export default function ColorCalculator(): React$Node {
 				<span className={styles.labelText}>RGB:</span>
 
 				<input
-					type="number"
 					className={styles.rgbInput}
 					data-testid="colorcalculator-r"
 					maxLength={3}
@@ -70,10 +69,10 @@ export default function ColorCalculator(): React$Node {
 						});
 					}}
 					title="Red (0 to 255)"
+					type="number"
 					value={currentRgb.r}
 				/>
 				<input
-					type="number"
 					className={styles.rgbInput}
 					data-testid="colorcalculator-g"
 					maxLength={3}
@@ -83,10 +82,10 @@ export default function ColorCalculator(): React$Node {
 						});
 					}}
 					title="Green (0 to 255)"
+					type="number"
 					value={currentRgb.g}
 				/>
 				<input
-					type="number"
 					className={styles.rgbInput}
 					data-testid="colorcalculator-b"
 					maxLength={3}
@@ -96,6 +95,7 @@ export default function ColorCalculator(): React$Node {
 						});
 					}}
 					title="Blue (0 to 255)"
+					type="number"
 					value={currentRgb.b}
 				/>
 			</span>
@@ -104,10 +104,9 @@ export default function ColorCalculator(): React$Node {
 				<span className={styles.labelText}>GML:</span>
 
 				<input
-					type="text"
-					inputMode="numeric"
 					className={styles.textInput}
 					data-testid="colorcalculator-gml"
+					inputMode="numeric"
 					maxLength={8}
 					onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
 						setColor(
@@ -117,6 +116,7 @@ export default function ColorCalculator(): React$Node {
 						);
 					}}
 					placeholder="14545664"
+					type="text"
 					value={convertHexToBgrInteger(color)}
 				/>
 			</label>

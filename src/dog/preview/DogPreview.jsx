@@ -262,9 +262,9 @@ export default function DogPreview(props: Props): React$Node {
 					' ' +
 					(props.canvasClassName ?? '')
 				}
+				height={SIZE}
 				ref={mainCanvasRef}
 				width={SIZE}
-				height={SIZE}
 			/>
 
 			{loading ? (

@@ -74,15 +74,15 @@ export default function LevelPreview(props: Props): React$Node {
 			const src = urlPrefix + deco + '.png';
 			addingDeco = (
 				<img
-					className={styles.addingDecoSprite}
 					alt={deco}
-					src={src}
-					width={spriteData[deco].width}
+					className={styles.addingDecoSprite}
 					height={spriteData[deco].height}
+					src={src}
 					style={{
 						left: -spriteData[deco].originx,
 						top: -spriteData[deco].originy,
 					}}
+					width={spriteData[deco].width}
 				/>
 			);
 		} else {
@@ -96,8 +96,8 @@ export default function LevelPreview(props: Props): React$Node {
 			className={styles.root}
 			data-testid="levelpreview-root"
 			onClick={props.onMapMouseClick}
-			onMouseMove={props.onMapMouseMove}
 			onMouseLeave={props.onMapMouseLeave}
+			onMouseMove={props.onMapMouseMove}
 			style={{
 				left: -offscreenX,
 				top: -offscreenY,
@@ -105,9 +105,9 @@ export default function LevelPreview(props: Props): React$Node {
 		>
 			{props.activeUiViews.includes('OBJECT') ? (
 				<LevelPreviewObjects
-					level={props.level}
 					editorToolType={props.editorToolType}
 					entityIndexHover={props.objectIndexHover}
+					level={props.level}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onObjectHover}
 				/>
@@ -135,9 +135,9 @@ export default function LevelPreview(props: Props): React$Node {
 
 			{props.activeUiViews.includes('DECO') ? (
 				<LevelPreviewDecos
-					level={props.level}
 					editorToolType={props.editorToolType}
 					entityIndexHover={props.decoIndexHover}
+					level={props.level}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onDecoHover}
 				/>
@@ -153,12 +153,12 @@ export default function LevelPreview(props: Props): React$Node {
 			{props.activeUiViews.includes('GEO') ? (
 				<div className={styles.geoCanvas}>
 					<GeoPreview
+						geoPaintBuffer={props.geoPaintBuffer}
 						level={props.level}
 						mapMouseMoveCoordinates={null}
+						paintBufferUpdate={props.paintBufferUpdate}
 						scale={SCREEN_WIDTH / GEO_WIDTH}
 						useDevicePixelRatio={true}
-						geoPaintBuffer={props.geoPaintBuffer}
-						paintBufferUpdate={props.paintBufferUpdate}
 					/>
 				</div>
 			) : null}

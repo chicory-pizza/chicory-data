@@ -13,7 +13,7 @@ export default function LinkButton({
 	...otherProps
 }: Props): React$Node {
 	return (
-		<button {...otherProps} type="button" className={styles.button}>
+		<button {...otherProps} className={styles.button} type="button">
 			{children}
 		</button>
 	);

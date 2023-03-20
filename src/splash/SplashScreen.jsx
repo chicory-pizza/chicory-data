@@ -23,11 +23,11 @@ export default function SplashScreen(): React$Node {
 
 			<h1 className={styles.heading}>Chicory: A Colorful Modding</h1>
 
-			<Link to="/level/0_0_0" className={styles.link}>
+			<Link className={styles.link} to="/level/0_0_0">
 				⛰ Level editor
 			</Link>
 
-			<Link to="/dog" className={styles.link}>
+			<Link className={styles.link} to="/dog">
 				🐶 Drawdog maker
 			</Link>
 
@@ -39,7 +39,7 @@ export default function SplashScreen(): React$Node {
 				🗺 Map viewer
 			</a>
 
-			<Link to="/palette" className={styles.link}>
+			<Link className={styles.link} to="/palette">
 				🎨 Color palettes
 			</Link>
 

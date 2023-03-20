@@ -1,14 +1,11 @@
 // @flow strict
 
-import {useEffect, useState} from 'react';
-
 import SelectableButton from '../../common/SelectableButton';
 import {
 	PIXEL_COLORS,
 	PIXEL_COLORS_EXPLANATIONS,
 	TOOLBAR_COLOR_LOOKUP,
 } from '../GeoConstants';
-import type {ToolbarColorItem} from '../GeoConstants';
 import type {EditorToolType} from '../types/EditorToolType';
 
 import styles from './LevelToolbar.module.css';
@@ -35,8 +32,8 @@ export default function LevelToolbar(props: Props): React$Node {
 					return (
 						<SelectableButton
 							key={toolType}
-							selected={props.editorToolType === toolType}
 							onClick={() => props.onEditorToolTypeUpdate(toolType)}
+							selected={props.editorToolType === toolType}
 						>
 							{toolType}
 						</SelectableButton>
@@ -56,13 +53,13 @@ export default function LevelToolbar(props: Props): React$Node {
 			<div>
 				Brush Size: <label>{props.brushSize}</label>
 				<input
-					type="range"
-					min="1"
 					max="20"
-					value={props.brushSize}
+					min="1"
 					onChange={(e) => {
 						props.onBrushSizeUpdate(e.target.value);
 					}}
+					type="range"
+					value={props.brushSize}
 				/>
 			</div>
 			Palette Selection:
@@ -76,10 +73,10 @@ export default function LevelToolbar(props: Props): React$Node {
 
 					return (
 						<SelectableButton
-							key={colorIndex}
 							className={styles.colorSelect}
-							selected={props.currentPaintColor === colorIndex}
+							key={colorIndex}
 							onClick={() => props.onSelectPaintColor(colorIndex)}
+							selected={props.currentPaintColor === colorIndex}
 						>
 							<span
 								className={styles.colorBox}

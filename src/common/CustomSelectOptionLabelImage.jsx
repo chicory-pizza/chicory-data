@@ -16,9 +16,9 @@ export default function CustomSelectOptionLabelImage(
 			alt=""
 			{...props}
 			className={styles.image}
+			height={24}
 			loading="lazy"
 			width={24}
-			height={24}
 		/>
 	);
 }

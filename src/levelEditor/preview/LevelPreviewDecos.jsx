@@ -41,11 +41,11 @@ function LevelPreviewDecos(props: Props): React$Node {
 			image = (
 				<img
 					alt={dec.spr}
-					title={dec.spr}
+					height={sprite.height}
 					key={src}
 					src={src}
+					title={dec.spr}
 					width={sprite.width}
-					height={sprite.height}
 				/>
 			);
 

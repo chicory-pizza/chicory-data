@@ -55,11 +55,11 @@ export default function LevelInGamePreview({
 				alt={`Level preview for level ${currentCoordinates.join(', ')}`}
 				className={styles.image}
 				height={1080}
+				// force reload
+				key={levelId}
 				onDragStart={(ev) => {
 					ev.preventDefault();
 				}}
-				// force reload
-				key={levelId}
 				src={src}
 				width={SCREEN_WIDTH}
 			/>

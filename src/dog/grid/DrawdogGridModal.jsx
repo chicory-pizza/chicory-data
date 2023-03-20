@@ -127,11 +127,11 @@ export default function DrawdogGridModal({
 						{canPlayAnimations ? (
 							<label>
 								<input
-									type="checkbox"
 									checked={playAnimations}
 									onChange={(ev) => {
 										setPlayAnimations(ev.currentTarget.checked);
 									}}
+									type="checkbox"
 								/>
 								Play animations
 							</label>
@@ -173,8 +173,8 @@ export default function DrawdogGridModal({
 								alt=":chicory_is_straight:"
 								className={styles.noResultsImage}
 								height={78 / 2}
-								title=":chicory_is_straight:"
 								src={noResultsImage}
+								title=":chicory_is_straight:"
 								width={128 / 2}
 							/>
 						</div>

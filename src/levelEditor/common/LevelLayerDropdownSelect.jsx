@@ -77,10 +77,10 @@ export default function LevelLayerDropdownSelect(props: Props): React$Node {
 
 	return (
 		<CustomSelect
-			value={currentSelectOption.current}
 			maxMenuHeight={1000}
 			onChange={onOptionChange}
 			options={layersGrouped}
+			value={currentSelectOption.current}
 		/>
 	);
 }

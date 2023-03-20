@@ -138,8 +138,6 @@ export default function DogEditorHatLayer({
 				<div>Color:</div>
 				<div className={styles.color}>
 					<input
-						type="color"
-						value={hat.color}
 						onChange={(ev: SyntheticInputEvent<HTMLInputElement>) => {
 							if (hat.color === ev.currentTarget.value) {
 								return;
@@ -153,6 +151,8 @@ export default function DogEditorHatLayer({
 								},
 							});
 						}}
+						type="color"
+						value={hat.color}
 					/>
 				</div>
 

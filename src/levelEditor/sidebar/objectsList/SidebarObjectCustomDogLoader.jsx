@@ -20,7 +20,7 @@ export default function SidebarObjectCustomDogLoader(props: Props): React$Node {
 						<Spinner size={32} />
 					</div>
 
-					<button type="button" disabled>
+					<button disabled type="button">
 						Choose from gallery
 					</button>
 				</>

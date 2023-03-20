@@ -47,12 +47,12 @@ export default function PropertyImageBufferInput({
 
 	return (
 		<>
-			<button type="button" onClick={openFile}>
+			<button onClick={openFile} type="button">
 				Open image
 			</button>
 
 			{value != null && value !== '' ? (
-				<button type="button" onClick={remove}>
+				<button onClick={remove} type="button">
 					Remove
 				</button>
 			) : null}

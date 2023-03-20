@@ -67,8 +67,8 @@ function SidebarEntityItem<
 			<div className={styles.title}>
 				<button
 					className={styles.toggleIcon}
-					onFocus={() => props.onEntityHover(props.index)}
 					onClick={() => props.onItemToggle(props.index)}
+					onFocus={() => props.onEntityHover(props.index)}
 					title={props.expanded ? 'Collapse details' : 'Expand details'}
 					type="button"
 				>
