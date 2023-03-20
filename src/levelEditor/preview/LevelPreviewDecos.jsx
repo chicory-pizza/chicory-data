@@ -4,8 +4,8 @@ import {memo} from 'react';
 
 // $FlowFixMe[untyped-import]
 import spriteData from '../spriteData.json';
-import type {GameEntityType} from '../types/GameEntityType';
 import type {EditorToolType} from '../types/EditorToolType';
+import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
 
 import styles from './LevelPreviewDecos.module.css';

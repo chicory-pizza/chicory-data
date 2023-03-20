@@ -100,24 +100,6 @@ export default function LevelInspector({
 		}
 	}
 
-	const onMapMouseDown = useCallback(
-		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
-			if (mapMouseMoveCoordinates == null) {
-				return;
-			}
-
-			if (editorToolType === 'Brush') {
-				setIsPainting(true);
-				paint(mapMouseMoveCoordinates);
-			} else if (editorToolType === 'Fill') {
-				doFloodFill(mapMouseMoveCoordinates);
-			} else if (editorToolType === 'Eyedropper') {
-				doEyedropper(mapMouseMoveCoordinates);
-			}
-		},
-		[mapMouseMoveCoordinates, editorToolType, paintBufferUpdate]
-	);
-
 	function onMapMouseUp(ev: SyntheticMouseEvent<HTMLDivElement>) {
 		if (editorToolType === 'Brush') {
 			onPaintDone(ev);
@@ -144,27 +126,33 @@ export default function LevelInspector({
 		[geoPaintBuffer, paintBufferUpdate, paintColor, brushSize]
 	);
 
-	function doFloodFill(mouseCoords: [number, number]) {
-		const newGeo = floodFill(
-			paintColor,
-			decodeGeoString(level.geo),
-			mouseCoords
-		);
-		dispatch({
-			type: 'setLevelProperty',
-			coordinates: currentCoordinates,
-			key: 'geo',
-			// $FlowFixMe[incompatible-call]
-			value: encode(deflate(newGeo)),
-		});
-		setPaintBufferUpdate(paintBufferUpdate + 1);
-	}
+	const doFloodFill = useCallback(
+		(mouseCoords: [number, number]) => {
+			const newGeo = floodFill(
+				paintColor,
+				decodeGeoString(level.geo),
+				mouseCoords
+			);
+			dispatch({
+				type: 'setLevelProperty',
+				coordinates: currentCoordinates,
+				key: 'geo',
+				// $FlowFixMe[incompatible-call]
+				value: encode(deflate(newGeo)),
+			});
+			setPaintBufferUpdate(paintBufferUpdate + 1);
+		},
+		[currentCoordinates, dispatch, level.geo, paintBufferUpdate, paintColor]
+	);
 
-	function doEyedropper(mouseCoords: [number, number]) {
-		const currGeo = decodeGeoString(level.geo);
-		const pickedColor = pickColor(currGeo, mouseCoords);
-		setPaintColor(pickedColor);
-	}
+	const doEyedropper = useCallback(
+		(mouseCoords: [number, number]) => {
+			const currGeo = decodeGeoString(level.geo);
+			const pickedColor = pickColor(currGeo, mouseCoords);
+			setPaintColor(pickedColor);
+		},
+		[level.geo]
+	);
 
 	const onEditorToolTypeUpdate = useCallback(
 		(toolType: EditorToolType) => {
@@ -209,6 +197,24 @@ export default function LevelInspector({
 			setPaintBufferUpdate(paintBufferUpdate + 1);
 		}
 	}
+
+	const onMapMouseDown = useCallback(
+		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
+			if (mapMouseMoveCoordinates == null) {
+				return;
+			}
+
+			if (editorToolType === 'Brush') {
+				setIsPainting(true);
+				paint(mapMouseMoveCoordinates);
+			} else if (editorToolType === 'Fill') {
+				doFloodFill(mapMouseMoveCoordinates);
+			} else if (editorToolType === 'Eyedropper') {
+				doEyedropper(mapMouseMoveCoordinates);
+			}
+		},
+		[mapMouseMoveCoordinates, editorToolType, paint, doFloodFill, doEyedropper]
+	);
 
 	const onMapMouseLeave = useCallback(
 		(ev: SyntheticMouseEvent<HTMLDivElement>) => {

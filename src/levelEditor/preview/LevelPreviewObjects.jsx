@@ -7,9 +7,9 @@ import {
 	IDLE_ORIGIN_X,
 	IDLE_ORIGIN_Y,
 } from '../../dog/drawDogToCanvas';
+import type {EditorToolType} from '../types/EditorToolType';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
-import type {EditorToolType} from '../types/EditorToolType';
 import getGameObjectSimpleName from '../util/getGameObjectSimpleName';
 
 import LevelPreviewCustomDog from './LevelPreviewCustomDog';

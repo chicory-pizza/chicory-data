@@ -4,11 +4,11 @@ import GeoPreview from '../common/GeoPreview';
 import {GEO_WIDTH, SCREEN_WIDTH} from '../GeoConstants';
 // $FlowFixMe[untyped-import]
 import spriteData from '../spriteData.json';
+import type {EditorToolType} from '../types/EditorToolType';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
 import type {PlaceableType} from '../types/PlaceableType';
-import type {EditorToolType} from '../types/EditorToolType';
 import getGameObjectSimpleName from '../util/getGameObjectSimpleName';
 
 import LevelInGamePreview from './LevelInGamePreview';
