@@ -17,6 +17,10 @@
 	margin-bottom: 0.5em;
 }
 
+.hidden {
+	visibility: hidden;
+}
+
 .colorDisplay {
 	width: 5em;
 	height: 5em;

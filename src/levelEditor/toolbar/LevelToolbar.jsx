@@ -43,7 +43,7 @@ export default function LevelToolbar(props: Props): React$Node {
 				</span>
 			</div>
 
-			<div>
+			<div className={props.editorToolType !== 'Select' ? '' : styles.hidden}>
 				Current color:
 				<div className={styles.colorContainer}>
 					<span
@@ -54,7 +54,7 @@ export default function LevelToolbar(props: Props): React$Node {
 				</div>
 			</div>
 
-			<div>
+			<div className={props.editorToolType === 'Brush' ? '' : styles.hidden}>
 				Brush size: {props.brushSize}
 				<input
 					className={styles.range}
@@ -68,7 +68,7 @@ export default function LevelToolbar(props: Props): React$Node {
 				/>
 			</div>
 
-			<div>
+			<div className={props.editorToolType !== 'Select' ? '' : styles.hidden}>
 				Palette selection:
 				{PIXEL_COLORS_EXPLANATIONS.map((color) => {
 					return color.colors.map((colorIndex, arrayIndex) => {
