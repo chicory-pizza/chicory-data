@@ -178,17 +178,25 @@ export default function LevelInspector({
 			if (mapMouseMoveCoordinates == null) {
 				return;
 			}
-
-			if (editorToolType === 'Brush') {
-				setIsPainting(true);
-				paint(mapMouseMoveCoordinates);
-			} else if (editorToolType === 'Fill') {
-				doFloodFill(mapMouseMoveCoordinates);
-			} else if (editorToolType === 'Eyedropper') {
-				doEyedropper(mapMouseMoveCoordinates);
+			if (ev.buttons === 1 && !addingEntityLabel) {
+				if (editorToolType === 'Brush') {
+					setIsPainting(true);
+					paint(mapMouseMoveCoordinates);
+				} else if (editorToolType === 'Fill') {
+					doFloodFill(mapMouseMoveCoordinates);
+				} else if (editorToolType === 'Eyedropper') {
+					doEyedropper(mapMouseMoveCoordinates);
+				}
 			}
 		},
-		[mapMouseMoveCoordinates, editorToolType, paint, doFloodFill, doEyedropper]
+		[
+			mapMouseMoveCoordinates,
+			addingEntityLabel,
+			editorToolType,
+			paint,
+			doFloodFill,
+			doEyedropper,
+		]
 	);
 
 	const onMapMouseLeave = useCallback(
