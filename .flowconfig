@@ -22,8 +22,8 @@ unused-promise=error
 
 [options]
 emoji=true
-inference_mode=lti
 react.runtime=automatic
+use_mixed_in_catch_variables=true
 
 [strict]
 unclear-type

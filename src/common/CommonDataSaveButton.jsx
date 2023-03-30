@@ -19,7 +19,7 @@ export default function CommonDataSaveButton(props: Props): React$Node {
 				saveFileHandleRef.current
 			);
 		} catch (ex) {
-			if (ex.name !== 'AbortError') {
+			if (!(ex instanceof Error) || ex.name !== 'AbortError') {
 				console.error(ex);
 				alert('There was a problem saving the file.');
 			}

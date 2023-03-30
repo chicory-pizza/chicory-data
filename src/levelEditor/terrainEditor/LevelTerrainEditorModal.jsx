@@ -164,7 +164,10 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 				});
 				props.onModalRequestClose();
 			} catch (ex) {
-				setErrorMessage(ex.message);
+				if (ex instanceof Error) {
+					setErrorMessage(ex.message);
+				}
+
 				throw ex;
 			}
 		};
