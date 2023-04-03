@@ -1,10 +1,10 @@
 // @flow strict
 
-import {memo, useCallback, useEffect, useReducer, useState} from 'react';
+import {useCallback, useEffect, useReducer, useState} from 'react';
 
 import type {TransformType} from '../types/TransformType';
 
-type TransformAction = 'move';
+type TransformAction = 'MOVE';
 
 type Props = $ReadOnly<{
 	baseTransform: TransformType,
@@ -18,11 +18,25 @@ type Props = $ReadOnly<{
 }>;
 
 type ReducerAction =
-	| {type: 'move', deltaX: number, deltaY: number}
-	| {type: 'set', transform: TransformType}
-	| {type: null};
+	| {type: 'MOVE', deltaX: number, deltaY: number}
+	| {type: 'SET', transform: TransformType};
 
-function TransformDiv({
+function transformReducer(prevTransform: TransformType, action: ReducerAction) {
+	switch (action.type) {
+		case 'MOVE':
+			return {
+				...prevTransform,
+				x: prevTransform.x + action.deltaX,
+				y: prevTransform.y + action.deltaY,
+			};
+		case 'SET':
+			return action.transform;
+		default:
+			return prevTransform;
+	}
+}
+
+export default function TransformDiv({
 	baseTransform,
 	renderOffset,
 	mapMouseMoveCoordinates,
@@ -36,7 +50,7 @@ function TransformDiv({
 		transformReducer,
 		baseTransform
 	);
-	const [transformAction, setTransformAction] =
+	const [currentTransformAction, setCurrentTransformAction] =
 		useState<?TransformAction>(null);
 	const [prevMousePos, setPrevMousePos] = useState<?[number, number]>(null);
 
@@ -47,19 +61,19 @@ function TransformDiv({
 		if (mapMouseMoveCoordinates != null) {
 			ev.preventDefault();
 			setPrevMousePos(mapMouseMoveCoordinates);
-			setTransformAction(action);
+			setCurrentTransformAction(action);
 		}
 	}
 
 	const onMouseUp = useCallback(
 		(ev: MouseEvent) => {
-			if (transformAction != null) {
+			if (currentTransformAction != null) {
 				setPrevMousePos(null);
-				setTransformAction(null);
+				setCurrentTransformAction(null);
 				onTransformUpdate(currentTransform);
 			}
 		},
-		[transformAction, currentTransform, onTransformUpdate]
+		[currentTransformAction, currentTransform, onTransformUpdate]
 	);
 
 	useEffect(() => {
@@ -73,8 +87,14 @@ function TransformDiv({
 	// Mainly for updating transform when it gets updated by something other than dragging/dropping
 	useEffect(() => {
 		dispatch({
-			type: 'set',
-			transform: baseTransform,
+			type: 'SET',
+			transform: {
+				x: baseTransform.x,
+				y: baseTransform.y,
+				xScale: baseTransform.xScale,
+				yScale: baseTransform.yScale,
+				angle: baseTransform.angle,
+			},
 		});
 	}, [
 		baseTransform.x,
@@ -84,41 +104,23 @@ function TransformDiv({
 		baseTransform.angle,
 	]);
 
-	function transformReducer(
-		prevTransform: TransformType,
-		action: ReducerAction
-	) {
-		switch (action.type) {
-			case 'move':
-				return {
-					...prevTransform,
-					x: prevTransform.x + action.deltaX,
-					y: prevTransform.y + action.deltaY,
-				};
-			case 'set':
-				return action.transform;
-			default:
-				return prevTransform;
-		}
-	}
-
 	useEffect(() => {
 		// Decided to detect changes to mapMouseMoveCoordinates instead of using mousemove events since
 		// mapMouseMoveCoordinates gets updated by LevelInspector anyways.
 		if (
 			prevMousePos != null &&
 			mapMouseMoveCoordinates != null &&
-			transformAction != null
+			currentTransformAction != null
 		) {
 			setPrevMousePos(mapMouseMoveCoordinates);
 
 			dispatch({
-				type: transformAction,
+				type: currentTransformAction,
 				deltaX: mapMouseMoveCoordinates[0] - prevMousePos[0],
 				deltaY: mapMouseMoveCoordinates[1] - prevMousePos[1],
 			});
 		}
-	}, [transformAction, mapMouseMoveCoordinates, prevMousePos]);
+	}, [currentTransformAction, mapMouseMoveCoordinates, prevMousePos]);
 
 	const getTransformStyle = useCallback(() => {
 		const transforms = [];
@@ -160,23 +162,19 @@ function TransformDiv({
 			top: currentTransform.y + (renderOffset != null ? renderOffset[1] : 0),
 			transform: transforms.length !== 0 ? transforms.join(' ') : null,
 			transformOrigin,
+			cursor: currentTransformAction === 'MOVE' ? 'move' : 'crosshair',
 		};
-	}, [currentTransform, renderOffset, origin]);
+	}, [currentTransform, renderOffset, origin, currentTransformAction]);
 
 	return (
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			{...otherProps}
 			className={className}
-			onMouseDown={(ev) => onMouseDown(ev, 'move')}
+			onMouseDown={(ev) => onMouseDown(ev, 'MOVE')}
 			style={getTransformStyle()}
 		>
 			{children}
 		</div>
 	);
 }
-
-export default (memo<Props>(TransformDiv): React$AbstractComponent<
-	Props,
-	mixed
->);

@@ -336,25 +336,6 @@ export default function LevelInspector({
 		});
 	}, []);
 
-	const onEntityTransformUpdate = useCallback(
-		(
-			index: number,
-			type: GameEntityType,
-			properties: {
-				[key: string]: string | number | null,
-			}
-		) => {
-			dispatch({
-				type: 'editEntityPropertiesOnLevel',
-				coordinates: currentCoordinates,
-				index,
-				properties,
-				entityType: type,
-			});
-		},
-		[currentCoordinates, dispatch]
-	);
-
 	return (
 		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 		<div
@@ -376,7 +357,7 @@ export default function LevelInspector({
 						objectIndexHover={objectIndexHover}
 						onDecoHover={setDecoIndexHover}
 						onEntityClick={onEntityClick}
-						onEntityTransformUpdate={onEntityTransformUpdate}
+						onEntityTransformUpdate={onEntityEditProperties}
 						onMapMouseClick={onMapMouseClick}
 						onMapMouseLeave={onMapMouseLeave}
 						onMapMouseMove={onMapMouseMove}

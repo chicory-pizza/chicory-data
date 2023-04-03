@@ -26,10 +26,10 @@ type Props = $ReadOnly<{
 	onEntityHover: (entityIndex: ?number) => mixed,
 	onEntityTransformUpdate: (
 		index: number,
-		type: GameEntityType,
 		properties: {
 			[key: string]: string | number | null,
-		}
+		},
+		type: GameEntityType
 	) => mixed,
 }>;
 
@@ -68,7 +68,7 @@ function LevelPreviewObjects(props: Props): React$Node {
 				onMouseEnter={() => props.onEntityHover(index)}
 				onMouseLeave={() => props.onEntityHover(null)}
 				onTransformUpdate={(t: TransformType) =>
-					props.onEntityTransformUpdate(index, 'OBJECT', {x: t.x, y: t.y})
+					props.onEntityTransformUpdate(index, {x: t.x, y: t.y}, 'OBJECT')
 				}
 				origin={transformOrigin}
 				renderOffset={isCustomDog ? [0, -110 / 2] : null}

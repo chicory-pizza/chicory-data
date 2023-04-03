@@ -35,10 +35,10 @@ type Props = $ReadOnly<{
 	onObjectHover: (objectIndex: ?number) => mixed,
 	onEntityTransformUpdate: (
 		index: number,
-		type: GameEntityType,
 		properties: {
 			[key: string]: string | number | null,
-		}
+		},
+		type: GameEntityType
 	) => mixed,
 	decoIndexHover: ?number,
 	onDecoHover: (decoIndex: ?number) => mixed,

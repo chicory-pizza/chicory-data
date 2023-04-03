@@ -21,10 +21,10 @@ type Props = $ReadOnly<{
 	onEntityHover: (entityIndex: ?number) => mixed,
 	onEntityTransformUpdate: (
 		index: number,
-		type: GameEntityType,
 		properties: {
 			[key: string]: string | number | null,
-		}
+		},
+		type: GameEntityType
 	) => mixed,
 }>;
 
@@ -83,10 +83,14 @@ function LevelPreviewDecos(props: Props): React$Node {
 				onMouseEnter={() => props.onEntityHover(index)}
 				onMouseLeave={() => props.onEntityHover(null)}
 				onTransformUpdate={(t: TransformType) =>
-					props.onEntityTransformUpdate(index, 'DECO', {
-						x: t.x,
-						y: t.y,
-					})
+					props.onEntityTransformUpdate(
+						index,
+						{
+							x: t.x,
+							y: t.y,
+						},
+						'DECO'
+					)
 				}
 				origin={transformOrigin}
 				renderOffset={renderOffset}
