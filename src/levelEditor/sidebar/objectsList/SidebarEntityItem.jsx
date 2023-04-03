@@ -20,7 +20,7 @@ type Props<
 	entityPropertiesComponent: React$ComponentType<
 		SidebarEntityPropertiesComponentType<Entity, EntityType>
 	>,
-	expanded: boolean,
+	expandedTime: ?number,
 	getEntityName: (entity: Entity, filter: string) => string,
 	highlighted: boolean,
 	highlightClassName: string,
@@ -44,15 +44,21 @@ function SidebarEntityItem<
 	EntityType: GameEntityType
 >(props: Props<Entity, EntityType>): React$Node {
 	const item = useRef<?HTMLLIElement>(null);
-	const previousExpanded = usePrevious(props.expanded);
+
+	const expanded = props.expandedTime != null;
+	const previousExpandedTime = usePrevious(props.expandedTime);
 
 	useEffect(() => {
-		if (previousExpanded !== props.expanded && props.expanded) {
+		if (
+			previousExpandedTime !== props.expandedTime &&
+			props.expandedTime != null &&
+			props.expandedTime > 1
+		) {
 			item.current?.scrollIntoView({
 				block: 'nearest',
 			});
 		}
-	}, [previousExpanded, props.expanded]);
+	}, [previousExpandedTime, props.expandedTime]);
 
 	return (
 		<li
@@ -69,10 +75,10 @@ function SidebarEntityItem<
 					className={styles.toggleIcon}
 					onClick={() => props.onItemToggle(props.index)}
 					onFocus={() => props.onEntityHover(props.index)}
-					title={props.expanded ? 'Collapse details' : 'Expand details'}
+					title={expanded ? 'Collapse details' : 'Expand details'}
 					type="button"
 				>
-					{props.expanded ? '▼' : '▶︎'}
+					{expanded ? '▼' : '▶︎'}
 				</button>
 
 				<span className={styles.text}>
@@ -88,7 +94,7 @@ function SidebarEntityItem<
 				) : null}
 			</div>
 
-			{props.expanded ? (
+			{expanded ? (
 				<div className={styles.editor}>
 					<div className={styles.coordinatesRoot}>
 						<span className={styles.coordinatesText}>X:</span>

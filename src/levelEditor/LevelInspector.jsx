@@ -11,6 +11,7 @@ import LevelDecoAdder from './LevelDecoAdder';
 import styles from './LevelInspector.module.css';
 import LevelPreview from './preview/LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
+import useListItemsExpandedReducer from './sidebar/objectsList/useListItemsExpandedReducer';
 import LevelToolbar from './toolbar/LevelToolbar';
 import type {EditorToolType} from './types/EditorToolType';
 import type {GameEntityType} from './types/GameEntityType';
@@ -30,7 +31,7 @@ export default function LevelInspector({
 	currentCoordinates,
 	level,
 }: Props): React$Node {
-	const {dispatch} = useWorldDataNonNullable();
+	const {dispatch: dispatchWorldData} = useWorldDataNonNullable();
 
 	const previousLevelRef = useRef<?LevelType>(null);
 	const [isPainting, setIsPainting] = useState(false);
@@ -63,16 +64,22 @@ export default function LevelInspector({
 	const [objectIndexHover, setObjectIndexHover] = useState<?number>(null);
 	const [decoIndexHover, setDecoIndexHover] = useState<?number>(null);
 
-	const [sidebarObjectsListItemsExpanded, setSidebarObjectsListItemsExpanded] =
-		useState<Array<number>>([]);
+	const [
+		sidebarObjectsListItemsExpanded,
+		dispatchSidebarObjectsListItemsExpanded,
+	] = useListItemsExpandedReducer();
 
-	const [sidebarDecosListItemsExpanded, setSidebarDecosListItemsExpanded] =
-		useState<Array<number>>([]);
+	const [sidebarDecosListItemsExpanded, dispatchSidebarDecosListItemsExpanded] =
+		useListItemsExpandedReducer();
 
 	useEffect(() => {
-		setSidebarObjectsListItemsExpanded([]);
-		setSidebarDecosListItemsExpanded([]);
-	}, [currentCoordinates]);
+		dispatchSidebarObjectsListItemsExpanded({type: 'collapseAll'});
+		dispatchSidebarDecosListItemsExpanded({type: 'collapseAll'});
+	}, [
+		currentCoordinates,
+		dispatchSidebarDecosListItemsExpanded,
+		dispatchSidebarObjectsListItemsExpanded,
+	]);
 
 	// Coordinates
 	const [mapMouseMoveCoordinates, setMapMouseMoveCoordinates] =
@@ -87,7 +94,8 @@ export default function LevelInspector({
 		) {
 			return;
 		}
-		dispatch({
+
+		dispatchWorldData({
 			type: 'addEntityToLevel',
 			coordinates: currentCoordinates,
 			entity: addingEntityLabel,
@@ -111,7 +119,7 @@ export default function LevelInspector({
 					currGeo[index] = pixel;
 				});
 
-				dispatch({
+				dispatchWorldData({
 					type: 'setLevelProperty',
 					coordinates: currentCoordinates,
 					key: 'geo',
@@ -152,16 +160,24 @@ export default function LevelInspector({
 				decodeGeoString(level.geo),
 				mouseCoords
 			);
-			dispatch({
+
+			dispatchWorldData({
 				type: 'setLevelProperty',
 				coordinates: currentCoordinates,
 				key: 'geo',
 				// $FlowFixMe[incompatible-call]
 				value: encode(deflate(newGeo)),
 			});
+
 			setPaintBufferUpdate(paintBufferUpdate + 1);
 		},
-		[currentCoordinates, dispatch, level.geo, paintBufferUpdate, paintColor]
+		[
+			currentCoordinates,
+			dispatchWorldData,
+			level.geo,
+			paintBufferUpdate,
+			paintColor,
+		]
 	);
 
 	const doEyedropper = useCallback(
@@ -242,80 +258,50 @@ export default function LevelInspector({
 	const onEntityClick = useCallback(
 		(index: number, type: GameEntityType) => {
 			if (type === 'OBJECT') {
-				if (sidebarObjectsListItemsExpanded.includes(index)) {
-					// todo if the item is already expanded, then it won't scrollIntoView
-					return;
-				}
-
-				setSidebarObjectsListItemsExpanded(
-					sidebarObjectsListItemsExpanded.concat(index)
-				);
+				dispatchSidebarObjectsListItemsExpanded({
+					type: 'expand',
+					indexes: [index],
+				});
 			} else {
-				if (sidebarDecosListItemsExpanded.includes(index)) {
-					return;
-				}
-
-				setSidebarDecosListItemsExpanded(
-					sidebarDecosListItemsExpanded.concat(index)
-				);
+				dispatchSidebarDecosListItemsExpanded({
+					type: 'expand',
+					indexes: [index],
+				});
 			}
 		},
-		[sidebarObjectsListItemsExpanded, sidebarDecosListItemsExpanded]
+		[
+			dispatchSidebarObjectsListItemsExpanded,
+			dispatchSidebarDecosListItemsExpanded,
+		]
 	);
 
 	const onEntityDelete = useCallback(
 		(deletedObjectIndex: number, type: GameEntityType) => {
-			dispatch({
+			dispatchWorldData({
 				type: 'deleteEntityOnLevel',
 				coordinates: currentCoordinates,
 				index: deletedObjectIndex,
 				entityType: type,
 			});
+
 			if (type === 'OBJECT') {
-				setSidebarObjectsListItemsExpanded(
-					(sidebarObjectsListItemsExpanded) => {
-						return sidebarObjectsListItemsExpanded.reduce(
-							(previous, currentIndex) => {
-								// Skip deleted object index
-								if (currentIndex === deletedObjectIndex) {
-									return previous;
-								}
-
-								// Anything after the deleted object index needs to decrement
-								if (currentIndex > deletedObjectIndex) {
-									previous.push(currentIndex - 1);
-								} else {
-									previous.push(currentIndex);
-								}
-								return previous;
-							},
-							[]
-						);
-					}
-				);
+				dispatchSidebarObjectsListItemsExpanded({
+					type: 'remove',
+					index: deletedObjectIndex,
+				});
 			} else {
-				setSidebarDecosListItemsExpanded((sidebarDecosListItemsExpanded) => {
-					return sidebarDecosListItemsExpanded.reduce(
-						(previous, currentIndex) => {
-							// Skip deleted object index
-							if (currentIndex === deletedObjectIndex) {
-								return previous;
-							}
-
-							// Anything after the deleted object index needs to decrement
-							if (currentIndex > deletedObjectIndex) {
-								previous.push(currentIndex - 1);
-							} else {
-								previous.push(currentIndex);
-							}
-							return previous;
-						},
-						[]
-					);
+				dispatchSidebarDecosListItemsExpanded({
+					type: 'remove',
+					index: deletedObjectIndex,
 				});
 			}
 		},
-		[currentCoordinates, dispatch]
+		[
+			currentCoordinates,
+			dispatchWorldData,
+			dispatchSidebarDecosListItemsExpanded,
+			dispatchSidebarObjectsListItemsExpanded,
+		]
 	);
 
 	const onEntityEditProperties = useCallback(
@@ -326,7 +312,7 @@ export default function LevelInspector({
 			},
 			type: GameEntityType
 		) => {
-			dispatch({
+			dispatchWorldData({
 				type: 'editEntityPropertiesOnLevel',
 				coordinates: currentCoordinates,
 				index,
@@ -334,7 +320,7 @@ export default function LevelInspector({
 				entityType: type,
 			});
 		},
-		[currentCoordinates, dispatch]
+		[currentCoordinates, dispatchWorldData]
 	);
 
 	const onActiveUiViewToggle = useCallback((uiView: LevelInspectorUiView) => {
@@ -408,6 +394,10 @@ export default function LevelInspector({
 					activeUiViews={activeUiViews}
 					decoIndexHover={decoIndexHover}
 					decosListItemsExpanded={sidebarDecosListItemsExpanded}
+					dispatchDecosListItemsExpanded={dispatchSidebarDecosListItemsExpanded}
+					dispatchObjectsListItemsExpanded={
+						dispatchSidebarObjectsListItemsExpanded
+					}
 					level={level}
 					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					objectIndexHover={objectIndexHover}
@@ -418,8 +408,6 @@ export default function LevelInspector({
 					onEntityDelete={onEntityDelete}
 					onEntityEditProperties={onEntityEditProperties}
 					onObjectHover={setObjectIndexHover}
-					setDecosListItemsExpanded={setSidebarDecosListItemsExpanded}
-					setObjectsListItemsExpanded={setSidebarObjectsListItemsExpanded}
 				/>
 			</ErrorBoundary>
 		</div>

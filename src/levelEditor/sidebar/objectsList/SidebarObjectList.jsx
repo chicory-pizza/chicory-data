@@ -10,11 +10,12 @@ import SidebarObjectProperties from '../properties/SidebarObjectProperties';
 import SidebarEntityList from './SidebarEntityList';
 import styles from './SidebarObjectList.module.css';
 import SidebarObjectText from './SidebarObjectText';
+import type {ListItemsExpandedReducerAction} from './useListItemsExpandedReducer';
 
 type Props = $ReadOnly<{
 	levelObjects: Array<GameObjectType>,
 	entityIndexHover: ?number,
-	entitiesListItemsExpanded: Array<number>,
+	entitiesListItemsExpanded: Map<number, number>,
 	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => mixed,
 	onEntityEditProperties: (
 		entityIndex: number,
@@ -24,9 +25,9 @@ type Props = $ReadOnly<{
 		entityType: GameEntityType
 	) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
-	setEntitiesListItemsExpanded: (
-		expandedIndexes: Array<number> | ((Array<number>) => Array<number>)
-	) => mixed,
+	dispatchEntitiesListItemsExpanded: (
+		action: ListItemsExpandedReducerAction
+	) => void,
 }>;
 
 function SidebarObjectList(props: Props): React$MixedElement {
@@ -48,6 +49,9 @@ function SidebarObjectList(props: Props): React$MixedElement {
 
 	return (
 		<SidebarEntityList
+			dispatchEntitiesListItemsExpanded={
+				props.dispatchEntitiesListItemsExpanded
+			}
 			entities={props.levelObjects}
 			entitiesListItemsExpanded={props.entitiesListItemsExpanded}
 			entityHighlightClassName={styles.highlight}
@@ -60,7 +64,6 @@ function SidebarObjectList(props: Props): React$MixedElement {
 			onEntityHover={props.onEntityHover}
 			openByDefault={true}
 			renderItemDisplayText={renderItemDisplayText}
-			setEntitiesListItemsExpanded={props.setEntitiesListItemsExpanded}
 			type="OBJECT"
 		/>
 	);

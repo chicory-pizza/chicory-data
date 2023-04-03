@@ -10,6 +10,7 @@ import type {PlaceableType} from '../types/PlaceableType';
 import styles from './LevelSidebar.module.css';
 import SidebarDecoList from './objectsList/SidebarDecoList';
 import SidebarObjectList from './objectsList/SidebarObjectList';
+import type {ListItemsExpandedReducerAction} from './objectsList/useListItemsExpandedReducer';
 import SidebarLevelProperties from './properties/SidebarLevelProperties';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
 import SidebarObjectAdder from './SidebarObjectAdder';
@@ -20,7 +21,7 @@ type Props = $ReadOnly<{
 	level: LevelType,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
-	objectsListItemsExpanded: Array<number>,
+	objectsListItemsExpanded: Map<number, number>,
 	onActiveUiViewToggle: (uiView: LevelInspectorUiView) => mixed,
 	onAddingEntityLabel: (entity: PlaceableType) => mixed,
 	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => mixed,
@@ -32,15 +33,15 @@ type Props = $ReadOnly<{
 		entityType: GameEntityType
 	) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
-	setObjectsListItemsExpanded: (
-		expandedIndexes: Array<number> | ((Array<number>) => Array<number>)
-	) => mixed,
+	dispatchObjectsListItemsExpanded: (
+		action: ListItemsExpandedReducerAction
+	) => void,
 	decoIndexHover: ?number,
 	onDecoHover: (decoIndex: ?number) => mixed,
-	decosListItemsExpanded: Array<number>,
-	setDecosListItemsExpanded: (
-		expandedIndexes: Array<number> | ((Array<number>) => Array<number>)
-	) => mixed,
+	decosListItemsExpanded: Map<number, number>,
+	dispatchDecosListItemsExpanded: (
+		action: ListItemsExpandedReducerAction
+	) => void,
 }>;
 
 export default function LevelSidebar(props: Props): React$Node {
@@ -77,25 +78,29 @@ export default function LevelSidebar(props: Props): React$Node {
 
 				<ErrorBoundary>
 					<SidebarObjectList
+						dispatchEntitiesListItemsExpanded={
+							props.dispatchObjectsListItemsExpanded
+						}
 						entitiesListItemsExpanded={props.objectsListItemsExpanded}
 						entityIndexHover={props.objectIndexHover}
 						levelObjects={props.level.objects ?? []}
 						onEntityDelete={props.onEntityDelete}
 						onEntityEditProperties={props.onEntityEditProperties}
 						onEntityHover={props.onObjectHover}
-						setEntitiesListItemsExpanded={props.setObjectsListItemsExpanded}
 					/>
 				</ErrorBoundary>
 
 				<ErrorBoundary>
 					<SidebarDecoList
+						dispatchEntitiesListItemsExpanded={
+							props.dispatchDecosListItemsExpanded
+						}
 						entitiesListItemsExpanded={props.decosListItemsExpanded}
 						entityIndexHover={props.decoIndexHover}
 						levelDecos={props.level.decos ?? []}
 						onEntityDelete={props.onEntityDelete}
 						onEntityEditProperties={props.onEntityEditProperties}
 						onEntityHover={props.onDecoHover}
-						setEntitiesListItemsExpanded={props.setDecosListItemsExpanded}
 					/>
 				</ErrorBoundary>
 			</div>

@@ -9,13 +9,17 @@ import type {SidebarEntityPropertiesComponentType} from '../properties/SidebarEn
 
 import SidebarEntityItem from './SidebarEntityItem';
 import styles from './SidebarEntityList.module.css';
+import type {ListItemsExpandedReducerAction} from './useListItemsExpandedReducer';
 
 type Props<
 	Entity: GameObjectType | DecorationType,
 	EntityType: GameEntityType
 > = $ReadOnly<{
+	dispatchEntitiesListItemsExpanded: (
+		action: ListItemsExpandedReducerAction
+	) => void,
 	entities: Array<Entity>,
-	entitiesListItemsExpanded: Array<number>,
+	entitiesListItemsExpanded: Map<number, number>,
 	entityHighlightClassName: string,
 	entityIndexHover: ?number,
 	entityPropertiesComponent: React$ComponentType<
@@ -34,9 +38,6 @@ type Props<
 	onEntityHover: (entityIndex: ?number) => mixed,
 	openByDefault: boolean,
 	renderItemDisplayText: (entity: Entity) => React$Node,
-	setEntitiesListItemsExpanded: (
-		expandedIndexes: Array<number> | ((Array<number>) => Array<number>)
-	) => mixed,
 	type: EntityType,
 }>;
 
@@ -47,26 +48,28 @@ export default function SidebarEntityList<
 	const {
 		entities: unfilteredEntities,
 		entitiesListItemsExpanded: expandedUnfilteredEntityIndexes,
-		setEntitiesListItemsExpanded: setExpandedUnfilteredEntityIndexes,
+		dispatchEntitiesListItemsExpanded,
 	} = props;
-
-	const [filter, setFilter] = useState<string>('');
 
 	const onItemToggle = useCallback(
 		(objectIndex: number) => {
-			setExpandedUnfilteredEntityIndexes((expandedUnfilteredEntityIndexes) => {
-				if (expandedUnfilteredEntityIndexes.includes(objectIndex)) {
-					return expandedUnfilteredEntityIndexes.filter(
-						(index) => index !== objectIndex
-					);
-				}
-
-				return expandedUnfilteredEntityIndexes.concat(objectIndex);
-			});
+			if (expandedUnfilteredEntityIndexes.has(objectIndex)) {
+				dispatchEntitiesListItemsExpanded({
+					type: 'collapse',
+					indexes: [objectIndex],
+				});
+			} else {
+				dispatchEntitiesListItemsExpanded({
+					type: 'expand',
+					indexes: [objectIndex],
+				});
+			}
 		},
-		[setExpandedUnfilteredEntityIndexes]
+		[dispatchEntitiesListItemsExpanded, expandedUnfilteredEntityIndexes]
 	);
 
+	// Filtering
+	const [filter, setFilter] = useState<string>('');
 	const filterLowercase = filter.toLowerCase().trim().replace(/ /g, '_');
 
 	const filteredEntities: $ReadOnlyArray<?Entity> = unfilteredEntities
@@ -86,10 +89,10 @@ export default function SidebarEntityList<
 			? filteredEntities.length
 			: filteredEntities.filter((ent) => ent != null).length;
 
-	const expandedFilteredEntityIndexes: Array<number> =
+	const expandedFilteredEntityIndexes: $ReadOnlyArray<number> =
 		filter === ''
-			? expandedUnfilteredEntityIndexes
-			: expandedUnfilteredEntityIndexes.filter(
+			? Array.from(expandedUnfilteredEntityIndexes.keys())
+			: Array.from(expandedUnfilteredEntityIndexes.keys()).filter(
 					(entityIndex) => filteredEntities[entityIndex] != null
 			  );
 
@@ -134,7 +137,7 @@ export default function SidebarEntityList<
 						<SidebarEntityItem
 							entity={ent}
 							entityPropertiesComponent={props.entityPropertiesComponent}
-							expanded={expandedUnfilteredEntityIndexes.includes(index)}
+							expandedTime={expandedUnfilteredEntityIndexes.get(index)}
 							getEntityName={props.getEntityName}
 							highlightClassName={props.entityHighlightClassName}
 							highlighted={props.entityIndexHover === index}
@@ -159,24 +162,19 @@ export default function SidebarEntityList<
 						expandedFilteredEntityIndexes.length === filteredEntitiesCount
 					}
 					onClick={() => {
-						setExpandedUnfilteredEntityIndexes(
-							Array.from(
-								new Set(
-									expandedUnfilteredEntityIndexes.concat(
-										filteredEntities.reduce(
-											(previous, currentValue, entityIndex) => {
-												if (currentValue != null) {
-													previous.push(entityIndex);
-												}
+						dispatchEntitiesListItemsExpanded({
+							type: 'expand',
+							indexes: filteredEntities.reduce(
+								(previous, currentValue, entityIndex) => {
+									if (currentValue != null) {
+										previous.push(entityIndex);
+									}
 
-												return previous;
-											},
-											([]: Array<number>)
-										)
-									)
-								)
-							)
-						);
+									return previous;
+								},
+								([]: Array<number>)
+							),
+						});
 					}}
 					type="button"
 				>
@@ -190,11 +188,19 @@ export default function SidebarEntityList<
 					}
 					onClick={() => {
 						// Collapse all entities that are currently visible
-						setExpandedUnfilteredEntityIndexes(
-							expandedUnfilteredEntityIndexes.filter(
-								(entityIndex) => filteredEntities[entityIndex] == null
-							)
-						);
+						dispatchEntitiesListItemsExpanded({
+							type: 'collapse',
+							indexes: filteredEntities.reduce(
+								(previous, currentValue, entityIndex) => {
+									if (currentValue != null) {
+										previous.push(entityIndex);
+									}
+
+									return previous;
+								},
+								([]: Array<number>)
+							),
+						});
 					}}
 					type="button"
 				>
