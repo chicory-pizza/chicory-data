@@ -19,6 +19,7 @@ type Props = $ReadOnly<{
 
 type ReducerAction =
 	| {type: 'move', deltaX: number, deltaY: number}
+	| {type: 'set', transform: TransformType}
 	| {type: null};
 
 function TransformDiv({
@@ -69,6 +70,20 @@ function TransformDiv({
 		};
 	}, [onMouseUp]);
 
+	// Mainly for updating transform when it gets updated by something other than dragging/dropping
+	useEffect(() => {
+		dispatch({
+			type: 'set',
+			transform: baseTransform,
+		});
+	}, [
+		baseTransform.x,
+		baseTransform.y,
+		baseTransform.xScale,
+		baseTransform.yScale,
+		baseTransform.angle,
+	]);
+
 	function transformReducer(
 		prevTransform: TransformType,
 		action: ReducerAction
@@ -80,12 +95,16 @@ function TransformDiv({
 					x: prevTransform.x + action.deltaX,
 					y: prevTransform.y + action.deltaY,
 				};
+			case 'set':
+				return action.transform;
 			default:
 				return prevTransform;
 		}
 	}
 
 	useEffect(() => {
+		// Decided to detect changes to mapMouseMoveCoordinates instead of using mousemove events since
+		// mapMouseMoveCoordinates gets updated by LevelInspector anyways.
 		if (
 			prevMousePos != null &&
 			mapMouseMoveCoordinates != null &&
