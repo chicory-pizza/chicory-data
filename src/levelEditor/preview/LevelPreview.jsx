@@ -33,6 +33,13 @@ type Props = $ReadOnly<{
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onEntityClick: (entityIndex: number, entityType: GameEntityType) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
+	onEntityTransformUpdate: (
+		index: number,
+		type: GameEntityType,
+		properties: {
+			[key: string]: string | number | null,
+		}
+	) => mixed,
 	decoIndexHover: ?number,
 	onDecoHover: (decoIndex: ?number) => mixed,
 }>;
@@ -108,8 +115,10 @@ export default function LevelPreview(props: Props): React$Node {
 					editorToolType={props.editorToolType}
 					entityIndexHover={props.objectIndexHover}
 					level={props.level}
+					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onObjectHover}
+					onEntityTransformUpdate={props.onEntityTransformUpdate}
 				/>
 			) : null}
 
@@ -138,8 +147,10 @@ export default function LevelPreview(props: Props): React$Node {
 					editorToolType={props.editorToolType}
 					entityIndexHover={props.decoIndexHover}
 					level={props.level}
+					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onDecoHover}
+					onEntityTransformUpdate={props.onEntityTransformUpdate}
 				/>
 			) : null}
 

@@ -7,15 +7,25 @@ import spriteData from '../spriteData.json';
 import type {EditorToolType} from '../types/EditorToolType';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
+import type {TransformType} from '../types/TransformType';
 
 import styles from './LevelPreviewDecos.module.css';
+import TransformDiv from './TransformDiv';
 
 type Props = $ReadOnly<{
 	level: LevelType,
 	editorToolType: EditorToolType,
 	entityIndexHover: ?number,
+	mapMouseMoveCoordinates: ?[number, number],
 	onEntityClick: (entityIndex: number, entityType: GameEntityType) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
+	onEntityTransformUpdate: (
+		index: number,
+		type: GameEntityType,
+		properties: {
+			[key: string]: string | number | null,
+		}
+	) => mixed,
 }>;
 
 function LevelPreviewDecos(props: Props): React$Node {
@@ -30,12 +40,9 @@ function LevelPreviewDecos(props: Props): React$Node {
 		const sprite = spriteData[dec.spr];
 
 		let image: string | React$MixedElement = dec.spr;
-		const style = {
-			left: dec.x,
-			top: dec.y,
-			transformOrigin: '',
-			transform: '',
-		};
+		let transformOrigin = null;
+		let renderOffset = null;
+
 		if (sprite != null && urlPrefix != null) {
 			const src = urlPrefix + dec.spr + '.png';
 			image = (
@@ -49,20 +56,20 @@ function LevelPreviewDecos(props: Props): React$Node {
 				/>
 			);
 
-			const originx = sprite.originx;
-			const originy = sprite.originy;
-
-			style.left = dec.x - originx;
-			style.top = dec.y - originy;
-			style.transformOrigin = `${originx}px ${originy}px`;
-			style.transform = `scaleX(${dec.xs}) scaleY(${dec.ys}) rotate(${
-				-1 * Math.sign(dec.xs) * dec.ang
-			}deg)`;
+			transformOrigin = [sprite.originx, sprite.originy];
+			renderOffset = [-sprite.originx, -sprite.originy];
 		}
 
 		return (
 			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-			<div
+			<TransformDiv
+				baseTransform={{
+					x: dec.x,
+					y: dec.y,
+					xScale: dec.xs,
+					yScale: dec.ys,
+					angle: dec.ang,
+				}}
 				className={
 					styles.item +
 					' ' +
@@ -71,13 +78,21 @@ function LevelPreviewDecos(props: Props): React$Node {
 					(props.editorToolType !== 'Select' ? styles.disabled : '')
 				}
 				key={index}
+				mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
 				onClick={() => props.onEntityClick(index, 'DECO')}
 				onMouseEnter={() => props.onEntityHover(index)}
 				onMouseLeave={() => props.onEntityHover(null)}
-				style={style}
+				onTransformUpdate={(t: TransformType) =>
+					props.onEntityTransformUpdate(index, 'DECO', {
+						x: t.x,
+						y: t.y,
+					})
+				}
+				origin={transformOrigin}
+				renderOffset={renderOffset}
 			>
 				{image}
-			</div>
+			</TransformDiv>
 		);
 	});
 }
