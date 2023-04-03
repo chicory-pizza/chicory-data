@@ -4,6 +4,7 @@ import {memo, useCallback} from 'react';
 
 import type {GameEntityType} from '../../types/GameEntityType';
 import type {GameObjectType} from '../../types/GameObjectType';
+import type {SidebarPanel} from '../../types/SidebarPanel';
 import getGameObjectSimpleName from '../../util/getGameObjectSimpleName';
 import SidebarObjectProperties from '../properties/SidebarObjectProperties';
 
@@ -13,9 +14,13 @@ import SidebarObjectText from './SidebarObjectText';
 import type {ListItemsExpandedReducerAction} from './useListItemsExpandedReducer';
 
 type Props = $ReadOnly<{
-	levelObjects: Array<GameObjectType>,
+	dispatchEntitiesListItemsExpanded: (
+		action: ListItemsExpandedReducerAction
+	) => void,
 	entityIndexHover: ?number,
 	entitiesListItemsExpanded: Map<number, number>,
+	expanded: boolean,
+	levelObjects: Array<GameObjectType>,
 	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => mixed,
 	onEntityEditProperties: (
 		entityIndex: number,
@@ -25,9 +30,10 @@ type Props = $ReadOnly<{
 		entityType: GameEntityType
 	) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
-	dispatchEntitiesListItemsExpanded: (
-		action: ListItemsExpandedReducerAction
-	) => void,
+	onSidebarPanelExpandToggle: (
+		ev: SyntheticMouseEvent<HTMLElement>,
+		sidebarPanel: SidebarPanel
+	) => mixed,
 }>;
 
 function SidebarObjectList(props: Props): React$MixedElement {
@@ -57,13 +63,15 @@ function SidebarObjectList(props: Props): React$MixedElement {
 			entityHighlightClassName={styles.highlight}
 			entityIndexHover={props.entityIndexHover}
 			entityPropertiesComponent={SidebarObjectProperties}
+			expanded={props.expanded}
 			getEntityName={getEntityName}
 			name="Objects"
 			onEntityDelete={props.onEntityDelete}
 			onEntityEditProperties={props.onEntityEditProperties}
 			onEntityHover={props.onEntityHover}
-			openByDefault={true}
+			onSidebarPanelExpandToggle={props.onSidebarPanelExpandToggle}
 			renderItemDisplayText={renderItemDisplayText}
+			sidebarPanelType="OBJECTS"
 			type="OBJECT"
 		/>
 	);

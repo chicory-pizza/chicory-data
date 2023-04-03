@@ -8,6 +8,7 @@ import EditRawLevelDataModal from '../../editRawData/EditRawLevelDataModal';
 import LevelTerrainEditorModal from '../../terrainEditor/LevelTerrainEditorModal';
 import {LEVEL_EDITABLE_PROPERTIES_SCHEMA} from '../../types/LevelEditablePropertiesSchema';
 import type {LevelType} from '../../types/LevelType';
+import type {SidebarPanel} from '../../types/SidebarPanel';
 import convertCoordinatesToLevelId from '../../util/convertCoordinatesToLevelId';
 import getLevelLabel from '../../util/getLevelLabel';
 import {useWorldDataNonNullable} from '../../WorldDataContext';
@@ -18,7 +19,12 @@ import styles from './SidebarLevelProperties.module.css';
 const LEVEL_EXCLUDED_PROPERTIES = ['decos', 'geo', 'objects'];
 
 type Props = $ReadOnly<{
+	expanded: boolean,
 	level: LevelType,
+	onSidebarPanelExpandToggle: (
+		ev: SyntheticMouseEvent<HTMLElement>,
+		sidebarPanel: SidebarPanel
+	) => mixed,
 }>;
 
 function SidebarLevelProperties(props: Props): React$Node {
@@ -91,8 +97,14 @@ function SidebarLevelProperties(props: Props): React$Node {
 	}
 
 	return (
-		<details className={styles.expander} open>
-			<summary>Level {currentCoordinates.join(', ')} properties</summary>
+		<details className={styles.expander} open={props.expanded}>
+			<summary
+				onClick={(ev) =>
+					props.onSidebarPanelExpandToggle(ev, 'LEVEL_PROPERTIES')
+				}
+			>
+				Level {currentCoordinates.join(', ')} properties
+			</summary>
 
 			<div className={styles.content}>
 				<SidebarEditableProperties

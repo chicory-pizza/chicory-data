@@ -18,6 +18,7 @@ import type {GameEntityType} from './types/GameEntityType';
 import type {LevelInspectorUiView} from './types/LevelInspectorUiView';
 import type {LevelType} from './types/LevelType';
 import type {PlaceableType} from './types/PlaceableType';
+import type {SidebarPanel} from './types/SidebarPanel';
 import decodeGeoString from './util/decodeGeoString';
 import {paintBresenham, floodFill, pickColor} from './util/paintGeo';
 import {useWorldDataNonNullable} from './WorldDataContext';
@@ -59,6 +60,9 @@ export default function LevelInspector({
 	const [brushSize, setBrushSize] = useState<number>(1);
 
 	// Sidebar
+	const [expandedSidebarPanels, setExpandedSidebarPanels] = useState<
+		Set<SidebarPanel>
+	>(new Set(['LEVEL_PROPERTIES', 'OBJECTS']));
 	const [addingEntityLabel, setAddingEntityLabel] =
 		useState<?PlaceableType>(null);
 	const [objectIndexHover, setObjectIndexHover] = useState<?number>(null);
@@ -262,10 +266,26 @@ export default function LevelInspector({
 					type: 'expand',
 					indexes: [index],
 				});
+
+				setExpandedSidebarPanels((expandedSidebarPanels) => {
+					if (!expandedSidebarPanels.has('OBJECTS')) {
+						return new Set(expandedSidebarPanels).add('OBJECTS');
+					}
+
+					return expandedSidebarPanels;
+				});
 			} else {
 				dispatchSidebarDecosListItemsExpanded({
 					type: 'expand',
 					indexes: [index],
+				});
+
+				setExpandedSidebarPanels((expandedSidebarPanels) => {
+					if (!expandedSidebarPanels.has('DECOS')) {
+						return new Set(expandedSidebarPanels).add('DECOS');
+					}
+
+					return expandedSidebarPanels;
 				});
 			}
 		},
@@ -336,6 +356,23 @@ export default function LevelInspector({
 		});
 	}, []);
 
+	const onSidebarPanelExpandToggle = useCallback(
+		(ev: SyntheticMouseEvent<HTMLElement>, sidebarPanel: SidebarPanel) => {
+			ev.preventDefault();
+
+			setExpandedSidebarPanels((expandedSidebarPanels) => {
+				if (expandedSidebarPanels.has(sidebarPanel)) {
+					const newSet = new Set(expandedSidebarPanels);
+					newSet.delete(sidebarPanel);
+					return newSet;
+				}
+
+				return new Set(expandedSidebarPanels).add(sidebarPanel);
+			});
+		},
+		[]
+	);
+
 	return (
 		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 		<div
@@ -399,6 +436,7 @@ export default function LevelInspector({
 					dispatchObjectsListItemsExpanded={
 						dispatchSidebarObjectsListItemsExpanded
 					}
+					expandedSidebarPanels={expandedSidebarPanels}
 					level={level}
 					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					objectIndexHover={objectIndexHover}
@@ -409,6 +447,7 @@ export default function LevelInspector({
 					onEntityDelete={onEntityDelete}
 					onEntityEditProperties={onEntityEditProperties}
 					onObjectHover={setObjectIndexHover}
+					onSidebarPanelExpandToggle={onSidebarPanelExpandToggle}
 				/>
 			</ErrorBoundary>
 		</div>

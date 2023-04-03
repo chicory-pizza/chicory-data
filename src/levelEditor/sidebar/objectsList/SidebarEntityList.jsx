@@ -5,6 +5,7 @@ import {useCallback, useState} from 'react';
 import type {DecorationType} from '../../types/DecorationType';
 import type {GameEntityType} from '../../types/GameEntityType';
 import type {GameObjectType} from '../../types/GameObjectType';
+import type {SidebarPanel} from '../../types/SidebarPanel';
 import type {SidebarEntityPropertiesComponentType} from '../properties/SidebarEntityPropertiesComponentType';
 
 import SidebarEntityItem from './SidebarEntityItem';
@@ -25,6 +26,7 @@ type Props<
 	entityPropertiesComponent: React$ComponentType<
 		SidebarEntityPropertiesComponentType<Entity, EntityType>
 	>,
+	expanded: boolean,
 	getEntityName: (entity: Entity, filter: string) => string,
 	name: string,
 	onEntityDelete: (entityIndex: number, entityType: EntityType) => mixed,
@@ -36,8 +38,12 @@ type Props<
 		entityType: EntityType
 	) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
-	openByDefault: boolean,
+	onSidebarPanelExpandToggle: (
+		ev: SyntheticMouseEvent<HTMLElement>,
+		sidebarPanel: SidebarPanel
+	) => mixed,
 	renderItemDisplayText: (entity: Entity) => React$Node,
+	sidebarPanelType: SidebarPanel,
 	type: EntityType,
 }>;
 
@@ -99,8 +105,12 @@ export default function SidebarEntityList<
 	const unfilteredEntitiesLength = filteredEntities.length;
 
 	return (
-		<details className={styles.expander} open={props.openByDefault}>
-			<summary>
+		<details className={styles.expander} open={props.expanded}>
+			<summary
+				onClick={(ev) =>
+					props.onSidebarPanelExpandToggle(ev, props.sidebarPanelType)
+				}
+			>
 				{unfilteredEntitiesLength > 0
 					? props.name +
 					  ' (' +

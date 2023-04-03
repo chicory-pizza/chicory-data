@@ -4,6 +4,7 @@ import {memo, useCallback} from 'react';
 
 import type {DecorationType} from '../../types/DecorationType';
 import type {GameEntityType} from '../../types/GameEntityType';
+import type {SidebarPanel} from '../../types/SidebarPanel';
 import SidebarDecoProperties from '../properties/SidebarDecoProperties';
 
 import styles from './SidebarDecoList.module.css';
@@ -11,9 +12,13 @@ import SidebarEntityList from './SidebarEntityList';
 import type {ListItemsExpandedReducerAction} from './useListItemsExpandedReducer';
 
 type Props = $ReadOnly<{
-	levelDecos: Array<DecorationType>,
+	dispatchEntitiesListItemsExpanded: (
+		action: ListItemsExpandedReducerAction
+	) => void,
 	entityIndexHover: ?number,
 	entitiesListItemsExpanded: Map<number, number>,
+	expanded: boolean,
+	levelDecos: Array<DecorationType>,
 	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => mixed,
 	onEntityEditProperties: (
 		entityIndex: number,
@@ -23,9 +28,10 @@ type Props = $ReadOnly<{
 		entityType: GameEntityType
 	) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
-	dispatchEntitiesListItemsExpanded: (
-		action: ListItemsExpandedReducerAction
-	) => void,
+	onSidebarPanelExpandToggle: (
+		ev: SyntheticMouseEvent<HTMLElement>,
+		sidebarPanel: SidebarPanel
+	) => mixed,
 }>;
 
 function SidebarObjectList(props: Props): React$MixedElement {
@@ -50,13 +56,15 @@ function SidebarObjectList(props: Props): React$MixedElement {
 			entityHighlightClassName={styles.highlight}
 			entityIndexHover={props.entityIndexHover}
 			entityPropertiesComponent={SidebarDecoProperties}
+			expanded={props.expanded}
 			getEntityName={getEntityName}
 			name="Decos"
 			onEntityDelete={props.onEntityDelete}
 			onEntityEditProperties={props.onEntityEditProperties}
 			onEntityHover={props.onEntityHover}
-			openByDefault={false}
+			onSidebarPanelExpandToggle={props.onSidebarPanelExpandToggle}
 			renderItemDisplayText={renderItemDisplayText}
+			sidebarPanelType="DECOS"
 			type="DECO"
 		/>
 	);
