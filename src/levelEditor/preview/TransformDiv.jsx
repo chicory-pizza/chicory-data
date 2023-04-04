@@ -62,7 +62,7 @@ export default function TransformDiv({
 		ev: SyntheticMouseEvent<HTMLDivElement>,
 		action: TransformAction
 	) {
-		if (mapMouseMoveCoordinates != null) {
+		if (ev.buttons === 1 && mapMouseMoveCoordinates != null) {
 			ev.preventDefault();
 			setPrevMousePos(mapMouseMoveCoordinates);
 			setCurrentTransformAction(action);
