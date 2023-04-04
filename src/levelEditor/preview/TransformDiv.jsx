@@ -8,6 +8,8 @@ type TransformAction = 'MOVE';
 
 type Props = $ReadOnly<{
 	baseTransform: TransformType,
+	centerDiv: ?boolean,
+	rotateFirst: ?boolean,
 	className: string,
 	renderOffset: ?[number, number],
 	mapMouseMoveCoordinates: ?[number, number],
@@ -40,9 +42,11 @@ export default function TransformDiv({
 	baseTransform,
 	renderOffset,
 	mapMouseMoveCoordinates,
+	centerDiv,
 	children,
 	onTransformUpdate,
 	origin,
+	rotateFirst,
 	className,
 	...otherProps
 }: Props): React$Node {
@@ -146,25 +150,39 @@ export default function TransformDiv({
 			typeof currentTransform.angle === 'number' &&
 			currentTransform.angle !== 0
 		) {
-			transforms.push(
-				`rotate(${
-					-1 *
-					Math.sign(
-						currentTransform.xScale != null ? currentTransform.xScale : 1
-					) *
-					(currentTransform.angle != null ? currentTransform.angle : 0)
-				}deg)`
-			);
+			const rotateTransform = `rotate(${
+				-1 *
+				Math.sign(
+					currentTransform.xScale != null ? currentTransform.xScale : 1
+				) *
+				(currentTransform.angle != null ? currentTransform.angle : 0)
+			}deg)`;
+
+			if (rotateFirst) {
+				transforms.unshift(rotateTransform);
+			} else {
+				transforms.push(rotateTransform);
+			}
 		}
 
 		return {
 			left: currentTransform.x + (renderOffset != null ? renderOffset[0] : 0),
 			top: currentTransform.y + (renderOffset != null ? renderOffset[1] : 0),
-			transform: transforms.length !== 0 ? transforms.join(' ') : null,
+			transform:
+				transforms.length !== 0
+					? (centerDiv ? 'translate(-50%, -50%) ' : '') + transforms.join(' ')
+					: null,
 			transformOrigin,
 			cursor: currentTransformAction === 'MOVE' ? 'move' : 'pointer',
 		};
-	}, [currentTransform, renderOffset, origin, currentTransformAction]);
+	}, [
+		currentTransform,
+		renderOffset,
+		origin,
+		currentTransformAction,
+		rotateFirst,
+		centerDiv,
+	]);
 
 	return (
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions

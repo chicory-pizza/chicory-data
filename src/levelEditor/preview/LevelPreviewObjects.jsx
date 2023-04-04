@@ -54,7 +54,14 @@ function LevelPreviewObjects(props: Props): React$Node {
 		return (
 			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 			<TransformDiv
-				baseTransform={{x: obj.x, y: obj.y}}
+				baseTransform={{
+					x: obj.x,
+					y: obj.y,
+					xScale: obj.xscale,
+					yScale: obj.yscale,
+					angle: obj.angle,
+				}}
+				centerDiv={true}
 				className={
 					styles.item +
 					' ' +
@@ -72,6 +79,7 @@ function LevelPreviewObjects(props: Props): React$Node {
 				}
 				origin={transformOrigin}
 				renderOffset={isCustomDog ? [0, -110 / 2] : null}
+				rotateFirst={true}
 			>
 				{isCustomDog ? (
 					<LevelPreviewCustomDog obj={obj} />
