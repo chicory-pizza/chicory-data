@@ -78,7 +78,7 @@ function SidebarEntityItem<
 					title={expanded ? 'Collapse details' : 'Expand details'}
 					type="button"
 				>
-					{expanded ? '▼' : '▶︎'}
+					{expanded ? '▾' : '▸︎'}
 				</button>
 
 				<span className={styles.text}>
