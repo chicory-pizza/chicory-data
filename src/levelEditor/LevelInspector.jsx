@@ -357,6 +357,7 @@ export default function LevelInspector({
 						objectIndexHover={objectIndexHover}
 						onDecoHover={setDecoIndexHover}
 						onEntityClick={onEntityClick}
+						onEntityTransformUpdate={onEntityEditProperties}
 						onMapMouseClick={onMapMouseClick}
 						onMapMouseLeave={onMapMouseLeave}
 						onMapMouseMove={onMapMouseMove}

@@ -10,17 +10,27 @@ import {
 import type {EditorToolType} from '../types/EditorToolType';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
+import type {TransformType} from '../types/TransformType';
 import getGameObjectSimpleName from '../util/getGameObjectSimpleName';
 
 import LevelPreviewCustomDog from './LevelPreviewCustomDog';
 import styles from './LevelPreviewObjects.module.css';
+import TransformDiv from './TransformDiv';
 
 type Props = $ReadOnly<{
 	level: LevelType,
 	editorToolType: EditorToolType,
 	entityIndexHover: ?number,
+	mapMouseMoveCoordinates: ?[number, number],
 	onEntityClick: (entityIndex: number, entityType: GameEntityType) => mixed,
 	onEntityHover: (entityIndex: ?number) => mixed,
+	onEntityTransformUpdate: (
+		index: number,
+		properties: {
+			[key: string]: string | number | null,
+		},
+		type: GameEntityType
+	) => mixed,
 }>;
 
 function LevelPreviewObjects(props: Props): React$Node {
@@ -32,29 +42,19 @@ function LevelPreviewObjects(props: Props): React$Node {
 	return levelObjects.map((obj, index) => {
 		const isCustomDog = obj.obj === 'objCustomDog';
 
-		const transforms = [];
-		let transformOrigin = '';
+		let transformOrigin = null;
+
 		if (isCustomDog) {
-			transformOrigin = `${IDLE_ORIGIN_X / DOG_RES_SCALE}px ${
-				IDLE_ORIGIN_Y / DOG_RES_SCALE
-			}px`;
-
-			if (typeof obj.angle === 'number' && obj.angle !== 0) {
-				transforms.push(`rotate(${-obj.angle}deg)`);
-			}
-
-			if (typeof obj.xscale === 'number') {
-				transforms.push(`scaleX(${obj.xscale})`);
-			}
-
-			if (typeof obj.yscale === 'number') {
-				transforms.push(`scaleY(${obj.yscale})`);
-			}
+			transformOrigin = [
+				IDLE_ORIGIN_X / DOG_RES_SCALE,
+				IDLE_ORIGIN_Y / DOG_RES_SCALE,
+			];
 		}
 
 		return (
 			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-			<div
+			<TransformDiv
+				baseTransform={{x: obj.x, y: obj.y}}
 				className={
 					styles.item +
 					' ' +
@@ -63,28 +63,22 @@ function LevelPreviewObjects(props: Props): React$Node {
 					(props.editorToolType !== 'Select' ? styles.disabled : '')
 				}
 				key={index}
+				mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
 				onClick={() => props.onEntityClick(index, 'OBJECT')}
 				onMouseEnter={() => props.onEntityHover(index)}
 				onMouseLeave={() => props.onEntityHover(null)}
-				style={{
-					left: obj.x,
-					top:
-						obj.y +
-						// Need to adjust Y position here so the whole box is moved
-						(isCustomDog ? -110 / 2 : 0),
-					transform:
-						transforms.length !== 0
-							? 'translate(-50%, -50%) ' + transforms.join(' ')
-							: null,
-					transformOrigin,
-				}}
+				onTransformUpdate={(t: TransformType) =>
+					props.onEntityTransformUpdate(index, {x: t.x, y: t.y}, 'OBJECT')
+				}
+				origin={transformOrigin}
+				renderOffset={isCustomDog ? [0, -110 / 2] : null}
 			>
 				{isCustomDog ? (
 					<LevelPreviewCustomDog obj={obj} />
 				) : (
 					getGameObjectSimpleName(obj.obj)
 				)}
-			</div>
+			</TransformDiv>
 		);
 	});
 }
