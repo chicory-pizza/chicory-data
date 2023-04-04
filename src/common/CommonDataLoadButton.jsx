@@ -1,12 +1,19 @@
 // @flow strict
 
 import {fileOpen} from 'browser-fs-access';
+import {useHotkeys} from 'react-hotkeys-hook';
+
+import getCtrlKeyboardModifier from '../util/getCtrlKeyboardModifier';
 
 type Props = $ReadOnly<{
 	onFileLoad: (reader: FileReader) => mixed,
 }>;
 
 export default function CommonDataLoadButton(props: Props): React$MixedElement {
+	useHotkeys(getCtrlKeyboardModifier() + '+o', openFile, {
+		preventDefault: true,
+	});
+
 	async function openFile() {
 		const blob = await fileOpen();
 

@@ -1,9 +1,15 @@
 // @flow strict
 
 import {useRef} from 'react';
+import {useHotkeys} from 'react-hotkeys-hook';
+
+import getCtrlKeyboardModifier from '../util/getCtrlKeyboardModifier';
 
 type Props = $ReadOnly<{
-	buttonProps: {...},
+	buttonProps: {
+		disabled?: boolean,
+		...
+	},
 	label: string,
 	onFileSave: (
 		existingHandle: ?FileSystemFileHandle
@@ -11,6 +17,13 @@ type Props = $ReadOnly<{
 }>;
 
 export default function CommonDataSaveButton(props: Props): React$Node {
+	useHotkeys(getCtrlKeyboardModifier() + '+s', saveFile, {
+		enabled:
+			props.buttonProps.disabled == null ||
+			props.buttonProps.disabled === false,
+		preventDefault: true,
+	});
+
 	const saveFileHandleRef = useRef<?FileSystemFileHandle>(null);
 
 	async function saveFile() {
