@@ -162,7 +162,7 @@ export default function TransformDiv({
 			top: currentTransform.y + (renderOffset != null ? renderOffset[1] : 0),
 			transform: transforms.length !== 0 ? transforms.join(' ') : null,
 			transformOrigin,
-			cursor: currentTransformAction === 'MOVE' ? 'move' : 'crosshair',
+			cursor: currentTransformAction === 'MOVE' ? 'move' : 'pointer',
 		};
 	}, [currentTransform, renderOffset, origin, currentTransformAction]);
 
