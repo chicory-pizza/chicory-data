@@ -43,24 +43,35 @@ function LevelPreviewObjects(props: Props): React$Node {
 		const isCustomDog = obj.obj === 'objCustomDog';
 
 		let transformOrigin = null;
+		const baseTransform = {
+			x: obj.x,
+			y: obj.y,
+			xScale: 1,
+			yScale: 1,
+			angle: 0,
+		};
 
 		if (isCustomDog) {
 			transformOrigin = [
 				IDLE_ORIGIN_X / DOG_RES_SCALE,
 				IDLE_ORIGIN_Y / DOG_RES_SCALE,
 			];
+
+			if (typeof obj.xscale === 'number') {
+				baseTransform.xScale = obj.xscale;
+			}
+			if (typeof obj.yscale === 'number') {
+				baseTransform.yScale = obj.yscale;
+			}
+			if (typeof obj.angle === 'number') {
+				baseTransform.angle = obj.angle;
+			}
 		}
 
 		return (
 			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 			<TransformDiv
-				baseTransform={{
-					x: obj.x,
-					y: obj.y,
-					xScale: obj.xscale,
-					yScale: obj.yscale,
-					angle: obj.angle,
-				}}
+				baseTransform={baseTransform}
 				centerDiv={true}
 				className={
 					styles.item +

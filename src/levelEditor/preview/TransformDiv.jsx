@@ -8,8 +8,8 @@ type TransformAction = 'MOVE';
 
 type Props = $ReadOnly<{
 	baseTransform: TransformType,
-	centerDiv: ?boolean,
-	rotateFirst: ?boolean,
+	centerDiv?: boolean,
+	rotateFirst?: boolean,
 	className: string,
 	renderOffset: ?[number, number],
 	mapMouseMoveCoordinates: ?[number, number],
@@ -158,7 +158,7 @@ export default function TransformDiv({
 				(currentTransform.angle != null ? currentTransform.angle : 0)
 			}deg)`;
 
-			if (rotateFirst) {
+			if (rotateFirst === true) {
 				transforms.unshift(rotateTransform);
 			} else {
 				transforms.push(rotateTransform);
@@ -170,7 +170,8 @@ export default function TransformDiv({
 			top: currentTransform.y + (renderOffset != null ? renderOffset[1] : 0),
 			transform:
 				transforms.length !== 0
-					? (centerDiv ? 'translate(-50%, -50%) ' : '') + transforms.join(' ')
+					? (centerDiv === true ? 'translate(-50%, -50%) ' : '') +
+					  transforms.join(' ')
 					: null,
 			transformOrigin,
 			cursor: currentTransformAction === 'MOVE' ? 'move' : 'pointer',
