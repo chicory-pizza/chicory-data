@@ -1,3 +1,3 @@
 // @flow strict
 
-export type EditorToolType = 'Select' | 'Brush' | 'Fill' | 'Eyedropper';
+export type EditorToolType = 'SELECT' | 'BRUSH' | 'FILL' | 'EYEDROPPER';

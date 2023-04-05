@@ -1,5 +1,7 @@
 // @flow strict
 
+import {useHotkeys} from 'react-hotkeys-hook';
+
 import SelectableButton from '../../common/SelectableButton';
 import {
 	PIXEL_COLORS,
@@ -9,6 +11,9 @@ import {
 import type {EditorToolType} from '../types/EditorToolType';
 
 import styles from './LevelToolbar.module.css';
+
+const MIN_BRUSH_SIZE = 1;
+const MAX_BRUSH_SIZE = 20;
 
 type Props = $ReadOnly<{
 	onEditorToolTypeUpdate: (toolType: EditorToolType) => mixed,
@@ -20,7 +25,24 @@ type Props = $ReadOnly<{
 }>;
 
 export default function LevelToolbar(props: Props): React$Node {
-	const toolTypes = ['Select', 'Brush', 'Fill', 'Eyedropper'];
+	useHotkeys('v', () => props.onEditorToolTypeUpdate('SELECT'));
+	useHotkeys('b', () => props.onEditorToolTypeUpdate('BRUSH'));
+	useHotkeys('g', () => props.onEditorToolTypeUpdate('FILL'));
+	useHotkeys('i', () => props.onEditorToolTypeUpdate('EYEDROPPER'));
+
+	useHotkeys('[', () => {
+		props.onBrushSizeUpdate(Math.max(props.brushSize - 1, MIN_BRUSH_SIZE));
+	});
+	useHotkeys(']', () => {
+		props.onBrushSizeUpdate(Math.min(props.brushSize + 1, MAX_BRUSH_SIZE));
+	});
+
+	const toolTypes: Array<{type: EditorToolType, description: string}> = [
+		{type: 'SELECT', description: 'Select (V)'},
+		{type: 'BRUSH', description: 'Brush (B)'},
+		{type: 'FILL', description: 'Fill (G)'},
+		{type: 'EYEDROPPER', description: 'Eyedropper (I)'},
+	];
 
 	const colorDescription = TOOLBAR_COLOR_LOOKUP.get(props.currentPaintColor);
 
@@ -32,18 +54,18 @@ export default function LevelToolbar(props: Props): React$Node {
 					{toolTypes.map((toolType) => {
 						return (
 							<SelectableButton
-								key={toolType}
-								onClick={() => props.onEditorToolTypeUpdate(toolType)}
-								selected={props.editorToolType === toolType}
+								key={toolType.type}
+								onClick={() => props.onEditorToolTypeUpdate(toolType.type)}
+								selected={props.editorToolType === toolType.type}
 							>
-								{toolType}
+								{toolType.description}
 							</SelectableButton>
 						);
 					})}
 				</span>
 			</div>
 
-			<div className={props.editorToolType !== 'Select' ? '' : styles.hidden}>
+			<div className={props.editorToolType !== 'SELECT' ? '' : styles.hidden}>
 				Current color:
 				<div className={styles.colorContainer}>
 					<span
@@ -54,12 +76,12 @@ export default function LevelToolbar(props: Props): React$Node {
 				</div>
 			</div>
 
-			<div className={props.editorToolType === 'Brush' ? '' : styles.hidden}>
+			<div className={props.editorToolType === 'BRUSH' ? '' : styles.hidden}>
 				Brush size: {props.brushSize}
 				<input
 					className={styles.range}
-					max="20"
-					min="1"
+					max={MAX_BRUSH_SIZE}
+					min={MIN_BRUSH_SIZE}
 					onChange={(e) => {
 						props.onBrushSizeUpdate(e.target.value);
 					}}
@@ -68,7 +90,7 @@ export default function LevelToolbar(props: Props): React$Node {
 				/>
 			</div>
 
-			<div className={props.editorToolType !== 'Select' ? '' : styles.hidden}>
+			<div className={props.editorToolType !== 'SELECT' ? '' : styles.hidden}>
 				Palette selection:
 				{PIXEL_COLORS_EXPLANATIONS.map((color) => {
 					return color.colors.map((colorIndex, arrayIndex) => {

@@ -60,7 +60,7 @@ function LevelPreviewObjects(props: Props): React$Node {
 					' ' +
 					(props.entityIndexHover === index ? styles.hover : '') +
 					' ' +
-					(props.editorToolType !== 'Select' ? styles.disabled : '')
+					(props.editorToolType !== 'SELECT' ? styles.disabled : '')
 				}
 				key={index}
 				mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}

@@ -55,7 +55,7 @@ export default function LevelInspector({
 	const prevCoordinates = useRef<?[number, number]>(null);
 
 	const [editorToolType, setEditorToolType] =
-		useState<EditorToolType>('Select');
+		useState<EditorToolType>('SELECT');
 	const [paintColor, setPaintColor] = useState<number>(0);
 	const [brushSize, setBrushSize] = useState<number>(1);
 
@@ -113,7 +113,7 @@ export default function LevelInspector({
 	}
 
 	function onMapMouseUp(ev: SyntheticMouseEvent<HTMLDivElement>) {
-		if (editorToolType === 'Brush') {
+		if (editorToolType === 'BRUSH') {
 			if (isPainting) {
 				setIsPainting(false);
 				prevCoordinates.current = null;
@@ -199,12 +199,12 @@ export default function LevelInspector({
 				return;
 			}
 			if (ev.buttons === 1 && !addingEntityLabel) {
-				if (editorToolType === 'Brush') {
+				if (editorToolType === 'BRUSH') {
 					setIsPainting(true);
 					paint(mapMouseMoveCoordinates);
-				} else if (editorToolType === 'Fill') {
+				} else if (editorToolType === 'FILL') {
 					doFloodFill(mapMouseMoveCoordinates);
-				} else if (editorToolType === 'Eyedropper') {
+				} else if (editorToolType === 'EYEDROPPER') {
 					doEyedropper(mapMouseMoveCoordinates);
 				}
 			}
@@ -224,7 +224,7 @@ export default function LevelInspector({
 			// Without this code, if the user holds down the button while quickly moving the
 			// cursor to be outside the geo preview, `onMapMouseMove` will not fire to paint
 			// the pixels between `prevCoordinates` and the cursor. We need `onMapMouseLeave` to cover this.
-			if (editorToolType === 'Brush' && isPainting) {
+			if (editorToolType === 'BRUSH' && isPainting) {
 				const rect = ev.currentTarget.getBoundingClientRect();
 
 				const mouseMapCoords = [
@@ -347,7 +347,7 @@ export default function LevelInspector({
 		setActiveUiViews((activeUiViews) => {
 			if (activeUiViews.includes(uiView)) {
 				if (uiView === 'GEO') {
-					setEditorToolType('Select');
+					setEditorToolType('SELECT');
 				}
 				return activeUiViews.filter((index) => index !== uiView);
 			}
