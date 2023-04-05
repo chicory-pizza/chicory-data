@@ -31,10 +31,14 @@ export default function LevelToolbar(props: Props): React$Node {
 	useHotkeys('i', () => props.onEditorToolTypeUpdate('EYEDROPPER'));
 
 	useHotkeys('[', () => {
-		props.onBrushSizeUpdate(Math.max(props.brushSize - 1, MIN_BRUSH_SIZE));
+		if (props.editorToolType === 'BRUSH') {
+			props.onBrushSizeUpdate(Math.max(props.brushSize - 1, MIN_BRUSH_SIZE));
+		}
 	});
 	useHotkeys(']', () => {
-		props.onBrushSizeUpdate(Math.min(props.brushSize + 1, MAX_BRUSH_SIZE));
+		if (props.editorToolType === 'BRUSH') {
+			props.onBrushSizeUpdate(Math.min(props.brushSize + 1, MAX_BRUSH_SIZE));
+		}
 	});
 
 	const toolTypes: Array<{type: EditorToolType, description: string}> = [
