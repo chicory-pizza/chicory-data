@@ -15,9 +15,9 @@ import getCanvasRenderingContext from '../../util/getCanvasRenderingContext';
 import GeoPreview from '../common/GeoPreview';
 import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
 import {
+	EXPORT_TERRAIN_PIXEL_COLORS,
 	GEO_HEIGHT,
 	GEO_WIDTH,
-	PIXEL_COLORS,
 	PIXEL_COLORS_EXPLANATIONS,
 } from '../GeoConstants';
 import type {LevelType} from '../types/LevelType';
@@ -38,7 +38,7 @@ function prepareCanvas(): HTMLCanvasElement {
 function generateColorsToGameBytes() {
 	const bytes = [];
 
-	PIXEL_COLORS.forEach((color, byte) => {
+	EXPORT_TERRAIN_PIXEL_COLORS.forEach((color, byte) => {
 		const colorObj = tinycolor(color);
 		const rgb: {r: number, g: number, b: number} = colorObj.toRgb();
 
@@ -79,7 +79,9 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 			return {
 				description: explanation.description,
 				colors: explanation.colors.map((colorIndex) => {
-					const colorObj = tinycolor(PIXEL_COLORS.get(colorIndex));
+					const colorObj = tinycolor(
+						EXPORT_TERRAIN_PIXEL_COLORS.get(colorIndex)
+					);
 					const rgb = colorObj.toRgb();
 
 					return [rgb.r, rgb.g, rgb.b];
@@ -184,6 +186,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 		const ctx = getCanvasRenderingContext(canvas, false);
 		drawGeoToCanvas({
 			canvas,
+			colors: EXPORT_TERRAIN_PIXEL_COLORS,
 			ctx,
 			geo: decodedGeo,
 			scale: 1,
@@ -219,6 +222,7 @@ export default function LevelTerrainEditorModal(props: Props): React$Node {
 
 						<div className={styles.geoPreview}>
 							<GeoPreview
+								colors={EXPORT_TERRAIN_PIXEL_COLORS}
 								geoPaintBuffer={null}
 								level={props.level}
 								mapMouseMoveCoordinates={null}

@@ -16,6 +16,7 @@ import drawGeoToCanvas from '../util/drawGeoToCanvas';
 import styles from './GeoPreview.module.css';
 
 type Props = $ReadOnly<{
+	colors: Map<number, string>,
 	level: LevelType,
 	mapMouseMoveCoordinates: ?[number, number],
 	scale: number,
@@ -50,6 +51,7 @@ export default function GeoPreview(props: Props): React$Node {
 
 		drawGeoToCanvas({
 			canvas,
+			colors: props.colors,
 			ctx,
 			geo: decodedGeo,
 			scale: props.scale * dpr,
@@ -82,6 +84,7 @@ export default function GeoPreview(props: Props): React$Node {
 	}, [
 		decodedGeo,
 		dpr,
+		props.colors,
 		props.mapMouseMoveCoordinates,
 		props.scale,
 		props.paintBufferUpdate,

@@ -1,7 +1,7 @@
 // @flow strict
 
 import getCanvasRenderingContext from '../../util/getCanvasRenderingContext';
-import {GEO_HEIGHT, GEO_WIDTH} from '../GeoConstants';
+import {EDITOR_UI_PIXEL_COLORS, GEO_HEIGHT, GEO_WIDTH} from '../GeoConstants';
 import decodeGeoString from '../util/decodeGeoString';
 import drawGeoToCanvas from '../util/drawGeoToCanvas';
 
@@ -23,6 +23,7 @@ export default function getWorldMapGeoPreviewCache(geo: string): string {
 	const ctx = getCanvasRenderingContext(canvas, false);
 	drawGeoToCanvas({
 		canvas,
+		colors: EDITOR_UI_PIXEL_COLORS,
 		ctx,
 		geo: decodedGeo,
 		scale: dpr,

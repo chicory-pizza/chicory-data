@@ -1,15 +1,17 @@
 // @flow strict
 
-import {GEO_WIDTH, PIXEL_COLORS} from '../GeoConstants';
+import {GEO_WIDTH} from '../GeoConstants';
 
 export default function drawGeoToCanvas({
 	canvas,
+	colors,
 	ctx,
 	geo,
 	scale,
 	geoPaintBuffer,
 }: {
 	canvas: HTMLCanvasElement,
+	colors: Map<number, string>,
 	ctx: CanvasRenderingContext2D,
 	geo: Uint8Array,
 	scale: number,
@@ -27,7 +29,7 @@ export default function drawGeoToCanvas({
 			pixelToUse = geoPaintBuffer[index];
 		}
 
-		const fill = PIXEL_COLORS.get(pixelToUse);
+		const fill = colors.get(pixelToUse);
 		if (fill == null) {
 			console.warn('unknown pixel color ' + pixelToUse);
 			return null;

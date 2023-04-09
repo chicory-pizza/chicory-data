@@ -1,7 +1,7 @@
 // @flow strict
 
 import GeoPreview from '../common/GeoPreview';
-import {GEO_WIDTH, SCREEN_WIDTH} from '../GeoConstants';
+import {EDITOR_UI_PIXEL_COLORS, GEO_WIDTH, SCREEN_WIDTH} from '../GeoConstants';
 // $FlowFixMe[untyped-import]
 import spriteData from '../spriteData.json';
 import type {EditorToolType} from '../types/EditorToolType';
@@ -164,6 +164,7 @@ export default function LevelPreview(props: Props): React$Node {
 			{props.activeUiViews.includes('GEO') ? (
 				<div className={styles.geoCanvas}>
 					<GeoPreview
+						colors={EDITOR_UI_PIXEL_COLORS}
 						geoPaintBuffer={props.geoPaintBuffer}
 						level={props.level}
 						mapMouseMoveCoordinates={null}

@@ -2,6 +2,7 @@
 
 import ErrorBoundary from '../../common/ErrorBoundary';
 import GeoPreview from '../common/GeoPreview';
+import {EDITOR_UI_PIXEL_COLORS} from '../GeoConstants';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
@@ -55,6 +56,7 @@ export default function LevelSidebar(props: Props): React$Node {
 		<div className={styles.sidebar}>
 			<ErrorBoundary>
 				<GeoPreview
+					colors={EDITOR_UI_PIXEL_COLORS}
 					geoPaintBuffer={null}
 					level={props.level}
 					mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}

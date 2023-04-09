@@ -4,7 +4,7 @@ import {useHotkeys} from 'react-hotkeys-hook';
 
 import SelectableButton from '../../common/SelectableButton';
 import {
-	PIXEL_COLORS,
+	EDITOR_UI_PIXEL_COLORS,
 	PIXEL_COLORS_EXPLANATIONS,
 	TOOLBAR_COLOR_LOOKUP,
 } from '../GeoConstants';
@@ -74,7 +74,9 @@ export default function LevelToolbar(props: Props): React$Node {
 				<div className={styles.colorContainer}>
 					<span
 						className={styles.colorDisplay}
-						style={{background: PIXEL_COLORS.get(props.currentPaintColor)}}
+						style={{
+							background: EDITOR_UI_PIXEL_COLORS.get(props.currentPaintColor),
+						}}
 					/>
 					{colorDescription != null ? colorDescription.description : 'N/A'}
 				</div>
@@ -113,7 +115,7 @@ export default function LevelToolbar(props: Props): React$Node {
 							>
 								<span
 									className={styles.colorBox}
-									style={{background: PIXEL_COLORS.get(colorIndex)}}
+									style={{background: EDITOR_UI_PIXEL_COLORS.get(colorIndex)}}
 								/>
 								{description}
 							</SelectableButton>
