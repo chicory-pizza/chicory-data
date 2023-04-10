@@ -3,7 +3,7 @@
 import {useEffect, useRef, useState} from 'react';
 
 import {usePrompt} from '../util/usePrompt';
-import type {Blocker} from '../util/usePrompt';
+import type {BlockerFunction} from '../util/usePrompt';
 
 import {useWorldDataNullable} from './WorldDataContext';
 
@@ -70,8 +70,8 @@ export default function LevelEditorBeforeUnloadPrompt(props: Props): null {
 
 	// Don't memo with useCallback, intentionally recreating the function every time
 	// to ensure the block listener is re-added each time
-	usePrompt(MESSAGE, hasDirtyChanges, (tx: Blocker) => {
-		return !tx.location.pathname.startsWith('/level/');
+	usePrompt(MESSAGE, hasDirtyChanges, (args: BlockerFunction) => {
+		return !args.nextLocation.pathname.startsWith('/level/');
 	});
 
 	return null;

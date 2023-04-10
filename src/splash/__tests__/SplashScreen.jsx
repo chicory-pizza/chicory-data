@@ -1,12 +1,26 @@
 // @flow strict
 
 import {render, screen} from '@testing-library/react';
-import {MemoryRouter} from 'react-router-dom';
+import {Suspense} from 'react';
+import {
+	// $FlowFixMe[missing-export]
+	createMemoryRouter,
+	// $FlowFixMe[missing-export]
+	RouterProvider,
+} from 'react-router-dom';
 
 import {routes} from '../../routes';
 
 test('renders the splash screen', async () => {
-	await render(<MemoryRouter initialEntries={['/']}>{routes}</MemoryRouter>);
+	await render(
+		<Suspense>
+			<RouterProvider
+				router={createMemoryRouter(routes, {
+					initialEntries: ['/'],
+				})}
+			/>
+		</Suspense>
+	);
 
 	await screen.findByText('Chicory: A Colorful Modding');
 

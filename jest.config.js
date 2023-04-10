@@ -4,6 +4,10 @@ module.exports = {
 	moduleNameMapper: {
 		'^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
 	},
+	setupFiles: [
+		// https://reactrouter.com/en/main/routers/picking-a-router#testing
+		'whatwg-fetch',
+	],
 	setupFilesAfterEnv: ['<rootDir>/src/testUtil/setupTests.js'],
 	testEnvironment: 'jsdom',
 	transform: {

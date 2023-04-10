@@ -1,12 +1,18 @@
 // @flow strict
 
-import {StrictMode} from 'react';
+import {StrictMode, Suspense} from 'react';
 import {createRoot} from 'react-dom/client';
 import ReactModal from 'react-modal';
 import './index.css';
-import {BrowserRouter} from 'react-router-dom';
+import {
+	// $FlowFixMe[missing-export]
+	createBrowserRouter,
+	// $FlowFixMe[missing-export]
+	RouterProvider,
+} from 'react-router-dom';
 import './util/shimRequestIdleCallback';
 
+import LoadingBigBanner from './LoadingBigBanner';
 import {routes} from './routes';
 import {paintdogConsoleText} from './util/paintdogConsoleText';
 
@@ -21,9 +27,10 @@ if (container == null) {
 // https://reactcommunity.org/react-modal/accessibility/#app-element
 ReactModal.setAppElement(container);
 
-const root = createRoot(container);
-root.render(
+createRoot(container).render(
 	<StrictMode>
-		<BrowserRouter>{routes}</BrowserRouter>
+		<Suspense fallback={<LoadingBigBanner />}>
+			<RouterProvider router={createBrowserRouter(routes)} />
+		</Suspense>
 	</StrictMode>
 );
