@@ -8,6 +8,7 @@ import type {OptionType} from '../../common/CustomSelect';
 import styles from './SidebarEntityAdder.module.css';
 
 type Props<EntityType, Data> = $ReadOnly<{
+	enabled: boolean,
 	entityType: EntityType,
 	nameLabel: string,
 	onAddingEntityLabel: (entity: {
@@ -36,10 +37,13 @@ export default function SidebarEntityAdder<EntityType, Data>(
 					maxMenuHeight={300}
 					onChange={(newOption: OptionType<Data>) => {
 						setSelected(newOption);
-						props.onAddingEntityLabel({
-							type: props.entityType,
-							data: newOption.value,
-						});
+
+						if (props.enabled) {
+							props.onAddingEntityLabel({
+								type: props.entityType,
+								data: newOption.value,
+							});
+						}
 					}}
 					options={props.options}
 					value={selected}
@@ -48,7 +52,7 @@ export default function SidebarEntityAdder<EntityType, Data>(
 
 			<button
 				className={styles.button}
-				disabled={selected == null}
+				disabled={!props.enabled || selected == null}
 				onClick={() => {
 					if (selected && selected.value != null) {
 						props.onAddingEntityLabel({

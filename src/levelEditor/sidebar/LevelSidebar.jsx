@@ -70,7 +70,10 @@ export default function LevelSidebar(props: Props): React$Node {
 
 			<div className={styles.group}>
 				<ErrorBoundary>
-					<SidebarObjectAdder onAddingEntityLabel={props.onAddingEntityLabel} />
+					<SidebarObjectAdder
+						enabled={props.activeUiViews.has('OBJECT')}
+						onAddingEntityLabel={props.onAddingEntityLabel}
+					/>
 				</ErrorBoundary>
 			</div>
 

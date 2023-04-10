@@ -343,21 +343,28 @@ export default function LevelInspector({
 		[currentCoordinates, dispatchWorldData]
 	);
 
-	const onActiveUiViewToggle = useCallback((uiView: LevelInspectorUiView) => {
-		setActiveUiViews((activeUiViews) => {
-			if (activeUiViews.has(uiView)) {
-				if (uiView === 'GEO') {
-					setEditorToolType('SELECT');
+	const onActiveUiViewToggle = useCallback(
+		(uiView: LevelInspectorUiView) => {
+			setActiveUiViews((activeUiViews) => {
+				if (activeUiViews.has(uiView)) {
+					if (uiView === 'OBJECT' && addingEntityLabel?.type === 'OBJECT') {
+						setAddingEntityLabel(null);
+					} else if (uiView === 'DECO' && addingEntityLabel?.type === 'DECO') {
+						setAddingEntityLabel(null);
+					} else if (uiView === 'GEO') {
+						setEditorToolType('SELECT');
+					}
+
+					const newSet = new Set(activeUiViews);
+					newSet.delete(uiView);
+					return newSet;
 				}
 
-				const newSet = new Set(activeUiViews);
-				newSet.delete(uiView);
-				return newSet;
-			}
-
-			return new Set(activeUiViews).add(uiView);
-		});
-	}, []);
+				return new Set(activeUiViews).add(uiView);
+			});
+		},
+		[addingEntityLabel?.type]
+	);
 
 	const onSidebarPanelExpandToggle = useCallback(
 		(ev: SyntheticMouseEvent<HTMLElement>, sidebarPanel: SidebarPanel) => {
