@@ -1,5 +1,6 @@
 // @flow strict
 
+import {memo} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 
 import SelectableButton from '../../common/SelectableButton';
@@ -24,7 +25,7 @@ type Props = $ReadOnly<{
 	onBrushSizeUpdate: (brushSize: number) => mixed,
 }>;
 
-export default function LevelToolbar(props: Props): React$Node {
+function LevelToolbar(props: Props): React$MixedElement {
 	useHotkeys('v', () => props.onEditorToolTypeUpdate('SELECT'));
 	useHotkeys('b', () => props.onEditorToolTypeUpdate('BRUSH'));
 	useHotkeys('g', () => props.onEditorToolTypeUpdate('FILL'));
@@ -126,3 +127,8 @@ export default function LevelToolbar(props: Props): React$Node {
 		</div>
 	);
 }
+
+export default (memo<Props>(LevelToolbar): React$AbstractComponent<
+	Props,
+	mixed
+>);

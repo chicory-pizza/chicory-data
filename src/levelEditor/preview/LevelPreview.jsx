@@ -117,7 +117,9 @@ export default function LevelPreview(props: Props): React$Node {
 					editorToolType={props.editorToolType}
 					entityIndexHover={props.objectIndexHover}
 					level={props.level}
-					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
+					mapMouseMoveCoordinates={
+						props.editorToolType === 'SELECT' ? mapMouseMoveCoordinates : null
+					}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onObjectHover}
 					onEntityTransformUpdate={props.onEntityTransformUpdate}
@@ -149,7 +151,9 @@ export default function LevelPreview(props: Props): React$Node {
 					editorToolType={props.editorToolType}
 					entityIndexHover={props.decoIndexHover}
 					level={props.level}
-					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
+					mapMouseMoveCoordinates={
+						props.editorToolType === 'SELECT' ? mapMouseMoveCoordinates : null
+					}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onDecoHover}
 					onEntityTransformUpdate={props.onEntityTransformUpdate}

@@ -238,7 +238,7 @@ export default function LevelInspector({
 			setMapMouseMoveCoordinates(null);
 			prevCoordinates.current = null;
 		},
-		[setMapMouseMoveCoordinates, isPainting, paint, editorToolType]
+		[editorToolType, isPainting, paint]
 	);
 
 	const onMapMouseMove = useCallback(
@@ -256,7 +256,7 @@ export default function LevelInspector({
 				paint(mouseMapCoords);
 			}
 		},
-		[setMapMouseMoveCoordinates, isPainting, paint]
+		[isPainting, paint]
 	);
 
 	const onEntityClick = useCallback(
