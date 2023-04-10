@@ -30,6 +30,8 @@ type Props = $ReadOnly<{
 	) => void,
 	expandedSidebarPanels: Set<SidebarPanel>,
 	level: LevelType,
+	levelPreviewGeoPaintBuffer: ?Array<number>,
+	levelPreviewPaintBufferUpdate: ?number,
 	mapMouseMoveCoordinates: ?[number, number],
 	objectIndexHover: ?number,
 	objectsListItemsExpanded: Map<number, number>,
@@ -57,10 +59,10 @@ export default function LevelSidebar(props: Props): React$Node {
 			<ErrorBoundary>
 				<GeoPreview
 					colors={EDITOR_UI_PIXEL_COLORS}
-					geoPaintBuffer={null}
+					geoPaintBuffer={props.levelPreviewGeoPaintBuffer}
 					level={props.level}
 					mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
-					paintBufferUpdate={null}
+					paintBufferUpdate={props.levelPreviewPaintBufferUpdate}
 					scale={4}
 					useDevicePixelRatio={true}
 				/>

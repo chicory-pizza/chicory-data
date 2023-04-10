@@ -435,6 +435,8 @@ export default function LevelInspector({
 					}
 					expandedSidebarPanels={expandedSidebarPanels}
 					level={level}
+					levelPreviewGeoPaintBuffer={geoPaintBuffer}
+					levelPreviewPaintBufferUpdate={paintBufferUpdate}
 					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					objectIndexHover={objectIndexHover}
 					objectsListItemsExpanded={sidebarObjectsListItemsExpanded}
