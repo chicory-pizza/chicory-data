@@ -19,7 +19,7 @@ import LevelPreviewObjects from './LevelPreviewObjects';
 import LevelPreviewNoViews from './noviews/LevelPreviewNoViews';
 
 type Props = $ReadOnly<{
-	activeUiViews: Array<LevelInspectorUiView>,
+	activeUiViews: Set<LevelInspectorUiView>,
 	addingEntityLabel: ?PlaceableType,
 	currentCoordinates: [number, number, number],
 	level: LevelType,
@@ -54,7 +54,7 @@ export default function LevelPreview(props: Props): React$Node {
 	let offscreenX = -25 - 8 * 2;
 	let offscreenY = -25 - 8 * 2;
 
-	if (props.activeUiViews.includes('OBJECT')) {
+	if (props.activeUiViews.has('OBJECT')) {
 		props.level.objects?.forEach((obj) => {
 			offscreenX = Math.min(offscreenX, obj.x - 8);
 			offscreenY = Math.min(offscreenY, obj.y - 8);
@@ -62,7 +62,7 @@ export default function LevelPreview(props: Props): React$Node {
 	}
 
 	// Some decos can be off-screen
-	if (props.activeUiViews.includes('DECO')) {
+	if (props.activeUiViews.has('DECO')) {
 		props.level.decos?.forEach((deco) => {
 			const sprite = spriteData[deco.spr];
 			if (!sprite) {
@@ -112,7 +112,7 @@ export default function LevelPreview(props: Props): React$Node {
 				top: -offscreenY,
 			}}
 		>
-			{props.activeUiViews.includes('OBJECT') ? (
+			{props.activeUiViews.has('OBJECT') ? (
 				<LevelPreviewObjects
 					editorToolType={props.editorToolType}
 					entityIndexHover={props.objectIndexHover}
@@ -128,7 +128,7 @@ export default function LevelPreview(props: Props): React$Node {
 
 			{addingEntityLabel != null &&
 			mapMouseMoveCoordinates != null &&
-			props.activeUiViews.includes(addingEntityLabel.type) ? (
+			props.activeUiViews.has(addingEntityLabel.type) ? (
 				<div
 					className={
 						styles.addingObjectItem +
@@ -146,7 +146,7 @@ export default function LevelPreview(props: Props): React$Node {
 				</div>
 			) : null}
 
-			{props.activeUiViews.includes('DECO') ? (
+			{props.activeUiViews.has('DECO') ? (
 				<LevelPreviewDecos
 					editorToolType={props.editorToolType}
 					entityIndexHover={props.decoIndexHover}
@@ -160,14 +160,14 @@ export default function LevelPreview(props: Props): React$Node {
 				/>
 			) : null}
 
-			{props.activeUiViews.includes('INGAME') ? (
+			{props.activeUiViews.has('INGAME') ? (
 				<LevelInGamePreview
 					currentCoordinates={props.currentCoordinates}
-					semiTransparent={props.activeUiViews.length > 1}
+					semiTransparent={props.activeUiViews.size > 1}
 				/>
 			) : null}
 
-			{props.activeUiViews.includes('GEO') ? (
+			{props.activeUiViews.has('GEO') ? (
 				// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 				<div
 					className={styles.geoCanvas}
@@ -186,7 +186,7 @@ export default function LevelPreview(props: Props): React$Node {
 				</div>
 			) : null}
 
-			{props.activeUiViews.length === 0 ? <LevelPreviewNoViews /> : null}
+			{props.activeUiViews.size === 0 ? <LevelPreviewNoViews /> : null}
 
 			<LevelPreviewArrows />
 		</div>

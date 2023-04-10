@@ -12,7 +12,7 @@ import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import styles from './SidebarViewMenu.module.css';
 
 type Props = $ReadOnly<{
-	activeUiViews: Array<LevelInspectorUiView>,
+	activeUiViews: Set<LevelInspectorUiView>,
 	onActiveUiViewToggle: (uiView: LevelInspectorUiView) => mixed,
 }>;
 
@@ -26,7 +26,7 @@ function SidebarViewMenu(props: Props): React$Node {
 				theming={isDarkMode ? 'dark' : undefined}
 			>
 				<MenuItem
-					checked={props.activeUiViews.includes('OBJECT')}
+					checked={props.activeUiViews.has('OBJECT')}
 					onClick={(ev) => props.onActiveUiViewToggle('OBJECT')}
 					type="checkbox"
 					value="OBJECT"
@@ -35,7 +35,7 @@ function SidebarViewMenu(props: Props): React$Node {
 				</MenuItem>
 
 				<MenuItem
-					checked={props.activeUiViews.includes('DECO')}
+					checked={props.activeUiViews.has('DECO')}
 					onClick={(ev) => props.onActiveUiViewToggle('DECO')}
 					type="checkbox"
 					value="DECO"
@@ -44,7 +44,7 @@ function SidebarViewMenu(props: Props): React$Node {
 				</MenuItem>
 
 				<MenuItem
-					checked={props.activeUiViews.includes('GEO')}
+					checked={props.activeUiViews.has('GEO')}
 					onClick={(ev) => props.onActiveUiViewToggle('GEO')}
 					type="checkbox"
 					value="GEO"
@@ -53,7 +53,7 @@ function SidebarViewMenu(props: Props): React$Node {
 				</MenuItem>
 
 				<MenuItem
-					checked={props.activeUiViews.includes('INGAME')}
+					checked={props.activeUiViews.has('INGAME')}
 					disabled={import.meta.env.VITE_IN_GAME_SCREENSHOT_URL_PREFIX == null}
 					onClick={(ev) => props.onActiveUiViewToggle('INGAME')}
 					type="checkbox"

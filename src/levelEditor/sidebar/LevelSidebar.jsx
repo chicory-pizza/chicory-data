@@ -19,7 +19,7 @@ import SidebarObjectAdder from './SidebarObjectAdder';
 import SidebarViewMenu from './SidebarViewMenu';
 
 type Props = $ReadOnly<{
-	activeUiViews: Array<LevelInspectorUiView>,
+	activeUiViews: Set<LevelInspectorUiView>,
 	decoIndexHover: ?number,
 	decosListItemsExpanded: Map<number, number>,
 	dispatchDecosListItemsExpanded: (

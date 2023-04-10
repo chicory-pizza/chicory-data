@@ -45,9 +45,9 @@ export default function LevelInspector({
 		}
 	}, [level]);
 
-	const [activeUiViews, setActiveUiViews] = useState<
-		Array<LevelInspectorUiView>
-	>(['GEO', 'OBJECT']);
+	const [activeUiViews, setActiveUiViews] = useState<Set<LevelInspectorUiView>>(
+		new Set(['GEO', 'OBJECT'])
+	);
 
 	// Toolbar
 	const [geoPaintBuffer, setGeoPaintBuffer] = useState<Array<number>>([]);
@@ -94,7 +94,7 @@ export default function LevelInspector({
 		if (
 			addingEntityLabel == null ||
 			mapMouseMoveCoordinates == null ||
-			!activeUiViews.includes(addingEntityLabel.type)
+			!activeUiViews.has(addingEntityLabel.type)
 		) {
 			return;
 		}
@@ -345,14 +345,17 @@ export default function LevelInspector({
 
 	const onActiveUiViewToggle = useCallback((uiView: LevelInspectorUiView) => {
 		setActiveUiViews((activeUiViews) => {
-			if (activeUiViews.includes(uiView)) {
+			if (activeUiViews.has(uiView)) {
 				if (uiView === 'GEO') {
 					setEditorToolType('SELECT');
 				}
-				return activeUiViews.filter((index) => index !== uiView);
+
+				const newSet = new Set(activeUiViews);
+				newSet.delete(uiView);
+				return newSet;
 			}
 
-			return activeUiViews.concat(uiView);
+			return new Set(activeUiViews).add(uiView);
 		});
 	}, []);
 
@@ -401,7 +404,7 @@ export default function LevelInspector({
 				</ErrorBoundary>
 			</div>
 
-			{activeUiViews.includes('GEO') ? (
+			{activeUiViews.has('GEO') ? (
 				<div className={styles.toolbar}>
 					<ErrorBoundary>
 						<LevelToolbar
@@ -416,7 +419,7 @@ export default function LevelInspector({
 				</div>
 			) : null}
 
-			{activeUiViews.includes('DECO') ? (
+			{activeUiViews.has('DECO') ? (
 				<div className={styles.decos}>
 					<ErrorBoundary>
 						<LevelDecoAdder onAddingEntityLabel={setAddingEntityLabel} />
