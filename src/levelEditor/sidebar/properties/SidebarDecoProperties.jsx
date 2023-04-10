@@ -4,6 +4,7 @@ import ErrorBoundary from '../../../common/ErrorBoundary';
 import type {DecorationType} from '../../types/DecorationType';
 
 import PropertyNumberInput from './PropertyNumberInput';
+import PropertyRangeInput from './PropertyRangeInput';
 import styles from './SidebarDecoProperties.module.css';
 import type {SidebarEntityPropertiesComponentType} from './SidebarEntityPropertiesComponentType';
 
@@ -44,6 +45,21 @@ export default function SidebarDecoProperties(
 
 			<div className={styles.coordinatesRoot}>
 				<span className={styles.coordinatesText}>ang:</span>
+
+				<PropertyRangeInput
+					defaultValue={0}
+					max={360}
+					min={-360}
+					onCommitValue={(newValue: number) => {
+						props.onEntityEditProperties(
+							props.index,
+							{ang: newValue},
+							props.type
+						);
+					}}
+					value={deco.ang}
+				/>
+
 				<PropertyNumberInput
 					initialValue={deco.ang}
 					onCommitValue={(newValue: number | string | null) => {
