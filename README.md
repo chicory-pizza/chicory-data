@@ -10,7 +10,7 @@ Note that this tool directly exposes game internals and doesn't hide anything, i
 
 ## Development
 
-Check out CONTRIBUTING.md for the full guide!
+[Check out CONTRIBUTING.md for the full guide!](https://github.com/chicory-pizza/chicory-data/blob/master/CONTRIBUTING.md)
 
 ## License
 

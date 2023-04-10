@@ -34,6 +34,8 @@ You can find this list by opening the Command Palette and choosing "Extensions: 
 
 This project is primarily a [React](https://react.dev) app.
 
+It's highly recommended to install the [React Developer Tools](https://react.dev/learn/react-developer-tools) on your browser for easier debugging.
+
 ## Code style
 
 Use [Prettier](https://prettier.io).
@@ -59,6 +61,10 @@ Run `npm run lint` to see errors.
 This project uses [Jest](https://jestjs.io) for testing.
 
 Run `npm test` to run the tests. Some tests may fail on the first attempt due to timeout but re-running them should work.
+
+## Code coverage
+
+Code coverage can be obtained by running `npm test -- --coverage`
 
 ## Extra notes
 
