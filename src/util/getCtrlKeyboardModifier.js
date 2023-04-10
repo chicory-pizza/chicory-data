@@ -1,9 +1,7 @@
 // @flow strict
 
-export default function getCtrlKeyboardModifier(): string {
-	if (navigator.userAgent.includes(' Mac OS X ')) {
-		return 'meta';
-	}
+import isMac from './isMac';
 
-	return 'ctrl';
+export default function getCtrlKeyboardModifier(): string {
+	return isMac() ? 'meta' : 'ctrl';
 }

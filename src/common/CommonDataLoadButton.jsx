@@ -4,6 +4,7 @@ import {fileOpen} from 'browser-fs-access';
 import {useHotkeys} from 'react-hotkeys-hook';
 
 import getCtrlKeyboardModifier from '../util/getCtrlKeyboardModifier';
+import isMac from '../util/isMac';
 
 type Props = $ReadOnly<{
 	onFileLoad: (reader: FileReader) => mixed,
@@ -34,7 +35,11 @@ export default function CommonDataLoadButton(props: Props): React$MixedElement {
 	}
 
 	return (
-		<button onClick={openFile} type="button">
+		<button
+			onClick={openFile}
+			title={isMac() ? 'Command-O' : 'Ctrl-O'}
+			type="button"
+		>
 			Load
 		</button>
 	);

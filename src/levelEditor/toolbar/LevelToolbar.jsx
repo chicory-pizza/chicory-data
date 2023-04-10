@@ -92,6 +92,7 @@ function LevelToolbar(props: Props): React$MixedElement {
 					onChange={(e) => {
 						props.onBrushSizeUpdate(e.target.value);
 					}}
+					title="Use [ or ] to decrease or increase brush size"
 					type="range"
 					value={props.brushSize}
 				/>

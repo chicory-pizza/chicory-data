@@ -7,6 +7,7 @@ import getCtrlKeyboardModifier from '../util/getCtrlKeyboardModifier';
 import type {UndoReducerAction} from '../util/useUndoRedoReducer';
 
 import styles from './AppHeaderUndoRedo.module.css';
+import isMac from '../util/isMac';
 
 type Props = $ReadOnly<{
 	canRedo: boolean,
@@ -43,12 +44,18 @@ function AppHeaderUndoRedo(props: Props): React$MixedElement {
 				className={styles.space}
 				disabled={!props.canUndo}
 				onClick={undo}
+				title={isMac() ? 'Command-Z' : 'Ctrl-Z'}
 				type="button"
 			>
 				Undo
 			</button>
 
-			<button disabled={!props.canRedo} onClick={redo} type="button">
+			<button
+				disabled={!props.canRedo}
+				onClick={redo}
+				title={isMac() ? 'Command-Shift-Z' : 'Ctrl-Shift-Z or Ctrl-Y'}
+				type="button"
+			>
 				Redo
 			</button>
 		</div>

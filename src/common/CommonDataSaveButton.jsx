@@ -4,6 +4,7 @@ import {useRef} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 
 import getCtrlKeyboardModifier from '../util/getCtrlKeyboardModifier';
+import isMac from '../util/isMac';
 
 type Props = $ReadOnly<{
 	buttonProps: {
@@ -40,7 +41,12 @@ export default function CommonDataSaveButton(props: Props): React$Node {
 	}
 
 	return (
-		<button {...props.buttonProps} onClick={saveFile} type="button">
+		<button
+			{...props.buttonProps}
+			onClick={saveFile}
+			title={isMac() ? 'Command-S' : 'Ctrl-S'}
+			type="button"
+		>
 			{props.label}
 		</button>
 	);
