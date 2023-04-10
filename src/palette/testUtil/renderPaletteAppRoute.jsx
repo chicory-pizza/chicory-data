@@ -1,6 +1,6 @@
 // @flow strict
 
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import {Suspense} from 'react';
 import {
 	// $FlowFixMe[missing-export]
@@ -21,4 +21,6 @@ export default async function renderPaletteAppRoute(): mixed {
 			/>
 		</Suspense>
 	);
+
+	await screen.findByText('Color palettes');
 }
