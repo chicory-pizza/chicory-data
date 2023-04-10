@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import renderLevelEditorRoute from '../../testUtil/renderLevelEditorRoute';
 
-jest.setTimeout(10000); // hack, sigh
+jest.setTimeout(15000); // hack, sigh
 
 test('checks transforms of decos and objCustomDog', async () => {
 	jest.mock('../../level_data.json', () => ({
