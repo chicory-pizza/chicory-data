@@ -44,3 +44,7 @@ window.IntersectionObserver = class IntersectionObserver {
 // For react-modal
 const fakeAppRoot = document.createElement('div');
 ReactModal.setAppElement(fakeAppRoot);
+
+process.env.VITE_IN_GAME_SCREENSHOT_URL_PREFIX =
+	'http://localhost/level_screenshots/';
+process.env.VITE_SPRITES_URL_PREFIX = 'http://localhost/sprites_padding/';
