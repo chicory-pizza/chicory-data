@@ -4,10 +4,10 @@ import {memo} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 
 import getCtrlKeyboardModifier from '../util/getCtrlKeyboardModifier';
+import isMac from '../util/isMac';
 import type {UndoReducerAction} from '../util/useUndoRedoReducer';
 
 import styles from './AppHeaderUndoRedo.module.css';
-import isMac from '../util/isMac';
 
 type Props = $ReadOnly<{
 	canRedo: boolean,

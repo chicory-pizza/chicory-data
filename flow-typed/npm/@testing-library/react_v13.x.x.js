@@ -1,5 +1,5 @@
-// flow-typed signature: 49f52ef3c5398e0db12c68f9a7d83e10
-// flow-typed version: ea501ef39f/@testing-library/react_v13.x.x/flow_>=v0.104.x
+// flow-typed signature: bf5b407c328aa1a8d86a0d548dc855c1
+// flow-typed version: 9a968c602c/@testing-library/react_v13.x.x/flow_>=v0.201.x
 
 /**
  * A local copy from:
@@ -458,7 +458,7 @@ declare module '@testing-library/react' {
         | Array<HTMLElement | DocumentFragment>,
       maxLength?: number
     ) => void,
-    rerender: (ui: React$Element<*>) => void,
+    rerender: (ui: React$Element<any>) => void,
     ...
   };
 

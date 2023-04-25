@@ -6,7 +6,6 @@ import {Suspense} from 'react';
 import {
 	// $FlowFixMe[missing-export]
 	createMemoryRouter,
-	// $FlowFixMe[missing-export]
 	RouterProvider,
 } from 'react-router-dom';
 

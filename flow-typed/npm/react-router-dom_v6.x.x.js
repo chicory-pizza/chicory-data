@@ -1,5 +1,5 @@
-// flow-typed signature: 49b88ecded6fe0b2b90a83c1a4b5459d
-// flow-typed version: 596911633d/react-router-dom_v6.x.x/flow_>=v0.104.x
+// flow-typed signature: e53c93a804660544c07477c34211e430
+// flow-typed version: a28ae95199/react-router-dom_v6.x.x/flow_>=v0.104.x
 
 declare module 'react-router-dom' {
   // NOTE: Below are duplicated from react-router
@@ -10,6 +10,14 @@ declare module 'react-router-dom' {
   // ----------------------------------/
   // `@remix-run/router`               /
   // ----------------------------------/
+
+  declare type FutureConfig = {|
+    v7_normalizeFormMethod: boolean,
+  |};
+
+  declare type RouteData = {|
+    [routeId: string]: any,
+  |};
 
   declare type To = LocationShape | string;
 
@@ -385,9 +393,45 @@ declare module 'react-router-dom' {
     handle: Handle,
   |}>;
 
+  /**
+   * Returns the nearest ancestor Route error, which could be a loader/action
+   * error or a render error.  This is intended to be called from your
+   * ErrorBoundary/errorElement to display a proper error message.
+   */
+  declare export function useRouteError(): any;
+
+  /**
+   * Returns the loader data for the nearest ancestor Route loader
+   */
+  declare export function useLoaderData(): any;
+
+  declare export type RouterProviderProps = {|
+    fallbackElement?: React$Node;
+    router: typeof Router;
+  |}
+
+  declare export function RouterProvider(RouterProviderProps): React$Node;
+
   // ----------------------------------/
   // `react-router-dom`                /
   // ----------------------------------/
+
+  declare type DOMRouterOpts = {|
+    basename?: string,
+    future?: FutureConfig,
+    hydrationData?: {|
+      loaderData?: RouteData,
+      actionData?: RouteData | null,
+      errors?: RouteData | null,
+    |},
+    // Should be Window type but flow doesn't have this
+    window?: any,
+  |};
+
+  declare export function createBrowserRouter(
+    routes: Array<RouteObject>,
+    opts?: DOMRouterOpts
+  ): typeof Router;
 
   declare type URLSearchParamsInit =
     | string
@@ -396,7 +440,9 @@ declare module 'react-router-dom' {
     | URLSearchParams;
 
   declare type SetURLSearchParams = (
-    nextInit?: URLSearchParamsInit,
+    nextInit?:
+      | URLSearchParamsInit
+      | (prevSearchParam: URLSearchParams) => URLSearchParamsInit,
     navigateOpts?: {|
       replace?: boolean,
       state?: any,

@@ -4,12 +4,7 @@ import {StrictMode, Suspense} from 'react';
 import {createRoot} from 'react-dom/client';
 import ReactModal from 'react-modal';
 import './index.css';
-import {
-	// $FlowFixMe[missing-export]
-	createBrowserRouter,
-	// $FlowFixMe[missing-export]
-	RouterProvider,
-} from 'react-router-dom';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import './util/shimRequestIdleCallback';
 
 import LoadingBigBanner from './LoadingBigBanner';
