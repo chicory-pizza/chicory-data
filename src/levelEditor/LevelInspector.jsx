@@ -212,6 +212,8 @@ export default function LevelInspector({
 					paint(mapMouseMoveCoordinates);
 
 					window.addEventListener('mouseup', stopBrush);
+
+					ev.preventDefault();
 				} else if (editorToolType === 'FILL') {
 					doFloodFill(mapMouseMoveCoordinates);
 				} else if (editorToolType === 'EYEDROPPER') {
