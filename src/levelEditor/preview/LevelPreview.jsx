@@ -32,7 +32,6 @@ type Props = $ReadOnly<{
 	onMapMouseClick: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseLeave: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onMapMouseMove: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
-	onMapMouseUp: (ev: SyntheticMouseEvent<HTMLDivElement>) => mixed,
 	onEntityClick: (entityIndex: number, entityType: GameEntityType) => mixed,
 	onObjectHover: (objectIndex: ?number) => mixed,
 	onEntityTransformUpdate: (
@@ -169,11 +168,7 @@ export default function LevelPreview(props: Props): React$Node {
 
 			{props.activeUiViews.has('GEO') ? (
 				// eslint-disable-next-line jsx-a11y/no-static-element-interactions
-				<div
-					className={styles.geoCanvas}
-					onMouseDown={props.onMapMouseDown}
-					onMouseUp={props.onMapMouseUp}
-				>
+				<div className={styles.geoCanvas} onMouseDown={props.onMapMouseDown}>
 					<GeoPreview
 						colors={EDITOR_UI_PIXEL_COLORS}
 						geoPaintBuffer={props.geoPaintBuffer}

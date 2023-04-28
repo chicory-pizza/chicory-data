@@ -54,7 +54,7 @@ export default function LevelInspector({
 	const [paintBufferUpdate, setPaintBufferUpdate] = useState(0);
 	const prevCoordinates = useRef<?[number, number]>(null);
 
-	const [editorToolType, setEditorToolType] =
+	const [editorToolType, setEditorToolTypeRaw] =
 		useState<EditorToolType>('SELECT');
 	const [paintColor, setPaintColor] = useState<number>(0);
 	const [brushSize, setBrushSize] = useState<number>(1);
@@ -112,30 +112,27 @@ export default function LevelInspector({
 		}
 	}
 
-	function onMapMouseUp(ev: SyntheticMouseEvent<HTMLDivElement>) {
-		if (editorToolType === 'BRUSH') {
-			if (isPainting) {
-				setIsPainting(false);
-				prevCoordinates.current = null;
+	const stopBrush: () => void = useCallback(() => {
+		setIsPainting(false);
+		prevCoordinates.current = null;
+		window.removeEventListener('mouseup', stopBrush);
 
-				const currGeo = decodeGeoString(level.geo);
-				geoPaintBuffer.forEach((pixel, index) => {
-					currGeo[index] = pixel;
-				});
+		const currGeo = decodeGeoString(level.geo);
+		geoPaintBuffer.forEach((pixel, index) => {
+			currGeo[index] = pixel;
+		});
 
-				dispatchWorldData({
-					type: 'setLevelProperty',
-					coordinates: currentCoordinates,
-					key: 'geo',
-					// $FlowFixMe[incompatible-call]
-					value: encode(deflate(currGeo)),
-				});
+		dispatchWorldData({
+			type: 'setLevelProperty',
+			coordinates: currentCoordinates,
+			key: 'geo',
+			// $FlowFixMe[incompatible-call]
+			value: encode(deflate(currGeo)),
+		});
 
-				setGeoPaintBuffer([]);
-				setPaintBufferUpdate(paintBufferUpdate + 1);
-			}
-		}
-	}
+		setGeoPaintBuffer([]);
+		setPaintBufferUpdate((paintBufferUpdate) => paintBufferUpdate + 1);
+	}, [currentCoordinates, dispatchWorldData, geoPaintBuffer, level.geo]);
 
 	const paint = useCallback(
 		(mouseCoords: [number, number]) => {
@@ -149,12 +146,12 @@ export default function LevelInspector({
 
 			if (geoCopy) {
 				setGeoPaintBuffer(geoCopy);
-				setPaintBufferUpdate(paintBufferUpdate + 1);
+				setPaintBufferUpdate((paintBufferUpdate) => paintBufferUpdate + 1);
 			}
 
 			prevCoordinates.current = mouseCoords;
 		},
-		[geoPaintBuffer, paintBufferUpdate, paintColor, brushSize]
+		[geoPaintBuffer, paintColor, brushSize]
 	);
 
 	const doFloodFill = useCallback(
@@ -173,15 +170,9 @@ export default function LevelInspector({
 				value: encode(deflate(newGeo)),
 			});
 
-			setPaintBufferUpdate(paintBufferUpdate + 1);
+			setPaintBufferUpdate((paintBufferUpdate) => paintBufferUpdate + 1);
 		},
-		[
-			currentCoordinates,
-			dispatchWorldData,
-			level.geo,
-			paintBufferUpdate,
-			paintColor,
-		]
+		[currentCoordinates, dispatchWorldData, level.geo, paintColor]
 	);
 
 	const doEyedropper = useCallback(
@@ -193,15 +184,34 @@ export default function LevelInspector({
 		[level.geo]
 	);
 
+	const setEditorToolType = useCallback(
+		(newEditorToolType: EditorToolType) => {
+			if (editorToolType === newEditorToolType) {
+				return;
+			}
+
+			// Stop painting if we're switching away from brush tool
+			if (newEditorToolType !== 'BRUSH' && isPainting) {
+				stopBrush();
+			}
+
+			setEditorToolTypeRaw(newEditorToolType);
+		},
+		[editorToolType, isPainting, stopBrush]
+	);
+
 	const onMapMouseDown = useCallback(
 		(ev: SyntheticMouseEvent<HTMLDivElement>) => {
 			if (mapMouseMoveCoordinates == null) {
 				return;
 			}
+
 			if (ev.buttons === 1 && !addingEntityLabel) {
 				if (editorToolType === 'BRUSH') {
 					setIsPainting(true);
 					paint(mapMouseMoveCoordinates);
+
+					window.addEventListener('mouseup', stopBrush);
 				} else if (editorToolType === 'FILL') {
 					doFloodFill(mapMouseMoveCoordinates);
 				} else if (editorToolType === 'EYEDROPPER') {
@@ -214,6 +224,7 @@ export default function LevelInspector({
 			addingEntityLabel,
 			editorToolType,
 			paint,
+			stopBrush,
 			doFloodFill,
 			doEyedropper,
 		]
@@ -252,11 +263,11 @@ export default function LevelInspector({
 
 			setMapMouseMoveCoordinates(mouseMapCoords);
 
-			if (isPainting) {
+			if (editorToolType === 'BRUSH' && isPainting) {
 				paint(mouseMapCoords);
 			}
 		},
-		[isPainting, paint]
+		[editorToolType, isPainting, paint]
 	);
 
 	const onEntityClick = useCallback(
@@ -363,7 +374,7 @@ export default function LevelInspector({
 				return new Set(activeUiViews).add(uiView);
 			});
 		},
-		[addingEntityLabel?.type]
+		[addingEntityLabel?.type, setEditorToolType]
 	);
 
 	const onSidebarPanelExpandToggle = useCallback(
@@ -404,7 +415,6 @@ export default function LevelInspector({
 						onMapMouseDown={onMapMouseDown}
 						onMapMouseLeave={onMapMouseLeave}
 						onMapMouseMove={onMapMouseMove}
-						onMapMouseUp={onMapMouseUp}
 						onObjectHover={setObjectIndexHover}
 						paintBufferUpdate={paintBufferUpdate}
 					/>
