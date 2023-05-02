@@ -96,7 +96,11 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		hats: [
 			{
 				name: 'Beanie',
-				color: '#3debd0',
+				color: '#3cebd0',
+			},
+			{
+				name: 'Half-Moons',
+				color: '#ffffff',
 			},
 		],
 		name: 'Breadstick',
