@@ -1,5 +1,5 @@
-// flow-typed signature: e53c93a804660544c07477c34211e430
-// flow-typed version: a28ae95199/react-router-dom_v6.x.x/flow_>=v0.104.x
+// flow-typed signature: e290653b2842bc74893346c8a97f26ce
+// flow-typed version: e278f698a2/react-router-dom_v6.x.x/flow_>=v0.201.x
 
 declare module 'react-router-dom' {
   // NOTE: Below are duplicated from react-router
@@ -227,6 +227,8 @@ declare module 'react-router-dom' {
 
   declare export function resolvePath(to: To, fromPathname?: string): Path;
 
+  declare export type InitialEntry = string | Partial<Location>;
+
   // ----------------------------------/
   // `react-router`                    /
   // ----------------------------------/
@@ -311,13 +313,14 @@ declare module 'react-router-dom' {
     RouteObjectType: RouteObject = RouteObject
   > = AgnosticRouteMatch<ParamKey, RouteObjectType>;
 
-  declare export var MemoryRouter: React$ComponentType<{|
-    initialEntries?: Array<LocationShape | string>,
-    initialIndex?: number,
-    getUserConfirmation?: GetUserConfirmation,
-    keyLength?: number,
-    children?: React$Node,
-  |}>;
+  declare export type MemoryRouterProps = {|
+    basename?: string;
+    children?: React$Node;
+    initialEntries?: InitialEntry[];
+    initialIndex?: number;
+  |}
+
+  declare export var MemoryRouter: React$ComponentType<MemoryRouterProps>;
 
   declare export var Navigate: (props: {|
     to: To,
@@ -344,6 +347,24 @@ declare module 'react-router-dom' {
   declare export function createRoutesFromElements(
     elements: React$Node
   ): RouteObject[];
+
+  /**
+   * Because you can return or throw responses in loaders and actions,
+   * you can use redirect to redirect to another route.
+   *
+   * It's really just a shortcut for this:
+   *
+   * new Response("", {
+   *   status: 302,
+   *   headers: {
+   *     Location: someUrl,
+   *   },
+   * });
+   */
+  declare export function redirect(
+    url: string,
+    init?: number | ResponseOptions,
+  ): Response;
 
   declare export function useHref(to: To): string;
 

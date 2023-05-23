@@ -29,13 +29,13 @@ export type ReducerAction =
 	| UndoReducerAction
 	| {
 			type: 'setProperties',
-			properties: $Shape<DogState>,
+			properties: Partial<DogState>,
 	  }
 	| {type: 'addNewHatLayer'}
 	| {
 			type: 'setHatLayerProperties',
 			layer: number,
-			hat: $Shape<ChosenHat>,
+			hat: Partial<ChosenHat>,
 	  }
 	| {type: 'moveHatLayerUp', layer: number}
 	| {type: 'moveHatLayerDown', layer: number}

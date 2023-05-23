@@ -17,7 +17,7 @@ Steps:
 1. git clone
 2. npm install
 3. npm start
-4. Open the web app at http://localhost:3000
+4. Open the web app at <http://localhost:3000>
 
 ### Visual Studio Code extensions
 

@@ -1,5 +1,5 @@
-// flow-typed signature: bf5b407c328aa1a8d86a0d548dc855c1
-// flow-typed version: 9a968c602c/@testing-library/react_v13.x.x/flow_>=v0.201.x
+// flow-typed signature: fbf8678ad76eef2be37b4a5cc74b114c
+// flow-typed version: 9af16a63ec/@testing-library/react_v14.x.x/flow_>=v0.201.x
 
 /**
  * A local copy from:
@@ -192,7 +192,7 @@ declare module '@testing-library/react' {
 
   declare type Matcher = MatcherFunction | RegExp | string | number;
 
-  declare type ByRoleMatcher = ARIARole | MatcherFunction;
+  declare type ByRoleMatcher = ARIARole | string;
 
   declare type NormalizerFn = (text: string) => string;
 
