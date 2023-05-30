@@ -280,7 +280,12 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objFlammable', [
 		default: -1,
 		help: 'am i solid? -1 for depends',
 	},
-	{key: 'save', type: 'NUMBER', default: 0, help: 'save/load that i burned?'},
+	{
+		key: 'save',
+		type: 'NUMBER',
+		default: 0,
+		help: 'save or load that i burned?',
+	},
 	{key: 'depth', type: 'NUMBER', default: 0, help: 'added depth?'},
 ]);
 
@@ -389,6 +394,9 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objHiddentext', [
 	{key: 'visible', type: 'NUMBER', default: 0, help: 'visible?'},
 	{key: 'font', type: 'NUMBER', default: 3, help: 'angle'},
 	{key: 'scale', type: 'NUMBER', default: 1, help: 'angle'},
+	{key: 'jp_x', type: 'NUMBER', default: 0, help: 'jp_x'},
+	{key: 'jp_y', type: 'NUMBER', default: 0, help: 'jp_y'},
+	{key: 'ch_y', type: 'NUMBER', default: 0, help: 'ch_y'},
 ]);
 
 OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objIntrodog', [
