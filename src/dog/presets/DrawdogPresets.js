@@ -577,16 +577,16 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 	},
 	{
 		clothes: 'Overalls',
-		clothesColor: '#a44141',
+		clothesColor: '#962e2e',
 		hair: 'Frizz',
 		hats: [
 			{
 				name: 'Shawl',
-				color: '#ffe438',
+				color: '#fbcc56',
 			},
 		],
 		name: 'Soup',
-		skinColor: '#ffdcc2',
+		skinColor: '#e8ceb5',
 	},
 	{
 		clothes: 'Wielder Cloak',
