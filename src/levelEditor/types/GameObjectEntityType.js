@@ -389,6 +389,7 @@ export type GameObjectEntityType =
 	| 'objWater'
 	| 'objWaterfall_cloud'
 	| 'objWebshroom'
+	| 'objWinGDK'
 	| 'objWordcount'
 	| 'objaeAudioloader'
 	| 'objaeButton'

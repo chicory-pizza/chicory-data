@@ -411,5 +411,6 @@ export const GAME_OBJECT_ENTITIES_CRASH: $ReadOnlyArray<GameObjectEntityType> =
 		'objSnakeburst',
 		'objSongNode',
 		'objTextfield',
+		'objWinGDK',
 		'objWordcount',
 	];
