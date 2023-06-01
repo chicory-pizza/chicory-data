@@ -5,6 +5,7 @@ export type SpriteType =
 	| 'JUNK_1'
 	| 'JUNK_2'
 	| 'JUNK_3'
+	| 'Keller_ChicoryPicture1'
 	| 'Team_Cherry_Mushroom_picture'
 	| 'abovedoor_decoration'
 	| 'accent_window_1'

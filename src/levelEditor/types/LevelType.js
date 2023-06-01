@@ -6,12 +6,12 @@ import type {LevelTitleType} from './LevelTitleType';
 
 /*
 
-[...new Set(Object.values(window.levelData).reduce((prev, current) => {
+[...new Set(Object.values(window.levelsData).reduce((prev, current) => {
     return prev.concat(current.ambiance)
 }, []))].sort()
 
 
-Object.values(window.levelData).reduce((prev, current) => {
+Object.values(window.levelsData).reduce((prev, current) => {
 	if (current.objects == null) {return prev;}
 
 	return current.objects.reduce((prevB, currentB) => {
@@ -22,7 +22,7 @@ Object.values(window.levelData).reduce((prev, current) => {
 }, []).sort()
 
 
-Object.values(window.levelData).reduce((prev, current) => {
+Object.values(window.levelsData).reduce((prev, current) => {
     if (current.objects == null) {return prev;}
 
     return current.objects.reduce((prevB, currentB) => {
