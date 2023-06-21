@@ -106,6 +106,7 @@ export default function SidebarEntityList<
 
 	return (
 		<details className={styles.expander} open={props.expanded}>
+			{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
 			<summary
 				onClick={(ev) =>
 					props.onSidebarPanelExpandToggle(ev, props.sidebarPanelType)
@@ -146,17 +147,22 @@ export default function SidebarEntityList<
 					return (
 						<SidebarEntityItem
 							entity={ent}
+							// $FlowIssue[incompatible-type-arg] https://github.com/facebook/flow/issues/8788
 							entityPropertiesComponent={props.entityPropertiesComponent}
 							expandedTime={expandedUnfilteredEntityIndexes.get(index)}
+							// $FlowIssue[incompatible-type] https://github.com/facebook/flow/issues/8788
 							getEntityName={props.getEntityName}
 							highlightClassName={props.entityHighlightClassName}
 							highlighted={props.entityIndexHover === index}
 							index={index}
 							key={index}
+							// $FlowIssue[incompatible-type] https://github.com/facebook/flow/issues/8788
 							onEntityDelete={props.onEntityDelete}
+							// $FlowIssue[incompatible-type] https://github.com/facebook/flow/issues/8788
 							onEntityEditProperties={props.onEntityEditProperties}
 							onEntityHover={props.onEntityHover}
 							onItemToggle={onItemToggle}
+							// $FlowIssue[incompatible-type] https://github.com/facebook/flow/issues/8788
 							renderItemDisplayText={props.renderItemDisplayText}
 							type={props.type}
 						/>
