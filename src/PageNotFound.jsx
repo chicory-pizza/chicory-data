@@ -1,5 +1,6 @@
 // @flow strict
 
+import {Helmet} from 'react-helmet-async';
 import {Link} from 'react-router-dom';
 
 import BigPageNotice from './common/BigPageNotice';
@@ -9,8 +10,14 @@ export default function PageNotFound(): React$Node {
 	useDocumentTitle('Page not found');
 
 	return (
-		<BigPageNotice heading="⚠️ Page not found">
-			<Link to="/">Teleport to Luncheon</Link>
-		</BigPageNotice>
+		<>
+			<Helmet>
+				<meta content="404" name="prerender-status-code" />
+			</Helmet>
+
+			<BigPageNotice heading="⚠️ Page not found">
+				<Link to="/">Teleport to Luncheon</Link>
+			</BigPageNotice>
+		</>
 	);
 }

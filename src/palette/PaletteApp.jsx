@@ -1,8 +1,8 @@
 // @flow strict
 
 import ErrorBoundary from '../common/ErrorBoundary';
+import OpenGraph from '../common/OpenGraph';
 import AppHeader from '../header/AppHeader';
-import useDocumentTitle from '../util/useDocumentTitle';
 import useMobileViewport from '../util/useMobileViewport';
 
 import ColorCalculator from './ColorCalculator';
@@ -12,8 +12,6 @@ import {PALETTE_COLORS} from './types/PaletteColorsList';
 
 export default function PaletteApp(): React$Node {
 	useMobileViewport();
-
-	useDocumentTitle('Color palettes');
 
 	const palettes = [];
 	for (const [title, palette] of PALETTE_COLORS) {
@@ -25,6 +23,12 @@ export default function PaletteApp(): React$Node {
 
 	return (
 		<div className={styles.root}>
+			<OpenGraph
+				description="View color palettes used in Chicory: A Colorful Tale"
+				title="Color palettes"
+				url="palette"
+			/>
+
 			<AppHeader title="Color palettes" />
 
 			<div className={styles.main}>

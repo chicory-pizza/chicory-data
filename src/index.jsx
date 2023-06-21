@@ -1,13 +1,12 @@
 // @flow strict
 
-import {StrictMode, Suspense} from 'react';
 import {createRoot} from 'react-dom/client';
 import ReactModal from 'react-modal';
 import './index.css';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import './util/shimRequestIdleCallback';
 
-import LoadingBigBanner from './LoadingBigBanner';
+import AppWrapper from './AppWrapper';
 import {routes} from './routes';
 import {paintdogConsoleText} from './util/paintdogConsoleText';
 
@@ -23,9 +22,7 @@ if (container == null) {
 ReactModal.setAppElement(container);
 
 createRoot(container).render(
-	<StrictMode>
-		<Suspense fallback={<LoadingBigBanner />}>
-			<RouterProvider router={createBrowserRouter(routes)} />
-		</Suspense>
-	</StrictMode>
+	<AppWrapper>
+		<RouterProvider router={createBrowserRouter(routes)} />
+	</AppWrapper>
 );

@@ -2,6 +2,7 @@
 
 import {useMemo, useState} from 'react';
 
+import OpenGraph from '../../common/OpenGraph';
 import useDocumentTitle from '../../util/useDocumentTitle';
 import LevelLayerDropdownSelect from '../common/LevelLayerDropdownSelect';
 import LevelLayerNumberInputs from '../common/LevelLayerNumberInputs';
@@ -88,6 +89,18 @@ export default function LevelSelector(): React$Node {
 
 	return (
 		<div className={styles.root}>
+			<OpenGraph
+				description={
+					'View and edit level ' + levelLabel + ' in Chicory: A Colorful Tale'
+				}
+				title={levelLabel}
+				url={
+					currentCoordinates != null
+						? 'level/' + convertCoordinatesToLevelId(currentCoordinates)
+						: null
+				}
+			/>
+
 			<span className={styles.label}>Level:</span>
 
 			<div className={styles.select}>

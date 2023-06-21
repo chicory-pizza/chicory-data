@@ -1,20 +1,20 @@
 // @flow strict
 
 import {render, screen} from '@testing-library/react';
-import {Suspense} from 'react';
 import {createMemoryRouter, RouterProvider} from 'react-router-dom';
 
+import AppWrapper from '../../AppWrapper';
 import {routes} from '../../routes';
 
 test('renders the splash screen', async () => {
 	await render(
-		<Suspense>
+		<AppWrapper>
 			<RouterProvider
 				router={createMemoryRouter(routes, {
 					initialEntries: ['/'],
 				})}
 			/>
-		</Suspense>
+		</AppWrapper>
 	);
 
 	await screen.findByText('Chicory: A Colorful Modding');

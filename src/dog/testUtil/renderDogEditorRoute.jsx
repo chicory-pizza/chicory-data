@@ -2,20 +2,20 @@
 
 import {screen} from '@testing-library/react';
 import {render} from '@testing-library/react';
-import {Suspense} from 'react';
 import {createMemoryRouter, RouterProvider} from 'react-router-dom';
 
+import AppWrapper from '../../AppWrapper';
 import {routes} from '../../routes';
 
 export default async function renderDogEditorRoute(): mixed {
 	await render(
-		<Suspense>
+		<AppWrapper>
 			<RouterProvider
 				router={createMemoryRouter(routes, {
 					initialEntries: ['/dog'],
 				})}
 			/>
-		</Suspense>
+		</AppWrapper>
 	);
 
 	await screen.findByText('Drawdog maker');

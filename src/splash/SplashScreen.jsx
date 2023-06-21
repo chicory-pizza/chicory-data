@@ -4,9 +4,9 @@
 
 import {Link} from 'react-router-dom';
 
+import OpenGraph from '../common/OpenGraph';
 import DiscordIcon from '../header/DiscordIcon';
 import GitHubIcon from '../header/GitHubIcon';
-import useDocumentTitle from '../util/useDocumentTitle';
 import useMobileViewport from '../util/useMobileViewport';
 
 import SplashChicoryLogo from './SplashChicoryLogo';
@@ -15,10 +15,14 @@ import styles from './SplashScreen.module.css';
 export default function SplashScreen(): React$Node {
 	useMobileViewport();
 
-	useDocumentTitle('');
-
 	return (
 		<div className={styles.root}>
+			<OpenGraph
+				description="Modding tools for Chicory: A Colorful Tale, such as level viewer and editor"
+				title=""
+				url=""
+			/>
+
 			<SplashChicoryLogo />
 
 			<h1 className={styles.heading}>Chicory: A Colorful Modding</h1>

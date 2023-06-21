@@ -1,20 +1,20 @@
 // @flow strict
 
 import {render, screen} from '@testing-library/react';
-import {Suspense} from 'react';
 import {createMemoryRouter, RouterProvider} from 'react-router-dom';
 
+import AppWrapper from '../../AppWrapper';
 import {routes} from '../../routes';
 
 export default async function renderPaletteAppRoute(): mixed {
 	await render(
-		<Suspense>
+		<AppWrapper>
 			<RouterProvider
 				router={createMemoryRouter(routes, {
 					initialEntries: ['/palette'],
 				})}
 			/>
-		</Suspense>
+		</AppWrapper>
 	);
 
 	await screen.findByText('Color palettes');
