@@ -9,6 +9,7 @@ import DogChicorobotCode from './DogChicorobotCode';
 import DogChicorobotNotices from './DogChicorobotNotices';
 import {useDogEditorContext} from './DogEditorContext';
 import styles from './DogEditorUI.module.css';
+import DogPlaydataGroup from './DogPlaydataGroup';
 import DogSpeech from './DogSpeech';
 import {
 	CUSTOM_CLOTHES_HEIGHT,
@@ -291,7 +292,7 @@ export default function DogEditorApp(): React$MixedElement {
 							</div>
 						</div>
 
-						<details className={styles.detailsGroup} open>
+						<details open>
 							<summary>Head</summary>
 
 							<div className={styles.grid}>
@@ -394,7 +395,7 @@ export default function DogEditorApp(): React$MixedElement {
 							</div>
 						</details>
 
-						<details className={styles.detailsGroup} open>
+						<details open>
 							<summary>Body</summary>
 
 							<div className={styles.grid}>
@@ -473,7 +474,7 @@ export default function DogEditorApp(): React$MixedElement {
 							</div>
 						</details>
 
-						<details className={styles.detailsGroup} open>
+						<details open>
 							<summary>Speech bubble</summary>
 
 							<DogSpeechEditor
@@ -488,7 +489,7 @@ export default function DogEditorApp(): React$MixedElement {
 							/>
 						</details>
 
-						<details className={styles.detailsGroup} open>
+						<details open>
 							<summary>Misc</summary>
 
 							<div className={styles.checkbox}>
@@ -518,7 +519,7 @@ export default function DogEditorApp(): React$MixedElement {
 							</div>
 						</details>
 
-						<details className={styles.detailsGroup}>
+						<details>
 							<summary>Chicorobot slash command</summary>
 
 							<ErrorBoundary>
@@ -547,6 +548,20 @@ export default function DogEditorApp(): React$MixedElement {
 								/>
 							</ErrorBoundary>
 						</details>
+
+						<ErrorBoundary>
+							<DogPlaydataGroup
+								clothes={previewClothes ?? clothes}
+								clothesColor={clothesColor}
+								earColor={
+									hasCustomEarColor && earColor !== skinColor ? earColor : null
+								}
+								hair={previewHair ?? hair}
+								hats={hatsInPreview}
+								skinColor={skinColor}
+								skinOutlineColor={skinOutlineColor}
+							/>
+						</ErrorBoundary>
 					</ErrorBoundary>
 				</div>
 			</div>

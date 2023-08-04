@@ -3,6 +3,8 @@
 import type {DrawdogPreset} from '../../dog/presets/DrawdogPresets';
 import convertHexToBgrInteger from '../../util/convertHexToBgrInteger';
 
+export const MAX_CUSTOM_BRUSH_COLORS = 8;
+
 type Playdata = $ReadOnly<{
 	customBrushColors?: Array<string>,
 	dog?: $ReadOnly<{
@@ -66,6 +68,7 @@ export default class PlaydataGenerator {
 				dog.clothesColor != null
 					? convertHexToBgrInteger(dog.clothesColor)
 					: undefined;
+
 			save.hair = dog.hair ?? undefined;
 
 			if (hatName != null) {
@@ -75,7 +78,9 @@ export default class PlaydataGenerator {
 
 			save.color_part_0 =
 				dog.hatColor != null ? convertHexToBgrInteger(dog.hatColor) : undefined;
+
 			save.name = dog.name ?? undefined;
+
 			save.color_part_1 =
 				dog.skinColor != null
 					? convertHexToBgrInteger(dog.skinColor)
@@ -207,8 +212,13 @@ export default class PlaydataGenerator {
 
 	// Other
 	setCustomBrushColors(customBrushColors: ?Array<string>): this {
-		if (customBrushColors != null && customBrushColors.length > 8) {
-			throw new Error('Custom brush colors can only have a maximum of 8');
+		if (
+			customBrushColors != null &&
+			customBrushColors.length > MAX_CUSTOM_BRUSH_COLORS
+		) {
+			throw new Error(
+				`Custom brush colors can only have a maximum of ${MAX_CUSTOM_BRUSH_COLORS} colors`
+			);
 		}
 
 		this.#playdata = {

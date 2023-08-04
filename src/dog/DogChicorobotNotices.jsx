@@ -50,14 +50,14 @@ export default function DogChicorobotNotices(props: Props): React$MixedElement {
 		<div className={styles.root}>
 			{hasNonBlackSkinOutlineColor ? (
 				<MessageBox
-					message="Non-black skin outline colors are not supported"
+					message="Non-black skin outline color is not supported"
 					type="INFO"
 				/>
 			) : null}
 
 			{hasMultipleHatLayers ? (
 				<MessageBox
-					message="Multiple hat layers are not supported, only the 1st hat layer will be shown"
+					message="Multiple hat layers are not supported, only the first hat layer will be shown"
 					type="INFO"
 				/>
 			) : null}
@@ -92,7 +92,7 @@ export default function DogChicorobotNotices(props: Props): React$MixedElement {
 
 			{props.hasCustomEarColor ? (
 				<MessageBox
-					message="Custom ear colors are not supported and will use the skin color"
+					message="Custom ear color is not supported and will use the skin color"
 					type="INFO"
 				/>
 			) : null}
