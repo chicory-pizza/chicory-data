@@ -267,6 +267,10 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 				name: 'Scarf',
 				color: '#bbebdc',
 			},
+			{
+				name: 'Flower',
+				color: '#bbebdc',
+			},
 		],
 		name: 'Cream tea',
 		skinColor: '#ffb546',
