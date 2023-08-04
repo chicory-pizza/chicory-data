@@ -32,6 +32,7 @@ type GameSave = {
 	hair?: string,
 	hat?: string,
 	name?: string,
+	[key: string]: string | number,
 };
 
 export default class PlaydataGenerator {
@@ -54,13 +55,24 @@ export default class PlaydataGenerator {
 
 		const {customBrushColors, dog} = this.#playdata;
 		if (dog) {
-			save.clothes = dog.clothes ?? undefined;
+			const {clothes, hatName} = dog;
+
+			if (clothes != null) {
+				save.clothes = clothes;
+				save['got_' + clothes] = 1;
+			}
+
 			save.color_part_2 =
 				dog.clothesColor != null
 					? convertHexToBgrInteger(dog.clothesColor)
 					: undefined;
 			save.hair = dog.hair ?? undefined;
-			save.hat = dog.hatName ?? undefined;
+
+			if (hatName != null) {
+				save.hat = hatName;
+				save['got_' + hatName] = 1;
+			}
+
 			save.color_part_0 =
 				dog.hatColor != null ? convertHexToBgrInteger(dog.hatColor) : undefined;
 			save.name = dog.name ?? undefined;

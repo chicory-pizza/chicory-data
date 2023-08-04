@@ -17,11 +17,13 @@ test('converts a dog', async () => {
 		skinColor: '#0000ff',
 	});
 
-	expect(generator.exportToGameSave()).toMatchObject({
+	expect(generator.exportToGameSave()).toEqual({
 		clothes: 'Avast',
 		color_part_0: 65280,
 		color_part_1: 16711680,
 		color_part_2: 255,
+		got_Ahoy: 1,
+		got_Avast: 1,
 		hair: 'Bob',
 		hat: 'Ahoy',
 		name: 'abc',
