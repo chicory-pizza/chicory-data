@@ -18,6 +18,8 @@ The web app is licensed under the [MPL 2.0 License](https://www.mozilla.org/en-U
 
 High resolution dog expressions by [PlasmaFlare](https://github.com/PlasmaFlare).
 
+Domigorgon Plus font by [Legendknight 3000](https://www.youtube.com/@Legendknight3000).
+
 :chicory_is_straight: emote by [moon--and--star](https://moon--and--star.tumblr.com).
 
 Original game assets are from the Chicory: A Colorful Tale game (duh).
