@@ -1,3 +1,5 @@
+// @flow strict
+
 declare module 'react-helmet-async' {
 	declare class HelmetProvider
 		extends

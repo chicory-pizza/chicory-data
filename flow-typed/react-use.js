@@ -1,3 +1,5 @@
+// @flow strict
+
 declare module 'react-use' {
 	declare function useInterval(callback: () => mixed, delay?: ?number): boolean;
 

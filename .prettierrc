@@ -1,5 +1,14 @@
 {
 	"useTabs": true,
 	"singleQuote": true,
-	"bracketSpacing": false
+	"trailingComma": "es5",
+	"bracketSpacing": false,
+	"overrides": [
+		{
+			"files": ["devcontainer.json"],
+			"options": {
+				"trailingComma": "none"
+			}
+		}
+	]
 }

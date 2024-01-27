@@ -28,21 +28,24 @@ export default function WorldMap(): React$Node {
 				? [maybePlaceholderLevelId]
 				: []
 		)
-		.reduce((previous, levelId) => {
-			const coordinates = convertLevelIdToCoordinates(levelId);
+		.reduce(
+			(previous, levelId) => {
+				const coordinates = convertLevelIdToCoordinates(levelId);
 
-			// check layer
-			const currentLayer = currentCoordinates ? currentCoordinates[0] : 0;
-			if (coordinates[0] !== currentLayer) {
+				// check layer
+				const currentLayer = currentCoordinates ? currentCoordinates[0] : 0;
+				if (coordinates[0] !== currentLayer) {
+					return previous;
+				}
+
+				minX = Math.min(minX, coordinates[1]);
+				minY = Math.min(minY, coordinates[2]);
+
+				previous.push(coordinates);
 				return previous;
-			}
-
-			minX = Math.min(minX, coordinates[1]);
-			minY = Math.min(minY, coordinates[2]);
-
-			previous.push(coordinates);
-			return previous;
-		}, ([]: Array<[number, number, number]>))
+			},
+			([]: Array<[number, number, number]>)
+		)
 		.sort((a, b) => {
 			return sortCompareCoordinates(a, b);
 		});

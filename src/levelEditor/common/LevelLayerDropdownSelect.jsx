@@ -39,7 +39,7 @@ export default function LevelLayerDropdownSelect(props: Props): React$Node {
 			{
 				label: string,
 				options: Array<OptionType<string>>,
-			}
+			},
 		>();
 
 		levelIds.forEach((id) => {

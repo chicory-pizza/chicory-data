@@ -7,8 +7,8 @@ import type {Props} from '../objectsList/SidebarObjectCustomDog';
 
 import styles from './SidebarObjectCustomDogLoader.module.css';
 
-const SidebarObjectCustomDog = lazy(() =>
-	import('../objectsList/SidebarObjectCustomDog')
+const SidebarObjectCustomDog = lazy(
+	() => import('../objectsList/SidebarObjectCustomDog')
 );
 
 export default function SidebarObjectCustomDogLoader(props: Props): React$Node {

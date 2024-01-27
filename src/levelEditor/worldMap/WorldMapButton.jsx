@@ -37,7 +37,7 @@ function WorldMapButton(props: Props): React$Node {
 					level.name !== '' ? 'Name: ' + level.name : null,
 					level.area !== '' ? 'Area: ' + level.area : null,
 					level.palette !== '' ? 'Palette: ' + level.palette : null,
-			  ]
+				]
 			: [];
 
 	useEffect(() => {
@@ -90,5 +90,5 @@ function WorldMapButton(props: Props): React$Node {
 
 export default (memo<Props>(WorldMapButton): React$AbstractComponent<
 	Props,
-	mixed
+	mixed,
 >);

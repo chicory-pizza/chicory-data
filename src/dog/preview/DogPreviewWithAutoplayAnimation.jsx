@@ -16,7 +16,7 @@ type Props = $ReadOnly<{
 		DogPreviewProps,
 		{
 			animationIndex: number,
-		}
+		},
 	>,
 	playAnimations: boolean,
 }>;

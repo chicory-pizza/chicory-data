@@ -18,7 +18,7 @@ const DOG_ANIMATIONS: Map<
 			y: number,
 			ang: number,
 		}>,
-	}
+	},
 > = new Map();
 
 DOG_ANIMATIONS.set('idle', {

@@ -15,8 +15,8 @@ export default function getLevelLabel(
 			? level.name !== convertCoordinatesToLevelId(coordinates)
 				? level.name
 				: level.area !== 'none'
-				? level.area
-				: level.palette
+					? level.area
+					: level.palette
 			: '';
 
 	return coordinatesText + (sublabel !== '' ? ` (${sublabel})` : '');

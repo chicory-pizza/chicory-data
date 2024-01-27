@@ -69,7 +69,7 @@ function reducer(
 
 export default function useListItemsExpandedReducer(): [
 	Map<number, number>,
-	(action: ListItemsExpandedReducerAction) => void
+	(action: ListItemsExpandedReducerAction) => void,
 ] {
 	return useReducer(reducer, new Map());
 }

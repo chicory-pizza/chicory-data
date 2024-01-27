@@ -11,10 +11,7 @@ type Props<EntityType, Data> = $ReadOnly<{
 	enabled: boolean,
 	entityType: EntityType,
 	nameLabel: string,
-	onAddingEntityLabel: (entity: {
-		type: EntityType,
-		data: Data,
-	}) => mixed,
+	onAddingEntityLabel: (entity: {type: EntityType, data: Data}) => mixed,
 	options:
 		| $ReadOnlyArray<OptionType<Data>>
 		| $ReadOnlyArray<{

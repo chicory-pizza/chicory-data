@@ -12,11 +12,11 @@ type Props<T> = $ReadOnly<{
 	components?: {
 		Option?: React$AbstractComponent<
 			{children: React$Node, data: OptionType<T>, isFocused: boolean, ...},
-			mixed
+			mixed,
 		>,
 		SingleValue?: React$AbstractComponent<
 			{children: React$Node, data: OptionType<T>, ...},
-			mixed
+			mixed,
 		>,
 	},
 	formatOptionLabel?: (option: OptionType<T>) => React$Node,

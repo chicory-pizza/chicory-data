@@ -171,7 +171,7 @@ export default function TransformDiv({
 			transform:
 				transforms.length !== 0
 					? (centerDiv === true ? 'translate(-50%, -50%) ' : '') +
-					  transforms.join(' ')
+						transforms.join(' ')
 					: null,
 			transformOrigin,
 			cursor: currentTransformAction === 'MOVE' ? 'move' : 'pointer',

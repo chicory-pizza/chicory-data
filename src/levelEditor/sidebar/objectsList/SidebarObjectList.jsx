@@ -79,5 +79,5 @@ function SidebarObjectList(props: Props): React$MixedElement {
 
 export default (memo<Props>(SidebarObjectList): React$AbstractComponent<
 	Props,
-	mixed
+	mixed,
 >);

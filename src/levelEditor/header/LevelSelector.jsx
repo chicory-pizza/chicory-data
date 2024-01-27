@@ -52,7 +52,7 @@ export default function LevelSelector(): React$Node {
 
 	// Inputs
 	const [draftCoordinates, setDraftCoordinates] = useState<
-		[?number, ?number, ?number]
+		[?number, ?number, ?number],
 	>(
 		currentCoordinates
 			? [currentCoordinates[0], currentCoordinates[1], currentCoordinates[2]]

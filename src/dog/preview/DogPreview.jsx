@@ -207,8 +207,8 @@ export default function DogPreview(props: Props): React$Node {
 							typeof hat.hat === 'string' && hatsImages
 								? hatsImages['hat_' + index]
 								: hat.hat instanceof Image
-								? hat.hat
-								: null,
+									? hat.hat
+									: null,
 						hatLayer2: hatsImages ? hatsImages['hatLayer2_' + index] : null,
 					};
 				}),

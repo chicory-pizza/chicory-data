@@ -14,11 +14,11 @@ import styles from './SidebarEntityItem.module.css';
 
 type Props<
 	Entity: GameObjectType | DecorationType,
-	EntityType: GameEntityType
+	EntityType: GameEntityType,
 > = $ReadOnly<{
 	entity: Entity,
 	entityPropertiesComponent: React$ComponentType<
-		SidebarEntityPropertiesComponentType<Entity, EntityType>
+		SidebarEntityPropertiesComponentType<Entity, EntityType>,
 	>,
 	expandedTime: ?number,
 	getEntityName: (entity: Entity, filter: string) => string,
@@ -41,7 +41,7 @@ type Props<
 
 function SidebarEntityItem<
 	Entity: GameObjectType | DecorationType,
-	EntityType: GameEntityType
+	EntityType: GameEntityType,
 >(props: Props<Entity, EntityType>): React$Node {
 	const item = useRef<?HTMLLIElement>(null);
 
@@ -136,5 +136,5 @@ function SidebarEntityItem<
 
 export default (memo(SidebarEntityItem): React$AbstractComponent<
 	React$ElementConfig<typeof SidebarEntityItem>,
-	mixed
+	mixed,
 >);

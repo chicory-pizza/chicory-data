@@ -1,3 +1,5 @@
+// @flow strict
+
 declare module 'react-hotkeys-hook' {
 	declare type FormTags =
 		| 'input'

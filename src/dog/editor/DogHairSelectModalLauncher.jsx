@@ -53,7 +53,7 @@ export default function DogHairSelectModalLauncher({
 							name: 'None',
 							color: dogState.hats[0].color,
 						},
-				  ];
+					];
 
 			return {
 				...convertDogEditorStateToPreset(dogState),

@@ -35,7 +35,7 @@ export default defineConfig(({command, mode}) => {
 					? {
 							key: fs.readFileSync(path.resolve(__dirname, env.SSL_KEY_FILE)),
 							cert: fs.readFileSync(path.resolve(__dirname, env.SSL_CRT_FILE)),
-					  }
+						}
 					: false,
 			port: 3000,
 
@@ -46,7 +46,7 @@ export default defineConfig(({command, mode}) => {
 						host: process.env.GITPOD_WORKSPACE_URL.replace('https://', '3000-'),
 						protocol: 'wss',
 						clientPort: 443,
-				  }
+					}
 				: true,
 		},
 	};
@@ -86,7 +86,7 @@ function getServerHeaders(env) {
 					? process.env.GITPOD_WORKSPACE_URL.replace(
 							'https://',
 							'wss://3000-'
-					  ) + ':3000'
+						) + ':3000'
 					: '',
 			].join(' '),
 

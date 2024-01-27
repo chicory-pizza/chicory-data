@@ -61,7 +61,7 @@ export default function LevelInspector({
 
 	// Sidebar
 	const [expandedSidebarPanels, setExpandedSidebarPanels] = useState<
-		Set<SidebarPanel>
+		Set<SidebarPanel>,
 	>(new Set(['LEVEL_PROPERTIES', 'OBJECTS']));
 	const [addingEntityLabel, setAddingEntityLabel] =
 		useState<?PlaceableType>(null);

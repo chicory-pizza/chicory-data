@@ -131,5 +131,5 @@ function LevelToolbar(props: Props): React$MixedElement {
 
 export default (memo<Props>(LevelToolbar): React$AbstractComponent<
 	Props,
-	mixed
+	mixed,
 >);

@@ -64,5 +64,5 @@ function AppHeaderUndoRedo(props: Props): React$MixedElement {
 
 export default (memo(AppHeaderUndoRedo): React$AbstractComponent<
 	React$ElementConfig<typeof AppHeaderUndoRedo>,
-	mixed
+	mixed,
 >);

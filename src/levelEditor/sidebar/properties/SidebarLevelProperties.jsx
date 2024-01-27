@@ -180,5 +180,5 @@ function SidebarLevelProperties(props: Props): React$Node {
 
 export default (memo<Props>(SidebarLevelProperties): React$AbstractComponent<
 	Props,
-	mixed
+	mixed,
 >);

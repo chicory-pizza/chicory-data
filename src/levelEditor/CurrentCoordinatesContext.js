@@ -8,7 +8,7 @@ import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
 
 export function useCurrentCoordinates(): [
 	?[number, number, number],
-	(newCoordinates: [number, number, number]) => mixed
+	(newCoordinates: [number, number, number]) => mixed,
 ] {
 	const {levelId} = useParams();
 
@@ -37,7 +37,7 @@ export function useCurrentCoordinates(): [
 
 export function useCurrentCoordinatesNonNullable(): [
 	[number, number, number],
-	(newCoordinates: [number, number, number]) => mixed
+	(newCoordinates: [number, number, number]) => mixed,
 ] {
 	const hook = useCurrentCoordinates();
 

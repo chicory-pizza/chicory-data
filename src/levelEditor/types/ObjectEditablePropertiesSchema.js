@@ -11,7 +11,7 @@ import type {EditablePropertiesType} from './EditablePropertiesSchemaType';
 
 const OBJECT_EDITABLE_PROPERTIES_SCHEMA: Map<
 	string,
-	Array<EditablePropertiesType>
+	Array<EditablePropertiesType>,
 > = new Map();
 
 OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objAudioparamsetter', [

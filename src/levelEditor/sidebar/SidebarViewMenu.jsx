@@ -68,5 +68,5 @@ function SidebarViewMenu(props: Props): React$Node {
 
 export default (memo<Props>(SidebarViewMenu): React$AbstractComponent<
 	Props,
-	mixed
+	mixed,
 >);

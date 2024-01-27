@@ -14,7 +14,7 @@ import type {ListItemsExpandedReducerAction} from './useListItemsExpandedReducer
 
 type Props<
 	Entity: GameObjectType | DecorationType,
-	EntityType: GameEntityType
+	EntityType: GameEntityType,
 > = $ReadOnly<{
 	dispatchEntitiesListItemsExpanded: (
 		action: ListItemsExpandedReducerAction
@@ -24,7 +24,7 @@ type Props<
 	entityHighlightClassName: string,
 	entityIndexHover: ?number,
 	entityPropertiesComponent: React$ComponentType<
-		SidebarEntityPropertiesComponentType<Entity, EntityType>
+		SidebarEntityPropertiesComponentType<Entity, EntityType>,
 	>,
 	expanded: boolean,
 	getEntityName: (entity: Entity, filter: string) => string,
@@ -49,7 +49,7 @@ type Props<
 
 export default function SidebarEntityList<
 	Entity: GameObjectType | DecorationType,
-	EntityType: GameEntityType
+	EntityType: GameEntityType,
 >(props: Props<Entity, EntityType>): React$MixedElement {
 	const {
 		entities: unfilteredEntities,
@@ -87,7 +87,7 @@ export default function SidebarEntityList<
 						.toLowerCase();
 
 					return entityName.includes(filterLowercase) ? entity : null;
-			  })
+				})
 		: [];
 
 	const filteredEntitiesCount =
@@ -100,7 +100,7 @@ export default function SidebarEntityList<
 			? Array.from(expandedUnfilteredEntityIndexes.keys())
 			: Array.from(expandedUnfilteredEntityIndexes.keys()).filter(
 					(entityIndex) => filteredEntities[entityIndex] != null
-			  );
+				);
 
 	const unfilteredEntitiesLength = filteredEntities.length;
 
@@ -114,11 +114,11 @@ export default function SidebarEntityList<
 			>
 				{unfilteredEntitiesLength > 0
 					? props.name +
-					  ' (' +
-					  (filteredEntitiesCount !== unfilteredEntitiesLength
+						' (' +
+						(filteredEntitiesCount !== unfilteredEntitiesLength
 							? `${filteredEntitiesCount} of ${unfilteredEntitiesLength} shown`
 							: `${unfilteredEntitiesLength} total`) +
-					  ')'
+						')'
 					: 'No ' + props.name.toLowerCase()}
 			</summary>
 

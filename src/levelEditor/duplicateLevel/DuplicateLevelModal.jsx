@@ -27,7 +27,7 @@ export default function DuplicateLevelModal(props: Props): React$Node {
 		useCurrentCoordinatesNonNullable();
 
 	const [draftCoordinates, setDraftCoordinates] = useState<
-		[?number, ?number, ?number]
+		[?number, ?number, ?number],
 	>([currentCoordinates[0], currentCoordinates[1], currentCoordinates[2]]);
 	const [prevCoordinates, setPrevCoordinates] = useState(currentCoordinates);
 

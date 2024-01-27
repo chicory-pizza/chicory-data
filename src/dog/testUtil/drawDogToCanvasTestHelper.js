@@ -64,8 +64,8 @@ export default async function drawDogToCanvasTestHelper(options: {
 					hatInfo.internalName === 'Custom Hat' && chosenHat.customImage != null
 						? chosenHat.customImage
 						: hatInfo.imageWithPaddingPath != null
-						? await loadImage(hatInfo.imageWithPaddingPath)
-						: null,
+							? await loadImage(hatInfo.imageWithPaddingPath)
+							: null,
 				hatLayer2:
 					hatInfo.layer2ImagePath != null
 						? await loadImage(hatInfo.layer2ImagePath)

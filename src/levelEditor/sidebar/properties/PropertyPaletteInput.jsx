@@ -81,5 +81,5 @@ function PropertyPaletteInput({
 
 export default (memo<Props>(PropertyPaletteInput): React$AbstractComponent<
 	Props,
-	mixed
+	mixed,
 >);

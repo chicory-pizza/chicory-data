@@ -7,10 +7,7 @@ import {SPRITES} from './types/SpriteEntities';
 import type {SpriteType} from './types/SpriteType';
 
 type Props = $ReadOnly<{
-	onAddingEntityLabel: (entity: {
-		type: 'DECO',
-		data: SpriteType,
-	}) => mixed,
+	onAddingEntityLabel: (entity: {type: 'DECO', data: SpriteType}) => mixed,
 }>;
 
 function LevelDecoAdder(props: Props): React$Node {
@@ -84,5 +81,5 @@ function LevelDecoAdder(props: Props): React$Node {
 
 export default (memo<Props>(LevelDecoAdder): React$AbstractComponent<
 	Props,
-	mixed
+	mixed,
 >);

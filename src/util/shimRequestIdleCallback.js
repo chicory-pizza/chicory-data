@@ -6,10 +6,7 @@
 window.requestIdleCallback =
 	window.requestIdleCallback ||
 	function (
-		cb: (deadline: {
-			didTimeout: boolean,
-			timeRemaining: () => number,
-		}) => void
+		cb: (deadline: {didTimeout: boolean, timeRemaining: () => number}) => void
 	) {
 		const start = Date.now();
 
