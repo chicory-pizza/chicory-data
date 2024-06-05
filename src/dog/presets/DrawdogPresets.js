@@ -289,6 +289,37 @@ export const DRAWDOG_PRESETS: $ReadOnlyArray<DrawdogPreset> = [
 		skinColor: '#7c4bbf',
 	},
 	{
+		clothes: 'Custom Tee',
+		clothesColor: '#ffffff',
+		customClothesImage: transformImageImport(
+			new URL('./Custom_Tee_Donut.png', import.meta.url)
+		),
+		expression: 'smile',
+		hair: 'Simple',
+		hats: [
+			{
+				name: 'Kerchief',
+				color: '#ff44ca',
+			},
+		],
+		name: 'Donut (Wish Volo)',
+		skinColor: '#9cd7ff',
+	},
+	{
+		clothes: 'Wielder Cloak',
+		clothesColor: '#ff7f31',
+		expression: 'smile',
+		hair: 'Simple',
+		hats: [
+			{
+				name: 'Foxy',
+				color: '#ff7f31',
+			},
+		],
+		name: 'Donut (Monokuro)',
+		skinColor: '#abfdb9',
+	},
+	{
 		clothes: 'Big Heart',
 		clothesColor: '#fff3a7',
 		hair: 'Simple',
