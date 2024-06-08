@@ -35,6 +35,8 @@ export default function SplashScreen(): React$Node {
 				🐶 Drawdog maker
 			</Link>
 
+			<div className={styles.infoGroupSeparator} />
+
 			<a
 				className={styles.link}
 				href="https://map.chicory.pizza"
@@ -53,6 +55,14 @@ export default function SplashScreen(): React$Node {
 				target="_blank"
 			>
 				📝 Text viewer
+			</a>
+
+			<a
+				className={styles.link}
+				href="https://wiki.chicory.pizza"
+				target="_blank"
+			>
+				📘 Wiki
 			</a>
 
 			<div className={styles.icons}>

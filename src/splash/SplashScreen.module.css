@@ -35,6 +35,10 @@
 	border-color: var(--input-border-hover-color);
 }
 
+.infoGroupSeparator {
+	height: 48px;
+}
+
 .icons {
 	display: flex;
 	margin-top: 64px;
