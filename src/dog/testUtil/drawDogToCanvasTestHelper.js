@@ -129,7 +129,7 @@ export default async function drawDogToCanvasTestHelper(options: {
 
 			head: await loadImage(
 				expressionInfo != null
-					? expressionInfo.imageHQ ?? expressionInfo.image
+					? (expressionInfo.imageHQ ?? expressionInfo.image)
 					: path.resolve(__dirname, '../images/sprDog_head_0.png')
 			),
 			headSkin: options.headSkinImage,
