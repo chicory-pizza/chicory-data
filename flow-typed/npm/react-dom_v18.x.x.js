@@ -1,5 +1,5 @@
-// flow-typed signature: 1d4beeed8c995b17afd06f505b9e5e25
-// flow-typed version: 7a3d9c1b8b/react-dom_v18.x.x/flow_>=v0.127.x
+// flow-typed signature: b4957d9ef3b30fb54e85759a46383e27
+// flow-typed version: c2ec346755/react-dom_v18.x.x/flow_>=v0.198.x
 
 declare module 'react-dom_shared-types' {
   /**
@@ -129,6 +129,8 @@ declare module 'react-dom' {
   ): React$Portal;
 
   declare function unmountComponentAtNode(container: any): boolean;
+
+  declare function flushSync(callback: () => mixed): void;
 
   declare function unstable_batchedUpdates<A, B, C, D, E>(
     callback: (a: A, b: B, c: C, d: D, e: E) => mixed,

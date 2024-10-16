@@ -1,5 +1,5 @@
-// flow-typed signature: e7e15809217257d048281290b4cbfeb6
-// flow-typed version: 9a968c602c/jest_v29.x.x/flow_>=v0.201.x
+// flow-typed signature: f3f75dec8a0c58e78c2a57e2f81e6f7f
+// flow-typed version: 00ecb7849a/jest_v29.x.x/flow_>=v0.201.x
 
 type JestMockFn<TArguments: $ReadOnlyArray<any>, TReturn> = {
   (...args: TArguments): TReturn,
@@ -1224,8 +1224,8 @@ declare var expect: {
   hasAssertions(): void,
   any(value: mixed): JestAsymmetricEqualityType,
   anything(): any,
-  arrayContaining(value: Array<mixed>): Array<mixed>,
-  objectContaining(value: Object): Object,
+  arrayContaining(value: $ReadOnlyArray<mixed>): Array<mixed>,
+  objectContaining(value: { ... }): Object,
   /** Matches any received string that contains the exact expected string. */
   stringContaining(value: string): string,
   stringMatching(value: string | RegExp): string,
