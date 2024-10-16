@@ -1,12 +1,13 @@
 // @flow strict
 
+/* eslint-env node */
+
 import path from 'path';
 
 // $FlowFixMe[untyped-import]
 import {loadImage} from 'canvas';
 
-import drawDogToCanvas from '../drawDogToCanvas';
-import {SIZE} from '../drawDogToCanvas';
+import drawDogToCanvas, {SIZE} from '../drawDogToCanvas';
 import type {ChosenHat} from '../drawDogToCanvas';
 import DOG_ANIMATIONS from '../types/DogAnimations';
 import {DOG_CLOTHES_LIST} from '../types/DogClothesList';

@@ -1,7 +1,9 @@
 // @flow strict
 
-import PlaydataGenerator from '../playdata/util/PlaydataGenerator';
-import {MAX_CUSTOM_BRUSH_COLORS} from '../playdata/util/PlaydataGenerator';
+import {
+	MAX_CUSTOM_BRUSH_COLORS,
+	PlaydataGenerator,
+} from '../playdata/util/PlaydataGenerator';
 
 import styles from './DogPlaydataGroup.module.css';
 import type {ChosenHat} from './drawDogToCanvas';

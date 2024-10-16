@@ -37,7 +37,7 @@ type GameSave = {
 	[key: string]: string | number,
 };
 
-export default class PlaydataGenerator {
+export class PlaydataGenerator {
 	#playdata: Playdata = {};
 
 	// eslint-disable-next-line no-use-before-define

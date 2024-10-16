@@ -1,6 +1,6 @@
 // @flow strict
 
-import PlaydataGenerator from '../PlaydataGenerator';
+import {PlaydataGenerator} from '../PlaydataGenerator';
 
 test('converts a dog', async () => {
 	const generator = PlaydataGenerator.loadFromDogPreset({

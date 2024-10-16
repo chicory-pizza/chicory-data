@@ -1,7 +1,6 @@
 // @flow strict
 
-import {screen} from '@testing-library/react';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import {createMemoryRouter, RouterProvider} from 'react-router-dom';
 
 import AppWrapper from '../../AppWrapper';

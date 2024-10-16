@@ -3,8 +3,7 @@
 import {useEffect, useMemo, useRef} from 'react';
 
 import Spinner from '../../common/Spinner';
-import drawDogToCanvas from '../drawDogToCanvas';
-import {SIZE} from '../drawDogToCanvas';
+import drawDogToCanvas, {SIZE} from '../drawDogToCanvas';
 import type {ChosenHat} from '../drawDogToCanvas';
 import DOG_ANIMATIONS from '../types/DogAnimations';
 import {DOG_CLOTHES_LIST} from '../types/DogClothesList';
