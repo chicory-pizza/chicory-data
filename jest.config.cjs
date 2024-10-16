@@ -12,8 +12,8 @@ module.exports = {
 	testEnvironment: 'jsdom',
 	transform: {
 		'\\.jsx?$': 'babel-jest',
-		'\\.css$': '<rootDir>/src/testUtil/cssTransform.js',
-		'\\.png$': '<rootDir>/src/testUtil/fileTransform.js',
+		'\\.css$': '<rootDir>/src/testUtil/cssTransform.cjs',
+		'\\.png$': '<rootDir>/src/testUtil/fileTransform.cjs',
 	},
 	transformIgnorePatterns: ['/node_modules/(?!(browser-fs-access))/'],
 };
