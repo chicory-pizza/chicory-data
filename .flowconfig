@@ -3,10 +3,9 @@
 <PROJECT_ROOT>/coverage/.*
 <PROJECT_ROOT>/node_modules/resolve/test/resolver/malformed_package_json/package.json
 <PROJECT_ROOT>/node_modules/eslint-plugin-react/node_modules/resolve/test/resolver/malformed_package_json/package.json
-<PROJECT_ROOT>/node_modules/hermes-eslint/dist/scope-manager/referencer/VisitorBase.js.flow
-<PROJECT_ROOT>/node_modules/hermes-estree/dist/generated/predicates.js.flow
-<PROJECT_ROOT>/node_modules/hermes-estree/dist/predicates.js.flow
-<PROJECT_ROOT>/node_modules/hermes-parser/dist/traverse/getVisitorKeys.js.flow
+<PROJECT_ROOT>/node_modules/hermes-eslint/
+<PROJECT_ROOT>/node_modules/hermes-estree/
+<PROJECT_ROOT>/node_modules/hermes-parser/
 
 [include]
 
