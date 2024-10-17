@@ -17,7 +17,7 @@ export function useCurrentCoordinates(): [
 			if (levelId != null) {
 				return convertLevelIdToCoordinates(levelId);
 			}
-		} catch (ex) {
+		} catch {
 			return null;
 		}
 

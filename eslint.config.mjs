@@ -15,7 +15,7 @@ export default [
 	importPlugin.flatConfigs.recommended,
 	importPlugin.flatConfigs.react,
 	jest.configs['flat/recommended'],
-	// jest.configs['flat/style'],
+	jest.configs['flat/style'],
 	jsxA11y.flatConfigs.recommended,
 	react.configs.flat.recommended,
 	react.configs.flat['jsx-runtime'],
@@ -30,7 +30,6 @@ export default [
 				'warn',
 				{
 					args: 'none',
-					caughtErrors: 'none',
 					ignoreRestSiblings: true,
 				},
 			],

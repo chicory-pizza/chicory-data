@@ -27,7 +27,7 @@ export default function LevelEditorUI(): React$Node {
 		} else {
 			validLevelId = false;
 		}
-	} catch (ex) {
+	} catch {
 		validLevelId = false;
 	}
 

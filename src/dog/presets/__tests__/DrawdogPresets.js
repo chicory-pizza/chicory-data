@@ -47,7 +47,7 @@ test.each(DRAWDOG_PRESETS)(
 			expect(presetHat.color).toMatch(VALID_COLOR);
 		});
 
-		expect(preset.name).not.toEqual('');
+		expect(preset.name).not.toBe('');
 
 		expect(preset.skinColor).toMatch(VALID_COLOR);
 

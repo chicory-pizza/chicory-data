@@ -13,7 +13,7 @@ test('Pizza (default)', async () => {
 		skinColor: '#ffffff',
 	});
 
-	expect(code).toEqual(
+	expect(code).toBe(
 		'/dog expression:normal clothes:Overalls hat:Bandana hair:Simple body_col:#ffffff clothes_col:#ffffff hat_col:#ffffff'
 	);
 });
@@ -29,7 +29,7 @@ test('Pancake', async () => {
 		skinColor: '#ffa694',
 	});
 
-	expect(code).toEqual(
+	expect(code).toBe(
 		'/dog expression:normal clothes:Scarf hat:None hair:Hedgehog body_col:#ffa694 clothes_col:#00f3dd hat_col:#b69aff'
 	);
 });
@@ -45,7 +45,7 @@ test('horns hat', async () => {
 		skinColor: '#0000ff',
 	});
 
-	expect(code).toEqual(
+	expect(code).toBe(
 		'/dog expression:normal clothes:Overalls hat:Horns hair:Pony body_col:#0000ff clothes_col:#ff0000 hat_col:#00ff00'
 	);
 });
