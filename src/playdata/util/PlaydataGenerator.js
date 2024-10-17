@@ -40,7 +40,6 @@ type GameSave = {
 export class PlaydataGenerator {
 	#playdata: Playdata = {};
 
-	// eslint-disable-next-line no-use-before-define
 	static loadFromDogPreset(preset: DrawdogPreset): PlaydataGenerator {
 		return new PlaydataGenerator()
 			.setDogClothes(preset.clothes)

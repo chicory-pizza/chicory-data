@@ -1,7 +1,5 @@
 // @flow strict
 
-/* eslint-env node */
-
 import path from 'path';
 
 // $FlowFixMe[untyped-import]

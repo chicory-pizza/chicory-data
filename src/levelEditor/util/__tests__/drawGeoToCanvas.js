@@ -1,6 +1,6 @@
 // @flow strict
 
-/* eslint-env node */
+/* global Buffer */
 
 // $FlowFixMe[untyped-import]
 import {toMatchImageSnapshot} from 'jest-image-snapshot';
