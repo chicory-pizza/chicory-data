@@ -187,6 +187,10 @@ export function floodFill(
 
 	while (visitStack.length > 0) {
 		const currCoords = visitStack.pop();
+		if (currCoords == null) {
+			break;
+		}
+
 		const currIndex = coordsToIndex(currCoords);
 		visited[currIndex] = true;
 		decodedGeo[currIndex] = color;

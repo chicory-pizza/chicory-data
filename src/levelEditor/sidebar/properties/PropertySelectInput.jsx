@@ -46,7 +46,7 @@ function PropertySelectInput({
 	);
 }
 
-export default (memo<Props>(PropertySelectInput): React$AbstractComponent<
+export default (memo<Props>(PropertySelectInput): React.AbstractComponent<
 	Props,
 	mixed,
 >);

@@ -57,6 +57,7 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 				if (propertyType?.type === 'NUMBER') {
 					input = (
 						<PropertyNumberInput
+							// $FlowFixMe[invalid-computed-prop]
 							initialValue={props.properties[propertyKey] ?? ''}
 							onCommitValue={(newValue: number | string | null) => {
 								props.onEditProperty(propertyKey, newValue);
@@ -69,6 +70,7 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 							onEditProperty={props.onEditProperty}
 							options={propertyType.options}
 							propertyKey={propertyKey}
+							// $FlowFixMe[invalid-computed-prop]
 							value={props.properties[propertyKey]}
 						/>
 					);
@@ -77,6 +79,7 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 						<PropertyPaletteInput
 							onEditProperty={props.onEditProperty}
 							propertyKey={propertyKey}
+							// $FlowFixMe[invalid-computed-prop]
 							value={props.properties[propertyKey]}
 						/>
 					);
@@ -85,6 +88,7 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 						<PropertyDogExpressionInput
 							onEditProperty={props.onEditProperty}
 							propertyKey={propertyKey}
+							// $FlowFixMe[invalid-computed-prop]
 							value={props.properties[propertyKey]}
 						/>
 					);
@@ -94,6 +98,7 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 							defaultValue={propertyType.default}
 							onEditProperty={props.onEditProperty}
 							propertyKey={propertyKey}
+							// $FlowFixMe[invalid-computed-prop]
 							value={props.properties[propertyKey]}
 						/>
 					);
@@ -102,6 +107,7 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 						<PropertyImageBufferInput
 							onEditProperty={props.onEditProperty}
 							propertyKey={propertyKey}
+							// $FlowFixMe[invalid-computed-prop]
 							value={props.properties[propertyKey]}
 						/>
 					);
@@ -109,6 +115,7 @@ export default function SidebarEditableProperties(props: Props): React$Node {
 					// STRING or unknown, just show as textbox
 					input = (
 						<PropertyTextInput
+							// $FlowFixMe[invalid-computed-prop]
 							initialValue={props.properties[propertyKey] ?? ''}
 							onCommitValue={(newValue: string) => {
 								props.onEditProperty(propertyKey, newValue);

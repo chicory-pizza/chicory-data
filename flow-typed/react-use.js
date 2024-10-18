@@ -1,13 +1,13 @@
 // @flow strict
 
 declare module 'react-use' {
-	declare function useInterval(callback: () => mixed, delay?: ?number): boolean;
+	declare hook useInterval(callback: () => mixed, delay?: ?number): boolean;
 
-	declare function useMedia(query: string, defaultState?: boolean): boolean;
+	declare hook useMedia(query: string, defaultState?: boolean): boolean;
 
-	declare function usePrevious<T>(state: T): T;
+	declare hook usePrevious<T>(state: T): T;
 
-	declare function useTitle(
+	declare hook useTitle(
 		title: string,
 		options?: {
 			restoreOnUnmount?: boolean,

@@ -101,7 +101,7 @@ function LevelPreviewObjects(props: Props): React$Node {
 	});
 }
 
-export default (memo<Props>(LevelPreviewObjects): React$AbstractComponent<
+export default (memo<Props>(LevelPreviewObjects): React.AbstractComponent<
 	Props,
 	mixed,
 >);

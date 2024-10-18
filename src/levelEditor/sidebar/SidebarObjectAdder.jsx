@@ -63,7 +63,7 @@ function SidebarObjectAdder(props: Props): React$Node {
 	);
 }
 
-export default (memo<Props>(SidebarObjectAdder): React$AbstractComponent<
+export default (memo<Props>(SidebarObjectAdder): React.AbstractComponent<
 	Props,
 	mixed,
 >);

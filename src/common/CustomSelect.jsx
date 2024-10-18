@@ -10,11 +10,11 @@ export type OptionType<T> = {
 
 type Props<T> = $ReadOnly<{
 	components?: {
-		Option?: React$AbstractComponent<
+		Option?: React.AbstractComponent<
 			{children: React$Node, data: OptionType<T>, isFocused: boolean, ...},
 			mixed,
 		>,
-		SingleValue?: React$AbstractComponent<
+		SingleValue?: React.AbstractComponent<
 			{children: React$Node, data: OptionType<T>, ...},
 			mixed,
 		>,

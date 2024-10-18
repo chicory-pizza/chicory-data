@@ -82,7 +82,7 @@ export default [
 
 			react: {
 				version: 'detect',
-				flowVersion: '0.212.0',
+				flowVersion: '0.250.0',
 			},
 		},
 	},

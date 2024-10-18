@@ -51,4 +51,4 @@ function PropertyDogExpressionInput({
 
 export default (memo<Props>(
 	PropertyDogExpressionInput
-): React$AbstractComponent<Props, mixed>);
+): React.AbstractComponent<Props, mixed>);

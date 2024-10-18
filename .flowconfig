@@ -3,9 +3,6 @@
 <PROJECT_ROOT>/coverage/.*
 <PROJECT_ROOT>/node_modules/resolve/test/resolver/malformed_package_json/package.json
 <PROJECT_ROOT>/node_modules/eslint-plugin-react/node_modules/resolve/test/resolver/malformed_package_json/package.json
-<PROJECT_ROOT>/node_modules/hermes-eslint/
-<PROJECT_ROOT>/node_modules/hermes-estree/
-<PROJECT_ROOT>/node_modules/hermes-parser/
 
 [include]
 
@@ -17,14 +14,18 @@ implicit-inexact-object=error
 nonstrict-import=error
 sketchy-null=error
 sketchy-number=error
+unclear-type=error
 unnecessary-invariant=error
 unnecessary-optional-chain=error
 unsafe-getters-setters=error
+untyped-import=error
 untyped-type-import=error
 unused-promise=error
 
 [options]
 emoji=true
+# component_syntax=true # not enabling due to incomplete ESLint support
+experimental.const_params=true
 react.runtime=automatic
 use_mixed_in_catch_variables=true
 

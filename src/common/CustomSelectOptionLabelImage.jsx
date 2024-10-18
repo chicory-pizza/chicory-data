@@ -10,7 +10,7 @@ type Props = $ReadOnly<{
 
 export default function CustomSelectOptionLabelImage(
 	props: Props
-): React$Element<'img'> {
+): React$MixedElement {
 	return (
 		<img
 			alt=""

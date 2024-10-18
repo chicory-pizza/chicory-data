@@ -29,7 +29,7 @@ declare module 'react-hotkeys-hook' {
 		| boolean
 		| ((keyboardEvent: KeyboardEvent, hotkeysEvent: HotkeysEvent) => boolean);
 
-	declare function useHotkeys(
+	declare hook useHotkeys(
 		keys: string | string[],
 
 		callback: (

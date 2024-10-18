@@ -102,7 +102,9 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 			const [level, levelId] = getNonNullableLevel(state, action.coordinates);
 
 			if (
+				// $FlowFixMe[invalid-computed-prop]
 				level[action.key] === action.value ||
+				// $FlowFixMe[invalid-computed-prop]
 				(action.value === '' && level[action.key] == null)
 			) {
 				// If old and new values are the same, do nothing
@@ -172,7 +174,9 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 					const value = action.properties[key];
 
 					if (
+						// $FlowFixMe[invalid-computed-prop]
 						levelObjects[action.index][key] === value ||
+						// $FlowFixMe[invalid-computed-prop]
 						(value === '' && levelObjects[action.index][key] == null)
 					) {
 						// If old and new values are the same, do nothing
@@ -216,7 +220,9 @@ function reducer(state: ?WorldType, action: ReducerAction): ?WorldType {
 				const value = action.properties[key];
 
 				if (
+					// $FlowFixMe[invalid-computed-prop]
 					levelDecos[action.index][key] === value ||
+					// $FlowFixMe[invalid-computed-prop]
 					(value === '' && levelDecos[action.index][key] == null)
 				) {
 					// If old and new values are the same, do nothing
