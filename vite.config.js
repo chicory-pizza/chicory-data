@@ -14,8 +14,10 @@ export default defineConfig(({command, mode}) => {
 	return {
 		plugins: [
 			react({
+				// Ensure this Babel config is similar with babel.config.cjs
 				babel: {
 					presets: ['@babel/preset-flow'],
+					plugins: ['babel-plugin-syntax-hermes-parser'],
 				},
 			}),
 			flowPlugin(),

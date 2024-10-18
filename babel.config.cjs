@@ -1,4 +1,4 @@
-// This config is only used by Jest
+// This config is only used by Jest, you might want to check vite.config.js
 
 module.exports = (api) => {
 	const env = api.env();
