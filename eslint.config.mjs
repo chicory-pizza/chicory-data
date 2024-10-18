@@ -1,4 +1,3 @@
-import {fixupPluginRules} from '@eslint/compat';
 import js from '@eslint/js';
 import flowtype from 'eslint-plugin-ft-flow';
 import importPlugin from 'eslint-plugin-import';
@@ -19,6 +18,13 @@ export default [
 	jsxA11y.flatConfigs.recommended,
 	react.configs.flat.recommended,
 	react.configs.flat['jsx-runtime'],
+	{
+		plugins: {
+			'ft-flow': flowtype,
+			'react-hooks': reactHooks,
+			'testing-library': testingLibrary,
+		},
+	},
 	{
 		rules: {
 			...flowtype.configs.recommended.rules,
@@ -65,11 +71,6 @@ export default [
 			],
 		},
 
-		plugins: {
-			'ft-flow': fixupPluginRules(flowtype),
-			'react-hooks': reactHooks,
-		},
-
 		languageOptions: {
 			globals: {
 				...globals.browser,
@@ -102,11 +103,6 @@ export default [
 			'**/__tests__/**/*.[jt]s?(x)',
 			'**/?(*.)+(spec|test).[jt]s?(x)',
 		],
-		plugins: {
-			'testing-library': fixupPluginRules({
-				rules: testingLibrary.rules,
-			}),
-		},
 		rules: {
 			...testingLibrary.configs['flat/react'].rules,
 		},
