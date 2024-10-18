@@ -23,7 +23,7 @@ export default function DogExpressionSelectModalLauncher({
 
 	const presets = useMemo(() => {
 		if (!isModalOpen) {
-			return ([]: $ReadOnlyArray<DrawdogPreset>);
+			return [] as $ReadOnlyArray<DrawdogPreset>;
 		}
 
 		return DOG_EXPRESSION_LIST.map((expression) => {

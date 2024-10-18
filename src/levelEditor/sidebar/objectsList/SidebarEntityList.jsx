@@ -188,7 +188,7 @@ export default function SidebarEntityList<
 
 									return previous;
 								},
-								([]: Array<number>)
+								[] as Array<number>
 							),
 						});
 					}}
@@ -214,7 +214,7 @@ export default function SidebarEntityList<
 
 									return previous;
 								},
-								([]: Array<number>)
+								[] as Array<number>
 							),
 						});
 					}}

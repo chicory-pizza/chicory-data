@@ -88,7 +88,7 @@ function WorldMapButton(props: Props): React$Node {
 	);
 }
 
-export default (memo<Props>(WorldMapButton): React.AbstractComponent<
+export default memo<Props>(WorldMapButton) as React.AbstractComponent<
 	Props,
 	mixed,
->);
+>;

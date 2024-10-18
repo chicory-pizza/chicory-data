@@ -70,7 +70,7 @@ function SidebarObjectList(props: Props): React$MixedElement {
 	);
 }
 
-export default (memo<Props>(SidebarObjectList): React.AbstractComponent<
+export default memo<Props>(SidebarObjectList) as React.AbstractComponent<
 	Props,
 	mixed,
->);
+>;

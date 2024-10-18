@@ -25,7 +25,7 @@ export default function DogHatSelectModalLauncher({
 
 	const presets = useMemo(() => {
 		if (!isModalOpen) {
-			return ([]: $ReadOnlyArray<DrawdogPreset>);
+			return [] as $ReadOnlyArray<DrawdogPreset>;
 		}
 
 		return DOG_HAT_LIST.map((hat) => {

@@ -134,7 +134,7 @@ function SidebarEntityItem<
 	);
 }
 
-export default (memo(SidebarEntityItem): React.AbstractComponent<
+export default memo(SidebarEntityItem) as React.AbstractComponent<
 	React.ElementConfig<typeof SidebarEntityItem>,
 	mixed,
->);
+>;

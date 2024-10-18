@@ -24,8 +24,10 @@ unused-promise=error
 
 [options]
 emoji=true
+casting_syntax=as
 # component_syntax=true # not enabling due to incomplete ESLint support
 experimental.const_params=true
+jest_integration=true
 react.runtime=automatic
 use_mixed_in_catch_variables=true
 

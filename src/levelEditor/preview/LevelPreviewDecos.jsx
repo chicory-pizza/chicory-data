@@ -100,7 +100,7 @@ function LevelPreviewDecos(props: Props): React$Node {
 	});
 }
 
-export default (memo<Props>(LevelPreviewDecos): React.AbstractComponent<
+export default memo<Props>(LevelPreviewDecos) as React.AbstractComponent<
 	Props,
 	mixed,
->);
+>;

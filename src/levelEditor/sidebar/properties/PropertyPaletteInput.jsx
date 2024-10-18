@@ -79,7 +79,7 @@ function PropertyPaletteInput({
 	);
 }
 
-export default (memo<Props>(PropertyPaletteInput): React.AbstractComponent<
+export default memo<Props>(PropertyPaletteInput) as React.AbstractComponent<
 	Props,
 	mixed,
->);
+>;

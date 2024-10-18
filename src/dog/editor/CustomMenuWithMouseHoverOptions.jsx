@@ -65,6 +65,6 @@ function CustomMenuWithMouseHoverOptions({
 	);
 }
 
-export default (memo<Props>(
+export default memo<Props>(
 	CustomMenuWithMouseHoverOptions
-): React.AbstractComponent<Props, mixed>);
+) as React.AbstractComponent<Props, mixed>;

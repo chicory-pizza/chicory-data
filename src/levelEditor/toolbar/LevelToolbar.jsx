@@ -129,7 +129,7 @@ function LevelToolbar(props: Props): React$MixedElement {
 	);
 }
 
-export default (memo<Props>(LevelToolbar): React.AbstractComponent<
+export default memo<Props>(LevelToolbar) as React.AbstractComponent<
 	Props,
 	mixed,
->);
+>;

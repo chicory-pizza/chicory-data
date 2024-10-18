@@ -20,21 +20,19 @@ test('edits the raw data', async () => {
 	await userEvent.type(
 		textarea,
 		// https://github.com/testing-library/user-event/issues/584
-		JSON.stringify(
-			({
-				ambiance: '-1',
-				objects: [],
-				geo: 'eJztwTEBAAAAwqD1T20LL6AAAADgbQ6OAAE=',
-				foley: '0 ',
-				palette: '',
-				area: '',
-				transition: '0',
-				music: '-1',
-				decos: [],
-				object_id: '',
-				name: 'test',
-			}: LevelType)
-		).replace(/[{[]/g, '$&$&')
+		JSON.stringify({
+			ambiance: '-1',
+			objects: [],
+			geo: 'eJztwTEBAAAAwqD1T20LL6AAAADgbQ6OAAE=',
+			foley: '0 ',
+			palette: '',
+			area: '',
+			transition: '0',
+			music: '-1',
+			decos: [],
+			object_id: '',
+			name: 'test',
+		} as LevelType).replace(/[{[]/g, '$&$&')
 	);
 	await userEvent.click(screen.getByTestId('editrawleveldatamodal-submit'));
 

@@ -23,7 +23,7 @@ export default function DogClothesSelectModalLauncher({
 
 	const presets = useMemo(() => {
 		if (!isModalOpen) {
-			return ([]: $ReadOnlyArray<DrawdogPreset>);
+			return [] as $ReadOnlyArray<DrawdogPreset>;
 		}
 
 		return DOG_CLOTHES_LIST.map((clothes) => {

@@ -79,7 +79,7 @@ function LevelDecoAdder(props: Props): React$Node {
 	);
 }
 
-export default (memo<Props>(LevelDecoAdder): React.AbstractComponent<
+export default memo<Props>(LevelDecoAdder) as React.AbstractComponent<
 	Props,
 	mixed,
->);
+>;

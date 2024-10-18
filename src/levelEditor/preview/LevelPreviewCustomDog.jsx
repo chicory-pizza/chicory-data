@@ -26,7 +26,7 @@ function LevelPreviewCustomDog(props: Props): React$MixedElement {
 	);
 }
 
-export default (memo(LevelPreviewCustomDog): React.AbstractComponent<
+export default memo(LevelPreviewCustomDog) as React.AbstractComponent<
 	React.ElementConfig<typeof LevelPreviewCustomDog>,
 	mixed,
->);
+>;

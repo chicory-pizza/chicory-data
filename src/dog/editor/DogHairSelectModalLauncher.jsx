@@ -24,7 +24,7 @@ export default function DogHairSelectModalLauncher({
 
 	const presets = useMemo(() => {
 		if (!isModalOpen) {
-			return ([]: $ReadOnlyArray<DrawdogPreset>);
+			return [] as $ReadOnlyArray<DrawdogPreset>;
 		}
 
 		return DOG_HAIR_LIST.map((hair) => {
