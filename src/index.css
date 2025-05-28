@@ -61,7 +61,8 @@ input[type='number'],
 textarea,
 button,
 select {
-	font-family: Domigorgon, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+	font-family:
+		Domigorgon, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
 		'Segoe UI Symbol', 'Noto Color Emoji';
 	font-size: 1em;
 }
