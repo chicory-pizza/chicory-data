@@ -51,7 +51,10 @@ export default defineConfig(({command, mode}) => {
 						protocol: 'wss',
 						clientPort: 443,
 					}
-				: true,
+				: {
+						// https://github.com/vitejs/vite/issues/19662
+						host: env.HOSTNAME,
+					},
 		},
 	};
 });

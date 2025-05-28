@@ -44,7 +44,7 @@
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
-    "@vitejs/plugin-react": "4.3.2",
+    "@vitejs/plugin-react": "4.5.0",
     "babel-plugin-syntax-hermes-parser": "0.28.1",
     "babel-plugin-transform-import-meta": "2.3.2",
     "babel-plugin-transform-vite-meta-env": "1.0.3",
@@ -65,7 +65,7 @@
     "jest-image-snapshot": "6.5.1",
     "prettier": "3.5.3",
     "prettier-plugin-hermes-parser": "0.28.1",
-    "vite": "5.4.9",
+    "vite": "6.3.5",
     "whatwg-fetch": "3.6.20"
   },
   "overrides": {
