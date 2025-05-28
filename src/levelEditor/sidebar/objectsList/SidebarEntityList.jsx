@@ -106,7 +106,6 @@ export default function SidebarEntityList<
 
 	return (
 		<details className={styles.expander} open={props.expanded}>
-			{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
 			<summary
 				onClick={(ev) =>
 					props.onSidebarPanelExpandToggle(ev, props.sidebarPanelType)

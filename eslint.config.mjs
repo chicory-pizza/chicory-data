@@ -11,6 +11,7 @@ import hermesParser from 'hermes-eslint';
 
 export default [
 	js.configs.recommended,
+
 	importPlugin.flatConfigs.recommended,
 	importPlugin.flatConfigs.react,
 	jest.configs['flat/recommended'],
@@ -18,17 +19,15 @@ export default [
 	jsxA11y.flatConfigs.recommended,
 	react.configs.flat.recommended,
 	react.configs.flat['jsx-runtime'],
+	reactHooks.configs['recommended-latest'],
 	{
 		plugins: {
 			'ft-flow': flowtype,
-			'react-hooks': reactHooks,
-			'testing-library': testingLibrary,
 		},
 	},
 	{
 		rules: {
 			...flowtype.configs.recommended.rules,
-			...reactHooks.configs.recommended.rules,
 
 			'no-constant-binary-expression': 'error',
 			'no-var': 'error',
@@ -103,9 +102,7 @@ export default [
 			'**/__tests__/**/*.[jt]s?(x)',
 			'**/?(*.)+(spec|test).[jt]s?(x)',
 		],
-		rules: {
-			...testingLibrary.configs['flat/react'].rules,
-		},
+		...testingLibrary.configs['flat/react'],
 		languageOptions: {
 			globals: {
 				__dirname: 'readable',
