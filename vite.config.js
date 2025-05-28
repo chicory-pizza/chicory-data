@@ -70,7 +70,8 @@ function getServerHeaders(env) {
 		'Cross-Origin-Embedder-Policy': 'require-corp',
 		'Cross-Origin-Opener-Policy': 'same-origin',
 		'Cross-Origin-Resource-Policy': 'same-origin',
-		'Permissions-Policy': 'interest-cohort=()',
+		'Permissions-Policy':
+			'accelerometer=(),bluetooth=(),camera=(),display-capture=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),midi=(),otp-credentials=(),payment=(),publickey-credentials-create=(),publickey-credentials-get=(),serial=(),usb=(),xr-spatial-tracking=()',
 
 		'Content-Security-Policy': [
 			"default-src 'self'",
@@ -112,8 +113,5 @@ function getServerHeaders(env) {
 			"base-uri 'none'",
 			"object-src 'none'",
 		].join(';'),
-
-		'Feature-Policy':
-			"accelerometer 'none';ambient-light-sensor 'none';battery 'none';bluetooth 'none';camera 'none';display-capture 'none';gamepad 'none';geolocation 'none';gyroscope 'none';hid 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';serial 'none';usb 'none';xr-spatial-tracking 'none';",
 	};
 }
