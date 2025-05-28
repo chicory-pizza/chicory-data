@@ -33,6 +33,7 @@ function CustomMenuWithMouseHoverOptions({
 		onPreviewChange(null);
 	}, [onPreviewChange]);
 
+	// eslint-disable-next-line @eslint-react/no-nested-component-definitions
 	function Option(
 		props: $ReadOnly<{
 			children: React$Node,

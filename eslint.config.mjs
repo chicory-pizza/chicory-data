@@ -1,9 +1,9 @@
 import js from '@eslint/js';
+import eslintReact from '@eslint-react/eslint-plugin';
 import flowtype from 'eslint-plugin-ft-flow';
 import importPlugin from 'eslint-plugin-import';
 import jest from 'eslint-plugin-jest';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
-import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import testingLibrary from 'eslint-plugin-testing-library';
 import globals from 'globals';
@@ -17,8 +17,7 @@ export default [
 	jest.configs['flat/recommended'],
 	jest.configs['flat/style'],
 	jsxA11y.flatConfigs.recommended,
-	react.configs.flat.recommended,
-	react.configs.flat['jsx-runtime'],
+	eslintReact.configs['recommended'],
 	reactHooks.configs['recommended-latest'],
 	{
 		plugins: {
@@ -29,7 +28,6 @@ export default [
 		rules: {
 			...flowtype.configs.recommended.rules,
 
-			'no-constant-binary-expression': 'error',
 			'no-var': 'error',
 			'no-unused-vars': [
 				'warn',
@@ -53,10 +51,6 @@ export default [
 			'ft-flow/require-indexer-name': 'error',
 			'ft-flow/require-readonly-react-props': 'error',
 
-			'react/button-has-type': 'error',
-			'react/jsx-sort-props': 'warn',
-			'react/prop-types': 'off',
-
 			'import/no-unresolved': 'off', // bugged
 			'import/order': [
 				'warn',
@@ -79,11 +73,6 @@ export default [
 
 		settings: {
 			'import/extensions': ['.js', '.jsx'],
-
-			react: {
-				version: 'detect',
-				flowVersion: '0.250.0',
-			},
 		},
 	},
 	{
@@ -111,7 +100,7 @@ export default [
 		},
 	},
 	{
-		files: ['**/*.js', '**/*.jsx'],
+		files: ['**/*.js', '**/*.jsx', '**/*.mjs'],
 	},
 	{
 		ignores: ['flow-typed/', 'dist/', 'coverage/'],

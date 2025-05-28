@@ -1,6 +1,6 @@
 // @flow strict
 
-/* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable @eslint-react/dom/no-unsafe-target-blank */
 
 import {Link} from 'react-router-dom';
 

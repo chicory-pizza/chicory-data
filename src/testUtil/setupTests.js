@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import {configure as configureTestingLibrary} from '@testing-library/react';
 import ReactModal from 'react-modal';
 
 import '../util/shimRequestIdleCallback';
@@ -44,6 +45,8 @@ window.IntersectionObserver = class IntersectionObserver {
 // For react-modal
 const fakeAppRoot = document.createElement('div');
 ReactModal.setAppElement(fakeAppRoot);
+
+configureTestingLibrary({reactStrictMode: true});
 
 process.env.VITE_IN_GAME_SCREENSHOT_URL_PREFIX =
 	'http://localhost/level_screenshots/';
