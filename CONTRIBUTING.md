@@ -10,7 +10,7 @@ Gitpod lets you get started coding without the need to install any extra program
 
 Requirements:
 
-- [Node.js v20+](https://nodejs.org)
+- [Node.js v22+](https://nodejs.org)
 
 Steps:
 
