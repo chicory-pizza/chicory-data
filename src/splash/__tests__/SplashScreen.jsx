@@ -17,7 +17,7 @@ test('renders the splash screen', async () => {
 		</AppWrapper>
 	);
 
-	await screen.findByText('Chicory: A Colorful Modding');
+	expect(await screen.findByText('Chicory: A Colorful Modding')).toBeVisible();
 
-	await screen.findByText('⛰ Level editor');
+	expect(await screen.findByText('⛰ Level editor')).toBeVisible();
 });

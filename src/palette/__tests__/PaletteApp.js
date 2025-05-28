@@ -7,5 +7,5 @@ import renderPaletteAppRoute from '../testUtil/renderPaletteAppRoute';
 test('renders the UI', async () => {
 	await renderPaletteAppRoute();
 
-	await screen.findByText('Color palettes');
+	expect(screen.getByText('Color palettes')).toBeVisible();
 });
