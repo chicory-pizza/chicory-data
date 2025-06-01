@@ -1,7 +1,7 @@
 // @flow strict
 
+import {HelmetProvider} from '@dr.pogodin/react-helmet';
 import {StrictMode, Suspense} from 'react';
-import {HelmetProvider} from 'react-helmet-async';
 
 import ErrorBoundary from './common/ErrorBoundary';
 import LoadingBigBanner from './LoadingBigBanner';

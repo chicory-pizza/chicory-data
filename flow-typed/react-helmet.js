@@ -1,6 +1,6 @@
 // @flow strict
 
-declare module 'react-helmet-async' {
+declare module '@dr.pogodin/react-helmet' {
 	declare class HelmetProvider
 		extends
 			React$Component<{
