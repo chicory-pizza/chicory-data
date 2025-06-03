@@ -41,6 +41,13 @@ export default function SidebarEditableProperties(props: Props) {
 			} else if (lowerA > lowerB) {
 				return 1;
 			}
+
+			// objPortal has `id` and `ID` -__-
+			if (a < b) {
+				return -1;
+			} else if (a > b) {
+				return 1;
+			}
 			return 0;
 		});
 
