@@ -37,7 +37,8 @@ for (const key in json) {
 		const valid =
 			typeof obj.obj === 'string' &&
 			typeof obj.x === 'number' &&
-			typeof obj.y === 'number';
+			typeof obj.y === 'number' &&
+			(obj.id == null || typeof obj.id === 'number');
 		if (!valid) {
 			throw new Error(`Malformed object ${JSON.stringify(obj)}`);
 		}

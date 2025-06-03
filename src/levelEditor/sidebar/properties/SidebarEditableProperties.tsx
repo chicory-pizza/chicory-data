@@ -15,7 +15,7 @@ type Props = Readonly<{
 	excludeProperties: Array<string>;
 	onEditProperty: (key: string, value: string | number | null) => void;
 	properties: Record<string, string | number | unknown>;
-	schema: Array<EditablePropertiesType>;
+	schema: ReadonlyArray<EditablePropertiesType>;
 	testIdPrefix?: string;
 }>;
 

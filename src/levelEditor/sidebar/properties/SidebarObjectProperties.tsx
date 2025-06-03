@@ -11,6 +11,9 @@ export default function SidebarObjectProperties(
 ) {
 	const entity = props.entity;
 
+	let schema = OBJECT_EDITABLE_PROPERTIES_SCHEMA.get(entity.obj) ?? [];
+	schema = schema.concat({key: 'id', type: 'NUMBER'});
+
 	return (
 		<>
 			{entity.obj === 'objCustomDog' ? (
@@ -34,7 +37,7 @@ export default function SidebarObjectProperties(
 						);
 					}}
 					properties={entity}
-					schema={OBJECT_EDITABLE_PROPERTIES_SCHEMA.get(entity.obj) ?? []}
+					schema={schema}
 				/>
 			</ErrorBoundary>
 		</>
