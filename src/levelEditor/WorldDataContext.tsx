@@ -196,23 +196,27 @@ function reducer(state: WorldType | null, action: ReducerAction): WorldType {
 					...levelObjects[action.index],
 				};
 				Object.keys(action.properties).forEach((key) => {
-					const value = action.properties[key];
+					const newValue = action.properties[key];
+
+					// If old and new values are the same, do nothing
+					// @ts-expect-error setting with dynamic key
+					if (levelObjects[action.index][key] === newValue) {
+						return;
+					}
 
 					if (
+						(newValue === '' || newValue == null) &&
 						// @ts-expect-error setting with dynamic key
-						levelObjects[action.index][key] === value ||
-						// @ts-expect-error setting with dynamic key
-						(value === '' && levelObjects[action.index][key] == null)
+						levelObjects[action.index][key] == null
 					) {
-						// If old and new values are the same, do nothing
 						return;
 					}
 
 					hasChanged = true;
 
-					if (value !== null) {
+					if (newValue !== null) {
 						// @ts-expect-error setting with dynamic key
-						newProperties[key] = value;
+						newProperties[key] = newValue;
 					} else {
 						// @ts-expect-error setting with dynamic key
 						// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
