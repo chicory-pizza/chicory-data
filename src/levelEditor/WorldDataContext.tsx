@@ -199,7 +199,9 @@ function reducer(state: WorldType | null, action: ReducerAction): WorldType {
 					const value = action.properties[key];
 
 					if (
+						// @ts-expect-error setting with dynamic key
 						levelObjects[action.index][key] === value ||
+						// @ts-expect-error setting with dynamic key
 						(value === '' && levelObjects[action.index][key] == null)
 					) {
 						// If old and new values are the same, do nothing
@@ -209,8 +211,10 @@ function reducer(state: WorldType | null, action: ReducerAction): WorldType {
 					hasChanged = true;
 
 					if (value !== null) {
+						// @ts-expect-error setting with dynamic key
 						newProperties[key] = value;
 					} else {
+						// @ts-expect-error setting with dynamic key
 						// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
 						delete newProperties[key];
 					}
