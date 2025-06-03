@@ -15,16 +15,18 @@ function PropertyDogExpressionInput({
 	propertyKey,
 	value,
 }: Props) {
-	const selectOptions = DOG_EXPRESSION_LIST.map((option) => {
-		if (!option.inGame) {
-			return null;
-		}
+	const selectOptions = [{label: '(Blank)', value: ''}].concat(
+		DOG_EXPRESSION_LIST.map((option) => {
+			if (!option.inGame) {
+				return null;
+			}
 
-		return {
-			label: option.label,
-			value: option.value,
-		};
-	}).filter(Boolean);
+			return {
+				label: option.label,
+				value: option.value,
+			};
+		}).filter(Boolean)
+	);
 
 	const selectedValue = selectOptions.find((option) => {
 		return option.value === value;

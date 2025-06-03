@@ -1,7 +1,6 @@
 import {Suspense, lazy} from 'react';
 
 import Spinner from '../../../common/Spinner';
-import type {Props} from '../objectsList/SidebarObjectCustomDog';
 
 import styles from './SidebarObjectCustomDogLoader.module.css';
 
@@ -9,7 +8,9 @@ const SidebarObjectCustomDog = lazy(
 	() => import('../objectsList/SidebarObjectCustomDog')
 );
 
-export default function SidebarObjectCustomDogLoader(props: Props) {
+export default function SidebarObjectCustomDogLoader(
+	props: React.ComponentProps<typeof SidebarObjectCustomDog>
+) {
 	return (
 		<Suspense
 			fallback={

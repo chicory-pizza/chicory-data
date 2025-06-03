@@ -842,7 +842,7 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCustomDog', [
 	{
 		key: 'animation',
 		type: 'ENUM',
-		options: DOG_ANIMATION_LIST,
+		options: [''].concat(DOG_ANIMATION_LIST),
 	},
 	{
 		key: 'brush',
@@ -853,7 +853,7 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCustomDog', [
 	{
 		key: 'clothes',
 		type: 'ENUM',
-		options: DOG_CLOTHES_LIST.map((hair) => hair.internalName),
+		options: [''].concat(DOG_CLOTHES_LIST.map((hair) => hair.internalName)),
 	},
 	{
 		key: 'color_body',
@@ -902,12 +902,12 @@ OBJECT_EDITABLE_PROPERTIES_SCHEMA.set('objCustomDog', [
 	{
 		key: 'hair',
 		type: 'ENUM',
-		options: DOG_HAIR_LIST.map((hair) => hair.internalName),
+		options: [''].concat(DOG_HAIR_LIST.map((hair) => hair.internalName)),
 	},
 	{
 		key: 'hat',
 		type: 'ENUM',
-		options: DOG_HAT_LIST.map((hair) => hair.internalName),
+		options: [''].concat(DOG_HAT_LIST.map((hair) => hair.internalName)),
 	},
 	{
 		key: 'interactable',

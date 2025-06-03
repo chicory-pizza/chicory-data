@@ -2,20 +2,16 @@ import {memo} from 'react';
 
 import ErrorBoundary from '../../common/ErrorBoundary';
 import ObjCustomDogPreview from '../common/ObjCustomDogPreview';
-import type {GameObjectType} from '../types/GameObjectType';
+import type {ObjCustomDogType} from '../types/GameObjectType';
 
 import styles from './LevelPreviewCustomDog.module.css';
 
-export type Props = Readonly<{
-	obj: GameObjectType;
+type Props = Readonly<{
+	obj: ObjCustomDogType;
 }>;
 
 function LevelPreviewCustomDog(props: Props) {
 	const obj = props.obj;
-
-	if (obj.obj !== 'objCustomDog') {
-		return <></>;
-	}
 
 	return (
 		<ErrorBoundary>

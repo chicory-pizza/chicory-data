@@ -7,7 +7,7 @@ import DrawdogGalleryModal from '../../../dog/presets/DrawdogGalleryModal';
 import type {DrawdogPreset} from '../../../dog/presets/DrawdogPresets';
 import convertHexToBgrInteger from '../../../util/convertHexToBgrInteger';
 import ObjCustomDogPreview from '../../common/ObjCustomDogPreview';
-import type {GameObjectType} from '../../types/GameObjectType';
+import type {ObjCustomDogType} from '../../types/GameObjectType';
 
 import styles from './SidebarObjectCustomDog.module.css';
 
@@ -45,16 +45,13 @@ export type Props = Readonly<{
 		},
 		entityType: 'OBJECT'
 	) => void;
-	obj: GameObjectType;
+	obj: ObjCustomDogType;
 }>;
 
 export default function SidebarObjectCustomDog(props: Props) {
 	const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
 
 	const obj = props.obj;
-	if (obj.obj !== 'objCustomDog') {
-		return null;
-	}
 
 	return (
 		<>

@@ -7,7 +7,7 @@ type CustomGameObjectNames = ObjCustomDogName;
 type CustomGameObjectTypes = ObjCustomDogType;
 
 type ObjCustomDogName = 'objCustomDog';
-type ObjCustomDogType = {
+export type ObjCustomDogType = {
 	obj: ObjCustomDogName;
 	x: number;
 	y: number;

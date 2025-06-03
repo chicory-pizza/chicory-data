@@ -1,38 +1,28 @@
 import DogPreview from '../../dog/preview/DogPreview';
 import convertBgrIntegerToRgb from '../../util/convertBgrIntegerToRgb';
 import convertRgbArrayToString from '../../util/convertRgbArrayToString';
-import type {GameObjectType} from '../types/GameObjectType';
+import type {ObjCustomDogType} from '../types/GameObjectType';
 
 import useLoadImageFromCustomDogTextBuffer from './useLoadImageFromCustomDogTextBuffer';
 
 export type Props = Readonly<{
 	canvasClassName?: string;
-	obj: GameObjectType;
+	obj: ObjCustomDogType;
 }>;
 
 export default function ObjCustomDogPreview({canvasClassName, obj}: Props) {
-	const isObjCustomDog = obj.obj === 'objCustomDog';
-
 	const customClothesText =
-		isObjCustomDog &&
-		typeof obj.custom_clothes === 'string' &&
-		obj.custom_clothes !== ''
+		typeof obj.custom_clothes === 'string' && obj.custom_clothes !== ''
 			? obj.custom_clothes
 			: null;
 	const customClothesImage =
 		useLoadImageFromCustomDogTextBuffer(customClothesText);
 
 	const customHatText =
-		isObjCustomDog &&
-		typeof obj.custom_hat === 'string' &&
-		obj.custom_hat !== ''
+		typeof obj.custom_hat === 'string' && obj.custom_hat !== ''
 			? obj.custom_hat
 			: null;
 	const customHatImage = useLoadImageFromCustomDogTextBuffer(customHatText);
-
-	if (!isObjCustomDog) {
-		return null;
-	}
 
 	const skinColor =
 		typeof obj.color_skin === 'number'
@@ -44,7 +34,11 @@ export default function ObjCustomDogPreview({canvasClassName, obj}: Props) {
 			animation="idle"
 			animationIndex={0}
 			canvasClassName={canvasClassName}
-			clothes={typeof obj.clothes === 'string' ? obj.clothes : 'Overalls'}
+			clothes={
+				typeof obj.clothes === 'string' && obj.clothes !== ''
+					? obj.clothes
+					: 'Overalls'
+			}
 			clothesColor={
 				typeof obj.color_body === 'number'
 					? convertRgbArrayToString(convertBgrIntegerToRgb(obj.color_body))
@@ -57,10 +51,13 @@ export default function ObjCustomDogPreview({canvasClassName, obj}: Props) {
 					? obj.expression
 					: 'normal'
 			}
-			hair={typeof obj.hair === 'string' ? obj.hair : 'Simple'}
+			hair={
+				typeof obj.hair === 'string' && obj.hair !== '' ? obj.hair : 'Simple'
+			}
 			hats={[
 				{
-					name: typeof obj.hat === 'string' ? obj.hat : 'Bandana',
+					name:
+						typeof obj.hat === 'string' && obj.hat !== '' ? obj.hat : 'Bandana',
 					color:
 						typeof obj.color_head === 'number'
 							? convertRgbArrayToString(convertBgrIntegerToRgb(obj.color_head))
