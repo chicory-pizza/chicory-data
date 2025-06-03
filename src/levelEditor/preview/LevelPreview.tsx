@@ -65,14 +65,8 @@ export default function LevelPreview(props: Props) {
 				return;
 			}
 
-			offscreenX = Math.min(
-				offscreenX,
-				deco.x - parseInt(sprite.originx, 10) - 8
-			);
-			offscreenY = Math.min(
-				offscreenY,
-				deco.y - parseInt(sprite.originy, 10) - 8
-			);
+			offscreenX = Math.min(offscreenX, deco.x - sprite.originx - 8);
+			offscreenY = Math.min(offscreenY, deco.y - sprite.originy - 8);
 		});
 	}
 

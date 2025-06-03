@@ -53,10 +53,7 @@ function LevelPreviewDecos(props: Props) {
 				/>
 			);
 
-			transformOrigin = [
-				parseInt(sprite.originx, 10),
-				parseInt(sprite.originy, 10),
-			];
+			transformOrigin = [sprite.originx, sprite.originy];
 			renderOffset = [-sprite.originx, -sprite.originy];
 		}
 
