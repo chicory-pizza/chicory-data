@@ -42,7 +42,7 @@ export type LevelType = {
 	area: string;
 	decos?: Array<DecorationType>;
 	exits?: string;
-	foley: string;
+	foley: string | number;
 	geo: string;
 	music: string;
 	name: string;
