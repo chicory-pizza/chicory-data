@@ -2,20 +2,5 @@
 	"useTabs": true,
 	"singleQuote": true,
 	"trailingComma": "es5",
-	"bracketSpacing": false,
-	"plugins": ["prettier-plugin-hermes-parser"],
-	"overrides": [
-		{
-			"files": ["*.js", "*.jsx", "*.flow"],
-			"options": {
-				"parser": "hermes"
-			}
-		},
-		{
-			"files": ["devcontainer.json"],
-			"options": {
-				"trailingComma": "none"
-			}
-		}
-	]
+	"bracketSpacing": false
 }

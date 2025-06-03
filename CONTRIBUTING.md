@@ -46,9 +46,9 @@ Otherwise, run `npm run prettier -- --write` to auto-fix.
 
 ## Type-checking
 
-This project uses [Flow](https://flow.org) for static type-checking, similar to [TypeScript](https://www.typescriptlang.org). Flow is used due to the original author being familiar with it for many years (well, many of the decisions in this project are due to that...)
+This project uses [TypeScript](https://www.typescriptlang.org) for static type-checking, previously this project used [Flow](https://flow.org).
 
-Run `npm run flow` to see errors.
+Run `npm run tsc -- -b` to see errors.
 
 ## Linting
 

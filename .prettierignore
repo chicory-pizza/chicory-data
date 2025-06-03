@@ -2,7 +2,6 @@ dist/
 
 coverage/
 
-flow-typed/npm/
 package.json
 package-lock.json
 

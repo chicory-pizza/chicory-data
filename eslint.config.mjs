@@ -1,57 +1,43 @@
 import js from '@eslint/js';
 import eslintReact from '@eslint-react/eslint-plugin';
-import flowtype from 'eslint-plugin-ft-flow';
 import importPlugin from 'eslint-plugin-import';
 import jest from 'eslint-plugin-jest';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
 import testingLibrary from 'eslint-plugin-testing-library';
 import globals from 'globals';
-import hermesParser from 'hermes-eslint';
+import tseslint from 'typescript-eslint';
 
-export default [
+export default tseslint.config(
 	js.configs.recommended,
+	tseslint.configs.strict, // todo switch to strictTypeChecked
 
-	importPlugin.flatConfigs.recommended,
-	importPlugin.flatConfigs.react,
+	importPlugin.flatConfigs.typescript,
 	jest.configs['flat/recommended'],
 	jest.configs['flat/style'],
 	jsxA11y.flatConfigs.recommended,
-	eslintReact.configs['recommended'],
+	eslintReact.configs['recommended-typescript'],
 	reactHooks.configs['recommended-latest'],
 	{
 		plugins: {
-			'ft-flow': flowtype,
+			import: importPlugin,
 		},
-	},
-	{
 		rules: {
-			...flowtype.configs.recommended.rules,
-
 			'no-var': 'error',
-			'no-unused-vars': [
+			'@typescript-eslint/no-unused-vars': [
 				'warn',
 				{
-					args: 'none',
+					// args: 'none',
 					ignoreRestSiblings: true,
 				},
 			],
 			'prefer-const': 'warn',
 
-			// Was disabled by flowtype.configs.recommended.rules
-			'no-undef': 'error',
-			'ft-flow/define-flow-type': 'error',
-
-			// Prettier already handles this
-			'no-mixed-spaces-and-tabs': 'off',
-			'ft-flow/generic-spacing': 'off',
-			'ft-flow/space-after-type-colon': 'off',
-
-			'ft-flow/newline-after-flow-annotation': 'error',
-			'ft-flow/require-indexer-name': 'error',
-			'ft-flow/require-readonly-react-props': 'error',
-
-			'import/no-unresolved': 'off', // bugged
+			// `importPlugin.flatConfigs.recommended` without slow rules
+			// https://typescript-eslint.io/troubleshooting/typed-linting/performance/#eslint-plugin-import
+			'import/export': 'error',
+			'import/no-duplicates': 'warn',
+			'import/no-named-as-default': 'warn',
 			'import/order': [
 				'warn',
 				{
@@ -68,15 +54,17 @@ export default [
 			globals: {
 				...globals.browser,
 			},
-			parser: hermesParser,
-		},
-
-		settings: {
-			'import/extensions': ['.js', '.jsx'],
+			// parserOptions: {
+			// 	projectService: true,
+			// 	tsconfigRootDir: import.meta.dirname,
+			// },
 		},
 	},
 	{
 		files: ['**/*.cjs'],
+		rules: {
+			'@typescript-eslint/no-require-imports': 'off',
+		},
 		languageOptions: {
 			// Gives error of 'Parsing error: sourceType option must be "script", "module", or "unambiguous" if set'
 			// sourceType: 'commonjs',
@@ -84,6 +72,10 @@ export default [
 				...globals.node,
 			},
 		},
+	},
+	{
+		files: ['**/*.cjs', '**/*.mjs'],
+		extends: [tseslint.configs.disableTypeChecked],
 	},
 	{
 		files: [
@@ -100,9 +92,6 @@ export default [
 		},
 	},
 	{
-		files: ['**/*.js', '**/*.jsx', '**/*.mjs'],
-	},
-	{
-		ignores: ['flow-typed/', 'dist/', 'coverage/'],
-	},
-];
+		ignores: ['dist/', 'coverage/'],
+	}
+);

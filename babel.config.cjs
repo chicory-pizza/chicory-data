@@ -1,9 +1,9 @@
-// This config is only used by Jest, you might want to check vite.config.js
+// This config is only used by Jest, you might want to check vite.config.ts
 
 module.exports = (api) => {
 	const env = api.env();
 
-	const plugins = ['babel-plugin-syntax-hermes-parser'];
+	const plugins = [];
 
 	// https://stackoverflow.com/a/70640363
 	if (env === 'test') {
@@ -26,7 +26,7 @@ module.exports = (api) => {
 					useBuiltIns: true,
 				},
 			],
-			'@babel/preset-flow',
+			'@babel/preset-typescript',
 		],
 		plugins,
 	};

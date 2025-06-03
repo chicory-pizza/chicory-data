@@ -1,0 +1,180 @@
+import path from 'path';
+
+import {loadImage} from 'canvas';
+import {toMatchImageSnapshot} from 'jest-image-snapshot';
+
+import {DRAWDOG_PRESETS} from '../presets/DrawdogPresets';
+import type {DrawdogPreset} from '../presets/DrawdogPresets';
+import drawDogToCanvasTestHelper from '../testUtil/drawDogToCanvasTestHelper';
+
+expect.extend({toMatchImageSnapshot});
+
+test('bard clothes', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Bard',
+		clothesColor: '#ff0000',
+		hair: 'Simple',
+		hats: [],
+		skinColor: '#0000ff',
+	});
+
+	expect(image).toMatchImageSnapshot();
+});
+
+test('hiker clothes', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Gi',
+		clothesColor: '#ff0000',
+		hair: 'Floofy',
+		hats: [
+			{
+				name: 'Beak',
+				color: '#00ff00',
+				customImage: null,
+			},
+		],
+		skinColor: '#0000ff',
+	});
+
+	expect(image).toMatchImageSnapshot();
+});
+
+test('horns hat', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Overalls',
+		clothesColor: '#ff0000',
+		hair: 'Pony',
+		hats: [
+			{
+				name: 'PLACEHOLDER_CLOTHES2',
+				color: '#00ff00',
+				customImage: null,
+			},
+		],
+		skinColor: '#0000ff',
+	});
+
+	expect(image).toMatchImageSnapshot();
+});
+
+test('multiple hats', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Overalls',
+		clothesColor: '#ffffff',
+		hair: 'Simple',
+		hats: [
+			{
+				name: 'Flower',
+				color: '#ff0000',
+				customImage: null,
+			},
+			{
+				name: 'Foxy',
+				color: '#ff8800',
+				customImage: null,
+			},
+			{
+				name: 'Pointish Glasses',
+				color: '#ffffff',
+				customImage: null,
+			},
+			{
+				name: 'Scarf',
+				color: '#00aaff',
+				customImage: null,
+			},
+		],
+		skinColor: '#ffffff',
+	});
+
+	expect(image).toMatchImageSnapshot();
+});
+
+test('different ear color', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Overalls',
+		clothesColor: '#ff0000',
+		earColor: '#00ff00',
+		hair: 'Simple',
+		hats: [],
+		skinColor: '#0000ff',
+	});
+
+	expect(image).toMatchImageSnapshot();
+});
+
+test('hide body', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Overalls',
+		clothesColor: '#ff0000',
+		earColor: '#00ff00',
+		hair: 'Simple',
+		hats: [],
+		skinColor: '#0000ff',
+		showBody: false,
+	});
+
+	expect(image).toMatchImageSnapshot();
+});
+
+test('expression', async () => {
+	const image = await drawDogToCanvasTestHelper({
+		clothes: 'Avast',
+		clothesColor: '#ff0000',
+		expression: 'cheeky',
+		hair: 'Bob',
+		hats: [
+			{
+				name: 'Ahoy',
+				color: '#00ff00',
+				customImage: null,
+			},
+		],
+		skinColor: '#0000ff',
+	});
+
+	expect(image).toMatchImageSnapshot();
+});
+
+// Presets
+test.each(DRAWDOG_PRESETS)('$name', async (preset: DrawdogPreset) => {
+	const newPreset = {
+		clothes: preset.clothes,
+		clothesColor: preset.clothesColor,
+		customClothesImage:
+			preset.customClothesImage != null
+				? await loadImage(
+						path.resolve(__dirname, '../presets/', preset.customClothesImage)
+					)
+				: null,
+		earColor: preset.earColor,
+		expression: preset.expression,
+		hair: preset.hair,
+		hats: await Promise.all(
+			preset.hats.map(async (hat) => {
+				return {
+					...hat,
+					customImage:
+						hat.customImage != null
+							? await loadImage(
+									path.resolve(__dirname, '../presets/', hat.customImage)
+								)
+							: null,
+				};
+			})
+		),
+		headSkinImage:
+			preset.headSkinImage != null
+				? await loadImage(
+						path.resolve(__dirname, '../presets/', preset.headSkinImage)
+					)
+				: null,
+		skinColor: preset.skinColor,
+		skinOutlineColor: preset.skinOutlineColor,
+	};
+
+	// @ts-expect-error node-canvas Image does not pass CanvasImageSource
+	const image = await drawDogToCanvasTestHelper(newPreset);
+
+	expect(image).toMatchImageSnapshot();
+});
