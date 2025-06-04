@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import {Suspense, lazy} from 'react';
 
 import Spinner from '../../../common/Spinner';
@@ -19,9 +20,9 @@ export default function SidebarObjectCustomDogLoader(
 						<Spinner size={32} />
 					</div>
 
-					<button disabled type="button">
+					<Button disabled variant="default">
 						Choose from gallery
-					</button>
+					</Button>
 				</>
 			}
 		>

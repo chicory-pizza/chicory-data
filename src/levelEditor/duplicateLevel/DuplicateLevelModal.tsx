@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import {useState} from 'react';
 
 import CustomModal from '../../common/CustomModal';
@@ -107,13 +108,13 @@ export default function DuplicateLevelModal(props: Props) {
 							/>
 						</div>
 
-						<button
+						<Button
 							className={styles.button}
 							data-testid="duplicatelevelmodal-submit"
 							type="submit"
 						>
 							Duplicate
-						</button>
+						</Button>
 					</form>
 
 					<div

@@ -49,6 +49,10 @@ body {
 	}
 }
 
+:root body {
+	--mantine-color-body: #eee;
+}
+
 :root[data-mantine-color-scheme='dark'] body {
 	--mantine-color-text: #fff;
 	--mantine-color-body: #1c1c1c;
@@ -134,8 +138,8 @@ input[type='color']:hover,
 input[type='color']:focus,
 textarea:hover,
 textarea:focus,
-button:hover,
-button:focus,
+button:not(.mantine-Button-root):hover,
+button:not(.mantine-Button-root):focus,
 select:hover,
 select:focus {
 	border-color: var(--input-border-hover-color);
@@ -154,12 +158,12 @@ button {
 	padding: 2px 8px;
 }
 
-button[disabled] {
+button[disabled]:not(.mantine-Button-root) {
 	cursor: not-allowed;
 	opacity: 0.2;
 }
 
-:focus {
+:focus:not(.mantine-Button-root) {
 	outline: 1px solid var(--luncheon-purple);
 }
 

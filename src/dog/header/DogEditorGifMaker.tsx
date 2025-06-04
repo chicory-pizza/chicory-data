@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import GIF from 'gif.js';
 import {useRef, useState} from 'react';
 
@@ -66,9 +67,9 @@ export default function DogEditorGifMaker() {
 
 	return (
 		<>
-			<button disabled={saving} onClick={onGifSave} type="button">
+			<Button disabled={saving} onClick={onGifSave} variant="default">
 				Save as GIF
-			</button>
+			</Button>
 
 			{saving ? (
 				<div hidden>

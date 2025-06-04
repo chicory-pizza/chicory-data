@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import {encode} from 'base64-arraybuffer';
 import {fileOpen, fileSave} from 'browser-fs-access';
 import {deflate} from 'pako';
@@ -239,13 +240,13 @@ export default function LevelTerrainEditorModal(props: Props) {
 								useDevicePixelRatio={false}
 							/>
 
-							<button
+							<Button
 								className={styles.geoPreviewSaveButton}
 								onClick={saveFile}
-								type="button"
+								variant="default"
 							>
 								Save
-							</button>
+							</Button>
 						</div>
 
 						<p className={styles.explanation}>
@@ -262,9 +263,9 @@ export default function LevelTerrainEditorModal(props: Props) {
 						<p className={styles.explanation}>Then load your image:</p>
 
 						<div className={styles.fileInput}>
-							<button onClick={openFile} type="button">
+							<Button onClick={openFile} variant="default">
 								Load image
-							</button>
+							</Button>
 						</div>
 
 						{errorMessage != null ? (

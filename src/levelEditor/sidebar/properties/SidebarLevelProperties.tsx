@@ -1,3 +1,4 @@
+import {Button, Group} from '@mantine/core';
 import {memo, useCallback, useState} from 'react';
 
 import {useCurrentCoordinatesNonNullable} from '../../CurrentCoordinatesContext';
@@ -115,45 +116,47 @@ function SidebarLevelProperties(props: Props) {
 					testIdPrefix="sidebarlevelproperties"
 				/>
 
-				<button
-					className={styles.actionButton}
-					onClick={() => setIsTerrainEditorModalOpen(true)}
-					type="button"
-				>
-					Edit terrain
-				</button>
+				<Group gap="xs" className={styles.buttonGroup}>
+					<Button
+						className={styles.actionButton}
+						onClick={() => setIsTerrainEditorModalOpen(true)}
+						variant="default"
+					>
+						Edit terrain
+					</Button>
 
-				<button
-					className={styles.actionButton}
-					onClick={() => setIsDuplicateLevelModalOpen(true)}
-					type="button"
-				>
-					Duplicate level
-				</button>
+					<Button
+						className={styles.actionButton}
+						onClick={() => setIsDuplicateLevelModalOpen(true)}
+						variant="default"
+					>
+						Duplicate level
+					</Button>
 
-				<button
-					className={styles.actionButton}
-					onClick={() => setIsEditRawDataModalOpen(true)}
-					type="button"
-				>
-					Edit raw data
-				</button>
+					<Button
+						className={styles.actionButton}
+						onClick={() => setIsEditRawDataModalOpen(true)}
+						variant="default"
+					>
+						Edit raw data
+					</Button>
 
-				<button
-					className={styles.actionButton}
-					onClick={onRestoreGameDefaultButtonClick}
-					type="button"
-				>
-					Restore game default
-				</button>
+					<Button
+						className={styles.actionButton}
+						onClick={onRestoreGameDefaultButtonClick}
+						variant="default"
+					>
+						Restore game default
+					</Button>
 
-				<button
-					className={styles.actionButton}
-					onClick={onDeleteLevelButtonClick}
-					type="button"
-				>
-					Delete level
-				</button>
+					<Button
+						className={styles.actionButton}
+						onClick={onDeleteLevelButtonClick}
+						variant="default"
+					>
+						Delete level
+					</Button>
+				</Group>
 			</div>
 
 			<LevelTerrainEditorModal

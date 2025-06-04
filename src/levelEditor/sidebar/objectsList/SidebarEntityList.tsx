@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import {useCallback, useState} from 'react';
 
 import type {DecorationType} from '../../types/DecorationType';
@@ -158,7 +159,7 @@ export default function SidebarEntityList<
 				})}
 			</ul>
 			<div className={styles.actions}>
-				<button
+				<Button
 					className={styles.rightPadding}
 					disabled={
 						filteredEntitiesCount === 0 ||
@@ -179,12 +180,12 @@ export default function SidebarEntityList<
 							),
 						});
 					}}
-					type="button"
+					variant="default"
 				>
 					Expand all
-				</button>
+				</Button>
 
-				<button
+				<Button
 					disabled={
 						filteredEntitiesCount === 0 ||
 						expandedFilteredEntityIndexes.length === 0
@@ -205,10 +206,10 @@ export default function SidebarEntityList<
 							),
 						});
 					}}
-					type="button"
+					variant="default"
 				>
 					Collapse all
-				</button>
+				</Button>
 			</div>
 		</details>
 	);

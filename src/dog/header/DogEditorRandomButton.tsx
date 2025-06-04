@@ -1,3 +1,5 @@
+import {Button} from '@mantine/core';
+
 import convertRgbArrayToString from '../../util/convertRgbArrayToString';
 import randomItem from '../../util/randomItem';
 import {useDogEditorContext} from '../DogEditorContext';
@@ -70,8 +72,8 @@ export default function DogEditorRandomButton() {
 	};
 
 	return (
-		<button onClick={onRandomButtonClick} type="button">
+		<Button onClick={onRandomButtonClick} variant="default">
 			Randomize
-		</button>
+		</Button>
 	);
 }

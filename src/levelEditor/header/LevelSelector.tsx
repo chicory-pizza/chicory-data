@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import {useMemo, useState} from 'react';
 
 import OpenGraph from '../../common/OpenGraph';
@@ -120,9 +121,9 @@ export default function LevelSelector() {
 					testIdPrefix="levelselector"
 				/>
 
-				<button data-testid="levelselector-go" type="submit">
+				<Button data-testid="levelselector-go" type="submit" variant="default">
 					Go
-				</button>
+				</Button>
 			</form>
 		</div>
 	);

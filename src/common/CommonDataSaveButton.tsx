@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import {useRef} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 
@@ -39,13 +40,13 @@ export default function CommonDataSaveButton(props: Props) {
 	}
 
 	return (
-		<button
+		<Button
 			{...props.buttonProps}
 			onClick={saveFile}
 			title={isMac() ? 'Command-S' : 'Ctrl-S'}
-			type="button"
+			variant="default"
 		>
 			{props.label}
-		</button>
+		</Button>
 	);
 }

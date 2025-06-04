@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import {encode} from 'base64-arraybuffer';
 import {fileOpen} from 'browser-fs-access';
 import {deflate} from 'pako';
@@ -44,14 +45,14 @@ export default function PropertyImageBufferInput({
 
 	return (
 		<>
-			<button onClick={openFile} type="button">
+			<Button onClick={openFile} variant="default">
 				Open image
-			</button>
+			</Button>
 
 			{value != null && value !== '' ? (
-				<button onClick={remove} type="button">
+				<Button onClick={remove} variant="default">
 					Remove
-				</button>
+				</Button>
 			) : null}
 		</>
 	);

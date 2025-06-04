@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import {encode} from 'base64-arraybuffer';
 import {deflate} from 'pako';
 import {useState} from 'react';
@@ -62,13 +63,13 @@ export default function SidebarObjectCustomDog(props: Props) {
 				/>
 			</div>
 
-			<button
+			<Button
 				className={styles.galleryButton}
 				onClick={() => setIsGalleryModalOpen(true)}
-				type="button"
+				variant="default"
 			>
 				Choose from gallery
-			</button>
+			</Button>
 
 			{obj.clothes === 'Custom Tee' &&
 			(obj.custom_clothes == null || obj.custom_clothes === '') ? (

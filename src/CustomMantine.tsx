@@ -6,7 +6,7 @@ import {
 	MantineProvider,
 } from '@mantine/core';
 
-// https://mantine.dev/colors-generator/
+// https://mantine.dev/colors-generator/?color=b69aff
 const luncheonPurple: MantineColorsTuple = [
 	'#f1e9ff',
 	'#ddcfff',
@@ -27,6 +27,7 @@ const theme = createTheme({
 	fontSmoothing: false,
 	cursorType: 'pointer',
 	primaryColor: 'luncheonPurple',
+	primaryShade: 2,
 });
 
 type Props = Readonly<{

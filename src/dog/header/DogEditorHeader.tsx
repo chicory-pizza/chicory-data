@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import {useState} from 'react';
 
 import ErrorBoundary from '../../common/ErrorBoundary';
@@ -25,9 +26,12 @@ export default function DogEditorHeader(props: Props) {
 				controls={
 					<div className={styles.controls}>
 						<div className={styles.flexGrow}>
-							<button onClick={() => setIsGalleryModalOpen(true)} type="button">
+							<Button
+								onClick={() => setIsGalleryModalOpen(true)}
+								variant="default"
+							>
 								Gallery
-							</button>
+							</Button>
 
 							<DogEditorRandomButton />
 						</div>

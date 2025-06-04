@@ -1,4 +1,5 @@
-import {Menu, MenuButton, MenuItem} from '@szhsin/react-menu';
+import {Button} from '@mantine/core';
+import {Menu, MenuItem} from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/theme-dark.css';
 import {memo} from 'react';
@@ -19,7 +20,7 @@ function SidebarViewMenu(props: Props) {
 	return (
 		<div className={styles.root}>
 			<Menu
-				menuButton={<MenuButton>Change view</MenuButton>}
+				menuButton={<Button variant="default">Change view</Button>}
 				theming={isDarkMode ? 'dark' : undefined}
 			>
 				<MenuItem

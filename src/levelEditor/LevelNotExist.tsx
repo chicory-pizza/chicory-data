@@ -1,3 +1,5 @@
+import {Button} from '@mantine/core';
+
 import BigPageNotice from '../common/BigPageNotice';
 
 import {useCurrentCoordinatesNonNullable} from './CurrentCoordinatesContext';
@@ -18,9 +20,9 @@ export default function LevelNotExist() {
 		<BigPageNotice
 			heading={`ℹ️ Level ${currentCoordinates.join(', ')} doesn't exist`}
 		>
-			<button onClick={onCreateButtonClick} type="button">
+			<Button onClick={onCreateButtonClick} variant="default">
 				Create
-			</button>
+			</Button>
 		</BigPageNotice>
 	);
 }

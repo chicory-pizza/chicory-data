@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import {useState} from 'react';
 
 import CustomModal from '../../common/CustomModal';
@@ -19,7 +20,7 @@ export default function EditRawLevelDataModal(props: Props) {
 	const [currentCoordinates] = useCurrentCoordinatesNonNullable();
 	const [prevLevel, setPrevLevel] = useState(props.level);
 
-	const [draftText, setDraftText] = useState(getLatestDataText());
+	const [draftText, setDraftText] = useState(() => getLatestDataText());
 
 	if (props.isOpen && props.level !== prevLevel) {
 		setDraftText(getLatestDataText());
@@ -78,13 +79,13 @@ export default function EditRawLevelDataModal(props: Props) {
 							/>
 						</div>
 
-						<button
+						<Button
 							className={styles.button}
 							data-testid="editrawleveldatamodal-submit"
 							type="submit"
 						>
 							Save
-						</button>
+						</Button>
 					</form>
 				</>
 			) : null}

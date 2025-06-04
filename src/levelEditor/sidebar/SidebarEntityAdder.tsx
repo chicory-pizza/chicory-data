@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import {useState} from 'react';
 
 import CustomSelect from '../../common/CustomSelect';
@@ -44,7 +45,7 @@ export default function SidebarEntityAdder<EntityType, Data>(
 				/>
 			</div>
 
-			<button
+			<Button
 				className={styles.button}
 				disabled={!props.enabled || selected == null}
 				onClick={() => {
@@ -55,10 +56,10 @@ export default function SidebarEntityAdder<EntityType, Data>(
 						});
 					}
 				}}
-				type="button"
+				variant="default"
 			>
 				Add
-			</button>
+			</Button>
 		</div>
 	);
 }
