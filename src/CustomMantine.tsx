@@ -4,6 +4,7 @@ import {
 	createTheme,
 	type MantineColorsTuple,
 	MantineProvider,
+	Modal,
 } from '@mantine/core';
 
 // https://mantine.dev/colors-generator/?color=b69aff
@@ -20,7 +21,19 @@ const luncheonPurple: MantineColorsTuple = [
 	'#2c00b3',
 ];
 
+const components =
+	import.meta.env.MODE === 'test'
+		? {
+				Modal: Modal.extend({
+					defaultProps: {
+						transitionProps: {duration: 0},
+					},
+				}),
+			}
+		: {};
+
 const theme = createTheme({
+	components,
 	colors: {luncheonPurple},
 	fontFamily:
 		"Domigorgon, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",

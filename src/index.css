@@ -178,24 +178,8 @@ button[disabled]:not(.mantine-Button-root) {
 	height: 100%;
 }
 
-.ReactModal__Overlay {
-	z-index: 9;
-}
-
-@media (prefers-color-scheme: dark) {
-	.ReactModal__Overlay {
-		background-color: rgba(0, 0, 0, 0.75) !important;
-	}
-
-	.ReactModal__Content {
-		background: #1c1c1c !important;
-		border-color: var(--input-border-color) !important;
-	}
-}
-
-@media (max-width: 599px) {
-	.ReactModal__Content {
-		border: none !important;
-		max-height: 100% !important;
-	}
+.mantine-Modal-title.mantine-Modal-title {
+	font-size: 1.5em;
+	line-height: 1.2;
+	margin-inline-end: var(--mb-padding, var(--mantine-spacing-xs));
 }

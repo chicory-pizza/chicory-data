@@ -1,6 +1,6 @@
+import {Button, Modal} from '@mantine/core';
 import {useCallback, useState} from 'react';
 
-import CustomModal from '../../../common/CustomModal';
 import ErrorBoundary from '../../../common/ErrorBoundary';
 import CloseIcon from '../../../common/icons/CloseIcon';
 import MessageBox from '../../../common/MessageBox';
@@ -94,72 +94,69 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 				) : null}
 			</div>
 
-			<CustomModal
-				isOpen={isModalOpen}
-				onRequestClose={onModalRequestClose}
-				titleText="Select head skin image"
+			<Modal
+				onClose={onModalRequestClose}
+				opened={isModalOpen}
+				size="auto"
+				title="Select head skin image"
 			>
-				{isModalOpen ? (
-					<ErrorBoundary>
-						<ol className={styles.list}>
-							<li className={styles.explanation}>
-								Save this image to use as a template.
-							</li>
+				<ErrorBoundary>
+					<ol className={styles.list}>
+						<li className={styles.explanation}>
+							Save this image to use as a template.
+						</li>
 
-							<li className={styles.explanation}>
-								Your drawing will be applied on the head as a skin.
-							</li>
+						<li className={styles.explanation}>
+							Your drawing will be applied on the head as a skin.
+						</li>
 
-							<li className={styles.explanation}>
-								Hide the template face before exporting your image.
-							</li>
+						<li className={styles.explanation}>
+							Hide the template face before exporting your image.
+						</li>
 
-							<li className={styles.explanation}>
-								Export your image as a PNG with resolution of {CUSTOM_HAT_WIDTH}
-								×{CUSTOM_HAT_HEIGHT}.
-							</li>
-						</ol>
+						<li className={styles.explanation}>
+							Export your image as a PNG with resolution of {CUSTOM_HAT_WIDTH}×
+							{CUSTOM_HAT_HEIGHT}.
+						</li>
+					</ol>
 
-						<img
-							alt="Head template"
-							className={styles.templateImage}
-							height={CUSTOM_HAT_HEIGHT}
-							src={templateImage}
-							width={CUSTOM_HAT_WIDTH}
-						/>
+					<img
+						alt="Head template"
+						className={styles.templateImage}
+						height={CUSTOM_HAT_HEIGHT}
+						src={templateImage}
+						width={CUSTOM_HAT_WIDTH}
+					/>
 
-						<DogEditorFileInput onFileLoad={onNewHeadOverlayImage} />
+					<DogEditorFileInput onFileLoad={onNewHeadOverlayImage} />
 
-						{errorMessage != null ? (
-							<div className={styles.errorMessage}>
-								<MessageBox message={errorMessage} type="ERROR" />
-							</div>
-						) : null}
+					{errorMessage != null ? (
+						<div className={styles.errorMessage}>
+							<MessageBox message={errorMessage} type="ERROR" />
+						</div>
+					) : null}
 
-						{imageDataUrl != null ? (
-							<div className={styles.previewArea}>
-								<p className={styles.explanation}>
-									Preview your head skin, confirm if everything looks good.
-								</p>
+					{imageDataUrl != null ? (
+						<div className={styles.previewArea}>
+							<p className={styles.explanation}>
+								Preview your head skin, confirm if everything looks good.
+							</p>
 
-								<DogPreview
-									{...convertDogEditorStateToDogPreview(dogState)}
-									animation="idle"
-									animationIndex={0}
-									canvasClassName={styles.dogPreview}
-									hats={dogState.hats}
-									headSkinImage={imageDataUrl}
-									showBody={true}
-								/>
+							<DogPreview
+								{...convertDogEditorStateToDogPreview(dogState)}
+								animation="idle"
+								animationIndex={0}
+								canvasClassName={styles.dogPreview}
+								hats={dogState.hats}
+								headSkinImage={imageDataUrl}
+								showBody={true}
+							/>
 
-								<button onClick={onConfirmButtonClick} type="button">
-									Confirm
-								</button>
-							</div>
-						) : null}
-					</ErrorBoundary>
-				) : null}
-			</CustomModal>
+							<Button onClick={onConfirmButtonClick}>Confirm</Button>
+						</div>
+					) : null}
+				</ErrorBoundary>
+			</Modal>
 		</>
 	);
 }

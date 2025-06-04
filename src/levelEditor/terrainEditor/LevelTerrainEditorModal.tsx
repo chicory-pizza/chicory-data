@@ -1,11 +1,11 @@
-import {Button} from '@mantine/core';
+import {Button, Modal} from '@mantine/core';
 import {encode} from 'base64-arraybuffer';
 import {fileOpen, fileSave} from 'browser-fs-access';
 import {deflate} from 'pako';
 import {useState} from 'react';
 import tinycolor from 'tinycolor2';
 
-import CustomModal from '../../common/CustomModal';
+import ErrorBoundary from '../../common/ErrorBoundary';
 import MessageBox from '../../common/MessageBox';
 import ColorGrid from '../../palette/ColorGrid';
 import type {Palette} from '../../palette/ColorGrid';
@@ -217,12 +217,13 @@ export default function LevelTerrainEditorModal(props: Props) {
 	}
 
 	return (
-		<CustomModal
-			isOpen={props.isOpen}
-			onRequestClose={props.onModalRequestClose}
-			titleText="Edit level terrain"
+		<Modal
+			onClose={props.onModalRequestClose}
+			opened={props.isOpen}
+			size="auto"
+			title="Edit level terrain"
 		>
-			{props.isOpen ? (
+			<ErrorBoundary>
 				<div className={styles.content}>
 					<div>
 						<p className={styles.explanation}>
@@ -275,7 +276,7 @@ export default function LevelTerrainEditorModal(props: Props) {
 						) : null}
 					</div>
 				</div>
-			) : null}
-		</CustomModal>
+			</ErrorBoundary>
+		</Modal>
 	);
 }

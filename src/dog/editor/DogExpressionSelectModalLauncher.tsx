@@ -18,10 +18,6 @@ export default function DogExpressionSelectModalLauncher({onChange}: Props) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const presets: Array<DrawdogPreset> = useMemo(() => {
-		if (!isModalOpen) {
-			return [];
-		}
-
 		return DOG_EXPRESSION_LIST.map((expression) => {
 			return {
 				...convertDogEditorStateToPreset(dogState),
@@ -29,7 +25,7 @@ export default function DogExpressionSelectModalLauncher({onChange}: Props) {
 				name: expression.label,
 			};
 		});
-	}, [dogState, isModalOpen]);
+	}, [dogState]);
 
 	return (
 		<>

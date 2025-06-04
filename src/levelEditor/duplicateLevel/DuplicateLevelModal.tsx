@@ -1,7 +1,7 @@
-import {Button} from '@mantine/core';
+import {Button, Modal} from '@mantine/core';
 import {useState} from 'react';
 
-import CustomModal from '../../common/CustomModal';
+import ErrorBoundary from '../../common/ErrorBoundary';
 import MessageBox from '../../common/MessageBox';
 import LevelLayerNumberInputs from '../common/LevelLayerNumberInputs';
 import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
@@ -83,60 +83,54 @@ export default function DuplicateLevelModal(props: Props) {
 	}
 
 	return (
-		<CustomModal
-			isOpen={props.isOpen}
-			onRequestClose={props.onModalRequestClose}
-			titleText={
+		<Modal
+			onClose={props.onModalRequestClose}
+			opened={props.isOpen}
+			title={
 				'Duplicate level ' + getLevelLabel(currentCoordinates, props.level)
 			}
 		>
-			{props.isOpen ? (
-				<>
-					<p className={styles.explanation}>
-						Enter the new coordinates to copy to:
-					</p>
+			<ErrorBoundary>
+				<p className={styles.explanation}>
+					Enter the new coordinates to copy to:
+				</p>
 
-					<form action="#" onSubmit={onFormSubmit}>
-						<div>
-							<LevelLayerNumberInputs
-								coordinates={draftCoordinates}
-								onNewCoordinatesSet={(newCoordinates) => {
-									setDraftCoordinates(newCoordinates);
-									setErrorMessage(null);
-								}}
-								testIdPrefix="duplicatelevelmodal"
-							/>
-						</div>
+				<form action="#" onSubmit={onFormSubmit}>
+					<div>
+						<LevelLayerNumberInputs
+							coordinates={draftCoordinates}
+							onNewCoordinatesSet={(newCoordinates) => {
+								setDraftCoordinates(newCoordinates);
+								setErrorMessage(null);
+							}}
+							testIdPrefix="duplicatelevelmodal"
+						/>
+					</div>
 
-						<Button
-							className={styles.button}
-							data-testid="duplicatelevelmodal-submit"
-							type="submit"
-						>
-							Duplicate
-						</Button>
-					</form>
-
-					<div
-						className={
-							styles.overwriteExistingMessage +
-							' ' +
-							(goingToOverwriteExisting ? styles.visible : '')
-						}
+					<Button
+						className={styles.button}
+						data-testid="duplicatelevelmodal-submit"
+						type="submit"
 					>
+						Duplicate
+					</Button>
+				</form>
+
+				{goingToOverwriteExisting ? (
+					<div className={styles.overwriteExistingMessage}>
 						<MessageBox
 							message="You are about to overwrite an existing level"
 							type="INFO"
 						/>
 					</div>
+				) : null}
 
-					{errorMessage != null ? (
-						<div className={styles.errorMessage}>
-							<MessageBox message={errorMessage} type="ERROR" />
-						</div>
-					) : null}
-				</>
-			) : null}
-		</CustomModal>
+				{errorMessage != null ? (
+					<div className={styles.errorMessage}>
+						<MessageBox message={errorMessage} type="ERROR" />
+					</div>
+				) : null}
+			</ErrorBoundary>
+		</Modal>
 	);
 }

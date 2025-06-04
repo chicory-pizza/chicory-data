@@ -8,11 +8,6 @@
 
 .overwriteExistingMessage {
 	margin-top: 16px;
-	visibility: hidden;
-}
-
-.visible {
-	visibility: inherit;
 }
 
 .errorMessage {

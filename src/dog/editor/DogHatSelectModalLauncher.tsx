@@ -19,10 +19,6 @@ export default function DogHatSelectModalLauncher({layer, onChange}: Props) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const presets: Array<DrawdogPreset> = useMemo(() => {
-		if (!isModalOpen) {
-			return [];
-		}
-
 		return DOG_HAT_LIST.map((hat) => {
 			return {
 				...convertDogEditorStateToPreset(dogState),
@@ -37,7 +33,7 @@ export default function DogHatSelectModalLauncher({layer, onChange}: Props) {
 				name: hat.externalName,
 			};
 		});
-	}, [dogState, isModalOpen, layer]);
+	}, [dogState, layer]);
 
 	return (
 		<>

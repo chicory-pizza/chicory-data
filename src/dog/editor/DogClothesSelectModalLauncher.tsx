@@ -18,10 +18,6 @@ export default function DogClothesSelectModalLauncher({onChange}: Props) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const presets: Array<DrawdogPreset> = useMemo(() => {
-		if (!isModalOpen) {
-			return [];
-		}
-
 		return DOG_CLOTHES_LIST.map((clothes) => {
 			return {
 				...convertDogEditorStateToPreset(dogState),
@@ -29,7 +25,7 @@ export default function DogClothesSelectModalLauncher({onChange}: Props) {
 				name: clothes.externalName,
 			};
 		});
-	}, [dogState, isModalOpen]);
+	}, [dogState]);
 
 	return (
 		<>

@@ -19,10 +19,6 @@ export default function DogHairSelectModalLauncher({onChange}: Props) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const presets: Array<DrawdogPreset> = useMemo(() => {
-		if (!isModalOpen) {
-			return [];
-		}
-
 		return DOG_HAIR_LIST.map((hair) => {
 			const hatCanDrawHair = dogState.hats.every((dogHat) => {
 				const hatInfo = DOG_HAT_LIST.find((hat) => {
@@ -58,7 +54,7 @@ export default function DogHairSelectModalLauncher({onChange}: Props) {
 				name: hair.externalName,
 			};
 		});
-	}, [dogState, isModalOpen]);
+	}, [dogState]);
 
 	return (
 		<>

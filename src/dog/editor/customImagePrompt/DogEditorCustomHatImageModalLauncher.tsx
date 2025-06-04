@@ -1,6 +1,6 @@
+import {Button, Modal} from '@mantine/core';
 import {useCallback, useState} from 'react';
 
-import CustomModal from '../../../common/CustomModal';
 import ErrorBoundary from '../../../common/ErrorBoundary';
 import MessageBox from '../../../common/MessageBox';
 import {useDogEditorContext} from '../../DogEditorContext';
@@ -82,73 +82,69 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 				Select image
 			</button>
 
-			<CustomModal
-				isOpen={isModalOpen}
-				onRequestClose={onModalRequestClose}
-				titleText="Select custom hat image"
+			<Modal
+				onClose={onModalRequestClose}
+				opened={isModalOpen}
+				size="auto"
+				title="Select custom hat image"
 			>
-				{isModalOpen ? (
-					<ErrorBoundary>
-						<p className={styles.explanation}>
-							Save and use this template face to draw a custom hat.
-						</p>
+				<ErrorBoundary>
+					<p className={styles.explanation}>
+						Save and use this template face to draw a custom hat.
+					</p>
 
-						<p className={styles.explanation}>
-							Your exported image should be a PNG and have a resolution of{' '}
-							{CUSTOM_HAT_WIDTH}×{CUSTOM_HAT_HEIGHT} or {SIZE}×{SIZE}.
-						</p>
+					<p className={styles.explanation}>
+						Your exported image should be a PNG and have a resolution of{' '}
+						{CUSTOM_HAT_WIDTH}×{CUSTOM_HAT_HEIGHT} or {SIZE}×{SIZE}.
+					</p>
 
-						<p className={styles.explanation}>
-							Remember to hide the template face when exporting your final
-							image.
-						</p>
+					<p className={styles.explanation}>
+						Remember to hide the template face when exporting your final image.
+					</p>
 
-						<img
-							alt="Custom hat template"
-							className={styles.templateImage}
-							height={CUSTOM_HAT_HEIGHT}
-							src={templateImage}
-							width={CUSTOM_HAT_WIDTH}
-						/>
+					<img
+						alt="Custom hat template"
+						className={styles.templateImage}
+						height={CUSTOM_HAT_HEIGHT}
+						src={templateImage}
+						width={CUSTOM_HAT_WIDTH}
+					/>
 
-						<DogEditorFileInput onFileLoad={onNewHatImage} />
+					<DogEditorFileInput onFileLoad={onNewHatImage} />
 
-						{errorMessage != null ? (
-							<div className={styles.errorMessage}>
-								<MessageBox message={errorMessage} type="ERROR" />
-							</div>
-						) : null}
+					{errorMessage != null ? (
+						<div className={styles.errorMessage}>
+							<MessageBox message={errorMessage} type="ERROR" />
+						</div>
+					) : null}
 
-						{imageDataUrl != null ? (
-							<div className={styles.previewArea}>
-								<p className={styles.explanation}>
-									Preview your custom hat, confirm if everything looks good.
-								</p>
+					{imageDataUrl != null ? (
+						<div className={styles.previewArea}>
+							<p className={styles.explanation}>
+								Preview your custom hat, confirm if everything looks good.
+							</p>
 
-								<DogPreview
-									{...convertDogEditorStateToDogPreview(dogState)}
-									animation="idle"
-									animationIndex={0}
-									canvasClassName={styles.dogPreview}
-									hats={dogState.hats
-										.slice(0, layer)
-										.concat({
-											name: dogState.hats[layer].name,
-											color: dogState.hats[layer].color,
-											customImage: imageDataUrl,
-										})
-										.concat(dogState.hats.slice(layer + 1))}
-									showBody={true}
-								/>
+							<DogPreview
+								{...convertDogEditorStateToDogPreview(dogState)}
+								animation="idle"
+								animationIndex={0}
+								canvasClassName={styles.dogPreview}
+								hats={dogState.hats
+									.slice(0, layer)
+									.concat({
+										name: dogState.hats[layer].name,
+										color: dogState.hats[layer].color,
+										customImage: imageDataUrl,
+									})
+									.concat(dogState.hats.slice(layer + 1))}
+								showBody={true}
+							/>
 
-								<button onClick={onConfirmButtonClick} type="button">
-									Confirm
-								</button>
-							</div>
-						) : null}
-					</ErrorBoundary>
-				) : null}
-			</CustomModal>
+							<Button onClick={onConfirmButtonClick}>Confirm</Button>
+						</div>
+					) : null}
+				</ErrorBoundary>
+			</Modal>
 		</>
 	);
 }

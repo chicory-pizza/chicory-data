@@ -1,7 +1,7 @@
-import {Button} from '@mantine/core';
+import {Button, Modal} from '@mantine/core';
 import {useState} from 'react';
 
-import CustomModal from '../../common/CustomModal';
+import ErrorBoundary from '../../common/ErrorBoundary';
 import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
 import type {LevelType} from '../types/LevelType';
 import getLevelLabel from '../util/getLevelLabel';
@@ -56,39 +56,38 @@ export default function EditRawLevelDataModal(props: Props) {
 	}
 
 	return (
-		<CustomModal
-			isOpen={props.isOpen}
-			onRequestClose={props.onModalRequestClose}
-			titleText={
+		<Modal
+			onClose={props.onModalRequestClose}
+			opened={props.isOpen}
+			size="auto"
+			title={
 				'Edit raw data for level ' +
 				getLevelLabel(currentCoordinates, props.level)
 			}
 		>
-			{props.isOpen ? (
-				<>
-					<form action="#" onSubmit={onFormSubmit}>
-						<div>
-							<textarea
-								className={styles.textarea}
-								data-testid="editrawleveldatamodal-textarea"
-								onChange={(ev) => {
-									setDraftText(ev.currentTarget.value);
-								}}
-								spellCheck={false}
-								value={draftText}
-							/>
-						</div>
+			<ErrorBoundary>
+				<form action="#" onSubmit={onFormSubmit}>
+					<div>
+						<textarea
+							className={styles.textarea}
+							data-testid="editrawleveldatamodal-textarea"
+							onChange={(ev) => {
+								setDraftText(ev.currentTarget.value);
+							}}
+							spellCheck={false}
+							value={draftText}
+						/>
+					</div>
 
-						<Button
-							className={styles.button}
-							data-testid="editrawleveldatamodal-submit"
-							type="submit"
-						>
-							Save
-						</Button>
-					</form>
-				</>
-			) : null}
-		</CustomModal>
+					<Button
+						className={styles.button}
+						data-testid="editrawleveldatamodal-submit"
+						type="submit"
+					>
+						Save
+					</Button>
+				</form>
+			</ErrorBoundary>
+		</Modal>
 	);
 }
