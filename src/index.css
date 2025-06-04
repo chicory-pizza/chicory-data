@@ -49,6 +49,11 @@ body {
 	}
 }
 
+:root[data-mantine-color-scheme='dark'] body {
+	--mantine-color-text: #fff;
+	--mantine-color-body: #1c1c1c;
+}
+
 ::selection {
 	background: var(--luncheon-orange);
 	color: #000;

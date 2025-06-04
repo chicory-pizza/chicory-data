@@ -2,6 +2,7 @@ import {HelmetProvider} from '@dr.pogodin/react-helmet';
 import {StrictMode, Suspense} from 'react';
 
 import ErrorBoundary from './common/ErrorBoundary';
+import CustomMantine from './CustomMantine';
 import LoadingBigBanner from './LoadingBigBanner';
 
 type Props = Readonly<{
@@ -13,7 +14,9 @@ export default function AppWrapper(props: Props) {
 		<StrictMode>
 			<Suspense fallback={<LoadingBigBanner />}>
 				<ErrorBoundary>
-					<HelmetProvider>{props.children}</HelmetProvider>
+					<CustomMantine>
+						<HelmetProvider>{props.children}</HelmetProvider>
+					</CustomMantine>
 				</ErrorBoundary>
 			</Suspense>
 		</StrictMode>

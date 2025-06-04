@@ -1,6 +1,7 @@
+import './index.css';
+
 import {createRoot} from 'react-dom/client';
 import ReactModal from 'react-modal';
-import './index.css';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import './util/shimRequestIdleCallback';
 
