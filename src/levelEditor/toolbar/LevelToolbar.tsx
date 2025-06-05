@@ -29,16 +29,24 @@ function LevelToolbar(props: Props) {
 	useHotkeys('g', () => props.onEditorToolTypeUpdate('FILL'));
 	useHotkeys('i', () => props.onEditorToolTypeUpdate('EYEDROPPER'));
 
-	useHotkeys('[', () => {
-		if (props.editorToolType === 'BRUSH') {
-			props.onBrushSizeUpdate(Math.max(props.brushSize - 1, MIN_BRUSH_SIZE));
-		}
-	});
-	useHotkeys(']', () => {
-		if (props.editorToolType === 'BRUSH') {
-			props.onBrushSizeUpdate(Math.min(props.brushSize + 1, MAX_BRUSH_SIZE));
-		}
-	});
+	useHotkeys(
+		'[',
+		() => {
+			if (props.editorToolType === 'BRUSH') {
+				props.onBrushSizeUpdate(Math.max(props.brushSize - 1, MIN_BRUSH_SIZE));
+			}
+		},
+		{useKey: true}
+	);
+	useHotkeys(
+		']',
+		() => {
+			if (props.editorToolType === 'BRUSH') {
+				props.onBrushSizeUpdate(Math.min(props.brushSize + 1, MAX_BRUSH_SIZE));
+			}
+		},
+		{useKey: true}
+	);
 
 	const toolTypes: Array<{
 		type: EditorToolType;
