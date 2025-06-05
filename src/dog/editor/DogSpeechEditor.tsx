@@ -1,3 +1,4 @@
+import {Textarea} from '@mantine/core';
 import {useMemo} from 'react';
 
 import type {OptionType} from '../../common/CustomSelect';
@@ -66,8 +67,10 @@ export default function DogSpeechEditor(props: Props) {
 
 					<div className={styles.label}>Text:</div>
 					<div className={styles.textControl}>
-						<textarea
-							className={styles.textInput + ' ' + fontStyle}
+						<Textarea
+							autosize
+							classNames={{input: styles.textInput + ' ' + fontStyle}}
+							minRows={2}
 							onChange={(ev) => {
 								props.onTextChange(ev.currentTarget.value);
 							}}

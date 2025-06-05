@@ -27,23 +27,15 @@
 }
 
 @media (min-width: 801px) {
+	.textControl {
+		max-width: 600px;
+	}
+
 	.selectControl {
 		width: 266px;
 	}
 }
 
 .textInput {
-	display: block;
 	font-size: 2em;
-	height: 100px;
-	min-height: 100px;
-	padding: 10px;
-	resize: vertical;
-	width: 100%;
-}
-
-@media (min-width: 801px) {
-	.textInput {
-		max-width: 600px;
-	}
 }

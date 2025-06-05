@@ -1,10 +1,4 @@
 .textarea {
 	font-family: monospace;
 	min-height: 300px;
-	min-width: 100%;
-	width: 100%;
-}
-
-.button {
-	margin: 12px 0 0;
 }

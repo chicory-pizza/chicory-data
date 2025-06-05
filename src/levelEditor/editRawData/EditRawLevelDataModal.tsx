@@ -1,4 +1,4 @@
-import {Button, Modal} from '@mantine/core';
+import {Button, Modal, Textarea} from '@mantine/core';
 import {useState} from 'react';
 
 import ErrorBoundary from '../../common/ErrorBoundary';
@@ -67,21 +67,21 @@ export default function EditRawLevelDataModal(props: Props) {
 		>
 			<ErrorBoundary>
 				<form action="#" onSubmit={onFormSubmit}>
-					<div>
-						<textarea
-							className={styles.textarea}
-							data-testid="editrawleveldatamodal-textarea"
-							onChange={(ev) => {
-								setDraftText(ev.currentTarget.value);
-							}}
-							spellCheck={false}
-							value={draftText}
-						/>
-					</div>
+					<Textarea
+						classNames={{input: styles.textarea}}
+						data-testid="editrawleveldatamodal-textarea"
+						onChange={(ev) => {
+							setDraftText(ev.currentTarget.value);
+						}}
+						required
+						resize="both"
+						spellCheck={false}
+						value={draftText}
+					/>
 
 					<Button
-						className={styles.button}
 						data-testid="editrawleveldatamodal-submit"
+						mt="md"
 						type="submit"
 					>
 						Save
