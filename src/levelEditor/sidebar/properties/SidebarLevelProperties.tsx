@@ -1,4 +1,5 @@
 import {Button, Group} from '@mantine/core';
+import {modals} from '@mantine/modals';
 import {memo, useCallback, useState} from 'react';
 
 import {useCurrentCoordinatesNonNullable} from '../../CurrentCoordinatesContext';
@@ -51,49 +52,61 @@ function SidebarLevelProperties(props: Props) {
 	);
 
 	async function onRestoreGameDefaultButtonClick() {
-		if (
-			!window.confirm(
-				`Are you sure you want to restore level ${currentCoordinates.join(
-					', '
-				)} to the game default?`
-			)
-		) {
+		let initialWorldData;
+		try {
+			initialWorldData = await import('../../level_data.json');
+		} catch (ex) {
+			console.error(ex);
+			modals.openContextModal({
+				modal: 'alert',
+				title: 'Error',
+				innerProps: {
+					content: 'There was a problem loading the original level data.',
+				},
+			});
 			return;
 		}
 
-		try {
-			const initialWorldData = await import('../../level_data.json');
+		const level =
+			// @ts-expect-error todo validate properly
+			initialWorldData.default[convertCoordinatesToLevelId(currentCoordinates)];
 
-			dispatch({
-				type: 'setRawLevel',
-				coordinates: currentCoordinates,
-				level:
-					// @ts-expect-error todo validate properly
-					initialWorldData.default[
-						convertCoordinatesToLevelId(currentCoordinates)
-					],
+		if (level == null) {
+			modals.openContextModal({
+				modal: 'alert',
+				title: 'Restore game default',
+				innerProps: {
+					content:
+						"This level is not in the original game, you can delete the level if you don't want it.",
+				},
 			});
-		} catch (ex) {
-			console.error(ex);
-			alert('There was a problem loading the original level data.');
+			return;
 		}
+
+		modals.openConfirmModal({
+			title: `Restore level ${currentCoordinates.join(', ')} to the game default?`,
+			labels: {confirm: 'Restore', cancel: 'Cancel'},
+			confirmProps: {'data-autofocus': 'true'},
+			onConfirm() {
+				dispatch({
+					type: 'setRawLevel',
+					coordinates: currentCoordinates,
+					level,
+				});
+			},
+		});
 	}
 
 	function onDeleteLevelButtonClick() {
-		if (
-			!window.confirm(
-				`Are you sure you want to delete level ${getLevelLabel(
-					currentCoordinates,
-					props.level
-				)}?`
-			)
-		) {
-			return;
-		}
-
-		dispatch({
-			type: 'deleteLevel',
-			coordinates: currentCoordinates,
+		modals.openConfirmModal({
+			title: `Delete level ${getLevelLabel(currentCoordinates, props.level)}?`,
+			labels: {confirm: 'Delete', cancel: 'Cancel'},
+			onConfirm() {
+				dispatch({
+					type: 'deleteLevel',
+					coordinates: currentCoordinates,
+				});
+			},
 		});
 	}
 
