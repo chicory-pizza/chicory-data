@@ -6,7 +6,11 @@ import {
 	MantineProvider,
 	Modal,
 } from '@mantine/core';
+import {ModalsProvider} from '@mantine/modals';
 
+import AlertContextModal from './AlertContextModal';
+
+// Theme
 // https://mantine.dev/colors-generator/?color=b69aff
 const luncheonPurple: MantineColorsTuple = [
 	'#f1e9ff',
@@ -43,6 +47,17 @@ const theme = createTheme({
 	primaryShade: 2,
 });
 
+// Modals
+const modals = {
+	alert: AlertContextModal,
+};
+
+declare module '@mantine/modals' {
+	export interface MantineModalsOverride {
+		modals: typeof modals;
+	}
+}
+
 type Props = Readonly<{
 	children: React.ReactNode;
 }>;
@@ -50,7 +65,7 @@ type Props = Readonly<{
 export default function CustomMantine(props: Props) {
 	return (
 		<MantineProvider defaultColorScheme="auto" theme={theme}>
-			{props.children}
+			<ModalsProvider modals={modals}>{props.children}</ModalsProvider>
 		</MantineProvider>
 	);
 }

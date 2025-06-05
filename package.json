@@ -19,6 +19,7 @@
     "@dr.pogodin/react-helmet": "3.0.2",
     "@mantine/core": "8.0.2",
     "@mantine/hooks": "8.0.2",
+    "@mantine/modals": "8.0.2",
     "@szhsin/react-menu": "4.4.1",
     "base64-arraybuffer": "1.0.2",
     "browser-fs-access": "0.37.0",

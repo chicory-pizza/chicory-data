@@ -1,3 +1,4 @@
+import {modals} from '@mantine/modals';
 import {fileSave} from 'browser-fs-access';
 import {useState} from 'react';
 
@@ -32,7 +33,13 @@ export default function LevelEditorDataSelector(props: Props) {
 			result = JSON.parse(reader.result) as DrawdogPreset;
 		} catch (ex) {
 			console.error(ex);
-			alert('The custom level_data JSON is invalid.');
+			modals.openContextModal({
+				modal: 'alert',
+				title: 'Error',
+				innerProps: {
+					content: 'The selected drawdog file is not valid JSON.',
+				},
+			});
 			return;
 		}
 
