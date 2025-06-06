@@ -34,7 +34,7 @@ export default function LevelInGamePreview({
 		return (
 			<div className={styles.root}>
 				<MessageBox
-					message="This feature is not available on this app build, contact the website owner for details"
+					message="In-game screenshots are not available on this app build, contact the website owner about this problem"
 					type="ERROR"
 				/>
 			</div>

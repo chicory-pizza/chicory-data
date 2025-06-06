@@ -1,14 +1,15 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
 .center {
 	display: flex;
 	justify-content: center;
-	margin-bottom: 4px;
 }
 
 .dogPreviewCanvas {
 	width: 150px;
 	height: 150px;
-}
-
-.galleryButton {
-	margin-bottom: 4px;
 }

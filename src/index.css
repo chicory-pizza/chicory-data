@@ -174,3 +174,7 @@ button[disabled]:not(.mantine-UnstyledButton-root) {
 	line-height: 1.2;
 	margin-inline-end: var(--mb-padding, var(--mantine-spacing-xs));
 }
+
+.mantine-Alert-message.mantine-Alert-message {
+	font-size: var(--mantine-font-size-md);
+}

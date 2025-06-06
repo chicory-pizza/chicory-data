@@ -56,36 +56,36 @@ export default function SidebarObjectCustomDog(props: Props) {
 
 	return (
 		<>
-			<div className={styles.center}>
-				<ObjCustomDogPreview
-					canvasClassName={styles.dogPreviewCanvas}
-					obj={obj}
-				/>
+			<div className={styles.root}>
+				<div className={styles.center}>
+					<ObjCustomDogPreview
+						canvasClassName={styles.dogPreviewCanvas}
+						obj={obj}
+					/>
+				</div>
+
+				<div>
+					<Button onClick={() => setIsGalleryModalOpen(true)} variant="default">
+						Choose from gallery
+					</Button>
+				</div>
+
+				{obj.clothes === 'Custom Tee' &&
+				(obj.custom_clothes == null || obj.custom_clothes === '') ? (
+					<MessageBox
+						message="No custom clothes image selected, the current player's custom clothes will be shown instead"
+						type="INFO"
+					/>
+				) : null}
+
+				{obj.hat === 'Custom Hat' &&
+				(obj.custom_hat == null || obj.custom_hat === '') ? (
+					<MessageBox
+						message="No custom hat image selected, the current player's custom hat will be shown instead"
+						type="INFO"
+					/>
+				) : null}
 			</div>
-
-			<Button
-				className={styles.galleryButton}
-				onClick={() => setIsGalleryModalOpen(true)}
-				variant="default"
-			>
-				Choose from gallery
-			</Button>
-
-			{obj.clothes === 'Custom Tee' &&
-			(obj.custom_clothes == null || obj.custom_clothes === '') ? (
-				<MessageBox
-					message="No custom clothes image selected, the current player's custom clothes will be shown instead"
-					type="INFO"
-				/>
-			) : null}
-
-			{obj.hat === 'Custom Hat' &&
-			(obj.custom_hat == null || obj.custom_hat === '') ? (
-				<MessageBox
-					message="No custom hat image selected, the current player's custom hat will be shown instead"
-					type="INFO"
-				/>
-			) : null}
 
 			<DrawdogGalleryModal
 				isOpen={isGalleryModalOpen}

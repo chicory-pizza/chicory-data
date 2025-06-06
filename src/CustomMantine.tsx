@@ -3,7 +3,6 @@ import '@mantine/core/styles.css';
 import {
 	createTheme,
 	type CSSVariablesResolver,
-	type MantineColorsTuple,
 	MantineProvider,
 	Menu,
 	Modal,
@@ -24,20 +23,6 @@ const cssVariablesResolver: CSSVariablesResolver = () => ({
 	},
 });
 
-// https://mantine.dev/colors-generator/?color=b69aff
-const luncheonPurple: MantineColorsTuple = [
-	'#f1e9ff',
-	'#ddcfff',
-	'#b69aff',
-	'#8f65fe',
-	'#6e37fd',
-	'#591afd',
-	'#4e0bfe',
-	'#3f00e3',
-	'#3700cb',
-	'#2c00b3',
-];
-
 const components =
 	import.meta.env.MODE === 'test'
 		? {
@@ -56,7 +41,33 @@ const components =
 
 const theme = createTheme({
 	components,
-	colors: {luncheonPurple},
+	colors: {
+		// https://mantine.dev/colors-generator/
+		luncheonPurple: [
+			'#f1e9ff',
+			'#ddcfff',
+			'#b69aff',
+			'#8f65fe',
+			'#6e37fd',
+			'#591afd',
+			'#4e0bfe',
+			'#3f00e3',
+			'#3700cb',
+			'#2c00b3',
+		],
+		luncheonOrange: [
+			'#ffece6',
+			'#ffd7ce',
+			'#ffa694',
+			'#fe7f65',
+			'#fd5937',
+			'#fe411a',
+			'#fe340b',
+			'#e32600',
+			'#cb1f00',
+			'#b11300',
+		],
+	},
 	fontFamily:
 		"Domigorgon, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
 	fontSmoothing: false,

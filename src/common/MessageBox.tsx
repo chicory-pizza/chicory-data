@@ -1,15 +1,19 @@
-import styles from './MessageBox.module.css';
+import {Alert} from '@mantine/core';
+import {IconExclamationCircle, IconInfoCircle} from '@tabler/icons-react';
 
 type Props = Readonly<{
 	message: React.ReactNode;
 	type: 'ERROR' | 'INFO';
 }>;
 
-export default function MessageBox(props: Props) {
+export default function MessageBox({message, type}: Props) {
 	return (
-		<div className={styles.box}>
-			{props.type === 'ERROR' ? '⚠️' : props.type === 'INFO' ? 'ℹ️' : ''}️{' '}
-			{props.message}
-		</div>
+		<Alert
+			color={type === 'ERROR' ? 'luncheonOrange' : ''}
+			icon={type === 'ERROR' ? <IconExclamationCircle /> : <IconInfoCircle />}
+			variant={type === 'ERROR' ? 'light' : 'default'}
+		>
+			{message}
+		</Alert>
 	);
 }
