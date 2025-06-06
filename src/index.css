@@ -29,6 +29,11 @@ body {
 	--leveleditor-stripe-color: #ccc;
 
 	accent-color: var(--luncheon-purple);
+
+	/* Mantine wants to use system-ui font on initial loading */
+	--mantine-font-family:
+		Domigorgon, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+		'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 @media (prefers-color-scheme: dark) {
@@ -49,15 +54,6 @@ body {
 	}
 }
 
-:root body {
-	--mantine-color-body: #eee;
-}
-
-:root[data-mantine-color-scheme='dark'] body {
-	--mantine-color-text: #fff;
-	--mantine-color-body: #1c1c1c;
-}
-
 ::selection {
 	background: var(--luncheon-orange);
 	color: #000;
@@ -70,9 +66,7 @@ input[type='number'],
 textarea,
 button,
 select {
-	font-family:
-		Domigorgon, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-		'Segoe UI Symbol', 'Noto Color Emoji';
+	font-family: var(--mantine-font-family);
 	font-size: 1em;
 }
 

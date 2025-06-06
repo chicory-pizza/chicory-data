@@ -2,6 +2,7 @@ import '@mantine/core/styles.css';
 
 import {
 	createTheme,
+	type CSSVariablesResolver,
 	type MantineColorsTuple,
 	MantineProvider,
 	Modal,
@@ -11,6 +12,17 @@ import {ModalsProvider} from '@mantine/modals';
 import AlertContextModal from './AlertContextModal';
 
 // Theme
+const cssVariablesResolver: CSSVariablesResolver = () => ({
+	variables: {},
+	light: {
+		'--mantine-color-body': '#eee',
+	},
+	dark: {
+		'--mantine-color-body': '#1c1c1c',
+		'--mantine-color-text': '#fff',
+	},
+});
+
 // https://mantine.dev/colors-generator/?color=b69aff
 const luncheonPurple: MantineColorsTuple = [
 	'#f1e9ff',
@@ -64,7 +76,11 @@ type Props = Readonly<{
 
 export default function CustomMantine(props: Props) {
 	return (
-		<MantineProvider defaultColorScheme="auto" theme={theme}>
+		<MantineProvider
+			cssVariablesResolver={cssVariablesResolver}
+			defaultColorScheme="auto"
+			theme={theme}
+		>
 			<ModalsProvider modals={modals}>{props.children}</ModalsProvider>
 		</MantineProvider>
 	);
