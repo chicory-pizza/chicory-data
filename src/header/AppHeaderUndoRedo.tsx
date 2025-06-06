@@ -1,12 +1,11 @@
 import {Button, Tooltip} from '@mantine/core';
+import {IconArrowBackUp, IconArrowForwardUp} from '@tabler/icons-react';
 import {memo} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 
 import getCtrlKeyboardModifier from '../util/getCtrlKeyboardModifier';
 import isMac from '../util/isMac';
 import type {UndoReducerAction} from '../util/useUndoRedoReducer';
-
-import styles from './AppHeaderUndoRedo.module.css';
 
 type Props = Readonly<{
 	canRedo: boolean;
@@ -38,11 +37,11 @@ function AppHeaderUndoRedo(props: Props) {
 	}
 
 	return (
-		<div className={styles.root}>
+		<Button.Group ms="xs">
 			<Tooltip label={isMac() ? 'Command-Z' : 'Ctrl-Z'}>
 				<Button
-					className={styles.space}
 					disabled={!props.canUndo}
+					leftSection={<IconArrowBackUp size={14} />}
 					onClick={undo}
 					variant="default"
 				>
@@ -51,11 +50,16 @@ function AppHeaderUndoRedo(props: Props) {
 			</Tooltip>
 
 			<Tooltip label={isMac() ? 'Command-Shift-Z' : 'Ctrl-Shift-Z or Ctrl-Y'}>
-				<Button disabled={!props.canRedo} onClick={redo} variant="default">
+				<Button
+					disabled={!props.canRedo}
+					leftSection={<IconArrowForwardUp size={14} />}
+					onClick={redo}
+					variant="default"
+				>
 					Redo
 				</Button>
 			</Tooltip>
-		</div>
+		</Button.Group>
 	);
 }
 

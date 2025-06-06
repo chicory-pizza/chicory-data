@@ -19,7 +19,7 @@
 
 	margin-right: 8px;
 	color: var(--body-text-color);
-	opacity: 0.3;
+	opacity: 0.5;
 }
 
 .backToHome:hover .backToHomeArrow,
