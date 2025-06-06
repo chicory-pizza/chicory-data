@@ -30,9 +30,8 @@ export default function DogExpressionSelectModalLauncher({onChange}: Props) {
 	return (
 		<>
 			<ModalLauncherButton
-				aria-label="View all expressions in new window"
+				label="View all expressions in new window"
 				onClick={() => setIsModalOpen(true)}
-				title="View all expressions in new window"
 			/>
 
 			<DrawdogGridModal

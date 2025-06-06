@@ -38,9 +38,8 @@ export default function DogHatSelectModalLauncher({layer, onChange}: Props) {
 	return (
 		<>
 			<ModalLauncherButton
-				aria-label="View all hats in new window"
+				label="View all hats in new window"
 				onClick={() => setIsModalOpen(true)}
-				title="View all hats in new window"
 			/>
 
 			<DrawdogGridModal

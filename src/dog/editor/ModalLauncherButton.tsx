@@ -1,15 +1,18 @@
-import OpenInNewIcon from '../../common/icons/OpenInNewIcon';
-
-import styles from './ModalLauncherButton.module.css';
+import {ActionIcon, Tooltip} from '@mantine/core';
+import {IconArrowsMaximize} from '@tabler/icons-react';
 
 type Props = Readonly<
-	Omit<React.ComponentProps<'button'>, 'className' | 'type'>
+	{
+		label: string;
+	} & React.ComponentProps<'button'>
 >;
 
-export default function ModalLauncherButton(props: Props) {
+export default function ModalLauncherButton({label, ...otherProps}: Props) {
 	return (
-		<button {...props} className={styles.button} type="button">
-			<OpenInNewIcon size="1.2em" />
-		</button>
+		<Tooltip label={label}>
+			<ActionIcon size="input-sm" variant="default" {...otherProps}>
+				<IconArrowsMaximize size="1.1em" />
+			</ActionIcon>
+		</Tooltip>
 	);
 }

@@ -138,8 +138,8 @@ input[type='color']:hover,
 input[type='color']:focus,
 textarea:hover,
 textarea:focus,
-button:not(.mantine-Button-root):hover,
-button:not(.mantine-Button-root):focus,
+button:not(.mantine-UnstyledButton-root):hover,
+button:not(.mantine-UnstyledButton-root):focus,
 select:hover,
 select:focus {
 	border-color: var(--input-border-hover-color);
@@ -158,12 +158,12 @@ button {
 	padding: 2px 8px;
 }
 
-button[disabled]:not(.mantine-Button-root) {
+button[disabled]:not(.mantine-UnstyledButton-root) {
 	cursor: not-allowed;
 	opacity: 0.2;
 }
 
-:focus:not(.mantine-Button-root) {
+:focus:not(.mantine-UnstyledButton-root) {
 	outline: 1px solid var(--luncheon-purple);
 }
 

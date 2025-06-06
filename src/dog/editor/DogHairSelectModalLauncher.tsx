@@ -59,9 +59,8 @@ export default function DogHairSelectModalLauncher({onChange}: Props) {
 	return (
 		<>
 			<ModalLauncherButton
-				aria-label="View all hair in new window"
+				label="View all hair in new window"
 				onClick={() => setIsModalOpen(true)}
-				title="View all hair in new window"
 			/>
 
 			<DrawdogGridModal

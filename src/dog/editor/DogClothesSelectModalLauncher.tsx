@@ -30,9 +30,8 @@ export default function DogClothesSelectModalLauncher({onChange}: Props) {
 	return (
 		<>
 			<ModalLauncherButton
-				aria-label="View all clothes in new window"
+				label="View all clothes in new window"
 				onClick={() => setIsModalOpen(true)}
-				title="View all clothes in new window"
 			/>
 
 			<DrawdogGridModal
