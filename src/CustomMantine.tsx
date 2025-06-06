@@ -5,6 +5,7 @@ import {
 	type CSSVariablesResolver,
 	type MantineColorsTuple,
 	MantineProvider,
+	Menu,
 	Modal,
 } from '@mantine/core';
 import {ModalsProvider} from '@mantine/modals';
@@ -40,6 +41,11 @@ const luncheonPurple: MantineColorsTuple = [
 const components =
 	import.meta.env.MODE === 'test'
 		? {
+				Menu: Menu.extend({
+					defaultProps: {
+						transitionProps: {duration: 0},
+					},
+				}),
 				Modal: Modal.extend({
 					defaultProps: {
 						transitionProps: {duration: 0},
