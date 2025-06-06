@@ -1,4 +1,5 @@
 import {Button, Modal} from '@mantine/core';
+import {useDisclosure} from '@mantine/hooks';
 import {useCallback, useState} from 'react';
 
 import ErrorBoundary from '../../../common/ErrorBoundary';
@@ -25,12 +26,11 @@ type Props = Readonly<{
 export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 	const {dispatch, dogState} = useDogEditorContext();
 
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const onModalRequestClose = useCallback(() => {
+	const [isModalOpen, {open: openModal, close: closeModal}] =
+		useDisclosure(false);
+	const onModalExitTransitionEnd = useCallback(() => {
 		setImageDataUrl(null);
 		setErrorMessage(null);
-
-		setIsModalOpen(false);
 	}, []);
 
 	const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
@@ -73,17 +73,18 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 			},
 		});
 
-		onModalRequestClose();
-	}, [dispatch, imageDataUrl, layer, onModalRequestClose]);
+		closeModal();
+	}, [closeModal, dispatch, imageDataUrl, layer]);
 
 	return (
 		<>
-			<button onClick={() => setIsModalOpen(true)} type="button">
+			<Button onClick={openModal} variant="default">
 				Select image
-			</button>
+			</Button>
 
 			<Modal
-				onClose={onModalRequestClose}
+				onExitTransitionEnd={onModalExitTransitionEnd}
+				onClose={closeModal}
 				opened={isModalOpen}
 				size="auto"
 				title="Select custom hat image"

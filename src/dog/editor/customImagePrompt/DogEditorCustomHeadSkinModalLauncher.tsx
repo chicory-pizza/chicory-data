@@ -1,4 +1,5 @@
 import {Button, Modal} from '@mantine/core';
+import {useDisclosure} from '@mantine/hooks';
 import {useCallback, useState} from 'react';
 
 import ErrorBoundary from '../../../common/ErrorBoundary';
@@ -16,12 +17,11 @@ import styles from './DogEditorCustomHeadSkinModalLauncher.module.css';
 export default function DogEditorCustomHeadSkinModalLauncher() {
 	const {dispatch, dogState} = useDogEditorContext();
 
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const onModalRequestClose = useCallback(() => {
+	const [isModalOpen, {open: openModal, close: closeModal}] =
+		useDisclosure(false);
+	const onModalExitTransitionEnd = useCallback(() => {
 		setImageDataUrl(null);
 		setErrorMessage(null);
-
-		setIsModalOpen(false);
 	}, []);
 
 	const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
@@ -63,8 +63,8 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 			},
 		});
 
-		onModalRequestClose();
-	}, [dispatch, imageDataUrl, onModalRequestClose]);
+		closeModal();
+	}, [closeModal, dispatch, imageDataUrl]);
 
 	const onRemoveButtonClick = useCallback(() => {
 		dispatch({
@@ -78,9 +78,9 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 	return (
 		<>
 			<div className={styles.editorUiButtons}>
-				<button onClick={() => setIsModalOpen(true)} type="button">
+				<Button onClick={openModal} variant="default">
 					Select image
-				</button>
+				</Button>
 
 				{dogState.headSkinImage != null ? (
 					<button
@@ -95,7 +95,8 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 			</div>
 
 			<Modal
-				onClose={onModalRequestClose}
+				onExitTransitionEnd={onModalExitTransitionEnd}
+				onClose={closeModal}
 				opened={isModalOpen}
 				size="auto"
 				title="Select head skin image"

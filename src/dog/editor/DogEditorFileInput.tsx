@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import {fileOpen} from 'browser-fs-access';
 
 type Props = Readonly<{
@@ -31,8 +32,8 @@ export default function DogEditorFileInput(props: Props) {
 	}
 
 	return (
-		<button onClick={openFile} type="button">
+		<Button onClick={openFile} variant="default">
 			Open image
-		</button>
+		</Button>
 	);
 }
