@@ -1,9 +1,9 @@
-import {Button, Modal} from '@mantine/core';
+import {Button, Modal, Tooltip} from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
+import {IconX} from '@tabler/icons-react';
 import {useCallback, useState} from 'react';
 
 import ErrorBoundary from '../../../common/ErrorBoundary';
-import CloseIcon from '../../../common/icons/CloseIcon';
 import MessageBox from '../../../common/MessageBox';
 import {useDogEditorContext} from '../../DogEditorContext';
 import {CUSTOM_HAT_HEIGHT, CUSTOM_HAT_WIDTH} from '../../drawDogToCanvas';
@@ -77,22 +77,19 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 
 	return (
 		<>
-			<div className={styles.editorUiButtons}>
+			<Button.Group>
 				<Button onClick={openModal} variant="default">
 					Select image
 				</Button>
 
 				{dogState.headSkinImage != null ? (
-					<button
-						aria-label="Remove head skin"
-						onClick={onRemoveButtonClick}
-						title="Remove head skin"
-						type="button"
-					>
-						<CloseIcon size="0.6em" />
-					</button>
+					<Tooltip label="Remove head skin">
+						<Button onClick={onRemoveButtonClick} px="xs" variant="default">
+							<IconX size="1.1em" />
+						</Button>
+					</Tooltip>
 				) : null}
-			</div>
+			</Button.Group>
 
 			<Modal
 				onExitTransitionEnd={onModalExitTransitionEnd}
