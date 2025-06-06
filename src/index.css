@@ -20,10 +20,10 @@ body {
 	--body-text-color: #000;
 
 	--input-background-color: #fff;
-	--input-border-color: #999;
+	--input-border-color: #ced4da;
 	--input-border-hover-color: #333;
 	--input-text-color: #000;
-	--button-background-color: #eee;
+	--button-background-color: #fff;
 
 	--editor-border-color: #000;
 	--leveleditor-stripe-color: #ccc;
@@ -43,11 +43,11 @@ body {
 
 		--body-text-color: #fff;
 
-		--input-background-color: #3b3b3b;
-		--input-border-color: #666;
+		--input-background-color: #2e2e2e;
+		--input-border-color: #424242;
 		--input-border-hover-color: #888;
 		--input-text-color: #fff;
-		--button-background-color: #3b3b3b;
+		--button-background-color: #2e2e2e;
 
 		--editor-border-color: #666;
 		--leveleditor-stripe-color: #333;
@@ -104,7 +104,6 @@ input[type='text'],
 input[type='search'],
 input[type='number'],
 input[type='color'],
-textarea,
 button,
 select {
 	background: var(--input-background-color);
@@ -130,8 +129,6 @@ input[type='number']:hover,
 input[type='number']:focus,
 input[type='color']:hover,
 input[type='color']:focus,
-textarea:hover,
-textarea:focus,
 button:not(.mantine-UnstyledButton-root):hover,
 button:not(.mantine-UnstyledButton-root):focus,
 select:hover,
