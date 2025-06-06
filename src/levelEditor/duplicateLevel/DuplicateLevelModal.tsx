@@ -1,4 +1,4 @@
-import {Button, Modal} from '@mantine/core';
+import {Button, Group, Modal} from '@mantine/core';
 import {useState} from 'react';
 
 import ErrorBoundary from '../../common/ErrorBoundary';
@@ -107,13 +107,15 @@ export default function DuplicateLevelModal(props: Props) {
 						/>
 					</div>
 
-					<Button
-						className={styles.button}
-						data-testid="duplicatelevelmodal-submit"
-						type="submit"
-					>
-						Duplicate
-					</Button>
+					<Group justify="flex-end" mt="md">
+						<Button
+							className={styles.button}
+							data-testid="duplicatelevelmodal-submit"
+							type="submit"
+						>
+							Duplicate
+						</Button>
+					</Group>
 				</form>
 
 				{goingToOverwriteExisting ? (

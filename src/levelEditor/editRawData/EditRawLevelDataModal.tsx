@@ -1,4 +1,4 @@
-import {Button, Modal, Textarea} from '@mantine/core';
+import {Button, Group, Modal, Textarea} from '@mantine/core';
 import {useState} from 'react';
 
 import ErrorBoundary from '../../common/ErrorBoundary';
@@ -69,6 +69,7 @@ export default function EditRawLevelDataModal(props: Props) {
 				<form action="#" onSubmit={onFormSubmit}>
 					<Textarea
 						classNames={{input: styles.textarea}}
+						data-autofocus
 						data-testid="editrawleveldatamodal-textarea"
 						onChange={(ev) => {
 							setDraftText(ev.currentTarget.value);
@@ -79,13 +80,11 @@ export default function EditRawLevelDataModal(props: Props) {
 						value={draftText}
 					/>
 
-					<Button
-						data-testid="editrawleveldatamodal-submit"
-						mt="md"
-						type="submit"
-					>
-						Save
-					</Button>
+					<Group justify="flex-end" mt="md">
+						<Button data-testid="editrawleveldatamodal-submit" type="submit">
+							Save
+						</Button>
+					</Group>
 				</form>
 			</ErrorBoundary>
 		</Modal>
