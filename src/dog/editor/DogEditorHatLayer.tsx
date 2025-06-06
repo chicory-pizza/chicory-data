@@ -1,6 +1,7 @@
+import {ActionIcon, Tooltip} from '@mantine/core';
+import {IconArrowDown, IconArrowUp, IconX} from '@tabler/icons-react';
 import {useCallback} from 'react';
 
-import CloseIcon from '../../common/icons/CloseIcon';
 import type {ReducerAction} from '../DogEditorContext';
 import type {ChosenHat} from '../drawDogToCanvas';
 
@@ -85,36 +86,39 @@ export default function DogEditorHatLayer({
 
 			<div className={styles.label}>
 				{totalHatsCount > 1 ? (
-					<>
-						<button
-							className={styles.layerButton}
-							disabled={layer === 0}
-							onClick={moveLayerUp}
-							title="Move this layer up"
-							type="button"
-						>
-							↑
-						</button>
+					<ActionIcon.Group>
+						<Tooltip label="Move this layer up">
+							<ActionIcon
+								disabled={layer === 0}
+								onClick={moveLayerUp}
+								size="input-sm"
+								variant="default"
+							>
+								<IconArrowUp size="1.1em" />
+							</ActionIcon>
+						</Tooltip>
 
-						<button
-							className={styles.layerButton}
-							disabled={totalHatsCount === layer + 1}
-							onClick={moveLayerDown}
-							title="Move this layer down"
-							type="button"
-						>
-							↓
-						</button>
+						<Tooltip label="Move this layer down">
+							<ActionIcon
+								disabled={totalHatsCount === layer + 1}
+								onClick={moveLayerDown}
+								size="input-sm"
+								variant="default"
+							>
+								<IconArrowDown size="1.1em" />
+							</ActionIcon>
+						</Tooltip>
 
-						<button
-							className={styles.layerButton}
-							onClick={deleteLayer}
-							title="Delete this layer"
-							type="button"
-						>
-							<CloseIcon size="0.6em" />
-						</button>
-					</>
+						<Tooltip label="Delete this layer">
+							<ActionIcon
+								onClick={deleteLayer}
+								size="input-sm"
+								variant="default"
+							>
+								<IconX size="1.1em" />
+							</ActionIcon>
+						</Tooltip>
+					</ActionIcon.Group>
 				) : null}
 			</div>
 
