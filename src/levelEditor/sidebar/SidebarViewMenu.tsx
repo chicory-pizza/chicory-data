@@ -1,13 +1,14 @@
-import {Button} from '@mantine/core';
-import {Menu, MenuItem} from '@szhsin/react-menu';
-import '@szhsin/react-menu/dist/index.css';
-import '@szhsin/react-menu/dist/theme-dark.css';
+import {Button, Menu} from '@mantine/core';
+import {IconCheck} from '@tabler/icons-react';
 import {memo} from 'react';
 
-import useDarkMode from '../../util/useDarkMode';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 
 import styles from './SidebarViewMenu.module.css';
+
+function SidebarViewMenuItemChecked({show}: Readonly<{show: boolean}>) {
+	return show ? <IconCheck size={16} /> : <div className={styles.blankIcon} />;
+}
 
 type Props = Readonly<{
 	activeUiViews: Set<LevelInspectorUiView>;
@@ -15,50 +16,60 @@ type Props = Readonly<{
 }>;
 
 function SidebarViewMenu(props: Props) {
-	const isDarkMode = useDarkMode();
-
 	return (
 		<div className={styles.root}>
-			<Menu
-				menuButton={<Button variant="default">Change view</Button>}
-				theming={isDarkMode ? 'dark' : undefined}
-			>
-				<MenuItem
-					checked={props.activeUiViews.has('OBJECT')}
-					onClick={() => props.onActiveUiViewToggle('OBJECT')}
-					type="checkbox"
-					value="OBJECT"
-				>
-					Objects
-				</MenuItem>
+			<Menu closeOnItemClick={false} shadow="md">
+				<Menu.Target>
+					<Button variant="default">Change view</Button>
+				</Menu.Target>
 
-				<MenuItem
-					checked={props.activeUiViews.has('DECO')}
-					onClick={() => props.onActiveUiViewToggle('DECO')}
-					type="checkbox"
-					value="DECO"
-				>
-					Decorations
-				</MenuItem>
+				<Menu.Dropdown>
+					<Menu.Item
+						leftSection={
+							<SidebarViewMenuItemChecked
+								show={props.activeUiViews.has('OBJECT')}
+							/>
+						}
+						onClick={() => props.onActiveUiViewToggle('OBJECT')}
+					>
+						Objects
+					</Menu.Item>
 
-				<MenuItem
-					checked={props.activeUiViews.has('GEO')}
-					onClick={() => props.onActiveUiViewToggle('GEO')}
-					type="checkbox"
-					value="GEO"
-				>
-					Terrain
-				</MenuItem>
+					<Menu.Item
+						leftSection={
+							<SidebarViewMenuItemChecked
+								show={props.activeUiViews.has('DECO')}
+							/>
+						}
+						onClick={() => props.onActiveUiViewToggle('DECO')}
+					>
+						Decorations
+					</Menu.Item>
 
-				<MenuItem
-					checked={props.activeUiViews.has('INGAME')}
-					disabled={import.meta.env.VITE_IN_GAME_SCREENSHOT_URL_PREFIX == null}
-					onClick={() => props.onActiveUiViewToggle('INGAME')}
-					type="checkbox"
-					value="INGAME"
-				>
-					Original in-game screenshot
-				</MenuItem>
+					<Menu.Item
+						leftSection={
+							<SidebarViewMenuItemChecked
+								show={props.activeUiViews.has('GEO')}
+							/>
+						}
+						onClick={() => props.onActiveUiViewToggle('GEO')}
+					>
+						Terrain
+					</Menu.Item>
+
+					{import.meta.env.VITE_IN_GAME_SCREENSHOT_URL_PREFIX != null ? (
+						<Menu.Item
+							leftSection={
+								<SidebarViewMenuItemChecked
+									show={props.activeUiViews.has('INGAME')}
+								/>
+							}
+							onClick={() => props.onActiveUiViewToggle('INGAME')}
+						>
+							Original in-game screenshot
+						</Menu.Item>
+					) : null}
+				</Menu.Dropdown>
 			</Menu>
 		</div>
 	);
