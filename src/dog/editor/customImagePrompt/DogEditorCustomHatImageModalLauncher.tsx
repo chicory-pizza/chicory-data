@@ -78,7 +78,12 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 
 	return (
 		<>
-			<Button onClick={openModal} variant="default">
+			<Button
+				onClick={openModal}
+				variant={
+					dogState.hats[layer].customImage == null ? 'filled' : 'default'
+				}
+			>
 				Select image
 			</Button>
 
