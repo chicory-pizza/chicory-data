@@ -11,12 +11,6 @@
 	grid-area: toolbar;
 }
 
-.tools {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 0.5em;
-}
-
 .hidden {
 	visibility: hidden;
 }

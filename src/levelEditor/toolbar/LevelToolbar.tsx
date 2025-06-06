@@ -1,4 +1,10 @@
-import {Tooltip} from '@mantine/core';
+import {ActionIcon, Group, Tooltip} from '@mantine/core';
+import {
+	IconBrush,
+	IconBucketDroplet,
+	IconColorPicker,
+	IconPointer,
+} from '@tabler/icons-react';
 import {memo} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 
@@ -51,34 +57,53 @@ function LevelToolbar(props: Props) {
 
 	const toolTypes: Array<{
 		type: EditorToolType;
-		description: string;
+		content: React.ReactNode;
+		tooltip: string;
 	}> = [
-		{type: 'SELECT', description: 'Select (V)'},
-		{type: 'BRUSH', description: 'Brush (B)'},
-		{type: 'FILL', description: 'Fill (G)'},
-		{type: 'EYEDROPPER', description: 'Eyedropper (I)'},
+		{type: 'SELECT', content: <IconPointer size={24} />, tooltip: 'Select (V)'},
+		{type: 'BRUSH', content: <IconBrush size={24} />, tooltip: 'Brush (B)'},
+		{
+			type: 'FILL',
+			content: <IconBucketDroplet size={24} />,
+			tooltip: 'Fill (G)',
+		},
+		{
+			type: 'EYEDROPPER',
+			content: <IconColorPicker size={24} />,
+			tooltip: 'Eyedropper (I)',
+		},
 	];
 
 	const colorDescription = TOOLBAR_COLOR_LOOKUP.get(props.currentPaintColor);
 
 	return (
 		<div className={styles.toolbar}>
-			<div>
-				Tools:
-				<span className={styles.tools}>
+			<Group justify="center" mb="xs">
+				<ActionIcon.Group>
 					{toolTypes.map((toolType) => {
+						// SegmentedControl doesn't work well here :(
 						return (
-							<SelectableButton
+							<Tooltip
 								key={toolType.type}
-								onClick={() => props.onEditorToolTypeUpdate(toolType.type)}
-								selected={props.editorToolType === toolType.type}
+								label={toolType.tooltip}
+								transitionProps={{transition: 'fade-up'}}
 							>
-								{toolType.description}
-							</SelectableButton>
+								<ActionIcon
+									onClick={() => props.onEditorToolTypeUpdate(toolType.type)}
+									variant={
+										props.editorToolType === toolType.type
+											? 'filled'
+											: 'default'
+									}
+									size="xl"
+								>
+									{toolType.content}
+								</ActionIcon>
+							</Tooltip>
 						);
 					})}
-				</span>
-			</div>
+				</ActionIcon.Group>
+			</Group>
 
 			<div className={props.editorToolType !== 'SELECT' ? '' : styles.hidden}>
 				Current color:
@@ -96,8 +121,9 @@ function LevelToolbar(props: Props) {
 			<div className={props.editorToolType === 'BRUSH' ? '' : styles.hidden}>
 				Brush size: {props.brushSize}
 				<Tooltip
-					label="Use [ or ] to decrease or increase brush size"
+					label="Press [ or ] to decrease or increase brush size"
 					position="right"
+					transitionProps={{transition: 'fade-right'}}
 				>
 					<input
 						className={styles.range}

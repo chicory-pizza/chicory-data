@@ -1,8 +1,3 @@
-.editorUiButtons {
-	display: flex;
-	gap: 8px;
-}
-
 .list {
 	list-style: decimal;
 	margin-left: 20px;
