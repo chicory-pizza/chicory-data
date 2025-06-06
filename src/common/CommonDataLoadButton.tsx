@@ -1,4 +1,4 @@
-import {Button} from '@mantine/core';
+import {Button, Tooltip} from '@mantine/core';
 import {fileOpen} from 'browser-fs-access';
 import {useHotkeys} from 'react-hotkeys-hook';
 
@@ -34,12 +34,10 @@ export default function CommonDataLoadButton(props: Props) {
 	}
 
 	return (
-		<Button
-			onClick={openFile}
-			title={isMac() ? 'Command-O' : 'Ctrl-O'}
-			variant="default"
-		>
-			Load
-		</Button>
+		<Tooltip label={isMac() ? 'Command-O' : 'Ctrl-O'}>
+			<Button onClick={openFile} variant="default">
+				Load
+			</Button>
+		</Tooltip>
 	);
 }

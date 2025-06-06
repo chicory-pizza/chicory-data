@@ -1,3 +1,4 @@
+import {Tooltip} from '@mantine/core';
 import {memo} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 
@@ -94,17 +95,21 @@ function LevelToolbar(props: Props) {
 
 			<div className={props.editorToolType === 'BRUSH' ? '' : styles.hidden}>
 				Brush size: {props.brushSize}
-				<input
-					className={styles.range}
-					max={MAX_BRUSH_SIZE}
-					min={MIN_BRUSH_SIZE}
-					onChange={(e) => {
-						props.onBrushSizeUpdate(parseInt(e.target.value, 10));
-					}}
-					title="Use [ or ] to decrease or increase brush size"
-					type="range"
-					value={props.brushSize}
-				/>
+				<Tooltip
+					label="Use [ or ] to decrease or increase brush size"
+					position="right"
+				>
+					<input
+						className={styles.range}
+						max={MAX_BRUSH_SIZE}
+						min={MIN_BRUSH_SIZE}
+						onChange={(e) => {
+							props.onBrushSizeUpdate(parseInt(e.target.value, 10));
+						}}
+						type="range"
+						value={props.brushSize}
+					/>
+				</Tooltip>
 			</div>
 
 			<div className={props.editorToolType !== 'SELECT' ? '' : styles.hidden}>

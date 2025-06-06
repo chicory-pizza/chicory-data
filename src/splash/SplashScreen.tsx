@@ -1,5 +1,6 @@
 /* eslint-disable @eslint-react/dom/no-unsafe-target-blank */
 
+import {Tooltip} from '@mantine/core';
 import {Link} from 'react-router-dom';
 
 import OpenGraph from '../common/OpenGraph';
@@ -64,25 +65,27 @@ export default function SplashScreen() {
 			</a>
 
 			<div className={styles.icons}>
-				<a
-					className={styles.websiteLink}
-					href="https://discord.chicory.pizza"
-					rel="noopener"
-					target="_blank"
-					title="Join the Chicory fan Discord"
-				>
-					<DiscordIcon className={styles.discordIcon} />
-				</a>
+				<Tooltip label="Join the Chicory fan Discord">
+					<a
+						className={styles.websiteLink}
+						href="https://discord.chicory.pizza"
+						rel="noopener"
+						target="_blank"
+					>
+						<DiscordIcon className={styles.discordIcon} />
+					</a>
+				</Tooltip>
 
-				<a
-					className={styles.websiteLink}
-					href="https://github.com/chicory-pizza/chicory-data"
-					rel="noopener"
-					target="_blank"
-					title="View this project on GitHub"
-				>
-					<GitHubIcon className={styles.githubIcon} />
-				</a>
+				<Tooltip label="View this project on GitHub">
+					<a
+						className={styles.websiteLink}
+						href="https://github.com/chicory-pizza/chicory-data"
+						rel="noopener"
+						target="_blank"
+					>
+						<GitHubIcon className={styles.githubIcon} />
+					</a>
+				</Tooltip>
 			</div>
 		</div>
 	);

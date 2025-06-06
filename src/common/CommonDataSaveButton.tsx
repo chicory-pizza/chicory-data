@@ -1,4 +1,4 @@
-import {Button} from '@mantine/core';
+import {Button, Tooltip} from '@mantine/core';
 import {useRef} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 
@@ -40,13 +40,10 @@ export default function CommonDataSaveButton(props: Props) {
 	}
 
 	return (
-		<Button
-			{...props.buttonProps}
-			onClick={saveFile}
-			title={isMac() ? 'Command-S' : 'Ctrl-S'}
-			variant="default"
-		>
-			{props.label}
-		</Button>
+		<Tooltip label={isMac() ? 'Command-S' : 'Ctrl-S'}>
+			<Button {...props.buttonProps} onClick={saveFile} variant="default">
+				{props.label}
+			</Button>
+		</Tooltip>
 	);
 }

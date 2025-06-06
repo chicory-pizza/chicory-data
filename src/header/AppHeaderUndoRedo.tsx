@@ -1,4 +1,4 @@
-import {Button} from '@mantine/core';
+import {Button, Tooltip} from '@mantine/core';
 import {memo} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 
@@ -39,24 +39,22 @@ function AppHeaderUndoRedo(props: Props) {
 
 	return (
 		<div className={styles.root}>
-			<Button
-				className={styles.space}
-				disabled={!props.canUndo}
-				onClick={undo}
-				title={isMac() ? 'Command-Z' : 'Ctrl-Z'}
-				variant="default"
-			>
-				Undo
-			</Button>
+			<Tooltip label={isMac() ? 'Command-Z' : 'Ctrl-Z'}>
+				<Button
+					className={styles.space}
+					disabled={!props.canUndo}
+					onClick={undo}
+					variant="default"
+				>
+					Undo
+				</Button>
+			</Tooltip>
 
-			<Button
-				disabled={!props.canRedo}
-				onClick={redo}
-				title={isMac() ? 'Command-Shift-Z' : 'Ctrl-Shift-Z or Ctrl-Y'}
-				variant="default"
-			>
-				Redo
-			</Button>
+			<Tooltip label={isMac() ? 'Command-Shift-Z' : 'Ctrl-Shift-Z or Ctrl-Y'}>
+				<Button disabled={!props.canRedo} onClick={redo} variant="default">
+					Redo
+				</Button>
+			</Tooltip>
 		</div>
 	);
 }

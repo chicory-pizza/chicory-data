@@ -1,3 +1,4 @@
+import {Tooltip} from '@mantine/core';
 import {Fragment} from 'react';
 
 import type {EditablePropertiesType} from '../../types/EditablePropertiesSchemaType';
@@ -144,17 +145,22 @@ export default function SidebarEditableProperties(props: Props) {
 					);
 				}
 
+				const label = (
+					<div className={styles.label}>
+						{propertyKey}
+						{help != null ? ' [?]' : ''}
+					</div>
+				);
+
 				return (
 					<Fragment key={propertyKey}>
-						<div
-							className={
-								styles.label + ' ' + (help != null ? styles.labelWithHelp : '')
-							}
-							title={help ?? undefined}
-						>
-							{propertyKey}
-							{help != null ? ' [?]' : ''}
-						</div>
+						{help != null ? (
+							<Tooltip label={help} position="left">
+								{label}
+							</Tooltip>
+						) : (
+							label
+						)}
 
 						<div className={styles.input}>{input}</div>
 					</Fragment>
