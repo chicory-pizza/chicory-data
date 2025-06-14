@@ -122,7 +122,7 @@ function reducer(state: DogState, action: ReducerAction): DogState {
 			};
 
 		default:
-			throw new Error('Unknown hat reducer action ' + action.type);
+			throw new Error('Unknown dog editor reducer action ' + action.type);
 	}
 }
 
@@ -133,11 +133,11 @@ type ContextValue = Readonly<{
 	dogState: DogState;
 }>;
 
+const DogEditorContext = createContext<ContextValue | null>(null);
+
 type Props = Readonly<{
 	children: React.ReactNode;
 }>;
-
-const DogEditorContext = createContext<ContextValue | null>(null);
 
 export function DogEditorProvider({children}: Props) {
 	const {
@@ -173,11 +173,7 @@ export function DogEditorProvider({children}: Props) {
 		return {dogState, dispatch, canUndo, canRedo};
 	}, [dogState, dispatch, canUndo, canRedo]);
 
-	return (
-		<DogEditorContext.Provider value={contextValue}>
-			{children}
-		</DogEditorContext.Provider>
-	);
+	return <DogEditorContext value={contextValue}>{children}</DogEditorContext>;
 }
 
 export function useDogEditorContext(): ContextValue {

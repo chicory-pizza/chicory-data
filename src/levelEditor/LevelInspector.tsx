@@ -6,6 +6,7 @@ import ErrorBoundary from '../common/ErrorBoundary';
 import ConsoleNoJest from '../util/ConsoleNoJest';
 
 import LevelDecoAdder from './LevelDecoAdder';
+import {useLevelEditorContext} from './LevelEditorContext';
 import styles from './LevelInspector.module.css';
 import LevelPreview from './preview/LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
@@ -40,9 +41,8 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		}
 	}, [level]);
 
-	const [activeUiViews, setActiveUiViews] = useState<Set<LevelInspectorUiView>>(
-		() => new Set(['GEO', 'OBJECT'])
-	);
+	const {dispatch: dispatchLevelEditor, uiViews: activeUiViews} =
+		useLevelEditorContext();
 
 	// Toolbar
 	const [geoPaintBuffer, setGeoPaintBuffer] = useState<Array<number>>([]);
@@ -350,25 +350,32 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 	const onActiveUiViewToggle = useCallback(
 		(uiView: LevelInspectorUiView) => {
-			setActiveUiViews((activeUiViews) => {
-				if (activeUiViews.has(uiView)) {
-					if (uiView === 'OBJECT' && addingEntityLabel?.type === 'OBJECT') {
-						setAddingEntityLabel(null);
-					} else if (uiView === 'DECO' && addingEntityLabel?.type === 'DECO') {
-						setAddingEntityLabel(null);
-					} else if (uiView === 'GEO') {
-						setEditorToolType('SELECT');
-					}
-
-					const newSet = new Set(activeUiViews);
-					newSet.delete(uiView);
-					return newSet;
+			const newViews = new Set(activeUiViews);
+			if (activeUiViews.has(uiView)) {
+				if (uiView === 'OBJECT' && addingEntityLabel?.type === 'OBJECT') {
+					setAddingEntityLabel(null);
+				} else if (uiView === 'DECO' && addingEntityLabel?.type === 'DECO') {
+					setAddingEntityLabel(null);
+				} else if (uiView === 'GEO') {
+					setEditorToolType('SELECT');
 				}
 
-				return new Set(activeUiViews).add(uiView);
+				newViews.delete(uiView);
+			} else {
+				newViews.add(uiView);
+			}
+
+			dispatchLevelEditor({
+				type: 'setActiveUiViews',
+				uiViews: newViews,
 			});
 		},
-		[addingEntityLabel?.type, setEditorToolType]
+		[
+			activeUiViews,
+			addingEntityLabel?.type,
+			dispatchLevelEditor,
+			setEditorToolType,
+		]
 	);
 
 	const onSidebarPanelExpandToggle = useCallback(

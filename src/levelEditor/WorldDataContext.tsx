@@ -362,11 +362,11 @@ type ContextValue = Readonly<{
 	canRedo: boolean;
 }>;
 
+const WorldDataContext = createContext<ContextValue | null>(null);
+
 type Props = Readonly<{
 	children: React.ReactNode;
 }>;
-
-const WorldDataContext = createContext<ContextValue | null>(null);
 
 export function WorldDataProvider({children}: Props) {
 	const {
@@ -380,11 +380,7 @@ export function WorldDataProvider({children}: Props) {
 		return {worldData, dispatch, canUndo, canRedo};
 	}, [worldData, dispatch, canUndo, canRedo]);
 
-	return (
-		<WorldDataContext.Provider value={contextValue}>
-			{children}
-		</WorldDataContext.Provider>
-	);
+	return <WorldDataContext value={contextValue}>{children}</WorldDataContext>;
 }
 
 export function useWorldDataNullable(): ContextValue {

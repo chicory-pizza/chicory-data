@@ -18,7 +18,11 @@ type Props = Readonly<{
 function SidebarViewMenu(props: Props) {
 	return (
 		<div className={styles.root}>
-			<Menu closeOnItemClick={false} shadow="md">
+			<Menu
+				closeOnItemClick={false}
+				shadow="md"
+				transitionProps={{transition: 'fade-down'}}
+			>
 				<Menu.Target>
 					<Button variant="default">Change view</Button>
 				</Menu.Target>
