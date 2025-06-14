@@ -1,4 +1,4 @@
-import {Textarea} from '@mantine/core';
+import {Checkbox, Textarea} from '@mantine/core';
 import {useMemo} from 'react';
 
 import type {OptionType} from '../../common/CustomSelect';
@@ -40,16 +40,13 @@ export default function DogSpeechEditor(props: Props) {
 	return (
 		<div className={styles.root}>
 			<div className={styles.fullWidthControl}>
-				<label>
-					<input
-						checked={props.showBubble}
-						onChange={(ev) => {
-							props.onShowBubbleChange(ev.currentTarget.checked);
-						}}
-						type="checkbox"
-					/>
-					Show speech bubble
-				</label>
+				<Checkbox
+					checked={props.showBubble}
+					label="Show speech bubble"
+					onChange={(ev) => {
+						props.onShowBubbleChange(ev.currentTarget.checked);
+					}}
+				/>
 			</div>
 
 			{props.showBubble ? (

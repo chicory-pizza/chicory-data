@@ -93,7 +93,6 @@ button,
 select,
 summary,
 label,
-input[type='checkbox'],
 input[type='radio'],
 input[type='color'],
 input[type='range'] {
@@ -136,10 +135,6 @@ select:focus {
 	border-color: var(--input-border-hover-color);
 }
 
-label > input[type='checkbox'] {
-	margin-right: 6px;
-}
-
 ::-webkit-inner-spin-button {
 	opacity: 1;
 }
@@ -177,4 +172,8 @@ button[disabled]:not(.mantine-UnstyledButton-root) {
 
 .mantine-Alert-message.mantine-Alert-message {
 	font-size: var(--mantine-font-size-md);
+}
+
+.mantine-Checkbox-root {
+	--label-fz: var(--mantine-font-size-md);
 }

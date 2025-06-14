@@ -1,4 +1,4 @@
-import {Modal} from '@mantine/core';
+import {Checkbox, Modal} from '@mantine/core';
 import {useCallback, useRef, useState} from 'react';
 
 import ErrorBoundary from '../../common/ErrorBoundary';
@@ -35,9 +35,9 @@ export default function DrawdogGridModal({
 	const searchInputRef = useRef<HTMLInputElement>(null);
 
 	const [filter, setFilter] = useState('');
-	const [playAnimations, setPlayAnimations] = useState(
-		canPlayAnimations && !isReducedMotion()
-	);
+	const [playAnimations, setPlayAnimations] = useState(() => {
+		return canPlayAnimations && !isReducedMotion();
+	});
 
 	const [dogMouseOver, setDogMouseOver] = useState<{
 		name: string;
@@ -117,16 +117,13 @@ export default function DrawdogGridModal({
 					</label>
 
 					{canPlayAnimations ? (
-						<label>
-							<input
-								checked={playAnimations}
-								onChange={(ev) => {
-									setPlayAnimations(ev.currentTarget.checked);
-								}}
-								type="checkbox"
-							/>
-							Play animations
-						</label>
+						<Checkbox
+							checked={playAnimations}
+							label="Play animations"
+							onChange={(ev) => {
+								setPlayAnimations(ev.currentTarget.checked);
+							}}
+						/>
 					) : null}
 				</div>
 

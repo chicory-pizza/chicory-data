@@ -1,3 +1,4 @@
+import {Checkbox} from '@mantine/core';
 import {useCallback, useMemo, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
@@ -51,7 +52,9 @@ export default function DogEditorApp() {
 		speechText,
 	} = dogState;
 
-	const [playAnimations, setPlayAnimations] = useState(!isReducedMotion());
+	const [playAnimations, setPlayAnimations] = useState(() => {
+		return !isReducedMotion();
+	});
 	const [invertColors, setInvertColors] = useState(false);
 
 	// Previews
@@ -265,7 +268,7 @@ export default function DogEditorApp() {
 							<div className={styles.label}>Skin fill:</div>
 							<div className={styles.colorControl}>
 								<input
-									onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+									onChange={(ev) => {
 										dispatch({
 											type: 'setProperties',
 											properties: {
@@ -281,7 +284,7 @@ export default function DogEditorApp() {
 							<div className={styles.label}>Skin outline:</div>
 							<div className={styles.colorControl}>
 								<input
-									onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+									onChange={(ev) => {
 										dispatch({
 											type: 'setProperties',
 											properties: {
@@ -303,7 +306,9 @@ export default function DogEditorApp() {
 									return (
 										<DogEditorHatLayer
 											dispatch={dispatch}
-											hat={hats[index]}
+											hat={hat}
+											// We don't have unique IDs for hats :(
+											// eslint-disable-next-line @eslint-react/no-array-index-key
 											key={index}
 											layer={index}
 											previewName={previewHats[index]}
@@ -355,23 +360,20 @@ export default function DogEditorApp() {
 								</div>
 
 								<div className={styles.fullWidthControl}>
-									<label>
-										<input
-											checked={hasCustomEarColor}
-											onChange={(ev) => {
-												dispatch({
-													type: 'setProperties',
-													properties: {
-														earColor:
-															earColor === '#ffffff' ? skinColor : earColor,
-														hasCustomEarColor: ev.currentTarget.checked,
-													},
-												});
-											}}
-											type="checkbox"
-										/>
-										Use custom ear color
-									</label>
+									<Checkbox
+										checked={hasCustomEarColor}
+										label="Use custom ear color"
+										onChange={(ev) => {
+											dispatch({
+												type: 'setProperties',
+												properties: {
+													earColor:
+														earColor === '#ffffff' ? skinColor : earColor,
+													hasCustomEarColor: ev.currentTarget.checked,
+												},
+											});
+										}}
+									/>
 								</div>
 
 								{hasCustomEarColor ? (
@@ -379,7 +381,7 @@ export default function DogEditorApp() {
 										<div className={styles.label}>Ear color:</div>
 										<div className={styles.colorControl}>
 											<input
-												onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+												onChange={(ev) => {
 													dispatch({
 														type: 'setProperties',
 														properties: {
@@ -401,21 +403,18 @@ export default function DogEditorApp() {
 
 							<div className={styles.grid}>
 								<div className={styles.fullWidthControl}>
-									<label>
-										<input
-											checked={showBody}
-											onChange={(ev) => {
-												dispatch({
-													type: 'setProperties',
-													properties: {
-														bodyShow: ev.currentTarget.checked,
-													},
-												});
-											}}
-											type="checkbox"
-										/>
-										Show body
-									</label>
+									<Checkbox
+										checked={showBody}
+										label="Show body"
+										onChange={(ev) => {
+											dispatch({
+												type: 'setProperties',
+												properties: {
+													bodyShow: ev.currentTarget.checked,
+												},
+											});
+										}}
+									/>
 								</div>
 
 								{showBody ? (
@@ -441,9 +440,7 @@ export default function DogEditorApp() {
 											<div className={styles.controlLabel}>Color:</div>
 											<div className={styles.color}>
 												<input
-													onChange={(
-														ev: React.ChangeEvent<HTMLInputElement>
-													) => {
+													onChange={(ev) => {
 														dispatch({
 															type: 'setProperties',
 															properties: {
@@ -494,29 +491,23 @@ export default function DogEditorApp() {
 							<summary>Misc</summary>
 
 							<div className={styles.checkbox}>
-								<label>
-									<input
-										checked={playAnimations}
-										onChange={(ev) => {
-											setPlayAnimations(ev.currentTarget.checked);
-										}}
-										type="checkbox"
-									/>
-									Play animation
-								</label>
+								<Checkbox
+									checked={playAnimations}
+									label="Play animation"
+									onChange={(ev) => {
+										setPlayAnimations(ev.currentTarget.checked);
+									}}
+								/>
 							</div>
 
 							<div className={styles.checkbox}>
-								<label>
-									<input
-										checked={invertColors}
-										onChange={(ev) => {
-											setInvertColors(ev.currentTarget.checked);
-										}}
-										type="checkbox"
-									/>
-									Invert colors
-								</label>
+								<Checkbox
+									checked={invertColors}
+									label="Invert colors"
+									onChange={(ev) => {
+										setInvertColors(ev.currentTarget.checked);
+									}}
+								/>
 							</div>
 						</details>
 
