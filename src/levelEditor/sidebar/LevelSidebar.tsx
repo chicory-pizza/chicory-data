@@ -1,6 +1,7 @@
 import ErrorBoundary from '../../common/ErrorBoundary';
 import GeoPreview from '../common/GeoPreview';
 import {EDITOR_UI_PIXEL_COLORS} from '../GeoConstants';
+import {useLevelEditorContext} from '../LevelEditorContext';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
@@ -17,7 +18,6 @@ import SidebarObjectAdder from './SidebarObjectAdder';
 import SidebarViewMenu from './SidebarViewMenu';
 
 type Props = Readonly<{
-	activeUiViews: Set<LevelInspectorUiView>;
 	decoIndexHover: number | null;
 	decosListItemsExpanded: Map<number, number>;
 	dispatchDecosListItemsExpanded: (
@@ -52,24 +52,28 @@ type Props = Readonly<{
 }>;
 
 export default function LevelSidebar(props: Props) {
+	const {uiViews} = useLevelEditorContext();
+
 	return (
 		<div className={styles.sidebar}>
-			<ErrorBoundary>
-				<GeoPreview
-					colors={EDITOR_UI_PIXEL_COLORS}
-					geoPaintBuffer={props.levelPreviewGeoPaintBuffer}
-					level={props.level}
-					mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
-					paintBufferUpdate={props.levelPreviewPaintBufferUpdate}
-					scale={4}
-					useDevicePixelRatio={true}
-				/>
-			</ErrorBoundary>
+			{uiViews.has('PREVIEW') ? (
+				<ErrorBoundary>
+					<GeoPreview
+						colors={EDITOR_UI_PIXEL_COLORS}
+						geoPaintBuffer={props.levelPreviewGeoPaintBuffer}
+						level={props.level}
+						mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
+						paintBufferUpdate={props.levelPreviewPaintBufferUpdate}
+						scale={4}
+						useDevicePixelRatio={true}
+					/>
+				</ErrorBoundary>
+			) : null}
 
 			<div className={styles.group}>
 				<ErrorBoundary>
 					<SidebarObjectAdder
-						enabled={props.activeUiViews.has('OBJECT')}
+						enabled={uiViews.has('OBJECT')}
 						onAddingEntityLabel={props.onAddingEntityLabel}
 					/>
 				</ErrorBoundary>
@@ -78,7 +82,7 @@ export default function LevelSidebar(props: Props) {
 			<div className={styles.group + ' ' + styles.properties}>
 				<ErrorBoundary>
 					<SidebarViewMenu
-						activeUiViews={props.activeUiViews}
+						activeUiViews={uiViews}
 						onActiveUiViewToggle={props.onActiveUiViewToggle}
 					/>
 				</ErrorBoundary>

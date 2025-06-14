@@ -1,1 +1,7 @@
-export type LevelInspectorUiView = 'GEO' | 'INGAME' | 'OBJECT' | 'DECO';
+export type LevelInspectorUiView =
+	| 'WORLD_MAP'
+	| 'PREVIEW'
+	| 'GEO'
+	| 'INGAME'
+	| 'OBJECT'
+	| 'DECO';

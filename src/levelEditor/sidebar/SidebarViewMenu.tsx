@@ -31,6 +31,30 @@ function SidebarViewMenu(props: Props) {
 					<Menu.Item
 						leftSection={
 							<SidebarViewMenuItemChecked
+								show={props.activeUiViews.has('WORLD_MAP')}
+							/>
+						}
+						onClick={() => props.onActiveUiViewToggle('WORLD_MAP')}
+					>
+						World map
+					</Menu.Item>
+
+					<Menu.Item
+						leftSection={
+							<SidebarViewMenuItemChecked
+								show={props.activeUiViews.has('PREVIEW')}
+							/>
+						}
+						onClick={() => props.onActiveUiViewToggle('PREVIEW')}
+					>
+						Level preview
+					</Menu.Item>
+
+					<Menu.Divider />
+
+					<Menu.Item
+						leftSection={
+							<SidebarViewMenuItemChecked
 								show={props.activeUiViews.has('OBJECT')}
 							/>
 						}

@@ -447,7 +447,6 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 			<ErrorBoundary>
 				<LevelSidebar
-					activeUiViews={activeUiViews}
 					decoIndexHover={decoIndexHover}
 					decosListItemsExpanded={sidebarDecosListItemsExpanded}
 					dispatchDecosListItemsExpanded={dispatchSidebarDecosListItemsExpanded}

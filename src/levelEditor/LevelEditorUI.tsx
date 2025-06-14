@@ -7,6 +7,7 @@ import LoadingBigBanner from '../LoadingBigBanner';
 import LevelEditorDataSelector from './header/LevelEditorDataSelector';
 import LevelEditorUndoRedo from './header/LevelEditorUndoRedo';
 import LevelSelector from './header/LevelSelector';
+import {useLevelEditorContext} from './LevelEditorContext';
 import styles from './LevelEditorUI.module.css';
 import LevelIdFromRouterInvalid from './LevelIdFromRouterInvalid';
 import LevelInspectorContainer from './LevelInspectorContainer';
@@ -17,6 +18,7 @@ import WorldMap from './worldMap/WorldMap';
 export default function LevelEditorUI() {
 	const {worldData} = useWorldDataNullable();
 	const {levelId} = useParams();
+	const {uiViews} = useLevelEditorContext();
 
 	let validLevelId = true;
 	try {
@@ -57,7 +59,7 @@ export default function LevelEditorUI() {
 
 			{validLevelId ? (
 				<>
-					{worldData != null ? (
+					{worldData != null && uiViews.has('WORLD_MAP') ? (
 						<ErrorBoundary>
 							<WorldMap />
 						</ErrorBoundary>

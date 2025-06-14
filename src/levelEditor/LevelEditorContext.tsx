@@ -40,7 +40,12 @@ type Props = Readonly<{
 
 export function LevelEditorProvider({children}: Props) {
 	const [state, dispatch] = useReducer(reducer, {
-		uiViews: new Set<LevelInspectorUiView>(['GEO', 'OBJECT']),
+		uiViews: new Set<LevelInspectorUiView>([
+			'WORLD_MAP',
+			'PREVIEW',
+			'GEO',
+			'OBJECT',
+		]),
 	});
 
 	const contextValue = useMemo(() => {
