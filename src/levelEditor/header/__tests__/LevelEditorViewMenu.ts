@@ -9,7 +9,7 @@ test('makes decos visible', async () => {
 	await renderLevelEditorRoute();
 
 	await userEvent.click(await screen.findByText('Change view'));
-	await userEvent.click(screen.getByText('Decorations'));
+	await userEvent.click(await screen.findByText('Decorations'));
 
 	const levelPreviewRoot = screen.getByTestId('levelpreview-root');
 	expect(

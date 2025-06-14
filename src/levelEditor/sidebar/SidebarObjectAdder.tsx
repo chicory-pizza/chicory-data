@@ -20,7 +20,6 @@ function gameObjectEntityTypeToOption(entity: GameObjectEntityType) {
 }
 
 type Props = Readonly<{
-	enabled: boolean;
 	onAddingEntityLabel: (entity: {
 		type: 'OBJECT';
 		data: GameObjectEntityType;
@@ -52,7 +51,7 @@ function SidebarObjectAdder(props: Props) {
 
 	return (
 		<SidebarEntityAdder
-			enabled={props.enabled}
+			enabled={true}
 			entityType="OBJECT"
 			nameLabel="object"
 			onAddingEntityLabel={props.onAddingEntityLabel}

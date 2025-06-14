@@ -1,6 +1,7 @@
 import {encode} from 'base64-arraybuffer';
 import {deflate} from 'pako';
 import {useCallback, useEffect, useRef, useState} from 'react';
+import {usePrevious} from 'react-use';
 
 import ErrorBoundary from '../common/ErrorBoundary';
 import ConsoleNoJest from '../util/ConsoleNoJest';
@@ -14,7 +15,6 @@ import useListItemsExpandedReducer from './sidebar/objectsList/useListItemsExpan
 import LevelToolbar from './toolbar/LevelToolbar';
 import type {EditorToolType} from './types/EditorToolType';
 import type {GameEntityType} from './types/GameEntityType';
-import type {LevelInspectorUiView} from './types/LevelInspectorUiView';
 import type {LevelType} from './types/LevelType';
 import type {PlaceableType} from './types/PlaceableType';
 import type {SidebarPanel} from './types/SidebarPanel';
@@ -41,8 +41,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		}
 	}, [level]);
 
-	const {dispatch: dispatchLevelEditor, uiViews: activeUiViews} =
-		useLevelEditorContext();
+	const {uiViews: activeUiViews} = useLevelEditorContext();
 
 	// Toolbar
 	const [geoPaintBuffer, setGeoPaintBuffer] = useState<Array<number>>([]);
@@ -193,6 +192,29 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		},
 		[editorToolType, isPainting, stopBrush]
 	);
+
+	// Reset editor state when changing UI views
+	const previousActiveUiViews = usePrevious(activeUiViews);
+	if (
+		previousActiveUiViews != null &&
+		previousActiveUiViews !== activeUiViews
+	) {
+		if (
+			previousActiveUiViews.has('OBJECT') &&
+			!activeUiViews.has('OBJECT') &&
+			addingEntityLabel?.type === 'OBJECT'
+		) {
+			setAddingEntityLabel(null);
+		} else if (
+			previousActiveUiViews.has('DECO') &&
+			!activeUiViews.has('DECO') &&
+			addingEntityLabel?.type === 'DECO'
+		) {
+			setAddingEntityLabel(null);
+		} else if (previousActiveUiViews.has('GEO') && !activeUiViews.has('GEO')) {
+			setEditorToolType('SELECT');
+		}
+	}
 
 	const onMapMouseDown = useCallback(
 		(ev: React.MouseEvent<HTMLDivElement>) => {
@@ -348,36 +370,6 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		[currentCoordinates, dispatchWorldData]
 	);
 
-	const onActiveUiViewToggle = useCallback(
-		(uiView: LevelInspectorUiView) => {
-			const newViews = new Set(activeUiViews);
-			if (activeUiViews.has(uiView)) {
-				if (uiView === 'OBJECT' && addingEntityLabel?.type === 'OBJECT') {
-					setAddingEntityLabel(null);
-				} else if (uiView === 'DECO' && addingEntityLabel?.type === 'DECO') {
-					setAddingEntityLabel(null);
-				} else if (uiView === 'GEO') {
-					setEditorToolType('SELECT');
-				}
-
-				newViews.delete(uiView);
-			} else {
-				newViews.add(uiView);
-			}
-
-			dispatchLevelEditor({
-				type: 'setActiveUiViews',
-				uiViews: newViews,
-			});
-		},
-		[
-			activeUiViews,
-			addingEntityLabel?.type,
-			dispatchLevelEditor,
-			setEditorToolType,
-		]
-	);
-
 	const onSidebarPanelExpandToggle = useCallback(
 		(ev: React.MouseEvent<HTMLElement>, sidebarPanel: SidebarPanel) => {
 			ev.preventDefault();
@@ -460,7 +452,6 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					objectIndexHover={objectIndexHover}
 					objectsListItemsExpanded={sidebarObjectsListItemsExpanded}
-					onActiveUiViewToggle={onActiveUiViewToggle}
 					onAddingEntityLabel={setAddingEntityLabel}
 					onDecoHover={setDecoIndexHover}
 					onEntityDelete={onEntityDelete}

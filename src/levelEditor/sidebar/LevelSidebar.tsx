@@ -3,7 +3,6 @@ import GeoPreview from '../common/GeoPreview';
 import {EDITOR_UI_PIXEL_COLORS} from '../GeoConstants';
 import {useLevelEditorContext} from '../LevelEditorContext';
 import type {GameEntityType} from '../types/GameEntityType';
-import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 import type {LevelType} from '../types/LevelType';
 import type {PlaceableType} from '../types/PlaceableType';
 import type {SidebarPanel} from '../types/SidebarPanel';
@@ -15,7 +14,6 @@ import type {ListItemsExpandedReducerAction} from './objectsList/useListItemsExp
 import SidebarLevelProperties from './properties/SidebarLevelProperties';
 import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
 import SidebarObjectAdder from './SidebarObjectAdder';
-import SidebarViewMenu from './SidebarViewMenu';
 
 type Props = Readonly<{
 	decoIndexHover: number | null;
@@ -33,7 +31,6 @@ type Props = Readonly<{
 	mapMouseMoveCoordinates: [number, number] | null;
 	objectIndexHover: number | null;
 	objectsListItemsExpanded: Map<number, number>;
-	onActiveUiViewToggle: (uiView: LevelInspectorUiView) => void;
 	onAddingEntityLabel: (entity: PlaceableType) => void;
 	onDecoHover: (decoIndex: number | null) => void;
 	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => void;
@@ -70,23 +67,17 @@ export default function LevelSidebar(props: Props) {
 				</ErrorBoundary>
 			) : null}
 
-			<div className={styles.group}>
-				<ErrorBoundary>
-					<SidebarObjectAdder
-						enabled={uiViews.has('OBJECT')}
-						onAddingEntityLabel={props.onAddingEntityLabel}
-					/>
-				</ErrorBoundary>
-			</div>
+			{uiViews.has('OBJECT') ? (
+				<div className={styles.group}>
+					<ErrorBoundary>
+						<SidebarObjectAdder
+							onAddingEntityLabel={props.onAddingEntityLabel}
+						/>
+					</ErrorBoundary>
+				</div>
+			) : null}
 
 			<div className={styles.group + ' ' + styles.properties}>
-				<ErrorBoundary>
-					<SidebarViewMenu
-						activeUiViews={uiViews}
-						onActiveUiViewToggle={props.onActiveUiViewToggle}
-					/>
-				</ErrorBoundary>
-
 				<ErrorBoundary>
 					<SidebarLevelProperties
 						expanded={props.expandedSidebarPanels.has('LEVEL_PROPERTIES')}

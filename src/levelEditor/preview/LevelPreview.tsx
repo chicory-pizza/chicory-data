@@ -178,7 +178,12 @@ export default function LevelPreview(props: Props) {
 				</div>
 			) : null}
 
-			{props.activeUiViews.size === 0 ? <LevelPreviewNoViews /> : null}
+			{!props.activeUiViews.has('OBJECT') &&
+			!props.activeUiViews.has('DECO') &&
+			!props.activeUiViews.has('GEO') &&
+			!props.activeUiViews.has('INGAME') ? (
+				<LevelPreviewNoViews />
+			) : null}
 
 			<LevelPreviewArrows />
 		</div>

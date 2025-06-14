@@ -6,6 +6,7 @@ import LoadingBigBanner from '../LoadingBigBanner';
 
 import LevelEditorDataSelector from './header/LevelEditorDataSelector';
 import LevelEditorUndoRedo from './header/LevelEditorUndoRedo';
+import LevelEditorViewMenu from './header/LevelEditorViewMenu';
 import LevelSelector from './header/LevelSelector';
 import {useLevelEditorContext} from './LevelEditorContext';
 import styles from './LevelEditorUI.module.css';
@@ -45,6 +46,8 @@ export default function LevelEditorUI() {
 								<div className={styles.levelSelectorPlaceholder} />
 							)}
 						</div>
+
+						<LevelEditorViewMenu />
 
 						<LevelEditorUndoRedo />
 					</div>

@@ -37,7 +37,7 @@ function AppHeaderUndoRedo(props: Props) {
 	}
 
 	return (
-		<Button.Group ms="xs">
+		<Button.Group>
 			<Tooltip label={isMac() ? 'Command-Z' : 'Ctrl-Z'}>
 				<Button
 					disabled={!props.canUndo}
