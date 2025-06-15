@@ -33,13 +33,13 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 	// Toolbar
 	const geoPaintBuffer = useRef<ReadonlyArray<number>>([]);
-	const [isPainting, setIsPainting] = useState(false);
 	const prevMouseCoordinates = useRef<[number, number]>(null);
 
 	const [editorToolType, setEditorToolTypeRaw] =
 		useState<EditorToolType>('SELECT');
 	const [paintColor, setPaintColor] = useState<number>(0);
 	const [brushSize, setBrushSizeRaw] = useState<number>(1);
+	const [isMouseDown, setIsMouseDown] = useState(false);
 
 	// Sidebar
 	const [expandedSidebarPanels, setExpandedSidebarPanels] = useState<
@@ -96,7 +96,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 	}
 
 	const stopBrushAndSaveDraft = useCallback(() => {
-		setIsPainting(false);
+		setIsMouseDown(false);
 		prevMouseCoordinates.current = null;
 		window.removeEventListener('mouseup', stopBrushAndSaveDraft);
 
@@ -165,12 +165,15 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 	const doEyedropper = useCallback(
 		(mouseCoords: [number, number]) => {
-			const currGeo = decodeGeoString(level.geo);
-			const pickedColor = pickColor(currGeo, mouseCoords);
-			setPaintColor(pickedColor);
+			setPaintColor(pickColor(decodeGeoString(level.geo), mouseCoords));
 		},
 		[level.geo]
 	);
+
+	const stopEyedropper = useCallback(() => {
+		setIsMouseDown(false);
+		window.removeEventListener('mouseup', stopEyedropper);
+	}, []);
 
 	const setEditorToolType = useCallback(
 		(newEditorToolType: EditorToolType) => {
@@ -180,14 +183,27 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 			if (newEditorToolType === 'BRUSH') {
 				doBrushPreview(brushSize);
-			} else {
-				// Stop painting if we're switching away from brush tool
-				if (isPainting) {
-					stopBrushAndSaveDraft();
-				} else {
-					// Clear brush mouseover preview
-					geoPaintBuffer.current = [];
-				}
+			}
+
+			switch (editorToolType) {
+				case 'BRUSH':
+					// Stop painting if we're switching away from brush tool
+					if (isMouseDown) {
+						stopBrushAndSaveDraft();
+					} else {
+						// Clear brush mouseover preview
+						geoPaintBuffer.current = [];
+					}
+					break;
+
+				case 'EYEDROPPER':
+					if (isMouseDown) {
+						stopEyedropper();
+					}
+					break;
+
+				default:
+					break;
 			}
 
 			setEditorToolTypeRaw(newEditorToolType);
@@ -196,8 +212,9 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			brushSize,
 			doBrushPreview,
 			editorToolType,
-			isPainting,
+			isMouseDown,
 			stopBrushAndSaveDraft,
+			stopEyedropper,
 		]
 	);
 
@@ -205,11 +222,11 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		(newBrushSize: number) => {
 			setBrushSizeRaw(newBrushSize);
 
-			if (editorToolType === 'BRUSH' && !isPainting) {
+			if (editorToolType === 'BRUSH' && !isMouseDown) {
 				doBrushPreview(newBrushSize);
 			}
 		},
-		[doBrushPreview, editorToolType, isPainting]
+		[doBrushPreview, editorToolType, isMouseDown]
 	);
 
 	// Reset editor state when changing UI views
@@ -244,7 +261,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			if (ev.buttons === 1 && !addingEntityLabel) {
 				switch (editorToolType) {
 					case 'BRUSH':
-						setIsPainting(true);
+						setIsMouseDown(true);
 						paint(mapMouseMoveCoordinates);
 
 						window.addEventListener('mouseup', stopBrushAndSaveDraft);
@@ -257,7 +274,9 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 						break;
 
 					case 'EYEDROPPER':
+						setIsMouseDown(true);
 						doEyedropper(mapMouseMoveCoordinates);
+						window.addEventListener('mouseup', stopEyedropper);
 						break;
 
 					default:
@@ -273,6 +292,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			stopBrushAndSaveDraft,
 			doFloodFill,
 			doEyedropper,
+			stopEyedropper,
 		]
 	);
 
@@ -283,7 +303,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				// cursor to be outside the geo preview, `onMapMouseMove` will not fire to paint
 				// the pixels between `prevMouseCoordinates` and the cursor.
 				// We need `onMapMouseLeave` to cover this.
-				if (isPainting) {
+				if (isMouseDown) {
 					const rect = ev.currentTarget.getBoundingClientRect();
 
 					paint([
@@ -299,7 +319,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			setMapMouseMoveCoordinates(null);
 			prevMouseCoordinates.current = null;
 		},
-		[editorToolType, isPainting, paint]
+		[editorToolType, isMouseDown, paint]
 	);
 
 	const onMapMouseMove = useCallback(
@@ -313,15 +333,33 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 			setMapMouseMoveCoordinates(mouseMapCoords);
 
-			if (editorToolType === 'BRUSH') {
-				if (isPainting) {
-					paint(mouseMapCoords);
-				} else {
-					doBrushPreview(brushSize);
-				}
+			switch (editorToolType) {
+				case 'BRUSH':
+					if (isMouseDown) {
+						paint(mouseMapCoords);
+					} else {
+						doBrushPreview(brushSize);
+					}
+					break;
+
+				case 'EYEDROPPER':
+					if (isMouseDown) {
+						doEyedropper(mouseMapCoords);
+					}
+					break;
+
+				default:
+					break;
 			}
 		},
-		[brushSize, doBrushPreview, editorToolType, isPainting, paint]
+		[
+			brushSize,
+			doBrushPreview,
+			doEyedropper,
+			editorToolType,
+			isMouseDown,
+			paint,
+		]
 	);
 
 	const onEntityClick = useCallback(
