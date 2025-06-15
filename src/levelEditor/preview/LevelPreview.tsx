@@ -20,10 +20,9 @@ type Props = Readonly<{
 	addingEntityLabel: PlaceableType | null;
 	currentCoordinates: [number, number, number];
 	level: LevelType;
-	geoPaintBuffer: Array<number> | null;
+	geoPaintBuffer: ReadonlyArray<number> | null;
 	mapMouseMoveCoordinates: [number, number] | null;
 	objectIndexHover: number | null;
-	paintBufferUpdate: number | null;
 	editorToolType: EditorToolType;
 	onMapMouseDown: (ev: React.MouseEvent<HTMLDivElement>) => void;
 	onMapMouseClick: (ev: React.MouseEvent<HTMLDivElement>) => void;
@@ -159,7 +158,11 @@ export default function LevelPreview(props: Props) {
 			{props.activeUiViews.has('INGAME') ? (
 				<LevelInGamePreview
 					currentCoordinates={props.currentCoordinates}
-					semiTransparent={props.activeUiViews.size > 1}
+					semiTransparent={
+						props.activeUiViews.has('OBJECT') ||
+						props.activeUiViews.has('DECO') ||
+						props.activeUiViews.has('GEO')
+					}
 				/>
 			) : null}
 
@@ -171,7 +174,6 @@ export default function LevelPreview(props: Props) {
 						geoPaintBuffer={props.geoPaintBuffer}
 						level={props.level}
 						mapMouseMoveCoordinates={null}
-						paintBufferUpdate={props.paintBufferUpdate}
 						scale={SCREEN_WIDTH / GEO_WIDTH}
 						useDevicePixelRatio={true}
 					/>

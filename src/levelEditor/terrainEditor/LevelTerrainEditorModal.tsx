@@ -236,7 +236,6 @@ export default function LevelTerrainEditorModal(props: Props) {
 								geoPaintBuffer={null}
 								level={props.level}
 								mapMouseMoveCoordinates={null}
-								paintBufferUpdate={null}
 								scale={1}
 								useDevicePixelRatio={false}
 							/>

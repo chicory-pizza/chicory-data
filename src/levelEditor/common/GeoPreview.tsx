@@ -15,12 +15,11 @@ import styles from './GeoPreview.module.css';
 
 type Props = Readonly<{
 	colors: Map<number, string>;
+	geoPaintBuffer: ReadonlyArray<number> | null;
 	level: LevelType;
 	mapMouseMoveCoordinates: [number, number] | null;
 	scale: number;
 	useDevicePixelRatio: boolean;
-	geoPaintBuffer: Array<number> | null;
-	paintBufferUpdate: number | null;
 }>;
 
 export default function GeoPreview(props: Props) {
@@ -83,10 +82,9 @@ export default function GeoPreview(props: Props) {
 		decodedGeo,
 		dpr,
 		props.colors,
+		props.geoPaintBuffer,
 		props.mapMouseMoveCoordinates,
 		props.scale,
-		props.paintBufferUpdate,
-		props.geoPaintBuffer,
 	]);
 
 	if (decodedGeo == null) {

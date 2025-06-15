@@ -26,8 +26,7 @@ type Props = Readonly<{
 	) => void;
 	expandedSidebarPanels: Set<SidebarPanel>;
 	level: LevelType;
-	levelPreviewGeoPaintBuffer: Array<number>;
-	levelPreviewPaintBufferUpdate: number;
+	levelPreviewGeoPaintBuffer: ReadonlyArray<number>;
 	mapMouseMoveCoordinates: [number, number] | null;
 	objectIndexHover: number | null;
 	objectsListItemsExpanded: Map<number, number>;
@@ -60,7 +59,6 @@ export default function LevelSidebar(props: Props) {
 						geoPaintBuffer={props.levelPreviewGeoPaintBuffer}
 						level={props.level}
 						mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
-						paintBufferUpdate={props.levelPreviewPaintBufferUpdate}
 						scale={4}
 						useDevicePixelRatio={true}
 					/>

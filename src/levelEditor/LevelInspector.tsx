@@ -4,7 +4,6 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 import {usePrevious} from 'react-use';
 
 import ErrorBoundary from '../common/ErrorBoundary';
-import ConsoleNoJest from '../util/ConsoleNoJest';
 
 import LevelDecoAdder from './LevelDecoAdder';
 import {useLevelEditorContext} from './LevelEditorContext';
@@ -31,19 +30,8 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 	const {dispatch: dispatchWorldData} = useWorldDataNonNullable();
 	const {uiViews: activeUiViews} = useLevelEditorContext();
 
-	const previousLevelRef = useRef<LevelType>(null);
-
-	useEffect(() => {
-		if (level !== previousLevelRef.current) {
-			ConsoleNoJest.log(level);
-
-			previousLevelRef.current = level;
-		}
-	}, [level]);
-
 	// Toolbar
-	const [geoPaintBuffer, setGeoPaintBuffer] = useState<Array<number>>([]);
-	const [paintBufferUpdate, setPaintBufferUpdate] = useState(0);
+	const geoPaintBuffer = useRef<ReadonlyArray<number>>([]);
 	const [isPainting, setIsPainting] = useState(false);
 	const prevMouseCoordinates = useRef<[number, number]>(null);
 
@@ -112,7 +100,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		window.removeEventListener('mouseup', stopBrush);
 
 		const currGeo = decodeGeoString(level.geo);
-		geoPaintBuffer.forEach((pixel, index) => {
+		geoPaintBuffer.current.forEach((pixel, index) => {
 			currGeo[index] = pixel;
 		});
 
@@ -123,22 +111,18 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			value: encode(deflate(currGeo)),
 		});
 
-		setGeoPaintBuffer([]);
-		setPaintBufferUpdate((paintBufferUpdate) => paintBufferUpdate + 1);
+		geoPaintBuffer.current = [];
 	}, [currentCoordinates, dispatchWorldData, geoPaintBuffer, level.geo]);
 
 	const paint = useCallback(
 		(mouseCoords: [number, number]) => {
-			const geoCopy = paintBresenham(
+			geoPaintBuffer.current = paintBresenham(
 				paintColor,
-				geoPaintBuffer,
+				geoPaintBuffer.current,
 				mouseCoords,
 				prevMouseCoordinates.current,
 				brushSize
 			);
-
-			setGeoPaintBuffer(geoCopy);
-			setPaintBufferUpdate((paintBufferUpdate) => paintBufferUpdate + 1);
 
 			prevMouseCoordinates.current = mouseCoords;
 		},
@@ -159,8 +143,6 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				key: 'geo',
 				value: encode(deflate(newGeo)),
 			});
-
-			setPaintBufferUpdate((paintBufferUpdate) => paintBufferUpdate + 1);
 		},
 		[currentCoordinates, dispatchWorldData, level.geo, paintColor]
 	);
@@ -412,7 +394,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 						currentCoordinates={currentCoordinates}
 						decoIndexHover={decoIndexHover}
 						editorToolType={editorToolType}
-						geoPaintBuffer={geoPaintBuffer}
+						geoPaintBuffer={geoPaintBuffer.current}
 						level={level}
 						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 						objectIndexHover={objectIndexHover}
@@ -424,7 +406,6 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 						onMapMouseLeave={onMapMouseLeave}
 						onMapMouseMove={onMapMouseMove}
 						onObjectHover={setObjectIndexHover}
-						paintBufferUpdate={paintBufferUpdate}
 					/>
 				</ErrorBoundary>
 			</div>
@@ -462,8 +443,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 					}
 					expandedSidebarPanels={expandedSidebarPanels}
 					level={level}
-					levelPreviewGeoPaintBuffer={geoPaintBuffer}
-					levelPreviewPaintBufferUpdate={paintBufferUpdate}
+					levelPreviewGeoPaintBuffer={geoPaintBuffer.current}
 					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 					objectIndexHover={objectIndexHover}
 					objectsListItemsExpanded={sidebarObjectsListItemsExpanded}

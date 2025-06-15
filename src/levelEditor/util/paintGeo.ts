@@ -8,19 +8,16 @@ import {SCREEN_WIDTH, GEO_WIDTH, GEO_HEIGHT} from '../GeoConstants';
 
 export function paintBresenham(
 	color: number,
-	paintBuffer: Array<number>,
+	paintBuffer: ReadonlyArray<number>,
 	mapMouseCoords: [number, number],
 	previous: [number, number] | null,
 	size: number
-): Array<number> {
-	if (mapMouseCoords == null) {
-		return paintBuffer;
-	}
-
+): ReadonlyArray<number> {
+	const newPaintBuffer = paintBuffer.slice();
 	const [x1, y1] = mouseCoordsToGeoCoords(mapMouseCoords);
 
 	if (previous == null) {
-		colorPixel(x1, y1, color, paintBuffer, size);
+		colorPixel(x1, y1, color, newPaintBuffer, size);
 	} else {
 		const [x0, y0] = mouseCoordsToGeoCoords(previous);
 
@@ -30,19 +27,19 @@ export function paintBresenham(
 
 		if (Math.abs(y1 - y0) < Math.abs(x1 - x0)) {
 			if (x0 > x1) {
-				plotLineLow(x1, y1, x0, y0, color, paintBuffer, size);
+				plotLineLow(x1, y1, x0, y0, color, newPaintBuffer, size);
 			} else {
-				plotLineLow(x0, y0, x1, y1, color, paintBuffer, size);
+				plotLineLow(x0, y0, x1, y1, color, newPaintBuffer, size);
 			}
 		} else {
 			if (y0 > y1) {
-				plotLineHigh(x1, y1, x0, y0, color, paintBuffer, size);
+				plotLineHigh(x1, y1, x0, y0, color, newPaintBuffer, size);
 			} else {
-				plotLineHigh(x0, y0, x1, y1, color, paintBuffer, size);
+				plotLineHigh(x0, y0, x1, y1, color, newPaintBuffer, size);
 			}
 		}
 	}
-	return paintBuffer;
+	return newPaintBuffer;
 }
 
 function plotLineLow(
