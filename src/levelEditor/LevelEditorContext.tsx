@@ -43,6 +43,7 @@ export function LevelEditorProvider({children}: Props) {
 		uiViews: new Set<LevelInspectorUiView>([
 			'WORLD_MAP',
 			'PREVIEW',
+			'SIDEBAR',
 			'GEO',
 			'OBJECT',
 		]),

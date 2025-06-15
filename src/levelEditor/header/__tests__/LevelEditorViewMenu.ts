@@ -8,7 +8,7 @@ jest.setTimeout(10000); // hack, sigh
 test('makes decos visible', async () => {
 	await renderLevelEditorRoute();
 
-	await userEvent.click(await screen.findByText('Change view'));
+	await userEvent.click(await screen.findByText('View options'));
 	await userEvent.click(await screen.findByText('Decorations'));
 
 	const levelPreviewRoot = screen.getByTestId('levelpreview-root');

@@ -32,7 +32,7 @@ function LevelEditorViewMenu() {
 			transitionProps={{transition: 'fade-down'}}
 		>
 			<Menu.Target>
-				<Button variant="default">Change view</Button>
+				<Button variant="default">View options</Button>
 			</Menu.Target>
 
 			<Menu.Dropdown>
@@ -43,7 +43,17 @@ function LevelEditorViewMenu() {
 					World map
 				</Menu.Item>
 
+				<Menu.Divider />
+
 				<Menu.Item
+					leftSection={<MenuItemCheckedIcon show={uiViews.has('SIDEBAR')} />}
+					onClick={() => toggleUiView('SIDEBAR')}
+				>
+					Sidebar
+				</Menu.Item>
+
+				<Menu.Item
+					disabled={!uiViews.has('SIDEBAR')}
 					leftSection={<MenuItemCheckedIcon show={uiViews.has('PREVIEW')} />}
 					onClick={() => toggleUiView('PREVIEW')}
 				>

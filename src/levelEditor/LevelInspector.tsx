@@ -482,28 +482,32 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				</div>
 			) : null}
 
-			<ErrorBoundary>
-				<LevelSidebar
-					decoIndexHover={decoIndexHover}
-					decosListItemsExpanded={sidebarDecosListItemsExpanded}
-					dispatchDecosListItemsExpanded={dispatchSidebarDecosListItemsExpanded}
-					dispatchObjectsListItemsExpanded={
-						dispatchSidebarObjectsListItemsExpanded
-					}
-					expandedSidebarPanels={expandedSidebarPanels}
-					level={level}
-					levelPreviewGeoPaintBuffer={geoPaintBuffer.current}
-					mapMouseMoveCoordinates={mapMouseMoveCoordinates}
-					objectIndexHover={objectIndexHover}
-					objectsListItemsExpanded={sidebarObjectsListItemsExpanded}
-					onAddingEntityLabel={setAddingEntityLabel}
-					onDecoHover={setDecoIndexHover}
-					onEntityDelete={onEntityDelete}
-					onEntityEditProperties={onEntityEditProperties}
-					onObjectHover={setObjectIndexHover}
-					onSidebarPanelExpandToggle={onSidebarPanelExpandToggle}
-				/>
-			</ErrorBoundary>
+			{activeUiViews.has('SIDEBAR') ? (
+				<ErrorBoundary>
+					<LevelSidebar
+						decoIndexHover={decoIndexHover}
+						decosListItemsExpanded={sidebarDecosListItemsExpanded}
+						dispatchDecosListItemsExpanded={
+							dispatchSidebarDecosListItemsExpanded
+						}
+						dispatchObjectsListItemsExpanded={
+							dispatchSidebarObjectsListItemsExpanded
+						}
+						expandedSidebarPanels={expandedSidebarPanels}
+						level={level}
+						levelPreviewGeoPaintBuffer={geoPaintBuffer.current}
+						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
+						objectIndexHover={objectIndexHover}
+						objectsListItemsExpanded={sidebarObjectsListItemsExpanded}
+						onAddingEntityLabel={setAddingEntityLabel}
+						onDecoHover={setDecoIndexHover}
+						onEntityDelete={onEntityDelete}
+						onEntityEditProperties={onEntityEditProperties}
+						onObjectHover={setObjectIndexHover}
+						onSidebarPanelExpandToggle={onSidebarPanelExpandToggle}
+					/>
+				</ErrorBoundary>
+			) : null}
 		</div>
 	);
 }

@@ -1,6 +1,6 @@
 .root {
 	display: grid;
-	grid-template-columns: min-content auto 324px; /* 81 * 4 for GeoPreview */
+	grid-template-columns: min-content auto auto;
 	grid-template-rows: 1fr min-content;
 	grid-template-areas:
 		'toolbar preview sidebar'
@@ -20,7 +20,6 @@
 	);
 	border: solid var(--editor-border-color);
 	border-width: 1px 1px 0 0;
-	grid-row: 1;
 	overflow: scroll;
 
 	grid-area: preview;

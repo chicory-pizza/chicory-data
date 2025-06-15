@@ -42,7 +42,7 @@ test('checks transforms of decos and objCustomDog', async () => {
 
 	await renderLevelEditorRoute();
 
-	await userEvent.click(await screen.findByText('Change view'));
+	await userEvent.click(await screen.findByText('View options'));
 	await userEvent.click(await screen.findByText('Decorations'));
 
 	const levelPreviewRoot = screen.getByTestId('levelpreview-root');
