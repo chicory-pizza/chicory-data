@@ -29,9 +29,9 @@ type Props = Readonly<{
 
 export default function LevelInspector({currentCoordinates, level}: Props) {
 	const {dispatch: dispatchWorldData} = useWorldDataNonNullable();
+	const {uiViews: activeUiViews} = useLevelEditorContext();
 
 	const previousLevelRef = useRef<LevelType>(null);
-	const [isPainting, setIsPainting] = useState(false);
 
 	useEffect(() => {
 		if (level !== previousLevelRef.current) {
@@ -41,12 +41,11 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		}
 	}, [level]);
 
-	const {uiViews: activeUiViews} = useLevelEditorContext();
-
 	// Toolbar
 	const [geoPaintBuffer, setGeoPaintBuffer] = useState<Array<number>>([]);
 	const [paintBufferUpdate, setPaintBufferUpdate] = useState(0);
-	const prevCoordinates = useRef<[number, number]>(null);
+	const [isPainting, setIsPainting] = useState(false);
+	const prevMouseCoordinates = useRef<[number, number]>(null);
 
 	const [editorToolType, setEditorToolTypeRaw] =
 		useState<EditorToolType>('SELECT');
@@ -109,7 +108,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 	const stopBrush = useCallback(() => {
 		setIsPainting(false);
-		prevCoordinates.current = null;
+		prevMouseCoordinates.current = null;
 		window.removeEventListener('mouseup', stopBrush);
 
 		const currGeo = decodeGeoString(level.geo);
@@ -134,16 +133,14 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				paintColor,
 				geoPaintBuffer,
 				mouseCoords,
-				prevCoordinates.current,
+				prevMouseCoordinates.current,
 				brushSize
 			);
 
-			if (geoCopy) {
-				setGeoPaintBuffer(geoCopy);
-				setPaintBufferUpdate((paintBufferUpdate) => paintBufferUpdate + 1);
-			}
+			setGeoPaintBuffer(geoCopy);
+			setPaintBufferUpdate((paintBufferUpdate) => paintBufferUpdate + 1);
 
-			prevCoordinates.current = mouseCoords;
+			prevMouseCoordinates.current = mouseCoords;
 		},
 		[geoPaintBuffer, paintColor, brushSize]
 	);
@@ -223,17 +220,26 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			}
 
 			if (ev.buttons === 1 && !addingEntityLabel) {
-				if (editorToolType === 'BRUSH') {
-					setIsPainting(true);
-					paint(mapMouseMoveCoordinates);
+				switch (editorToolType) {
+					case 'BRUSH':
+						setIsPainting(true);
+						paint(mapMouseMoveCoordinates);
 
-					window.addEventListener('mouseup', stopBrush);
+						window.addEventListener('mouseup', stopBrush);
 
-					ev.preventDefault();
-				} else if (editorToolType === 'FILL') {
-					doFloodFill(mapMouseMoveCoordinates);
-				} else if (editorToolType === 'EYEDROPPER') {
-					doEyedropper(mapMouseMoveCoordinates);
+						ev.preventDefault();
+						break;
+
+					case 'FILL':
+						doFloodFill(mapMouseMoveCoordinates);
+						break;
+
+					case 'EYEDROPPER':
+						doEyedropper(mapMouseMoveCoordinates);
+						break;
+
+					default:
+						break;
 				}
 			}
 		},
@@ -252,7 +258,8 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		(ev: React.MouseEvent<HTMLDivElement>) => {
 			// Without this code, if the user holds down the button while quickly moving the
 			// cursor to be outside the geo preview, `onMapMouseMove` will not fire to paint
-			// the pixels between `prevCoordinates` and the cursor. We need `onMapMouseLeave` to cover this.
+			// the pixels between `prevMouseCoordinates` and the cursor.
+			// We need `onMapMouseLeave` to cover this.
 			if (editorToolType === 'BRUSH' && isPainting) {
 				const rect = ev.currentTarget.getBoundingClientRect();
 
@@ -263,7 +270,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			}
 
 			setMapMouseMoveCoordinates(null);
-			prevCoordinates.current = null;
+			prevMouseCoordinates.current = null;
 		},
 		[editorToolType, isPainting, paint]
 	);
@@ -288,32 +295,36 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 	const onEntityClick = useCallback(
 		(index: number, type: GameEntityType) => {
-			if (type === 'OBJECT') {
-				dispatchSidebarObjectsListItemsExpanded({
-					type: 'expand',
-					indexes: [index],
-				});
+			switch (type) {
+				case 'OBJECT':
+					dispatchSidebarObjectsListItemsExpanded({
+						type: 'expand',
+						indexes: [index],
+					});
 
-				setExpandedSidebarPanels((expandedSidebarPanels) => {
-					if (!expandedSidebarPanels.has('OBJECTS')) {
-						return new Set(expandedSidebarPanels).add('OBJECTS');
-					}
+					setExpandedSidebarPanels((expandedSidebarPanels) => {
+						if (!expandedSidebarPanels.has('OBJECTS')) {
+							return new Set(expandedSidebarPanels).add('OBJECTS');
+						}
 
-					return expandedSidebarPanels;
-				});
-			} else {
-				dispatchSidebarDecosListItemsExpanded({
-					type: 'expand',
-					indexes: [index],
-				});
+						return expandedSidebarPanels;
+					});
+					break;
 
-				setExpandedSidebarPanels((expandedSidebarPanels) => {
-					if (!expandedSidebarPanels.has('DECOS')) {
-						return new Set(expandedSidebarPanels).add('DECOS');
-					}
+				case 'DECO':
+					dispatchSidebarDecosListItemsExpanded({
+						type: 'expand',
+						indexes: [index],
+					});
 
-					return expandedSidebarPanels;
-				});
+					setExpandedSidebarPanels((expandedSidebarPanels) => {
+						if (!expandedSidebarPanels.has('DECOS')) {
+							return new Set(expandedSidebarPanels).add('DECOS');
+						}
+
+						return expandedSidebarPanels;
+					});
+					break;
 			}
 		},
 		[
@@ -331,16 +342,20 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				entityType: type,
 			});
 
-			if (type === 'OBJECT') {
-				dispatchSidebarObjectsListItemsExpanded({
-					type: 'remove',
-					index: deletedObjectIndex,
-				});
-			} else {
-				dispatchSidebarDecosListItemsExpanded({
-					type: 'remove',
-					index: deletedObjectIndex,
-				});
+			switch (type) {
+				case 'OBJECT':
+					dispatchSidebarObjectsListItemsExpanded({
+						type: 'remove',
+						index: deletedObjectIndex,
+					});
+					break;
+
+				case 'DECO':
+					dispatchSidebarDecosListItemsExpanded({
+						type: 'remove',
+						index: deletedObjectIndex,
+					});
+					break;
 			}
 		},
 		[

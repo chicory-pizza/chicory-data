@@ -147,6 +147,8 @@ export default function SidebarEntityList<
 							highlightClassName={props.entityHighlightClassName}
 							highlighted={props.entityIndexHover === index}
 							index={index}
+							// We don't have unique IDs for entities :(
+							// eslint-disable-next-line @eslint-react/no-array-index-key
 							key={index}
 							onEntityDelete={props.onEntityDelete}
 							onEntityEditProperties={props.onEntityEditProperties}

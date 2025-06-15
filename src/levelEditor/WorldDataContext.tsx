@@ -149,35 +149,38 @@ function reducer(state: WorldType | null, action: ReducerAction): WorldType {
 
 			const [level, levelId] = getNonNullableLevel(state, action.coordinates);
 
-			if (action.entity.type === 'OBJECT') {
-				return {
-					...state,
-					[levelId]: {
-						...level,
-						// @ts-expect-error fix the GameObjectType union type
-						objects: (level.objects ?? []).concat({
-							obj: action.entity.data,
-							x: action.x,
-							y: action.y,
-						}),
-					},
-				};
-			} else {
-				return {
-					...state,
-					[levelId]: {
-						...level,
-						decos: (level.decos ?? []).concat({
-							spr: action.entity.data,
-							x: action.x,
-							y: action.y,
-							xs: 1.0,
-							ys: 1.0,
-							ang: 0.0,
-						}),
-					},
-				};
+			switch (action.entity.type) {
+				case 'OBJECT':
+					return {
+						...state,
+						[levelId]: {
+							...level,
+							// @ts-expect-error fix the GameObjectType union type
+							objects: (level.objects ?? []).concat({
+								obj: action.entity.data,
+								x: action.x,
+								y: action.y,
+							}),
+						},
+					};
+
+				case 'DECO':
+					return {
+						...state,
+						[levelId]: {
+							...level,
+							decos: (level.decos ?? []).concat({
+								spr: action.entity.data,
+								x: action.x,
+								y: action.y,
+								xs: 1.0,
+								ys: 1.0,
+								ang: 0.0,
+							}),
+						},
+					};
 			}
+			break;
 		}
 
 		case 'editEntityPropertiesOnLevel': {
@@ -186,108 +189,113 @@ function reducer(state: WorldType | null, action: ReducerAction): WorldType {
 			const [level, levelId] = getNonNullableLevel(state, action.coordinates);
 
 			let hasChanged = false;
-			if (action.entityType === 'OBJECT') {
-				const levelObjects = level.objects;
-				if (levelObjects == null || levelObjects.length === 0) {
-					return state;
-				}
-
-				const newProperties = {
-					...levelObjects[action.index],
-				};
-				Object.keys(action.properties).forEach((key) => {
-					const newValue = action.properties[key];
-
-					// If old and new values are the same, do nothing
-					// @ts-expect-error setting with dynamic key
-					if (levelObjects[action.index][key] === newValue) {
-						return;
+			switch (action.entityType) {
+				case 'OBJECT': {
+					const levelObjects = level.objects;
+					if (levelObjects == null || levelObjects.length === 0) {
+						return state;
 					}
 
-					if (
-						(newValue === '' || newValue == null) &&
+					const newProperties = {
+						...levelObjects[action.index],
+					};
+					Object.keys(action.properties).forEach((key) => {
+						const newValue = action.properties[key];
+
+						// If old and new values are the same, do nothing
 						// @ts-expect-error setting with dynamic key
-						levelObjects[action.index][key] == null
-					) {
-						return;
+						if (levelObjects[action.index][key] === newValue) {
+							return;
+						}
+
+						if (
+							(newValue === '' || newValue == null) &&
+							// @ts-expect-error setting with dynamic key
+							levelObjects[action.index][key] == null
+						) {
+							return;
+						}
+
+						hasChanged = true;
+
+						if (newValue !== null) {
+							// @ts-expect-error setting with dynamic key
+							newProperties[key] = newValue;
+						} else {
+							// @ts-expect-error setting with dynamic key
+							// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+							delete newProperties[key];
+						}
+					});
+
+					if (!hasChanged) {
+						return state;
 					}
 
-					hasChanged = true;
+					return {
+						...state,
+						[levelId]: {
+							...level,
+							objects: levelObjects
+								.slice(0, action.index)
+								.concat(newProperties)
+								.concat(levelObjects.slice(action.index + 1)),
+						},
+					};
+				}
 
-					if (newValue !== null) {
-						// @ts-expect-error setting with dynamic key
-						newProperties[key] = newValue;
-					} else {
-						// @ts-expect-error setting with dynamic key
-						// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-						delete newProperties[key];
+				case 'DECO': {
+					const levelDecos = level.decos;
+					if (levelDecos == null || levelDecos.length === 0) {
+						return state;
 					}
-				});
 
-				if (!hasChanged) {
-					return state;
+					const newProperties: DecorationType = {
+						...levelDecos[action.index],
+					};
+					Object.keys(action.properties).forEach((key) => {
+						const value = action.properties[key];
+
+						if (!isValidDecorationTypeKey(key)) {
+							return;
+						}
+
+						if (
+							levelDecos[action.index][key] === value ||
+							(value === '' && levelDecos[action.index][key] == null)
+						) {
+							// If old and new values are the same, do nothing
+							return;
+						}
+
+						hasChanged = true;
+
+						if (value !== null) {
+							// @ts-expect-error setting with dynamic key
+							newProperties[key] = value;
+						} else {
+							// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+							delete newProperties[key];
+						}
+					});
+
+					if (!hasChanged) {
+						return state;
+					}
+
+					return {
+						...state,
+						[levelId]: {
+							...level,
+							decos: levelDecos
+								.slice(0, action.index)
+								.concat(newProperties)
+								.concat(levelDecos.slice(action.index + 1)),
+						},
+					};
 				}
-
-				return {
-					...state,
-					[levelId]: {
-						...level,
-						objects: levelObjects
-							.slice(0, action.index)
-							.concat(newProperties)
-							.concat(levelObjects.slice(action.index + 1)),
-					},
-				};
 			}
-
-			const levelDecos = level.decos;
-			if (levelDecos == null || levelDecos.length === 0) {
-				return state;
-			}
-
-			const newProperties: DecorationType = {
-				...levelDecos[action.index],
-			};
-			Object.keys(action.properties).forEach((key) => {
-				const value = action.properties[key];
-
-				if (!isValidDecorationTypeKey(key)) {
-					return;
-				}
-
-				if (
-					levelDecos[action.index][key] === value ||
-					(value === '' && levelDecos[action.index][key] == null)
-				) {
-					// If old and new values are the same, do nothing
-					return;
-				}
-
-				hasChanged = true;
-
-				if (value !== null) {
-					// @ts-expect-error setting with dynamic key
-					newProperties[key] = value;
-				} else {
-					// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-					delete newProperties[key];
-				}
-			});
-
-			if (!hasChanged) {
-				return state;
-			}
-
-			return {
-				...state,
-				[levelId]: {
-					...level,
-					decos: levelDecos
-						.slice(0, action.index)
-						.concat(newProperties)
-						.concat(levelDecos.slice(action.index + 1)),
-				},
-			};
+			break;
 		}
 
 		case 'deleteEntityOnLevel': {
@@ -295,35 +303,40 @@ function reducer(state: WorldType | null, action: ReducerAction): WorldType {
 
 			const [level, levelId] = getNonNullableLevel(state, action.coordinates);
 
-			if (action.entityType === 'OBJECT') {
-				const levelObjects = level.objects;
-				if (levelObjects == null || levelObjects.length === 0) {
-					return state;
+			switch (action.entityType) {
+				case 'OBJECT': {
+					const levelObjects = level.objects;
+					if (levelObjects == null || levelObjects.length === 0) {
+						return state;
+					}
+					return {
+						...state,
+						[levelId]: {
+							...level,
+							objects: levelObjects
+								.slice(0, action.index)
+								.concat(levelObjects.slice(action.index + 1)),
+						},
+					};
 				}
-				return {
-					...state,
-					[levelId]: {
-						...level,
-						objects: levelObjects
-							.slice(0, action.index)
-							.concat(levelObjects.slice(action.index + 1)),
-					},
-				};
-			} else {
-				const levelDecos = level.decos;
-				if (levelDecos == null || levelDecos.length === 0) {
-					return state;
+
+				case 'DECO': {
+					const levelDecos = level.decos;
+					if (levelDecos == null || levelDecos.length === 0) {
+						return state;
+					}
+					return {
+						...state,
+						[levelId]: {
+							...level,
+							decos: levelDecos
+								.slice(0, action.index)
+								.concat(levelDecos.slice(action.index + 1)),
+						},
+					};
 				}
-				return {
-					...state,
-					[levelId]: {
-						...level,
-						decos: levelDecos
-							.slice(0, action.index)
-							.concat(levelDecos.slice(action.index + 1)),
-					},
-				};
 			}
+			break;
 		}
 
 		case 'duplicateLevel':
