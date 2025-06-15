@@ -1,6 +1,6 @@
 .root {
 	display: grid;
-	grid-template-columns: min-content auto auto;
+	grid-template-columns: min-content auto min-content;
 	grid-template-rows: 1fr min-content;
 	grid-template-areas:
 		'toolbar preview sidebar'
