@@ -8,21 +8,21 @@ import {SCREEN_WIDTH, GEO_WIDTH, GEO_HEIGHT} from '../GeoConstants';
 
 export function paintBresenham(
 	color: number,
-	paintBuffer: ReadonlyArray<number>,
-	mapMouseCoords: [number, number],
-	previous: [number, number] | null,
+	oldPaintBuffer: ReadonlyArray<number>,
+	mapMouseCoordinates: [number, number],
+	previousMapMouseCoordinates: [number, number] | null,
 	size: number
 ): ReadonlyArray<number> {
-	const newPaintBuffer = paintBuffer.slice();
-	const [x1, y1] = mouseCoordsToGeoCoords(mapMouseCoords);
+	const newPaintBuffer = oldPaintBuffer.slice();
+	const [x1, y1] = mouseCoordsToGeoCoords(mapMouseCoordinates);
 
-	if (previous == null) {
+	if (previousMapMouseCoordinates == null) {
 		colorPixel(x1, y1, color, newPaintBuffer, size);
 	} else {
-		const [x0, y0] = mouseCoordsToGeoCoords(previous);
+		const [x0, y0] = mouseCoordsToGeoCoords(previousMapMouseCoordinates);
 
 		if (x0 === x1 && y0 === y1) {
-			return paintBuffer;
+			return oldPaintBuffer;
 		}
 
 		if (Math.abs(y1 - y0) < Math.abs(x1 - x0)) {

@@ -38,7 +38,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 	const [editorToolType, setEditorToolTypeRaw] =
 		useState<EditorToolType>('SELECT');
 	const [paintColor, setPaintColor] = useState<number>(0);
-	const [brushSize, setBrushSize] = useState<number>(1);
+	const [brushSize, setBrushSizeRaw] = useState<number>(1);
 
 	// Sidebar
 	const [expandedSidebarPanels, setExpandedSidebarPanels] = useState<
@@ -94,25 +94,42 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		}
 	}
 
-	const stopBrush = useCallback(() => {
+	const stopBrushAndSaveDraft = useCallback(() => {
 		setIsPainting(false);
 		prevMouseCoordinates.current = null;
-		window.removeEventListener('mouseup', stopBrush);
+		window.removeEventListener('mouseup', stopBrushAndSaveDraft);
 
-		const currGeo = decodeGeoString(level.geo);
+		const newGeo = decodeGeoString(level.geo);
 		geoPaintBuffer.current.forEach((pixel, index) => {
-			currGeo[index] = pixel;
+			newGeo[index] = pixel;
 		});
 
 		dispatchWorldData({
 			type: 'setLevelProperty',
 			coordinates: currentCoordinates,
 			key: 'geo',
-			value: encode(deflate(currGeo)),
+			value: encode(deflate(newGeo)),
 		});
 
 		geoPaintBuffer.current = [];
 	}, [currentCoordinates, dispatchWorldData, geoPaintBuffer, level.geo]);
+
+	const doBrushPreview = useCallback(
+		(brushSize: number) => {
+			if (mapMouseMoveCoordinates == null) {
+				return;
+			}
+
+			geoPaintBuffer.current = paintBresenham(
+				paintColor,
+				[],
+				mapMouseMoveCoordinates,
+				null,
+				brushSize
+			);
+		},
+		[mapMouseMoveCoordinates, paintColor]
+	);
 
 	const paint = useCallback(
 		(mouseCoords: [number, number]) => {
@@ -162,14 +179,38 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				return;
 			}
 
-			// Stop painting if we're switching away from brush tool
-			if (newEditorToolType !== 'BRUSH' && isPainting) {
-				stopBrush();
+			if (newEditorToolType === 'BRUSH') {
+				doBrushPreview(brushSize);
+			} else {
+				// Stop painting if we're switching away from brush tool
+				if (isPainting) {
+					stopBrushAndSaveDraft();
+				} else {
+					// Clear brush mouseover preview
+					geoPaintBuffer.current = [];
+				}
 			}
 
 			setEditorToolTypeRaw(newEditorToolType);
 		},
-		[editorToolType, isPainting, stopBrush]
+		[
+			brushSize,
+			doBrushPreview,
+			editorToolType,
+			isPainting,
+			stopBrushAndSaveDraft,
+		]
+	);
+
+	const setBrushSize = useCallback(
+		(newBrushSize: number) => {
+			setBrushSizeRaw(newBrushSize);
+
+			if (editorToolType === 'BRUSH' && !isPainting) {
+				doBrushPreview(newBrushSize);
+			}
+		},
+		[doBrushPreview, editorToolType, isPainting]
 	);
 
 	// Reset editor state when changing UI views
@@ -207,7 +248,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 						setIsPainting(true);
 						paint(mapMouseMoveCoordinates);
 
-						window.addEventListener('mouseup', stopBrush);
+						window.addEventListener('mouseup', stopBrushAndSaveDraft);
 
 						ev.preventDefault();
 						break;
@@ -230,7 +271,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			addingEntityLabel,
 			editorToolType,
 			paint,
-			stopBrush,
+			stopBrushAndSaveDraft,
 			doFloodFill,
 			doEyedropper,
 		]
@@ -238,17 +279,22 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 	const onMapMouseLeave = useCallback(
 		(ev: React.MouseEvent<HTMLDivElement>) => {
-			// Without this code, if the user holds down the button while quickly moving the
-			// cursor to be outside the geo preview, `onMapMouseMove` will not fire to paint
-			// the pixels between `prevMouseCoordinates` and the cursor.
-			// We need `onMapMouseLeave` to cover this.
-			if (editorToolType === 'BRUSH' && isPainting) {
-				const rect = ev.currentTarget.getBoundingClientRect();
+			if (editorToolType === 'BRUSH') {
+				// Without this code, if the user holds down the button while quickly moving the
+				// cursor to be outside the geo preview, `onMapMouseMove` will not fire to paint
+				// the pixels between `prevMouseCoordinates` and the cursor.
+				// We need `onMapMouseLeave` to cover this.
+				if (isPainting) {
+					const rect = ev.currentTarget.getBoundingClientRect();
 
-				paint([
-					Math.round(ev.clientX - rect.left),
-					Math.round(ev.clientY - rect.top),
-				]);
+					paint([
+						Math.round(ev.clientX - rect.left),
+						Math.round(ev.clientY - rect.top),
+					]);
+				} else {
+					// Clear brush mouseover preview
+					geoPaintBuffer.current = [];
+				}
 			}
 
 			setMapMouseMoveCoordinates(null);
@@ -268,11 +314,15 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 			setMapMouseMoveCoordinates(mouseMapCoords);
 
-			if (editorToolType === 'BRUSH' && isPainting) {
-				paint(mouseMapCoords);
+			if (editorToolType === 'BRUSH') {
+				if (isPainting) {
+					paint(mouseMapCoords);
+				} else {
+					doBrushPreview(brushSize);
+				}
 			}
 		},
-		[editorToolType, isPainting, paint]
+		[brushSize, doBrushPreview, editorToolType, isPainting, paint]
 	);
 
 	const onEntityClick = useCallback(
