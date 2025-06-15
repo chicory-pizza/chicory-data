@@ -1,4 +1,4 @@
-import {Checkbox} from '@mantine/core';
+import {Button, Checkbox} from '@mantine/core';
 import {useCallback, useMemo, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
@@ -319,9 +319,9 @@ export default function DogEditorApp() {
 								})}
 
 								<div className={styles.fullWidthControl}>
-									<button onClick={addNewHatLayer} type="button">
+									<Button onClick={addNewHatLayer} variant="default">
 										Add new hat layer
-									</button>
+									</Button>
 								</div>
 
 								<div className={styles.label}>Hair:</div>
