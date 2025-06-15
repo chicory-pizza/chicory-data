@@ -5,11 +5,11 @@ import {memo, useCallback, useState} from 'react';
 import {useCurrentCoordinatesNonNullable} from '../../CurrentCoordinatesContext';
 import DuplicateLevelModal from '../../duplicateLevel/DuplicateLevelModal';
 import EditRawLevelDataModal from '../../editRawData/EditRawLevelDataModal';
+import RestoreGameDefaultLevelButton from '../../restoreGameDefault/RestoreGameDefaultLevelButton';
 import LevelTerrainEditorModal from '../../terrainEditor/LevelTerrainEditorModal';
 import {LEVEL_EDITABLE_PROPERTIES_SCHEMA} from '../../types/LevelEditablePropertiesSchema';
 import {isValidLevelTypeKey, type LevelType} from '../../types/LevelType';
 import type {SidebarPanel} from '../../types/SidebarPanel';
-import convertCoordinatesToLevelId from '../../util/convertCoordinatesToLevelId';
 import getLevelLabel from '../../util/getLevelLabel';
 import {useWorldDataNonNullable} from '../../WorldDataContext';
 
@@ -51,52 +51,6 @@ function SidebarLevelProperties(props: Props) {
 		[currentCoordinates, dispatch]
 	);
 
-	async function onRestoreGameDefaultButtonClick() {
-		let initialWorldData;
-		try {
-			initialWorldData = await import('../../level_data.json');
-		} catch (ex) {
-			console.error(ex);
-			modals.openContextModal({
-				modal: 'alert',
-				title: 'Error',
-				innerProps: {
-					content: 'There was a problem loading the original level data.',
-				},
-			});
-			return;
-		}
-
-		const level =
-			// @ts-expect-error todo validate properly
-			initialWorldData.default[convertCoordinatesToLevelId(currentCoordinates)];
-
-		if (level == null) {
-			modals.openContextModal({
-				modal: 'alert',
-				title: 'Restore game default',
-				innerProps: {
-					content:
-						"This level is not in the original game, you can delete the level if you don't want it.",
-				},
-			});
-			return;
-		}
-
-		modals.openConfirmModal({
-			title: `Restore level ${currentCoordinates.join(', ')} to the game default?`,
-			labels: {confirm: 'Restore', cancel: 'Cancel'},
-			confirmProps: {'data-autofocus': 'true'},
-			onConfirm() {
-				dispatch({
-					type: 'setRawLevel',
-					coordinates: currentCoordinates,
-					level,
-				});
-			},
-		});
-	}
-
 	function onDeleteLevelButtonClick() {
 		modals.openConfirmModal({
 			title: `Delete level ${getLevelLabel(currentCoordinates, props.level)}?`,
@@ -131,7 +85,6 @@ function SidebarLevelProperties(props: Props) {
 
 				<Group gap="xs" className={styles.buttonGroup}>
 					<Button
-						className={styles.actionButton}
 						onClick={() => setIsTerrainEditorModalOpen(true)}
 						variant="default"
 					>
@@ -139,7 +92,6 @@ function SidebarLevelProperties(props: Props) {
 					</Button>
 
 					<Button
-						className={styles.actionButton}
 						onClick={() => setIsDuplicateLevelModalOpen(true)}
 						variant="default"
 					>
@@ -147,26 +99,15 @@ function SidebarLevelProperties(props: Props) {
 					</Button>
 
 					<Button
-						className={styles.actionButton}
 						onClick={() => setIsEditRawDataModalOpen(true)}
 						variant="default"
 					>
 						Edit raw data
 					</Button>
 
-					<Button
-						className={styles.actionButton}
-						onClick={onRestoreGameDefaultButtonClick}
-						variant="default"
-					>
-						Restore game default
-					</Button>
+					<RestoreGameDefaultLevelButton />
 
-					<Button
-						className={styles.actionButton}
-						onClick={onDeleteLevelButtonClick}
-						variant="default"
-					>
+					<Button onClick={onDeleteLevelButtonClick} variant="default">
 						Delete level
 					</Button>
 				</Group>
