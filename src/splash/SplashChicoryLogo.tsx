@@ -1,8 +1,6 @@
+import {useDocumentVisibility, useReducedMotion} from '@mantine/hooks';
 import {useEffect, useState} from 'react';
 import {useInterval} from 'react-use';
-
-import useReducedMotion from '../util/useReducedMotion';
-import useVisibilityChange from '../util/useVisibilityChange';
 
 import logoImg from './logo_sprite.png';
 import styles from './SplashChicoryLogo.module.css';
@@ -31,12 +29,16 @@ export default function SplashChicoryLogo() {
 		img.src = logoImg;
 	}, []);
 
-	const isPageVisible = useVisibilityChange();
+	const pageVisibility = useDocumentVisibility();
 	useInterval(
 		() => {
 			setAnimationIndex(animationIndex + 1);
 		},
-		loaded && !fallback && !postAnimate && !isReducedMotion && isPageVisible
+		loaded &&
+			!fallback &&
+			!postAnimate &&
+			!isReducedMotion &&
+			pageVisibility === 'visible'
 			? 1000 / (60 / 5)
 			: null
 	);

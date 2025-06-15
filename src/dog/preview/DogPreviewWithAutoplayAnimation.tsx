@@ -1,8 +1,8 @@
+import {useDocumentVisibility} from '@mantine/hooks';
 import {useState} from 'react';
 import {useInView} from 'react-intersection-observer';
 import {useInterval} from 'react-use';
 
-import useVisibilityChange from '../../util/useVisibilityChange';
 import DOG_ANIMATIONS from '../types/DogAnimations';
 
 import DogPreview from './DogPreview';
@@ -21,7 +21,7 @@ export default function DogPreviewWithAutoplayAnimation(props: Props) {
 
 	const [animationIndex, setAnimationIndex] = useState(0);
 	const playAnimations = props.playAnimations ?? true;
-	const isPageVisible = useVisibilityChange();
+	const pageVisibility = useDocumentVisibility();
 	const {ref: intersectionObserverRef, inView} = useInView();
 	useInterval(
 		() => {
@@ -32,7 +32,7 @@ export default function DogPreviewWithAutoplayAnimation(props: Props) {
 			);
 		},
 		playAnimations &&
-			isPageVisible &&
+			pageVisibility === 'visible' &&
 			inView &&
 			animationInfo.headAnim.length > 0
 			? 200
