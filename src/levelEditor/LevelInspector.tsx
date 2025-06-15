@@ -4,6 +4,7 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 import {usePrevious} from 'react-use';
 
 import ErrorBoundary from '../common/ErrorBoundary';
+import shallowCompareArray from '../util/shallowCompareArray';
 
 import LevelDecoAdder from './LevelDecoAdder';
 import {useLevelEditorContext} from './LevelEditorContext';
@@ -112,7 +113,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		});
 
 		geoPaintBuffer.current = [];
-	}, [currentCoordinates, dispatchWorldData, geoPaintBuffer, level.geo]);
+	}, [currentCoordinates, dispatchWorldData, level.geo]);
 
 	const doBrushPreview = useCallback(
 		(brushSize: number) => {
@@ -120,12 +121,10 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				return;
 			}
 
-			geoPaintBuffer.current = paintBresenham(
-				paintColor,
-				[],
-				mapMouseMoveCoordinates,
-				null,
-				brushSize
+			// We always start from a blank array so we need to do another shallow compare here
+			geoPaintBuffer.current = shallowCompareArray(
+				geoPaintBuffer.current,
+				paintBresenham(paintColor, [], mapMouseMoveCoordinates, null, brushSize)
 			);
 		},
 		[mapMouseMoveCoordinates, paintColor]
@@ -143,7 +142,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 			prevMouseCoordinates.current = mouseCoords;
 		},
-		[geoPaintBuffer, paintColor, brushSize]
+		[paintColor, brushSize]
 	);
 
 	const doFloodFill = useCallback(

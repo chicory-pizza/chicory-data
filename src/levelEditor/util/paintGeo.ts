@@ -1,3 +1,4 @@
+import shallowCompareArray from '../../util/shallowCompareArray';
 import {SCREEN_WIDTH, GEO_WIDTH, GEO_HEIGHT} from '../GeoConstants';
 
 // Modified version based on chevreaux's PR
@@ -39,7 +40,8 @@ export function paintBresenham(
 			}
 		}
 	}
-	return newPaintBuffer;
+
+	return shallowCompareArray(oldPaintBuffer, newPaintBuffer);
 }
 
 function plotLineLow(
