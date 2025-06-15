@@ -3,6 +3,7 @@
 	display: flex;
 	flex-direction: column;
 	flex-shrink: 0;
+	gap: 16px;
 	min-height: 0;
 	white-space: pre-wrap;
 	word-break: break-word;
@@ -19,32 +20,30 @@
 	width: 5em;
 	height: 5em;
 	margin-bottom: 0.5em;
-	border: 1px solid #000;
-}
-
-.range {
-	width: 100%;
+	border: 1px solid var(--input-border-color);
 }
 
 .colorContainer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 0.5em;
+	padding: 0.5em 0.5em 0;
 }
 
 .colorSelect {
-	text-align: left;
+	display: flex;
+	align-items: center;
 	padding-left: 5px;
 	padding-right: 5px;
+	text-align: left;
 	white-space: nowrap;
 	width: 100%;
 }
 
 .colorBox {
-	border: 1px solid #000;
-	width: 30px;
+	border: 1px solid var(--input-border-color);
+	display: inline-block;
+	margin-right: 5px;
+	width: 20px;
 	height: 20px;
-	padding-left: 25px;
-	margin-right: 0.5em;
 }

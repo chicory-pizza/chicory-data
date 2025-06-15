@@ -1,4 +1,4 @@
-import {ActionIcon, Group, Tooltip} from '@mantine/core';
+import {ActionIcon, Group, Slider, Tooltip} from '@mantine/core';
 import {
 	IconBrush,
 	IconBucketDroplet,
@@ -78,7 +78,7 @@ function LevelToolbar(props: Props) {
 
 	return (
 		<div className={styles.toolbar}>
-			<Group justify="center" mb="xs">
+			<Group justify="center">
 				<ActionIcon.Group>
 					{toolTypes.map((toolType) => {
 						// SegmentedControl doesn't work well here :(
@@ -125,14 +125,11 @@ function LevelToolbar(props: Props) {
 					position="right"
 					transitionProps={{transition: 'fade-right'}}
 				>
-					<input
-						className={styles.range}
+					<Slider
+						label={null}
 						max={MAX_BRUSH_SIZE}
 						min={MIN_BRUSH_SIZE}
-						onChange={(e) => {
-							props.onBrushSizeUpdate(parseInt(e.target.value, 10));
-						}}
-						type="range"
+						onChange={props.onBrushSizeUpdate}
 						value={props.brushSize}
 					/>
 				</Tooltip>

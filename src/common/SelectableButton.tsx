@@ -14,9 +14,7 @@ export default function SelectableButton({
 	return (
 		<button
 			{...otherProps}
-			className={
-				(selected ? styles.selected : styles.unselected) + ' ' + className
-			}
+			className={(selected ? styles.selected : '') + ' ' + className}
 			type="button"
 		/>
 	);
