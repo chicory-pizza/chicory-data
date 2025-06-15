@@ -1,5 +1,5 @@
 import {Button} from '@mantine/core';
-import {useState} from 'react';
+import {useDisclosure} from '@mantine/hooks';
 
 import ErrorBoundary from '../../common/ErrorBoundary';
 import AppHeader from '../../header/AppHeader';
@@ -18,7 +18,10 @@ type Props = Readonly<{
 }>;
 
 export default function DogEditorHeader(props: Props) {
-	const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
+	const [
+		isGalleryModalOpen,
+		{open: openGalleryModal, close: closeGalleryModal},
+	] = useDisclosure(false);
 
 	return (
 		<>
@@ -26,10 +29,7 @@ export default function DogEditorHeader(props: Props) {
 				controls={
 					<div className={styles.controls}>
 						<div className={styles.flexGrow}>
-							<Button
-								onClick={() => setIsGalleryModalOpen(true)}
-								variant="default"
-							>
+							<Button onClick={openGalleryModal} variant="default">
 								Gallery
 							</Button>
 
@@ -52,7 +52,7 @@ export default function DogEditorHeader(props: Props) {
 
 			<DrawdogGalleryModal
 				isOpen={isGalleryModalOpen}
-				onModalRequestClose={() => setIsGalleryModalOpen(false)}
+				onModalRequestClose={closeGalleryModal}
 				onPresetSelect={props.onPresetSelect}
 			/>
 		</>

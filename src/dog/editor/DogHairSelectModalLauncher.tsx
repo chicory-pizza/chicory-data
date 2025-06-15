@@ -1,4 +1,5 @@
-import {useMemo, useState} from 'react';
+import {useDisclosure} from '@mantine/hooks';
+import {useMemo} from 'react';
 
 import {useDogEditorContext} from '../DogEditorContext';
 import DrawdogGridModal from '../grid/DrawdogGridModal';
@@ -16,7 +17,8 @@ type Props = Readonly<{
 export default function DogHairSelectModalLauncher({onChange}: Props) {
 	const {dogState} = useDogEditorContext();
 
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isModalOpen, {open: openModal, close: closeModal}] =
+		useDisclosure(false);
 
 	const presets: Array<DrawdogPreset> = useMemo(() => {
 		return DOG_HAIR_LIST.map((hair) => {
@@ -60,14 +62,14 @@ export default function DogHairSelectModalLauncher({onChange}: Props) {
 		<>
 			<ModalLauncherButton
 				label="View all hair in new window"
-				onClick={() => setIsModalOpen(true)}
+				onClick={openModal}
 			/>
 
 			<DrawdogGridModal
 				canChangeExpressionOnMouseOver={false}
 				canPlayAnimations={false}
 				isOpen={isModalOpen}
-				onModalRequestClose={() => setIsModalOpen(false)}
+				onModalRequestClose={closeModal}
 				onPresetSelect={(preset) => {
 					if (preset.hair != null) {
 						onChange(preset.hair);

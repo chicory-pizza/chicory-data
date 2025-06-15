@@ -1,5 +1,6 @@
 import {Button, Group} from '@mantine/core';
-import {memo, useCallback, useState} from 'react';
+import {useDisclosure} from '@mantine/hooks';
+import {memo, useCallback} from 'react';
 
 import {useCurrentCoordinatesNonNullable} from '../../CurrentCoordinatesContext';
 import DeleteLevelButton from '../../deleteLevel/DeleteLevelButton';
@@ -30,11 +31,18 @@ function SidebarLevelProperties(props: Props) {
 	const [currentCoordinates] = useCurrentCoordinatesNonNullable();
 	const {dispatch} = useWorldDataNonNullable();
 
-	const [isTerrainEditorModalOpen, setIsTerrainEditorModalOpen] =
-		useState(false);
-	const [isDuplicateLevelModalOpen, setIsDuplicateLevelModalOpen] =
-		useState(false);
-	const [isEditRawDataModalOpen, setIsEditRawDataModalOpen] = useState(false);
+	const [
+		isTerrainEditorModalOpen,
+		{open: openTerrainEditorModal, close: closeTerrainEditorModal},
+	] = useDisclosure(false);
+	const [
+		isDuplicateLevelModalOpen,
+		{open: openDuplicateLevelModal, close: closeDuplicateLevelModal},
+	] = useDisclosure(false);
+	const [
+		isEditRawDataModalOpen,
+		{open: openEditRawDataModal, close: closeEditRawDataModal},
+	] = useDisclosure(false);
 
 	const onEditProperty = useCallback(
 		(key: string, value: string | number | null) => {
@@ -70,24 +78,15 @@ function SidebarLevelProperties(props: Props) {
 				/>
 
 				<Group gap="xs" className={styles.buttonGroup}>
-					<Button
-						onClick={() => setIsTerrainEditorModalOpen(true)}
-						variant="default"
-					>
+					<Button onClick={openTerrainEditorModal} variant="default">
 						Edit terrain
 					</Button>
 
-					<Button
-						onClick={() => setIsDuplicateLevelModalOpen(true)}
-						variant="default"
-					>
+					<Button onClick={openDuplicateLevelModal} variant="default">
 						Duplicate level
 					</Button>
 
-					<Button
-						onClick={() => setIsEditRawDataModalOpen(true)}
-						variant="default"
-					>
+					<Button onClick={openEditRawDataModal} variant="default">
 						Edit raw data
 					</Button>
 
@@ -100,19 +99,19 @@ function SidebarLevelProperties(props: Props) {
 			<LevelTerrainEditorModal
 				isOpen={isTerrainEditorModalOpen}
 				level={props.level}
-				onModalRequestClose={() => setIsTerrainEditorModalOpen(false)}
+				onModalRequestClose={closeTerrainEditorModal}
 			/>
 
 			<DuplicateLevelModal
 				isOpen={isDuplicateLevelModalOpen}
 				level={props.level}
-				onModalRequestClose={() => setIsDuplicateLevelModalOpen(false)}
+				onModalRequestClose={closeDuplicateLevelModal}
 			/>
 
 			<EditRawLevelDataModal
 				isOpen={isEditRawDataModalOpen}
 				level={props.level}
-				onModalRequestClose={() => setIsEditRawDataModalOpen(false)}
+				onModalRequestClose={closeEditRawDataModal}
 			/>
 		</details>
 	);

@@ -1,7 +1,7 @@
 import {Button} from '@mantine/core';
+import {useDisclosure} from '@mantine/hooks';
 import {encode} from 'base64-arraybuffer';
 import {deflate} from 'pako';
-import {useState} from 'react';
 
 import MessageBox from '../../../common/MessageBox';
 import DrawdogGalleryModal from '../../../dog/presets/DrawdogGalleryModal';
@@ -50,7 +50,10 @@ export type Props = Readonly<{
 }>;
 
 export default function SidebarObjectCustomDog(props: Props) {
-	const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
+	const [
+		isGalleryModalOpen,
+		{open: openGalleryModal, close: closeGalleryModal},
+	] = useDisclosure(false);
 
 	const obj = props.obj;
 
@@ -65,7 +68,7 @@ export default function SidebarObjectCustomDog(props: Props) {
 				</div>
 
 				<div>
-					<Button onClick={() => setIsGalleryModalOpen(true)} variant="default">
+					<Button onClick={openGalleryModal} variant="default">
 						Choose from gallery
 					</Button>
 				</div>
@@ -89,7 +92,7 @@ export default function SidebarObjectCustomDog(props: Props) {
 
 			<DrawdogGalleryModal
 				isOpen={isGalleryModalOpen}
-				onModalRequestClose={() => setIsGalleryModalOpen(false)}
+				onModalRequestClose={closeGalleryModal}
 				onPresetSelect={async (preset: DrawdogPreset) => {
 					const [customClothesImage, customHatImage] = await Promise.all([
 						loadImage(preset.customClothesImage),
