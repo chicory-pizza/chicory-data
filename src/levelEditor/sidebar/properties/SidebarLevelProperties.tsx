@@ -1,8 +1,8 @@
 import {Button, Group} from '@mantine/core';
-import {modals} from '@mantine/modals';
 import {memo, useCallback, useState} from 'react';
 
 import {useCurrentCoordinatesNonNullable} from '../../CurrentCoordinatesContext';
+import DeleteLevelButton from '../../deleteLevel/DeleteLevelButton';
 import DuplicateLevelModal from '../../duplicateLevel/DuplicateLevelModal';
 import EditRawLevelDataModal from '../../editRawData/EditRawLevelDataModal';
 import RestoreGameDefaultLevelButton from '../../restoreGameDefault/RestoreGameDefaultLevelButton';
@@ -10,7 +10,6 @@ import LevelTerrainEditorModal from '../../terrainEditor/LevelTerrainEditorModal
 import {LEVEL_EDITABLE_PROPERTIES_SCHEMA} from '../../types/LevelEditablePropertiesSchema';
 import {isValidLevelTypeKey, type LevelType} from '../../types/LevelType';
 import type {SidebarPanel} from '../../types/SidebarPanel';
-import getLevelLabel from '../../util/getLevelLabel';
 import {useWorldDataNonNullable} from '../../WorldDataContext';
 
 import SidebarEditableProperties from './SidebarEditableProperties';
@@ -50,19 +49,6 @@ function SidebarLevelProperties(props: Props) {
 		},
 		[currentCoordinates, dispatch]
 	);
-
-	function onDeleteLevelButtonClick() {
-		modals.openConfirmModal({
-			title: `Delete level ${getLevelLabel(currentCoordinates, props.level)}?`,
-			labels: {confirm: 'Delete', cancel: 'Cancel'},
-			onConfirm() {
-				dispatch({
-					type: 'deleteLevel',
-					coordinates: currentCoordinates,
-				});
-			},
-		});
-	}
 
 	return (
 		<details className={styles.expander} open={props.expanded}>
@@ -107,9 +93,7 @@ function SidebarLevelProperties(props: Props) {
 
 					<RestoreGameDefaultLevelButton />
 
-					<Button onClick={onDeleteLevelButtonClick} variant="default">
-						Delete level
-					</Button>
+					<DeleteLevelButton level={props.level} />
 				</Group>
 			</div>
 

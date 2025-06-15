@@ -1,7 +1,7 @@
 import {screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import renderLevelEditorRoute from '../../../testUtil/renderLevelEditorRoute';
+import renderLevelEditorRoute from '../../testUtil/renderLevelEditorRoute';
 
 jest.setTimeout(10000); // hack, sigh
 
