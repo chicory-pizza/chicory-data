@@ -30,6 +30,9 @@ export default tseslint.config(
 			],
 			'prefer-const': 'warn',
 
+			'@eslint-react/no-leaked-conditional-rendering': 'error',
+			'@eslint-react/prefer-read-only-props': 'error',
+
 			// `importPlugin.flatConfigs.recommended` without slow rules
 			// https://typescript-eslint.io/troubleshooting/typed-linting/performance/#eslint-plugin-import
 			'import/export': 'error',
@@ -48,12 +51,11 @@ export default tseslint.config(
 				},
 			],
 		},
-
 		languageOptions: {
-			// parserOptions: {
-			// 	projectService: true,
-			// 	tsconfigRootDir: import.meta.dirname,
-			// },
+			parserOptions: {
+				projectService: true,
+				tsconfigRootDir: import.meta.dirname,
+			},
 		},
 	},
 	{
@@ -71,7 +73,10 @@ export default tseslint.config(
 	},
 	{
 		files: ['**/*.cjs', '**/*.mjs'],
-		extends: [tseslint.configs.disableTypeChecked],
+		extends: [
+			tseslint.configs.disableTypeChecked,
+			eslintReact.configs['disable-type-checked'],
+		],
 	},
 	{
 		files: [

@@ -1,11 +1,13 @@
 import {Button, Group} from '@mantine/core';
 import type {ContextModalProps} from '@mantine/modals';
 
-export default function AlertContextModal({
-	context,
-	id,
-	innerProps,
-}: ContextModalProps<{content: React.ReactNode}>) {
+type Props = Readonly<
+	ContextModalProps<{
+		content: React.ReactNode;
+	}>
+>;
+
+export default function AlertContextModal({context, id, innerProps}: Props) {
 	return (
 		<>
 			{typeof innerProps.content === 'string' ? (

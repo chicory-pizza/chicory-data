@@ -32,7 +32,7 @@ function CustomMenuWithMouseHoverOptions({
 		onPreviewChange(null);
 	}, [onPreviewChange]);
 
-	// eslint-disable-next-line @eslint-react/no-nested-component-definitions
+	// eslint-disable-next-line @eslint-react/no-nested-component-definitions, @eslint-react/prefer-read-only-props
 	function Option(props: OptionProps<OptionType<string>>) {
 		useEffect(() => {
 			if (props.isFocused) {

@@ -32,6 +32,7 @@ for (const key in json) {
 		continue;
 	}
 
+	// @ts-expect-error should be GameObjectType
 	levelObjects.forEach((obj) => {
 		// every object should have obj, x, y
 		const valid =
