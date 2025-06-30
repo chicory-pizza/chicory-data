@@ -50,9 +50,6 @@ export default tseslint.config(
 		},
 
 		languageOptions: {
-			globals: {
-				...globals.browser,
-			},
 			// parserOptions: {
 			// 	projectService: true,
 			// 	tsconfigRootDir: import.meta.dirname,
@@ -83,12 +80,6 @@ export default tseslint.config(
 			'**/?(*.)+(spec|test).[jt]s?(x)',
 		],
 		...testingLibrary.configs['flat/react'],
-		languageOptions: {
-			globals: {
-				__dirname: 'readable',
-				process: 'readable',
-			},
-		},
 	},
 	{
 		ignores: ['dist/', 'coverage/'],
