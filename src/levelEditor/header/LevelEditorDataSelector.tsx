@@ -4,7 +4,8 @@ import {useState} from 'react';
 
 import CommonDataSelector from '../../common/CommonDataSelector';
 import LevelEditorBeforeUnloadPrompt from '../LevelEditorBeforeUnloadPrompt';
-import {useWorldDataNullable, type WorldType} from '../WorldDataContext';
+import type {WorldType} from '../types/WorldType';
+import {useWorldDataNullable} from '../WorldDataContext';
 
 export default function LevelEditorDataSelector() {
 	const {worldData, dispatch} = useWorldDataNullable();

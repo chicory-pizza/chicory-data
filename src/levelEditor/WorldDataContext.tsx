@@ -8,13 +8,10 @@ import {
 	type DecorationType,
 } from './types/DecorationType';
 import type {GameEntityType} from './types/GameEntityType';
-import {type LevelType} from './types/LevelType';
+import type {LevelType} from './types/LevelType';
 import type {PlaceableType} from './types/PlaceableType';
+import type {WorldType} from './types/WorldType';
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
-
-export type WorldType = {
-	[levelId: string]: LevelType;
-};
 
 function assertNonNullableWorldData(
 	worldData: WorldType | null

@@ -2,9 +2,11 @@
 
 import fs from 'node:fs/promises';
 
+import type {WorldType} from '../src/levelEditor/types/WorldType';
+
 const json = JSON.parse(
 	await fs.readFile('../src/levelEditor/level_data.json', 'utf-8')
-);
+) as WorldType;
 
 type PropertyInfo = {
 	type: Set<'STRING' | 'NUMBER'>;
@@ -32,14 +34,13 @@ for (const key in json) {
 		continue;
 	}
 
-	// @ts-expect-error should be GameObjectType
 	levelObjects.forEach((obj) => {
 		// every object should have obj, x, y
 		const valid =
 			typeof obj.obj === 'string' &&
 			typeof obj.x === 'number' &&
 			typeof obj.y === 'number' &&
-			(obj.id == null || typeof obj.id === 'number');
+			(!('id' in obj) || typeof obj.id === 'number');
 		if (!valid) {
 			throw new Error(`Malformed object ${JSON.stringify(obj)}`);
 		}
@@ -59,13 +60,15 @@ for (const key in json) {
 				continue;
 			}
 
+			// @ts-expect-error GameObjectType doesn't have index signature
+			const objPropKey = obj[propKey];
 			const propType: PropertyInfo = objectInfo.properties.get(propKey) ?? {
 				type: new Set(),
 				samples: new Set(),
 				count: 0,
 			};
 
-			switch (typeof obj[propKey]) {
+			switch (typeof objPropKey) {
 				case 'string':
 					propType.type.add('STRING');
 					break;
@@ -77,7 +80,7 @@ for (const key in json) {
 				default:
 					throw new Error(`Unknown typeof ${propKey}`);
 			}
-			propType.samples.add(obj[propKey]);
+			propType.samples.add(objPropKey);
 			propType.count += 1;
 
 			objectInfo.properties.set(propKey, propType);

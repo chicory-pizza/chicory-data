@@ -2,7 +2,8 @@ import {useEffect, useRef} from 'react';
 
 import ConsoleNoJest from '../util/ConsoleNoJest';
 
-import {useWorldDataNullable, type WorldType} from './WorldDataContext';
+import type {WorldType} from './types/WorldType';
+import {useWorldDataNullable} from './WorldDataContext';
 
 type Props = Readonly<{
 	children: React.ReactNode;
