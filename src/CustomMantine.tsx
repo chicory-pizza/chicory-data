@@ -4,12 +4,10 @@ import {
 	createTheme,
 	type CSSVariablesResolver,
 	MantineProvider,
-	Menu,
-	Modal,
 } from '@mantine/core';
 import {ModalsProvider} from '@mantine/modals';
 
-import AlertContextModal from './AlertContextModal';
+import mantineModals from './common/modals/mantineModals';
 
 // Theme
 const cssVariablesResolver: CSSVariablesResolver = () => ({
@@ -23,24 +21,7 @@ const cssVariablesResolver: CSSVariablesResolver = () => ({
 	},
 });
 
-const components =
-	import.meta.env.MODE === 'test'
-		? {
-				Menu: Menu.extend({
-					defaultProps: {
-						transitionProps: {duration: 0},
-					},
-				}),
-				Modal: Modal.extend({
-					defaultProps: {
-						transitionProps: {duration: 0},
-					},
-				}),
-			}
-		: {};
-
 const theme = createTheme({
-	components,
 	colors: {
 		// https://mantine.dev/colors-generator/
 		luncheonPurple: [
@@ -76,17 +57,6 @@ const theme = createTheme({
 	primaryShade: 2,
 });
 
-// Modals
-const modals = {
-	alert: AlertContextModal,
-};
-
-declare module '@mantine/modals' {
-	export interface MantineModalsOverride {
-		modals: typeof modals;
-	}
-}
-
 type Props = Readonly<{
 	children: React.ReactNode;
 }>;
@@ -98,7 +68,7 @@ export default function CustomMantine(props: Props) {
 			defaultColorScheme="auto"
 			theme={theme}
 		>
-			<ModalsProvider modals={modals}>{props.children}</ModalsProvider>
+			<ModalsProvider modals={mantineModals}>{props.children}</ModalsProvider>
 		</MantineProvider>
 	);
 }

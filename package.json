@@ -17,9 +17,9 @@
   },
   "dependencies": {
     "@dr.pogodin/react-helmet": "3.0.2",
-    "@mantine/core": "8.1.1",
-    "@mantine/hooks": "8.1.1",
-    "@mantine/modals": "8.1.1",
+    "@mantine/core": "8.1.2",
+    "@mantine/hooks": "8.1.2",
+    "@mantine/modals": "8.1.2",
     "@tabler/icons-react": "3.34.0",
     "base64-arraybuffer": "1.0.2",
     "browser-fs-access": "0.37.0",

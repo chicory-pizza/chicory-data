@@ -3,6 +3,7 @@ import {configure as configureTestingLibrary} from '@testing-library/react';
 
 import '../util/shimRequestIdleCallback';
 
+jest.mock('../CustomMantine');
 jest.mock('../util/ConsoleNoJest');
 jest.mock('../util/transformImageImport');
 jest.mock('../levelEditor/level_data.json');
