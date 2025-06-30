@@ -26,7 +26,7 @@ async function loadImage(
 		reader.onloadend = () => {
 			const result = reader.result;
 			if (!(result instanceof ArrayBuffer)) {
-				reject('FileReader result should be ArrayBuffer');
+				reject(new Error('FileReader result should be ArrayBuffer'));
 				return;
 			}
 

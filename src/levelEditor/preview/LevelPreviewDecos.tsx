@@ -4,7 +4,6 @@ import spriteData from '../spriteData.json';
 import type {EditorToolType} from '../types/EditorToolType';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
-import type {TransformType} from '../types/TransformType';
 
 import styles from './LevelPreviewDecos.module.css';
 import TransformDiv from './TransformDiv';
@@ -77,10 +76,16 @@ function LevelPreviewDecos(props: Props) {
 				// eslint-disable-next-line @eslint-react/no-array-index-key
 				key={index}
 				mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
-				onClick={() => props.onEntityClick(index, 'DECO')}
-				onMouseEnter={() => props.onEntityHover(index)}
-				onMouseLeave={() => props.onEntityHover(null)}
-				onTransformUpdate={(t: TransformType) =>
+				onClick={() => {
+					props.onEntityClick(index, 'DECO');
+				}}
+				onMouseEnter={() => {
+					props.onEntityHover(index);
+				}}
+				onMouseLeave={() => {
+					props.onEntityHover(null);
+				}}
+				onTransformUpdate={(t) => {
 					props.onEntityTransformUpdate(
 						index,
 						{
@@ -88,8 +93,8 @@ function LevelPreviewDecos(props: Props) {
 							y: t.y,
 						},
 						'DECO'
-					)
-				}
+					);
+				}}
 				origin={transformOrigin}
 				renderOffset={renderOffset}
 			>

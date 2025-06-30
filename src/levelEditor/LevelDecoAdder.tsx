@@ -49,7 +49,7 @@ function LevelDecoAdder(props: Props) {
 							className={styles.deco}
 							href="#"
 							key={sprite}
-							onClick={(ev: React.MouseEvent<HTMLAnchorElement>) => {
+							onClick={(ev) => {
 								ev.preventDefault();
 
 								props.onAddingEntityLabel({

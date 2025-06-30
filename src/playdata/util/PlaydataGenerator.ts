@@ -214,7 +214,7 @@ export class PlaydataGenerator {
 			customBrushColors.length > MAX_CUSTOM_BRUSH_COLORS
 		) {
 			throw new Error(
-				`Custom brush colors can only have a maximum of ${MAX_CUSTOM_BRUSH_COLORS} colors`
+				`Custom brush colors can only have a maximum of ${MAX_CUSTOM_BRUSH_COLORS.toString()} colors`
 			);
 		}
 

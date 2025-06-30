@@ -131,33 +131,35 @@ export default function TransformDiv({
 		const transforms = [];
 
 		const transformOrigin =
-			origin != null ? `${origin[0]}px ${origin[1]}px` : '';
+			origin != null
+				? `${origin[0].toString()}px ${origin[1].toString()}px`
+				: '';
 
 		if (
 			typeof currentTransform.xScale === 'number' &&
 			currentTransform.xScale !== 1
 		) {
-			transforms.push(`scaleX(${currentTransform.xScale})`);
+			transforms.push(`scaleX(${currentTransform.xScale.toString()})`);
 		}
 
 		if (
 			typeof currentTransform.yScale === 'number' &&
 			currentTransform.yScale !== 1
 		) {
-			transforms.push(`scaleY(${currentTransform.yScale})`);
+			transforms.push(`scaleY(${currentTransform.yScale.toString()})`);
 		}
 
 		if (
 			typeof currentTransform.angle === 'number' &&
 			currentTransform.angle !== 0
 		) {
-			const rotateTransform = `rotate(${
+			const rotateTransform = `rotate(${(
 				-1 *
 				Math.sign(
 					currentTransform.xScale != null ? currentTransform.xScale : 1
 				) *
 				(currentTransform.angle != null ? currentTransform.angle : 0)
-			}deg)`;
+			).toString()}deg)`;
 
 			if (rotateFirst) {
 				transforms.unshift(rotateTransform);
@@ -189,7 +191,9 @@ export default function TransformDiv({
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			{...otherProps}
-			onMouseDown={(ev) => onMouseDown(ev, 'MOVE')}
+			onMouseDown={(ev) => {
+				onMouseDown(ev, 'MOVE');
+			}}
 			style={getTransformStyle()}
 		/>
 	);

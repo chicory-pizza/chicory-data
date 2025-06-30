@@ -134,7 +134,7 @@ for (const colorItem of PIXEL_COLORS_EXPLANATIONS) {
 	colorItem.colors.forEach((color, arrayIndex) => {
 		let description = colorItem.description;
 		if (description === 'Higher ground layers') {
-			description = 'Height ' + (arrayIndex + 1);
+			description = 'Height ' + (arrayIndex + 1).toString();
 		}
 
 		TOOLBAR_COLOR_LOOKUP.set(color, {

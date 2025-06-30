@@ -207,10 +207,7 @@ export function floodFill(
 				continue;
 			}
 			const indexToCheck = coordsToIndex(coordToCheck);
-			if (
-				visited[indexToCheck] === true ||
-				decodedGeo[indexToCheck] !== matchingColor
-			) {
+			if (visited[indexToCheck] || decodedGeo[indexToCheck] !== matchingColor) {
 				continue;
 			}
 

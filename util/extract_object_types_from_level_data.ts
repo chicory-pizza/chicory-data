@@ -60,7 +60,8 @@ for (const key in json) {
 				continue;
 			}
 
-			// @ts-expect-error GameObjectType doesn't have index signature
+			// @ts-expect-error GameObjectType isn't object index access
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 			const objPropKey = obj[propKey];
 			const propType: PropertyInfo = objectInfo.properties.get(propKey) ?? {
 				type: new Set(),

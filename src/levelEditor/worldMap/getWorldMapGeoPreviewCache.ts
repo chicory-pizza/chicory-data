@@ -7,9 +7,10 @@ const cache: Record<string, string> = {};
 
 export default function getWorldMapGeoPreviewCache(geo: string): string {
 	const dpr = window.devicePixelRatio || 1;
+	const cacheKey = dpr.toString() + '|' + geo;
 
-	if (cache[dpr + '|' + geo]) {
-		return cache[dpr + '|' + geo];
+	if (cache[cacheKey]) {
+		return cache[cacheKey];
 	}
 
 	const decodedGeo = decodeGeoString(geo);
@@ -29,7 +30,7 @@ export default function getWorldMapGeoPreviewCache(geo: string): string {
 	});
 
 	const url = canvas.toDataURL();
-	cache[dpr + '|' + geo] = url;
+	cache[cacheKey] = url;
 
 	return url;
 }

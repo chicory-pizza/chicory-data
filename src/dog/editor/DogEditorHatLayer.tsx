@@ -80,7 +80,8 @@ export default function DogEditorHatLayer({
 		<>
 			<div className={styles.label}>
 				<span className={styles.layerName}>
-					Hat{totalHatsCount > 1 ? ' (layer ' + (layer + 1) + ')' : ''}:
+					Hat
+					{totalHatsCount > 1 ? ' (layer ' + (layer + 1).toString() + ')' : ''}:
 				</span>
 			</div>
 
@@ -140,7 +141,7 @@ export default function DogEditorHatLayer({
 				<div>Color:</div>
 				<div className={styles.color}>
 					<input
-						onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+						onChange={(ev) => {
 							if (hat.color === ev.currentTarget.value) {
 								return;
 							}

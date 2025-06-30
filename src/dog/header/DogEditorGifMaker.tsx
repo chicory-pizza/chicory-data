@@ -16,7 +16,7 @@ export default function DogEditorGifMaker() {
 
 	const animation = 'idle'; // only this for now
 
-	async function onGifSave() {
+	function onGifSave() {
 		gifRef.current = new GIF({
 			quality: 10,
 			workers: 2,
@@ -30,7 +30,7 @@ export default function DogEditorGifMaker() {
 		setAnimationIndex(0);
 	}
 
-	async function onCanvasFrameDrawn(
+	function onCanvasFrameDrawn(
 		canvasRef: HTMLCanvasElement,
 		animationIndexFromCanvas: number
 	) {

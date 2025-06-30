@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
+
 import type {GameObjectEntityType} from './GameObjectEntityType';
 
 // There are various properties that use string type even though it is just a number -__-

@@ -102,16 +102,16 @@ export default function SidebarEntityList<
 	return (
 		<details className={styles.expander} open={props.expanded}>
 			<summary
-				onClick={(ev) =>
-					props.onSidebarPanelExpandToggle(ev, props.sidebarPanelType)
-				}
+				onClick={(ev) => {
+					props.onSidebarPanelExpandToggle(ev, props.sidebarPanelType);
+				}}
 			>
 				{unfilteredEntitiesLength > 0
 					? props.name +
 						' (' +
 						(filteredEntitiesCount !== unfilteredEntitiesLength
-							? `${filteredEntitiesCount} of ${unfilteredEntitiesLength} shown`
-							: `${unfilteredEntitiesLength} total`) +
+							? `${filteredEntitiesCount.toString()} of ${unfilteredEntitiesLength.toString()} shown`
+							: `${unfilteredEntitiesLength.toString()} total`) +
 						')'
 					: 'No ' + props.name.toLowerCase()}
 			</summary>

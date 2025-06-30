@@ -49,7 +49,9 @@ export default function LevelPreviewArrows() {
 			>
 				<Button
 					className={styles.arrowBox + ' ' + styles.top}
-					onClick={() => setNewCoordinates(goUp)}
+					onClick={() => {
+						setNewCoordinates(goUp);
+					}}
 					variant="default"
 				>
 					<IconArrowUp size="1em" />
@@ -65,7 +67,9 @@ export default function LevelPreviewArrows() {
 			>
 				<Button
 					className={styles.arrowBox + ' ' + styles.left}
-					onClick={() => setNewCoordinates(goLeft)}
+					onClick={() => {
+						setNewCoordinates(goLeft);
+					}}
 					variant="default"
 				>
 					<IconArrowLeft size="1em" />
@@ -84,7 +88,9 @@ export default function LevelPreviewArrows() {
 			>
 				<Button
 					className={styles.arrowBox + ' ' + styles.right}
-					onClick={() => setNewCoordinates(goRight)}
+					onClick={() => {
+						setNewCoordinates(goRight);
+					}}
 					variant="default"
 				>
 					<IconArrowRight size="1em" />
@@ -99,7 +105,9 @@ export default function LevelPreviewArrows() {
 			>
 				<Button
 					className={styles.arrowBox + ' ' + styles.bottom}
-					onClick={() => setNewCoordinates(goDown)}
+					onClick={() => {
+						setNewCoordinates(goDown);
+					}}
 					variant="default"
 				>
 					<IconArrowDown size="1em" />

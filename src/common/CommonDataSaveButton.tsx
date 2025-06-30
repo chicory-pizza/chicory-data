@@ -18,9 +18,7 @@ type Props = Readonly<{
 
 export default function CommonDataSaveButton(props: Props) {
 	useHotkeys(getCtrlKeyboardModifier() + '+s', saveFile, {
-		enabled:
-			props.buttonProps.disabled == null ||
-			props.buttonProps.disabled === false,
+		enabled: props.buttonProps.disabled == null || !props.buttonProps.disabled,
 		preventDefault: true,
 	});
 

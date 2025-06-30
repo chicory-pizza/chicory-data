@@ -31,10 +31,18 @@ type Props = Readonly<{
 }>;
 
 function LevelToolbar(props: Props) {
-	useHotkeys('v', () => props.onEditorToolTypeUpdate('SELECT'));
-	useHotkeys('b', () => props.onEditorToolTypeUpdate('BRUSH'));
-	useHotkeys('g', () => props.onEditorToolTypeUpdate('FILL'));
-	useHotkeys('i', () => props.onEditorToolTypeUpdate('EYEDROPPER'));
+	useHotkeys('v', () => {
+		props.onEditorToolTypeUpdate('SELECT');
+	});
+	useHotkeys('b', () => {
+		props.onEditorToolTypeUpdate('BRUSH');
+	});
+	useHotkeys('g', () => {
+		props.onEditorToolTypeUpdate('FILL');
+	});
+	useHotkeys('i', () => {
+		props.onEditorToolTypeUpdate('EYEDROPPER');
+	});
 
 	useHotkeys(
 		'[',
@@ -89,7 +97,9 @@ function LevelToolbar(props: Props) {
 								transitionProps={{transition: 'fade-up'}}
 							>
 								<ActionIcon
-									onClick={() => props.onEditorToolTypeUpdate(toolType.type)}
+									onClick={() => {
+										props.onEditorToolTypeUpdate(toolType.type);
+									}}
 									variant={
 										props.editorToolType === toolType.type
 											? 'filled'
@@ -149,7 +159,9 @@ function LevelToolbar(props: Props) {
 							<SelectableButton
 								className={styles.colorSelect}
 								key={colorIndex}
-								onClick={() => props.onSelectPaintColor(colorIndex)}
+								onClick={() => {
+									props.onSelectPaintColor(colorIndex);
+								}}
 								selected={props.currentPaintColor === colorIndex}
 							>
 								<span

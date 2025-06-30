@@ -29,7 +29,7 @@ export default function drawGeoToCanvas({
 
 		const fill = colors.get(pixelToUse);
 		if (fill == null) {
-			console.warn('unknown pixel color ' + pixelToUse);
+			console.warn('Unknown pixel color ' + pixelToUse.toString());
 			return;
 		}
 

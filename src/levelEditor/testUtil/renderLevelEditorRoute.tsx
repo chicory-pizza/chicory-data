@@ -5,7 +5,7 @@ import AppWrapper from '../../AppWrapper';
 import {routes} from '../../routes';
 
 export default async function renderLevelEditorRoute() {
-	await render(
+	render(
 		<AppWrapper>
 			<RouterProvider
 				router={createMemoryRouter(routes, {

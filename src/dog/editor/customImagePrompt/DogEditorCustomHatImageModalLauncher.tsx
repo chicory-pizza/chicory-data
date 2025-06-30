@@ -101,7 +101,8 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 
 					<p className={styles.explanation}>
 						Your exported image should be a PNG and have a resolution of{' '}
-						{CUSTOM_HAT_WIDTH}×{CUSTOM_HAT_HEIGHT} or {SIZE}×{SIZE}.
+						{CUSTOM_HAT_WIDTH.toString()}×{CUSTOM_HAT_HEIGHT.toString()} or{' '}
+						{SIZE.toString()}×{SIZE.toString()}.
 					</p>
 
 					<p className={styles.explanation}>

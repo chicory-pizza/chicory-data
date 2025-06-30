@@ -15,7 +15,7 @@ import styles from './SidebarEditableProperties.module.css';
 type Props = Readonly<{
 	excludeProperties: Array<string>;
 	onEditProperty: (key: string, value: string | number | null) => void;
-	properties: Record<string, string | number | unknown>;
+	properties: Record<string, string | number>;
 	schema: ReadonlyArray<EditablePropertiesType>;
 	testIdPrefix?: string;
 }>;

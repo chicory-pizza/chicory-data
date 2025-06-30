@@ -1,6 +1,6 @@
 import convertDogEditorStateToPreset from '../convertDogEditorStateToPreset';
 
-test('converts dog editor state to preset', async () => {
+test('converts dog editor state to preset', () => {
 	expect(
 		convertDogEditorStateToPreset({
 			bodyShow: true,
@@ -44,7 +44,7 @@ test('converts dog editor state to preset', async () => {
 	});
 });
 
-test('no custom ear color', async () => {
+test('no custom ear color', () => {
 	expect(
 		convertDogEditorStateToPreset({
 			bodyShow: true,

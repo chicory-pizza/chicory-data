@@ -461,8 +461,9 @@ export default function DogEditorApp() {
 													</div>
 													<DogEditorFileInput onFileLoad={onNewClothesImage} />
 													<div className={styles.dimensions}>
-														({CUSTOM_CLOTHES_WIDTH}×{CUSTOM_CLOTHES_HEIGHT} or{' '}
-														{SIZE}×{SIZE})
+														({CUSTOM_CLOTHES_WIDTH.toString()}×
+														{CUSTOM_CLOTHES_HEIGHT.toString()} or{' '}
+														{SIZE.toString()}×{SIZE.toString()})
 													</div>
 												</>
 											) : null}

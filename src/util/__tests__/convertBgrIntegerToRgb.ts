@@ -1,6 +1,6 @@
 import convertBgrIntegerToRgb from '../convertBgrIntegerToRgb';
 
-test('converts BGR colors to RGB', async () => {
+test('converts BGR colors to RGB', () => {
 	expect(convertBgrIntegerToRgb(16751286)).toEqual([182, 154, 255]); // b69aff
 	expect(convertBgrIntegerToRgb(9742079)).toEqual([255, 166, 148]); // ffa694
 	expect(convertBgrIntegerToRgb(14545664)).toEqual([0, 243, 221]); // 00f3dd

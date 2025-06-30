@@ -19,7 +19,7 @@ function formatOptionLabel(option: OptionType<string>) {
 			{colors != null ? (
 				<div className={styles.optionColors}>
 					{colors.map((rgb) => {
-						const text = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]}`;
+						const text = `rgb(${rgb[0].toString()}, ${rgb[1].toString()}, ${rgb[2].toString()}`;
 
 						return (
 							<div

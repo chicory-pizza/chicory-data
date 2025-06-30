@@ -127,7 +127,7 @@ export default function drawDogToCanvas(
 		ctx.fillRect(0, 0, SIZE, SIZE);
 	}
 
-	if (options.showBody !== false) {
+	if (options.showBody) {
 		drawImageAsColor(
 			ctx,
 			images.idle2,

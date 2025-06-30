@@ -69,7 +69,9 @@ function WorldMapButton(props: Props) {
 		<button
 			className={styles.box + ' ' + (isCurrent ? styles.currentBox : '')}
 			data-testid={isCurrent ? 'worldmap-active' : null}
-			onClick={() => props.onSetNewCoordinates(coordinates)}
+			onClick={() => {
+				props.onSetNewCoordinates(coordinates);
+			}}
 			ref={isCurrent ? currentBox : null}
 			style={{
 				left: Math.abs(props.minX) * WIDTH + coordinates[1] * WIDTH,

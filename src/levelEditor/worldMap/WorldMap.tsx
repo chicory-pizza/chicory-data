@@ -58,7 +58,7 @@ export default function WorldMap() {
 							isSameCoordinates(currentCoordinates, coordinates)
 						}
 						// optimization: try to recycle if possible
-						key={coordinates[1] + '_' + coordinates[2]}
+						key={coordinates[1].toString() + '_' + coordinates[2].toString()}
 						level={level}
 						levelId={levelId}
 						minX={minX}

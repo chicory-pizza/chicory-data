@@ -23,6 +23,7 @@ function reducer(
 			};
 
 		default:
+			// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
 			throw new Error('Unknown level editor reducer action ' + action.type);
 	}
 }

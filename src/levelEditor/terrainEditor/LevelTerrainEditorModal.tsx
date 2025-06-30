@@ -113,7 +113,7 @@ export default function LevelTerrainEditorModal(props: Props) {
 			try {
 				if (img.width !== GEO_WIDTH || img.height !== GEO_HEIGHT) {
 					throw new Error(
-						`Incorrect image resolution, it should be ${GEO_WIDTH}×${GEO_HEIGHT}`
+						`Incorrect image resolution, it should be ${[GEO_WIDTH, GEO_HEIGHT].join('×')}`
 					);
 				}
 
@@ -145,9 +145,7 @@ export default function LevelTerrainEditorModal(props: Props) {
 
 						if (colorInfo == null) {
 							throw new Error(
-								`Unsupported color found (R: ${pixel[0]} G: ${pixel[1]} B: ${
-									pixel[2]
-								}) at pixel (X: ${x + 1}, Y: ${y + 1})`
+								`Unsupported color found (R: ${pixel[0].toString()} G: ${pixel[1].toString()} B: ${pixel[2].toString()}) at pixel (X: ${(x + 1).toString()}, Y: ${(y + 1).toString()})`
 							);
 						}
 
@@ -202,7 +200,7 @@ export default function LevelTerrainEditorModal(props: Props) {
 			}
 
 			fileSave(blob, {
-				fileName: `Level Geometry (${currentCoordinates[0]}_${currentCoordinates[1]}_${currentCoordinates[2]})`,
+				fileName: `Level Geometry (${[currentCoordinates[0], currentCoordinates[1], currentCoordinates[2]].join('_')})`,
 				extensions: ['.png'],
 				description: 'PNG image',
 			}).catch((ex) => {

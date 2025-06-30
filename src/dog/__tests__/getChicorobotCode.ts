@@ -1,6 +1,6 @@
 import getChicorobotCode from '../getChicorobotCode';
 
-test('Pizza (default)', async () => {
+test('Pizza (default)', () => {
 	const code = getChicorobotCode({
 		clothes: 'Overalls',
 		clothesColor: '#ffffff',
@@ -16,7 +16,7 @@ test('Pizza (default)', async () => {
 	);
 });
 
-test('Pancake', async () => {
+test('Pancake', () => {
 	const code = getChicorobotCode({
 		clothes: 'Scarf',
 		clothesColor: '#00f3dd',
@@ -32,7 +32,7 @@ test('Pancake', async () => {
 	);
 });
 
-test('horns hat', async () => {
+test('horns hat', () => {
 	const code = getChicorobotCode({
 		clothes: 'Overalls',
 		clothesColor: '#ff0000',

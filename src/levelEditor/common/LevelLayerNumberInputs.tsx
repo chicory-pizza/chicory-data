@@ -19,7 +19,7 @@ export default function LevelLayerNumberInputs({
 			<input
 				className={styles.numberInput}
 				data-testid={testIdPrefix != null ? testIdPrefix + '-layer' : ''}
-				onChange={(ev: React.SyntheticEvent<HTMLInputElement>) => {
+				onChange={(ev) => {
 					onNewCoordinatesSet([
 						ev.currentTarget.value !== ''
 							? parseInt(ev.currentTarget.value, 10)
@@ -37,7 +37,7 @@ export default function LevelLayerNumberInputs({
 			<input
 				className={styles.numberInput}
 				data-testid={testIdPrefix != null ? testIdPrefix + '-x' : ''}
-				onChange={(ev: React.SyntheticEvent<HTMLInputElement>) => {
+				onChange={(ev) => {
 					onNewCoordinatesSet([
 						coordinates[0],
 						ev.currentTarget.value !== ''
@@ -55,7 +55,7 @@ export default function LevelLayerNumberInputs({
 			<input
 				className={styles.numberInput}
 				data-testid={testIdPrefix != null ? testIdPrefix + '-y' : ''}
-				onChange={(ev: React.SyntheticEvent<HTMLInputElement>) => {
+				onChange={(ev) => {
 					onNewCoordinatesSet([
 						coordinates[0],
 						coordinates[1],

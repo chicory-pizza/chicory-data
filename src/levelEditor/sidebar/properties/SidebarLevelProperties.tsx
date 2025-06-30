@@ -58,12 +58,14 @@ function SidebarLevelProperties(props: Props) {
 		[currentCoordinates, dispatch]
 	);
 
+	const {decos, geo, objects, ...restOfLevel} = props.level;
+
 	return (
 		<details className={styles.expander} open={props.expanded}>
 			<summary
-				onClick={(ev) =>
-					props.onSidebarPanelExpandToggle(ev, 'LEVEL_PROPERTIES')
-				}
+				onClick={(ev) => {
+					props.onSidebarPanelExpandToggle(ev, 'LEVEL_PROPERTIES');
+				}}
 			>
 				Level {currentCoordinates.join(', ')} properties
 			</summary>
@@ -72,7 +74,7 @@ function SidebarLevelProperties(props: Props) {
 				<SidebarEditableProperties
 					excludeProperties={LEVEL_EXCLUDED_PROPERTIES}
 					onEditProperty={onEditProperty}
-					properties={props.level}
+					properties={restOfLevel}
 					schema={LEVEL_EDITABLE_PROPERTIES_SCHEMA}
 					testIdPrefix="sidebarlevelproperties"
 				/>

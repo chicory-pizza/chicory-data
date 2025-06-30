@@ -80,9 +80,10 @@ export default function DogPreview(props: Props) {
 	const hatsLayers = useMemo(() => {
 		const tempHats: Record<string, string | null> = {};
 		for (let i = 0; i < hats.length; i += 1) {
-			tempHats['hatShowHairExtra_' + i] = hats[i].hatShowHairExtra ?? null;
-			tempHats['hat_' + i] = hats[i].hat ?? null;
-			tempHats['hatLayer2_' + i] = hats[i].hatLayer2 ?? null;
+			tempHats['hatShowHairExtra_' + i.toString()] =
+				hats[i].hatShowHairExtra ?? null;
+			tempHats['hat_' + i.toString()] = hats[i].hat ?? null;
+			tempHats['hatLayer2_' + i.toString()] = hats[i].hatLayer2 ?? null;
 		}
 		return tempHats;
 	}, [hats]);
@@ -123,9 +124,9 @@ export default function DogPreview(props: Props) {
 	const animationImagesToLoad = useMemo(() => {
 		const images: Record<string, string> = {};
 		for (let i = 0; i < animationInfo.headAnim.length; i += 1) {
-			images['idle1_' + i] = animationInfo.idle1[i];
-			images['idle2_' + i] = animationInfo.idle2[i];
-			images['ear_' + i] = animationInfo.ear[i];
+			images['idle1_' + i.toString()] = animationInfo.idle1[i];
+			images['idle2_' + i.toString()] = animationInfo.idle2[i];
+			images['ear_' + i.toString()] = animationInfo.ear[i];
 		}
 		return images;
 	}, [animationInfo]);
@@ -156,9 +157,9 @@ export default function DogPreview(props: Props) {
 			return;
 		}
 
-		const idle2 = animationImages['idle2_' + animationIndex];
-		const idle1 = animationImages['idle1_' + animationIndex];
-		const ear = animationImages['ear_' + animationIndex];
+		const idle2 = animationImages['idle2_' + animationIndex.toString()];
+		const idle1 = animationImages['idle1_' + animationIndex.toString()];
+		const ear = animationImages['ear_' + animationIndex.toString()];
 		if (!idle2 || !idle1 || !ear) {
 			return;
 		}
@@ -182,7 +183,8 @@ export default function DogPreview(props: Props) {
 				skinOutlineColor: props.skinOutlineColor,
 			},
 			{
-				animationCacheKey: props.animation + '_' + animationIndex + '_',
+				animationCacheKey:
+					props.animation + '_' + animationIndex.toString() + '_',
 				backgroundFillColor: props.backgroundFillColor,
 				clothesAnimationTranslateX: animationInfo.bodyAnim[animationIndex].x,
 				clothesAnimationTranslateY: animationInfo.bodyAnim[animationIndex].y,
@@ -198,13 +200,15 @@ export default function DogPreview(props: Props) {
 
 						// Images
 						hatShowHairExtra: hatsImages
-							? hatsImages['hatShowHairExtra_' + index]
+							? hatsImages['hatShowHairExtra_' + index.toString()]
 							: null,
 						hat:
 							typeof hat.hat === 'string' && hatsImages
-								? hatsImages['hat_' + index]
+								? hatsImages['hat_' + index.toString()]
 								: null,
-						hatLayer2: hatsImages ? hatsImages['hatLayer2_' + index] : null,
+						hatLayer2: hatsImages
+							? hatsImages['hatLayer2_' + index.toString()]
+							: null,
 					};
 				}),
 				showBody: props.showBody,

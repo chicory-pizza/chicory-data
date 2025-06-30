@@ -1,6 +1,6 @@
 import {PlaydataGenerator} from '../PlaydataGenerator';
 
-test('converts a dog', async () => {
+test('converts a dog', () => {
 	const generator = PlaydataGenerator.loadFromDogPreset({
 		clothes: 'Avast',
 		clothesColor: '#ff0000',

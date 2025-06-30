@@ -10,7 +10,7 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
 	js.configs.recommended,
-	tseslint.configs.strict, // todo switch to strictTypeChecked
+	tseslint.configs.strictTypeChecked,
 
 	importPlugin.flatConfigs.typescript,
 	jest.configs['flat/recommended'],
@@ -32,6 +32,16 @@ export default tseslint.config(
 
 			'@eslint-react/no-leaked-conditional-rendering': 'error',
 			'@eslint-react/prefer-read-only-props': 'error',
+
+			'@typescript-eslint/no-misused-promises': [
+				'error',
+				{
+					checksVoidReturn: false,
+				},
+			],
+			// False results on object index access
+			// https://typescript-eslint.io/rules/no-unnecessary-condition/#possibly-undefined-indexed-access
+			'@typescript-eslint/no-unnecessary-condition': 'off',
 
 			// `importPlugin.flatConfigs.recommended` without slow rules
 			// https://typescript-eslint.io/troubleshooting/typed-linting/performance/#eslint-plugin-import

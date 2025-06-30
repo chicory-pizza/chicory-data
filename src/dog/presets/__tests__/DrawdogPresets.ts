@@ -13,7 +13,7 @@ const VALID_COLOR = /^#[0-9a-f]{6}$/;
 
 test.each(DRAWDOG_PRESETS)(
 	'clothes and colors for $name are valid',
-	async (preset: DrawdogPreset) => {
+	(preset: DrawdogPreset) => {
 		expect(
 			DOG_CLOTHES_LIST.find((clothes) => {
 				return preset.clothes === clothes.internalName;

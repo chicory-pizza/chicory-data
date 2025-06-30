@@ -28,10 +28,10 @@ export default function PropertyTextInput({
 			onBlur={() => {
 				onCommitValue(inputValue);
 			}}
-			onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+			onChange={(ev) => {
 				setInputValue(ev.currentTarget.value);
 			}}
-			onKeyPress={(ev: React.KeyboardEvent<HTMLInputElement>) => {
+			onKeyDown={(ev) => {
 				if (ev.key === 'Enter') {
 					onCommitValue(inputValue);
 				}

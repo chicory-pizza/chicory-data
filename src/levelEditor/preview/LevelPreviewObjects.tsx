@@ -8,7 +8,6 @@ import {
 import type {EditorToolType} from '../types/EditorToolType';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
-import type {TransformType} from '../types/TransformType';
 import getGameObjectSimpleName from '../util/getGameObjectSimpleName';
 
 import LevelPreviewCustomDog from './LevelPreviewCustomDog';
@@ -81,12 +80,18 @@ function LevelPreviewObjects(props: Props) {
 				// eslint-disable-next-line @eslint-react/no-array-index-key
 				key={index}
 				mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
-				onClick={() => props.onEntityClick(index, 'OBJECT')}
-				onMouseEnter={() => props.onEntityHover(index)}
-				onMouseLeave={() => props.onEntityHover(null)}
-				onTransformUpdate={(t: TransformType) =>
-					props.onEntityTransformUpdate(index, {x: t.x, y: t.y}, 'OBJECT')
-				}
+				onClick={() => {
+					props.onEntityClick(index, 'OBJECT');
+				}}
+				onMouseEnter={() => {
+					props.onEntityHover(index);
+				}}
+				onMouseLeave={() => {
+					props.onEntityHover(null);
+				}}
+				onTransformUpdate={(t) => {
+					props.onEntityTransformUpdate(index, {x: t.x, y: t.y}, 'OBJECT');
+				}}
 				origin={transformOrigin}
 				renderOffset={isCustomDog ? [0, -110 / 2] : null}
 				rotateFirst={true}

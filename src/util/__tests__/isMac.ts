@@ -1,6 +1,6 @@
 import isMac from '../isMac';
 
-test('Mac user agent', async () => {
+test('Mac user agent', () => {
 	jest
 		.spyOn(navigator, 'userAgent', 'get')
 		.mockReturnValue(
@@ -10,7 +10,7 @@ test('Mac user agent', async () => {
 	expect(isMac()).toBe(true);
 });
 
-test('Windows user agent', async () => {
+test('Windows user agent', () => {
 	jest
 		.spyOn(navigator, 'userAgent', 'get')
 		.mockReturnValue(

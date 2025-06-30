@@ -1,6 +1,6 @@
 import decodeGeoString from '../decodeGeoString';
 
-test('decodes geo', async () => {
+test('decodes geo', () => {
 	const decodedGeo = decodeGeoString(
 		'eJztz8EOhCAMRdEXx/7/LzsBokSKfU0xM4vejYG0h7jvY1vtM69NKLtqCb4CjscYqJ4D4OyC44C1IBwgloOECB9oi17QFN2gJf49WEZAgqBBUCAIEOhEAwQBAr34DMIJwgC7Sc77iue6SLkQucB6Fhd4Jbdv45s3B2ee/sjpLQK7LFDkcZ0Hx38Jik7FFAOeKoY8hYx6lVygZFmW/aoDrtoX0Q=='
 	);

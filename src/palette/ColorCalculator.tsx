@@ -29,7 +29,7 @@ export default function ColorCalculator() {
 	return (
 		<div className={styles.root}>
 			<input
-				onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+				onChange={(ev) => {
 					setColor(ev.currentTarget.value);
 				}}
 				type="color"
@@ -44,7 +44,7 @@ export default function ColorCalculator() {
 						className={styles.textInput}
 						data-testid="colorcalculator-hex"
 						maxLength={7}
-						onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+						onChange={(ev) => {
 							setColor(ev.currentTarget.value);
 						}}
 						placeholder="#00f3dd"
@@ -64,7 +64,7 @@ export default function ColorCalculator() {
 						maxLength={3}
 						max={255}
 						min={0}
-						onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+						onChange={(ev) => {
 							setIndividualRgb({
 								r: parseInt(ev.currentTarget.value, 10),
 							});
@@ -81,7 +81,7 @@ export default function ColorCalculator() {
 						max={255}
 						min={0}
 						maxLength={3}
-						onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+						onChange={(ev) => {
 							setIndividualRgb({
 								g: parseInt(ev.currentTarget.value, 10),
 							});
@@ -98,7 +98,7 @@ export default function ColorCalculator() {
 						max={255}
 						min={0}
 						maxLength={3}
-						onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+						onChange={(ev) => {
 							setIndividualRgb({
 								b: parseInt(ev.currentTarget.value, 10),
 							});
@@ -118,7 +118,7 @@ export default function ColorCalculator() {
 					inputMode="numeric"
 					maxLength={8}
 					min={0}
-					onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+					onChange={(ev) => {
 						setColor(
 							convertRgbArrayToString(
 								convertBgrIntegerToRgb(parseInt(ev.currentTarget.value, 10))

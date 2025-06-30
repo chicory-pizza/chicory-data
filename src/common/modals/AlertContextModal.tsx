@@ -17,7 +17,12 @@ export default function AlertContextModal({context, id, innerProps}: Props) {
 			)}
 
 			<Group justify="flex-end" mt="md">
-				<Button data-autofocus onClick={() => context.closeModal(id)}>
+				<Button
+					data-autofocus
+					onClick={() => {
+						context.closeModal(id);
+					}}
+				>
 					Close
 				</Button>
 			</Group>

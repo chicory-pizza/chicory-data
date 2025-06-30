@@ -29,7 +29,7 @@ export default function PropertyNumberInput({
 			onBlur={() => {
 				onCommitValue(inputValue);
 			}}
-			onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+			onChange={(ev) => {
 				const value = ev.currentTarget.value;
 
 				if (value === '') {
@@ -38,12 +38,12 @@ export default function PropertyNumberInput({
 					setInputValue(parseFloat(ev.currentTarget.value));
 				}
 			}}
-			onKeyPress={(ev: React.KeyboardEvent<HTMLInputElement>) => {
+			onKeyDown={(ev) => {
 				if (ev.key === 'Enter') {
 					onCommitValue(inputValue);
 				}
 			}}
-			onWheel={(ev: React.WheelEvent<HTMLInputElement>) => {
+			onWheel={(ev) => {
 				ev.currentTarget.blur();
 			}}
 			step={step ?? 1}

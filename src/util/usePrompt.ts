@@ -25,6 +25,8 @@ export function usePrompt(
 			(ev) => {
 				if (when) {
 					ev.preventDefault();
+
+					// eslint-disable-next-line @typescript-eslint/no-deprecated
 					ev.returnValue = message;
 				}
 			},

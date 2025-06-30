@@ -38,7 +38,9 @@ function LevelEditorViewMenu() {
 			<Menu.Dropdown>
 				<Menu.Item
 					leftSection={<MenuItemCheckedIcon show={uiViews.has('WORLD_MAP')} />}
-					onClick={() => toggleUiView('WORLD_MAP')}
+					onClick={() => {
+						toggleUiView('WORLD_MAP');
+					}}
 				>
 					World map
 				</Menu.Item>
@@ -47,7 +49,9 @@ function LevelEditorViewMenu() {
 
 				<Menu.Item
 					leftSection={<MenuItemCheckedIcon show={uiViews.has('SIDEBAR')} />}
-					onClick={() => toggleUiView('SIDEBAR')}
+					onClick={() => {
+						toggleUiView('SIDEBAR');
+					}}
 				>
 					Sidebar
 				</Menu.Item>
@@ -55,7 +59,9 @@ function LevelEditorViewMenu() {
 				<Menu.Item
 					disabled={!uiViews.has('SIDEBAR')}
 					leftSection={<MenuItemCheckedIcon show={uiViews.has('PREVIEW')} />}
-					onClick={() => toggleUiView('PREVIEW')}
+					onClick={() => {
+						toggleUiView('PREVIEW');
+					}}
 				>
 					Terrain preview
 				</Menu.Item>
@@ -64,21 +70,27 @@ function LevelEditorViewMenu() {
 
 				<Menu.Item
 					leftSection={<MenuItemCheckedIcon show={uiViews.has('OBJECT')} />}
-					onClick={() => toggleUiView('OBJECT')}
+					onClick={() => {
+						toggleUiView('OBJECT');
+					}}
 				>
 					Objects
 				</Menu.Item>
 
 				<Menu.Item
 					leftSection={<MenuItemCheckedIcon show={uiViews.has('DECO')} />}
-					onClick={() => toggleUiView('DECO')}
+					onClick={() => {
+						toggleUiView('DECO');
+					}}
 				>
 					Decorations
 				</Menu.Item>
 
 				<Menu.Item
 					leftSection={<MenuItemCheckedIcon show={uiViews.has('GEO')} />}
-					onClick={() => toggleUiView('GEO')}
+					onClick={() => {
+						toggleUiView('GEO');
+					}}
 				>
 					Terrain
 				</Menu.Item>
@@ -86,7 +98,9 @@ function LevelEditorViewMenu() {
 				{import.meta.env.VITE_IN_GAME_SCREENSHOT_URL_PREFIX != null ? (
 					<Menu.Item
 						leftSection={<MenuItemCheckedIcon show={uiViews.has('INGAME')} />}
-						onClick={() => toggleUiView('INGAME')}
+						onClick={() => {
+							toggleUiView('INGAME');
+						}}
 					>
 						Original in-game screenshot
 					</Menu.Item>

@@ -3,6 +3,7 @@ import {modals} from '@mantine/modals';
 import {useCallback} from 'react';
 
 import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
+import type {LevelType} from '../types/LevelType';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 import {useWorldDataNonNullable} from '../WorldDataContext';
 
@@ -28,7 +29,9 @@ export default function RestoreGameDefaultLevelButton() {
 
 		const level =
 			// @ts-expect-error todo validate properly
-			initialWorldData.default[convertCoordinatesToLevelId(currentCoordinates)];
+			initialWorldData.default[
+				convertCoordinatesToLevelId(currentCoordinates)
+			] as LevelType | null;
 
 		if (level == null) {
 			modals.openContextModal({

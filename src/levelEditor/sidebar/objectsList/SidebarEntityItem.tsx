@@ -59,16 +59,24 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 			className={
 				styles.item + ' ' + (props.highlighted ? props.highlightClassName : '')
 			}
-			onMouseEnter={() => props.onEntityHover(props.index)}
-			onMouseLeave={() => props.onEntityHover(null)}
+			onMouseEnter={() => {
+				props.onEntityHover(props.index);
+			}}
+			onMouseLeave={() => {
+				props.onEntityHover(null);
+			}}
 			ref={item}
 		>
 			{/* Flexbox doesn't work well in <details><summary> :( */}
 			<div className={styles.title}>
 				<button
 					className={styles.toggleIcon}
-					onClick={() => props.onItemToggle(props.index)}
-					onFocus={() => props.onEntityHover(props.index)}
+					onClick={() => {
+						props.onItemToggle(props.index);
+					}}
+					onFocus={() => {
+						props.onEntityHover(props.index);
+					}}
 					title={expanded ? 'Collapse details' : 'Expand details'}
 					type="button"
 				>
@@ -82,7 +90,9 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 				{props.highlighted ? (
 					<CloseButton
 						label={'Delete ' + props.getEntityName(props.entity, '')}
-						onClick={() => props.onEntityDelete(props.index, props.type)}
+						onClick={() => {
+							props.onEntityDelete(props.index, props.type);
+						}}
 						size=".6em"
 					/>
 				) : null}

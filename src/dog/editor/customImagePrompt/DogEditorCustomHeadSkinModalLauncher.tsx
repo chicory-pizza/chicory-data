@@ -36,11 +36,7 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 		img.onload = () => {
 			if (img.width !== CUSTOM_HAT_WIDTH || img.height !== CUSTOM_HAT_HEIGHT) {
 				setErrorMessage(
-					'The image resolution should be ' +
-						CUSTOM_HAT_WIDTH +
-						'×' +
-						CUSTOM_HAT_HEIGHT +
-						'.'
+					`The image resolution should be ${[CUSTOM_HAT_WIDTH, CUSTOM_HAT_HEIGHT].join('×')}.`
 				);
 				return;
 			}

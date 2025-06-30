@@ -38,8 +38,8 @@ export default function LevelEditorDataLoader(props: Props) {
 				.then((initialWorldData) => {
 					dispatch({
 						type: 'setWorldData',
-						// @ts-expect-error todo validate properly
-						worldData: initialWorldData.default,
+						// todo validate properly
+						worldData: initialWorldData.default as WorldType,
 					});
 
 					dispatch({

@@ -1,6 +1,6 @@
 import convertRgbArrayToString from '../convertRgbArrayToString';
 
-test('converts an array of 3 numbers to HEX', async () => {
+test('converts an array of 3 numbers to HEX', () => {
 	expect(convertRgbArrayToString([1, 2, 3])).toBe('#010203');
 
 	expect(convertRgbArrayToString([182, 154, 255])).toBe('#b69aff');

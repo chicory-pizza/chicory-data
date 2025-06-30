@@ -56,7 +56,7 @@ export default function SplashChicoryLogo() {
 			style={{
 				backgroundPosition:
 					loaded && !postAnimate && !isReducedMotion
-						? '0 ' + -FRAME_HEIGHT * animationIndex + 'px'
+						? '0 ' + (-FRAME_HEIGHT * animationIndex).toString() + 'px'
 						: '',
 			}}
 		/>

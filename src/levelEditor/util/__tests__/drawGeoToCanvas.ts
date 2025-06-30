@@ -12,7 +12,7 @@ import drawGeoToCanvas from '../drawGeoToCanvas';
 
 expect.extend({toMatchImageSnapshot});
 
-test('expression', async () => {
+test('expression', () => {
 	const canvas = document.createElement('canvas');
 	canvas.width = GEO_WIDTH;
 	canvas.height = GEO_HEIGHT;

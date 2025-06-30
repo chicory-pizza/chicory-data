@@ -1,6 +1,6 @@
 import sortCompareCoordinates from '../sortCompareCoordinates';
 
-test('sort coordinates', async () => {
+test('sort coordinates', () => {
 	// layer
 	expect(sortCompareCoordinates([1, 0, 0], [2, 0, 0])).toBe(-1);
 	expect(sortCompareCoordinates([2, 0, 0], [1, 0, 0])).toBe(1);

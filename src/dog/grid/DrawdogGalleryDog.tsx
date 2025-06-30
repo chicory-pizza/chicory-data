@@ -21,16 +21,30 @@ export default function DrawdogGalleryDog(props: Props) {
 		<a
 			className={styles.preset}
 			href="#"
-			onBlur={() => props.onHoverLeave(preset)}
+			onBlur={() => {
+				props.onHoverLeave(preset);
+			}}
 			onClick={(ev) => {
 				ev.preventDefault();
 				props.onSelect(preset);
 			}}
-			onFocus={onHoverEnter != null ? () => onHoverEnter(preset) : undefined}
-			onMouseEnter={
-				onHoverEnter != null ? () => onHoverEnter(preset) : undefined
+			onFocus={
+				onHoverEnter != null
+					? () => {
+							onHoverEnter(preset);
+						}
+					: undefined
 			}
-			onMouseLeave={() => props.onHoverLeave(preset)}
+			onMouseEnter={
+				onHoverEnter != null
+					? () => {
+							onHoverEnter(preset);
+						}
+					: undefined
+			}
+			onMouseLeave={() => {
+				props.onHoverLeave(preset);
+			}}
 		>
 			<div className={styles.dogPreview}>
 				<DogPreviewWithAutoplayAnimation

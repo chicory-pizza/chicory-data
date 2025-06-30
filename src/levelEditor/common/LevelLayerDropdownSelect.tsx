@@ -48,7 +48,7 @@ export default function LevelLayerDropdownSelect(props: Props) {
 
 			if (!map.has(layer)) {
 				map.set(layer, {
-					label: 'Layer ' + layer,
+					label: 'Layer ' + layer.toString(),
 					options: [],
 				});
 			}

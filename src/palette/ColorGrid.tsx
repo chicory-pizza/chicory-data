@@ -25,13 +25,17 @@ export default function ColorGrid(props: Props) {
 							const colorObj = tinycolor({r, g, b});
 
 							return (
-								<Fragment key={r + '_' + g + '_' + b}>
+								<Fragment
+									key={r.toString() + '_' + g.toString() + '_' + b.toString()}
+								>
 									{index !== 0 ? <div /> : null}
 
 									<div className={styles.colorItem + ' ' + styles.colorBoxWrap}>
 										<div
 											className={styles.colorBox}
-											style={{background: `rgb(${r}, ${g}, ${b})`}}
+											style={{
+												background: `rgb(${r.toString()}, ${g.toString()}, ${b.toString()})`,
+											}}
 										/>
 									</div>
 

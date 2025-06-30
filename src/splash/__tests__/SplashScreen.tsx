@@ -5,7 +5,7 @@ import AppWrapper from '../../AppWrapper';
 import {routes} from '../../routes';
 
 test('renders the splash screen', async () => {
-	await render(
+	render(
 		<AppWrapper>
 			<RouterProvider
 				router={createMemoryRouter(routes, {
