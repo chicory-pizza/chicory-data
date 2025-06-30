@@ -37,7 +37,7 @@ It's highly recommended to install the [React Developer Tools](https://react.dev
 
 ## UI libraries
 
-Use [Mantine](http://mantine.dev) for UI components and [Tabler Icons](https://tabler.io/icons) for icons.
+Use [Mantine](https://mantine.dev) for UI components and [Tabler Icons](https://tabler.io/icons) for icons.
 
 ## Code style
 
