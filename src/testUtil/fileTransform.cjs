@@ -1,6 +1,6 @@
 // https://github.com/facebook/create-react-app/blob/cee26589ff919e946030a5651a93ccba78a93293/packages/react-scripts/config/jest/fileTransform.js
 
-const path = require('path');
+const path = require('node:path');
 
 const camelcase = require('camelcase');
 

@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 import {loadImage} from 'canvas';
 import {toMatchImageSnapshot} from 'jest-image-snapshot';

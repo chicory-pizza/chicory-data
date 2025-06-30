@@ -19,9 +19,6 @@ export default tseslint.config(
 	eslintReact.configs['recommended-typescript'],
 	reactHooks.configs['recommended-latest'],
 	{
-		plugins: {
-			import: importPlugin,
-		},
 		rules: {
 			'no-var': 'error',
 			'@typescript-eslint/no-unused-vars': [
@@ -38,6 +35,8 @@ export default tseslint.config(
 			'import/export': 'error',
 			'import/no-duplicates': 'warn',
 			'import/no-named-as-default': 'warn',
+
+			'import/enforce-node-protocol-usage': ['error', 'always'],
 			'import/order': [
 				'warn',
 				{
