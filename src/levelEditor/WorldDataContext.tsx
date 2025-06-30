@@ -28,7 +28,7 @@ function getNonNullableLevel(
 	assertNonNullableWorldData(worldData);
 
 	const levelId = convertCoordinatesToLevelId(coordinates);
-	const level: LevelType | undefined = worldData[levelId];
+	const level = worldData[levelId];
 	if (level == null) {
 		throw new Error(
 			`Can't set property for level ${levelId} because the level doesn't exist`

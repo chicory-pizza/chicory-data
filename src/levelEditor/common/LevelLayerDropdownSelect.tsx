@@ -2,16 +2,14 @@ import {useCallback, useMemo, useRef} from 'react';
 
 import CustomSelect from '../../common/CustomSelect';
 import type {OptionType} from '../../common/CustomSelect';
-import type {LevelType} from '../types/LevelType';
+import type {WorldType} from '../types/WorldType';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
 import getLevelLabel from '../util/getLevelLabel';
 import sortCompareCoordinates from '../util/sortCompareCoordinates';
 
 type Props = Readonly<{
-	levels: {
-		readonly [levelId: string]: LevelType | undefined;
-	};
+	levels: WorldType;
 	onNewCoordinatesSet: (newCoordinates: [number, number, number]) => void;
 	selectedCoordinates: [number, number, number] | null;
 }>;

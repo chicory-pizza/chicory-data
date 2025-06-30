@@ -3,7 +3,7 @@ import {modals} from '@mantine/modals';
 import {useCallback} from 'react';
 
 import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
-import type {LevelType} from '../types/LevelType';
+import type {WorldType} from '../types/WorldType';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 import {useWorldDataNonNullable} from '../WorldDataContext';
 
@@ -14,7 +14,9 @@ export default function RestoreGameDefaultLevelButton() {
 	const onRestoreGameDefaultButtonClick = useCallback(async () => {
 		let initialWorldData;
 		try {
-			initialWorldData = await import('../level_data.json');
+			initialWorldData = (await import('../level_data.json')) as {
+				default: WorldType;
+			};
 		} catch (ex) {
 			console.error(ex);
 			modals.openContextModal({
@@ -28,10 +30,8 @@ export default function RestoreGameDefaultLevelButton() {
 		}
 
 		const level =
-			// @ts-expect-error todo validate properly
-			initialWorldData.default[
-				convertCoordinatesToLevelId(currentCoordinates)
-			] as LevelType | null;
+			// todo validate properly
+			initialWorldData.default[convertCoordinatesToLevelId(currentCoordinates)];
 
 		if (level == null) {
 			modals.openContextModal({

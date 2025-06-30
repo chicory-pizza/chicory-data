@@ -6,7 +6,6 @@ import useDocumentTitle from '../../util/useDocumentTitle';
 import LevelLayerDropdownSelect from '../common/LevelLayerDropdownSelect';
 import LevelLayerNumberInputs from '../common/LevelLayerNumberInputs';
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
-import type {LevelType} from '../types/LevelType';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 import convertNullableCoordinatesToNonNull from '../util/convertNullableCoordinatesToNonNull';
 import getLevelLabel from '../util/getLevelLabel';
@@ -41,10 +40,10 @@ export default function LevelSelector() {
 			return '';
 		}
 
-		const level: LevelType | undefined =
-			worldData[convertCoordinatesToLevelId(currentCoordinates)];
-
-		return getLevelLabel(currentCoordinates, level);
+		return getLevelLabel(
+			currentCoordinates,
+			worldData[convertCoordinatesToLevelId(currentCoordinates)]
+		);
 	}, [currentCoordinates, worldData]);
 
 	useDocumentTitle(levelLabel);

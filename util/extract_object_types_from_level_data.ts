@@ -29,7 +29,7 @@ function isNumber(text: string) {
 }
 
 for (const key in json) {
-	const levelObjects = json[key].objects;
+	const levelObjects = json[key]?.objects;
 	if (levelObjects == null) {
 		continue;
 	}

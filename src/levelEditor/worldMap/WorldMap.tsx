@@ -1,5 +1,4 @@
 import {useCurrentCoordinates} from '../CurrentCoordinatesContext';
-import type {LevelType} from '../types/LevelType';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from '../util/convertLevelIdToCoordinates';
 import isSameCoordinates from '../util/isSameCoordinates';
@@ -49,7 +48,7 @@ export default function WorldMap() {
 		<div className={styles.root}>
 			{levels.map((coordinates) => {
 				const levelId = convertCoordinatesToLevelId(coordinates);
-				const level: LevelType | undefined = worldData[levelId];
+				const level = worldData[levelId];
 
 				return (
 					<WorldMapButton
