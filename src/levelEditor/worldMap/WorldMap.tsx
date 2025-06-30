@@ -52,7 +52,7 @@ export default function WorldMap() {
 
 				return (
 					<WorldMapButton
-						isCurrent={
+						isCurrentScreen={
 							currentCoordinates != null &&
 							isSameCoordinates(currentCoordinates, coordinates)
 						}

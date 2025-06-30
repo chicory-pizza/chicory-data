@@ -1,4 +1,6 @@
-import {memo, useEffect, useRef, useState} from 'react';
+import {useIntersection} from '@mantine/hooks';
+import {memo, useCallback, useEffect, useState} from 'react';
+import {usePrevious} from 'react-use';
 
 import {GEO_HEIGHT, GEO_WIDTH} from '../GeoConstants';
 import type {LevelType} from '../types/LevelType';
@@ -11,7 +13,7 @@ const WIDTH = GEO_WIDTH;
 const HEIGHT = GEO_HEIGHT;
 
 type Props = Readonly<{
-	isCurrent: boolean;
+	isCurrentScreen: boolean;
 	level: LevelType | undefined;
 	// optimization: we were repeatedly creating new arrays
 	levelId: string;
@@ -21,13 +23,52 @@ type Props = Readonly<{
 }>;
 
 function WorldMapButton(props: Props) {
-	const coordinates = convertLevelIdToCoordinates(props.levelId);
-	const level = props.level;
+	const {levelId: buttonLevelId, level, isCurrentScreen} = props;
+	const coordinates = convertLevelIdToCoordinates(buttonLevelId);
 	const geo = level?.geo;
-	const isCurrent = props.isCurrent;
 
 	const [geoPreview, setGeoPreview] = useState<string | null>(null);
-	const currentBox = useRef<HTMLButtonElement>(null);
+	const prevLevelId = usePrevious(buttonLevelId);
+	const prevScreen = usePrevious(isCurrentScreen ? buttonLevelId : null);
+
+	const {ref: intersectionObserverRef, entry} = useIntersection();
+
+	const buttonRef = useCallback(
+		(button: HTMLButtonElement | null) => {
+			intersectionObserverRef(button);
+
+			// Scroll to current box if the current editing level is different
+			// either through map navigation or back/forward
+			if (button && isCurrentScreen && buttonLevelId !== prevScreen) {
+				button.scrollIntoView({
+					block: 'center',
+					inline: 'center',
+				});
+			}
+		},
+		[intersectionObserverRef, isCurrentScreen, prevScreen, buttonLevelId]
+	);
+
+	const showGeo = !isCurrentScreen && geo != null;
+	if (!showGeo || buttonLevelId !== prevLevelId) {
+		if (geoPreview != null) {
+			setGeoPreview(null);
+		}
+	}
+
+	useEffect(() => {
+		if (showGeo && geo != null && geoPreview == null && entry?.isIntersecting) {
+			const handle = window.requestIdleCallback(() => {
+				setGeoPreview(getWorldMapGeoPreviewCache(geo));
+			});
+
+			return () => {
+				window.cancelIdleCallback(handle);
+			};
+		}
+
+		return;
+	}, [entry?.isIntersecting, geo, geoPreview, showGeo]);
 
 	const sublabel =
 		level != null
@@ -38,41 +79,14 @@ function WorldMapButton(props: Props) {
 				]
 			: [];
 
-	useEffect(() => {
-		if (isCurrent) {
-			currentBox.current?.scrollIntoView({
-				block: 'center',
-				inline: 'center',
-			});
-		}
-	}, [props.levelId, isCurrent]);
-
-	useEffect(() => {
-		if (!isCurrent && geo != null) {
-			setGeoPreview(null);
-
-			const handle = window.requestIdleCallback(() => {
-				setGeoPreview(getWorldMapGeoPreviewCache(geo));
-			});
-
-			return () => {
-				window.cancelIdleCallback(handle);
-			};
-		} else {
-			setGeoPreview(null);
-
-			return undefined;
-		}
-	}, [isCurrent, geo]);
-
 	return (
 		<button
-			className={styles.box + ' ' + (isCurrent ? styles.currentBox : '')}
-			data-testid={isCurrent ? 'worldmap-active' : null}
+			className={styles.box + ' ' + (isCurrentScreen ? styles.currentBox : '')}
+			data-testid={isCurrentScreen ? 'worldmap-active' : null}
 			onClick={() => {
 				props.onSetNewCoordinates(coordinates);
 			}}
-			ref={isCurrent ? currentBox : null}
+			ref={buttonRef}
 			style={{
 				left: Math.abs(props.minX) * WIDTH + coordinates[1] * WIDTH,
 				top: Math.abs(props.minY) * HEIGHT + coordinates[2] * HEIGHT,
