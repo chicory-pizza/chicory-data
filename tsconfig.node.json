@@ -6,6 +6,7 @@
 		"lib": ["ES2023"],
 		"module": "ESNext",
 		"skipLibCheck": true,
+		"checkJs": true,
 
 		/* Bundler mode */
 		"moduleResolution": "bundler",
@@ -23,5 +24,12 @@
 		"noUncheckedSideEffectImports": true,
 		"noImplicitReturns": true
 	},
-	"include": ["vite.config.ts", "util/**/*.ts"]
+	"include": [
+		"babel.config.cjs",
+		"eslint.config.mjs",
+		"jest.config.cjs",
+		"src/testUtil/**.cjs",
+		"util/**/*.ts",
+		"vite.config.ts"
+	]
 }

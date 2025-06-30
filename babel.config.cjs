@@ -1,5 +1,6 @@
 // This config is only used by Jest, you might want to check vite.config.ts
 
+/** @type {import('@babel/core').ConfigFunction} */
 module.exports = (api) => {
 	const env = api.env();
 

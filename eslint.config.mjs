@@ -72,13 +72,6 @@ export default tseslint.config(
 		},
 	},
 	{
-		files: ['**/*.cjs', '**/*.mjs'],
-		extends: [
-			tseslint.configs.disableTypeChecked,
-			eslintReact.configs['disable-type-checked'],
-		],
-	},
-	{
 		files: [
 			'**/testUtil/**/*.[jt]s?(x)',
 			'**/__tests__/**/*.[jt]s?(x)',
