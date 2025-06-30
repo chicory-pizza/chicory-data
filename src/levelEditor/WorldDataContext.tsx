@@ -1,4 +1,4 @@
-import {createContext, useContext, useMemo} from 'react';
+import {createContext, use, useMemo} from 'react';
 
 import type {UndoReducerAction} from '../util/useUndoRedoReducer';
 import useUndoRedoReducer from '../util/useUndoRedoReducer';
@@ -397,7 +397,7 @@ export function WorldDataProvider({children}: Props) {
 }
 
 export function useWorldDataNullable(): ContextValue {
-	const context = useContext(WorldDataContext);
+	const context = use(WorldDataContext);
 
 	if (!context) {
 		throw new Error('useWorldData must be used within a WorldDataProvider');

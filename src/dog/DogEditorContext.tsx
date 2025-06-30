@@ -1,4 +1,4 @@
-import {createContext, useContext, useMemo} from 'react';
+import {createContext, use, useMemo} from 'react';
 
 import type {UndoReducerAction} from '../util/useUndoRedoReducer';
 import useUndoRedoReducer from '../util/useUndoRedoReducer';
@@ -177,7 +177,7 @@ export function DogEditorProvider({children}: Props) {
 }
 
 export function useDogEditorContext(): ContextValue {
-	const context = useContext(DogEditorContext);
+	const context = use(DogEditorContext);
 
 	if (!context) {
 		throw new Error(

@@ -46,8 +46,9 @@ export default function useLoadMultipleImages(
 			setLoadedSrcs({});
 
 			Object.keys(currentSrcs).forEach((key) => {
-				if (imgs.current[key]) {
-					imgs.current[key].removeEventListener('load', onLoads.current[key]);
+				const imgRef = imgs.current[key];
+				if (imgRef) {
+					imgRef.removeEventListener('load', onLoads.current[key]);
 
 					// eslint-disable-next-line react-hooks/exhaustive-deps, @typescript-eslint/no-dynamic-delete
 					delete onLoads.current[key];

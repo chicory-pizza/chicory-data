@@ -77,6 +77,8 @@ function LevelPreviewObjects(props: Props) {
 					' ' +
 					(props.editorToolType !== 'SELECT' ? styles.disabled : '')
 				}
+				// We don't have unique IDs for objects :(
+				// eslint-disable-next-line @eslint-react/no-array-index-key
 				key={index}
 				mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
 				onClick={() => props.onEntityClick(index, 'OBJECT')}

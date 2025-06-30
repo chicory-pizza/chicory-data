@@ -73,6 +73,8 @@ function LevelPreviewDecos(props: Props) {
 					' ' +
 					(props.editorToolType !== 'SELECT' ? styles.disabled : '')
 				}
+				// We don't have unique IDs for decos :(
+				// eslint-disable-next-line @eslint-react/no-array-index-key
 				key={index}
 				mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
 				onClick={() => props.onEntityClick(index, 'DECO')}

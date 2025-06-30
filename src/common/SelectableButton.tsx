@@ -8,7 +8,7 @@ type Props = Readonly<
 
 export default function SelectableButton({
 	selected,
-	className,
+	className = '',
 	...otherProps
 }: Props) {
 	return (
