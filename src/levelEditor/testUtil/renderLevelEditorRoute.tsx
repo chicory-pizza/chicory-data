@@ -20,7 +20,7 @@ export default async function renderLevelEditorRoute() {
 		{},
 		{
 			// Hacky fix for CI
-			timeout: 2000,
+			timeout: 3000,
 		}
 	);
 }

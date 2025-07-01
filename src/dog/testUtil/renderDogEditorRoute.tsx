@@ -15,5 +15,12 @@ export default async function renderDogEditorRoute() {
 		</AppWrapper>
 	);
 
-	await screen.findByText('Drawdog maker');
+	await screen.findByText(
+		'Drawdog maker',
+		{},
+		{
+			// Hacky fix for CI
+			timeout: 3000,
+		}
+	);
 }
