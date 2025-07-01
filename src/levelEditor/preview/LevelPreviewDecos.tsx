@@ -69,9 +69,12 @@ function LevelPreviewDecos(props: Props) {
 					' ' +
 					(props.entityIndexHover === index ? styles.hover : '') +
 					' ' +
-					(props.editorToolType !== 'SELECT' ? styles.disabled : '')
+					(props.editorToolType !== 'SELECT' ? styles.disabled : '') +
+					' ' +
+					(props.editorEntityTransforming?.index === index
+						? styles.grabbing
+						: '')
 				}
-				isEditing={props.editorEntityTransforming?.index === index}
 				// We don't have unique IDs for decos :(
 				// eslint-disable-next-line @eslint-react/no-array-index-key
 				key={index}

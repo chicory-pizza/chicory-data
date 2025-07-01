@@ -10,7 +10,6 @@ type Props = Readonly<
 			angle?: number;
 		};
 		centerDiv?: boolean;
-		isEditing: boolean;
 		origin: [number, number] | null;
 		renderOffset: [number, number] | null;
 		rotateFirst?: boolean;
@@ -20,7 +19,6 @@ type Props = Readonly<
 export default function TransformDiv({
 	baseTransform,
 	centerDiv,
-	isEditing,
 	origin,
 	renderOffset,
 	rotateFirst,
@@ -68,7 +66,6 @@ export default function TransformDiv({
 				origin != null
 					? `${origin[0].toString()}px ${origin[1].toString()}px`
 					: '',
-			cursor: isEditing ? 'move' : 'pointer',
 		};
 	}, [
 		baseTransform.angle,
@@ -77,7 +74,6 @@ export default function TransformDiv({
 		baseTransform.y,
 		baseTransform.yScale,
 		centerDiv,
-		isEditing,
 		origin,
 		renderOffset,
 		rotateFirst,

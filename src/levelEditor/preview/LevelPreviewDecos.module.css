@@ -1,6 +1,7 @@
 .item {
 	position: absolute;
 	z-index: 3;
+	cursor: grab;
 }
 
 .hover {
@@ -10,4 +11,8 @@
 .disabled {
 	pointer-events: none;
 	opacity: 0.2;
+}
+
+.grabbing {
+	cursor: grabbing;
 }

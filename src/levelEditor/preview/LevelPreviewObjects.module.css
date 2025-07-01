@@ -3,6 +3,7 @@
 	z-index: 4;
 	transform: translate(-50%, -50%);
 	user-select: none;
+	cursor: grab;
 }
 
 .hover {
@@ -12,4 +13,8 @@
 .disabled {
 	pointer-events: none;
 	opacity: 0.5;
+}
+
+.grabbing {
+	cursor: grabbing;
 }
