@@ -37,6 +37,10 @@ type Props<Entity extends GameObjectType | DecorationType> = Readonly<{
 		entityType: GameEntityType,
 		entityIndex: number | null
 	) => void;
+	onFocusEntityOnLevelPreview: (
+		entityType: GameEntityType,
+		entityIndex: number
+	) => void;
 	onSidebarPanelExpandToggle: (
 		ev: React.MouseEvent<HTMLElement>,
 		sidebarPanel: SidebarPanel
@@ -156,6 +160,7 @@ export default function SidebarEntityList<
 							onEntityDelete={props.onEntityDelete}
 							onEntityEditProperties={props.onEntityEditProperties}
 							onEntityHover={props.onEntityHover}
+							onFocusEntityOnLevelPreview={props.onFocusEntityOnLevelPreview}
 							onItemToggle={onItemToggle}
 							renderItemDisplayText={props.renderItemDisplayText}
 							type={props.type}

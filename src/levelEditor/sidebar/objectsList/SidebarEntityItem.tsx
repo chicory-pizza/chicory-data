@@ -1,7 +1,8 @@
+import {ActionIcon, Tooltip} from '@mantine/core';
+import {IconSearch, IconX} from '@tabler/icons-react';
 import {memo, useEffect, useRef} from 'react';
 import {usePrevious} from 'react-use';
 
-import CloseButton from '../../../common/CloseButton';
 import type {DecorationType} from '../../types/DecorationType';
 import type {GameEntityType} from '../../types/GameEntityType';
 import type {GameObjectType} from '../../types/GameObjectType';
@@ -32,6 +33,10 @@ type Props<Entity extends GameObjectType | DecorationType> = Readonly<{
 	onEntityHover: (
 		entityType: GameEntityType,
 		entityIndex: number | null
+	) => void;
+	onFocusEntityOnLevelPreview: (
+		entityType: GameEntityType,
+		entityIndex: number
 	) => void;
 	renderItemDisplayText: (entity: Entity) => React.ReactNode;
 	type: GameEntityType;
@@ -91,13 +96,34 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 				</span>
 
 				{props.highlighted ? (
-					<CloseButton
-						label={'Delete ' + props.getEntityName(props.entity, '')}
-						onClick={() => {
-							props.onEntityDelete(props.index, props.type);
-						}}
-						size=".6em"
-					/>
+					<Tooltip
+						label="Find on level"
+						transitionProps={{transition: 'fade-up'}}
+					>
+						<ActionIcon
+							onClick={() => {
+								props.onFocusEntityOnLevelPreview(props.type, props.index);
+							}}
+							size="sm"
+							variant="subtle"
+						>
+							<IconSearch size="1em" />
+						</ActionIcon>
+					</Tooltip>
+				) : null}
+
+				{props.highlighted ? (
+					<Tooltip label="Delete" transitionProps={{transition: 'fade-up'}}>
+						<ActionIcon
+							onClick={() => {
+								props.onEntityDelete(props.index, props.type);
+							}}
+							size="sm"
+							variant="subtle"
+						>
+							<IconX size="1em" />
+						</ActionIcon>
+					</Tooltip>
 				) : null}
 			</div>
 

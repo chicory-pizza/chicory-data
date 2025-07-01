@@ -69,7 +69,8 @@ type Props = Readonly<{
 
 export default function LevelInspector({currentCoordinates, level}: Props) {
 	const {dispatch: dispatchWorldData} = useWorldDataNonNullable();
-	const {uiViews: activeUiViews} = useLevelEditorContext();
+	const {dispatch: dispatchLevelEditor, uiViews: activeUiViews} =
+		useLevelEditorContext();
 
 	// Toolbar
 	const geoPaintBuffer = useRef<ReadonlyArray<number>>([]);
@@ -87,6 +88,10 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 	);
 	const [entityTransforming, setEntityTransforming] =
 		useState<EditorEntityTransform | null>(null);
+
+	// Preview
+	const entitiesOnLevelPreviewRef =
+		useRef<Map<GameEntityType, Map<number, HTMLElement>>>(null);
 
 	// Sidebar
 	const [expandedSidebarPanels, setExpandedSidebarPanels] = useState<
@@ -655,6 +660,41 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		[]
 	);
 
+	const onFocusEntityOnLevelPreview = useCallback(
+		(entityType: GameEntityType, entityIndex: number) => {
+			const uiView = entityType === 'OBJECT' ? 'OBJECT' : 'DECO';
+			if (!activeUiViews.has(uiView)) {
+				dispatchLevelEditor({
+					type: 'setActiveUiViews',
+					uiViews: new Set(activeUiViews).add(uiView),
+				});
+			}
+
+			const attemptFocus = () => {
+				const ele = entitiesOnLevelPreviewRef.current
+					?.get(entityType)
+					?.get(entityIndex);
+				ele?.scrollIntoView({
+					behavior: 'smooth',
+					block: 'center',
+					inline: 'center',
+				});
+				return ele != null;
+			};
+			if (!attemptFocus()) {
+				// It can take some time to render the new UI view if we just show it now
+				let attempts = 0;
+				const timer = window.setInterval(() => {
+					attempts += 1;
+					if (attemptFocus() || attempts > 10) {
+						window.clearInterval(timer);
+					}
+				}, 100);
+			}
+		},
+		[activeUiViews, dispatchLevelEditor]
+	);
+
 	const levelDraft = useMemo(
 		() => getLevelDraft(level, entityTransforming),
 		[level, entityTransforming]
@@ -668,6 +708,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 						activeUiViews={activeUiViews}
 						addingEntityLabel={addingEntityLabel}
 						currentCoordinates={currentCoordinates}
+						entitiesOnLevelPreviewRef={entitiesOnLevelPreviewRef}
 						entityHover={entityHover}
 						entityTransforming={entityTransforming}
 						editorToolType={editorToolType}
@@ -728,6 +769,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 						onEntityDelete={onEntityDelete}
 						onEntityHover={onEntityHover}
 						onEntityEditProperties={onEntityEditProperties}
+						onFocusEntityOnLevelPreview={onFocusEntityOnLevelPreview}
 						onSidebarPanelExpandToggle={onSidebarPanelExpandToggle}
 					/>
 				</ErrorBoundary>

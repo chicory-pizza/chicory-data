@@ -24,6 +24,10 @@ type Props = Readonly<{
 	level: LevelType;
 	geoPaintBuffer: ReadonlyArray<number> | null;
 	mapMouseMoveCoordinates: [number, number] | null;
+	entitiesOnLevelPreviewRef: React.RefObject<Map<
+		GameEntityType,
+		Map<number, HTMLElement>
+	> | null>;
 	entityHover: EditorEntityHoverType | null;
 	entityTransforming: EditorEntityTransform | null;
 	editorToolType: EditorToolType;
@@ -111,6 +115,7 @@ export default function LevelPreview(props: Props) {
 		>
 			{props.activeUiViews.has('OBJECT') ? (
 				<LevelPreviewObjects
+					entitiesOnLevelPreviewRef={props.entitiesOnLevelPreviewRef}
 					entityTransforming={
 						props.entityTransforming?.type === 'OBJECT'
 							? props.entityTransforming
@@ -151,6 +156,7 @@ export default function LevelPreview(props: Props) {
 
 			{props.activeUiViews.has('DECO') ? (
 				<LevelPreviewDecos
+					entitiesOnLevelPreviewRef={props.entitiesOnLevelPreviewRef}
 					entityTransforming={
 						props.entityTransforming?.type === 'DECO'
 							? props.entityTransforming

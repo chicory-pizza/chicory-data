@@ -29,6 +29,10 @@ type Props = Readonly<{
 		entityType: GameEntityType,
 		entityIndex: number | null
 	) => void;
+	onFocusEntityOnLevelPreview: (
+		entityType: GameEntityType,
+		entityIndex: number
+	) => void;
 	onSidebarPanelExpandToggle: (
 		ev: React.MouseEvent<HTMLElement>,
 		sidebarPanel: SidebarPanel
@@ -60,6 +64,7 @@ function SidebarDecoList(props: Props) {
 			onEntityDelete={props.onEntityDelete}
 			onEntityEditProperties={props.onEntityEditProperties}
 			onEntityHover={props.onEntityHover}
+			onFocusEntityOnLevelPreview={props.onFocusEntityOnLevelPreview}
 			onSidebarPanelExpandToggle={props.onSidebarPanelExpandToggle}
 			renderItemDisplayText={renderItemDisplayText}
 			sidebarPanelType="DECOS"

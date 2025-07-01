@@ -13,10 +13,15 @@ import getGameObjectSimpleName from '../util/getGameObjectSimpleName';
 
 import LevelPreviewCustomDog from './LevelPreviewCustomDog';
 import styles from './LevelPreviewObjects.module.css';
+import setEntitiesOnLevelPreviewRef from './setEntitiesOnLevelPreviewRef';
 import TransformDiv from './TransformDiv';
 
 type Props = Readonly<{
 	level: LevelType;
+	entitiesOnLevelPreviewRef: React.RefObject<Map<
+		GameEntityType,
+		Map<number, HTMLElement>
+	> | null>;
 	entityTransforming: EditorEntityTransform | null;
 	editorToolType: EditorToolType;
 	entityIndexHover: number | null;
@@ -96,6 +101,14 @@ function LevelPreviewObjects(props: Props) {
 					props.onEntityMouseDown(ev, 'OBJECT', index);
 				}}
 				origin={transformOrigin}
+				ref={(node) => {
+					return setEntitiesOnLevelPreviewRef(
+						props.entitiesOnLevelPreviewRef,
+						'OBJECT',
+						index,
+						node
+					);
+				}}
 				renderOffset={isCustomDog ? [0, -110 / 2] : null}
 				rotateFirst={true}
 			>

@@ -2,3 +2,7 @@
 	background: var(--luncheon-green);
 	color: #000;
 }
+
+.highlight :global(.mantine-ActionIcon-icon) {
+	color: #000;
+}

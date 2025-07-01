@@ -7,10 +7,15 @@ import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
 
 import styles from './LevelPreviewDecos.module.css';
+import setEntitiesOnLevelPreviewRef from './setEntitiesOnLevelPreviewRef';
 import TransformDiv from './TransformDiv';
 
 type Props = Readonly<{
 	level: LevelType;
+	entitiesOnLevelPreviewRef: React.RefObject<Map<
+		GameEntityType,
+		Map<number, HTMLElement>
+	> | null>;
 	entityTransforming: EditorEntityTransform | null;
 	editorToolType: EditorToolType;
 	entityIndexHover: number | null;
@@ -92,6 +97,14 @@ function LevelPreviewDecos(props: Props) {
 					props.onEntityMouseDown(ev, 'DECO', index);
 				}}
 				origin={transformOrigin}
+				ref={(node) => {
+					return setEntitiesOnLevelPreviewRef(
+						props.entitiesOnLevelPreviewRef,
+						'DECO',
+						index,
+						node
+					);
+				}}
 				renderOffset={renderOffset}
 			>
 				{image}
