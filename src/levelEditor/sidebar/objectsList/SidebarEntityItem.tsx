@@ -29,7 +29,10 @@ type Props<Entity extends GameObjectType | DecorationType> = Readonly<{
 		},
 		entityType: GameEntityType
 	) => void;
-	onEntityHover: (entityIndex: number | null) => void;
+	onEntityHover: (
+		entityType: GameEntityType,
+		entityIndex: number | null
+	) => void;
 	renderItemDisplayText: (entity: Entity) => React.ReactNode;
 	type: GameEntityType;
 }>;
@@ -60,10 +63,10 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 				styles.item + ' ' + (props.highlighted ? props.highlightClassName : '')
 			}
 			onMouseEnter={() => {
-				props.onEntityHover(props.index);
+				props.onEntityHover(props.type, props.index);
 			}}
 			onMouseLeave={() => {
-				props.onEntityHover(null);
+				props.onEntityHover(props.type, null);
 			}}
 			ref={item}
 		>
@@ -75,7 +78,7 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 						props.onItemToggle(props.index);
 					}}
 					onFocus={() => {
-						props.onEntityHover(props.index);
+						props.onEntityHover(props.type, props.index);
 					}}
 					title={expanded ? 'Collapse details' : 'Expand details'}
 					type="button"

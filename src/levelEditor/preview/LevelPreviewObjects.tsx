@@ -17,11 +17,14 @@ import TransformDiv from './TransformDiv';
 
 type Props = Readonly<{
 	level: LevelType;
-	editorEntityTransforming: EditorEntityTransform | null;
+	entityTransforming: EditorEntityTransform | null;
 	editorToolType: EditorToolType;
 	entityIndexHover: number | null;
 	onEntityClick: (entityType: GameEntityType, entityIndex: number) => void;
-	onEntityHover: (entityIndex: number | null) => void;
+	onEntityHover: (
+		entityType: GameEntityType,
+		entityIndex: number | null
+	) => void;
 	onEntityMouseDown: (
 		ev: React.MouseEvent<HTMLDivElement>,
 		entityType: GameEntityType,
@@ -75,9 +78,7 @@ function LevelPreviewObjects(props: Props) {
 					' ' +
 					(props.editorToolType !== 'SELECT' ? styles.disabled : '') +
 					' ' +
-					(props.editorEntityTransforming?.index === index
-						? styles.grabbing
-						: '')
+					(props.entityTransforming?.index === index ? styles.grabbing : '')
 				}
 				// We don't have unique IDs for objects :(
 				// eslint-disable-next-line @eslint-react/no-array-index-key
@@ -86,10 +87,10 @@ function LevelPreviewObjects(props: Props) {
 					props.onEntityClick('OBJECT', index);
 				}}
 				onMouseEnter={() => {
-					props.onEntityHover(index);
+					props.onEntityHover('OBJECT', index);
 				}}
 				onMouseLeave={() => {
-					props.onEntityHover(null);
+					props.onEntityHover('OBJECT', null);
 				}}
 				onMouseDown={(ev) => {
 					props.onEntityMouseDown(ev, 'OBJECT', index);

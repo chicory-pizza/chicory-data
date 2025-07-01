@@ -2,6 +2,7 @@ import ErrorBoundary from '../../common/ErrorBoundary';
 import GeoPreview from '../common/GeoPreview';
 import {EDITOR_UI_PIXEL_COLORS} from '../GeoConstants';
 import {useLevelEditorContext} from '../LevelEditorContext';
+import type {EditorEntityHoverType} from '../types/EditorEntityHoverType';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
 import type {PlaceableType} from '../types/PlaceableType';
@@ -16,7 +17,6 @@ import SidebarMouseMoveCoordinates from './SidebarMouseMoveCoordinates';
 import SidebarObjectAdder from './SidebarObjectAdder';
 
 type Props = Readonly<{
-	decoIndexHover: number | null;
 	decosListItemsExpanded: Map<number, number>;
 	dispatchDecosListItemsExpanded: (
 		action: ListItemsExpandedReducerAction
@@ -24,14 +24,13 @@ type Props = Readonly<{
 	dispatchObjectsListItemsExpanded: (
 		action: ListItemsExpandedReducerAction
 	) => void;
+	entityHover: EditorEntityHoverType | null;
 	expandedSidebarPanels: Set<SidebarPanel>;
 	level: LevelType;
 	levelPreviewGeoPaintBuffer: ReadonlyArray<number>;
 	mapMouseMoveCoordinates: [number, number] | null;
-	objectIndexHover: number | null;
 	objectsListItemsExpanded: Map<number, number>;
 	onAddingEntityLabel: (entity: PlaceableType) => void;
-	onDecoHover: (decoIndex: number | null) => void;
 	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => void;
 	onEntityEditProperties: (
 		entityIndex: number,
@@ -40,7 +39,10 @@ type Props = Readonly<{
 		},
 		entityType: GameEntityType
 	) => void;
-	onObjectHover: (objectIndex: number | null) => void;
+	onEntityHover: (
+		entityType: GameEntityType,
+		entityIndex: number | null
+	) => void;
 	onSidebarPanelExpandToggle: (
 		ev: React.MouseEvent<HTMLElement>,
 		sidebarPanel: SidebarPanel
@@ -90,12 +92,16 @@ export default function LevelSidebar(props: Props) {
 							props.dispatchObjectsListItemsExpanded
 						}
 						entitiesListItemsExpanded={props.objectsListItemsExpanded}
-						entityIndexHover={props.objectIndexHover}
+						entityIndexHover={
+							props.entityHover?.type === 'OBJECT'
+								? props.entityHover.index
+								: null
+						}
 						expanded={props.expandedSidebarPanels.has('OBJECTS')}
 						levelObjects={props.level.objects ?? []}
 						onEntityDelete={props.onEntityDelete}
 						onEntityEditProperties={props.onEntityEditProperties}
-						onEntityHover={props.onObjectHover}
+						onEntityHover={props.onEntityHover}
 						onSidebarPanelExpandToggle={props.onSidebarPanelExpandToggle}
 					/>
 				</ErrorBoundary>
@@ -106,12 +112,16 @@ export default function LevelSidebar(props: Props) {
 							props.dispatchDecosListItemsExpanded
 						}
 						entitiesListItemsExpanded={props.decosListItemsExpanded}
-						entityIndexHover={props.decoIndexHover}
+						entityIndexHover={
+							props.entityHover?.type === 'DECO'
+								? props.entityHover.index
+								: null
+						}
 						expanded={props.expandedSidebarPanels.has('DECOS')}
 						levelDecos={props.level.decos ?? []}
 						onEntityDelete={props.onEntityDelete}
 						onEntityEditProperties={props.onEntityEditProperties}
-						onEntityHover={props.onDecoHover}
+						onEntityHover={props.onEntityHover}
 						onSidebarPanelExpandToggle={props.onSidebarPanelExpandToggle}
 					/>
 				</ErrorBoundary>

@@ -13,6 +13,7 @@ import LevelPreview from './preview/LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
 import useListItemsExpandedReducer from './sidebar/objectsList/useListItemsExpandedReducer';
 import LevelToolbar from './toolbar/LevelToolbar';
+import type {EditorEntityHoverType} from './types/EditorEntityHoverType';
 import type {EditorEntityTransform} from './types/EditorEntityTransform';
 import type {EditorToolType} from './types/EditorToolType';
 import type {GameEntityType} from './types/GameEntityType';
@@ -25,9 +26,9 @@ import {useWorldDataNonNullable} from './WorldDataContext';
 
 function getLevelDraft(
 	level: LevelType,
-	currentEntityTransforming: EditorEntityTransform | null
+	entityTransforming: EditorEntityTransform | null
 ): LevelType {
-	if (currentEntityTransforming == null) {
+	if (entityTransforming == null) {
 		return level;
 	}
 
@@ -37,26 +38,26 @@ function getLevelDraft(
 	return {
 		...level,
 		objects:
-			currentEntityTransforming.type === 'OBJECT'
+			entityTransforming.type === 'OBJECT'
 				? levelObjects
-						.slice(0, currentEntityTransforming.index)
+						.slice(0, entityTransforming.index)
 						.concat({
-							...levelObjects[currentEntityTransforming.index],
-							x: currentEntityTransforming.x,
-							y: currentEntityTransforming.y,
+							...levelObjects[entityTransforming.index],
+							x: entityTransforming.x,
+							y: entityTransforming.y,
 						})
-						.concat(levelObjects.slice(currentEntityTransforming.index + 1))
+						.concat(levelObjects.slice(entityTransforming.index + 1))
 				: level.objects,
 		decos:
-			currentEntityTransforming.type === 'DECO'
+			entityTransforming.type === 'DECO'
 				? levelDecos
-						.slice(0, currentEntityTransforming.index)
+						.slice(0, entityTransforming.index)
 						.concat({
-							...levelDecos[currentEntityTransforming.index],
-							x: currentEntityTransforming.x,
-							y: currentEntityTransforming.y,
+							...levelDecos[entityTransforming.index],
+							x: entityTransforming.x,
+							y: entityTransforming.y,
 						})
-						.concat(levelDecos.slice(currentEntityTransforming.index + 1))
+						.concat(levelDecos.slice(entityTransforming.index + 1))
 				: level.decos,
 	};
 }
@@ -81,7 +82,10 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 	const [isMouseDown, setIsMouseDown] = useState(false);
 
 	// Entities
-	const [currentEntityTransforming, setCurrentEntityTransforming] =
+	const [entityHover, setEntityHover] = useState<EditorEntityHoverType | null>(
+		null
+	);
+	const [entityTransforming, setEntityTransforming] =
 		useState<EditorEntityTransform | null>(null);
 
 	// Sidebar
@@ -90,8 +94,6 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 	>(() => new Set(['LEVEL_PROPERTIES', 'OBJECTS']));
 	const [addingEntityLabel, setAddingEntityLabel] =
 		useState<PlaceableType | null>(null);
-	const [objectIndexHover, setObjectIndexHover] = useState<number | null>(null);
-	const [decoIndexHover, setDecoIndexHover] = useState<number | null>(null);
 
 	const [
 		sidebarObjectsListItemsExpanded,
@@ -214,12 +216,12 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 	const doEntityTransform = useCallback(
 		(mouseCoords: [number, number]) => {
-			if (currentEntityTransforming == null) {
+			if (entityTransforming == null) {
 				return;
 			}
 
 			const prev = prevMouseCoordinates.current;
-			setCurrentEntityTransforming((transform) => {
+			setEntityTransforming((transform) => {
 				if (transform == null || prev == null) {
 					return transform;
 				}
@@ -233,29 +235,29 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 			prevMouseCoordinates.current = mouseCoords;
 		},
-		[currentEntityTransforming]
+		[entityTransforming]
 	);
 
 	const finishEntityTransformAndSaveDraft = useCallback(() => {
-		if (currentEntityTransforming == null) {
+		if (entityTransforming == null) {
 			return;
 		}
 
 		setIsMouseDown(false);
 		prevMouseCoordinates.current = null;
-		setCurrentEntityTransforming(null);
+		setEntityTransforming(null);
 
 		dispatchWorldData({
 			type: 'editEntityPropertiesOnLevel',
 			coordinates: currentCoordinates,
-			index: currentEntityTransforming.index,
+			index: entityTransforming.index,
 			properties: {
-				x: currentEntityTransforming.x,
-				y: currentEntityTransforming.y,
+				x: entityTransforming.x,
+				y: entityTransforming.y,
 			},
-			entityType: currentEntityTransforming.type,
+			entityType: entityTransforming.type,
 		});
-	}, [currentCoordinates, currentEntityTransforming, dispatchWorldData]);
+	}, [currentCoordinates, entityTransforming, dispatchWorldData]);
 
 	const setEditorToolType = useCallback(
 		(newEditorToolType: EditorToolType) => {
@@ -321,8 +323,8 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				setAddingEntityLabel(null);
 			}
 
-			if (currentEntityTransforming?.type === 'OBJECT') {
-				setCurrentEntityTransforming(null);
+			if (entityTransforming?.type === 'OBJECT') {
+				setEntityTransforming(null);
 			}
 		} else if (
 			previousActiveUiViews.has('DECO') &&
@@ -332,8 +334,8 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				setAddingEntityLabel(null);
 			}
 
-			if (currentEntityTransforming?.type === 'DECO') {
-				setCurrentEntityTransforming(null);
+			if (entityTransforming?.type === 'DECO') {
+				setEntityTransforming(null);
 			}
 		} else if (previousActiveUiViews.has('GEO') && !activeUiViews.has('GEO')) {
 			setEditorToolType('SELECT');
@@ -527,6 +529,21 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		]
 	);
 
+	const onEntityHover = useCallback(
+		(entityType: GameEntityType, entityIndex: number | null) => {
+			if (entityIndex == null) {
+				setEntityHover(null);
+				return;
+			}
+
+			setEntityHover({
+				type: entityType,
+				index: entityIndex,
+			});
+		},
+		[]
+	);
+
 	const onEntityDelete = useCallback(
 		(deletedObjectIndex: number, type: GameEntityType) => {
 			dispatchWorldData({
@@ -591,7 +608,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				}
 
 				setIsMouseDown(true);
-				setCurrentEntityTransforming({
+				setEntityTransforming({
 					type: entityType,
 					index: entityIndex,
 					x: entities[entityIndex].x,
@@ -639,8 +656,8 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 	);
 
 	const levelDraft = useMemo(
-		() => getLevelDraft(level, currentEntityTransforming),
-		[level, currentEntityTransforming]
+		() => getLevelDraft(level, entityTransforming),
+		[level, entityTransforming]
 	);
 
 	return (
@@ -651,21 +668,19 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 						activeUiViews={activeUiViews}
 						addingEntityLabel={addingEntityLabel}
 						currentCoordinates={currentCoordinates}
-						decoIndexHover={decoIndexHover}
-						editorEntityTransforming={currentEntityTransforming}
+						entityHover={entityHover}
+						entityTransforming={entityTransforming}
 						editorToolType={editorToolType}
 						geoPaintBuffer={geoPaintBuffer.current}
 						level={levelDraft}
 						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
-						objectIndexHover={objectIndexHover}
-						onDecoHover={setDecoIndexHover}
 						onEntityClick={onEntityClick}
+						onEntityHover={onEntityHover}
 						onEntityMouseDown={onEntityMouseDown}
 						onMapMouseClick={onMapMouseClick}
 						onMapMouseDown={onMapMouseDown}
 						onMapMouseLeave={onMapMouseLeave}
 						onMapMouseMove={onMapMouseMove}
-						onObjectHover={setObjectIndexHover}
 					/>
 				</ErrorBoundary>
 			</div>
@@ -696,7 +711,6 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			{activeUiViews.has('SIDEBAR') ? (
 				<ErrorBoundary>
 					<LevelSidebar
-						decoIndexHover={decoIndexHover}
 						decosListItemsExpanded={sidebarDecosListItemsExpanded}
 						dispatchDecosListItemsExpanded={
 							dispatchSidebarDecosListItemsExpanded
@@ -704,17 +718,16 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 						dispatchObjectsListItemsExpanded={
 							dispatchSidebarObjectsListItemsExpanded
 						}
+						entityHover={entityHover}
 						expandedSidebarPanels={expandedSidebarPanels}
 						level={levelDraft}
 						levelPreviewGeoPaintBuffer={geoPaintBuffer.current}
 						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
-						objectIndexHover={objectIndexHover}
 						objectsListItemsExpanded={sidebarObjectsListItemsExpanded}
 						onAddingEntityLabel={setAddingEntityLabel}
-						onDecoHover={setDecoIndexHover}
 						onEntityDelete={onEntityDelete}
+						onEntityHover={onEntityHover}
 						onEntityEditProperties={onEntityEditProperties}
-						onObjectHover={setObjectIndexHover}
 						onSidebarPanelExpandToggle={onSidebarPanelExpandToggle}
 					/>
 				</ErrorBoundary>

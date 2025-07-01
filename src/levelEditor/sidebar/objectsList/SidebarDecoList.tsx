@@ -25,7 +25,10 @@ type Props = Readonly<{
 		},
 		entityType: GameEntityType
 	) => void;
-	onEntityHover: (entityIndex: number | null) => void;
+	onEntityHover: (
+		entityType: GameEntityType,
+		entityIndex: number | null
+	) => void;
 	onSidebarPanelExpandToggle: (
 		ev: React.MouseEvent<HTMLElement>,
 		sidebarPanel: SidebarPanel
