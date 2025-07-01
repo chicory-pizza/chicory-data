@@ -5,6 +5,7 @@ import {
 	IDLE_ORIGIN_X,
 	IDLE_ORIGIN_Y,
 } from '../../dog/drawDogToCanvas';
+import type {EditorEntityTransform} from '../types/EditorEntityTransform';
 import type {EditorToolType} from '../types/EditorToolType';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelType} from '../types/LevelType';
@@ -16,17 +17,15 @@ import TransformDiv from './TransformDiv';
 
 type Props = Readonly<{
 	level: LevelType;
+	editorEntityTransforming: EditorEntityTransform | null;
 	editorToolType: EditorToolType;
 	entityIndexHover: number | null;
-	mapMouseMoveCoordinates: [number, number] | null;
 	onEntityClick: (entityIndex: number, entityType: GameEntityType) => void;
 	onEntityHover: (entityIndex: number | null) => void;
-	onEntityTransformUpdate: (
-		index: number,
-		properties: {
-			[key: string]: string | number | null;
-		},
-		type: GameEntityType
+	onEntityMouseDown: (
+		ev: React.MouseEvent<HTMLDivElement>,
+		entityType: GameEntityType,
+		entityIndex: number
 	) => void;
 }>;
 
@@ -76,10 +75,10 @@ function LevelPreviewObjects(props: Props) {
 					' ' +
 					(props.editorToolType !== 'SELECT' ? styles.disabled : '')
 				}
+				isEditing={props.editorEntityTransforming?.index === index}
 				// We don't have unique IDs for objects :(
 				// eslint-disable-next-line @eslint-react/no-array-index-key
 				key={index}
-				mapMouseMoveCoordinates={props.mapMouseMoveCoordinates}
 				onClick={() => {
 					props.onEntityClick(index, 'OBJECT');
 				}}
@@ -89,8 +88,8 @@ function LevelPreviewObjects(props: Props) {
 				onMouseLeave={() => {
 					props.onEntityHover(null);
 				}}
-				onTransformUpdate={(t) => {
-					props.onEntityTransformUpdate(index, {x: t.x, y: t.y}, 'OBJECT');
+				onMouseDown={(ev) => {
+					props.onEntityMouseDown(ev, 'OBJECT', index);
 				}}
 				origin={transformOrigin}
 				renderOffset={isCustomDog ? [0, -110 / 2] : null}

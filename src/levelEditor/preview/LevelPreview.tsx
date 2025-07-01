@@ -1,6 +1,7 @@
 import GeoPreview from '../common/GeoPreview';
 import {EDITOR_UI_PIXEL_COLORS, GEO_WIDTH, SCREEN_WIDTH} from '../GeoConstants';
 import spriteData from '../spriteData.json';
+import type {EditorEntityTransform} from '../types/EditorEntityTransform';
 import type {EditorToolType} from '../types/EditorToolType';
 import type {GameEntityType} from '../types/GameEntityType';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
@@ -23,20 +24,19 @@ type Props = Readonly<{
 	geoPaintBuffer: ReadonlyArray<number> | null;
 	mapMouseMoveCoordinates: [number, number] | null;
 	objectIndexHover: number | null;
+	editorEntityTransforming: EditorEntityTransform | null;
 	editorToolType: EditorToolType;
 	onMapMouseDown: (ev: React.MouseEvent<HTMLDivElement>) => void;
 	onMapMouseClick: (ev: React.MouseEvent<HTMLDivElement>) => void;
 	onMapMouseLeave: (ev: React.MouseEvent<HTMLDivElement>) => void;
 	onMapMouseMove: (ev: React.MouseEvent<HTMLDivElement>) => void;
 	onEntityClick: (entityIndex: number, entityType: GameEntityType) => void;
-	onObjectHover: (objectIndex: number | null) => void;
-	onEntityTransformUpdate: (
-		index: number,
-		properties: {
-			[key: string]: string | number | null;
-		},
-		type: GameEntityType
+	onEntityMouseDown: (
+		ev: React.MouseEvent<HTMLDivElement>,
+		entityType: GameEntityType,
+		entityIndex: number
 	) => void;
+	onObjectHover: (objectIndex: number | null) => void;
 	decoIndexHover: number | null;
 	onDecoHover: (decoIndex: number | null) => void;
 }>;
@@ -109,15 +109,17 @@ export default function LevelPreview(props: Props) {
 		>
 			{props.activeUiViews.has('OBJECT') ? (
 				<LevelPreviewObjects
+					editorEntityTransforming={
+						props.editorEntityTransforming?.type === 'OBJECT'
+							? props.editorEntityTransforming
+							: null
+					}
 					editorToolType={props.editorToolType}
 					entityIndexHover={props.objectIndexHover}
 					level={props.level}
-					mapMouseMoveCoordinates={
-						props.editorToolType === 'SELECT' ? mapMouseMoveCoordinates : null
-					}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onObjectHover}
-					onEntityTransformUpdate={props.onEntityTransformUpdate}
+					onEntityMouseDown={props.onEntityMouseDown}
 				/>
 			) : null}
 
@@ -143,15 +145,17 @@ export default function LevelPreview(props: Props) {
 
 			{props.activeUiViews.has('DECO') ? (
 				<LevelPreviewDecos
+					editorEntityTransforming={
+						props.editorEntityTransforming?.type === 'DECO'
+							? props.editorEntityTransforming
+							: null
+					}
 					editorToolType={props.editorToolType}
 					entityIndexHover={props.decoIndexHover}
 					level={props.level}
-					mapMouseMoveCoordinates={
-						props.editorToolType === 'SELECT' ? mapMouseMoveCoordinates : null
-					}
 					onEntityClick={props.onEntityClick}
 					onEntityHover={props.onDecoHover}
-					onEntityTransformUpdate={props.onEntityTransformUpdate}
+					onEntityMouseDown={props.onEntityMouseDown}
 				/>
 			) : null}
 

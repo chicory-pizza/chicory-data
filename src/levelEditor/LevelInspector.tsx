@@ -1,6 +1,6 @@
 import {encode} from 'base64-arraybuffer';
 import {deflate} from 'pako';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {usePrevious} from 'react-use';
 
 import ErrorBoundary from '../common/ErrorBoundary';
@@ -13,6 +13,7 @@ import LevelPreview from './preview/LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
 import useListItemsExpandedReducer from './sidebar/objectsList/useListItemsExpandedReducer';
 import LevelToolbar from './toolbar/LevelToolbar';
+import type {EditorEntityTransform} from './types/EditorEntityTransform';
 import type {EditorToolType} from './types/EditorToolType';
 import type {GameEntityType} from './types/GameEntityType';
 import type {LevelType} from './types/LevelType';
@@ -21,6 +22,44 @@ import type {SidebarPanel} from './types/SidebarPanel';
 import decodeGeoString from './util/decodeGeoString';
 import {paintBresenham, floodFill, pickColor} from './util/paintGeo';
 import {useWorldDataNonNullable} from './WorldDataContext';
+
+function getLevelDraft(
+	level: LevelType,
+	currentEntityTransforming: EditorEntityTransform | null
+): LevelType {
+	if (currentEntityTransforming == null) {
+		return level;
+	}
+
+	const levelObjects = level.objects ?? [];
+	const levelDecos = level.decos ?? [];
+
+	return {
+		...level,
+		objects:
+			currentEntityTransforming.type === 'OBJECT'
+				? levelObjects
+						.slice(0, currentEntityTransforming.index)
+						.concat({
+							...levelObjects[currentEntityTransforming.index],
+							x: currentEntityTransforming.x,
+							y: currentEntityTransforming.y,
+						})
+						.concat(levelObjects.slice(currentEntityTransforming.index + 1))
+				: level.objects,
+		decos:
+			currentEntityTransforming.type === 'DECO'
+				? levelDecos
+						.slice(0, currentEntityTransforming.index)
+						.concat({
+							...levelDecos[currentEntityTransforming.index],
+							x: currentEntityTransforming.x,
+							y: currentEntityTransforming.y,
+						})
+						.concat(levelDecos.slice(currentEntityTransforming.index + 1))
+				: level.decos,
+	};
+}
 
 type Props = Readonly<{
 	currentCoordinates: [number, number, number];
@@ -40,6 +79,10 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 	const [paintColor, setPaintColor] = useState<number>(0);
 	const [brushSize, setBrushSizeRaw] = useState<number>(1);
 	const [isMouseDown, setIsMouseDown] = useState(false);
+
+	// Entities
+	const [currentEntityTransforming, setCurrentEntityTransforming] =
+		useState<EditorEntityTransform | null>(null);
 
 	// Sidebar
 	const [expandedSidebarPanels, setExpandedSidebarPanels] = useState<
@@ -98,7 +141,6 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 	const stopBrushAndSaveDraft = useCallback(() => {
 		setIsMouseDown(false);
 		prevMouseCoordinates.current = null;
-		window.removeEventListener('mouseup', stopBrushAndSaveDraft);
 
 		const newGeo = decodeGeoString(level.geo);
 		geoPaintBuffer.current.forEach((pixel, index) => {
@@ -170,10 +212,50 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		[level.geo]
 	);
 
-	const stopEyedropper = useCallback(() => {
+	const doEntityTransform = useCallback(
+		(mouseCoords: [number, number]) => {
+			if (currentEntityTransforming == null) {
+				return;
+			}
+
+			const prev = prevMouseCoordinates.current;
+			setCurrentEntityTransforming((transform) => {
+				if (transform == null || prev == null) {
+					return transform;
+				}
+
+				return {
+					...transform,
+					x: transform.x + (mouseCoords[0] - prev[0]),
+					y: transform.y + (mouseCoords[1] - prev[1]),
+				};
+			});
+
+			prevMouseCoordinates.current = mouseCoords;
+		},
+		[currentEntityTransforming]
+	);
+
+	const finishEntityTransformAndSaveDraft = useCallback(() => {
+		if (currentEntityTransforming == null) {
+			return;
+		}
+
 		setIsMouseDown(false);
-		window.removeEventListener('mouseup', stopEyedropper);
-	}, []);
+		prevMouseCoordinates.current = null;
+		setCurrentEntityTransforming(null);
+
+		dispatchWorldData({
+			type: 'editEntityPropertiesOnLevel',
+			coordinates: currentCoordinates,
+			index: currentEntityTransforming.index,
+			properties: {
+				x: currentEntityTransforming.x,
+				y: currentEntityTransforming.y,
+			},
+			entityType: currentEntityTransforming.type,
+		});
+	}, [currentCoordinates, currentEntityTransforming, dispatchWorldData]);
 
 	const setEditorToolType = useCallback(
 		(newEditorToolType: EditorToolType) => {
@@ -186,6 +268,10 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			}
 
 			switch (editorToolType) {
+				case 'SELECT':
+					finishEntityTransformAndSaveDraft();
+					break;
+
 				case 'BRUSH':
 					// Stop painting if we're switching away from brush tool
 					if (isMouseDown) {
@@ -196,25 +282,20 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 					}
 					break;
 
-				case 'EYEDROPPER':
-					if (isMouseDown) {
-						stopEyedropper();
-					}
-					break;
-
 				default:
 					break;
 			}
 
+			setIsMouseDown(false);
 			setEditorToolTypeRaw(newEditorToolType);
 		},
 		[
 			brushSize,
 			doBrushPreview,
 			editorToolType,
+			finishEntityTransformAndSaveDraft,
 			isMouseDown,
 			stopBrushAndSaveDraft,
-			stopEyedropper,
 		]
 	);
 
@@ -235,18 +316,25 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		previousActiveUiViews != null &&
 		previousActiveUiViews !== activeUiViews
 	) {
-		if (
-			previousActiveUiViews.has('OBJECT') &&
-			!activeUiViews.has('OBJECT') &&
-			addingEntityLabel?.type === 'OBJECT'
-		) {
-			setAddingEntityLabel(null);
+		if (previousActiveUiViews.has('OBJECT') && !activeUiViews.has('OBJECT')) {
+			if (addingEntityLabel?.type === 'OBJECT') {
+				setAddingEntityLabel(null);
+			}
+
+			if (currentEntityTransforming?.type === 'OBJECT') {
+				setCurrentEntityTransforming(null);
+			}
 		} else if (
 			previousActiveUiViews.has('DECO') &&
-			!activeUiViews.has('DECO') &&
-			addingEntityLabel?.type === 'DECO'
+			!activeUiViews.has('DECO')
 		) {
-			setAddingEntityLabel(null);
+			if (addingEntityLabel?.type === 'DECO') {
+				setAddingEntityLabel(null);
+			}
+
+			if (currentEntityTransforming?.type === 'DECO') {
+				setCurrentEntityTransforming(null);
+			}
 		} else if (previousActiveUiViews.has('GEO') && !activeUiViews.has('GEO')) {
 			setEditorToolType('SELECT');
 		}
@@ -264,8 +352,6 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 						setIsMouseDown(true);
 						paint(mapMouseMoveCoordinates);
 
-						window.addEventListener('mouseup', stopBrushAndSaveDraft);
-
 						ev.preventDefault();
 						break;
 
@@ -276,7 +362,6 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 					case 'EYEDROPPER':
 						setIsMouseDown(true);
 						doEyedropper(mapMouseMoveCoordinates);
-						window.addEventListener('mouseup', stopEyedropper);
 						break;
 
 					default:
@@ -289,12 +374,44 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			addingEntityLabel,
 			editorToolType,
 			paint,
-			stopBrushAndSaveDraft,
 			doFloodFill,
 			doEyedropper,
-			stopEyedropper,
 		]
 	);
+
+	const onMouseUp = useCallback(() => {
+		if (!isMouseDown) {
+			return;
+		}
+
+		switch (editorToolType) {
+			case 'SELECT':
+				finishEntityTransformAndSaveDraft();
+				break;
+
+			case 'BRUSH':
+				stopBrushAndSaveDraft();
+				break;
+
+			default:
+				break;
+		}
+
+		setIsMouseDown(false);
+	}, [
+		editorToolType,
+		finishEntityTransformAndSaveDraft,
+		isMouseDown,
+		stopBrushAndSaveDraft,
+	]);
+
+	useEffect(() => {
+		window.addEventListener('mouseup', onMouseUp);
+
+		return () => {
+			window.removeEventListener('mouseup', onMouseUp);
+		};
+	}, [onMouseUp]);
 
 	const onMapMouseLeave = useCallback(
 		(ev: React.MouseEvent<HTMLDivElement>) => {
@@ -314,10 +431,11 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 					// Clear brush mouseover preview
 					geoPaintBuffer.current = [];
 				}
+
+				prevMouseCoordinates.current = null;
 			}
 
 			setMapMouseMoveCoordinates(null);
-			prevMouseCoordinates.current = null;
 		},
 		[editorToolType, isMouseDown, paint]
 	);
@@ -334,6 +452,12 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			setMapMouseMoveCoordinates(mouseMapCoords);
 
 			switch (editorToolType) {
+				case 'SELECT':
+					if (isMouseDown) {
+						doEntityTransform(mouseMapCoords);
+					}
+					break;
+
 				case 'BRUSH':
 					if (isMouseDown) {
 						paint(mouseMapCoords);
@@ -355,6 +479,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		[
 			brushSize,
 			doBrushPreview,
+			doEntityTransform,
 			doEyedropper,
 			editorToolType,
 			isMouseDown,
@@ -363,12 +488,12 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 	);
 
 	const onEntityClick = useCallback(
-		(index: number, type: GameEntityType) => {
-			switch (type) {
+		(entityIndex: number, entityType: GameEntityType) => {
+			switch (entityType) {
 				case 'OBJECT':
 					dispatchSidebarObjectsListItemsExpanded({
 						type: 'expand',
-						indexes: [index],
+						indexes: [entityIndex],
 					});
 
 					setExpandedSidebarPanels((expandedSidebarPanels) => {
@@ -383,7 +508,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				case 'DECO':
 					dispatchSidebarDecosListItemsExpanded({
 						type: 'expand',
-						indexes: [index],
+						indexes: [entityIndex],
 					});
 
 					setExpandedSidebarPanels((expandedSidebarPanels) => {
@@ -435,6 +560,45 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		]
 	);
 
+	const onEntityMouseDown = useCallback(
+		(
+			ev: React.MouseEvent<HTMLDivElement>,
+			type: GameEntityType,
+			index: number
+		) => {
+			if (editorToolType !== 'SELECT') {
+				return;
+			}
+
+			if (ev.buttons === 1) {
+				ev.preventDefault();
+
+				let entities = null;
+				switch (type) {
+					case 'OBJECT':
+						entities = level.objects;
+						break;
+
+					case 'DECO':
+						entities = level.decos;
+						break;
+				}
+				if (entities == null) {
+					return;
+				}
+
+				setIsMouseDown(true);
+				setCurrentEntityTransforming({
+					type,
+					index,
+					x: entities[index].x,
+					y: entities[index].y,
+				});
+			}
+		},
+		[editorToolType, level.decos, level.objects]
+	);
+
 	const onEntityEditProperties = useCallback(
 		(
 			index: number,
@@ -471,6 +635,11 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		[]
 	);
 
+	const levelDraft = useMemo(
+		() => getLevelDraft(level, currentEntityTransforming),
+		[level, currentEntityTransforming]
+	);
+
 	return (
 		<div className={styles.root}>
 			<div className={styles.preview}>
@@ -480,14 +649,15 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 						addingEntityLabel={addingEntityLabel}
 						currentCoordinates={currentCoordinates}
 						decoIndexHover={decoIndexHover}
+						editorEntityTransforming={currentEntityTransforming}
 						editorToolType={editorToolType}
 						geoPaintBuffer={geoPaintBuffer.current}
-						level={level}
+						level={levelDraft}
 						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 						objectIndexHover={objectIndexHover}
 						onDecoHover={setDecoIndexHover}
 						onEntityClick={onEntityClick}
-						onEntityTransformUpdate={onEntityEditProperties}
+						onEntityMouseDown={onEntityMouseDown}
 						onMapMouseClick={onMapMouseClick}
 						onMapMouseDown={onMapMouseDown}
 						onMapMouseLeave={onMapMouseLeave}
