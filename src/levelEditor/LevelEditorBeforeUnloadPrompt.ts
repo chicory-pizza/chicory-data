@@ -1,7 +1,6 @@
-import {useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 
 import {usePrompt} from '../util/usePrompt';
-import type {BlockerFunction} from '../util/usePrompt';
 
 import {useWorldDataNullable} from './WorldDataContext';
 
@@ -37,13 +36,10 @@ export default function LevelEditorBeforeUnloadPrompt(props: Props): null {
 	const [hasDirtyChanges, setHasDirtyChanges] = useState(false);
 	const prevSaveTime = useRef(props.lastSaveTime);
 
-	useEffect(() => {
-		// Ignore first load
-		if (prevWorldDataRef.current == null) {
-			prevWorldDataRef.current = worldData;
-			return;
-		}
-
+	// Ignore first load
+	if (prevWorldDataRef.current == null) {
+		prevWorldDataRef.current = worldData;
+	} else {
 		if (worldData !== prevWorldDataRef.current) {
 			prevWorldDataRef.current = worldData;
 
@@ -55,20 +51,19 @@ export default function LevelEditorBeforeUnloadPrompt(props: Props): null {
 			} else {
 				setHasDirtyChanges(false);
 			}
-			return;
-		}
+		} else {
+			// Just saved, so we can assume there are no dirty changes
+			if (props.lastSaveTime !== prevSaveTime.current) {
+				prevSaveTime.current = props.lastSaveTime;
 
-		// Just saved, so we can assume there are no dirty changes
-		if (props.lastSaveTime !== prevSaveTime.current) {
-			prevSaveTime.current = props.lastSaveTime;
-
-			setHasDirtyChanges(false);
+				setHasDirtyChanges(false);
+			}
 		}
-	}, [hasDirtyChanges, props.lastSaveTime, worldData]);
+	}
 
 	// Don't memo with useCallback, intentionally recreating the function every time
 	// to ensure the block listener is re-added each time
-	usePrompt(MESSAGE, hasDirtyChanges, (args: BlockerFunction) => {
+	usePrompt(MESSAGE, hasDirtyChanges, (args) => {
 		return !args.nextLocation.pathname.startsWith('/level/');
 	});
 

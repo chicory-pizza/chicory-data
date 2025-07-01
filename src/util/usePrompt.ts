@@ -1,21 +1,18 @@
-import type {Action, Location} from 'history';
 import {useCallback} from 'react';
-import {unstable_usePrompt, useBeforeUnload} from 'react-router-dom';
-
-export type BlockerFunction = {
-	currentLocation: Location;
-	historyAction: Action;
-	nextLocation: Location;
-};
+import {
+	unstable_usePrompt,
+	useBeforeUnload,
+	type BlockerFunction,
+} from 'react-router-dom';
 
 export function usePrompt(
 	message: string,
 	when: boolean,
-	condition: (args: BlockerFunction) => boolean
+	condition: (args: Parameters<BlockerFunction>[0]) => boolean
 ) {
 	unstable_usePrompt({
 		message,
-		when: (args: BlockerFunction) => {
+		when: (args) => {
 			return when && condition(args);
 		},
 	});
