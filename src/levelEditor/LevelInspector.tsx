@@ -563,8 +563,8 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 	const onEntityMouseDown = useCallback(
 		(
 			ev: React.MouseEvent<HTMLDivElement>,
-			type: GameEntityType,
-			index: number
+			entityType: GameEntityType,
+			entityIndex: number
 		) => {
 			if (editorToolType !== 'SELECT') {
 				return;
@@ -573,8 +573,11 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			if (ev.buttons === 1) {
 				ev.preventDefault();
 
+				// todo probably redundant since mouse down is essentially a click...
+				onEntityClick(entityType, entityIndex);
+
 				let entities = null;
-				switch (type) {
+				switch (entityType) {
 					case 'OBJECT':
 						entities = level.objects;
 						break;
@@ -589,14 +592,14 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 				setIsMouseDown(true);
 				setCurrentEntityTransforming({
-					type,
-					index,
-					x: entities[index].x,
-					y: entities[index].y,
+					type: entityType,
+					index: entityIndex,
+					x: entities[entityIndex].x,
+					y: entities[entityIndex].y,
 				});
 			}
 		},
-		[editorToolType, level.decos, level.objects]
+		[editorToolType, level.decos, level.objects, onEntityClick]
 	);
 
 	const onEntityEditProperties = useCallback(
@@ -702,7 +705,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 							dispatchSidebarObjectsListItemsExpanded
 						}
 						expandedSidebarPanels={expandedSidebarPanels}
-						level={level}
+						level={levelDraft}
 						levelPreviewGeoPaintBuffer={geoPaintBuffer.current}
 						mapMouseMoveCoordinates={mapMouseMoveCoordinates}
 						objectIndexHover={objectIndexHover}
