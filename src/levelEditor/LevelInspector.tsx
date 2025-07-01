@@ -709,7 +709,14 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 						addingEntityLabel={addingEntityLabel}
 						currentCoordinates={currentCoordinates}
 						entitiesOnLevelPreviewRef={entitiesOnLevelPreviewRef}
-						entityHover={entityHover}
+						entityHover={
+							entityTransforming == null
+								? entityHover
+								: {
+										type: entityTransforming.type,
+										index: entityTransforming.index,
+									}
+						}
 						entityTransforming={entityTransforming}
 						editorToolType={editorToolType}
 						geoPaintBuffer={geoPaintBuffer.current}
@@ -759,7 +766,14 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 						dispatchObjectsListItemsExpanded={
 							dispatchSidebarObjectsListItemsExpanded
 						}
-						entityHover={entityHover}
+						entityHover={
+							entityTransforming == null
+								? entityHover
+								: {
+										type: entityTransforming.type,
+										index: entityTransforming.index,
+									}
+						}
 						expandedSidebarPanels={expandedSidebarPanels}
 						level={levelDraft}
 						levelPreviewGeoPaintBuffer={geoPaintBuffer.current}
