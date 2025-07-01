@@ -488,7 +488,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 	);
 
 	const onEntityClick = useCallback(
-		(entityIndex: number, entityType: GameEntityType) => {
+		(entityType: GameEntityType, entityIndex: number) => {
 			switch (entityType) {
 				case 'OBJECT':
 					dispatchSidebarObjectsListItemsExpanded({

@@ -30,7 +30,7 @@ type Props = Readonly<{
 	onMapMouseClick: (ev: React.MouseEvent<HTMLDivElement>) => void;
 	onMapMouseLeave: (ev: React.MouseEvent<HTMLDivElement>) => void;
 	onMapMouseMove: (ev: React.MouseEvent<HTMLDivElement>) => void;
-	onEntityClick: (entityIndex: number, entityType: GameEntityType) => void;
+	onEntityClick: (entityType: GameEntityType, entityIndex: number) => void;
 	onEntityMouseDown: (
 		ev: React.MouseEvent<HTMLDivElement>,
 		entityType: GameEntityType,

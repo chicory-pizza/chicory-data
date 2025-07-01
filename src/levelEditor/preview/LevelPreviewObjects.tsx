@@ -20,7 +20,7 @@ type Props = Readonly<{
 	editorEntityTransforming: EditorEntityTransform | null;
 	editorToolType: EditorToolType;
 	entityIndexHover: number | null;
-	onEntityClick: (entityIndex: number, entityType: GameEntityType) => void;
+	onEntityClick: (entityType: GameEntityType, entityIndex: number) => void;
 	onEntityHover: (entityIndex: number | null) => void;
 	onEntityMouseDown: (
 		ev: React.MouseEvent<HTMLDivElement>,
@@ -80,7 +80,7 @@ function LevelPreviewObjects(props: Props) {
 				// eslint-disable-next-line @eslint-react/no-array-index-key
 				key={index}
 				onClick={() => {
-					props.onEntityClick(index, 'OBJECT');
+					props.onEntityClick('OBJECT', index);
 				}}
 				onMouseEnter={() => {
 					props.onEntityHover(index);
