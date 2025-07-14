@@ -3,6 +3,6 @@
 	color: #000;
 }
 
-.highlight :global(.mantine-ActionIcon-icon) {
-	color: #000;
+.highlight :global(.mantine-ActionIcon-root) {
+	color: unset;
 }

@@ -1,3 +1,7 @@
 .highlight {
 	background: var(--luncheon-purple);
 }
+
+.highlight :global(.mantine-ActionIcon-root) {
+	color: unset;
+}
