@@ -100,7 +100,7 @@ input[type='range'] {
 }
 
 input[type='text'],
-input[type='search'],
+input[type='search']:not(.mantine-Input-input),
 input[type='number'],
 input[type='color'],
 button,
@@ -122,8 +122,8 @@ input[type='color'] {
 
 input[type='text']:hover,
 input[type='text']:focus,
-input[type='search']:hover,
-input[type='search']:focus,
+input[type='search']:not(.mantine-Input-input):hover,
+input[type='search']:not(.mantine-Input-input):focus,
 input[type='number']:hover,
 input[type='number']:focus,
 input[type='color']:hover,

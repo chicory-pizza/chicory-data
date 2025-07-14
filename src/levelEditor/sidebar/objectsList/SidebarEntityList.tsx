@@ -1,4 +1,4 @@
-import {Button, Group, Stack} from '@mantine/core';
+import {Button, Group, Stack, TextInput} from '@mantine/core';
 import {useCallback, useState} from 'react';
 
 import type {DecorationType} from '../../types/DecorationType';
@@ -126,11 +126,13 @@ export default function SidebarEntityList<
 
 			<Stack gap="xs">
 				{unfilteredEntitiesLength > 0 ? (
-					<div className={styles.filterWrap}>
-						<span className={styles.filterLabel}>Filter:</span>
-
-						<input
-							className={styles.filter}
+					<Group grow mt="xs">
+						<TextInput
+							classNames={{
+								root: styles.filterInputRoot,
+								wrapper: styles.filterInputWrapper,
+							}}
+							label="Filter:"
 							onChange={(newFilter) => {
 								setFilter(newFilter.currentTarget.value);
 							}}
@@ -138,12 +140,12 @@ export default function SidebarEntityList<
 							type="search"
 							value={filter}
 						/>
-					</div>
+					</Group>
 				) : null}
 
 				{props.infoBeforeListComponent ?? null}
 
-				{unfilteredEntitiesLength > 0 ? (
+				{filteredEntitiesCount > 0 ? (
 					<ul className={styles.list}>
 						{filteredEntities.map((ent, index) => {
 							if (ent == null) {
