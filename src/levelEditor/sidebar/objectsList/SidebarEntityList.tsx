@@ -1,4 +1,4 @@
-import {Button} from '@mantine/core';
+import {Button, Group, Stack} from '@mantine/core';
 import {useCallback, useState} from 'react';
 
 import type {DecorationType} from '../../types/DecorationType';
@@ -24,6 +24,7 @@ type Props<Entity extends GameObjectType | DecorationType> = Readonly<{
 	>;
 	expanded: boolean;
 	getEntityName: (entity: Entity, filter: string) => string;
+	infoBeforeListComponent?: React.ReactNode;
 	name: string;
 	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => void;
 	onEntityEditProperties: (
@@ -123,104 +124,114 @@ export default function SidebarEntityList<
 					: 'No ' + props.name.toLowerCase()}
 			</summary>
 
-			{unfilteredEntitiesLength > 0 ? (
-				<div className={styles.filterWrap}>
-					<span className={styles.filterLabel}>Filter:</span>
+			<Stack gap="xs">
+				{unfilteredEntitiesLength > 0 ? (
+					<div className={styles.filterWrap}>
+						<span className={styles.filterLabel}>Filter:</span>
 
-					<input
-						className={styles.filter}
-						onChange={(newFilter) => {
-							setFilter(newFilter.currentTarget.value);
-						}}
-						spellCheck={false}
-						type="search"
-						value={filter}
-					/>
-				</div>
-			) : null}
-
-			<ul className={styles.list}>
-				{filteredEntities.map((ent, index) => {
-					if (ent == null) {
-						return null;
-					}
-
-					return (
-						<SidebarEntityItem
-							entity={ent}
-							entityPropertiesComponent={props.entityPropertiesComponent}
-							expandedTime={expandedUnfilteredEntityIndexes.get(index)}
-							getEntityName={props.getEntityName}
-							highlightClassName={props.entityHighlightClassName}
-							highlighted={props.entityIndexHover === index}
-							index={index}
-							// We don't have unique IDs for entities :(
-							// eslint-disable-next-line @eslint-react/no-array-index-key
-							key={index}
-							onEntityDelete={props.onEntityDelete}
-							onEntityEditProperties={props.onEntityEditProperties}
-							onEntityHover={props.onEntityHover}
-							onFocusEntityOnLevelPreview={props.onFocusEntityOnLevelPreview}
-							onItemToggle={onItemToggle}
-							renderItemDisplayText={props.renderItemDisplayText}
-							type={props.type}
+						<input
+							className={styles.filter}
+							onChange={(newFilter) => {
+								setFilter(newFilter.currentTarget.value);
+							}}
+							spellCheck={false}
+							type="search"
+							value={filter}
 						/>
-					);
-				})}
-			</ul>
-			<div className={styles.actions}>
-				<Button
-					className={styles.rightPadding}
-					disabled={
-						filteredEntitiesCount === 0 ||
-						expandedFilteredEntityIndexes.length === filteredEntitiesCount
-					}
-					onClick={() => {
-						dispatchEntitiesListItemsExpanded({
-							type: 'expand',
-							indexes: filteredEntities.reduce<Array<number>>(
-								(previous, currentValue, entityIndex) => {
-									if (currentValue != null) {
-										previous.push(entityIndex);
+					</div>
+				) : null}
+
+				{props.infoBeforeListComponent ?? null}
+
+				{unfilteredEntitiesLength > 0 ? (
+					<ul className={styles.list}>
+						{filteredEntities.map((ent, index) => {
+							if (ent == null) {
+								return null;
+							}
+
+							return (
+								<SidebarEntityItem
+									entity={ent}
+									entityPropertiesComponent={props.entityPropertiesComponent}
+									expandedTime={expandedUnfilteredEntityIndexes.get(index)}
+									getEntityName={props.getEntityName}
+									highlightClassName={props.entityHighlightClassName}
+									highlighted={props.entityIndexHover === index}
+									index={index}
+									// We don't have unique IDs for entities :(
+									// eslint-disable-next-line @eslint-react/no-array-index-key
+									key={index}
+									onEntityDelete={props.onEntityDelete}
+									onEntityEditProperties={props.onEntityEditProperties}
+									onEntityHover={props.onEntityHover}
+									onFocusEntityOnLevelPreview={
+										props.onFocusEntityOnLevelPreview
 									}
+									onItemToggle={onItemToggle}
+									renderItemDisplayText={props.renderItemDisplayText}
+									type={props.type}
+								/>
+							);
+						})}
+					</ul>
+				) : null}
 
-									return previous;
-								},
-								[]
-							),
-						});
-					}}
-					variant="default"
-				>
-					Expand all
-				</Button>
+				{unfilteredEntitiesLength > 0 ? (
+					<Group gap="xs">
+						<Button
+							disabled={
+								filteredEntitiesCount === 0 ||
+								expandedFilteredEntityIndexes.length === filteredEntitiesCount
+							}
+							onClick={() => {
+								dispatchEntitiesListItemsExpanded({
+									type: 'expand',
+									indexes: filteredEntities.reduce<Array<number>>(
+										(previous, currentValue, entityIndex) => {
+											if (currentValue != null) {
+												previous.push(entityIndex);
+											}
 
-				<Button
-					disabled={
-						filteredEntitiesCount === 0 ||
-						expandedFilteredEntityIndexes.length === 0
-					}
-					onClick={() => {
-						// Collapse all entities that are currently visible
-						dispatchEntitiesListItemsExpanded({
-							type: 'collapse',
-							indexes: filteredEntities.reduce<Array<number>>(
-								(previous, currentValue, entityIndex) => {
-									if (currentValue != null) {
-										previous.push(entityIndex);
-									}
+											return previous;
+										},
+										[]
+									),
+								});
+							}}
+							variant="default"
+						>
+							Expand all
+						</Button>
 
-									return previous;
-								},
-								[]
-							),
-						});
-					}}
-					variant="default"
-				>
-					Collapse all
-				</Button>
-			</div>
+						<Button
+							disabled={
+								filteredEntitiesCount === 0 ||
+								expandedFilteredEntityIndexes.length === 0
+							}
+							onClick={() => {
+								// Collapse all entities that are currently visible
+								dispatchEntitiesListItemsExpanded({
+									type: 'collapse',
+									indexes: filteredEntities.reduce<Array<number>>(
+										(previous, currentValue, entityIndex) => {
+											if (currentValue != null) {
+												previous.push(entityIndex);
+											}
+
+											return previous;
+										},
+										[]
+									),
+								});
+							}}
+							variant="default"
+						>
+							Collapse all
+						</Button>
+					</Group>
+				) : null}
+			</Stack>
 		</details>
 	);
 }

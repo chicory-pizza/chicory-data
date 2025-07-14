@@ -64,9 +64,7 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 
 	return (
 		<li
-			className={
-				styles.item + ' ' + (props.highlighted ? props.highlightClassName : '')
-			}
+			className={props.highlighted ? props.highlightClassName : ''}
 			onMouseEnter={() => {
 				props.onEntityHover(props.type, props.index);
 			}}

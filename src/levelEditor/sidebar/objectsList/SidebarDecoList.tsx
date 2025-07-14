@@ -1,5 +1,8 @@
+import {Button, Collapse} from '@mantine/core';
 import {memo, useCallback} from 'react';
 
+import MessageBox from '../../../common/MessageBox';
+import {useLevelEditorContext} from '../../LevelEditorContext';
 import type {DecorationType} from '../../types/DecorationType';
 import type {GameEntityType} from '../../types/GameEntityType';
 import type {SidebarPanel} from '../../types/SidebarPanel';
@@ -40,6 +43,8 @@ type Props = Readonly<{
 }>;
 
 function SidebarDecoList(props: Props) {
+	const {dispatch, uiViews} = useLevelEditorContext();
+
 	const getEntityName = useCallback((entity: DecorationType) => {
 		return entity.spr;
 	}, []);
@@ -47,6 +52,29 @@ function SidebarDecoList(props: Props) {
 	const renderItemDisplayText = useCallback((entity: DecorationType) => {
 		return entity.spr;
 	}, []);
+
+	const infoBeforeListComponent = props.expanded ? (
+		<Collapse in={!uiViews.has('DECO')} mb="-xs">
+			<MessageBox
+				message={
+					<Button
+						onClick={() => {
+							dispatch({
+								type: 'setActiveUiViews',
+								uiViews: new Set(uiViews).add('DECO'),
+							});
+						}}
+						variant="filled"
+					>
+						Show decorations
+					</Button>
+				}
+				type="INFO"
+				title="Decorations are currently hidden"
+				mb="xs"
+			/>
+		</Collapse>
+	) : null;
 
 	return (
 		<SidebarEntityList
@@ -60,7 +88,8 @@ function SidebarDecoList(props: Props) {
 			entityPropertiesComponent={SidebarDecoProperties}
 			expanded={props.expanded}
 			getEntityName={getEntityName}
-			name="Decos"
+			infoBeforeListComponent={infoBeforeListComponent}
+			name="Decorations"
 			onEntityDelete={props.onEntityDelete}
 			onEntityEditProperties={props.onEntityEditProperties}
 			onEntityHover={props.onEntityHover}

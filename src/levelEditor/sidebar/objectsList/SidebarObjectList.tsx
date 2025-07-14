@@ -1,5 +1,8 @@
+import {Button, Collapse} from '@mantine/core';
 import {memo, useCallback} from 'react';
 
+import MessageBox from '../../../common/MessageBox';
+import {useLevelEditorContext} from '../../LevelEditorContext';
 import type {GameEntityType} from '../../types/GameEntityType';
 import type {GameObjectType} from '../../types/GameObjectType';
 import type {SidebarPanel} from '../../types/SidebarPanel';
@@ -42,6 +45,8 @@ type Props = Readonly<{
 }>;
 
 function SidebarObjectList(props: Props) {
+	const {dispatch, uiViews} = useLevelEditorContext();
+
 	const getEntityName = useCallback(
 		(entity: GameObjectType, filterText: string) => {
 			const objName = entity.obj;
@@ -58,6 +63,29 @@ function SidebarObjectList(props: Props) {
 		return <SidebarObjectText obj={entity} />;
 	}, []);
 
+	const infoBeforeListComponent = props.expanded ? (
+		<Collapse in={!uiViews.has('OBJECT')} mb="-xs">
+			<MessageBox
+				message={
+					<Button
+						onClick={() => {
+							dispatch({
+								type: 'setActiveUiViews',
+								uiViews: new Set(uiViews).add('OBJECT'),
+							});
+						}}
+						variant="filled"
+					>
+						Show objects
+					</Button>
+				}
+				type="INFO"
+				title="Objects are currently hidden"
+				mb="xs"
+			/>
+		</Collapse>
+	) : null;
+
 	return (
 		<SidebarEntityList
 			dispatchEntitiesListItemsExpanded={
@@ -70,6 +98,7 @@ function SidebarObjectList(props: Props) {
 			entityPropertiesComponent={SidebarObjectProperties}
 			expanded={props.expanded}
 			getEntityName={getEntityName}
+			infoBeforeListComponent={infoBeforeListComponent}
 			name="Objects"
 			onEntityDelete={props.onEntityDelete}
 			onEntityEditProperties={props.onEntityEditProperties}
