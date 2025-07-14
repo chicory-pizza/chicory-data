@@ -9,6 +9,7 @@ import shallowCompareArray from '../util/shallowCompareArray';
 import LevelDecoAdder from './LevelDecoAdder';
 import {useLevelEditorContext} from './LevelEditorContext';
 import styles from './LevelInspector.module.css';
+import PanelResizer from './PanelResizer';
 import LevelPreview from './preview/LevelPreview';
 import LevelSidebar from './sidebar/LevelSidebar';
 import useListItemsExpandedReducer from './sidebar/objectsList/useListItemsExpandedReducer';
@@ -753,7 +754,9 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			{activeUiViews.has('DECO') ? (
 				<div className={styles.decos}>
 					<ErrorBoundary>
-						<LevelDecoAdder onAddingEntityLabel={setAddingEntityLabel} />
+						<PanelResizer>
+							<LevelDecoAdder onAddingEntityLabel={setAddingEntityLabel} />
+						</PanelResizer>
 					</ErrorBoundary>
 				</div>
 			) : null}

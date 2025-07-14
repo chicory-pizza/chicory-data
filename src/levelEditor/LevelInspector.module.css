@@ -26,10 +26,6 @@
 }
 
 .decos {
-	height: 300px;
-	overflow-y: auto;
-	resize: vertical; /* a bit janky... */
-
 	grid-area: decos;
 }
 

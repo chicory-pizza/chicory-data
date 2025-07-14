@@ -1,0 +1,18 @@
+.root {
+	height: 300px;
+	overflow-y: auto;
+}
+
+.grabber {
+	background: var(--input-border-color);
+	cursor: row-resize;
+	display: block;
+	height: 8px;
+	padding: 0;
+	touch-action: pinch-zoom;
+	width: 100%;
+}
+
+.grabber:focus {
+	outline: 0;
+}
