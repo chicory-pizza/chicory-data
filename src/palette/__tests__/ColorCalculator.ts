@@ -12,8 +12,8 @@ test('changes the color on new input', async () => {
 	await userEvent.clear(hex);
 	await userEvent.type(hex, '#b69aff');
 
-	expect(screen.getByTestId('colorcalculator-r')).toHaveValue(182);
-	expect(screen.getByTestId('colorcalculator-g')).toHaveValue(154);
-	expect(screen.getByTestId('colorcalculator-b')).toHaveValue(255);
+	expect(screen.getByTestId('colorcalculator-r')).toHaveValue('182');
+	expect(screen.getByTestId('colorcalculator-g')).toHaveValue('154');
+	expect(screen.getByTestId('colorcalculator-b')).toHaveValue('255');
 	expect(screen.getByTestId('colorcalculator-gml')).toHaveValue('16751286');
 });

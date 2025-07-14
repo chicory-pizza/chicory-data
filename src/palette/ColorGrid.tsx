@@ -1,5 +1,5 @@
 import {Tooltip} from '@mantine/core';
-import {Fragment} from 'react';
+import {Fragment, memo} from 'react';
 import tinycolor from 'tinycolor2';
 
 import styles from './ColorGrid.module.css';
@@ -10,7 +10,7 @@ type Props = Readonly<{
 	setColor?: (newColor: string) => void;
 }>;
 
-export default function ColorGrid({palettes, setColor}: Props) {
+function ColorGrid({palettes, setColor}: Props) {
 	return (
 		<div className={styles.grid}>
 			{palettes.map((palette) => {
@@ -74,3 +74,5 @@ export default function ColorGrid({palettes, setColor}: Props) {
 		</div>
 	);
 }
+
+export default memo(ColorGrid);

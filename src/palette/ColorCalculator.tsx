@@ -1,5 +1,5 @@
 import {Group, NumberInput, TextInput, Tooltip} from '@mantine/core';
-import {useCallback} from 'react';
+import {useCallback, useState} from 'react';
 import tinycolor from 'tinycolor2';
 
 import convertBgrIntegerToRgb from '../util/convertBgrIntegerToRgb';
@@ -8,35 +8,106 @@ import convertRgbArrayToString from '../util/convertRgbArrayToString';
 
 import styles from './ColorCalculator.module.css';
 
+const HEX_CODE_REGEX = /^#?([0-9a-fA-F]{3}){1,2}$/;
+
+function resetInputDrafts(colorObj: tinycolor.Instance): {
+	hexCode: string;
+	r: number | string;
+	g: number | string;
+	b: number | string;
+	gml: number | string;
+} {
+	const hex = colorObj.toHexString();
+	const rgb = colorObj.toRgb();
+
+	return {
+		hexCode: hex,
+		r: rgb.r,
+		g: rgb.g,
+		b: rgb.b,
+		gml: convertHexToBgrInteger(hex),
+	};
+}
+
 type Props = Readonly<{
-	color: string;
-	setColor: (newColor: string) => void;
+	currentColor: string; // e.g. #00f3dd
+	setCurrentColor: (newColor: string) => void;
 }>;
 
-export default function ColorCalculator({color, setColor}: Props) {
-	const currentRgb = tinycolor(color).toRgb();
+export default function ColorCalculator({
+	currentColor,
+	setCurrentColor,
+}: Props) {
+	const currentColorObj = tinycolor(currentColor);
 
-	const setIndividualRgb = useCallback(
-		(colorChange: {r?: number; g?: number; b?: number}) => {
-			const newColor = tinycolor({
-				r: colorChange.r ?? currentRgb.r,
-				g: colorChange.g ?? currentRgb.g,
-				b: colorChange.b ?? currentRgb.b,
-			});
+	const [inputDrafts, setInputDrafts] = useState(() =>
+		resetInputDrafts(currentColorObj)
+	);
 
-			setColor(newColor.toHexString());
+	const [prevColor, setPrevColor] = useState(currentColor);
+	if (currentColor !== prevColor) {
+		setPrevColor(currentColor);
+		setInputDrafts((prevInputDrafts) => {
+			const newDraft = resetInputDrafts(currentColorObj);
+
+			// Special scenario where we are typing a 3-digit hex code (e.g. #abc)
+			// which gets normalized to 6-digits
+			const draftHexCode = prevInputDrafts.hexCode;
+			if (draftHexCode !== currentColor && HEX_CODE_REGEX.test(draftHexCode)) {
+				const draftHexColorObj = tinycolor(draftHexCode);
+				if (draftHexColorObj.toHexString() === currentColorObj.toHexString()) {
+					// Reuse the draft hex code, it will be normalized onBlur later
+					newDraft.hexCode = draftHexCode;
+				}
+			}
+
+			return newDraft;
+		});
+	}
+
+	const onRgbInputChange = useCallback(
+		(colorChange: {
+			r?: string | number;
+			g?: string | number;
+			b?: string | number;
+		}) => {
+			const newColor = {
+				r: colorChange.r ?? inputDrafts.r,
+				g: colorChange.g ?? inputDrafts.g,
+				b: colorChange.b ?? inputDrafts.b,
+			};
+
+			// Only set the new color if all 3 number inputs are valid
+			if (
+				typeof newColor.r === 'number' &&
+				typeof newColor.g === 'number' &&
+				typeof newColor.b === 'number'
+			) {
+				setCurrentColor(
+					tinycolor({
+						r: newColor.r,
+						g: newColor.g,
+						b: newColor.b,
+					}).toHexString()
+				);
+			} else {
+				setInputDrafts({
+					...inputDrafts,
+					...newColor,
+				});
+			}
 		},
-		[currentRgb.r, currentRgb.g, currentRgb.b, setColor]
+		[inputDrafts, setCurrentColor]
 	);
 
 	return (
 		<Group gap="xs">
 			<input
 				onChange={(ev) => {
-					setColor(ev.currentTarget.value);
+					setCurrentColor(ev.currentTarget.value);
 				}}
 				type="color"
-				value={color}
+				value={currentColor}
 			/>
 
 			<Tooltip label="Hex code (e.g. #00f3dd)">
@@ -46,15 +117,33 @@ export default function ColorCalculator({color, setColor}: Props) {
 						input: styles.textInput,
 					}}
 					data-testid="colorcalculator-hex"
+					error={!HEX_CODE_REGEX.test(inputDrafts.hexCode)}
 					label="Hex:"
 					maxLength={7}
-					onChange={(ev) => {
-						setColor(ev.currentTarget.value);
+					onBlur={(ev) => {
+						// Normalize hex code
+						const value = ev.currentTarget.value;
+						if (HEX_CODE_REGEX.test(value) && value !== currentColor) {
+							setInputDrafts((inputDrafts) => ({
+								...inputDrafts,
+								hexCode: currentColor,
+							}));
+						}
 					}}
-					placeholder="#00f3dd"
+					onChange={(ev) => {
+						const value = ev.currentTarget.value;
+						setInputDrafts((inputDrafts) => ({
+							...inputDrafts,
+							hexCode: value,
+						}));
+
+						if (HEX_CODE_REGEX.test(value)) {
+							setCurrentColor(tinycolor(value).toHexString());
+						}
+					}}
 					spellCheck={false}
 					type="text"
-					value={color}
+					value={inputDrafts.hexCode}
 				/>
 			</Tooltip>
 
@@ -65,19 +154,22 @@ export default function ColorCalculator({color, setColor}: Props) {
 					<NumberInput
 						allowDecimal={false}
 						allowNegative={false}
-						clampBehavior="blur"
+						clampBehavior="strict"
 						classNames={{
 							input: styles.rgbInput,
 						}}
 						data-testid="colorcalculator-r"
+						error={typeof inputDrafts.r !== 'number'}
 						max={255}
 						min={0}
 						onChange={(value) => {
-							setIndividualRgb({
-								r: typeof value === 'number' ? value : parseInt(value, 10),
+							onRgbInputChange({
+								r: value,
 							});
 						}}
-						value={currentRgb.r}
+						stepHoldDelay={400}
+						stepHoldInterval={100}
+						value={inputDrafts.r}
 					/>
 				</Tooltip>
 
@@ -85,19 +177,22 @@ export default function ColorCalculator({color, setColor}: Props) {
 					<NumberInput
 						allowDecimal={false}
 						allowNegative={false}
-						clampBehavior="blur"
+						clampBehavior="strict"
 						classNames={{
 							input: styles.rgbInput,
 						}}
 						data-testid="colorcalculator-g"
+						error={typeof inputDrafts.g !== 'number'}
 						max={255}
 						min={0}
 						onChange={(value) => {
-							setIndividualRgb({
-								g: typeof value === 'number' ? value : parseInt(value, 10),
+							onRgbInputChange({
+								g: value,
 							});
 						}}
-						value={currentRgb.g}
+						stepHoldDelay={400}
+						stepHoldInterval={100}
+						value={inputDrafts.g}
 					/>
 				</Tooltip>
 
@@ -105,44 +200,56 @@ export default function ColorCalculator({color, setColor}: Props) {
 					<NumberInput
 						allowDecimal={false}
 						allowNegative={false}
-						clampBehavior="blur"
+						clampBehavior="strict"
 						classNames={{
 							input: styles.rgbInput,
 						}}
 						data-testid="colorcalculator-b"
+						error={typeof inputDrafts.b !== 'number'}
 						max={255}
 						min={0}
 						onChange={(value) => {
-							setIndividualRgb({
-								b: typeof value === 'number' ? value : parseInt(value, 10),
+							onRgbInputChange({
+								b: value,
 							});
 						}}
-						value={currentRgb.b}
+						stepHoldDelay={400}
+						stepHoldInterval={100}
+						value={inputDrafts.b}
 					/>
 				</Tooltip>
 			</Group>
 
-			<TextInput
+			<NumberInput
+				allowDecimal={false}
+				allowNegative={false}
+				clampBehavior="strict"
 				classNames={{
 					root: styles.textInputRoot,
 					input: styles.textInput,
 				}}
 				data-testid="colorcalculator-gml"
-				inputMode="numeric"
+				error={typeof inputDrafts.gml !== 'number'}
+				hideControls
 				label="GML:"
 				maxLength={8}
+				max={0xffffff}
 				min={0}
-				onChange={(ev) => {
-					setColor(
-						convertRgbArrayToString(
-							convertBgrIntegerToRgb(parseInt(ev.currentTarget.value, 10))
-						)
-					);
+				onChange={(value) => {
+					setInputDrafts((inputDrafts) => ({
+						...inputDrafts,
+						gml: value,
+					}));
+
+					if (typeof value === 'number') {
+						setCurrentColor(
+							convertRgbArrayToString(convertBgrIntegerToRgb(value))
+						);
+					}
 				}}
-				spellCheck={false}
-				placeholder="14545664"
-				type="text"
-				value={convertHexToBgrInteger(color)}
+				step={0}
+				value={convertHexToBgrInteger(currentColor)}
+				withKeyboardEvents={false}
 			/>
 		</Group>
 	);

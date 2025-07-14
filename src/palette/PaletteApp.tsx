@@ -13,7 +13,7 @@ import {PALETTE_COLORS} from './types/PaletteColorsList';
 export default function PaletteApp() {
 	useMobileViewport();
 
-	const [color, setColor] = useState('#00f3dd');
+	const [currentColor, setCurrentColor] = useState('#00f3dd');
 
 	const palettes = useMemo(() => {
 		const palettes = [];
@@ -39,12 +39,15 @@ export default function PaletteApp() {
 
 			<div className={styles.calculator}>
 				<ErrorBoundary>
-					<ColorCalculator color={color} setColor={setColor} />
+					<ColorCalculator
+						currentColor={currentColor}
+						setCurrentColor={setCurrentColor}
+					/>
 				</ErrorBoundary>
 			</div>
 
 			<div className={styles.main}>
-				<ColorGrid palettes={palettes} setColor={setColor} />
+				<ColorGrid palettes={palettes} setColor={setCurrentColor} />
 			</div>
 		</div>
 	);
