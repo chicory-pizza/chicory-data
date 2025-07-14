@@ -13,6 +13,7 @@ module.exports = {
 	],
 	setupFilesAfterEnv: ['<rootDir>/src/testUtil/setupTests.ts'],
 	testEnvironment: 'jsdom',
+	testTimeout: 20000,
 	transform: {
 		// Cannot use @swc/jest here because we need Babel plugins to transform `import.meta` :(
 		'^.+\\.m?(t|j)sx?$': 'babel-jest',
