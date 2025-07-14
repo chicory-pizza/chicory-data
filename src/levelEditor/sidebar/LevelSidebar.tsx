@@ -71,16 +71,6 @@ export default function LevelSidebar(props: Props) {
 				</ErrorBoundary>
 			) : null}
 
-			{uiViews.has('OBJECT') ? (
-				<div className={styles.group}>
-					<ErrorBoundary>
-						<SidebarObjectAdder
-							onAddingEntityLabel={props.onAddingEntityLabel}
-						/>
-					</ErrorBoundary>
-				</div>
-			) : null}
-
 			<div className={styles.group + ' ' + styles.properties}>
 				<ErrorBoundary>
 					<SidebarLevelProperties
@@ -102,6 +92,13 @@ export default function LevelSidebar(props: Props) {
 								: null
 						}
 						expanded={props.expandedSidebarPanels.has('OBJECTS')}
+						infoBeforeFilterComponent={
+							<ErrorBoundary>
+								<SidebarObjectAdder
+									onAddingEntityLabel={props.onAddingEntityLabel}
+								/>
+							</ErrorBoundary>
+						}
 						levelObjects={props.level.objects ?? []}
 						onEntityDelete={props.onEntityDelete}
 						onEntityEditProperties={props.onEntityEditProperties}

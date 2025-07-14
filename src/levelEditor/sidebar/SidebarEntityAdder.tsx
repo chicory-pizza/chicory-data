@@ -1,4 +1,4 @@
-import {Button} from '@mantine/core';
+import {Button, Group} from '@mantine/core';
 import {useState} from 'react';
 
 import CustomSelect from '../../common/CustomSelect';
@@ -25,8 +25,9 @@ export default function SidebarEntityAdder<EntityType, Data>(
 	const [selected, setSelected] = useState<OptionType<Data> | null>(null);
 
 	return (
-		<div className={styles.root}>
+		<Group gap="xs" wrap="nowrap">
 			<span className={styles.label}>Add {props.nameLabel}:</span>
+
 			<div className={styles.select}>
 				<CustomSelect
 					maxMenuHeight={300}
@@ -60,6 +61,6 @@ export default function SidebarEntityAdder<EntityType, Data>(
 			>
 				Add
 			</Button>
-		</div>
+		</Group>
 	);
 }

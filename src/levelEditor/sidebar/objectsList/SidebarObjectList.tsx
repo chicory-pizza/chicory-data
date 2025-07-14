@@ -21,6 +21,7 @@ type Props = Readonly<{
 	entityIndexHover: number | null;
 	entitiesListItemsExpanded: Map<number, number>;
 	expanded: boolean;
+	infoBeforeFilterComponent: React.ReactNode;
 	levelObjects: Array<GameObjectType>;
 	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => void;
 	onEntityEditProperties: (
@@ -98,6 +99,7 @@ function SidebarObjectList(props: Props) {
 			entityPropertiesComponent={SidebarObjectProperties}
 			expanded={props.expanded}
 			getEntityName={getEntityName}
+			infoBeforeFilterComponent={props.infoBeforeFilterComponent}
 			infoBeforeListComponent={infoBeforeListComponent}
 			name="Objects"
 			onEntityDelete={props.onEntityDelete}

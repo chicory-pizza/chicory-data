@@ -1,17 +1,9 @@
-.root {
-	display: flex;
-	align-items: center;
-	padding: 8px;
-}
-
 .label {
 	flex-shrink: 0;
 }
 
 .select {
 	flex-grow: 1;
-	margin-right: 8px;
-	padding: 0 0 0 8px;
 }
 
 .button {

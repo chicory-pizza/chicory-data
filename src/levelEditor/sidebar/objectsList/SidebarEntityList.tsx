@@ -24,6 +24,7 @@ type Props<Entity extends GameObjectType | DecorationType> = Readonly<{
 	>;
 	expanded: boolean;
 	getEntityName: (entity: Entity, filter: string) => string;
+	infoBeforeFilterComponent?: React.ReactNode;
 	infoBeforeListComponent?: React.ReactNode;
 	name: string;
 	onEntityDelete: (entityIndex: number, entityType: GameEntityType) => void;
@@ -125,9 +126,11 @@ export default function SidebarEntityList<
 					: 'No ' + props.name.toLowerCase()}
 			</summary>
 
-			<Stack gap="xs">
+			<Stack gap="xs" mt="xs">
+				{props.infoBeforeFilterComponent ?? null}
+
 				{unfilteredEntitiesLength > 0 ? (
-					<Group grow mt="xs">
+					<Group grow>
 						<TextInput
 							classNames={{
 								root: styles.filterInputRoot,
