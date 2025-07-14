@@ -1,28 +1,22 @@
-.root {
+.textInputRoot {
 	display: flex;
+	flex-direction: row;
 	align-items: center;
-	padding: 10px 0;
-}
+	gap: var(--mantine-spacing-xs);
 
-.labelText {
-	margin-right: 10px;
+	--input-label-size: var(--mantine-font-size-md);
 }
 
 .textInput {
 	text-align: center;
-	width: 80px;
+	width: 95px;
+}
+
+.rgbLabelText {
+	margin-right: 6px; /* there is already 4px gap */
 }
 
 .rgbInput {
-	margin-right: 4px;
 	text-align: center;
-	width: 60px;
-}
-
-.rgbInput:last-child {
-	margin-right: 0;
-}
-
-.label {
-	margin-left: 10px;
+	width: 70px;
 }

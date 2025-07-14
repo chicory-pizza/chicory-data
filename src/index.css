@@ -99,7 +99,7 @@ input[type='range'] {
 	cursor: pointer;
 }
 
-input[type='text'],
+input[type='text']:not(.mantine-Input-input),
 input[type='search']:not(.mantine-Input-input),
 input[type='number'],
 input[type='color'],
@@ -120,8 +120,8 @@ input[type='color'] {
 	padding: 0;
 }
 
-input[type='text']:hover,
-input[type='text']:focus,
+input[type='text']:not(.mantine-Input-input):hover,
+input[type='text']:not(.mantine-Input-input):focus,
 input[type='search']:not(.mantine-Input-input):hover,
 input[type='search']:not(.mantine-Input-input):focus,
 input[type='number']:hover,

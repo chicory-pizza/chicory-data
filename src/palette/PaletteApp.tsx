@@ -1,3 +1,5 @@
+import {Box} from '@mantine/core';
+
 import ErrorBoundary from '../common/ErrorBoundary';
 import OpenGraph from '../common/OpenGraph';
 import AppHeader from '../header/AppHeader';
@@ -30,11 +32,11 @@ export default function PaletteApp() {
 			<AppHeader title="Color palettes" />
 
 			<div className={styles.main}>
-				<div>
+				<Box my="xs">
 					<ErrorBoundary>
 						<ColorCalculator />
 					</ErrorBoundary>
-				</div>
+				</Box>
 
 				<div>
 					<ColorGrid palettes={palettes} />

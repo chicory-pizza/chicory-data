@@ -1,4 +1,4 @@
-import {Tooltip} from '@mantine/core';
+import {Group, NumberInput, TextInput, Tooltip} from '@mantine/core';
 import {useCallback, useState} from 'react';
 import tinycolor from 'tinycolor2';
 
@@ -27,7 +27,7 @@ export default function ColorCalculator() {
 	);
 
 	return (
-		<div className={styles.root}>
+		<Group gap="xs">
 			<input
 				onChange={(ev) => {
 					setColor(ev.currentTarget.value);
@@ -36,100 +36,111 @@ export default function ColorCalculator() {
 				value={color}
 			/>
 
-			<label className={styles.label}>
-				<span className={styles.labelText}>Hex:</span>
+			<Tooltip label="Hex code (e.g. #00f3dd)">
+				<TextInput
+					classNames={{
+						root: styles.textInputRoot,
+						input: styles.textInput,
+					}}
+					data-testid="colorcalculator-hex"
+					label="Hex:"
+					maxLength={7}
+					onChange={(ev) => {
+						setColor(ev.currentTarget.value);
+					}}
+					placeholder="#00f3dd"
+					spellCheck={false}
+					type="text"
+					value={color}
+				/>
+			</Tooltip>
 
-				<Tooltip label="Hex code (e.g. #00f3dd)">
-					<input
-						className={styles.textInput}
-						data-testid="colorcalculator-hex"
-						maxLength={7}
-						onChange={(ev) => {
-							setColor(ev.currentTarget.value);
-						}}
-						placeholder="#00f3dd"
-						type="text"
-						value={color}
-					/>
-				</Tooltip>
-			</label>
-
-			<span className={styles.label}>
-				<span className={styles.labelText}>RGB:</span>
+			<Group gap="4px" className={styles.label}>
+				<span className={styles.rgbLabelText}>RGB:</span>
 
 				<Tooltip label="Red (0 to 255)">
-					<input
-						className={styles.rgbInput}
+					<NumberInput
+						allowDecimal={false}
+						allowNegative={false}
+						clampBehavior="blur"
+						classNames={{
+							input: styles.rgbInput,
+						}}
 						data-testid="colorcalculator-r"
-						maxLength={3}
 						max={255}
 						min={0}
-						onChange={(ev) => {
+						onChange={(value) => {
 							setIndividualRgb({
-								r: parseInt(ev.currentTarget.value, 10),
+								r: typeof value === 'number' ? value : parseInt(value, 10),
 							});
 						}}
-						type="number"
 						value={currentRgb.r}
 					/>
 				</Tooltip>
 
 				<Tooltip label="Green (0 to 255)">
-					<input
-						className={styles.rgbInput}
+					<NumberInput
+						allowDecimal={false}
+						allowNegative={false}
+						clampBehavior="blur"
+						classNames={{
+							input: styles.rgbInput,
+						}}
 						data-testid="colorcalculator-g"
 						max={255}
 						min={0}
-						maxLength={3}
-						onChange={(ev) => {
+						onChange={(value) => {
 							setIndividualRgb({
-								g: parseInt(ev.currentTarget.value, 10),
+								g: typeof value === 'number' ? value : parseInt(value, 10),
 							});
 						}}
-						type="number"
 						value={currentRgb.g}
 					/>
 				</Tooltip>
 
 				<Tooltip label="Blue (0 to 255)">
-					<input
-						className={styles.rgbInput}
+					<NumberInput
+						allowDecimal={false}
+						allowNegative={false}
+						clampBehavior="blur"
+						classNames={{
+							input: styles.rgbInput,
+						}}
 						data-testid="colorcalculator-b"
 						max={255}
 						min={0}
-						maxLength={3}
-						onChange={(ev) => {
+						onChange={(value) => {
 							setIndividualRgb({
-								b: parseInt(ev.currentTarget.value, 10),
+								b: typeof value === 'number' ? value : parseInt(value, 10),
 							});
 						}}
-						type="number"
 						value={currentRgb.b}
 					/>
 				</Tooltip>
-			</span>
+			</Group>
 
-			<label className={styles.label}>
-				<span className={styles.labelText}>GML:</span>
-
-				<input
-					className={styles.textInput}
-					data-testid="colorcalculator-gml"
-					inputMode="numeric"
-					maxLength={8}
-					min={0}
-					onChange={(ev) => {
-						setColor(
-							convertRgbArrayToString(
-								convertBgrIntegerToRgb(parseInt(ev.currentTarget.value, 10))
-							)
-						);
-					}}
-					placeholder="14545664"
-					type="text"
-					value={convertHexToBgrInteger(color)}
-				/>
-			</label>
-		</div>
+			<TextInput
+				classNames={{
+					root: styles.textInputRoot,
+					input: styles.textInput,
+				}}
+				data-testid="colorcalculator-gml"
+				inputMode="numeric"
+				label="GML:"
+				maxLength={8}
+				min={0}
+				onChange={(ev) => {
+					setColor(
+						convertRgbArrayToString(
+							convertBgrIntegerToRgb(parseInt(ev.currentTarget.value, 10))
+						)
+					);
+				}}
+				spellCheck={false}
+				placeholder="14545664"
+				type="text"
+				value={convertHexToBgrInteger(color)}
+			/>
+		</Group>
 	);
 }
