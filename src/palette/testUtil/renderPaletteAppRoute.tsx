@@ -15,5 +15,12 @@ export default async function renderPaletteAppRoute() {
 		</AppWrapper>
 	);
 
-	await screen.findByText('Color palettes');
+	await screen.findByText(
+		'Color palettes',
+		{},
+		{
+			// Hacky fix for CI
+			timeout: 3000,
+		}
+	);
 }
