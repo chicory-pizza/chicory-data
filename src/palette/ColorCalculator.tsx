@@ -1,5 +1,5 @@
 import {Group, NumberInput, TextInput, Tooltip} from '@mantine/core';
-import {useCallback, useState} from 'react';
+import {useCallback} from 'react';
 import tinycolor from 'tinycolor2';
 
 import convertBgrIntegerToRgb from '../util/convertBgrIntegerToRgb';
@@ -8,9 +8,12 @@ import convertRgbArrayToString from '../util/convertRgbArrayToString';
 
 import styles from './ColorCalculator.module.css';
 
-export default function ColorCalculator() {
-	const [color, setColor] = useState('#00f3dd');
+type Props = Readonly<{
+	color: string;
+	setColor: (newColor: string) => void;
+}>;
 
+export default function ColorCalculator({color, setColor}: Props) {
 	const currentRgb = tinycolor(color).toRgb();
 
 	const setIndividualRgb = useCallback(
@@ -23,7 +26,7 @@ export default function ColorCalculator() {
 
 			setColor(newColor.toHexString());
 		},
-		[currentRgb.r, currentRgb.g, currentRgb.b]
+		[currentRgb.r, currentRgb.g, currentRgb.b, setColor]
 	);
 
 	return (

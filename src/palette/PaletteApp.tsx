@@ -1,4 +1,5 @@
 import {Box} from '@mantine/core';
+import {useMemo, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
 import OpenGraph from '../common/OpenGraph';
@@ -13,13 +14,19 @@ import {PALETTE_COLORS} from './types/PaletteColorsList';
 export default function PaletteApp() {
 	useMobileViewport();
 
-	const palettes = [];
-	for (const [title, palette] of PALETTE_COLORS) {
-		palettes.push({
-			description: title,
-			colors: palette,
-		});
-	}
+	const [color, setColor] = useState('#00f3dd');
+
+	const palettes = useMemo(() => {
+		const palettes = [];
+		for (const [title, palette] of PALETTE_COLORS) {
+			palettes.push({
+				description: title,
+				colors: palette,
+			});
+		}
+
+		return palettes;
+	}, []);
 
 	return (
 		<div className={styles.root}>
@@ -34,12 +41,12 @@ export default function PaletteApp() {
 			<div className={styles.main}>
 				<Box my="xs">
 					<ErrorBoundary>
-						<ColorCalculator />
+						<ColorCalculator color={color} setColor={setColor} />
 					</ErrorBoundary>
 				</Box>
 
 				<div>
-					<ColorGrid palettes={palettes} />
+					<ColorGrid palettes={palettes} setColor={setColor} />
 				</div>
 			</div>
 		</div>

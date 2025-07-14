@@ -8,7 +8,7 @@ import tinycolor from 'tinycolor2';
 import ErrorBoundary from '../../common/ErrorBoundary';
 import MessageBox from '../../common/MessageBox';
 import ColorGrid from '../../palette/ColorGrid';
-import type {Palette} from '../../palette/ColorGrid';
+import type {PaletteType} from '../../palette/types/PaletteType';
 import getCanvasRenderingContext from '../../util/getCanvasRenderingContext';
 import GeoPreview from '../common/GeoPreview';
 import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
@@ -77,7 +77,7 @@ export default function LevelTerrainEditorModal(props: Props) {
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 	// Palettes
-	const palettes: ReadonlyArray<Palette> = PIXEL_COLORS_EXPLANATIONS.map(
+	const palettes: ReadonlyArray<PaletteType> = PIXEL_COLORS_EXPLANATIONS.map(
 		(explanation) => {
 			return {
 				description: explanation.description,
