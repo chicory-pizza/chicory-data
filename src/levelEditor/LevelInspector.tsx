@@ -501,6 +501,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 					dispatchSidebarObjectsListItemsExpanded({
 						type: 'expand',
 						indexes: [entityIndex],
+						scrollIntoView: true,
 					});
 
 					setExpandedSidebarPanels((expandedSidebarPanels) => {
@@ -516,6 +517,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 					dispatchSidebarDecosListItemsExpanded({
 						type: 'expand',
 						indexes: [entityIndex],
+						scrollIntoView: true,
 					});
 
 					setExpandedSidebarPanels((expandedSidebarPanels) => {

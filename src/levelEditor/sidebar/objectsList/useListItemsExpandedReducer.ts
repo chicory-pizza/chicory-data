@@ -4,6 +4,7 @@ export type ListItemsExpandedReducerAction =
 	| {
 			type: 'expand';
 			indexes: Array<number>;
+			scrollIntoView: boolean;
 	  }
 	| {
 			type: 'collapse';
@@ -29,7 +30,7 @@ function reducer(
 
 			const newState = new Map(state);
 			for (const index of action.indexes) {
-				newState.set(index, Date.now());
+				newState.set(index, action.scrollIntoView ? Date.now() : 1);
 			}
 			return newState;
 		}

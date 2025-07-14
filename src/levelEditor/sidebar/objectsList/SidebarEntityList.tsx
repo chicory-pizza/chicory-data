@@ -71,6 +71,7 @@ export default function SidebarEntityList<
 				dispatchEntitiesListItemsExpanded({
 					type: 'expand',
 					indexes: [objectIndex],
+					scrollIntoView: true,
 				});
 			}
 		},
@@ -199,6 +200,7 @@ export default function SidebarEntityList<
 										},
 										[]
 									),
+									scrollIntoView: false,
 								});
 							}}
 							variant="default"
