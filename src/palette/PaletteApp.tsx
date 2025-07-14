@@ -1,4 +1,3 @@
-import {Box} from '@mantine/core';
 import {useMemo, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
@@ -38,16 +37,14 @@ export default function PaletteApp() {
 
 			<AppHeader title="Color palettes" />
 
-			<div className={styles.main}>
-				<Box my="xs">
-					<ErrorBoundary>
-						<ColorCalculator color={color} setColor={setColor} />
-					</ErrorBoundary>
-				</Box>
+			<div className={styles.calculator}>
+				<ErrorBoundary>
+					<ColorCalculator color={color} setColor={setColor} />
+				</ErrorBoundary>
+			</div>
 
-				<div>
-					<ColorGrid palettes={palettes} setColor={setColor} />
-				</div>
+			<div className={styles.main}>
+				<ColorGrid palettes={palettes} setColor={setColor} />
 			</div>
 		</div>
 	);

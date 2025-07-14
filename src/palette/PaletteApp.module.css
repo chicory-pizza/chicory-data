@@ -3,11 +3,19 @@
 	flex-direction: column;
 }
 
+.calculator {
+	border-top: 1px solid var(--editor-border-color);
+	padding: var(--mantine-spacing-xs);
+
+	display: flex;
+	justify-content: center;
+}
+
 .main {
 	background: #fff;
 	border-top: 1px solid var(--editor-border-color);
 	flex: 1;
-	padding: 0 10px;
+	padding: var(--mantine-spacing-xs);
 
 	display: flex;
 	flex-direction: column;
