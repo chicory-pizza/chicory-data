@@ -20,7 +20,7 @@ export default async function renderDogEditorRoute() {
 		{},
 		{
 			// Hacky fix for CI
-			timeout: 3000,
+			timeout: 6000,
 		},
 	);
 }
