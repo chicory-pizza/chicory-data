@@ -24,150 +24,150 @@ DOG_ANIMATIONS.set('idle', {
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_A_0.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_A_1.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_A_2.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_A_3.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_A_4.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_A_5.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_A_6.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_A_7.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 	],
 	idle2: [
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_B_0.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_B_1.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_B_2.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_B_3.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_B_4.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_B_5.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_B_6.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_B_7.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 	],
 	ear: [
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_ear_0.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_ear_1.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_ear_2.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_ear_3.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_ear_4.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_ear_5.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_ear_6.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 		transformImageImport(
 			new URL(
 				'../images/dog_animations/idle/sprDog_idle_ear_7.png',
-				import.meta.url
-			)
+				import.meta.url,
+			),
 		),
 	],
 	headAnim: [

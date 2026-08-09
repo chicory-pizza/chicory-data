@@ -13,6 +13,6 @@ test('makes decos visible', async () => {
 
 	const levelPreviewRoot = screen.getByTestId('levelpreview-root');
 	expect(
-		within(levelPreviewRoot).getAllByAltText(/tree_trunk7/)
+		within(levelPreviewRoot).getAllByAltText(/tree_trunk7/),
 	).not.toHaveLength(0);
 });

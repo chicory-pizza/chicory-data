@@ -21,7 +21,7 @@ export default function PropertyRangeInput({
 		(ev: React.ChangeEvent<HTMLInputElement>) => {
 			onCommitValue(parseFloat(ev.currentTarget.value));
 		},
-		[onCommitValue]
+		[onCommitValue],
 	);
 
 	return (

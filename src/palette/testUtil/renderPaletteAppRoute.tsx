@@ -12,7 +12,7 @@ export default async function renderPaletteAppRoute() {
 					initialEntries: ['/palette'],
 				})}
 			/>
-		</AppWrapper>
+		</AppWrapper>,
 	);
 
 	await screen.findByText(
@@ -21,6 +21,6 @@ export default async function renderPaletteAppRoute() {
 		{
 			// Hacky fix for CI
 			timeout: 3000,
-		}
+		},
 	);
 }

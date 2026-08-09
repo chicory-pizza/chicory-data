@@ -18,7 +18,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Overalls',
 		imageIndex: 0,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_0.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_0.png', import.meta.url),
 		),
 	},
 	{
@@ -27,7 +27,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Custom',
 		imageIndex: 0,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_0.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_0.png', import.meta.url),
 		),
 	},
 	{
@@ -36,7 +36,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Flower Dress',
 		imageIndex: 1,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_1.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_1.png', import.meta.url),
 		),
 	},
 	{
@@ -45,7 +45,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Hoodie',
 		imageIndex: 2,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_2.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_2.png', import.meta.url),
 		),
 	},
 	{
@@ -54,7 +54,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Pocket Jacket',
 		imageIndex: 3,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_3.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_3.png', import.meta.url),
 		),
 	},
 	{
@@ -63,7 +63,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Starry Tee',
 		imageIndex: 4,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_4.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_4.png', import.meta.url),
 		),
 	},
 	{
@@ -72,7 +72,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Stripey Tee',
 		imageIndex: 5,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_5.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_5.png', import.meta.url),
 		),
 	},
 	{
@@ -81,7 +81,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Sunny Tee',
 		imageIndex: 6,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_6.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_6.png', import.meta.url),
 		),
 	},
 	{
@@ -90,7 +90,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Bolt Tee',
 		imageIndex: 7,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_7.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_7.png', import.meta.url),
 		),
 	},
 	{
@@ -99,7 +99,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Moon Tee',
 		imageIndex: 8,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_8.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_8.png', import.meta.url),
 		),
 	},
 	{
@@ -108,7 +108,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Big Star',
 		imageIndex: 9,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_9.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_9.png', import.meta.url),
 		),
 	},
 	{
@@ -117,7 +117,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Black Tee',
 		imageIndex: 10,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_10.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_10.png', import.meta.url),
 		),
 	},
 	{
@@ -126,10 +126,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Kerchief',
 		imageIndex: 10,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_10.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_10.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_1.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_1.png', import.meta.url),
 		),
 	},
 	{
@@ -138,10 +138,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Scarf',
 		imageIndex: 10,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_10.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_10.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_2.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_2.png', import.meta.url),
 		),
 	},
 	{
@@ -150,7 +150,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Bee',
 		imageIndex: 11,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_11.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_11.png', import.meta.url),
 		),
 	},
 	{
@@ -159,7 +159,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Big Flower',
 		imageIndex: 12,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_12.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_12.png', import.meta.url),
 		),
 	},
 	{
@@ -168,7 +168,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'High Nooner',
 		imageIndex: 13,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_13.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_13.png', import.meta.url),
 		),
 	},
 	{
@@ -177,7 +177,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Dot Dress',
 		imageIndex: 14,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_14.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_14.png', import.meta.url),
 		),
 	},
 	{
@@ -186,10 +186,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Cord Coat',
 		imageIndex: 15,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_15.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_15.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_3.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_3.png', import.meta.url),
 		),
 		collar: 1,
 	},
@@ -199,7 +199,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Puffy Jacket',
 		imageIndex: 16,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_16.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_16.png', import.meta.url),
 		),
 	},
 	{
@@ -208,7 +208,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Dorky',
 		imageIndex: 17,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_17.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_17.png', import.meta.url),
 		),
 	},
 	{
@@ -217,7 +217,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Woven',
 		imageIndex: 18,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_18.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_18.png', import.meta.url),
 		),
 	},
 	{
@@ -226,10 +226,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Wielder Cloak',
 		imageIndex: 20,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_20.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_20.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_4.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_4.png', import.meta.url),
 		),
 	},
 	{
@@ -238,7 +238,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Rex Bod',
 		imageIndex: 19,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_19.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_19.png', import.meta.url),
 		),
 	},
 	{
@@ -247,7 +247,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Island',
 		imageIndex: 25,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_25.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_25.png', import.meta.url),
 		),
 	},
 	{
@@ -256,7 +256,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Hotneck',
 		imageIndex: 21,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_21.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_21.png', import.meta.url),
 		),
 	},
 	{
@@ -265,7 +265,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Gothy',
 		imageIndex: 22,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_22.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_22.png', import.meta.url),
 		),
 	},
 	{
@@ -274,7 +274,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'College',
 		imageIndex: 28,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_28.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_28.png', import.meta.url),
 		),
 	},
 	{
@@ -283,7 +283,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Nice Shirt',
 		imageIndex: 23,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_23.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_23.png', import.meta.url),
 		),
 	},
 	{
@@ -292,7 +292,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Smock',
 		imageIndex: 24,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_24.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_24.png', import.meta.url),
 		),
 	},
 	{
@@ -301,7 +301,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Splashpants',
 		imageIndex: 26,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_26.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_26.png', import.meta.url),
 		),
 	},
 	{
@@ -310,7 +310,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Splash Onesie',
 		imageIndex: 27,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_27.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_27.png', import.meta.url),
 		),
 	},
 	{
@@ -319,7 +319,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Biker Jacket',
 		imageIndex: 29,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_29.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_29.png', import.meta.url),
 		),
 	},
 	{
@@ -328,7 +328,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Mascot Bod',
 		imageIndex: 30,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_30.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_30.png', import.meta.url),
 		),
 	},
 	{
@@ -337,7 +337,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Avast',
 		imageIndex: 31,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_31.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_31.png', import.meta.url),
 		),
 	},
 	{
@@ -346,7 +346,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Mailbag',
 		imageIndex: 32,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_32.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_32.png', import.meta.url),
 		),
 	},
 	{
@@ -355,10 +355,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Bard',
 		imageIndex: 33,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_33.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_33.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_5.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_5.png', import.meta.url),
 		),
 		collar: 1,
 	},
@@ -368,7 +368,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Tux',
 		imageIndex: 34,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_34.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_34.png', import.meta.url),
 		),
 	},
 	{
@@ -377,7 +377,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Scientist',
 		imageIndex: 35,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_35.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_35.png', import.meta.url),
 		),
 	},
 	{
@@ -386,10 +386,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Fuzzy Jacket',
 		imageIndex: 36,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_36.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_36.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_6.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_6.png', import.meta.url),
 		),
 		collar: 1,
 	},
@@ -399,10 +399,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Sailor',
 		imageIndex: 37,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_37.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_37.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_8.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_8.png', import.meta.url),
 		),
 	},
 	{
@@ -411,7 +411,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Sequins',
 		imageIndex: 38,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_38.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_38.png', import.meta.url),
 		),
 	},
 	{
@@ -420,10 +420,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Shawl',
 		imageIndex: 10,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_10.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_10.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_9.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_9.png', import.meta.url),
 		),
 	},
 	{
@@ -432,10 +432,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Spike',
 		imageIndex: 10,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_10.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_10.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_10.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_10.png', import.meta.url),
 		),
 	},
 	{
@@ -444,10 +444,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Studs',
 		imageIndex: 39,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_39.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_39.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_11.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_11.png', import.meta.url),
 		),
 	},
 	{
@@ -456,7 +456,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Black Dress',
 		imageIndex: 39,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_39.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_39.png', import.meta.url),
 		),
 	},
 	{
@@ -465,7 +465,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Leafy',
 		imageIndex: 40,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_40.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_40.png', import.meta.url),
 		),
 	},
 	{
@@ -474,7 +474,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Pajamas',
 		imageIndex: 41,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_41.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_41.png', import.meta.url),
 		),
 	},
 	{
@@ -483,7 +483,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Cute Dress',
 		imageIndex: 42,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_42.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_42.png', import.meta.url),
 		),
 	},
 	{
@@ -492,7 +492,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Pilot',
 		imageIndex: 43,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_43.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_43.png', import.meta.url),
 		),
 	},
 	{
@@ -501,7 +501,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Shell Tee',
 		imageIndex: 44,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_44.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_44.png', import.meta.url),
 		),
 	},
 	{
@@ -510,7 +510,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Big Heart',
 		imageIndex: 45,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_45.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_45.png', import.meta.url),
 		),
 	},
 	{
@@ -519,7 +519,7 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Robo',
 		imageIndex: 46,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_46.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_46.png', import.meta.url),
 		),
 	},
 	{
@@ -528,10 +528,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Ski Jacket',
 		imageIndex: 47,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_47.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_47.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_12.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_12.png', import.meta.url),
 		),
 		collar: 1,
 	},
@@ -541,10 +541,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Hiker',
 		imageIndex: 50,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_50.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_50.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_15.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_15.png', import.meta.url),
 		),
 		collar: 2,
 	},
@@ -554,10 +554,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Gorgeous',
 		imageIndex: 48,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_48.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_48.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_13.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_13.png', import.meta.url),
 		),
 	},
 	{
@@ -566,10 +566,10 @@ export const DOG_CLOTHES_LIST: ReadonlyArray<DogClothesType> = [
 		chicorobotName: 'Royal',
 		imageIndex: 49,
 		imageWithPaddingPath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body_49.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body_49.png', import.meta.url),
 		),
 		layer2ImagePath: transformImageImport(
-			new URL('../images/clothes_padding/sprDog_body2_14.png', import.meta.url)
+			new URL('../images/clothes_padding/sprDog_body2_14.png', import.meta.url),
 		),
 		collar: 1,
 	},

@@ -51,18 +51,18 @@ test('checks transforms of decos and objCustomDog', async () => {
 	const objCustomDog =
 		levelPreviewRoot.querySelector('.dogPreview')?.parentElement?.parentElement;
 	expect(objCustomDog?.getAttribute('style')).toContain(
-		'transform: translate(-50%, -50%) rotate(-90deg) scaleX(1.5) scaleY(0.5);'
+		'transform: translate(-50%, -50%) rotate(-90deg) scaleX(1.5) scaleY(0.5);',
 	);
 	expect(objCustomDog?.getAttribute('style')).toContain(
-		'transform-origin: 75px 130px;'
+		'transform-origin: 75px 130px;',
 	);
 
 	const deco =
 		within(levelPreviewRoot).getByAltText('tree_trunk7').parentElement;
 	expect(deco?.getAttribute('style')).toContain(
-		'transform: scaleX(1.3799) scaleY(-1.3799) rotate(-297.3189deg);'
+		'transform: scaleX(1.3799) scaleY(-1.3799) rotate(-297.3189deg);',
 	);
 	expect(deco?.getAttribute('style')).toContain(
-		'transform-origin: 249px 151px;'
+		'transform-origin: 249px 151px;',
 	);
 });

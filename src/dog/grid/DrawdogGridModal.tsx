@@ -50,7 +50,7 @@ export default function DrawdogGridModal({
 			onPresetSelect(preset);
 			onModalRequestClose();
 		},
-		[onModalRequestClose, onPresetSelect]
+		[onModalRequestClose, onPresetSelect],
 	);
 
 	const onHoverEnter = useCallback(
@@ -73,7 +73,7 @@ export default function DrawdogGridModal({
 				expression: randomExpression,
 			});
 		},
-		[dogMouseOver?.name]
+		[dogMouseOver?.name],
 	);
 
 	const onHoverLeave = useCallback(
@@ -82,14 +82,14 @@ export default function DrawdogGridModal({
 				setDogMouseOver(null);
 			}
 		},
-		[dogMouseOver?.name]
+		[dogMouseOver?.name],
 	);
 
 	const filterLowercase = filter.toLowerCase().trim();
 	const hasAnyVisibleDogs =
 		filterLowercase === '' ||
 		presets.some((preset) =>
-			preset.name.toLowerCase().includes(filterLowercase)
+			preset.name.toLowerCase().includes(filterLowercase),
 		);
 
 	return (

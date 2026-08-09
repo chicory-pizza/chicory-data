@@ -23,7 +23,7 @@ type Props = Readonly<{
 	level: LevelType;
 	onSidebarPanelExpandToggle: (
 		ev: React.MouseEvent<HTMLElement>,
-		sidebarPanel: SidebarPanel
+		sidebarPanel: SidebarPanel,
 	) => void;
 }>;
 
@@ -55,7 +55,7 @@ function SidebarLevelProperties(props: Props) {
 				});
 			}
 		},
-		[currentCoordinates, dispatch]
+		[currentCoordinates, dispatch],
 	);
 
 	const {decos, geo, objects, ...restOfLevel} = props.level;

@@ -1,5 +1,5 @@
 export default function convertNullableCoordinatesToNonNull(
-	coordinates: [number | null, number | null, number | null]
+	coordinates: [number | null, number | null, number | null],
 ): [number, number, number] | null {
 	if (
 		coordinates[0] != null &&

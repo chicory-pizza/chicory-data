@@ -12,7 +12,7 @@ export default async function renderLevelEditorRoute() {
 					initialEntries: ['/level'],
 				})}
 			/>
-		</AppWrapper>
+		</AppWrapper>,
 	);
 
 	await screen.findByText(
@@ -21,6 +21,6 @@ export default async function renderLevelEditorRoute() {
 		{
 			// Hacky fix for CI
 			timeout: 8000,
-		}
+		},
 	);
 }

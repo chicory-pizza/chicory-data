@@ -23,7 +23,7 @@ export default function WorldMap() {
 			maybePlaceholderLevelId != null &&
 				worldData[maybePlaceholderLevelId] == null
 				? [maybePlaceholderLevelId]
-				: []
+				: [],
 		)
 		.reduce<Array<[number, number, number]>>((previous, levelId) => {
 			const coordinates = convertLevelIdToCoordinates(levelId);

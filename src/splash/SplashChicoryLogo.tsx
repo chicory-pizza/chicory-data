@@ -40,7 +40,7 @@ export default function SplashChicoryLogo() {
 			!isReducedMotion &&
 			pageVisibility === 'visible'
 			? 1000 / (60 / 5)
-			: null
+			: null,
 	);
 
 	return (

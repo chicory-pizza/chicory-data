@@ -16,7 +16,7 @@ import type {ListItemsExpandedReducerAction} from './useListItemsExpandedReducer
 
 type Props = Readonly<{
 	dispatchEntitiesListItemsExpanded: (
-		action: ListItemsExpandedReducerAction
+		action: ListItemsExpandedReducerAction,
 	) => void;
 	entityIndexHover: number | null;
 	entitiesListItemsExpanded: Map<number, number>;
@@ -29,19 +29,19 @@ type Props = Readonly<{
 		properties: {
 			[key: string]: string | number | null;
 		},
-		entityType: GameEntityType
+		entityType: GameEntityType,
 	) => void;
 	onEntityHover: (
 		entityType: GameEntityType,
-		entityIndex: number | null
+		entityIndex: number | null,
 	) => void;
 	onFocusEntityOnLevelPreview: (
 		entityType: GameEntityType,
-		entityIndex: number
+		entityIndex: number,
 	) => void;
 	onSidebarPanelExpandToggle: (
 		ev: React.MouseEvent<HTMLElement>,
-		sidebarPanel: SidebarPanel
+		sidebarPanel: SidebarPanel,
 	) => void;
 }>;
 
@@ -57,7 +57,7 @@ function SidebarObjectList(props: Props) {
 
 			return objName;
 		},
-		[]
+		[],
 	);
 
 	const renderItemDisplayText = useCallback((entity: GameObjectType) => {

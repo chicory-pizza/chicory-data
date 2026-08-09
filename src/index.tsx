@@ -19,5 +19,5 @@ if (container == null) {
 createRoot(container).render(
 	<AppWrapper>
 		<RouterProvider router={createBrowserRouter(routes)} />
-	</AppWrapper>
+	</AppWrapper>,
 );

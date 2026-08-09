@@ -46,7 +46,7 @@ function WorldMapButton(props: Props) {
 				});
 			}
 		},
-		[intersectionObserverRef, isCurrentScreen, prevScreen, buttonLevelId]
+		[intersectionObserverRef, isCurrentScreen, prevScreen, buttonLevelId],
 	);
 
 	const showGeo = !isCurrentScreen && geo != null;

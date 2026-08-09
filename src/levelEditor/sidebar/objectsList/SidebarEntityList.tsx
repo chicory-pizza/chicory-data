@@ -13,7 +13,7 @@ import type {ListItemsExpandedReducerAction} from './useListItemsExpandedReducer
 
 type Props<Entity extends GameObjectType | DecorationType> = Readonly<{
 	dispatchEntitiesListItemsExpanded: (
-		action: ListItemsExpandedReducerAction
+		action: ListItemsExpandedReducerAction,
 	) => void;
 	entities: Array<Entity>;
 	entitiesListItemsExpanded: Map<number, number>;
@@ -33,19 +33,19 @@ type Props<Entity extends GameObjectType | DecorationType> = Readonly<{
 		properties: {
 			[key: string]: string | number | null;
 		},
-		entityType: GameEntityType
+		entityType: GameEntityType,
 	) => void;
 	onEntityHover: (
 		entityType: GameEntityType,
-		entityIndex: number | null
+		entityIndex: number | null,
 	) => void;
 	onFocusEntityOnLevelPreview: (
 		entityType: GameEntityType,
-		entityIndex: number
+		entityIndex: number,
 	) => void;
 	onSidebarPanelExpandToggle: (
 		ev: React.MouseEvent<HTMLElement>,
-		sidebarPanel: SidebarPanel
+		sidebarPanel: SidebarPanel,
 	) => void;
 	renderItemDisplayText: (entity: Entity) => React.ReactNode;
 	sidebarPanelType: SidebarPanel;
@@ -76,7 +76,7 @@ export default function SidebarEntityList<
 				});
 			}
 		},
-		[dispatchEntitiesListItemsExpanded, expandedUnfilteredEntityIndexes]
+		[dispatchEntitiesListItemsExpanded, expandedUnfilteredEntityIndexes],
 	);
 
 	// Filtering
@@ -104,7 +104,7 @@ export default function SidebarEntityList<
 		filter === ''
 			? Array.from(expandedUnfilteredEntityIndexes.keys())
 			: Array.from(expandedUnfilteredEntityIndexes.keys()).filter(
-					(entityIndex) => filteredEntities[entityIndex] != null
+					(entityIndex) => filteredEntities[entityIndex] != null,
 				);
 
 	const unfilteredEntitiesLength = filteredEntities.length;
@@ -201,7 +201,7 @@ export default function SidebarEntityList<
 
 											return previous;
 										},
-										[]
+										[],
 									),
 									scrollIntoView: false,
 								});
@@ -228,7 +228,7 @@ export default function SidebarEntityList<
 
 											return previous;
 										},
-										[]
+										[],
 									),
 								});
 							}}

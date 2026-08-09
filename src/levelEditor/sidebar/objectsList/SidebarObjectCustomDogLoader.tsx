@@ -6,11 +6,11 @@ import Spinner from '../../../common/Spinner';
 import styles from './SidebarObjectCustomDogLoader.module.css';
 
 const SidebarObjectCustomDog = lazy(
-	() => import('../objectsList/SidebarObjectCustomDog')
+	() => import('../objectsList/SidebarObjectCustomDog'),
 );
 
 export default function SidebarObjectCustomDogLoader(
-	props: React.ComponentProps<typeof SidebarObjectCustomDog>
+	props: React.ComponentProps<typeof SidebarObjectCustomDog>,
 ) {
 	return (
 		<Suspense

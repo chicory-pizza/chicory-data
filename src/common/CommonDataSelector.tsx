@@ -8,7 +8,7 @@ type Props = Readonly<{
 	lastSaveTime: number | null;
 	onFileLoad: (reader: FileReader) => void;
 	onFileSave: (
-		existingHandle?: FileSystemFileHandle | null
+		existingHandle?: FileSystemFileHandle | null,
 	) => Promise<FileSystemFileHandle | null>;
 	saveButtonLabel: string;
 }>;

@@ -12,7 +12,7 @@ export function paintBresenham(
 	oldPaintBuffer: ReadonlyArray<number>,
 	mapMouseCoordinates: [number, number],
 	previousMapMouseCoordinates: [number, number] | null,
-	size: number
+	size: number,
 ): ReadonlyArray<number> {
 	const newPaintBuffer = oldPaintBuffer.slice();
 	const [x1, y1] = mouseCoordsToGeoCoords(mapMouseCoordinates);
@@ -51,7 +51,7 @@ function plotLineLow(
 	y1: number,
 	color: number,
 	paintBuffer: Array<number>,
-	size: number
+	size: number,
 ) {
 	const dx = x1 - x0;
 	let dy = y1 - y0;
@@ -83,7 +83,7 @@ function plotLineHigh(
 	y1: number,
 	color: number,
 	paintBuffer: Array<number>,
-	size: number
+	size: number,
 ) {
 	let dx = x1 - x0;
 	const dy = y1 - y0;
@@ -113,7 +113,7 @@ function colorPixel(
 	yi: number,
 	color: number,
 	paintBuffer: Array<number>,
-	size: number
+	size: number,
 ) {
 	const l = Math.floor(size / 2);
 	const r = Math.ceil(size / 2);
@@ -145,7 +145,7 @@ function coordsToIndex(coords: [number, number]) {
 }
 
 function mouseCoordsToGeoCoords(
-	mouseCoords: [number, number] | null
+	mouseCoords: [number, number] | null,
 ): [number, number] {
 	if (mouseCoords == null) {
 		return [0, 0];
@@ -154,11 +154,11 @@ function mouseCoordsToGeoCoords(
 
 	const x = Math.max(
 		0,
-		Math.min(GEO_WIDTH - 1, Math.floor(mouseCoords[0] / factor))
+		Math.min(GEO_WIDTH - 1, Math.floor(mouseCoords[0] / factor)),
 	);
 	const y = Math.max(
 		0,
-		Math.min(GEO_HEIGHT - 1, Math.floor(mouseCoords[1] / factor))
+		Math.min(GEO_HEIGHT - 1, Math.floor(mouseCoords[1] / factor)),
 	);
 	return [x, y];
 }
@@ -166,7 +166,7 @@ function mouseCoordsToGeoCoords(
 export function floodFill(
 	color: number,
 	decodedGeo: Uint8Array,
-	mapMouseCoords: [number, number] | null
+	mapMouseCoords: [number, number] | null,
 ): Uint8Array {
 	if (mapMouseCoords == null) {
 		return decodedGeo;
@@ -220,7 +220,7 @@ export function floodFill(
 
 export function pickColor(
 	decodedGeo: Uint8Array,
-	mapMouseCoords: [number, number] | null
+	mapMouseCoords: [number, number] | null,
 ): number {
 	const geoCoords = mouseCoordsToGeoCoords(mapMouseCoords);
 	if (isOutOfGeoBounds(geoCoords)) {

@@ -19,7 +19,7 @@ export default function drawImageAsColor(
 	x: number,
 	y: number,
 	width: number,
-	height: number
+	height: number,
 ): void {
 	if (tempCtx == null) {
 		const tempCanvas = document.createElement('canvas');
@@ -41,7 +41,7 @@ export default function drawImageAsColor(
 		const cacheKey = options.cacheKey;
 		if (cacheKey == null) {
 			throw new Error(
-				'Cache key is required for performance to colorize outlines'
+				'Cache key is required for performance to colorize outlines',
 			);
 		}
 

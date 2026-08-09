@@ -13,7 +13,7 @@ import type {ObjCustomDogType} from '../../types/GameObjectType';
 import styles from './SidebarObjectCustomDog.module.css';
 
 async function loadImage(
-	url: string | null | undefined
+	url: string | null | undefined,
 ): Promise<string | undefined> {
 	if (url == null) {
 		return;
@@ -45,7 +45,7 @@ export type Props = Readonly<{
 		properties: {
 			[key: string]: string | number | null;
 		},
-		entityType: 'OBJECT'
+		entityType: 'OBJECT',
 	) => void;
 	obj: ObjCustomDogType;
 }>;
@@ -113,7 +113,7 @@ export default function SidebarObjectCustomDog(props: Props) {
 							hat: preset.hats[0].name,
 							npc_name: preset.name,
 						},
-						'OBJECT'
+						'OBJECT',
 					);
 				}}
 			/>

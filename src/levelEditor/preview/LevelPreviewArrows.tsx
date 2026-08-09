@@ -81,7 +81,7 @@ export default function LevelPreviewArrows() {
 					'Go right to level ' +
 					getLevelLabel(
 						goRight,
-						worldData[convertCoordinatesToLevelId(goRight)]
+						worldData[convertCoordinatesToLevelId(goRight)],
 					)
 				}
 				position="left"

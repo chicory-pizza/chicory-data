@@ -41,7 +41,7 @@ export default function DogEditorHatLayer({
 				},
 			});
 		},
-		[dispatch, hat, layer]
+		[dispatch, hat, layer],
 	);
 
 	const onPreviewChange = useCallback(
@@ -52,7 +52,7 @@ export default function DogEditorHatLayer({
 
 			setPreviewName(layer, newPreviewName);
 		},
-		[layer, previewName, setPreviewName]
+		[layer, previewName, setPreviewName],
 	);
 
 	const moveLayerUp = useCallback(() => {

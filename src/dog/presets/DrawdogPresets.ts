@@ -48,7 +48,7 @@ export const DRAWDOG_PRESETS: ReadonlyArray<DrawdogPreset> = [
 			},
 		],
 		headSkinImage: transformImageImport(
-			new URL('./Custom_Head_Skin_Apple_Pie.png', import.meta.url)
+			new URL('./Custom_Head_Skin_Apple_Pie.png', import.meta.url),
 		),
 		name: 'Apple Pie',
 		skinColor: '#ffffff',
@@ -82,7 +82,7 @@ export const DRAWDOG_PRESETS: ReadonlyArray<DrawdogPreset> = [
 			},
 		],
 		headSkinImage: transformImageImport(
-			new URL('./Custom_Head_Skin_Biscuit.png', import.meta.url)
+			new URL('./Custom_Head_Skin_Biscuit.png', import.meta.url),
 		),
 		name: 'Biscuit',
 		skinColor: '#ffa02a',
@@ -213,7 +213,7 @@ export const DRAWDOG_PRESETS: ReadonlyArray<DrawdogPreset> = [
 		clothes: 'Custom Tee',
 		clothesColor: '#f482ba',
 		customClothesImage: transformImageImport(
-			new URL('./Custom_Tee_Cinnaroll.png', import.meta.url)
+			new URL('./Custom_Tee_Cinnaroll.png', import.meta.url),
 		),
 		expression: 'smit',
 		hair: 'Shortcurl',
@@ -222,7 +222,7 @@ export const DRAWDOG_PRESETS: ReadonlyArray<DrawdogPreset> = [
 				name: 'Custom Hat',
 				color: '#ff7f31',
 				customImage: transformImageImport(
-					new URL('./Custom_Hat_Cinnaroll.png', import.meta.url)
+					new URL('./Custom_Hat_Cinnaroll.png', import.meta.url),
 				),
 			},
 		],
@@ -304,7 +304,7 @@ export const DRAWDOG_PRESETS: ReadonlyArray<DrawdogPreset> = [
 		clothes: 'Custom Tee',
 		clothesColor: '#ffffff',
 		customClothesImage: transformImageImport(
-			new URL('./Custom_Tee_Donut.png', import.meta.url)
+			new URL('./Custom_Tee_Donut.png', import.meta.url),
 		),
 		expression: 'smile',
 		hair: 'Simple',
@@ -392,7 +392,7 @@ export const DRAWDOG_PRESETS: ReadonlyArray<DrawdogPreset> = [
 				name: 'Custom Hat',
 				color: '#ffffff',
 				customImage: transformImageImport(
-					new URL('./Custom_Hat_Honey.png', import.meta.url)
+					new URL('./Custom_Hat_Honey.png', import.meta.url),
 				),
 			},
 		],
@@ -514,7 +514,7 @@ export const DRAWDOG_PRESETS: ReadonlyArray<DrawdogPreset> = [
 				name: 'Custom Hat',
 				color: '#524bab',
 				customImage: transformImageImport(
-					new URL('./Custom_Hat_Noodles.png', import.meta.url)
+					new URL('./Custom_Hat_Noodles.png', import.meta.url),
 				),
 			},
 		],
@@ -536,7 +536,7 @@ export const DRAWDOG_PRESETS: ReadonlyArray<DrawdogPreset> = [
 				name: 'Custom Hat',
 				color: '#ffffff',
 				customImage: transformImageImport(
-					new URL('./Custom_Hat_Pancake.png', import.meta.url)
+					new URL('./Custom_Hat_Pancake.png', import.meta.url),
 				),
 			},
 		],
@@ -757,7 +757,7 @@ export const DRAWDOG_PRESETS: ReadonlyArray<DrawdogPreset> = [
 		clothes: 'Custom Tee',
 		clothesColor: '#e3c861',
 		customClothesImage: transformImageImport(
-			new URL('./Custom_Tee_Stir_Fry.png', import.meta.url)
+			new URL('./Custom_Tee_Stir_Fry.png', import.meta.url),
 		),
 		expression: 'angry',
 		hair: 'Simple',
@@ -766,7 +766,7 @@ export const DRAWDOG_PRESETS: ReadonlyArray<DrawdogPreset> = [
 				name: 'Custom Hat',
 				color: '#e3c861',
 				customImage: transformImageImport(
-					new URL('./Custom_Hat_Stir_Fry.png', import.meta.url)
+					new URL('./Custom_Hat_Stir_Fry.png', import.meta.url),
 				),
 			},
 		],

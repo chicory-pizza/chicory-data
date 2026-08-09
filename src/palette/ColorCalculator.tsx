@@ -41,7 +41,7 @@ export default function ColorCalculator({
 	const currentColorObj = tinycolor(currentColor);
 
 	const [inputDrafts, setInputDrafts] = useState(() =>
-		resetInputDrafts(currentColorObj)
+		resetInputDrafts(currentColorObj),
 	);
 
 	const [prevColor, setPrevColor] = useState(currentColor);
@@ -88,7 +88,7 @@ export default function ColorCalculator({
 						r: newColor.r,
 						g: newColor.g,
 						b: newColor.b,
-					}).toHexString()
+					}).toHexString(),
 				);
 			} else {
 				setInputDrafts({
@@ -97,7 +97,7 @@ export default function ColorCalculator({
 				});
 			}
 		},
-		[inputDrafts, setCurrentColor]
+		[inputDrafts, setCurrentColor],
 	);
 
 	return (
@@ -243,7 +243,7 @@ export default function ColorCalculator({
 
 					if (typeof value === 'number') {
 						setCurrentColor(
-							convertRgbArrayToString(convertBgrIntegerToRgb(value))
+							convertRgbArrayToString(convertBgrIntegerToRgb(value)),
 						);
 					}
 				}}

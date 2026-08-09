@@ -41,7 +41,7 @@ export default function DataSaveTimestamp({lastSaveTime}: Props) {
 		() => {
 			forceUpdate(Date.now());
 		},
-		lastSaveTime != null ? 1000 : null
+		lastSaveTime != null ? 1000 : null,
 	);
 
 	if (lastSaveTime == null) {

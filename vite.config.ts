@@ -83,7 +83,7 @@ function getServerHeaders(env: Record<string, string>) {
 				process.env.GITPOD_WORKSPACE_URL
 					? process.env.GITPOD_WORKSPACE_URL.replace(
 							'https://',
-							'wss://3000-'
+							'wss://3000-',
 						) + ':3000'
 					: '',
 			].join(' '),

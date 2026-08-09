@@ -24,7 +24,7 @@ test('converts dog editor state to preset', () => {
 			speechFont: 'Domigorgon',
 			speechShowBubble: true,
 			speechText: 'Hello!',
-		})
+		}),
 	).toEqual({
 		clothes: 'Overalls',
 		clothesColor: '#ff0000',
@@ -68,7 +68,7 @@ test('no custom ear color', () => {
 			speechFont: 'Domigorgon',
 			speechShowBubble: true,
 			speechText: 'Hello!',
-		})
+		}),
 	).toEqual({
 		clothes: 'Overalls',
 		clothesColor: '#ff0000',

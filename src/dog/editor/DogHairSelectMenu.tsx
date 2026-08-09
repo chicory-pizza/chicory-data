@@ -55,7 +55,7 @@ export default function DogHairSelectMenu({
 				/>
 			);
 		},
-		[hairListAsKey]
+		[hairListAsKey],
 	);
 
 	return (

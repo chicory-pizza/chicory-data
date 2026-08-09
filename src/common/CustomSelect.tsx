@@ -95,7 +95,7 @@ export default function CustomSelect<
 			ReactSelectProps<Option, IsMulti, Group>,
 			'menuPortalTarget' | 'styles' | 'themes'
 		>
-	>
+	>,
 ) {
 	return (
 		<Select

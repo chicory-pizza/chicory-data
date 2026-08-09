@@ -51,7 +51,7 @@ export default function LevelEditorDataSelector() {
 				fileName: 'level_data',
 				description: 'JSON',
 			},
-			existingHandle
+			existingHandle,
 		);
 
 		setLastSaveTime(Date.now() / 1000);

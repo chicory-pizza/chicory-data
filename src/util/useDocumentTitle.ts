@@ -8,6 +8,6 @@ export default function useDocumentTitle(text: string) {
 	useTitle(
 		(text !== '' ? text + ' - ' : '') +
 			(import.meta.env.MODE === 'development' ? '(DEV) ' : '') +
-			APP_TITLE
+			APP_TITLE,
 	);
 }

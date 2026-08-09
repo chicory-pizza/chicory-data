@@ -68,7 +68,7 @@ export default async function drawDogToCanvasTestHelper(options: {
 						? await loadImage(hatInfo.layer2ImagePath)
 						: null,
 			};
-		})
+		}),
 	);
 
 	// Hair
@@ -132,7 +132,7 @@ export default async function drawDogToCanvasTestHelper(options: {
 			head: await loadImage(
 				expressionInfo != null
 					? (expressionInfo.imageHQ ?? expressionInfo.image)
-					: path.resolve(__dirname, '../images/sprDog_head_0.png')
+					: path.resolve(__dirname, '../images/sprDog_head_0.png'),
 			),
 			// @ts-expect-error node-canvas Image does not pass CanvasImageSource
 			headSkin: options.headSkinImage,
@@ -159,7 +159,7 @@ export default async function drawDogToCanvasTestHelper(options: {
 			hairInfo,
 			hats,
 			showBody: options.showBody ?? true,
-		}
+		},
 	);
 
 	const img = canvas.toDataURL();

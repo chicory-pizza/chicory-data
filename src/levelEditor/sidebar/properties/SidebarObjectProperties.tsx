@@ -7,7 +7,7 @@ import SidebarEditableProperties from './SidebarEditableProperties';
 import type {SidebarEntityPropertiesComponentType} from './SidebarEntityPropertiesComponentType';
 
 export default function SidebarObjectProperties(
-	props: SidebarEntityPropertiesComponentType<GameObjectType>
+	props: SidebarEntityPropertiesComponentType<GameObjectType>,
 ) {
 	const entity = props.entity;
 
@@ -33,7 +33,7 @@ export default function SidebarObjectProperties(
 						props.onEntityEditProperties(
 							props.index,
 							{[key]: value},
-							props.type
+							props.type,
 						);
 					}}
 					properties={entity}

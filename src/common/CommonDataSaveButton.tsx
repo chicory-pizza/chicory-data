@@ -12,7 +12,7 @@ type Props = Readonly<{
 	>;
 	label: string;
 	onFileSave: (
-		existingHandle?: FileSystemFileHandle | null
+		existingHandle?: FileSystemFileHandle | null,
 	) => Promise<FileSystemFileHandle | null>;
 }>;
 
@@ -27,7 +27,7 @@ export default function CommonDataSaveButton(props: Props) {
 	async function saveFile() {
 		try {
 			saveFileHandleRef.current = await props.onFileSave(
-				saveFileHandleRef.current
+				saveFileHandleRef.current,
 			);
 		} catch (ex) {
 			if (!(ex instanceof Error) || ex.name !== 'AbortError') {

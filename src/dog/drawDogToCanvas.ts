@@ -78,11 +78,11 @@ export default function drawDogToCanvas(
 			hatLayer2: CanvasImageSourceWithSize | null;
 		}>;
 		showBody: boolean;
-	}
+	},
 ) {
 	// The top-most hat layer wins
 	const gotAnyHatWithLayer2 = options.hats.find(
-		(hat) => hat.hatLayer2
+		(hat) => hat.hatLayer2,
 	)?.hatLayer2;
 
 	let hatOrClothesLayer2 = gotAnyHatWithLayer2 || images.clothesLayer2;
@@ -139,7 +139,7 @@ export default function drawDogToCanvas(
 			0,
 			0,
 			SIZE,
-			SIZE
+			SIZE,
 		);
 
 		drawImageAsColor(
@@ -149,7 +149,7 @@ export default function drawDogToCanvas(
 			hasCustomClothes ? 255 + clothesTranslatedX : clothesTranslatedX,
 			hasCustomClothes ? 424 + clothesTranslatedY : clothesTranslatedY,
 			images.clothes.width,
-			images.clothes.height
+			images.clothes.height,
 		);
 
 		if (hatOrClothesLayer2 && clothesCollar === 2) {
@@ -161,7 +161,7 @@ export default function drawDogToCanvas(
 				clothesTranslatedX,
 				clothesTranslatedY,
 				SIZE,
-				SIZE
+				SIZE,
 			);
 			hatOrClothesLayer2 = null;
 		}
@@ -177,7 +177,7 @@ export default function drawDogToCanvas(
 			0,
 			0,
 			SIZE,
-			SIZE
+			SIZE,
 		);
 
 		if (hatOrClothesLayer2 && clothesCollar == null) {
@@ -192,7 +192,7 @@ export default function drawDogToCanvas(
 					clothesTranslatedX,
 					clothesTranslatedY,
 					SIZE,
-					SIZE
+					SIZE,
 				);
 			} else {
 				for (let i = options.hats.length - 1; i >= 0; i -= 1) {
@@ -207,7 +207,7 @@ export default function drawDogToCanvas(
 							hatTranslatedX,
 							hatTranslatedY,
 							SIZE,
-							SIZE
+							SIZE,
 						);
 					}
 				}
@@ -230,7 +230,7 @@ export default function drawDogToCanvas(
 				hatTranslatedX,
 				hatTranslatedY,
 				SIZE,
-				SIZE
+				SIZE,
 			);
 		}
 	}
@@ -251,7 +251,7 @@ export default function drawDogToCanvas(
 			: SIZE,
 		images.head.width === HEAD_BIG_SIZE && images.head.height === HEAD_BIG_SIZE
 			? HEAD_BIG_SIZE
-			: SIZE
+			: SIZE,
 	);
 
 	if (
@@ -276,7 +276,7 @@ export default function drawDogToCanvas(
 			hatTranslatedX,
 			hatTranslatedY,
 			SIZE,
-			SIZE
+			SIZE,
 		);
 	}
 
@@ -290,7 +290,7 @@ export default function drawDogToCanvas(
 				hatTranslatedX,
 				hatTranslatedY,
 				SIZE,
-				SIZE
+				SIZE,
 			);
 		}
 	}
@@ -308,7 +308,7 @@ export default function drawDogToCanvas(
 			clothesTranslatedX,
 			clothesTranslatedY,
 			SIZE,
-			SIZE
+			SIZE,
 		);
 	}
 
@@ -323,7 +323,7 @@ export default function drawDogToCanvas(
 		0,
 		0,
 		SIZE,
-		SIZE
+		SIZE,
 	);
 
 	for (let i = options.hats.length - 1; i >= 0; i -= 1) {
@@ -341,7 +341,7 @@ export default function drawDogToCanvas(
 				hasCustomHat ? 161 + hatTranslatedX : hatTranslatedX,
 				hasCustomHat ? 48 + hatTranslatedY : hatTranslatedY,
 				hat.hat.width,
-				hat.hat.height
+				hat.hat.height,
 			);
 		}
 	}

@@ -4,7 +4,7 @@ import {useEffect, useMemo} from 'react';
 import {usePrevious} from 'react-use';
 
 export default function useLoadImageFromCustomDogTextBuffer(
-	text: string | null
+	text: string | null,
 ): string | null {
 	const currentBlob = useMemo(() => {
 		if (text == null) {

@@ -3,7 +3,7 @@ import styles from './LevelLayerNumberInputs.module.css';
 type Props = Readonly<{
 	coordinates: [number | null, number | null, number | null];
 	onNewCoordinatesSet: (
-		newCoordinates: [number | null, number | null, number | null]
+		newCoordinates: [number | null, number | null, number | null],
 	) => void;
 	testIdPrefix?: string;
 }>;

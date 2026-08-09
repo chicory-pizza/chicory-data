@@ -29,7 +29,7 @@ export default function useUndoRedoReducer<
 	ReducerAction extends {type: string},
 >(
 	reducer: (state: T, action: ReducerAction) => T,
-	initialPresent: T
+	initialPresent: T,
 ): {
 	currentState: T;
 	dispatch: (action: UndoReducerAction | ReducerAction) => void;
@@ -51,10 +51,10 @@ export default function useUndoRedoReducer<
 }
 
 function handleUndoReducer<T, ReducerAction extends {type: string}>(
-	reducer: (state: T, action: ReducerAction) => T
+	reducer: (state: T, action: ReducerAction) => T,
 ): (
 	state: UndoState<T>,
-	action: UndoReducerAction | ReducerAction
+	action: UndoReducerAction | ReducerAction,
 ) => UndoState<T> {
 	return function (state, action) {
 		if (action.type === 'undo') {

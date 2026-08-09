@@ -3,7 +3,7 @@
 import {useEffect, useRef, useState} from 'react';
 
 export default function useLoadImage(
-	currentSrc: string | null
+	currentSrc: string | null,
 ): HTMLImageElement | null {
 	const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
 	const img = useRef<HTMLImageElement>(null);

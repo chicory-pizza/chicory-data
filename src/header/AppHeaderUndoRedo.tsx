@@ -25,7 +25,7 @@ function AppHeaderUndoRedo(props: Props) {
 		{
 			enabled: props.canRedo,
 			preventDefault: true,
-		}
+		},
 	);
 
 	function undo() {

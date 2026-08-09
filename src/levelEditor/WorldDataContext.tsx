@@ -14,7 +14,7 @@ import type {WorldType} from './types/WorldType';
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 
 function assertNonNullableWorldData(
-	worldData: WorldType | null
+	worldData: WorldType | null,
 ): asserts worldData is WorldType {
 	if (worldData == null) {
 		throw new Error('No world data');
@@ -23,7 +23,7 @@ function assertNonNullableWorldData(
 
 function getNonNullableLevel(
 	worldData: WorldType | null,
-	coordinates: [number, number, number]
+	coordinates: [number, number, number],
 ): [LevelType, string] {
 	assertNonNullableWorldData(worldData);
 
@@ -31,7 +31,7 @@ function getNonNullableLevel(
 	const level = worldData[levelId];
 	if (level == null) {
 		throw new Error(
-			`Can't set property for level ${levelId} because the level doesn't exist`
+			`Can't set property for level ${levelId} because the level doesn't exist`,
 		);
 	}
 

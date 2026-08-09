@@ -33,7 +33,7 @@ function PropertySelectInput({
 				onEditProperty(propertyKey, newValue.value);
 			}
 		},
-		[onEditProperty, propertyKey]
+		[onEditProperty, propertyKey],
 	);
 
 	return (

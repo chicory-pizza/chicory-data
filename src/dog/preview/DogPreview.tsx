@@ -30,7 +30,7 @@ type Props = Readonly<{
 	headSkinImage?: string | null;
 	onCanvasFrameDrawn?: (
 		canvasRef: HTMLCanvasElement,
-		animationIndex: number
+		animationIndex: number,
 	) => void;
 	showBody: boolean;
 	skinColor: string;
@@ -139,7 +139,7 @@ export default function DogPreview(props: Props) {
 		clothesInfo.internalName === 'Custom Tee' &&
 			props.customClothesImage != null
 			? props.customClothesImage
-			: clothesInfo.imageWithPaddingPath
+			: clothesInfo.imageWithPaddingPath,
 	);
 	const clothesLayer2 = useLoadImage(clothesInfo.layer2ImagePath ?? null);
 	const head = useLoadImage(expressionInfo.imageHQ ?? expressionInfo.image);
@@ -214,7 +214,7 @@ export default function DogPreview(props: Props) {
 					};
 				}),
 				showBody: props.showBody,
-			}
+			},
 		);
 
 		if (onCanvasFrameDrawn && mainCanvasRef.current) {

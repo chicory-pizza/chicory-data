@@ -83,14 +83,14 @@ export default function LevelTerrainEditorModal(props: Props) {
 				description: explanation.description,
 				colors: explanation.colors.map((colorIndex) => {
 					const colorObj = tinycolor(
-						EXPORT_TERRAIN_PIXEL_COLORS.get(colorIndex)
+						EXPORT_TERRAIN_PIXEL_COLORS.get(colorIndex),
 					);
 					const rgb = colorObj.toRgb();
 
 					return [rgb.r, rgb.g, rgb.b];
 				}),
 			};
-		}
+		},
 	);
 
 	async function openFile() {
@@ -103,7 +103,7 @@ export default function LevelTerrainEditorModal(props: Props) {
 
 		if (blob.type === 'image/jpeg') {
 			setErrorMessage(
-				"Please don't use JPEG, it is likely to lose precise color info"
+				"Please don't use JPEG, it is likely to lose precise color info",
 			);
 			return;
 		}
@@ -113,7 +113,7 @@ export default function LevelTerrainEditorModal(props: Props) {
 			try {
 				if (img.width !== GEO_WIDTH || img.height !== GEO_HEIGHT) {
 					throw new Error(
-						`Incorrect image resolution, it should be ${[GEO_WIDTH, GEO_HEIGHT].join('×')}`
+						`Incorrect image resolution, it should be ${[GEO_WIDTH, GEO_HEIGHT].join('×')}`,
 					);
 				}
 
@@ -131,7 +131,7 @@ export default function LevelTerrainEditorModal(props: Props) {
 
 						if (pixel[3] !== 255) {
 							throw new Error(
-								'Transparency is unsupported, please make sure the image is fully opaque'
+								'Transparency is unsupported, please make sure the image is fully opaque',
 							);
 						}
 
@@ -145,7 +145,7 @@ export default function LevelTerrainEditorModal(props: Props) {
 
 						if (colorInfo == null) {
 							throw new Error(
-								`Unsupported color found (R: ${pixel[0].toString()} G: ${pixel[1].toString()} B: ${pixel[2].toString()}) at pixel (X: ${(x + 1).toString()}, Y: ${(y + 1).toString()})`
+								`Unsupported color found (R: ${pixel[0].toString()} G: ${pixel[1].toString()} B: ${pixel[2].toString()}) at pixel (X: ${(x + 1).toString()}, Y: ${(y + 1).toString()})`,
 							);
 						}
 

@@ -4,7 +4,7 @@ import convertDogEditorStateToDogPreview from '../editor/convertDogEditorStateTo
 import type {DrawdogPreset} from './DrawdogPresets';
 
 export default function convertDogEditorStateToPreset(
-	dogState: DogState
+	dogState: DogState,
 ): DrawdogPreset {
 	return {
 		...convertDogEditorStateToDogPreview(dogState),

@@ -83,7 +83,7 @@ export default function LevelEditorDataSelector(props: Props) {
 				fileName: 'drawdog.json',
 				description: 'JSON',
 			},
-			existingHandle
+			existingHandle,
 		);
 
 		setLastSaveTime(Date.now() / 1000);

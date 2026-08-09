@@ -1,7 +1,7 @@
 // If both arrays are the same, return the old array reference as optimization
 export default function shallowCompareArray<T>(
 	oldArr: ReadonlyArray<T>,
-	newArr: ReadonlyArray<T>
+	newArr: ReadonlyArray<T>,
 ): ReadonlyArray<T> {
 	if (oldArr.length !== newArr.length) {
 		return newArr;

@@ -1,7 +1,7 @@
 const VALID_ID_REGEX = /^(-?\d+)_(-?\d+)_(-?\d+)$/;
 
 export default function convertLevelIdToCoordinates(
-	levelId: string
+	levelId: string,
 ): [number, number, number] {
 	const coordinates = levelId.match(VALID_ID_REGEX);
 

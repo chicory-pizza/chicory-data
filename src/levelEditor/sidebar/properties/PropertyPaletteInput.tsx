@@ -59,7 +59,7 @@ function PropertyPaletteInput({onEditProperty, propertyKey, value}: Props) {
 				onEditProperty(propertyKey, newValue.value);
 			}
 		},
-		[onEditProperty, propertyKey]
+		[onEditProperty, propertyKey],
 	);
 
 	return (

@@ -5,7 +5,7 @@ import fs from 'node:fs/promises';
 import type {WorldType} from '../src/levelEditor/types/WorldType';
 
 const json = JSON.parse(
-	await fs.readFile('../src/levelEditor/level_data.json', 'utf-8')
+	await fs.readFile('../src/levelEditor/level_data.json', 'utf-8'),
 ) as WorldType;
 
 type PropertyInfo = {

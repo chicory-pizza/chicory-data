@@ -22,6 +22,6 @@ test('does not delete the level if cancelled', async () => {
 
 	expect(screen.getByTestId('worldmap-active')).toHaveTextContent('0, 0');
 	expect(
-		screen.queryByText(/Level 0, 0, 0 doesn't exist/)
+		screen.queryByText(/Level 0, 0, 0 doesn't exist/),
 	).not.toBeInTheDocument();
 });

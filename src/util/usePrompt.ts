@@ -8,7 +8,7 @@ import {
 export function usePrompt(
 	message: string,
 	when: boolean,
-	condition: (args: Parameters<BlockerFunction>[0]) => boolean
+	condition: (args: Parameters<BlockerFunction>[0]) => boolean,
 ) {
 	unstable_usePrompt({
 		message,
@@ -27,7 +27,7 @@ export function usePrompt(
 					ev.returnValue = message;
 				}
 			},
-			[message, when]
-		)
+			[message, when],
+		),
 	);
 }

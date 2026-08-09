@@ -12,7 +12,7 @@ test('renders the splash screen', async () => {
 					initialEntries: ['/'],
 				})}
 			/>
-		</AppWrapper>
+		</AppWrapper>,
 	);
 
 	expect(await screen.findByText('Chicory: A Colorful Modding')).toBeVisible();

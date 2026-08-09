@@ -66,7 +66,7 @@ export default function DuplicateLevelModal(props: Props) {
 			newCoordinates[2] === currentCoordinates[2]
 		) {
 			setErrorMessage(
-				"Silly wielder, there's no reason to duplicate the level to the same coordinates"
+				"Silly wielder, there's no reason to duplicate the level to the same coordinates",
 			);
 			return;
 		}

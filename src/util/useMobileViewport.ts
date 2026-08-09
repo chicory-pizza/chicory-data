@@ -13,7 +13,7 @@ export default function useEnableMobileViewport() {
 		return () => {
 			viewportTag.setAttribute(
 				'content',
-				oldViewport ?? 'width=980, initial-scale=1'
+				oldViewport ?? 'width=980, initial-scale=1',
 			);
 		};
 	});

@@ -1,6 +1,6 @@
 export default function sortCompareCoordinates(
 	a: [number, number, number],
-	b: [number, number, number]
+	b: [number, number, number],
 ): number {
 	if (a[0] < b[0]) {
 		return -1;

@@ -2,10 +2,10 @@ import {useEffect, useRef, useState} from 'react';
 
 // This destroys and reloads pairs of images and is less peformant than just one
 export default function useLoadMultipleImages(
-	currentSrcs: Record<string, string | null>
+	currentSrcs: Record<string, string | null>,
 ): Record<string, HTMLImageElement> | null {
 	const [loadedSrcs, setLoadedSrcs] = useState<Record<string, string | null>>(
-		{}
+		{},
 	);
 	const imgs = useRef<Record<string, HTMLImageElement>>({});
 	const onLoads = useRef<{

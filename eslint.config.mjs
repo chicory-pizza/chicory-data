@@ -96,5 +96,5 @@ export default defineConfig(
 	},
 	{
 		ignores: ['dist/', 'coverage/'],
-	}
+	},
 );

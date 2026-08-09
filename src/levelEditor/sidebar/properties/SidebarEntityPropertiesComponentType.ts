@@ -8,7 +8,7 @@ export type SidebarEntityPropertiesComponentType<Entity> = Readonly<{
 		properties: {
 			[key: string]: string | number | null;
 		},
-		entityType: GameEntityType
+		entityType: GameEntityType,
 	) => void;
 	type: GameEntityType;
 }>;

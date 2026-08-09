@@ -12,7 +12,7 @@ export default async function renderDogEditorRoute() {
 					initialEntries: ['/dog'],
 				})}
 			/>
-		</AppWrapper>
+		</AppWrapper>,
 	);
 
 	await screen.findByText(
@@ -21,6 +21,6 @@ export default async function renderDogEditorRoute() {
 		{
 			// Hacky fix for CI
 			timeout: 3000,
-		}
+		},
 	);
 }

@@ -4,7 +4,7 @@ import convertCoordinatesToLevelId from './convertCoordinatesToLevelId';
 
 export default function getLevelLabel(
 	coordinates: [number, number, number],
-	level: LevelType | undefined
+	level: LevelType | undefined,
 ): string {
 	const coordinatesText = coordinates.join(', ');
 

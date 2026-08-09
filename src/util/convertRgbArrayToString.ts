@@ -1,5 +1,5 @@
 export default function convertRgbArrayToString(
-	rgb: [number, number, number]
+	rgb: [number, number, number],
 ): string {
 	return (
 		'#' +

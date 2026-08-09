@@ -21,10 +21,10 @@ export default function PropertyGameMakerColorInput({
 		(ev: React.ChangeEvent<HTMLInputElement>) => {
 			onEditProperty(
 				propertyKey,
-				convertHexToBgrInteger(ev.currentTarget.value)
+				convertHexToBgrInteger(ev.currentTarget.value),
 			);
 		},
-		[onEditProperty, propertyKey]
+		[onEditProperty, propertyKey],
 	);
 
 	return (
@@ -32,7 +32,7 @@ export default function PropertyGameMakerColorInput({
 			onChange={onChange}
 			type="color"
 			value={convertRgbArrayToString(
-				convertBgrIntegerToRgb(value ?? defaultValue)
+				convertBgrIntegerToRgb(value ?? defaultValue),
 			)}
 		/>
 	);

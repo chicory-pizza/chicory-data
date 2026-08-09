@@ -48,7 +48,7 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 				img.height === CUSTOM_CLOTHES_HEIGHT
 			) {
 				setErrorMessage(
-					'It looks like you are loading custom clothes as the custom hat, this is probably not what you intended.'
+					'It looks like you are loading custom clothes as the custom hat, this is probably not what you intended.',
 				);
 				return;
 			}

@@ -28,22 +28,22 @@ type Props<Entity extends GameObjectType | DecorationType> = Readonly<{
 		properties: {
 			[key: string]: string | number | null;
 		},
-		entityType: GameEntityType
+		entityType: GameEntityType,
 	) => void;
 	onEntityHover: (
 		entityType: GameEntityType,
-		entityIndex: number | null
+		entityIndex: number | null,
 	) => void;
 	onFocusEntityOnLevelPreview: (
 		entityType: GameEntityType,
-		entityIndex: number
+		entityIndex: number,
 	) => void;
 	renderItemDisplayText: (entity: Entity) => React.ReactNode;
 	type: GameEntityType;
 }>;
 
 function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
-	props: Props<Entity>
+	props: Props<Entity>,
 ) {
 	const item = useRef<HTMLLIElement>(null);
 
@@ -136,7 +136,7 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 								props.onEntityEditProperties(
 									props.index,
 									{x: newValue},
-									props.type
+									props.type,
 								);
 							}}
 						/>
@@ -148,7 +148,7 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 								props.onEntityEditProperties(
 									props.index,
 									{y: newValue},
-									props.type
+									props.type,
 								);
 							}}
 						/>

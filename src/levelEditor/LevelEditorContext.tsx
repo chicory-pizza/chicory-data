@@ -13,7 +13,7 @@ type ReducerAction = {
 
 function reducer(
 	state: LevelEditorState,
-	action: ReducerAction
+	action: ReducerAction,
 ): LevelEditorState {
 	switch (action.type) {
 		case 'setActiveUiViews':
@@ -67,7 +67,7 @@ export function useLevelEditorContext(): ContextValue {
 
 	if (!context) {
 		throw new Error(
-			'useLevelEditorContext must be used within a LevelEditorProvider'
+			'useLevelEditorContext must be used within a LevelEditorProvider',
 		);
 	}
 

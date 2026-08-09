@@ -25,7 +25,7 @@ function PropertyDogExpressionInput({
 				label: option.label,
 				value: option.value,
 			};
-		}).filter(Boolean)
+		}).filter(Boolean),
 	);
 
 	const selectedValue = selectOptions.find((option) => {
@@ -38,7 +38,7 @@ function PropertyDogExpressionInput({
 				onEditProperty(propertyKey, newValue.value);
 			}
 		},
-		[onEditProperty, propertyKey]
+		[onEditProperty, propertyKey],
 	);
 
 	return (

@@ -19,7 +19,7 @@ const DECORATION_TYPE_KEYS = new Set([
 ]) as ReadonlySet<keyof DecorationType>;
 
 export function isValidDecorationTypeKey(
-	key: string
+	key: string,
 ): key is keyof DecorationType {
 	return DECORATION_TYPE_KEYS.has(key);
 }

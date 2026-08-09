@@ -66,14 +66,14 @@ export default function GeoPreview(props: Props) {
 				(mouse[0] / SCREEN_WIDTH) * GEO_WIDTH - 1,
 				(mouse[1] / SCREEN_HEIGHT) * GEO_HEIGHT,
 				3,
-				1
+				1,
 			);
 
 			ctx.fillRect(
 				(mouse[0] / SCREEN_WIDTH) * GEO_WIDTH,
 				(mouse[1] / SCREEN_HEIGHT) * GEO_HEIGHT - 1,
 				1,
-				3
+				3,
 			);
 		}
 

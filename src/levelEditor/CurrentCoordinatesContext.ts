@@ -27,7 +27,7 @@ export function useCurrentCoordinates(): [
 		(coordinates: [number, number, number]) => {
 			navigate('/level/' + convertCoordinatesToLevelId(coordinates));
 		},
-		[navigate]
+		[navigate],
 	);
 
 	return [coordinates, setCoordinates];

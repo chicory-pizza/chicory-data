@@ -60,14 +60,14 @@ export default function DogEditorApp() {
 	// Previews
 	const [previewClothes, setPreviewClothes] = useState<string | null>(null);
 	const [previewExpression, setPreviewExpression] = useState<string | null>(
-		null
+		null,
 	);
 	const [previewHair, setPreviewHair] = useState<string | null>(null);
 	const [previewHats, setPreviewHats] = useState<ReadonlyArray<string | null>>(
-		[]
+		[],
 	);
 	const [previewSpeechFont, setPreviewSpeechFont] = useState<string | null>(
-		null
+		null,
 	);
 
 	const hatsInPreview: ReadonlyArray<ChosenHat> = useMemo(() => {
@@ -89,7 +89,7 @@ export default function DogEditorApp() {
 				},
 			});
 		},
-		[dispatch]
+		[dispatch],
 	);
 
 	const onExpressionChange = useCallback(
@@ -101,7 +101,7 @@ export default function DogEditorApp() {
 				},
 			});
 		},
-		[dispatch]
+		[dispatch],
 	);
 
 	const onClothesChange = useCallback(
@@ -113,7 +113,7 @@ export default function DogEditorApp() {
 				},
 			});
 		},
-		[dispatch]
+		[dispatch],
 	);
 
 	const addNewHatLayer = useCallback(() => {
@@ -126,7 +126,7 @@ export default function DogEditorApp() {
 			newHats[layer] = previewName;
 			setPreviewHats(newHats);
 		},
-		[previewHats]
+		[previewHats],
 	);
 
 	const onPresetSelect = useCallback(
@@ -148,7 +148,7 @@ export default function DogEditorApp() {
 				},
 			});
 		},
-		[dispatch]
+		[dispatch],
 	);
 
 	const onNewClothesImage = useCallback(
@@ -161,7 +161,7 @@ export default function DogEditorApp() {
 					img.height === CUSTOM_HAT_HEIGHT
 				) {
 					alert(
-						'It looks like you are loading a custom hat as the custom clothes, this is probably not what you intended.'
+						'It looks like you are loading a custom hat as the custom clothes, this is probably not what you intended.',
 					);
 					return;
 				}
@@ -181,7 +181,7 @@ export default function DogEditorApp() {
 
 			img.src = dataUrl;
 		},
-		[dispatch]
+		[dispatch],
 	);
 
 	const onSpeechFontChange = useCallback(
@@ -193,7 +193,7 @@ export default function DogEditorApp() {
 				},
 			});
 		},
-		[dispatch]
+		[dispatch],
 	);
 
 	const onSpeechShowBubbleChange = useCallback(
@@ -205,7 +205,7 @@ export default function DogEditorApp() {
 				},
 			});
 		},
-		[dispatch]
+		[dispatch],
 	);
 
 	const onSpeechTextChange = useCallback(
@@ -217,7 +217,7 @@ export default function DogEditorApp() {
 				},
 			});
 		},
-		[dispatch]
+		[dispatch],
 	);
 
 	return (

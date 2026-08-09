@@ -21,7 +21,7 @@ export default function LevelInGamePreview({
 			<div className={styles.root}>
 				<MessageBox
 					message={`In-game screenshot for level ${currentCoordinates.join(
-						', '
+						', ',
 					)} is not available yet`}
 					type="INFO"
 				/>

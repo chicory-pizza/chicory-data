@@ -20,7 +20,7 @@ type Props<EntityType, Data> = Readonly<{
 }>;
 
 export default function SidebarEntityAdder<EntityType, Data>(
-	props: Props<EntityType, Data>
+	props: Props<EntityType, Data>,
 ) {
 	const [selected, setSelected] = useState<OptionType<Data> | null>(null);
 

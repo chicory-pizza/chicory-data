@@ -7,7 +7,7 @@ import styles from './SidebarDecoProperties.module.css';
 import type {SidebarEntityPropertiesComponentType} from './SidebarEntityPropertiesComponentType';
 
 export default function SidebarDecoProperties(
-	props: SidebarEntityPropertiesComponentType<DecorationType>
+	props: SidebarEntityPropertiesComponentType<DecorationType>,
 ) {
 	const deco = props.entity;
 
@@ -21,7 +21,7 @@ export default function SidebarDecoProperties(
 						props.onEntityEditProperties(
 							props.index,
 							{xs: newValue},
-							props.type
+							props.type,
 						);
 					}}
 					step={0.05}
@@ -34,7 +34,7 @@ export default function SidebarDecoProperties(
 						props.onEntityEditProperties(
 							props.index,
 							{ys: newValue},
-							props.type
+							props.type,
 						);
 					}}
 					step={0.05}
@@ -50,7 +50,7 @@ export default function SidebarDecoProperties(
 						props.onEntityEditProperties(
 							props.index,
 							{ang: newValue},
-							props.type
+							props.type,
 						);
 					}}
 					value={deco.ang}
@@ -62,7 +62,7 @@ export default function SidebarDecoProperties(
 						props.onEntityEditProperties(
 							props.index,
 							{ang: newValue},
-							props.type
+							props.type,
 						);
 					}}
 				/>

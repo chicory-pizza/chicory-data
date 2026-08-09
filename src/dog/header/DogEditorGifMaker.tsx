@@ -22,7 +22,7 @@ export default function DogEditorGifMaker() {
 			workers: 2,
 			workerScript: new URL(
 				'gif.js/dist/gif.worker.js',
-				import.meta.url
+				import.meta.url,
 			).toString(),
 		});
 
@@ -32,7 +32,7 @@ export default function DogEditorGifMaker() {
 
 	function onCanvasFrameDrawn(
 		canvasRef: HTMLCanvasElement,
-		animationIndexFromCanvas: number
+		animationIndexFromCanvas: number,
 	) {
 		const gif = gifRef.current;
 		if (!gif || animationIndexFromCanvas !== animationIndex) {

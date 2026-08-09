@@ -22,7 +22,7 @@ function LevelEditorViewMenu() {
 				uiViews: newViews,
 			});
 		},
-		[dispatch, uiViews]
+		[dispatch, uiViews],
 	);
 
 	return (

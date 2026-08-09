@@ -25,7 +25,7 @@ function CustomMenuWithMouseHoverOptions({
 				onChange(newValue.value);
 			}
 		},
-		[onChange]
+		[onChange],
 	);
 
 	const onMenuClose = useCallback(() => {

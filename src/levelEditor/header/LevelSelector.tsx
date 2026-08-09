@@ -42,7 +42,7 @@ export default function LevelSelector() {
 
 		return getLevelLabel(
 			currentCoordinates,
-			worldData[convertCoordinatesToLevelId(currentCoordinates)]
+			worldData[convertCoordinatesToLevelId(currentCoordinates)],
 		);
 	}, [currentCoordinates, worldData]);
 
@@ -54,7 +54,7 @@ export default function LevelSelector() {
 	>(
 		currentCoordinates
 			? [currentCoordinates[0], currentCoordinates[1], currentCoordinates[2]]
-			: [null, null, null]
+			: [null, null, null],
 	);
 	const [prevCoordinates, setPrevCoordinates] = useState(currentCoordinates);
 

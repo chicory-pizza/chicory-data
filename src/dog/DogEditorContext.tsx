@@ -181,7 +181,7 @@ export function useDogEditorContext(): ContextValue {
 
 	if (!context) {
 		throw new Error(
-			'useDogEditorContext must be used within a DogEditorProvider'
+			'useDogEditorContext must be used within a DogEditorProvider',
 		);
 	}
 

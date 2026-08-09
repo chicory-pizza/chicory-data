@@ -26,9 +26,9 @@ export default function SidebarEditableProperties(props: Props) {
 			Object.keys(props.properties).concat(
 				props.schema.map((type) => {
 					return type.key;
-				})
-			)
-		)
+				}),
+			),
+		),
 	)
 		.filter((propertyKey) => {
 			return !props.excludeProperties.includes(propertyKey);

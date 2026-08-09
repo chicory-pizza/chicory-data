@@ -20,7 +20,7 @@ export type ListItemsExpandedReducerAction =
 
 function reducer(
 	state: Map<number, number>,
-	action: ListItemsExpandedReducerAction
+	action: ListItemsExpandedReducerAction,
 ) {
 	switch (action.type) {
 		case 'expand': {

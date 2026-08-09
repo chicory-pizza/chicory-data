@@ -31,7 +31,7 @@ test('edits the raw data', async () => {
 			decos: [],
 			object_id: '',
 			name: 'test',
-		} as LevelType).replace(/[{[]/g, '$&$&')
+		} as LevelType).replace(/[{[]/g, '$&$&'),
 	);
 	await userEvent.click(screen.getByTestId('editrawleveldatamodal-submit'));
 

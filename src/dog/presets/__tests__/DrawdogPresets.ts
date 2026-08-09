@@ -17,7 +17,7 @@ test.each(DRAWDOG_PRESETS)(
 		expect(
 			DOG_CLOTHES_LIST.find((clothes) => {
 				return preset.clothes === clothes.internalName;
-			})
+			}),
 		).toBeTruthy();
 
 		expect(preset.clothesColor).toMatch(VALID_COLOR);
@@ -26,20 +26,20 @@ test.each(DRAWDOG_PRESETS)(
 		expect(
 			DOG_EXPRESSION_LIST.find((expression) => {
 				return presetExpression === expression.value;
-			})
+			}),
 		).toBeTruthy();
 
 		expect(
 			DOG_HAIR_LIST.find((hair) => {
 				return preset.hair === hair.internalName;
-			})
+			}),
 		).toBeTruthy();
 
 		preset.hats.forEach((presetHat) => {
 			expect(
 				DOG_HAT_LIST.find((hat) => {
 					return presetHat.name === hat.internalName;
-				})
+				}),
 			).toBeTruthy();
 
 			expect(presetHat.color).toMatch(VALID_COLOR);
@@ -50,5 +50,5 @@ test.each(DRAWDOG_PRESETS)(
 		expect(preset.skinColor).toMatch(VALID_COLOR);
 
 		expect(preset.skinOutlineColor ?? '#000000').toMatch(VALID_COLOR);
-	}
+	},
 );

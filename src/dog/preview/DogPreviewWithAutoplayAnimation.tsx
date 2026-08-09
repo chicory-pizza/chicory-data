@@ -28,7 +28,7 @@ export default function DogPreviewWithAutoplayAnimation(props: Props) {
 			setAnimationIndex(
 				animationIndex < animationInfo.headAnim.length - 1
 					? animationIndex + 1
-					: 0
+					: 0,
 			);
 		},
 		playAnimations &&
@@ -36,7 +36,7 @@ export default function DogPreviewWithAutoplayAnimation(props: Props) {
 			entry?.isIntersecting &&
 			animationInfo.headAnim.length > 0
 			? 200
-			: null
+			: null,
 	);
 
 	const {playAnimations: _, ...propsForDogPreview} = props;

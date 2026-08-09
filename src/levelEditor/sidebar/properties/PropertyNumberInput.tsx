@@ -14,7 +14,7 @@ export default function PropertyNumberInput({
 	step = 1,
 }: Props) {
 	const [inputValue, setInputValue] = useState<number | string | null>(
-		initialValue
+		initialValue,
 	);
 	const [prevValue, setPrevValue] = useState<number | string | null>(null);
 

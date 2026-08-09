@@ -29,7 +29,7 @@ import {useWorldDataNonNullable} from './WorldDataContext';
 
 function getLevelDraft(
 	level: LevelType,
-	entityTransforming: EditorEntityTransform | null
+	entityTransforming: EditorEntityTransform | null,
 ): LevelType {
 	if (entityTransforming == null) {
 		return level;
@@ -87,7 +87,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 	// Entities
 	const [entityHover, setEntityHover] = useState<EditorEntityHoverType | null>(
-		null
+		null,
 	);
 	const [entityTransforming, setEntityTransforming] =
 		useState<EditorEntityTransform | null>(null);
@@ -177,10 +177,16 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			// We always start from a blank array so we need to do another shallow compare here
 			geoPaintBuffer.current = shallowCompareArray(
 				geoPaintBuffer.current,
-				paintBresenham(paintColor, [], mapMouseMoveCoordinates, null, brushSize)
+				paintBresenham(
+					paintColor,
+					[],
+					mapMouseMoveCoordinates,
+					null,
+					brushSize,
+				),
 			);
 		},
-		[mapMouseMoveCoordinates, paintColor]
+		[mapMouseMoveCoordinates, paintColor],
 	);
 
 	const paint = useCallback(
@@ -190,12 +196,12 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				geoPaintBuffer.current,
 				mouseCoords,
 				prevMouseCoordinates.current,
-				brushSize
+				brushSize,
 			);
 
 			prevMouseCoordinates.current = mouseCoords;
 		},
-		[paintColor, brushSize]
+		[paintColor, brushSize],
 	);
 
 	const doFloodFill = useCallback(
@@ -203,7 +209,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			const newGeo = floodFill(
 				paintColor,
 				decodeGeoString(level.geo),
-				mouseCoords
+				mouseCoords,
 			);
 
 			dispatchWorldData({
@@ -214,14 +220,14 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				value: encode(deflate(newGeo)),
 			});
 		},
-		[currentCoordinates, dispatchWorldData, level.geo, paintColor]
+		[currentCoordinates, dispatchWorldData, level.geo, paintColor],
 	);
 
 	const doEyedropper = useCallback(
 		(mouseCoords: [number, number]) => {
 			setPaintColor(pickColor(decodeGeoString(level.geo), mouseCoords));
 		},
-		[level.geo]
+		[level.geo],
 	);
 
 	const doEntityTransform = useCallback(
@@ -245,7 +251,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 			prevMouseCoordinates.current = mouseCoords;
 		},
-		[entityTransforming]
+		[entityTransforming],
 	);
 
 	const finishEntityTransformAndSaveDraft = useCallback(() => {
@@ -308,7 +314,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			finishEntityTransformAndSaveDraft,
 			isMouseDown,
 			stopBrushAndSaveDraft,
-		]
+		],
 	);
 
 	const setBrushSize = useCallback(
@@ -319,7 +325,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				doBrushPreview(newBrushSize);
 			}
 		},
-		[doBrushPreview, editorToolType, isMouseDown]
+		[doBrushPreview, editorToolType, isMouseDown],
 	);
 
 	// Reset editor state when changing UI views
@@ -388,7 +394,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			paint,
 			doFloodFill,
 			doEyedropper,
-		]
+		],
 	);
 
 	const onMouseUp = useCallback(() => {
@@ -449,7 +455,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 
 			setMapMouseMoveCoordinates(null);
 		},
-		[editorToolType, isMouseDown, paint]
+		[editorToolType, isMouseDown, paint],
 	);
 
 	const onMapMouseMove = useCallback(
@@ -496,7 +502,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			editorToolType,
 			isMouseDown,
 			paint,
-		]
+		],
 	);
 
 	const onEntityClick = useCallback(
@@ -538,7 +544,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 		[
 			dispatchSidebarObjectsListItemsExpanded,
 			dispatchSidebarDecosListItemsExpanded,
-		]
+		],
 	);
 
 	const onEntityHover = useCallback(
@@ -553,7 +559,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				index: entityIndex,
 			});
 		},
-		[]
+		[],
 	);
 
 	const onEntityDelete = useCallback(
@@ -586,14 +592,14 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			dispatchWorldData,
 			dispatchSidebarDecosListItemsExpanded,
 			dispatchSidebarObjectsListItemsExpanded,
-		]
+		],
 	);
 
 	const onEntityMouseDown = useCallback(
 		(
 			ev: React.MouseEvent<HTMLDivElement>,
 			entityType: GameEntityType,
-			entityIndex: number
+			entityIndex: number,
 		) => {
 			if (editorToolType !== 'SELECT') {
 				return;
@@ -628,7 +634,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				});
 			}
 		},
-		[editorToolType, level.decos, level.objects, onEntityClick]
+		[editorToolType, level.decos, level.objects, onEntityClick],
 	);
 
 	const onEntityEditProperties = useCallback(
@@ -637,7 +643,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			properties: {
 				[key: string]: string | number | null;
 			},
-			type: GameEntityType
+			type: GameEntityType,
 		) => {
 			dispatchWorldData({
 				type: 'editEntityPropertiesOnLevel',
@@ -647,7 +653,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				entityType: type,
 			});
 		},
-		[currentCoordinates, dispatchWorldData]
+		[currentCoordinates, dispatchWorldData],
 	);
 
 	const onSidebarPanelExpandToggle = useCallback(
@@ -664,7 +670,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				return new Set(expandedSidebarPanels).add(sidebarPanel);
 			});
 		},
-		[]
+		[],
 	);
 
 	const onFocusEntityOnLevelPreview = useCallback(
@@ -699,12 +705,12 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				}, 100);
 			}
 		},
-		[activeUiViews, dispatchLevelEditor]
+		[activeUiViews, dispatchLevelEditor],
 	);
 
 	const levelDraft = useMemo(
 		() => getLevelDraft(level, entityTransforming),
-		[level, entityTransforming]
+		[level, entityTransforming],
 	);
 
 	return (

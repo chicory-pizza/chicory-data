@@ -26,7 +26,7 @@ export default function SidebarObjectText({obj}: Props) {
 						<LinkButton
 							onClick={() => {
 								setNewCoordinates(
-									convertLevelIdToCoordinates(newLevelId.replace(/,/g, '_'))
+									convertLevelIdToCoordinates(newLevelId.replace(/,/g, '_')),
 								);
 							}}
 						>

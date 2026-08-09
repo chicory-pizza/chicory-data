@@ -22,12 +22,12 @@ type Props = Readonly<{
 	onEntityClick: (entityType: GameEntityType, entityIndex: number) => void;
 	onEntityHover: (
 		entityType: GameEntityType,
-		entityIndex: number | null
+		entityIndex: number | null,
 	) => void;
 	onEntityMouseDown: (
 		ev: React.MouseEvent<HTMLDivElement>,
 		entityType: GameEntityType,
-		entityIndex: number
+		entityIndex: number,
 	) => void;
 }>;
 
@@ -102,7 +102,7 @@ function LevelPreviewDecos(props: Props) {
 						props.entitiesOnLevelPreviewRef,
 						'DECO',
 						index,
-						node
+						node,
 					);
 				}}
 				renderOffset={renderOffset}

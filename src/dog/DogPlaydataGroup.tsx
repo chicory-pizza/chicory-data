@@ -40,12 +40,12 @@ export default function DogPlaydataGroup(props: Props) {
 				].concat(
 					props.hats.map((hat) => {
 						return hat.color !== '#ffffff' ? hat.color : '';
-					})
-				)
-			)
+					}),
+				),
+			),
 		)
 			.filter(Boolean)
-			.slice(0, MAX_CUSTOM_BRUSH_COLORS)
+			.slice(0, MAX_CUSTOM_BRUSH_COLORS),
 	);
 
 	return (

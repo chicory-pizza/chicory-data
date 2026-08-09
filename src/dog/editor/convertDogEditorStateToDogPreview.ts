@@ -2,7 +2,7 @@ import type {DogState} from '../DogEditorContext';
 import type {ChosenHat} from '../drawDogToCanvas';
 
 export default function convertDogEditorStateToDogPreview(
-	dogState: DogState
+	dogState: DogState,
 ): Readonly<{
 	clothes: string;
 	clothesColor: string;

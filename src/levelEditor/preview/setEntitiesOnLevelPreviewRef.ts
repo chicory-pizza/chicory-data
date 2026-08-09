@@ -4,7 +4,7 @@ export default function setEntitiesOnLevelPreviewRef(
 	ref: React.RefObject<Map<GameEntityType, Map<number, HTMLElement>> | null>,
 	entityType: GameEntityType,
 	index: number,
-	node: HTMLElement | null
+	node: HTMLElement | null,
 ): () => void {
 	if (!ref.current) {
 		ref.current = new Map();

@@ -25,7 +25,7 @@ export default function PanelResizer(props: Props) {
 		containerRef.current.style.height =
 			Math.max(
 				50,
-				Math.min(window.innerHeight, Math.round(uncappedHeight.current))
+				Math.min(window.innerHeight, Math.round(uncappedHeight.current)),
 			).toString() + 'px';
 	}, []);
 
@@ -46,7 +46,7 @@ export default function PanelResizer(props: Props) {
 				containerRef.current.getBoundingClientRect().height;
 			prevMouseY.current = ev.clientY;
 		},
-		[onPointerMove]
+		[onPointerMove],
 	);
 
 	return (

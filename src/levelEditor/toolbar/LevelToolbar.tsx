@@ -51,7 +51,7 @@ function LevelToolbar(props: Props) {
 				props.onBrushSizeUpdate(Math.max(props.brushSize - 1, MIN_BRUSH_SIZE));
 			}
 		},
-		{useKey: true}
+		{useKey: true},
 	);
 	useHotkeys(
 		']',
@@ -60,7 +60,7 @@ function LevelToolbar(props: Props) {
 				props.onBrushSizeUpdate(Math.min(props.brushSize + 1, MAX_BRUSH_SIZE));
 			}
 		},
-		{useKey: true}
+		{useKey: true},
 	);
 
 	const toolTypes: Array<{

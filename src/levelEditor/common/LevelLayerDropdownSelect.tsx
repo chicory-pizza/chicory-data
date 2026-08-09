@@ -28,7 +28,7 @@ export default function LevelLayerDropdownSelect(props: Props) {
 		return Object.keys(props.levels).sort((a, b) => {
 			return sortCompareCoordinates(
 				convertLevelIdToCoordinates(a),
-				convertLevelIdToCoordinates(b)
+				convertLevelIdToCoordinates(b),
 			);
 		});
 	}, [props.levels]);
@@ -74,7 +74,7 @@ export default function LevelLayerDropdownSelect(props: Props) {
 				onNewCoordinatesSet(convertLevelIdToCoordinates(newOption.value));
 			}
 		},
-		[onNewCoordinatesSet]
+		[onNewCoordinatesSet],
 	);
 
 	return (

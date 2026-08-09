@@ -19,10 +19,10 @@ import SidebarObjectAdder from './SidebarObjectAdder';
 type Props = Readonly<{
 	decosListItemsExpanded: Map<number, number>;
 	dispatchDecosListItemsExpanded: (
-		action: ListItemsExpandedReducerAction
+		action: ListItemsExpandedReducerAction,
 	) => void;
 	dispatchObjectsListItemsExpanded: (
-		action: ListItemsExpandedReducerAction
+		action: ListItemsExpandedReducerAction,
 	) => void;
 	entityHover: EditorEntityHoverType | null;
 	expandedSidebarPanels: Set<SidebarPanel>;
@@ -37,19 +37,19 @@ type Props = Readonly<{
 		properties: {
 			[key: string]: string | number | null;
 		},
-		entityType: GameEntityType
+		entityType: GameEntityType,
 	) => void;
 	onEntityHover: (
 		entityType: GameEntityType,
-		entityIndex: number | null
+		entityIndex: number | null,
 	) => void;
 	onFocusEntityOnLevelPreview: (
 		entityType: GameEntityType,
-		entityIndex: number
+		entityIndex: number,
 	) => void;
 	onSidebarPanelExpandToggle: (
 		ev: React.MouseEvent<HTMLElement>,
-		sidebarPanel: SidebarPanel
+		sidebarPanel: SidebarPanel,
 	) => void;
 }>;
 
