@@ -1,9 +1,9 @@
 import {Button, Modal} from '@mantine/core';
-import {encode} from 'base64-arraybuffer';
 import {fileOpen, fileSave} from 'browser-fs-access';
 import {deflate} from 'pako';
 import {useState} from 'react';
 import tinycolor from 'tinycolor2';
+import {z} from 'zod/mini';
 
 import ErrorBoundary from '../../common/ErrorBoundary';
 import MessageBox from '../../common/MessageBox';
@@ -156,14 +156,12 @@ export default function LevelTerrainEditorModal(props: Props) {
 				URL.revokeObjectURL(img.src);
 
 				const encoded = new Uint8Array(pixels);
-				const deflated = deflate(encoded);
 
 				dispatch({
 					type: 'setLevelProperty',
 					coordinates: currentCoordinates,
 					key: 'geo',
-					// @ts-expect-error fix Uint8Array https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html#libdts-changes
-					value: encode(deflated),
+					value: z.util.uint8ArrayToBase64(deflate(encoded)),
 				});
 				props.onModalRequestClose();
 			} catch (ex) {

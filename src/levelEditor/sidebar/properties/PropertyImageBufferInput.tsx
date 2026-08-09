@@ -1,7 +1,7 @@
 import {Button} from '@mantine/core';
-import {encode} from 'base64-arraybuffer';
 import {fileOpen} from 'browser-fs-access';
 import {deflate} from 'pako';
+import {z} from 'zod/mini';
 
 type Props = Readonly<{
 	onEditProperty: (key: string, value: string) => void;
@@ -21,7 +21,7 @@ export default function PropertyImageBufferInput({
 		});
 
 		const reader = new FileReader();
-		reader.onload = (buffer: ProgressEvent) => {
+		reader.onload = (buffer) => {
 			const reader = buffer.currentTarget;
 			if (
 				!(reader instanceof FileReader) ||
@@ -30,8 +30,10 @@ export default function PropertyImageBufferInput({
 				throw new Error();
 			}
 
-			// @ts-expect-error fix Uint8Array https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html#libdts-changes
-			onEditProperty(propertyKey, encode(deflate(reader.result)));
+			onEditProperty(
+				propertyKey,
+				z.util.uint8ArrayToBase64(deflate(reader.result)),
+			);
 		};
 		reader.onerror = (ex) => {
 			console.error(ex);

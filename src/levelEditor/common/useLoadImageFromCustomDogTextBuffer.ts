@@ -1,7 +1,7 @@
-import {decode} from 'base64-arraybuffer';
 import {inflate} from 'pako';
 import {useEffect, useMemo} from 'react';
 import {usePrevious} from 'react-use';
+import {z} from 'zod/mini';
 
 export default function useLoadImageFromCustomDogTextBuffer(
 	text: string | null,
@@ -11,8 +11,7 @@ export default function useLoadImageFromCustomDogTextBuffer(
 			return null;
 		}
 
-		// @ts-expect-error fix Uint8Array https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html#libdts-changes
-		const blob = new Blob([inflate(decode(text))], {
+		const blob = new Blob([inflate(z.util.base64ToUint8Array(text))], {
 			type: 'image/png',
 		});
 

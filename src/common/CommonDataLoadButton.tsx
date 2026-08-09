@@ -18,7 +18,7 @@ export default function CommonDataLoadButton(props: Props) {
 		const blob = await fileOpen();
 
 		const reader = new FileReader();
-		reader.onload = (buffer: ProgressEvent) => {
+		reader.onload = (buffer) => {
 			const reader = buffer.currentTarget;
 			if (!(reader instanceof FileReader)) {
 				throw new Error('Expected file reader');

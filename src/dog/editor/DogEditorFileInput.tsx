@@ -13,7 +13,7 @@ export default function DogEditorFileInput(props: Props) {
 		});
 
 		const reader = new FileReader();
-		reader.onload = (buffer: ProgressEvent) => {
+		reader.onload = (buffer) => {
 			const reader = buffer.currentTarget;
 			if (
 				!(reader instanceof FileReader) ||

@@ -1,7 +1,7 @@
 import {Button} from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
-import {encode} from 'base64-arraybuffer';
 import {deflate} from 'pako';
+import {z} from 'zod/mini';
 
 import MessageBox from '../../../common/MessageBox';
 import DrawdogGalleryModal from '../../../dog/presets/DrawdogGalleryModal';
@@ -30,8 +30,7 @@ async function loadImage(
 				return;
 			}
 
-			// @ts-expect-error fix Uint8Array https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html#libdts-changes
-			resolve(encode(deflate(result)));
+			resolve(z.util.uint8ArrayToBase64(deflate(result)));
 		};
 		reader.onerror = reject;
 		reader.readAsArrayBuffer(blob);

@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/refs */
 
-import {encode} from 'base64-arraybuffer';
 import {deflate} from 'pako';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {usePrevious} from 'react-use';
+import {z} from 'zod/mini';
 
 import ErrorBoundary from '../common/ErrorBoundary';
 import shallowCompareArray from '../util/shallowCompareArray';
@@ -161,8 +161,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 			type: 'setLevelProperty',
 			coordinates: currentCoordinates,
 			key: 'geo',
-			// @ts-expect-error fix Uint8Array https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html#libdts-changes
-			value: encode(deflate(newGeo)),
+			value: z.util.uint8ArrayToBase64(deflate(newGeo)),
 		});
 
 		geoPaintBuffer.current = [];
@@ -216,8 +215,7 @@ export default function LevelInspector({currentCoordinates, level}: Props) {
 				type: 'setLevelProperty',
 				coordinates: currentCoordinates,
 				key: 'geo',
-				// @ts-expect-error fix Uint8Array https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html#libdts-changes
-				value: encode(deflate(newGeo)),
+				value: z.util.uint8ArrayToBase64(deflate(newGeo)),
 			});
 		},
 		[currentCoordinates, dispatchWorldData, level.geo, paintColor],
