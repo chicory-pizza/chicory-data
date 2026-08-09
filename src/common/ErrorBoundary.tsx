@@ -10,7 +10,7 @@ type State = Readonly<{
 }>;
 
 export default class ErrorBoundary extends Component<Props, State> {
-	state: State = {
+	override state: State = {
 		error: null,
 	};
 
@@ -22,7 +22,7 @@ export default class ErrorBoundary extends Component<Props, State> {
 		this.setState({error: null});
 	};
 
-	render() {
+	override render() {
 		if (this.state.error) {
 			return (
 				<div>

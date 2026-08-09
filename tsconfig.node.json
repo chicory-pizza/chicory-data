@@ -2,9 +2,9 @@
 	"compilerOptions": {
 		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
 		"target": "ES2023",
-		"useDefineForClassFields": true,
-		"lib": ["ES2023"],
 		"module": "ESNext",
+		"lib": ["ES2023"],
+		"types": [],
 		"skipLibCheck": true,
 		"checkJs": true,
 
@@ -17,12 +17,13 @@
 
 		/* Linting */
 		"strict": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
 		"erasableSyntaxOnly": true,
 		"noFallthroughCasesInSwitch": true,
-		"noUncheckedSideEffectImports": true,
-		"noImplicitReturns": true
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true
 	},
 	"include": [
 		"babel.config.cjs",
