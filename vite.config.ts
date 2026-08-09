@@ -24,7 +24,7 @@ export default defineConfig(({mode}) => {
 			chunkSizeWarningLimit: 3000, // level_data is really big
 		},
 		server: {
-			headers: getServerHeaders(env),
+			headers: getServerHeaders(mode, env),
 			https:
 				env.SSL_KEY_FILE != null && env.SSL_CRT_FILE != null
 					? {
@@ -58,7 +58,7 @@ export default defineConfig(({mode}) => {
 	};
 });
 
-function getServerHeaders(env: Record<string, string>) {
+function getServerHeaders(mode: string, env: Record<string, string>) {
 	const inGameScreenshotHost = env.VITE_IN_GAME_SCREENSHOT_URL_PREFIX;
 	const sprite = env.VITE_SPRITES_URL_PREFIX;
 
@@ -79,7 +79,11 @@ function getServerHeaders(env: Record<string, string>) {
 			"default-src 'self'",
 
 			// unsafe-inline: For Vite dev server
-			"script-src 'self' 'unsafe-inline'",
+			[
+				'script-src',
+				"'self'",
+				mode !== 'production' ? "'unsafe-inline'" : '',
+			].join(' '),
 
 			[
 				'connect-src',
