@@ -69,11 +69,7 @@ export default defineConfig(
 		},
 	},
 	{
-		files: [
-			'**/testUtil/**/*.[jt]s?(x)',
-			'**/__tests__/**/*.[jt]s?(x)',
-			'**/?(*.)+(spec|test).[jt]s?(x)',
-		],
+		files: ['tests/**'],
 		extends: [testingLibrary.configs['flat/react'], vitest.configs.recommended],
 		rules: {
 			// Normally TypeScript will already error on this

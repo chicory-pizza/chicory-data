@@ -52,9 +52,8 @@ export default defineConfig(({mode}) => {
 					},
 		},
 		test: {
-			include: ['**/__tests__/*?(.{test,spec}).?(c|m)[jt]s?(x)'],
 			environment: 'jsdom',
-			setupFiles: ['src/testUtil/setupTests.ts'],
+			setupFiles: ['tests/setup-tests.ts'],
 		},
 	};
 });
