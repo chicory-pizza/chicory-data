@@ -24,12 +24,5 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true
 	},
-	"include": [
-		"babel.config.cjs",
-		"eslint.config.mjs",
-		"jest.config.cjs",
-		"src/testUtil/**.cjs",
-		"util/**/*.ts",
-		"vite.config.ts"
-	]
+	"include": ["eslint.config.mjs", "util/**/*.ts", "vite.config.ts"]
 }

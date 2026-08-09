@@ -39,11 +39,7 @@ Use [ESLint](https://eslint.org). Run `npm run lint` to see errors.
 
 ## Tests
 
-Use [Jest](https://jestjs.io). Run `npm test` to run the tests.
-
-Some tests may fail on the first attempt due to timeout but retrying should work.
-
-Jest is used instead of [Vitest](https://vitest.dev) as [canvas in jsdom](https://github.com/vitest-dev/vitest/issues/740) doesn't work on Vitest.
+Use [Vitest](https://vitest.dev), previously used [Jest](https://jestjs.io). Run `npm test` to run the tests.
 
 ## Code coverage
 
@@ -54,11 +50,5 @@ Code coverage can be obtained by running `npm test -- --coverage`
 The test suites are run on every push, it's best to run them on your system to avoid CI failures afterwards:
 
 ```bash
-npm run tsc -- -b && npm run lint && npm test && npm run prettier -- -c
+npm run tsc -- -b && npm run lint && npm test -- --run && npm run prettier -- -c
 ```
-
-## Extra notes
-
-This project used to be bootstrapped with [Create React App](https://create-react-app.dev/docs/getting-started/) but it's now migrated to [Vite](https://vitejs.dev), because of this, there are a few quirks that is normally not seen on other Vite projects:
-
-- `babel.config.js` is only used by Jest

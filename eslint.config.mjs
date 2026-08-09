@@ -1,13 +1,12 @@
 import js from '@eslint/js';
 import eslintReact from '@eslint-react/eslint-plugin';
+import vitest from '@vitest/eslint-plugin';
 import {defineConfig} from 'eslint/config';
 import {importX} from 'eslint-plugin-import-x';
-import jest from 'eslint-plugin-jest';
 import jsxA11yX from 'eslint-plugin-jsx-a11y-x';
 import reactHooks from 'eslint-plugin-react-hooks';
 // import {reactRefresh} from 'eslint-plugin-react-refresh';
 import testingLibrary from 'eslint-plugin-testing-library';
-import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default defineConfig(
@@ -70,29 +69,12 @@ export default defineConfig(
 		},
 	},
 	{
-		files: ['**/*.cjs'],
-		rules: {
-			'@typescript-eslint/no-require-imports': 'off',
-		},
-		languageOptions: {
-			// Gives error of 'Parsing error: sourceType option must be "script", "module", or "unambiguous" if set'
-			// sourceType: 'commonjs',
-			globals: {
-				...globals.node,
-			},
-		},
-	},
-	{
 		files: [
 			'**/testUtil/**/*.[jt]s?(x)',
 			'**/__tests__/**/*.[jt]s?(x)',
 			'**/?(*.)+(spec|test).[jt]s?(x)',
 		],
-		extends: [
-			testingLibrary.configs['flat/react'],
-			jest.configs['flat/recommended'],
-			jest.configs['flat/style'],
-		],
+		extends: [testingLibrary.configs['flat/react'], vitest.configs.recommended],
 	},
 	{
 		ignores: ['dist/', 'coverage/'],

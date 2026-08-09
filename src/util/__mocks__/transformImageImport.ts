@@ -1,9 +1,9 @@
+import path from 'node:path';
+
 export default function transformImageImport(url: URL): string {
-	return (
-		url.href
-			// Windows (file:///C:/ -> C:/)
-			.replace(/^file:\/\/\/([A-Za-z]):\//, '$1:/')
-			// Unix (file:///home/ -> /home/)
-			.replace(/^file:\/\//, '')
-	);
+	// url will be something like `http://localhost:3000/src/dog/images/dog_animations/idle/sprDog_idle_A_0.png`
+
+	// Get the current dirname in filesystem to figure out the path to root project folder
+	// Then append the url pathname
+	return path.resolve(import.meta.dirname, '../../../') + url.pathname;
 }

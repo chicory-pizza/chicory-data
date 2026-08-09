@@ -144,7 +144,11 @@ test.each(DRAWDOG_PRESETS)('$name', async (preset: DrawdogPreset) => {
 		customClothesImage:
 			preset.customClothesImage != null
 				? await loadImage(
-						path.resolve(__dirname, '../presets/', preset.customClothesImage),
+						path.resolve(
+							import.meta.dirname,
+							'../presets/',
+							preset.customClothesImage,
+						),
 					)
 				: null,
 		earColor: preset.earColor,
@@ -157,7 +161,11 @@ test.each(DRAWDOG_PRESETS)('$name', async (preset: DrawdogPreset) => {
 					customImage:
 						hat.customImage != null
 							? await loadImage(
-									path.resolve(__dirname, '../presets/', hat.customImage),
+									path.resolve(
+										import.meta.dirname,
+										'../presets/',
+										hat.customImage,
+									),
 								)
 							: null,
 				};
@@ -166,7 +174,11 @@ test.each(DRAWDOG_PRESETS)('$name', async (preset: DrawdogPreset) => {
 		headSkinImage:
 			preset.headSkinImage != null
 				? await loadImage(
-						path.resolve(__dirname, '../presets/', preset.headSkinImage),
+						path.resolve(
+							import.meta.dirname,
+							'../presets/',
+							preset.headSkinImage,
+						),
 					)
 				: null,
 		skinColor: preset.skinColor,

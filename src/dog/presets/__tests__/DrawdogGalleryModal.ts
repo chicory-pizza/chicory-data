@@ -3,8 +3,6 @@ import userEvent from '@testing-library/user-event';
 
 import renderDogEditorRoute from '../../testUtil/renderDogEditorRoute';
 
-jest.setTimeout(20000); // hack, sigh
-
 test('filters the gallery', async () => {
 	await renderDogEditorRoute();
 

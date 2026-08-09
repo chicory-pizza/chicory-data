@@ -1,4 +1,4 @@
-/* global process */
+/// <reference types="vitest/config" />
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -50,6 +50,12 @@ export default defineConfig(({mode}) => {
 						// https://github.com/vitejs/vite/issues/19662
 						host: env.HOSTNAME,
 					},
+		},
+		test: {
+			globals: true, // todo remove this
+			include: ['**/__tests__/*?(.{test,spec}).?(c|m)[jt]s?(x)'],
+			environment: 'jsdom',
+			setupFiles: ['src/testUtil/setupTests.ts'],
 		},
 	};
 });

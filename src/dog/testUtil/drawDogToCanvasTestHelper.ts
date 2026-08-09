@@ -132,7 +132,7 @@ export default async function drawDogToCanvasTestHelper(options: {
 			head: await loadImage(
 				expressionInfo != null
 					? (expressionInfo.imageHQ ?? expressionInfo.image)
-					: path.resolve(__dirname, '../images/sprDog_head_0.png'),
+					: path.resolve(import.meta.dirname, '../images/sprDog_head_0.png'),
 			),
 			// @ts-expect-error node-canvas Image does not pass CanvasImageSource
 			headSkin: options.headSkinImage,

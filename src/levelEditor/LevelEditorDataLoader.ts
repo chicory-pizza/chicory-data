@@ -18,6 +18,7 @@ declare global {
 export default function LevelEditorDataLoader(props: Props) {
 	const {worldData, dispatch} = useWorldDataNullable();
 	const consoleMessageShownRef = useRef(false);
+	const levelDataLoadingRef = useRef(false);
 
 	useEffect(() => {
 		window.levelsData = worldData;
@@ -33,7 +34,12 @@ export default function LevelEditorDataLoader(props: Props) {
 
 	// Do first load
 	useEffect(() => {
-		if (worldData == null) {
+		// weird problem with Vitest mocking the level_data.json
+		// for some specific tests, it gets unmocked on the 2nd time
+		// due to React strict mode running effects twice
+		if (!levelDataLoadingRef.current) {
+			levelDataLoadingRef.current = true;
+
 			import('./level_data.json')
 				.then((initialWorldData) => {
 					dispatch({

@@ -1,14 +1,15 @@
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 import {configure as configureTestingLibrary} from '@testing-library/react';
+import {vi} from 'vitest';
 
 import '../util/shimRequestIdleCallback';
 
-jest.mock('../CustomMantine');
-jest.mock('../util/ConsoleNoJest');
-jest.mock('../util/transformImageImport');
-jest.mock('../levelEditor/level_data.json');
+vi.mock(import('../CustomMantine'));
+vi.mock(import('../util/ConsoleNoJest'));
+vi.mock(import('../util/transformImageImport'));
+vi.mock(import('../levelEditor/level_data.json'));
 
-Element.prototype.scrollIntoView = jest.fn();
+Element.prototype.scrollIntoView = vi.fn();
 
 // https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
 window.matchMedia = (query) => {
@@ -16,11 +17,11 @@ window.matchMedia = (query) => {
 		matches: false,
 		media: query,
 		onchange: null,
-		addListener: jest.fn(), // deprecated
-		removeListener: jest.fn(), // deprecated
-		addEventListener: jest.fn(),
-		removeEventListener: jest.fn(),
-		dispatchEvent: jest.fn(),
+		addListener: vi.fn(), // deprecated
+		removeListener: vi.fn(), // deprecated
+		addEventListener: vi.fn(),
+		removeEventListener: vi.fn(),
+		dispatchEvent: vi.fn(),
 	};
 };
 
@@ -48,7 +49,3 @@ window.IntersectionObserver = class IntersectionObserver {
 };
 
 configureTestingLibrary({reactStrictMode: true});
-
-process.env.VITE_IN_GAME_SCREENSHOT_URL_PREFIX =
-	'http://localhost/level_screenshots/';
-process.env.VITE_SPRITES_URL_PREFIX = 'http://localhost/sprites_padding/';
