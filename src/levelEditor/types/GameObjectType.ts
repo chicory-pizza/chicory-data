@@ -352,10 +352,7 @@ export type GameObjectType =
 			id?: number;
 
 			data:
-				| string
-				| 'temple_leftdoor'
-				| 'temple_lowerdoor'
-				| 'temple_rightdoor';
+				string | 'temple_leftdoor' | 'temple_lowerdoor' | 'temple_rightdoor';
 			key:
 				| string
 				| 'OOOOO.OOOOO.XXXXX.OXXXO.OOXOO'
@@ -404,14 +401,7 @@ export type GameObjectType =
 			id?: number;
 
 			fly_num?:
-				| StringThatShouldBeNumber
-				| '0'
-				| '2'
-				| '3'
-				| '5'
-				| '8'
-				| '10'
-				| '15';
+				StringThatShouldBeNumber | '0' | '2' | '3' | '5' | '8' | '10' | '15';
 			ground_num?:
 				| StringThatShouldBeNumber
 				| '0'
@@ -484,14 +474,7 @@ export type GameObjectType =
 			id?: number;
 
 			foley?:
-				| StringThatShouldBeNumber
-				| '0'
-				| '1'
-				| '2'
-				| '3'
-				| '4'
-				| '6'
-				| '8';
+				StringThatShouldBeNumber | '0' | '1' | '2' | '3' | '4' | '6' | '8';
 			height?:
 				| StringThatShouldBeNumber
 				| '96'
@@ -866,10 +849,7 @@ export type GameObjectType =
 			id?: number;
 
 			data?:
-				| string
-				| 'temple_leftdoor'
-				| 'temple_lowerdoor'
-				| 'temple_rightdoor';
+				string | 'temple_leftdoor' | 'temple_lowerdoor' | 'temple_rightdoor';
 			dots_on_door?: StringThatShouldBeNumber | '0' | '1';
 			filled?: '1';
 			key?:
@@ -950,21 +930,7 @@ export type GameObjectType =
 			id?: number;
 
 			attached_object?:
-				| number
-				| 3
-				| 4
-				| 6
-				| 7
-				| 8
-				| 9
-				| 10
-				| 11
-				| 12
-				| 13
-				| 14
-				| 17
-				| 18
-				| 19;
+				number | 3 | 4 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 17 | 18 | 19;
 			name?:
 				| string
 				| '1'
@@ -1916,12 +1882,7 @@ export type GameObjectType =
 
 			bombhold?: '1';
 			pattern_time?:
-				| StringThatShouldBeNumber
-				| '.3334'
-				| '1'
-				| '1.25'
-				| '2.5'
-				| '3';
+				StringThatShouldBeNumber | '.3334' | '1' | '1.25' | '2.5' | '3';
 			snowiness?: StringThatShouldBeNumber | '.2' | '.6' | '.66';
 			wind_pattern?:
 				| StringThatShouldBeNumber
