@@ -8,7 +8,7 @@ Modding tools for Chicory: A Colorful Tale, such as level viewer and editor.
 
 Note that this tool directly exposes game internals and doesn't hide anything, it's recommended to complete the game (ideally to 100% completion) if you don't want to be spoiled.
 
-## Development
+## Contributing
 
 [Check out CONTRIBUTING.md for the full guide!](https://github.com/chicory-pizza/chicory-data/blob/master/CONTRIBUTING.md)
 

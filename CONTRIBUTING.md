@@ -1,4 +1,4 @@
-# Getting started
+# Developing Chicory: A Colorful Modding
 
 ## Remote development
 
@@ -8,42 +8,26 @@ Gitpod lets you get started coding without the need to install any extra program
 
 ## Local development
 
-Requirements:
+First, install [Node.js v22+](https://nodejs.org).
 
-- [Node.js v22+](https://nodejs.org)
+Run the web app:
 
-Steps:
-
-1. git clone
-2. npm install
-3. npm start
-4. Open the web app at <http://localhost:3000>
-
-### Visual Studio Code extensions
-
-If you use [Visual Studio Code](https://code.visualstudio.com), it's recommended to install these extensions for the best experience.
-
-You can find this list by opening the Command Palette and choosing "Extensions: Show Recommended Extensions"
-
-- [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+```sh
+npm install
+npm start # go to http://localhost:3000
+```
 
 ## Libraries
 
-This project is primarily a [React](https://react.dev) app.
+This project is a [React](https://react.dev) app, using [React Router](https://reactrouter.com) for routing.
 
-It's highly recommended to install the [React Developer Tools](https://react.dev/learn/react-developer-tools) on your browser for easier debugging.
+For UI styling, this projects uses [Mantine](https://mantine.dev) and [Tabler Icons](https://tabler.io/icons).
 
-## UI libraries
-
-Use [Mantine](https://mantine.dev) for UI components and [Tabler Icons](https://tabler.io/icons) for icons.
+It's recommended to install the [React Developer Tools](https://react.dev/learn/react-developer-tools) on your browser for easier debugging.
 
 ## Code style
 
 Use [Prettier](https://prettier.io). Run `npm run prettier -- --write` to auto-fix.
-
-If you have the proper Visual Studio Code setup, then it should be auto-formatted on save, no need to worry about code style!
 
 ## Type-checking
 
