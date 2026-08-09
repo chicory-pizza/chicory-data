@@ -11,7 +11,7 @@ import '../src/util/shimRequestIdleCallback';
 vi.mock(import('../src/CustomMantine'));
 vi.mock(import('../src/util/ConsoleNoJest'));
 vi.mock(import('../src/util/transformImageImport'));
-vi.mock(import('../src/levelEditor/level_data.json'));
+vi.mock(import('../src/levelEditor/util/loadLevelData'));
 
 Element.prototype.scrollIntoView = vi.fn();
 

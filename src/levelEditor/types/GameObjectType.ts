@@ -14,24 +14,24 @@ export type ObjCustomDogType = {
 	x: number;
 	y: number;
 
-	angle: number;
-	animation: string;
-	brush: number;
-	clothes: string;
-	color_body: number;
-	color_head: number;
-	color_skin: number;
-	comment: string;
+	angle?: number;
+	animation?: string;
+	brush?: number;
+	clothes?: string;
+	color_body?: number;
+	color_head?: number;
+	color_skin?: number;
+	comment?: string;
 	custom_clothes?: string;
 	custom_hat?: string;
 	dialogue?: string;
-	expression: string;
-	hair: string;
-	hat: string;
+	expression?: string;
+	hair?: string;
+	hat?: string;
 	interactable?: number;
 	npc_name?: string;
-	xscale: number;
-	yscale: number;
+	xscale?: number;
+	yscale?: number;
 };
 
 // Generated using `util/extract_object_types_from_level_data.ts`, please edit that
