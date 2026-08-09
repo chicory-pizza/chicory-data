@@ -1,3 +1,4 @@
+import {modals} from '@mantine/modals';
 import {type ShouldBlockFn, useBlocker} from '@tanstack/react-router';
 
 export function usePrompt(
@@ -11,7 +12,19 @@ export function usePrompt(
 				return false;
 			}
 
-			return !confirm(message);
+			return new Promise((resolve) => {
+				modals.openConfirmModal({
+					modalId: 'useBlocker',
+					title: message,
+					labels: {confirm: 'Discard', cancel: 'Cancel'},
+					onConfirm() {
+						resolve(false);
+					},
+					onClose() {
+						resolve(true);
+					},
+				});
+			});
 		},
 		enableBeforeUnload: true,
 		disabled: !when,
