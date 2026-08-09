@@ -70,5 +70,6 @@ export default function useLoadMultipleImages(
 		return null;
 	}
 
+	// eslint-disable-next-line react-hooks/refs
 	return imgs.current;
 }

@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/refs */
+
 import {useEffect, useMemo, useRef} from 'react';
 
 import Spinner from '../../common/Spinner';

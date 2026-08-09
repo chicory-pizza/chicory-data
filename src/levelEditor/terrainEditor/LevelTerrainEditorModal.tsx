@@ -162,6 +162,7 @@ export default function LevelTerrainEditorModal(props: Props) {
 					type: 'setLevelProperty',
 					coordinates: currentCoordinates,
 					key: 'geo',
+					// @ts-expect-error fix Uint8Array https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html#libdts-changes
 					value: encode(deflated),
 				});
 				props.onModalRequestClose();

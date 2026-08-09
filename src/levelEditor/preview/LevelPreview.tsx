@@ -101,7 +101,7 @@ export default function LevelPreview(props: Props) {
 	}
 
 	return (
-		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line jsx-a11y-x/click-events-have-key-events, jsx-a11y-x/no-static-element-interactions
 		<div
 			className={styles.root}
 			data-testid="levelpreview-root"
@@ -185,7 +185,7 @@ export default function LevelPreview(props: Props) {
 			) : null}
 
 			{props.activeUiViews.has('GEO') ? (
-				// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+				// eslint-disable-next-line jsx-a11y-x/no-static-element-interactions
 				<div className={styles.geoCanvas} onMouseDown={props.onMapMouseDown}>
 					<GeoPreview
 						colors={EDITOR_UI_PIXEL_COLORS}

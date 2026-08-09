@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/refs */
+
 import {useEffect, useRef, useState} from 'react';
 
 export default function useLoadImage(

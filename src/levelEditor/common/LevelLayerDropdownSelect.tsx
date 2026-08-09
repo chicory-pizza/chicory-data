@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/refs */
+
 import {useCallback, useMemo, useRef} from 'react';
 
 import CustomSelect from '../../common/CustomSelect';

@@ -17,15 +17,15 @@ import styles from './DogEditorCustomHeadSkinModalLauncher.module.css';
 export default function DogEditorCustomHeadSkinModalLauncher() {
 	const {dispatch, dogState} = useDogEditorContext();
 
+	const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
 	const [isModalOpen, {open: openModal, close: closeModal}] =
 		useDisclosure(false);
 	const onModalExitTransitionEnd = useCallback(() => {
 		setImageDataUrl(null);
 		setErrorMessage(null);
 	}, []);
-
-	const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
-	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 	const onNewHeadOverlayImage = useCallback((dataUrl: string) => {
 		setImageDataUrl(null);

@@ -44,7 +44,7 @@ function LevelDecoAdder(props: Props) {
 
 				{filteredSprites.map((sprite) => {
 					return (
-						// eslint-disable-next-line jsx-a11y/anchor-is-valid
+						// eslint-disable-next-line jsx-a11y-x/anchor-is-valid
 						<a
 							className={styles.deco}
 							href="#"

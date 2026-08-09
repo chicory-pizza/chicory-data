@@ -27,6 +27,7 @@ window.matchMedia = (query) => {
 window.IntersectionObserver = class IntersectionObserver {
 	root = null;
 	rootMargin = '0px 0px 0px 0px';
+	scrollMargin = '0px 0px 0px 0px';
 	thresholds = [0];
 
 	disconnect() {

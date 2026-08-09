@@ -152,8 +152,8 @@ function reducer(state: WorldType | null, action: ReducerAction): WorldType {
 						...state,
 						[levelId]: {
 							...level,
-							// @ts-expect-error fix the GameObjectType union type
 							objects: (level.objects ?? []).concat({
+								// @ts-expect-error fix the GameObjectType union type
 								obj: action.entity.data,
 								x: action.x,
 								y: action.y,

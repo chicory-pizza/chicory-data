@@ -1,4 +1,4 @@
-/* eslint-disable @eslint-react/dom/no-unsafe-target-blank */
+/* eslint-disable @eslint-react/dom-no-unsafe-target-blank */
 
 import {Tooltip} from '@mantine/core';
 import {IconChevronLeft} from '@tabler/icons-react';
@@ -43,8 +43,8 @@ export default function AppHeader(props: Props) {
 							<a
 								className={styles.websiteLink}
 								href="https://discord.chicory.pizza"
-								rel="noopener"
 								target="_blank"
+								rel="noopener"
 							>
 								<DiscordIcon className={styles.discordIcon} />
 							</a>
@@ -54,8 +54,8 @@ export default function AppHeader(props: Props) {
 							<a
 								className={styles.websiteLink}
 								href="https://github.com/chicory-pizza/chicory-data"
-								rel="noopener"
 								target="_blank"
+								rel="noopener"
 							>
 								<GitHubIcon className={styles.githubIcon} />
 							</a>

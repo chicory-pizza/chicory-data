@@ -30,6 +30,7 @@ async function loadImage(
 				return;
 			}
 
+			// @ts-expect-error fix Uint8Array https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html#libdts-changes
 			resolve(encode(deflate(result)));
 		};
 		reader.onerror = reject;

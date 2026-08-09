@@ -1,4 +1,4 @@
-/* eslint-disable @eslint-react/dom/no-unsafe-target-blank */
+/* eslint-disable @eslint-react/dom-no-unsafe-target-blank */
 
 import {Tooltip} from '@mantine/core';
 import {Link} from 'react-router-dom';
@@ -40,6 +40,7 @@ export default function SplashScreen() {
 				className={styles.link}
 				href="https://map.chicory.pizza"
 				target="_blank"
+				rel="noopener"
 			>
 				🗺 Map viewer
 			</a>
@@ -52,6 +53,7 @@ export default function SplashScreen() {
 				className={styles.link}
 				href="https://docs.google.com/spreadsheets/d/1RCRK68APK2YovAyr5QhjddNkknHaAGoHCcA0do3UYfs/edit"
 				target="_blank"
+				rel="noopener"
 			>
 				📝 Text viewer
 			</a>
@@ -60,6 +62,7 @@ export default function SplashScreen() {
 				className={styles.link}
 				href="https://wiki.chicory.pizza"
 				target="_blank"
+				rel="noopener"
 			>
 				📘 Wiki
 			</a>
@@ -69,8 +72,8 @@ export default function SplashScreen() {
 					<a
 						className={styles.websiteLink}
 						href="https://discord.chicory.pizza"
-						rel="noopener"
 						target="_blank"
+						rel="noopener"
 					>
 						<DiscordIcon className={styles.discordIcon} />
 					</a>
@@ -80,8 +83,8 @@ export default function SplashScreen() {
 					<a
 						className={styles.websiteLink}
 						href="https://github.com/chicory-pizza/chicory-data"
-						rel="noopener"
 						target="_blank"
+						rel="noopener"
 					>
 						<GitHubIcon className={styles.githubIcon} />
 					</a>

@@ -41,7 +41,7 @@ export default function DogChicorobotNotices(props: Props) {
 		props.invertColors;
 
 	if (!showChicorobotNotice) {
-		return <></>;
+		return null;
 	}
 
 	return (

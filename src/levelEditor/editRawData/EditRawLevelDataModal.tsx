@@ -20,15 +20,15 @@ export default function EditRawLevelDataModal(props: Props) {
 	const [currentCoordinates] = useCurrentCoordinatesNonNullable();
 	const [prevLevel, setPrevLevel] = useState(props.level);
 
+	function getLatestDataText() {
+		return JSON.stringify(props.level, null, 2);
+	}
+
 	const [draftText, setDraftText] = useState(() => getLatestDataText());
 
 	if (props.isOpen && props.level !== prevLevel) {
 		setDraftText(getLatestDataText());
 		setPrevLevel(props.level);
-	}
-
-	function getLatestDataText() {
-		return JSON.stringify(props.level, null, 2);
 	}
 
 	function onFormSubmit(ev: React.SyntheticEvent<HTMLFormElement>) {

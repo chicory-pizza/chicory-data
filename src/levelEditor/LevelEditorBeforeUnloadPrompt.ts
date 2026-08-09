@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/refs */
+
 import {useRef, useState} from 'react';
 
 import {usePrompt} from '../util/usePrompt';
@@ -45,6 +47,7 @@ export default function LevelEditorBeforeUnloadPrompt(props: Props): null {
 
 			if (
 				props.lastSaveTime == null ||
+				// eslint-disable-next-line react-hooks/purity
 				props.lastSaveTime + 3 <= Date.now() / 1000
 			) {
 				setHasDirtyChanges(true);

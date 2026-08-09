@@ -63,6 +63,7 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 	}, [previousExpandedTime, props.expandedTime]);
 
 	return (
+		// eslint-disable-next-line jsx-a11y-x/no-noninteractive-element-interactions
 		<li
 			className={props.highlighted ? props.highlightClassName : ''}
 			onMouseEnter={() => {

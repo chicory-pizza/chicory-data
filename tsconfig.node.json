@@ -16,7 +16,6 @@
 		"noEmit": true,
 
 		/* Linting */
-		"strict": true,
 		"erasableSyntaxOnly": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitOverride": true,

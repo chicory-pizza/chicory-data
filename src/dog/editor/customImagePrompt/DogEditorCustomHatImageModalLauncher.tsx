@@ -26,15 +26,15 @@ type Props = Readonly<{
 export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 	const {dispatch, dogState} = useDogEditorContext();
 
+	const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
 	const [isModalOpen, {open: openModal, close: closeModal}] =
 		useDisclosure(false);
 	const onModalExitTransitionEnd = useCallback(() => {
 		setImageDataUrl(null);
 		setErrorMessage(null);
 	}, []);
-
-	const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
-	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 	const onNewHatImage = useCallback((dataUrl: string) => {
 		setImageDataUrl(null);

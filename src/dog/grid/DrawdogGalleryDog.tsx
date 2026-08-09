@@ -17,7 +17,7 @@ export default function DrawdogGalleryDog(props: Props) {
 	const {onHoverEnter, preset, showBody} = props;
 
 	return (
-		// eslint-disable-next-line jsx-a11y/anchor-is-valid
+		// eslint-disable-next-line jsx-a11y-x/anchor-is-valid
 		<a
 			className={styles.preset}
 			href="#"

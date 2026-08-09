@@ -1,21 +1,24 @@
 import js from '@eslint/js';
 import eslintReact from '@eslint-react/eslint-plugin';
-import importPlugin from 'eslint-plugin-import';
+import {defineConfig} from 'eslint/config';
+import {importX} from 'eslint-plugin-import-x';
 import jest from 'eslint-plugin-jest';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
+import jsxA11yX from 'eslint-plugin-jsx-a11y-x';
 import reactHooks from 'eslint-plugin-react-hooks';
+// import {reactRefresh} from 'eslint-plugin-react-refresh';
 import testingLibrary from 'eslint-plugin-testing-library';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+export default defineConfig(
 	js.configs.recommended,
 	tseslint.configs.strictTypeChecked,
 
-	importPlugin.flatConfigs.typescript,
-	eslintReact.configs['recommended-typescript'],
-	reactHooks.configs['recommended-latest'],
-	jsxA11y.flatConfigs.recommended,
+	importX.flatConfigs.typescript,
+	eslintReact.configs['strict-type-checked'],
+	reactHooks.configs.flat.recommended,
+	// reactRefresh.configs.vite(),
+	jsxA11yX.configs.strict,
 	{
 		rules: {
 			'no-var': 'error',
@@ -28,8 +31,7 @@ export default tseslint.config(
 			],
 			'prefer-const': 'warn',
 
-			'@eslint-react/no-leaked-conditional-rendering': 'error',
-			'@eslint-react/prefer-read-only-props': 'error',
+			'@eslint-react/immutability': 'error',
 
 			'@typescript-eslint/no-misused-promises': [
 				'error',
@@ -41,14 +43,14 @@ export default tseslint.config(
 			// https://typescript-eslint.io/rules/no-unnecessary-condition/#possibly-undefined-indexed-access
 			'@typescript-eslint/no-unnecessary-condition': 'off',
 
-			// `importPlugin.flatConfigs.recommended` without slow rules
+			// `importX.flatConfigs.recommended` without slow rules
 			// https://typescript-eslint.io/troubleshooting/typed-linting/performance/#eslint-plugin-import
-			'import/export': 'error',
-			'import/no-duplicates': 'warn',
-			'import/no-named-as-default': 'warn',
+			'import-x/export': 'error',
+			'import-x/no-named-as-default': 'warn',
+			'import-x/no-duplicates': 'warn',
 
-			'import/enforce-node-protocol-usage': ['error', 'always'],
-			'import/order': [
+			// 'import/enforce-node-protocol-usage': ['error', 'always'],
+			'import-x/order': [
 				'warn',
 				{
 					'newlines-between': 'always',
@@ -56,6 +58,7 @@ export default tseslint.config(
 						order: 'asc',
 						caseInsensitive: true,
 					},
+					// named: true,
 				},
 			],
 		},

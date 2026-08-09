@@ -30,6 +30,7 @@ export default function PropertyImageBufferInput({
 				throw new Error();
 			}
 
+			// @ts-expect-error fix Uint8Array https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html#libdts-changes
 			onEditProperty(propertyKey, encode(deflate(reader.result)));
 		};
 		reader.onerror = (ex) => {

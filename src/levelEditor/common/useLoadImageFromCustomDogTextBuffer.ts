@@ -11,6 +11,7 @@ export default function useLoadImageFromCustomDogTextBuffer(
 			return null;
 		}
 
+		// @ts-expect-error fix Uint8Array https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html#libdts-changes
 		const blob = new Blob([inflate(decode(text))], {
 			type: 'image/png',
 		});

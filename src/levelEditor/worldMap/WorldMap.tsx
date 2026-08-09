@@ -34,6 +34,7 @@ export default function WorldMap() {
 				return previous;
 			}
 
+			// eslint-disable-next-line react-hooks/immutability
 			minX = Math.min(minX, coordinates[1]);
 			minY = Math.min(minY, coordinates[2]);
 

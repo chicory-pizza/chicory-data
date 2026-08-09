@@ -18,6 +18,7 @@ test('edits the raw data', async () => {
 	await userEvent.type(
 		textarea,
 		// https://github.com/testing-library/user-event/issues/584
+		// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
 		JSON.stringify({
 			ambiance: '-1',
 			objects: [],
