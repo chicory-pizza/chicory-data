@@ -13,11 +13,9 @@ export default tseslint.config(
 	tseslint.configs.strictTypeChecked,
 
 	importPlugin.flatConfigs.typescript,
-	jest.configs['flat/recommended'],
-	jest.configs['flat/style'],
-	jsxA11y.flatConfigs.recommended,
 	eslintReact.configs['recommended-typescript'],
 	reactHooks.configs['recommended-latest'],
+	jsxA11y.flatConfigs.recommended,
 	{
 		rules: {
 			'no-var': 'error',
@@ -87,7 +85,11 @@ export default tseslint.config(
 			'**/__tests__/**/*.[jt]s?(x)',
 			'**/?(*.)+(spec|test).[jt]s?(x)',
 		],
-		...testingLibrary.configs['flat/react'],
+		extends: [
+			testingLibrary.configs['flat/react'],
+			jest.configs['flat/recommended'],
+			jest.configs['flat/style'],
+		],
 	},
 	{
 		ignores: ['dist/', 'coverage/'],

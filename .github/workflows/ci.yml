@@ -2,29 +2,45 @@ name: Node.js CI
 
 on:
   push:
-    branches: [master]
+    branches: ['master']
 
   pull_request:
-    branches: [master]
+    branches: ['master']
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # https://github.com/actions/checkout/releases/tag/v7.0.1
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # https://github.com/actions/setup-node/releases/tag/v7.0.0
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
 
-      - run: npm ci
+      - name: Install npm dependencies
+        run: npm ci
 
       # smoke test to ensure the build works
-      - run: npm run build
+      - name: Build website
+        run: npm run build
 
-      - run: npm run tsc -- --build
-      - run: npm run lint
-      - run: npm test
-      - run: npm run prettier -- --check
+      - name: Type-checking
+        run: npm run tsc -- --build
+
+      - name: Linting
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test -- --run
+
+      - name: Check JavaScript code style
+        run: npm run prettier -- --check

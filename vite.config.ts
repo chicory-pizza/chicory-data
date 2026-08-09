@@ -88,7 +88,9 @@ function getServerHeaders(env: Record<string, string>) {
 					: '',
 			].join(' '),
 
-			// unsafe-inline: For react-select (https://github.com/JedWatson/react-select/issues/2030)
+			// unsafe-inline:
+			//   - For Vite dev server
+			//   - For react-select (https://github.com/JedWatson/react-select/issues/2030)
 			"style-src 'self' 'unsafe-inline'",
 
 			// data: Inline images

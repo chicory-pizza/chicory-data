@@ -1,7 +1,9 @@
 {
   "name": "chicory-data",
+  "homepage": "https://github.com/chicory-pizza/chicory-data",
   "description": "Modding tools for Chicory: A Colorful Tale, such as level viewer and editor",
   "bugs": {
+    "url": "https://github.com/chicory-pizza/chicory-data/issues",
     "email": "ngyikp@gmail.com"
   },
   "author": {
@@ -9,11 +11,25 @@
     "email": "ngyikp@gmail.com",
     "url": "https://ngyikp.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chicory-pizza/chicory-data.git"
+  },
   "private": true,
   "license": "MPL-2.0",
-  "type": "module",
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "lint": "eslint .",
+    "prettier": "prettier .",
+    "preview": "vite preview",
+    "start": "vite",
+    "test": "jest",
+    "tsc": "tsc"
   },
   "dependencies": {
     "@dr.pogodin/react-helmet": "3.0.2",
@@ -76,15 +92,5 @@
   },
   "overrides": {
     "jest": "$jest"
-  },
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite",
-    "lint": "eslint .",
-    "start": "vite",
-    "prettier": "prettier .",
-    "preview": "vite preview",
-    "test": "jest",
-    "tsc": "tsc"
   }
 }

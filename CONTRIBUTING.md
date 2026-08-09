@@ -8,7 +8,7 @@ Gitpod lets you get started coding without the need to install any extra program
 
 ## Local development
 
-First, install [Node.js v22+](https://nodejs.org).
+First, install [Node.js v24+](https://nodejs.org).
 
 Run the web app:
 
