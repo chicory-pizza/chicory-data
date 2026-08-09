@@ -1,3 +1,5 @@
+import {expect, test} from 'vitest';
+
 import {DOG_CLOTHES_LIST} from '../../types/DogClothesList';
 import {DOG_EXPRESSION_LIST} from '../../types/DogExpressionList';
 import {DOG_HAIR_LIST} from '../../types/DogHairList';

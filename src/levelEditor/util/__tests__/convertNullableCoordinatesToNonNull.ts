@@ -1,3 +1,5 @@
+import {expect, test} from 'vitest';
+
 import convertNullableCoordinatesToNonNull from '../convertNullableCoordinatesToNonNull';
 
 test('converts valid', () => {

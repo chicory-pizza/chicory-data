@@ -1,6 +1,7 @@
 /* global Buffer */
 
 import {toMatchImageSnapshot} from 'jest-image-snapshot';
+import {expect, test} from 'vitest';
 
 import getCanvasRenderingContext from '../../../util/getCanvasRenderingContext';
 import {

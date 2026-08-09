@@ -1,3 +1,5 @@
+import {expect, test} from 'vitest';
+
 import convertCoordinatesToLevelId from '../convertCoordinatesToLevelId';
 
 test('converts coordinates', () => {

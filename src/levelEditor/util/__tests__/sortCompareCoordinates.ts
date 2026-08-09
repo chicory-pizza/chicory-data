@@ -1,3 +1,5 @@
+import {expect, test} from 'vitest';
+
 import sortCompareCoordinates from '../sortCompareCoordinates';
 
 test('sort coordinates', () => {

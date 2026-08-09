@@ -1,3 +1,5 @@
+import {expect, test} from 'vitest';
+
 import getChicorobotCode from '../getChicorobotCode';
 
 test('Pizza (default)', () => {

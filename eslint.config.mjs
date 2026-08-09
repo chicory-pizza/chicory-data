@@ -75,6 +75,11 @@ export default defineConfig(
 			'**/?(*.)+(spec|test).[jt]s?(x)',
 		],
 		extends: [testingLibrary.configs['flat/react'], vitest.configs.recommended],
+		rules: {
+			// Normally TypeScript will already error on this
+			// but `@types/jest` will continue haunting us
+			'vitest/prefer-importing-vitest-globals': 'error',
+		},
 	},
 	{
 		ignores: ['dist/', 'coverage/'],

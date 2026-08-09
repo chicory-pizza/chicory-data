@@ -1,3 +1,5 @@
+import {expect, test} from 'vitest';
+
 import convertDogEditorStateToPreset from '../convertDogEditorStateToPreset';
 
 test('converts dog editor state to preset', () => {

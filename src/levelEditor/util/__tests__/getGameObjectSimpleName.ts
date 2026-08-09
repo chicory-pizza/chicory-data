@@ -1,3 +1,5 @@
+import {expect, test} from 'vitest';
+
 import getGameObjectSimpleName from '../getGameObjectSimpleName';
 
 test('returns the simplified game object name', () => {

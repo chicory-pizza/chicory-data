@@ -2,6 +2,7 @@ import path from 'node:path';
 
 import {loadImage} from 'canvas';
 import {toMatchImageSnapshot} from 'jest-image-snapshot';
+import {expect, test} from 'vitest';
 
 import {DRAWDOG_PRESETS} from '../presets/DrawdogPresets';
 import type {DrawdogPreset} from '../presets/DrawdogPresets';

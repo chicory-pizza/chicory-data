@@ -1,3 +1,5 @@
+import {expect, test} from 'vitest';
+
 import convertBgrIntegerToRgb from '../convertBgrIntegerToRgb';
 
 test('converts BGR colors to RGB', () => {

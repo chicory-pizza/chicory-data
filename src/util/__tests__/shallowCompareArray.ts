@@ -1,3 +1,5 @@
+import {expect, test} from 'vitest';
+
 import shallowCompareArray from '../shallowCompareArray';
 
 test('old array is returned if both arrays have same values', () => {

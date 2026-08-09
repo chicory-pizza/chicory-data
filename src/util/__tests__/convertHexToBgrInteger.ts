@@ -1,3 +1,5 @@
+import {expect, test} from 'vitest';
+
 import convertHexToBgrInteger from '../convertHexToBgrInteger';
 
 test('converts hex to BGR integers', () => {

@@ -52,7 +52,6 @@ export default defineConfig(({mode}) => {
 					},
 		},
 		test: {
-			globals: true, // todo remove this
 			include: ['**/__tests__/*?(.{test,spec}).?(c|m)[jt]s?(x)'],
 			environment: 'jsdom',
 			setupFiles: ['src/testUtil/setupTests.ts'],
