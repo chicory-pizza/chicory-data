@@ -54,6 +54,7 @@ export default defineConfig(({mode}) => {
 		test: {
 			environment: 'jsdom',
 			setupFiles: ['tests/setup-tests.ts'],
+			testTimeout: 10000,
 		},
 	};
 });
