@@ -97,5 +97,8 @@
   },
   "overrides": {
     "jest": "$jest"
+  },
+  "allowScripts": {
+    "canvas@3.1.2": true
   }
 }
