@@ -1,8 +1,8 @@
 import {useCallback} from 'react';
 import {
+	type BlockerFunction,
 	unstable_usePrompt,
 	useBeforeUnload,
-	type BlockerFunction,
 } from 'react-router-dom';
 
 export function usePrompt(

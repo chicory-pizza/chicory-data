@@ -1,5 +1,5 @@
 import shallowCompareArray from '../../util/shallowCompareArray';
-import {SCREEN_WIDTH, GEO_WIDTH, GEO_HEIGHT} from '../GeoConstants';
+import {GEO_HEIGHT, GEO_WIDTH, SCREEN_WIDTH} from '../GeoConstants';
 
 // Modified version based on chevreaux's PR
 // (https://github.com/chicory-pizza/chicory-data/pull/19/commits/5f2198aaeded13880eead930cd3cbcdd9b2c508e#diff-7b6de9b8126e5a740ed550d4d8a85a9fb818eea0b452b9ae9f188a862f3a6139)

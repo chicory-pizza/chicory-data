@@ -4,8 +4,8 @@ import type {UndoReducerAction} from '../util/useUndoRedoReducer';
 import useUndoRedoReducer from '../util/useUndoRedoReducer';
 
 import {
-	isValidDecorationTypeKey,
 	type DecorationType,
+	isValidDecorationTypeKey,
 } from './types/DecorationType';
 import type {GameEntityType} from './types/GameEntityType';
 import type {LevelType} from './types/LevelType';

@@ -3,9 +3,9 @@ import {memo} from 'react';
 import type {OptionType} from '../../common/CustomSelect';
 import {
 	GAME_OBJECT_ENTITIES,
-	GAME_OBJECT_ENTITIES_MODS,
 	GAME_OBJECT_ENTITIES_ADVANCED,
 	GAME_OBJECT_ENTITIES_CRASH,
+	GAME_OBJECT_ENTITIES_MODS,
 } from '../types/GameObjectEntities';
 import type {GameObjectEntityType} from '../types/GameObjectEntityType';
 import getGameObjectSimpleName from '../util/getGameObjectSimpleName';

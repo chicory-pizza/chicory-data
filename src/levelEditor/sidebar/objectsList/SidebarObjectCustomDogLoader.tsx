@@ -1,5 +1,5 @@
 import {Button} from '@mantine/core';
-import {Suspense, lazy} from 'react';
+import {lazy, Suspense} from 'react';
 
 import Spinner from '../../../common/Spinner';
 

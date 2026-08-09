@@ -4,8 +4,8 @@ import getCanvasRenderingContext from '../../util/getCanvasRenderingContext';
 import {
 	GEO_HEIGHT,
 	GEO_WIDTH,
-	SCREEN_WIDTH,
 	SCREEN_HEIGHT,
+	SCREEN_WIDTH,
 } from '../GeoConstants';
 import type {LevelType} from '../types/LevelType';
 import decodeGeoString from '../util/decodeGeoString';

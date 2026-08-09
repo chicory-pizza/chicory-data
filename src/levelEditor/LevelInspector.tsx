@@ -24,7 +24,7 @@ import type {LevelType} from './types/LevelType';
 import type {PlaceableType} from './types/PlaceableType';
 import type {SidebarPanel} from './types/SidebarPanel';
 import decodeGeoString from './util/decodeGeoString';
-import {paintBresenham, floodFill, pickColor} from './util/paintGeo';
+import {floodFill, paintBresenham, pickColor} from './util/paintGeo';
 import {useWorldDataNonNullable} from './WorldDataContext';
 
 function getLevelDraft(
