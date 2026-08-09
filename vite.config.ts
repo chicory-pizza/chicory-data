@@ -1,4 +1,4 @@
-/* global process, __dirname */
+/* global process */
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -27,8 +27,12 @@ export default defineConfig(({mode}) => {
 			https:
 				env.SSL_KEY_FILE != null && env.SSL_CRT_FILE != null
 					? {
-							key: fs.readFileSync(path.resolve(__dirname, env.SSL_KEY_FILE)),
-							cert: fs.readFileSync(path.resolve(__dirname, env.SSL_CRT_FILE)),
+							key: fs.readFileSync(
+								path.resolve(import.meta.dirname, env.SSL_KEY_FILE),
+							),
+							cert: fs.readFileSync(
+								path.resolve(import.meta.dirname, env.SSL_CRT_FILE),
+							),
 						}
 					: undefined,
 			port: 3000,
