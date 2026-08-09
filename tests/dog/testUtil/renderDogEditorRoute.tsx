@@ -1,20 +1,9 @@
-import {render, screen} from '@testing-library/react';
-import {createMemoryRouter, RouterProvider} from 'react-router-dom';
+import {screen} from '@testing-library/react';
 
-import AppWrapper from '../../../src/AppWrapper';
-import {routes} from '../../../src/routes';
+import {renderWithFileRoutes} from '../../file-route-utils';
 
 export default async function renderDogEditorRoute() {
-	render(
-		<AppWrapper>
-			<RouterProvider
-				router={createMemoryRouter(routes, {
-					initialEntries: ['/dog'],
-				})}
-			/>
-		</AppWrapper>,
-	);
-
+	renderWithFileRoutes('/dog');
 	await screen.findByText(
 		'Drawdog maker',
 		{},

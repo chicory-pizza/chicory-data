@@ -2,7 +2,7 @@ import {screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {expect, test} from 'vitest';
 
-import renderPaletteAppRoute from '../../src/palette/testUtil/renderPaletteAppRoute';
+import renderPaletteAppRoute from './testUtil/renderPaletteAppRoute';
 
 test('changes the color on new input', async () => {
 	await renderPaletteAppRoute();

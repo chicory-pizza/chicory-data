@@ -1,33 +1,19 @@
-import {useCallback} from 'react';
-import {
-	type BlockerFunction,
-	unstable_usePrompt,
-	useBeforeUnload,
-} from 'react-router-dom';
+import {type ShouldBlockFn, useBlocker} from '@tanstack/react-router';
 
 export function usePrompt(
 	message: string,
 	when: boolean,
-	condition: (args: Parameters<BlockerFunction>[0]) => boolean,
+	condition: (args: Parameters<ShouldBlockFn>[0]) => boolean,
 ) {
-	unstable_usePrompt({
-		message,
-		when: (args) => {
-			return when && condition(args);
+	useBlocker({
+		shouldBlockFn(args) {
+			if (!condition(args)) {
+				return false;
+			}
+
+			return !confirm(message);
 		},
+		enableBeforeUnload: true,
+		disabled: !when,
 	});
-
-	useBeforeUnload(
-		useCallback(
-			(ev) => {
-				if (when) {
-					ev.preventDefault();
-
-					// eslint-disable-next-line @typescript-eslint/no-deprecated
-					ev.returnValue = message;
-				}
-			},
-			[message, when],
-		),
-	);
 }

@@ -1,20 +1,10 @@
-import {render, screen} from '@testing-library/react';
-import {createMemoryRouter, RouterProvider} from 'react-router-dom';
+import {screen} from '@testing-library/react';
 import {expect, test} from 'vitest';
 
-import AppWrapper from '../../src/AppWrapper';
-import {routes} from '../../src/routes';
+import {renderWithFileRoutes} from '../file-route-utils';
 
 test('renders the splash screen', async () => {
-	render(
-		<AppWrapper>
-			<RouterProvider
-				router={createMemoryRouter(routes, {
-					initialEntries: ['/'],
-				})}
-			/>
-		</AppWrapper>,
-	);
+	renderWithFileRoutes('/');
 
 	expect(await screen.findByText('Chicory: A Colorful Modding')).toBeVisible();
 

@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom';
+import {useParams} from '@tanstack/react-router';
 
 import ErrorBoundary from '../common/ErrorBoundary';
 import AppHeader from '../header/AppHeader';
@@ -18,7 +18,10 @@ import WorldMap from './worldMap/WorldMap';
 
 export default function LevelEditorUI() {
 	const {worldData} = useWorldDataNullable();
-	const {levelId} = useParams();
+	const levelId = useParams({
+		from: '/level/$levelId',
+		select: (params) => params.levelId,
+	});
 	const {uiViews} = useLevelEditorContext();
 
 	let validLevelId = true;

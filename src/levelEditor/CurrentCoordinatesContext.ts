@@ -1,5 +1,5 @@
+import {useNavigate, useParams} from '@tanstack/react-router';
 import {useCallback, useMemo} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
 
 import convertCoordinatesToLevelId from './util/convertCoordinatesToLevelId';
 import convertLevelIdToCoordinates from './util/convertLevelIdToCoordinates';
@@ -8,7 +8,10 @@ export function useCurrentCoordinates(): [
 	[number, number, number] | null,
 	(newCoordinates: [number, number, number]) => void,
 ] {
-	const {levelId} = useParams();
+	const levelId = useParams({
+		from: '/level/$levelId',
+		select: (params) => params.levelId,
+	});
 
 	const coordinates = useMemo(() => {
 		try {
@@ -25,7 +28,10 @@ export function useCurrentCoordinates(): [
 	const navigate = useNavigate();
 	const setCoordinates = useCallback(
 		(coordinates: [number, number, number]) => {
-			navigate('/level/' + convertCoordinatesToLevelId(coordinates));
+			void navigate({
+				to: '/level/$levelId',
+				params: {levelId: convertCoordinatesToLevelId(coordinates)},
+			});
 		},
 		[navigate],
 	);

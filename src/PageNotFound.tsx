@@ -1,5 +1,5 @@
 import {Helmet} from '@dr.pogodin/react-helmet';
-import {Link} from 'react-router-dom';
+import {Link} from '@tanstack/react-router';
 
 import BigPageNotice from './common/BigPageNotice';
 import useDocumentTitle from './util/useDocumentTitle';
@@ -14,7 +14,9 @@ export default function PageNotFound() {
 			</Helmet>
 
 			<BigPageNotice heading="⚠️ Page not found">
-				<Link to="/">Teleport to Luncheon</Link>
+				<Link to="/" preload="intent">
+					Teleport to Luncheon
+				</Link>
 			</BigPageNotice>
 		</>
 	);

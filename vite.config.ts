@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import babel from '@rolldown/plugin-babel';
+import {tanstackRouter} from '@tanstack/router-plugin/vite';
 import react, {reactCompilerPreset} from '@vitejs/plugin-react';
 import {defineConfig, loadEnv} from 'vite';
 
@@ -12,7 +13,14 @@ export default defineConfig(({mode}) => {
 	const env = loadEnv(mode, process.cwd(), '');
 
 	return {
-		plugins: [react({}), babel({presets: [reactCompilerPreset()]})],
+		plugins: [
+			tanstackRouter({
+				target: 'react',
+				autoCodeSplitting: true,
+			}),
+			react({}),
+			babel({presets: [reactCompilerPreset()]}),
+		],
 		resolve: {
 			alias: {
 				// https://github.com/tabler/tabler-icons/issues/1233#issuecomment-2821326649

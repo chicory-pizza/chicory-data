@@ -66,8 +66,8 @@ export default function LevelEditorBeforeUnloadPrompt(props: Props): null {
 
 	// Don't memo with useCallback, intentionally recreating the function every time
 	// to ensure the block listener is re-added each time
-	usePrompt(MESSAGE, hasDirtyChanges, (args) => {
-		return !args.nextLocation.pathname.startsWith('/level/');
+	usePrompt(MESSAGE, hasDirtyChanges, ({next}) => {
+		return !next.pathname.startsWith('/level/');
 	});
 
 	return null;

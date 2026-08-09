@@ -2,7 +2,7 @@
 
 import {Tooltip} from '@mantine/core';
 import {IconChevronLeft} from '@tabler/icons-react';
-import {Link} from 'react-router-dom';
+import {Link} from '@tanstack/react-router';
 
 import icon144 from '../icon144.png';
 
@@ -20,7 +20,7 @@ export default function AppHeader(props: Props) {
 	return (
 		<header className={styles.root}>
 			<Tooltip label="Go to main tools list">
-				<Link className={styles.backToHome} to="/">
+				<Link className={styles.backToHome} to="/" preload="intent">
 					<IconChevronLeft className={styles.backToHomeArrow} stroke={2} />
 
 					<img

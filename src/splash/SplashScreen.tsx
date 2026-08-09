@@ -1,7 +1,7 @@
 /* eslint-disable @eslint-react/dom-no-unsafe-target-blank */
 
 import {Tooltip} from '@mantine/core';
-import {Link} from 'react-router-dom';
+import {Link} from '@tanstack/react-router';
 
 import OpenGraph from '../common/OpenGraph';
 import DiscordIcon from '../header/DiscordIcon';
@@ -26,11 +26,16 @@ export default function SplashScreen() {
 
 			<h1 className={styles.heading}>Chicory: A Colorful Modding</h1>
 
-			<Link className={styles.link} to="/level/0_0_0">
+			<Link
+				className={styles.link}
+				to="/level/$levelId"
+				params={{levelId: '0_0_0'}}
+				preload="intent"
+			>
 				⛰ Level editor
 			</Link>
 
-			<Link className={styles.link} to="/dog">
+			<Link className={styles.link} to="/dog" preload="intent">
 				🐶 Drawdog maker
 			</Link>
 
@@ -45,7 +50,7 @@ export default function SplashScreen() {
 				🗺 Map viewer
 			</a>
 
-			<Link className={styles.link} to="/palette">
+			<Link className={styles.link} to="/palette" preload="intent">
 				🎨 Color palettes
 			</Link>
 

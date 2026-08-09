@@ -8,3 +8,4 @@ package-lock.json
 public/_redirects
 src/levelEditor/level_data.json
 src/levelEditor/__mocks__/level_data.json
+src/routeTree.gen.ts
