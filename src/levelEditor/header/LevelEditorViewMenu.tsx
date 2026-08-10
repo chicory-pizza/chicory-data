@@ -1,7 +1,6 @@
 import {Button, Menu} from '@mantine/core';
 import {memo, useCallback} from 'react';
 
-import MenuItemCheckedIcon from '../../common/MenuItemCheckedIcon';
 import {useLevelEditorContext} from '../LevelEditorContext';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 
@@ -36,74 +35,74 @@ function LevelEditorViewMenu() {
 			</Menu.Target>
 
 			<Menu.Dropdown>
-				<Menu.Item
-					leftSection={<MenuItemCheckedIcon show={uiViews.has('WORLD_MAP')} />}
-					onClick={() => {
+				<Menu.CheckboxItem
+					checked={uiViews.has('WORLD_MAP')}
+					onChange={() => {
 						toggleUiView('WORLD_MAP');
 					}}
 				>
 					World map
-				</Menu.Item>
+				</Menu.CheckboxItem>
 
 				<Menu.Divider />
 
-				<Menu.Item
-					leftSection={<MenuItemCheckedIcon show={uiViews.has('SIDEBAR')} />}
-					onClick={() => {
+				<Menu.CheckboxItem
+					checked={uiViews.has('SIDEBAR')}
+					onChange={() => {
 						toggleUiView('SIDEBAR');
 					}}
 				>
 					Sidebar
-				</Menu.Item>
+				</Menu.CheckboxItem>
 
-				<Menu.Item
+				<Menu.CheckboxItem
 					disabled={!uiViews.has('SIDEBAR')}
-					leftSection={<MenuItemCheckedIcon show={uiViews.has('PREVIEW')} />}
-					onClick={() => {
+					checked={uiViews.has('PREVIEW')}
+					onChange={() => {
 						toggleUiView('PREVIEW');
 					}}
 				>
 					Terrain preview
-				</Menu.Item>
+				</Menu.CheckboxItem>
 
 				<Menu.Divider />
 
-				<Menu.Item
-					leftSection={<MenuItemCheckedIcon show={uiViews.has('OBJECT')} />}
-					onClick={() => {
+				<Menu.CheckboxItem
+					checked={uiViews.has('OBJECT')}
+					onChange={() => {
 						toggleUiView('OBJECT');
 					}}
 				>
 					Objects
-				</Menu.Item>
+				</Menu.CheckboxItem>
 
-				<Menu.Item
-					leftSection={<MenuItemCheckedIcon show={uiViews.has('DECO')} />}
-					onClick={() => {
+				<Menu.CheckboxItem
+					checked={uiViews.has('DECO')}
+					onChange={() => {
 						toggleUiView('DECO');
 					}}
 				>
 					Decorations
-				</Menu.Item>
+				</Menu.CheckboxItem>
 
-				<Menu.Item
-					leftSection={<MenuItemCheckedIcon show={uiViews.has('GEO')} />}
-					onClick={() => {
+				<Menu.CheckboxItem
+					checked={uiViews.has('GEO')}
+					onChange={() => {
 						toggleUiView('GEO');
 					}}
 				>
 					Terrain
-				</Menu.Item>
+				</Menu.CheckboxItem>
 
 				{import.meta.env.VITE_IN_GAME_SCREENSHOT_URL_PREFIX != null ? (
-					<Menu.Item
-						leftSection={<MenuItemCheckedIcon show={uiViews.has('INGAME')} />}
-						onClick={() => {
+					<Menu.CheckboxItem
+						checked={uiViews.has('INGAME')}
+						onChange={() => {
 							toggleUiView('INGAME');
 						}}
 					>
 						Original in-game screenshot
-					</Menu.Item>
+					</Menu.CheckboxItem>
 				) : null}
 			</Menu.Dropdown>
 		</Menu>

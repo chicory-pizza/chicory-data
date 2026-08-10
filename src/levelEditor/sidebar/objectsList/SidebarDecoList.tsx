@@ -54,7 +54,7 @@ function SidebarDecoList(props: Props) {
 	}, []);
 
 	const infoBeforeListComponent = props.expanded ? (
-		<Collapse in={!uiViews.has('DECO')} mb="-xs">
+		<Collapse expanded={!uiViews.has('DECO')} mb="-xs">
 			<MessageBox
 				message={
 					<Button

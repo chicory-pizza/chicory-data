@@ -65,7 +65,7 @@ function SidebarObjectList(props: Props) {
 	}, []);
 
 	const infoBeforeListComponent = props.expanded ? (
-		<Collapse in={!uiViews.has('OBJECT')} mb="-xs">
+		<Collapse expanded={!uiViews.has('OBJECT')} mb="-xs">
 			<MessageBox
 				message={
 					<Button

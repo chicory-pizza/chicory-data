@@ -15,42 +15,56 @@ vi.mock(import('../src/levelEditor/util/loadLevelData'));
 
 Element.prototype.scrollIntoView = vi.fn();
 
-// https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
-window.matchMedia = (query) => {
-	return {
-		matches: false,
-		media: query,
-		onchange: null,
-		addListener: vi.fn(), // deprecated
-		removeListener: vi.fn(), // deprecated
-		addEventListener: vi.fn(),
-		removeEventListener: vi.fn(),
-		dispatchEvent: vi.fn(),
+// https://mantine.dev/guides/vitest/#configuration
+if (!window.matchMedia) {
+	window.matchMedia = (query) => {
+		return {
+			matches: false,
+			media: query,
+			onchange: null,
+			addListener: vi.fn(), // deprecated
+			removeListener: vi.fn(), // deprecated
+			addEventListener: vi.fn(),
+			removeEventListener: vi.fn(),
+			dispatchEvent: vi.fn(),
+		};
 	};
-};
+}
 
-window.IntersectionObserver = class IntersectionObserver {
-	root = null;
-	rootMargin = '0px 0px 0px 0px';
-	scrollMargin = '0px 0px 0px 0px';
-	thresholds = [0];
+if (!window.IntersectionObserver) {
+	window.IntersectionObserver = class IntersectionObserver {
+		root = null;
+		rootMargin = '0px 0px 0px 0px';
+		scrollMargin = '0px 0px 0px 0px';
+		thresholds = [0];
 
-	disconnect() {
-		return null;
-	}
+		disconnect() {
+			return null;
+		}
 
-	observe() {
-		return null;
-	}
+		observe() {
+			return null;
+		}
 
-	takeRecords() {
-		return [];
-	}
+		takeRecords() {
+			return [];
+		}
 
-	unobserve() {
-		return null;
-	}
-};
+		unobserve() {
+			return null;
+		}
+	};
+}
+
+if (!document.fonts) {
+	Object.defineProperty(document, 'fonts', {
+		writable: true,
+		value: {
+			addEventListener: vi.fn(),
+			removeEventListener: vi.fn(),
+		},
+	});
+}
 
 configureTestingLibrary({reactStrictMode: true});
 
