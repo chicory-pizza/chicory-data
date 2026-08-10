@@ -32,7 +32,7 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@dr.pogodin/react-helmet": "3.0.2",
+    "@dr.pogodin/react-helmet": "3.2.3",
     "@mantine/core": "9.5.1",
     "@mantine/hooks": "9.5.1",
     "@mantine/modals": "9.5.1",
@@ -45,9 +45,9 @@
     "pako": "3.0.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "react-hotkeys-hook": "5.1.0",
+    "react-hotkeys-hook": "5.3.3",
     "react-select": "5.10.2",
-    "react-use": "17.6.0",
+    "react-use": "17.6.1",
     "tinycolor2": "1.6.0",
     "zod": "4.4.3"
   },
@@ -58,7 +58,7 @@
     "@rolldown/plugin-babel": "0.2.3",
     "@tanstack/router-plugin": "1.168.29",
     "@testing-library/dom": "10.4.1",
-    "@testing-library/jest-dom": "7.0.0",
+    "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "14.6.3",
     "@total-typescript/ts-reset": "0.6.1",
@@ -71,7 +71,7 @@
     "@types/tinycolor2": "1.4.6",
     "@typescript/native": "npm:typescript@7.0.2",
     "@vitejs/plugin-react": "6.0.5",
-    "@vitest/eslint-plugin": "1.6.26",
+    "@vitest/eslint-plugin": "1.6.27",
     "babel-plugin-react-compiler": "1.0.0",
     "canvas": "3.2.3",
     "eslint": "10.8.1",
