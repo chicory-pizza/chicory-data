@@ -96,10 +96,7 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 				</span>
 
 				{props.highlighted ? (
-					<Tooltip
-						label="Find on level"
-						transitionProps={{transition: 'fade-up'}}
-					>
+					<Tooltip label="Find on level">
 						<ActionIcon
 							onClick={() => {
 								props.onFocusEntityOnLevelPreview(props.type, props.index);
@@ -113,7 +110,7 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 				) : null}
 
 				{props.highlighted ? (
-					<Tooltip label="Delete" transitionProps={{transition: 'fade-up'}}>
+					<Tooltip label="Delete">
 						<ActionIcon
 							onClick={() => {
 								props.onEntityDelete(props.index, props.type);

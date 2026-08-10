@@ -97,11 +97,7 @@ function LevelToolbar(props: Props) {
 					{toolTypes.map((toolType) => {
 						// SegmentedControl doesn't work well here :(
 						return (
-							<Tooltip
-								key={toolType.type}
-								label={toolType.tooltip}
-								transitionProps={{transition: 'fade-up'}}
-							>
+							<Tooltip key={toolType.type} label={toolType.tooltip}>
 								<ActionIcon
 									onClick={() => {
 										props.onEditorToolTypeUpdate(toolType.type);
@@ -139,7 +135,6 @@ function LevelToolbar(props: Props) {
 				<Tooltip
 					label="Press [ or ] to decrease or increase brush size"
 					position="right"
-					transitionProps={{transition: 'fade-right'}}
 				>
 					<Slider
 						label={null}

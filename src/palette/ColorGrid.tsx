@@ -31,10 +31,7 @@ function ColorGrid({palettes, setColor}: Props) {
 
 									<div className={styles.colorItem + ' ' + styles.colorBoxWrap}>
 										{setColor != null ? (
-											<Tooltip
-												label="Set to this color"
-												transitionProps={{transition: 'fade-up'}}
-											>
+											<Tooltip label="Set to this color">
 												<button
 													className={styles.colorBox}
 													onClick={() => {
