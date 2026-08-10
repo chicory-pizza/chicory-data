@@ -15,19 +15,25 @@
 	justify-content: center;
 }
 
-@media (min-width: 801px) {
+@media (min-width: 768px) {
 	.grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 992px) {
 	.grid {
 		grid-template-columns: repeat(3, 1fr);
 	}
 }
 
-@media (min-width: 1281px) {
+@media (min-width: 1200px) {
+	.grid {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+@media (min-width: 1400px) {
 	.grid {
 		grid-template-columns: repeat(5, 1fr);
 	}
