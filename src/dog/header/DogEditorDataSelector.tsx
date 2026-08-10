@@ -94,14 +94,14 @@ export default function LevelEditorDataSelector(props: Props) {
 	return (
 		<div className={styles.root}>
 			<div className={styles.space}>
-				<CommonDataLoadButton onFileLoad={onFileLoad} />
+				<CommonDataLoadButton onFileLoad={onFileLoad} text="Load project" />
 			</div>
 
 			<CommonDataSaveButton
 				buttonProps={{
 					className: styles.space,
 				}}
-				label="Save as JSON"
+				label="Save project"
 				onFileSave={onFileSave}
 			/>
 

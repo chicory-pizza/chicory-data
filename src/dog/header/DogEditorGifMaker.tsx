@@ -68,7 +68,7 @@ export default function DogEditorGifMaker() {
 	return (
 		<>
 			<Button disabled={saving} onClick={onGifSave} variant="default">
-				Save as GIF
+				Export to GIF
 			</Button>
 
 			{saving ? (

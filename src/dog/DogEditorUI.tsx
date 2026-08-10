@@ -32,7 +32,7 @@ import DogEditorHeader from './header/DogEditorHeader';
 import type {DrawdogPreset} from './presets/DrawdogPresets';
 import DogPreviewWithAutoplayAnimation from './preview/DogPreviewWithAutoplayAnimation';
 
-export default function DogEditorApp() {
+export default function DogEditorUI() {
 	const {dispatch, dogState} = useDogEditorContext();
 	const {
 		bodyShow: showBody,

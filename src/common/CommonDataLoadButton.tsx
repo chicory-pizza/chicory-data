@@ -7,9 +7,13 @@ import isMac from '../util/isMac';
 
 type Props = Readonly<{
 	onFileLoad: (reader: FileReader) => void;
+	text?: string;
 }>;
 
-export default function CommonDataLoadButton(props: Props) {
+export default function CommonDataLoadButton({
+	onFileLoad,
+	text = 'Load',
+}: Props) {
 	useHotkeys(getCtrlKeyboardModifier() + '+o', openFile, {
 		preventDefault: true,
 	});
@@ -24,7 +28,7 @@ export default function CommonDataLoadButton(props: Props) {
 				throw new Error('Expected file reader');
 			}
 
-			props.onFileLoad(reader);
+			onFileLoad(reader);
 		};
 		reader.onerror = (ex) => {
 			console.error(ex);
@@ -36,7 +40,7 @@ export default function CommonDataLoadButton(props: Props) {
 	return (
 		<Tooltip label={isMac() ? 'Command-O' : 'Ctrl-O'}>
 			<Button onClick={openFile} variant="default">
-				Load
+				{text}
 			</Button>
 		</Tooltip>
 	);
