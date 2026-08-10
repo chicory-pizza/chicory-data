@@ -90,19 +90,17 @@
 	display: grid;
 	grid-template-columns: auto auto 1fr auto;
 	margin-top: 10px;
+	gap: 10px;
+	align-items: center;
 }
 
 .label {
 	display: flex;
-	align-items: center;
-	margin: 0 8px 8px 0;
 	grid-column: 1 / 3;
 }
 
 .select {
 	display: flex;
-	align-items: center;
-	margin: 0 0 8px 0;
 	grid-column: 3 / 4;
 }
 
@@ -110,40 +108,23 @@
 	width: 100%;
 }
 
-.selectModalLauncher {
-	display: flex;
-	align-items: center;
-	margin: 0 0 8px 8px;
-}
-
 .clothesControls {
 	display: flex;
 	align-items: center;
-	margin: 0 0 8px 0;
+	gap: 8px;
 	grid-column: 1 / 5;
 }
 
-.controlLabel {
-	margin-right: 8px;
-}
-
 .color {
-	margin-right: 16px;
-}
-
-.dimensions {
-	margin-left: 8px;
+	margin-right: 8px;
 }
 
 .colorControl {
 	display: flex;
-	align-items: center;
-	margin: 0 0 8px 0;
 	grid-column: 3 / 5;
 }
 
 .fullWidthControl {
-	margin-bottom: 8px;
 	grid-column: 1 / 5;
 }
 
@@ -151,14 +132,6 @@
 	.grid {
 		display: inline-grid;
 		grid-template-columns: auto auto 266px auto 1fr;
-	}
-
-	.select {
-		margin-right: 8px;
-	}
-
-	.selectModalLauncher {
-		margin-left: 0;
 	}
 
 	.clothesControls {

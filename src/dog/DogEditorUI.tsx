@@ -1,5 +1,5 @@
-import {Button, Checkbox} from '@mantine/core';
-import {useCallback, useMemo, useState} from 'react';
+import {Button, Checkbox, Stack} from '@mantine/core';
+import {useMemo, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
 import isReducedMotion from '../util/isReducedMotion';
@@ -80,151 +80,122 @@ export default function DogEditorUI() {
 		});
 	}, [hats, previewHats]);
 
-	const onHairChange = useCallback(
-		(value: string) => {
-			dispatch({
-				type: 'setProperties',
-				properties: {
-					hair: value,
-				},
-			});
-		},
-		[dispatch],
-	);
+	function onHairChange(value: string) {
+		dispatch({
+			type: 'setProperties',
+			properties: {
+				hair: value,
+			},
+		});
+	}
 
-	const onExpressionChange = useCallback(
-		(value: string) => {
-			dispatch({
-				type: 'setProperties',
-				properties: {
-					expression: value,
-				},
-			});
-		},
-		[dispatch],
-	);
+	function onExpressionChange(value: string) {
+		dispatch({
+			type: 'setProperties',
+			properties: {
+				expression: value,
+			},
+		});
+	}
 
-	const onClothesChange = useCallback(
-		(value: string) => {
-			dispatch({
-				type: 'setProperties',
-				properties: {
-					clothes: value,
-				},
-			});
-		},
-		[dispatch],
-	);
+	function onClothesChange(value: string) {
+		dispatch({
+			type: 'setProperties',
+			properties: {
+				clothes: value,
+			},
+		});
+	}
 
-	const addNewHatLayer = useCallback(() => {
+	function addNewHatLayer() {
 		dispatch({type: 'addNewHatLayer'});
-	}, [dispatch]);
+	}
 
-	const setHatPreviewName = useCallback(
-		(layer: number, previewName: string | null) => {
-			const newHats = [...previewHats];
-			newHats[layer] = previewName;
-			setPreviewHats(newHats);
-		},
-		[previewHats],
-	);
+	function setHatPreviewName(layer: number, previewName: string | null) {
+		const newHats = [...previewHats];
+		newHats[layer] = previewName;
+		setPreviewHats(newHats);
+	}
 
-	const onPresetSelect = useCallback(
-		(preset: DrawdogPreset) => {
+	function onPresetSelect(preset: DrawdogPreset) {
+		dispatch({
+			type: 'setProperties',
+			properties: {
+				clothes: preset.clothes,
+				clothesColor: preset.clothesColor,
+				customClothesImage: preset.customClothesImage,
+				earColor: preset.earColor ?? preset.skinColor,
+				expression: preset.expression ?? 'normal',
+				hair: preset.hair,
+				hasCustomEarColor: preset.earColor != null,
+				hats: preset.hats,
+				headSkinImage: preset.headSkinImage,
+				skinColor: preset.skinColor,
+				skinOutlineColor: preset.skinOutlineColor ?? '#000000',
+			},
+		});
+	}
+
+	function onNewClothesImage(dataUrl: string) {
+		const img = new Image();
+
+		img.onload = () => {
+			if (img.width === CUSTOM_HAT_WIDTH && img.height === CUSTOM_HAT_HEIGHT) {
+				alert(
+					'It looks like you are loading a custom hat as the custom clothes, this is probably not what you intended.',
+				);
+				return;
+			}
+
 			dispatch({
 				type: 'setProperties',
 				properties: {
-					clothes: preset.clothes,
-					clothesColor: preset.clothesColor,
-					customClothesImage: preset.customClothesImage,
-					earColor: preset.earColor ?? preset.skinColor,
-					expression: preset.expression ?? 'normal',
-					hair: preset.hair,
-					hasCustomEarColor: preset.earColor != null,
-					hats: preset.hats,
-					headSkinImage: preset.headSkinImage,
-					skinColor: preset.skinColor,
-					skinOutlineColor: preset.skinOutlineColor ?? '#000000',
+					clothes: 'Custom Tee',
+					customClothesImage: dataUrl,
 				},
 			});
-		},
-		[dispatch],
-	);
+		};
 
-	const onNewClothesImage = useCallback(
-		(dataUrl: string) => {
-			const img = new Image();
+		img.onerror = () => {
+			alert('There was a problem loading the image.');
+		};
 
-			img.onload = () => {
-				if (
-					img.width === CUSTOM_HAT_WIDTH &&
-					img.height === CUSTOM_HAT_HEIGHT
-				) {
-					alert(
-						'It looks like you are loading a custom hat as the custom clothes, this is probably not what you intended.',
-					);
-					return;
-				}
+		img.src = dataUrl;
+	}
 
-				dispatch({
-					type: 'setProperties',
-					properties: {
-						clothes: 'Custom Tee',
-						customClothesImage: dataUrl,
-					},
-				});
-			};
+	function onSpeechFontChange(value: string) {
+		dispatch({
+			type: 'setProperties',
+			properties: {
+				speechFont: value,
+			},
+		});
+	}
 
-			img.onerror = () => {
-				alert('There was a problem loading the image.');
-			};
+	function onSpeechShowBubbleChange(value: boolean) {
+		dispatch({
+			type: 'setProperties',
+			properties: {
+				speechShowBubble: value,
+			},
+		});
+	}
 
-			img.src = dataUrl;
-		},
-		[dispatch],
-	);
-
-	const onSpeechFontChange = useCallback(
-		(value: string) => {
-			dispatch({
-				type: 'setProperties',
-				properties: {
-					speechFont: value,
-				},
-			});
-		},
-		[dispatch],
-	);
-
-	const onSpeechShowBubbleChange = useCallback(
-		(value: boolean) => {
-			dispatch({
-				type: 'setProperties',
-				properties: {
-					speechShowBubble: value,
-				},
-			});
-		},
-		[dispatch],
-	);
-
-	const onSpeechTextChange = useCallback(
-		(value: string) => {
-			dispatch({
-				type: 'setProperties',
-				properties: {
-					speechText: value,
-				},
-			});
-		},
-		[dispatch],
-	);
+	function onSpeechTextChange(value: string) {
+		dispatch({
+			type: 'setProperties',
+			properties: {
+				speechText: value,
+			},
+		});
+	}
 
 	return (
 		<div className={styles.root}>
 			<ErrorBoundary>
 				<DogEditorHeader hats={hatsInPreview} onPresetSelect={onPresetSelect} />
 			</ErrorBoundary>
+
 			<div className={styles.main}>
 				<div
 					className={
@@ -460,7 +431,7 @@ export default function DogEditorUI() {
 														Custom clothes:
 													</div>
 													<DogEditorFileInput onFileLoad={onNewClothesImage} />
-													<div className={styles.dimensions}>
+													<div>
 														({CUSTOM_CLOTHES_WIDTH.toString()}×
 														{CUSTOM_CLOTHES_HEIGHT.toString()} or{' '}
 														{SIZE.toString()}×{SIZE.toString()})
@@ -491,7 +462,7 @@ export default function DogEditorUI() {
 						<details open>
 							<summary>Misc</summary>
 
-							<div className={styles.checkbox}>
+							<Stack gap="md" mt="xs">
 								<Checkbox
 									checked={playAnimations}
 									label="Play animation"
@@ -499,9 +470,7 @@ export default function DogEditorUI() {
 										setPlayAnimations(ev.currentTarget.checked);
 									}}
 								/>
-							</div>
 
-							<div className={styles.checkbox}>
 								<Checkbox
 									checked={invertColors}
 									label="Invert colors"
@@ -509,7 +478,7 @@ export default function DogEditorUI() {
 										setInvertColors(ev.currentTarget.checked);
 									}}
 								/>
-							</div>
+							</Stack>
 						</details>
 
 						<details>

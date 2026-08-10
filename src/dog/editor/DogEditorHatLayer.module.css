@@ -1,40 +1,25 @@
 .label {
 	display: flex;
 	align-items: center;
-	margin: 0 8px 8px 0;
 }
 
 .select {
 	display: flex;
 	align-items: center;
-	margin: 0 0 8px 0;
 }
 
 .selectMenu {
 	width: 100%;
 }
 
-.selectModalLauncher {
-	margin: 0 0 8px 8px;
-}
-
 .controls {
 	display: flex;
 	align-items: center;
-	margin: 0 0 8px 0;
 	grid-column: 1 / 5;
 	gap: 8px;
 }
 
 @media (min-width: 801px) {
-	.select {
-		margin-right: 8px;
-	}
-
-	.selectModalLauncher {
-		margin-left: 0;
-	}
-
 	.controls {
 		grid-column: 5 / 6;
 		margin-left: 8px;
@@ -42,9 +27,5 @@
 }
 
 .color {
-	margin-right: 8px;
-}
-
-.layerName {
 	margin-right: 8px;
 }

@@ -2,7 +2,6 @@ import {ActionIcon, Tooltip} from '@mantine/core';
 import {ArrowDownIcon} from '@phosphor-icons/react/dist/csr/ArrowDown';
 import {ArrowUpIcon} from '@phosphor-icons/react/dist/csr/ArrowUp';
 import {XIcon} from '@phosphor-icons/react/dist/csr/X';
-import {useCallback} from 'react';
 
 import type {ReducerAction} from '../DogEditorContext';
 import type {ChosenHat} from '../drawDogToCanvas';
@@ -29,62 +28,54 @@ export default function DogEditorHatLayer({
 	setPreviewName,
 	totalHatsCount,
 }: Props) {
-	const onHatInfoChange = useCallback(
-		(name: string) => {
-			if (hat.name === name) {
-				return;
-			}
+	function onHatInfoChange(name: string) {
+		if (hat.name === name) {
+			return;
+		}
 
-			dispatch({
-				type: 'setHatLayerProperties',
-				layer,
-				hat: {
-					name,
-				},
-			});
-		},
-		[dispatch, hat, layer],
-	);
+		dispatch({
+			type: 'setHatLayerProperties',
+			layer,
+			hat: {
+				name,
+			},
+		});
+	}
 
-	const onPreviewChange = useCallback(
-		(newPreviewName: string | null) => {
-			if (previewName === newPreviewName) {
-				return;
-			}
+	function onPreviewChange(newPreviewName: string | null) {
+		if (previewName === newPreviewName) {
+			return;
+		}
 
-			setPreviewName(layer, newPreviewName);
-		},
-		[layer, previewName, setPreviewName],
-	);
+		setPreviewName(layer, newPreviewName);
+	}
 
-	const moveLayerUp = useCallback(() => {
+	function moveLayerUp() {
 		dispatch({
 			type: 'moveHatLayerUp',
 			layer,
 		});
-	}, [dispatch, layer]);
+	}
 
-	const moveLayerDown = useCallback(() => {
+	function moveLayerDown() {
 		dispatch({
 			type: 'moveHatLayerDown',
 			layer,
 		});
-	}, [dispatch, layer]);
+	}
 
-	const deleteLayer = useCallback(() => {
+	function deleteLayer() {
 		dispatch({
 			type: 'deleteHatLayer',
 			layer,
 		});
-	}, [dispatch, layer]);
+	}
 
 	return (
 		<>
 			<div className={styles.label}>
-				<span className={styles.layerName}>
-					Hat
-					{totalHatsCount > 1 ? ' (layer ' + (layer + 1).toString() + ')' : ''}:
-				</span>
+				Hat
+				{totalHatsCount > 1 ? ' (layer ' + (layer + 1).toString() + ')' : ''}:
 			</div>
 
 			<div className={styles.label}>
