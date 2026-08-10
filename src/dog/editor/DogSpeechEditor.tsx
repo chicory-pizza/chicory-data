@@ -1,4 +1,4 @@
-import {Checkbox, Textarea} from '@mantine/core';
+import {Checkbox, Stack, Textarea} from '@mantine/core';
 import {useMemo} from 'react';
 
 import type {OptionType} from '../../common/CustomSelect';
@@ -38,20 +38,18 @@ export default function DogSpeechEditor(props: Props) {
 	}, []);
 
 	return (
-		<div className={styles.root}>
-			<div className={styles.fullWidthControl}>
-				<Checkbox
-					checked={props.showBubble}
-					label="Show speech bubble"
-					onChange={(ev) => {
-						props.onShowBubbleChange(ev.currentTarget.checked);
-					}}
-				/>
-			</div>
+		<Stack gap="sm">
+			<Checkbox
+				checked={props.showBubble}
+				label="Show speech bubble"
+				onChange={(ev) => {
+					props.onShowBubbleChange(ev.currentTarget.checked);
+				}}
+			/>
 
 			{props.showBubble ? (
 				<div className={styles.grid}>
-					<div className={styles.label}>Font:</div>
+					<div>Font:</div>
 					<div className={styles.selectControl}>
 						<CustomMenuWithMouseHoverOptions
 							formatOptionLabel={formatOptionLabel}
@@ -62,7 +60,7 @@ export default function DogSpeechEditor(props: Props) {
 						/>
 					</div>
 
-					<div className={styles.label}>Text:</div>
+					<div>Text:</div>
 					<div className={styles.textControl}>
 						<Textarea
 							autosize
@@ -76,6 +74,6 @@ export default function DogSpeechEditor(props: Props) {
 					</div>
 				</div>
 			) : null}
-		</div>
+		</Stack>
 	);
 }

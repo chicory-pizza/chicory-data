@@ -1,4 +1,4 @@
-import {Button, Checkbox, Stack} from '@mantine/core';
+import {Accordion, Button, Checkbox, Flex, Stack} from '@mantine/core';
 import {useMemo, useState} from 'react';
 
 import ErrorBoundary from '../common/ErrorBoundary';
@@ -235,295 +235,318 @@ export default function DogEditorUI() {
 
 				<div className={styles.editorControls}>
 					<ErrorBoundary>
-						<div className={styles.grid}>
-							<div className={styles.label}>Skin fill:</div>
-							<div className={styles.colorControl}>
-								<input
-									onChange={(ev) => {
-										dispatch({
-											type: 'setProperties',
-											properties: {
-												skinColor: ev.currentTarget.value,
-											},
-										});
-									}}
-									type="color"
-									value={skinColor}
-								/>
-							</div>
-
-							<div className={styles.label}>Skin outline:</div>
-							<div className={styles.colorControl}>
-								<input
-									onChange={(ev) => {
-										dispatch({
-											type: 'setProperties',
-											properties: {
-												skinOutlineColor: ev.currentTarget.value,
-											},
-										});
-									}}
-									type="color"
-									value={skinOutlineColor}
-								/>
-							</div>
-						</div>
-
-						<details open>
-							<summary>Head</summary>
-
+						<Flex mx="md">
 							<div className={styles.grid}>
-								{hats.map((hat, index) => {
-									return (
-										<DogEditorHatLayer
-											dispatch={dispatch}
-											hat={hat}
-											// We don't have unique IDs for hats :(
-											// eslint-disable-next-line @eslint-react/no-array-index-key
-											key={index}
-											layer={index}
-											previewName={previewHats[index]}
-											setPreviewName={setHatPreviewName}
-											totalHatsCount={hats.length}
-										/>
-									);
-								})}
-
-								<div className={styles.fullWidthControl}>
-									<Button onClick={addNewHatLayer} variant="default">
-										Add new hat layer
-									</Button>
-								</div>
-
-								<div className={styles.label}>Hair:</div>
-								<div className={styles.select}>
-									<div className={styles.selectMenu}>
-										<DogHairSelectMenu
-											onChange={onHairChange}
-											onPreviewChange={setPreviewHair}
-											value={hair}
-										/>
-									</div>
-								</div>
-								<div className={styles.selectModalLauncher}>
-									<DogHairSelectModalLauncher onChange={onHairChange} />
-								</div>
-
-								<div className={styles.label}>Expression:</div>
-								<div className={styles.select}>
-									<div className={styles.selectMenu}>
-										<DogExpressionSelectMenu
-											onChange={onExpressionChange}
-											onPreviewChange={setPreviewExpression}
-											value={expression}
-										/>
-									</div>
-								</div>
-								<div className={styles.selectModalLauncher}>
-									<DogExpressionSelectModalLauncher
-										onChange={onExpressionChange}
-									/>
-								</div>
-
-								<div className={styles.label}>Head skin:</div>
-								<div className={styles.select}>
-									<DogEditorCustomHeadSkinModalLauncher />
-								</div>
-
-								<div className={styles.fullWidthControl}>
-									<Checkbox
-										checked={hasCustomEarColor}
-										label="Use custom ear color"
+								<div className={styles.label}>Skin fill:</div>
+								<div className={styles.colorControl}>
+									<input
 										onChange={(ev) => {
 											dispatch({
 												type: 'setProperties',
 												properties: {
-													earColor:
-														earColor === '#ffffff' ? skinColor : earColor,
-													hasCustomEarColor: ev.currentTarget.checked,
+													skinColor: ev.currentTarget.value,
 												},
 											});
 										}}
+										type="color"
+										value={skinColor}
 									/>
 								</div>
 
-								{hasCustomEarColor ? (
-									<>
-										<div className={styles.label}>Ear color:</div>
-										<div className={styles.colorControl}>
-											<input
+								<div className={styles.label}>Skin outline:</div>
+								<div className={styles.colorControl}>
+									<input
+										onChange={(ev) => {
+											dispatch({
+												type: 'setProperties',
+												properties: {
+													skinOutlineColor: ev.currentTarget.value,
+												},
+											});
+										}}
+										type="color"
+										value={skinOutlineColor}
+									/>
+								</div>
+							</div>
+						</Flex>
+
+						<Accordion
+							chevronPosition="left"
+							defaultValue={['HEAD', 'BODY', 'SPEECH', 'MISC']}
+							multiple={true}
+							order={2}
+						>
+							<Accordion.Item value="HEAD">
+								<Accordion.Control>Head</Accordion.Control>
+								<Accordion.Panel>
+									<div className={styles.grid}>
+										{hats.map((hat, index) => {
+											return (
+												<DogEditorHatLayer
+													dispatch={dispatch}
+													hat={hat}
+													// We don't have unique IDs for hats :(
+													// eslint-disable-next-line @eslint-react/no-array-index-key
+													key={index}
+													layer={index}
+													previewName={previewHats[index]}
+													setPreviewName={setHatPreviewName}
+													totalHatsCount={hats.length}
+												/>
+											);
+										})}
+
+										<div className={styles.fullWidthControl}>
+											<Button onClick={addNewHatLayer} variant="default">
+												Add new hat layer
+											</Button>
+										</div>
+
+										<div className={styles.label}>Hair:</div>
+										<div className={styles.select}>
+											<div className={styles.selectMenu}>
+												<DogHairSelectMenu
+													onChange={onHairChange}
+													onPreviewChange={setPreviewHair}
+													value={hair}
+												/>
+											</div>
+										</div>
+										<div className={styles.selectModalLauncher}>
+											<DogHairSelectModalLauncher onChange={onHairChange} />
+										</div>
+
+										<div className={styles.label}>Expression:</div>
+										<div className={styles.select}>
+											<div className={styles.selectMenu}>
+												<DogExpressionSelectMenu
+													onChange={onExpressionChange}
+													onPreviewChange={setPreviewExpression}
+													value={expression}
+												/>
+											</div>
+										</div>
+										<div className={styles.selectModalLauncher}>
+											<DogExpressionSelectModalLauncher
+												onChange={onExpressionChange}
+											/>
+										</div>
+
+										<div className={styles.label}>Head skin:</div>
+										<div className={styles.select}>
+											<DogEditorCustomHeadSkinModalLauncher />
+										</div>
+
+										<div className={styles.fullWidthControl}>
+											<Checkbox
+												checked={hasCustomEarColor}
+												label="Use custom ear color"
 												onChange={(ev) => {
 													dispatch({
 														type: 'setProperties',
 														properties: {
-															earColor: ev.currentTarget.value,
+															earColor:
+																earColor === '#ffffff' ? skinColor : earColor,
+															hasCustomEarColor: ev.currentTarget.checked,
 														},
 													});
 												}}
-												type="color"
-												value={earColor}
 											/>
 										</div>
-									</>
-								) : null}
-							</div>
-						</details>
 
-						<details open>
-							<summary>Body</summary>
+										{hasCustomEarColor ? (
+											<>
+												<div className={styles.label}>Ear color:</div>
+												<div className={styles.colorControl}>
+													<input
+														onChange={(ev) => {
+															dispatch({
+																type: 'setProperties',
+																properties: {
+																	earColor: ev.currentTarget.value,
+																},
+															});
+														}}
+														type="color"
+														value={earColor}
+													/>
+												</div>
+											</>
+										) : null}
+									</div>
+								</Accordion.Panel>
+							</Accordion.Item>
 
-							<div className={styles.grid}>
-								<div className={styles.fullWidthControl}>
-									<Checkbox
-										checked={showBody}
-										label="Show body"
-										onChange={(ev) => {
-											dispatch({
-												type: 'setProperties',
-												properties: {
-													bodyShow: ev.currentTarget.checked,
-												},
-											});
-										}}
+							<Accordion.Item value="BODY">
+								<Accordion.Control>Body</Accordion.Control>
+								<Accordion.Panel>
+									<div className={styles.grid}>
+										<div className={styles.fullWidthControl}>
+											<Checkbox
+												checked={showBody}
+												label="Show body"
+												onChange={(ev) => {
+													dispatch({
+														type: 'setProperties',
+														properties: {
+															bodyShow: ev.currentTarget.checked,
+														},
+													});
+												}}
+											/>
+										</div>
+
+										{showBody ? (
+											<>
+												<div className={styles.label}>Clothes:</div>
+												<div className={styles.select}>
+													<div className={styles.selectMenu}>
+														<DogClothesSelectMenu
+															onChange={onClothesChange}
+															onPreviewChange={setPreviewClothes}
+															value={clothes}
+														/>
+													</div>
+												</div>
+
+												<div className={styles.selectModalLauncher}>
+													<DogClothesSelectModalLauncher
+														onChange={onClothesChange}
+													/>
+												</div>
+
+												<div className={styles.clothesControls}>
+													<div className={styles.controlLabel}>Color:</div>
+													<div className={styles.color}>
+														<input
+															onChange={(ev) => {
+																dispatch({
+																	type: 'setProperties',
+																	properties: {
+																		clothesColor: ev.currentTarget.value,
+																	},
+																});
+															}}
+															type="color"
+															value={clothesColor}
+														/>
+													</div>
+
+													{clothes === 'Custom Tee' ||
+													customClothesImage != null ? (
+														<>
+															<div className={styles.controlLabel}>
+																Custom clothes:
+															</div>
+															<DogEditorFileInput
+																onFileLoad={onNewClothesImage}
+															/>
+															<div>
+																({CUSTOM_CLOTHES_WIDTH.toString()}×
+																{CUSTOM_CLOTHES_HEIGHT.toString()} or{' '}
+																{SIZE.toString()}×{SIZE.toString()})
+															</div>
+														</>
+													) : null}
+												</div>
+											</>
+										) : null}
+									</div>
+								</Accordion.Panel>
+							</Accordion.Item>
+
+							<Accordion.Item value="SPEECH">
+								<Accordion.Control>Speech bubble</Accordion.Control>
+								<Accordion.Panel>
+									<DogSpeechEditor
+										font={speechFont}
+										onFontChange={onSpeechFontChange}
+										onPreviewFontChange={setPreviewSpeechFont}
+										onShowBubbleChange={onSpeechShowBubbleChange}
+										onTextChange={onSpeechTextChange}
+										previewFont={previewSpeechFont}
+										showBubble={speechShowBubble}
+										text={speechText}
 									/>
-								</div>
+								</Accordion.Panel>
+							</Accordion.Item>
 
-								{showBody ? (
-									<>
-										<div className={styles.label}>Clothes:</div>
-										<div className={styles.select}>
-											<div className={styles.selectMenu}>
-												<DogClothesSelectMenu
-													onChange={onClothesChange}
-													onPreviewChange={setPreviewClothes}
-													value={clothes}
-												/>
-											</div>
-										</div>
+							<Accordion.Item value="MISC">
+								<Accordion.Control>Misc</Accordion.Control>
+								<Accordion.Panel>
+									<Stack gap="sm">
+										<Checkbox
+											checked={playAnimations}
+											label="Play animation"
+											onChange={(ev) => {
+												setPlayAnimations(ev.currentTarget.checked);
+											}}
+										/>
 
-										<div className={styles.selectModalLauncher}>
-											<DogClothesSelectModalLauncher
-												onChange={onClothesChange}
-											/>
-										</div>
+										<Checkbox
+											checked={invertColors}
+											label="Invert colors"
+											onChange={(ev) => {
+												setInvertColors(ev.currentTarget.checked);
+											}}
+										/>
+									</Stack>
+								</Accordion.Panel>
+							</Accordion.Item>
 
-										<div className={styles.clothesControls}>
-											<div className={styles.controlLabel}>Color:</div>
-											<div className={styles.color}>
-												<input
-													onChange={(ev) => {
-														dispatch({
-															type: 'setProperties',
-															properties: {
-																clothesColor: ev.currentTarget.value,
-															},
-														});
-													}}
-													type="color"
-													value={clothesColor}
-												/>
-											</div>
+							<Accordion.Item value="CHICOROBOT">
+								<Accordion.Control>Chicorobot slash command</Accordion.Control>
+								<Accordion.Panel>
+									<ErrorBoundary>
+										<DogChicorobotCode
+											clothes={previewClothes ?? clothes}
+											clothesColor={clothesColor}
+											expression={previewExpression ?? expression}
+											hair={previewHair ?? hair}
+											hat={previewHats[0] ?? hats[0].name}
+											hatColor={hats[0].color}
+											skinColor={skinColor}
+										/>
+									</ErrorBoundary>
 
-											{clothes === 'Custom Tee' ||
-											customClothesImage != null ? (
-												<>
-													<div className={styles.controlLabel}>
-														Custom clothes:
-													</div>
-													<DogEditorFileInput onFileLoad={onNewClothesImage} />
-													<div>
-														({CUSTOM_CLOTHES_WIDTH.toString()}×
-														{CUSTOM_CLOTHES_HEIGHT.toString()} or{' '}
-														{SIZE.toString()}×{SIZE.toString()})
-													</div>
-												</>
-											) : null}
-										</div>
-									</>
-								) : null}
-							</div>
-						</details>
+									<ErrorBoundary>
+										<DogChicorobotNotices
+											clothes={previewClothes ?? clothes}
+											expression={previewExpression ?? expression}
+											hasCustomEarColor={
+												hasCustomEarColor && earColor !== skinColor
+											}
+											hasHeadSkinImage={headSkinImage != null}
+											hats={hatsInPreview}
+											invertColors={invertColors}
+											skinOutlineColor={skinOutlineColor}
+										/>
+									</ErrorBoundary>
+								</Accordion.Panel>
+							</Accordion.Item>
 
-						<details open>
-							<summary>Speech bubble</summary>
-
-							<DogSpeechEditor
-								font={speechFont}
-								onFontChange={onSpeechFontChange}
-								onPreviewFontChange={setPreviewSpeechFont}
-								onShowBubbleChange={onSpeechShowBubbleChange}
-								onTextChange={onSpeechTextChange}
-								previewFont={previewSpeechFont}
-								showBubble={speechShowBubble}
-								text={speechText}
-							/>
-						</details>
-
-						<details open>
-							<summary>Misc</summary>
-
-							<Stack gap="md" mt="xs">
-								<Checkbox
-									checked={playAnimations}
-									label="Play animation"
-									onChange={(ev) => {
-										setPlayAnimations(ev.currentTarget.checked);
-									}}
-								/>
-
-								<Checkbox
-									checked={invertColors}
-									label="Invert colors"
-									onChange={(ev) => {
-										setInvertColors(ev.currentTarget.checked);
-									}}
-								/>
-							</Stack>
-						</details>
-
-						<details>
-							<summary>Chicorobot slash command</summary>
-
-							<ErrorBoundary>
-								<DogChicorobotCode
-									clothes={previewClothes ?? clothes}
-									clothesColor={clothesColor}
-									expression={previewExpression ?? expression}
-									hair={previewHair ?? hair}
-									hat={previewHats[0] ?? hats[0].name}
-									hatColor={hats[0].color}
-									skinColor={skinColor}
-								/>
-							</ErrorBoundary>
-
-							<ErrorBoundary>
-								<DogChicorobotNotices
-									clothes={previewClothes ?? clothes}
-									expression={previewExpression ?? expression}
-									hasCustomEarColor={
-										hasCustomEarColor && earColor !== skinColor
-									}
-									hasHeadSkinImage={headSkinImage != null}
-									hats={hatsInPreview}
-									invertColors={invertColors}
-									skinOutlineColor={skinOutlineColor}
-								/>
-							</ErrorBoundary>
-						</details>
-
-						<ErrorBoundary>
-							<DogPlaydataGroup
-								clothes={previewClothes ?? clothes}
-								clothesColor={clothesColor}
-								earColor={
-									hasCustomEarColor && earColor !== skinColor ? earColor : null
-								}
-								hair={previewHair ?? hair}
-								hats={hatsInPreview}
-								skinColor={skinColor}
-								skinOutlineColor={skinOutlineColor}
-							/>
-						</ErrorBoundary>
+							<Accordion.Item value="PLAYDATA">
+								<Accordion.Control>Playdata JSON</Accordion.Control>
+								<Accordion.Panel>
+									<ErrorBoundary>
+										<DogPlaydataGroup
+											clothes={previewClothes ?? clothes}
+											clothesColor={clothesColor}
+											earColor={
+												hasCustomEarColor && earColor !== skinColor
+													? earColor
+													: null
+											}
+											hair={previewHair ?? hair}
+											hats={hatsInPreview}
+											skinColor={skinColor}
+											skinOutlineColor={skinOutlineColor}
+										/>
+									</ErrorBoundary>
+								</Accordion.Panel>
+							</Accordion.Item>
+						</Accordion>
 					</ErrorBoundary>
 				</div>
 			</div>

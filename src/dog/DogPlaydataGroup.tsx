@@ -48,14 +48,8 @@ export default function DogPlaydataGroup(props: Props) {
 	);
 
 	return (
-		<details>
-			<summary>Playdata JSON</summary>
-
-			<div>
-				<code className={styles.code}>
-					{JSON.stringify(generator.exportToGameSave())}
-				</code>
-			</div>
-		</details>
+		<code className={styles.code}>
+			{JSON.stringify(generator.exportToGameSave())}
+		</code>
 	);
 }
