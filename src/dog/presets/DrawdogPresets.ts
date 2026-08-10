@@ -1,20 +1,42 @@
 import {z} from 'zod/mini';
 
 import transformImageImport from '../../util/transformImageImport';
+import {DOG_CLOTHES_LIST} from '../types/DogClothesList';
+import {DOG_EXPRESSION_LIST} from '../types/DogExpressionList';
+import {DOG_HAIR_LIST} from '../types/DogHairList';
+import {DOG_HAT_LIST} from '../types/DogHatList';
 
 const HEX_REGEX = /^#[0-9a-fA-F]*$/;
 
 const DrawdogPresetBaseSchema = z.object({
-	clothes: z.string(), // todo validate with enum
+	clothes: z.enum(
+		DOG_CLOTHES_LIST.map((clothes) => {
+			return clothes.internalName;
+		}),
+	),
 	clothesColor: z.stringFormat('hex', HEX_REGEX),
 	customClothesImage: z.optional(z.url()),
 	earColor: z.optional(z.stringFormat('hex', HEX_REGEX)),
-	expression: z.optional(z.string()), // default is 'normal' // todo validate with enum
-	hair: z.string(), // todo validate with enum
+	expression: z.optional(
+		z.enum(
+			DOG_EXPRESSION_LIST.map((expression) => {
+				return expression.value;
+			}),
+		),
+	), // default is 'normal'
+	hair: z.enum(
+		DOG_HAIR_LIST.map((hair) => {
+			return hair.internalName;
+		}),
+	),
 	hats: z.readonly(
 		z.array(
 			z.object({
-				name: z.string(), // todo validate with enum
+				name: z.enum(
+					DOG_HAT_LIST.map((hat) => {
+						return hat.internalName;
+					}),
+				),
 				color: z.stringFormat('hex', HEX_REGEX),
 				customImage: z.optional(z.nullable(z.url())),
 			}),

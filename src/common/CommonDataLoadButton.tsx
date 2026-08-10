@@ -6,7 +6,7 @@ import getCtrlKeyboardModifier from '../util/getCtrlKeyboardModifier';
 import isMac from '../util/isMac';
 
 type Props = Readonly<{
-	onFileLoad: (reader: FileReader) => void;
+	onFileLoad: (fileName: string, result: string) => void;
 	text?: string;
 }>;
 
@@ -19,7 +19,7 @@ export default function CommonDataLoadButton({
 	});
 
 	async function openFile() {
-		const blob = await fileOpen();
+		const file = await fileOpen();
 
 		const reader = new FileReader();
 		reader.onload = (buffer) => {
@@ -28,13 +28,17 @@ export default function CommonDataLoadButton({
 				throw new Error('Expected file reader');
 			}
 
-			onFileLoad(reader);
+			if (typeof reader.result !== 'string') {
+				throw new Error('Expected string from file reader');
+			}
+
+			onFileLoad(file.name, reader.result);
 		};
 		reader.onerror = (ex) => {
 			console.error(ex);
 			alert('There was a problem reading the file.');
 		};
-		reader.readAsText(blob);
+		reader.readAsText(file);
 	}
 
 	return (

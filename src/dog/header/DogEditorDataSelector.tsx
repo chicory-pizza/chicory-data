@@ -25,27 +25,23 @@ export default function LevelEditorDataSelector(props: Props) {
 
 	const [lastSaveTime, setLastSaveTime] = useState<number | null>(null);
 
-	function onFileLoad(reader: FileReader) {
-		if (typeof reader.result !== 'string') {
-			throw new Error('Expected string from file reader');
-		}
-
-		let result;
+	function onFileLoad(fileName: string, result: string) {
+		let validated;
 		try {
-			result = DrawdogPresetSchema.parse(JSON.parse(reader.result));
+			validated = DrawdogPresetSchema.parse(JSON.parse(result));
 		} catch (ex) {
 			console.error(ex);
 			modals.openContextModal({
 				modal: 'alert',
 				title: 'Error',
 				innerProps: {
-					content: 'The selected drawdog file is not valid JSON.',
+					content: `'${fileName}' is not a valid drawdog project file.`,
 				},
 			});
 			return;
 		}
 
-		props.onPresetSelect(result);
+		props.onPresetSelect(validated);
 	}
 
 	async function onFileSave(existingHandle?: FileSystemFileHandle | null) {

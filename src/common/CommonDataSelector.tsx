@@ -6,7 +6,7 @@ import styles from './CommonDataSelector.module.css';
 type Props = Readonly<{
 	isSaveDisabled: boolean;
 	lastSaveTime: number | null;
-	onFileLoad: (reader: FileReader) => void;
+	onFileLoad: (fileName: string, result: string) => void;
 	onFileSave: (
 		existingHandle?: FileSystemFileHandle | null,
 	) => Promise<FileSystemFileHandle | null>;

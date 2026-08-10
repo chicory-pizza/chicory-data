@@ -11,22 +11,18 @@ export default function LevelEditorDataSelector() {
 	const {worldData, dispatch} = useWorldDataNullable();
 	const [lastSaveTime, setLastSaveTime] = useState<number | null>(null);
 
-	function onFileLoad(reader: FileReader) {
-		if (typeof reader.result !== 'string') {
-			throw new Error('Expected string from file reader');
-		}
-
-		let result;
+	function onFileLoad(fileName: string, result: string) {
+		let validated;
 		try {
 			// todo validate using Zod
-			result = JSON.parse(reader.result) as WorldType;
+			validated = JSON.parse(result) as WorldType;
 		} catch (ex) {
 			console.error(ex);
 			modals.openContextModal({
 				modal: 'alert',
 				title: 'Error',
 				innerProps: {
-					content: 'The selected level_data is not valid JSON.',
+					content: `'${fileName}' is not a valid level data file.`,
 				},
 			});
 			return;
@@ -34,7 +30,7 @@ export default function LevelEditorDataSelector() {
 
 		dispatch({
 			type: 'setWorldData',
-			worldData: result,
+			worldData: validated,
 		});
 
 		dispatch({
