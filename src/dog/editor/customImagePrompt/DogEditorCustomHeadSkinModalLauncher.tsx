@@ -1,6 +1,6 @@
 import {Button, Modal, Tooltip} from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
-import {IconX} from '@tabler/icons-react';
+import {XIcon} from '@phosphor-icons/react/dist/csr/X';
 import {useCallback, useState} from 'react';
 
 import ErrorBoundary from '../../../common/ErrorBoundary';
@@ -81,7 +81,7 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 				{dogState.headSkinImage != null ? (
 					<Tooltip label="Remove head skin">
 						<Button onClick={onRemoveButtonClick} px="xs" variant="default">
-							<IconX size="1.1em" />
+							<XIcon size="1.1em" />
 						</Button>
 					</Tooltip>
 				) : null}

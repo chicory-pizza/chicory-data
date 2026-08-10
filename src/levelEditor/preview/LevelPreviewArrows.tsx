@@ -1,10 +1,8 @@
 import {Button, Tooltip} from '@mantine/core';
-import {
-	IconArrowDown,
-	IconArrowLeft,
-	IconArrowRight,
-	IconArrowUp,
-} from '@tabler/icons-react';
+import {ArrowDownIcon} from '@phosphor-icons/react/dist/csr/ArrowDown';
+import {ArrowLeftIcon} from '@phosphor-icons/react/dist/csr/ArrowLeft';
+import {ArrowRightIcon} from '@phosphor-icons/react/dist/csr/ArrowRight';
+import {ArrowUpIcon} from '@phosphor-icons/react/dist/csr/ArrowUp';
 
 import {useCurrentCoordinatesNonNullable} from '../CurrentCoordinatesContext';
 import convertCoordinatesToLevelId from '../util/convertCoordinatesToLevelId';
@@ -54,7 +52,7 @@ export default function LevelPreviewArrows() {
 					}}
 					variant="default"
 				>
-					<IconArrowUp size="1em" />
+					<ArrowUpIcon size="1em" />
 				</Button>
 			</Tooltip>
 
@@ -72,7 +70,7 @@ export default function LevelPreviewArrows() {
 					}}
 					variant="default"
 				>
-					<IconArrowLeft size="1em" />
+					<ArrowLeftIcon size="1em" />
 				</Button>
 			</Tooltip>
 
@@ -93,7 +91,7 @@ export default function LevelPreviewArrows() {
 					}}
 					variant="default"
 				>
-					<IconArrowRight size="1em" />
+					<ArrowRightIcon size="1em" />
 				</Button>
 			</Tooltip>
 
@@ -110,7 +108,7 @@ export default function LevelPreviewArrows() {
 					}}
 					variant="default"
 				>
-					<IconArrowDown size="1em" />
+					<ArrowDownIcon size="1em" />
 				</Button>
 			</Tooltip>
 		</>

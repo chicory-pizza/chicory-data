@@ -1,5 +1,7 @@
 import {ActionIcon, Tooltip} from '@mantine/core';
-import {IconArrowDown, IconArrowUp, IconX} from '@tabler/icons-react';
+import {ArrowDownIcon} from '@phosphor-icons/react/dist/csr/ArrowDown';
+import {ArrowUpIcon} from '@phosphor-icons/react/dist/csr/ArrowUp';
+import {XIcon} from '@phosphor-icons/react/dist/csr/X';
 import {useCallback} from 'react';
 
 import type {ReducerAction} from '../DogEditorContext';
@@ -95,7 +97,7 @@ export default function DogEditorHatLayer({
 								size="input-sm"
 								variant="default"
 							>
-								<IconArrowUp size="1.1em" />
+								<ArrowUpIcon size="1em" />
 							</ActionIcon>
 						</Tooltip>
 
@@ -106,7 +108,7 @@ export default function DogEditorHatLayer({
 								size="input-sm"
 								variant="default"
 							>
-								<IconArrowDown size="1.1em" />
+								<ArrowDownIcon size="1em" />
 							</ActionIcon>
 						</Tooltip>
 
@@ -116,7 +118,7 @@ export default function DogEditorHatLayer({
 								size="input-sm"
 								variant="default"
 							>
-								<IconX size="1.1em" />
+								<XIcon size="1em" />
 							</ActionIcon>
 						</Tooltip>
 					</ActionIcon.Group>

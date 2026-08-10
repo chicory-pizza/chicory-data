@@ -36,7 +36,7 @@
     "@mantine/core": "9.5.1",
     "@mantine/hooks": "9.5.1",
     "@mantine/modals": "9.5.1",
-    "@tabler/icons-react": "3.34.0",
+    "@phosphor-icons/react": "2.1.10",
     "@tanstack/react-router": "1.170.25",
     "@tanstack/react-router-devtools": "1.167.1",
     "browser-fs-access": "0.38.0",

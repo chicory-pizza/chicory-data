@@ -1,10 +1,8 @@
 import {ActionIcon, Group, Slider, Tooltip} from '@mantine/core';
-import {
-	IconBrush,
-	IconBucketDroplet,
-	IconColorPicker,
-	IconPointer,
-} from '@tabler/icons-react';
+import {CursorIcon} from '@phosphor-icons/react/dist/csr/Cursor';
+import {EyedropperIcon} from '@phosphor-icons/react/dist/csr/Eyedropper';
+import {PaintBrushIcon} from '@phosphor-icons/react/dist/csr/PaintBrush';
+import {PaintBucketIcon} from '@phosphor-icons/react/dist/csr/PaintBucket';
 import {memo} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 
@@ -68,16 +66,24 @@ function LevelToolbar(props: Props) {
 		content: React.ReactNode;
 		tooltip: string;
 	}> = [
-		{type: 'SELECT', content: <IconPointer size={24} />, tooltip: 'Select (V)'},
-		{type: 'BRUSH', content: <IconBrush size={24} />, tooltip: 'Brush (B)'},
+		{
+			type: 'SELECT',
+			content: <CursorIcon size="1.4em" />,
+			tooltip: 'Select (V)',
+		},
+		{
+			type: 'BRUSH',
+			content: <PaintBrushIcon size="1.4em" />,
+			tooltip: 'Brush (B)',
+		},
 		{
 			type: 'FILL',
-			content: <IconBucketDroplet size={24} />,
+			content: <PaintBucketIcon size="1.4em" />,
 			tooltip: 'Fill (G)',
 		},
 		{
 			type: 'EYEDROPPER',
-			content: <IconColorPicker size={24} />,
+			content: <EyedropperIcon size="1.4em" />,
 			tooltip: 'Eyedropper (I)',
 		},
 	];

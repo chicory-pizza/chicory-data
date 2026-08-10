@@ -1,5 +1,6 @@
 import {ActionIcon, Tooltip} from '@mantine/core';
-import {IconSearch, IconX} from '@tabler/icons-react';
+import {MagnifyingGlassIcon} from '@phosphor-icons/react/dist/csr/MagnifyingGlass';
+import {XIcon} from '@phosphor-icons/react/dist/csr/X';
 import {memo, useEffect, useRef} from 'react';
 import {usePrevious} from 'react-use';
 
@@ -106,7 +107,7 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 							size="sm"
 							variant="subtle"
 						>
-							<IconSearch size="1em" />
+							<MagnifyingGlassIcon size="1em" />
 						</ActionIcon>
 					</Tooltip>
 				) : null}
@@ -120,7 +121,7 @@ function SidebarEntityItem<Entity extends GameObjectType | DecorationType>(
 							size="sm"
 							variant="subtle"
 						>
-							<IconX size="1em" />
+							<XIcon size="1em" />
 						</ActionIcon>
 					</Tooltip>
 				) : null}

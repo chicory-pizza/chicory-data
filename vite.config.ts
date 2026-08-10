@@ -21,12 +21,6 @@ export default defineConfig(({mode}) => {
 			react({}),
 			babel({presets: [reactCompilerPreset()]}),
 		],
-		resolve: {
-			alias: {
-				// https://github.com/tabler/tabler-icons/issues/1233#issuecomment-2821326649
-				'@tabler/icons-react': '@tabler/icons-react/dist/esm/icons/index.mjs',
-			},
-		},
 		build: {
 			assetsInlineLimit: 0,
 			chunkSizeWarningLimit: 3000, // level_data is really big

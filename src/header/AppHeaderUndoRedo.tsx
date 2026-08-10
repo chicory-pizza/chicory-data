@@ -1,5 +1,6 @@
 import {Button, Tooltip} from '@mantine/core';
-import {IconArrowBackUp, IconArrowForwardUp} from '@tabler/icons-react';
+import {ArrowUUpLeftIcon} from '@phosphor-icons/react/dist/csr/ArrowUUpLeft';
+import {ArrowUUpRightIcon} from '@phosphor-icons/react/dist/csr/ArrowUUpRight';
 import {memo} from 'react';
 import {useHotkeys} from 'react-hotkeys-hook';
 
@@ -41,7 +42,7 @@ function AppHeaderUndoRedo(props: Props) {
 			<Tooltip label={isMac() ? 'Command-Z' : 'Ctrl-Z'}>
 				<Button
 					disabled={!props.canUndo}
-					leftSection={<IconArrowBackUp size={14} />}
+					leftSection={<ArrowUUpLeftIcon size="1.1em" />}
 					onClick={undo}
 					variant="default"
 				>
@@ -52,7 +53,7 @@ function AppHeaderUndoRedo(props: Props) {
 			<Tooltip label={isMac() ? 'Command-Shift-Z' : 'Ctrl-Shift-Z or Ctrl-Y'}>
 				<Button
 					disabled={!props.canRedo}
-					leftSection={<IconArrowForwardUp size={14} />}
+					leftSection={<ArrowUUpRightIcon size="1.1em" />}
 					onClick={redo}
 					variant="default"
 				>

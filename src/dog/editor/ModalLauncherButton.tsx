@@ -1,5 +1,5 @@
 import {ActionIcon, Tooltip} from '@mantine/core';
-import {IconArrowsMaximize} from '@tabler/icons-react';
+import {ArrowsOutIcon} from '@phosphor-icons/react/dist/csr/ArrowsOut';
 
 type Props = Readonly<
 	{
@@ -11,7 +11,7 @@ export default function ModalLauncherButton({label, ...otherProps}: Props) {
 	return (
 		<Tooltip label={label}>
 			<ActionIcon size="input-sm" variant="default" {...otherProps}>
-				<IconArrowsMaximize size="1.1em" />
+				<ArrowsOutIcon size="1.2em" />
 			</ActionIcon>
 		</Tooltip>
 	);

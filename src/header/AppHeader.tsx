@@ -1,7 +1,7 @@
 /* eslint-disable @eslint-react/dom-no-unsafe-target-blank */
 
 import {Tooltip} from '@mantine/core';
-import {IconChevronLeft} from '@tabler/icons-react';
+import {CaretLeftIcon} from '@phosphor-icons/react/dist/csr/CaretLeft';
 import {Link} from '@tanstack/react-router';
 
 import icon144 from '../icon144.png';
@@ -21,7 +21,7 @@ export default function AppHeader(props: Props) {
 		<header className={styles.root}>
 			<Tooltip label="Go to main tools list">
 				<Link className={styles.backToHome} to="/" preload="intent">
-					<IconChevronLeft className={styles.backToHomeArrow} stroke={2} />
+					<CaretLeftIcon className={styles.backToHomeArrow} weight="bold" />
 
 					<img
 						alt="Chicory: A Colorful Tale game logo"

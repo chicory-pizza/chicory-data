@@ -19,9 +19,9 @@ npm start # go to http://localhost:3000
 
 ## Libraries
 
-This project is a [React](https://react.dev) app, using [React Router](https://reactrouter.com) for routing.
+This project is a [React](https://react.dev) app, using [TanStack Router](https://tanstack.com/router/latest) for routing (previously used [React Router](https://reactrouter.com)).
 
-For UI styling, this projects uses [Mantine](https://mantine.dev) and [Tabler Icons](https://tabler.io/icons).
+For UI styling, this project uses [Mantine](https://mantine.dev) and [Phosphor Icons](https://phosphoricons.com).
 
 It's recommended to install the [React Developer Tools](https://react.dev/learn/react-developer-tools) on your browser for easier debugging.
 
@@ -31,7 +31,7 @@ Use [Prettier](https://prettier.io). Run `npm run prettier -- --write` to auto-f
 
 ## Type-checking
 
-Use [TypeScript](https://www.typescriptlang.org), previously used [Flow](https://flow.org). Run `npm run tsc -- -b` to see errors.
+Use [TypeScript](https://www.typescriptlang.org) (previously used [Flow](https://flow.org)). Run `npm run tsc -- -b` to see errors.
 
 ## Linting
 
@@ -39,7 +39,7 @@ Use [ESLint](https://eslint.org). Run `npm run lint` to see errors.
 
 ## Tests
 
-Use [Vitest](https://vitest.dev), previously used [Jest](https://jestjs.io). Run `npm test` to run the tests.
+Use [Vitest](https://vitest.dev) (previously used [Jest](https://jestjs.io)). Run `npm test` to run the tests.
 
 ## Code coverage
 
