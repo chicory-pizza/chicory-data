@@ -4,7 +4,7 @@ import {useMemo} from 'react';
 import {useDogEditorContext} from '../DogEditorContext';
 import DrawdogGridModal from '../grid/DrawdogGridModal';
 import convertDogEditorStateToPreset from '../presets/convertDogEditorStateToPreset';
-import type {DrawdogPreset} from '../presets/DrawdogPresets';
+import type {DrawdogPresetWithName} from '../presets/DrawdogPresets';
 import {DOG_HAIR_LIST} from '../types/DogHairList';
 import {DOG_HAT_LIST} from '../types/DogHatList';
 
@@ -20,7 +20,7 @@ export default function DogHairSelectModalLauncher({onChange}: Props) {
 	const [isModalOpen, {open: openModal, close: closeModal}] =
 		useDisclosure(false);
 
-	const presets: Array<DrawdogPreset> = useMemo(() => {
+	const presets: ReadonlyArray<DrawdogPresetWithName> = useMemo(() => {
 		return DOG_HAIR_LIST.map((hair) => {
 			const hatCanDrawHair = dogState.hats.every((dogHat) => {
 				const hatInfo = DOG_HAT_LIST.find((hat) => {

@@ -40,7 +40,6 @@ test('converts dog editor state to preset', () => {
 				customImage: null,
 			},
 		],
-		name: '',
 		skinColor: '#0000ff',
 		skinOutlineColor: '#0000ee',
 	});
@@ -84,7 +83,6 @@ test('no custom ear color', () => {
 				customImage: null,
 			},
 		],
-		name: '',
 		skinColor: '#0000ff',
 		skinOutlineColor: '#0000ee',
 	});

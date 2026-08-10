@@ -1,12 +1,12 @@
 import DrawdogGridModal from '../grid/DrawdogGridModal';
 
-import type {DrawdogPreset} from './DrawdogPresets';
+import type {DrawdogPresetWithName} from './DrawdogPresets';
 import {DRAWDOG_PRESETS} from './DrawdogPresets';
 
 type Props = Readonly<{
 	isOpen: boolean;
 	onModalRequestClose: () => void;
-	onPresetSelect: (preset: DrawdogPreset) => void;
+	onPresetSelect: (preset: DrawdogPresetWithName) => void;
 }>;
 
 export default function DrawdogGalleryModal(props: Props) {

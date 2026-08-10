@@ -1,15 +1,15 @@
-import type {DrawdogPreset} from '../presets/DrawdogPresets';
+import type {DrawdogPresetWithName} from '../presets/DrawdogPresets';
 import DogPreviewWithAutoplayAnimation from '../preview/DogPreviewWithAutoplayAnimation';
 
 import styles from './DrawdogGalleryDog.module.css';
 
 type Props = Readonly<{
 	forceExpression?: string;
-	onHoverEnter?: (preset: DrawdogPreset) => void;
-	onHoverLeave: (preset: DrawdogPreset) => void;
-	onSelect: (preset: DrawdogPreset) => void;
+	onHoverEnter?: (preset: DrawdogPresetWithName) => void;
+	onHoverLeave: (preset: DrawdogPresetWithName) => void;
+	onSelect: (preset: DrawdogPresetWithName) => void;
 	playAnimations: boolean;
-	preset: DrawdogPreset;
+	preset: DrawdogPresetWithName;
 	showBody: boolean;
 }>;
 

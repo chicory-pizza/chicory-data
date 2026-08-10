@@ -4,7 +4,7 @@ import {useMemo} from 'react';
 import {useDogEditorContext} from '../DogEditorContext';
 import DrawdogGridModal from '../grid/DrawdogGridModal';
 import convertDogEditorStateToPreset from '../presets/convertDogEditorStateToPreset';
-import type {DrawdogPreset} from '../presets/DrawdogPresets';
+import type {DrawdogPresetWithName} from '../presets/DrawdogPresets';
 import {DOG_EXPRESSION_LIST} from '../types/DogExpressionList';
 
 import ModalLauncherButton from './ModalLauncherButton';
@@ -19,7 +19,7 @@ export default function DogExpressionSelectModalLauncher({onChange}: Props) {
 	const [isModalOpen, {open: openModal, close: closeModal}] =
 		useDisclosure(false);
 
-	const presets: Array<DrawdogPreset> = useMemo(() => {
+	const presets: ReadonlyArray<DrawdogPresetWithName> = useMemo(() => {
 		return DOG_EXPRESSION_LIST.map((expression) => {
 			return {
 				...convertDogEditorStateToPreset(dogState),

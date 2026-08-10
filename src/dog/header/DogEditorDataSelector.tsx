@@ -7,7 +7,10 @@ import CommonDataSaveButton from '../../common/CommonDataSaveButton';
 import CommonDataSaveTimestamp from '../../common/CommonDataSaveTimestamp';
 import {useDogEditorContext} from '../DogEditorContext';
 import type {ChosenHat} from '../drawDogToCanvas';
-import type {DrawdogPreset} from '../presets/DrawdogPresets';
+import {
+	type DrawdogPreset,
+	DrawdogPresetSchema,
+} from '../presets/DrawdogPresets';
 
 import styles from './DogEditorDataSelector.module.css';
 import DogEditorGifMaker from './DogEditorGifMaker';
@@ -29,8 +32,7 @@ export default function LevelEditorDataSelector(props: Props) {
 
 		let result;
 		try {
-			// todo validate using Zod
-			result = JSON.parse(reader.result) as DrawdogPreset;
+			result = DrawdogPresetSchema.parse(JSON.parse(reader.result));
 		} catch (ex) {
 			console.error(ex);
 			modals.openContextModal({
@@ -43,12 +45,11 @@ export default function LevelEditorDataSelector(props: Props) {
 			return;
 		}
 
-		// todo use zod validation
 		props.onPresetSelect(result);
 	}
 
 	async function onFileSave(existingHandle?: FileSystemFileHandle | null) {
-		const data: Omit<DrawdogPreset, 'name'> = {
+		const data: DrawdogPreset = {
 			clothes: dogState.clothes,
 			clothesColor: dogState.clothesColor,
 			customClothesImage:

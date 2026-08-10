@@ -5,7 +5,6 @@ import {z} from 'zod/mini';
 
 import MessageBox from '../../../common/MessageBox';
 import DrawdogGalleryModal from '../../../dog/presets/DrawdogGalleryModal';
-import type {DrawdogPreset} from '../../../dog/presets/DrawdogPresets';
 import convertHexToBgrInteger from '../../../util/convertHexToBgrInteger';
 import ObjCustomDogPreview from '../../common/ObjCustomDogPreview';
 import type {ObjCustomDogType} from '../../types/GameObjectType';
@@ -93,7 +92,7 @@ export default function SidebarObjectCustomDog(props: Props) {
 			<DrawdogGalleryModal
 				isOpen={isGalleryModalOpen}
 				onModalRequestClose={closeGalleryModal}
-				onPresetSelect={async (preset: DrawdogPreset) => {
+				onPresetSelect={async (preset) => {
 					const [customClothesImage, customHatImage] = await Promise.all([
 						loadImage(preset.customClothesImage),
 						loadImage(preset.hats[0].customImage),

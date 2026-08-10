@@ -1,4 +1,7 @@
-import type {DrawdogPreset} from '../../dog/presets/DrawdogPresets';
+import type {
+	DrawdogPreset,
+	DrawdogPresetWithName,
+} from '../../dog/presets/DrawdogPresets';
 import convertHexToBgrInteger from '../../util/convertHexToBgrInteger';
 
 export const MAX_CUSTOM_BRUSH_COLORS = 8;
@@ -38,15 +41,22 @@ type GameSave = {
 export class PlaydataGenerator {
 	#playdata: Playdata = {};
 
-	static loadFromDogPreset(preset: DrawdogPreset): PlaydataGenerator {
-		return new PlaydataGenerator()
+	static loadFromDogPreset(
+		preset: DrawdogPreset | DrawdogPresetWithName,
+	): PlaydataGenerator {
+		const generator = new PlaydataGenerator()
 			.setDogClothes(preset.clothes)
 			.setDogClothesColor(preset.clothesColor)
 			.setDogHair(preset.hair)
 			.setDogHatName(preset.hats[0].name)
 			.setDogHatColor(preset.hats[0].color)
-			.setDogName(preset.name)
 			.setDogSkinColor(preset.skinColor);
+
+		if ('name' in preset) {
+			generator.setDogName(preset.name);
+		}
+
+		return generator;
 	}
 
 	exportToGameSave(): GameSave {

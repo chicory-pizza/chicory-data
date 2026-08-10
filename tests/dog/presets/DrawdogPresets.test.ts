@@ -1,6 +1,5 @@
 import {expect, test} from 'vitest';
 
-import type {DrawdogPreset} from '../../../src/dog/presets/DrawdogPresets';
 import {DRAWDOG_PRESETS} from '../../../src/dog/presets/DrawdogPresets';
 import {DOG_CLOTHES_LIST} from '../../../src/dog/types/DogClothesList';
 import {DOG_EXPRESSION_LIST} from '../../../src/dog/types/DogExpressionList';
@@ -15,7 +14,7 @@ const VALID_COLOR = /^#[0-9a-f]{6}$/;
 
 test.each(DRAWDOG_PRESETS)(
 	'clothes and colors for $name are valid',
-	(preset: DrawdogPreset) => {
+	(preset) => {
 		expect(
 			DOG_CLOTHES_LIST.find((clothes) => {
 				return preset.clothes === clothes.internalName;

@@ -1,24 +1,40 @@
+import {z} from 'zod/mini';
+
 import transformImageImport from '../../util/transformImageImport';
 
-export type DrawdogPreset = Readonly<{
-	clothes: string;
-	clothesColor: string;
-	customClothesImage?: string;
-	earColor?: string;
-	expression?: string; // default is 'normal'
-	hair: string;
-	hats: ReadonlyArray<{
-		name: string;
-		color: string;
-		customImage?: string | null;
-	}>;
-	headSkinImage?: string;
-	name: string;
-	skinColor: string;
-	skinOutlineColor?: string;
-}>;
+const HEX_REGEX = /^#[0-9a-fA-F]*$/;
 
-export const DRAWDOG_PRESETS: ReadonlyArray<DrawdogPreset> = [
+const DrawdogPresetBaseSchema = z.object({
+	clothes: z.string(), // todo validate with enum
+	clothesColor: z.stringFormat('hex', HEX_REGEX),
+	customClothesImage: z.optional(z.url()),
+	earColor: z.optional(z.stringFormat('hex', HEX_REGEX)),
+	expression: z.optional(z.string()), // default is 'normal' // todo validate with enum
+	hair: z.string(), // todo validate with enum
+	hats: z.readonly(
+		z.array(
+			z.object({
+				name: z.string(), // todo validate with enum
+				color: z.stringFormat('hex', HEX_REGEX),
+				customImage: z.optional(z.nullable(z.url())),
+			}),
+		),
+	),
+	headSkinImage: z.optional(z.url()),
+	skinColor: z.stringFormat('hex', HEX_REGEX),
+	skinOutlineColor: z.optional(z.stringFormat('hex', HEX_REGEX)),
+});
+
+export const DrawdogPresetSchema = z.readonly(DrawdogPresetBaseSchema);
+export type DrawdogPreset = z.infer<typeof DrawdogPresetSchema>;
+
+export const DrawdogPresetWithNameSchema = z.object({
+	...DrawdogPresetBaseSchema.shape,
+	name: z.string(),
+});
+export type DrawdogPresetWithName = z.infer<typeof DrawdogPresetWithNameSchema>;
+
+export const DRAWDOG_PRESETS: ReadonlyArray<DrawdogPresetWithName> = [
 	{
 		clothes: 'Overalls',
 		clothesColor: '#ffffff',

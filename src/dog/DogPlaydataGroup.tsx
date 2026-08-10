@@ -22,7 +22,6 @@ export default function DogPlaydataGroup(props: Props) {
 		clothesColor: props.clothesColor,
 		hair: props.hair,
 		hats: props.hats,
-		name: '',
 		skinColor: props.skinColor,
 	});
 

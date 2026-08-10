@@ -1,10 +1,10 @@
 import {Checkbox, Modal} from '@mantine/core';
-import {useCallback, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 
 import ErrorBoundary from '../../common/ErrorBoundary';
 import isReducedMotion from '../../util/isReducedMotion';
 import randomItem from '../../util/randomItem';
-import type {DrawdogPreset} from '../presets/DrawdogPresets';
+import type {DrawdogPresetWithName} from '../presets/DrawdogPresets';
 import {DOG_EXPRESSION_LIST} from '../types/DogExpressionList';
 
 import DrawdogGalleryDog from './DrawdogGalleryDog';
@@ -16,8 +16,8 @@ export type Props = Readonly<{
 	canPlayAnimations: boolean;
 	isOpen: boolean;
 	onModalRequestClose: () => void;
-	onPresetSelect: (preset: DrawdogPreset) => void;
-	presets: ReadonlyArray<DrawdogPreset>;
+	onPresetSelect: (preset: DrawdogPresetWithName) => void;
+	presets: ReadonlyArray<DrawdogPresetWithName>;
 	showBody: boolean;
 	title: string;
 }>;
@@ -44,46 +44,37 @@ export default function DrawdogGridModal({
 		expression: string;
 	} | null>(null);
 
-	const onSelect = useCallback(
-		(preset: DrawdogPreset) => {
+	function onSelect(preset: DrawdogPresetWithName) {
+		setDogMouseOver(null);
+		onPresetSelect(preset);
+		onModalRequestClose();
+	}
+
+	function onHoverEnter(preset: DrawdogPresetWithName) {
+		if (preset.name === dogMouseOver?.name) {
+			// Already set
+			return;
+		}
+
+		let randomExpression;
+		do {
+			randomExpression = randomItem(DOG_EXPRESSION_LIST).value;
+		} while (
+			randomExpression === 'normal' ||
+			randomExpression === preset.expression
+		);
+
+		setDogMouseOver({
+			name: preset.name,
+			expression: randomExpression,
+		});
+	}
+
+	function onHoverLeave(preset: DrawdogPresetWithName) {
+		if (preset.name === dogMouseOver?.name) {
 			setDogMouseOver(null);
-			onPresetSelect(preset);
-			onModalRequestClose();
-		},
-		[onModalRequestClose, onPresetSelect],
-	);
-
-	const onHoverEnter = useCallback(
-		(preset: DrawdogPreset) => {
-			if (preset.name === dogMouseOver?.name) {
-				// Already set
-				return;
-			}
-
-			let randomExpression;
-			do {
-				randomExpression = randomItem(DOG_EXPRESSION_LIST).value;
-			} while (
-				randomExpression === 'normal' ||
-				randomExpression === preset.expression
-			);
-
-			setDogMouseOver({
-				name: preset.name,
-				expression: randomExpression,
-			});
-		},
-		[dogMouseOver?.name],
-	);
-
-	const onHoverLeave = useCallback(
-		(preset: DrawdogPreset) => {
-			if (preset.name === dogMouseOver?.name) {
-				setDogMouseOver(null);
-			}
-		},
-		[dogMouseOver?.name],
-	);
+		}
+	}
 
 	const filterLowercase = filter.toLowerCase().trim();
 	const hasAnyVisibleDogs =

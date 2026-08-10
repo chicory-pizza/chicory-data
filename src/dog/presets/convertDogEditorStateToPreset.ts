@@ -6,8 +6,6 @@ import type {DrawdogPreset} from './DrawdogPresets';
 export default function convertDogEditorStateToPreset(
 	dogState: DogState,
 ): DrawdogPreset {
-	return {
-		...convertDogEditorStateToDogPreview(dogState),
-		name: '',
-	};
+	// fixme probably can be deleted
+	return convertDogEditorStateToDogPreview(dogState);
 }
