@@ -538,12 +538,12 @@ export default function DogEditorUI() {
 									<ErrorBoundary>
 										<DogChicorobotCode
 											clothes={previewClothes ?? clothes}
-											clothesColor={clothesColor}
+											clothesColor={previewClothesColor ?? clothesColor}
 											expression={previewExpression ?? expression}
 											hair={previewHair ?? hair}
 											hat={previewHatNames[0] ?? hats[0].name}
-											hatColor={hats[0].color}
-											skinColor={skinColor}
+											hatColor={previewHatColors[0] ?? hats[0].color}
+											skinColor={previewSkinColor ?? skinColor}
 										/>
 									</ErrorBoundary>
 
@@ -552,12 +552,16 @@ export default function DogEditorUI() {
 											clothes={previewClothes ?? clothes}
 											expression={previewExpression ?? expression}
 											hasCustomEarColor={
-												hasCustomEarColor && earColor !== skinColor
+												hasCustomEarColor &&
+												(previewEarColor ?? earColor) !==
+													(previewSkinColor ?? skinColor)
 											}
 											hasHeadSkinImage={headSkinImage != null}
 											hats={hatsInPreview}
 											invertColors={invertColors}
-											skinOutlineColor={skinOutlineColor}
+											skinOutlineColor={
+												previewSkinOutlineColor ?? skinOutlineColor
+											}
 										/>
 									</ErrorBoundary>
 								</Accordion.Panel>
@@ -569,16 +573,20 @@ export default function DogEditorUI() {
 									<ErrorBoundary>
 										<DogPlaydataGroup
 											clothes={previewClothes ?? clothes}
-											clothesColor={clothesColor}
+											clothesColor={previewClothesColor ?? clothesColor}
 											earColor={
-												hasCustomEarColor && earColor !== skinColor
-													? earColor
+												hasCustomEarColor &&
+												(previewEarColor ?? earColor) !==
+													(previewSkinColor ?? skinColor)
+													? (previewEarColor ?? earColor)
 													: null
 											}
 											hair={previewHair ?? hair}
 											hats={hatsInPreview}
-											skinColor={skinColor}
-											skinOutlineColor={skinOutlineColor}
+											skinColor={previewSkinColor ?? skinColor}
+											skinOutlineColor={
+												previewSkinOutlineColor ?? skinOutlineColor
+											}
 										/>
 									</ErrorBoundary>
 								</Accordion.Panel>
