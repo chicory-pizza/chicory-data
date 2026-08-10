@@ -6,7 +6,7 @@ import {DOG_EXPRESSION_LIST} from '../types/DogExpressionList';
 import {DOG_HAIR_LIST} from '../types/DogHairList';
 import {DOG_HAT_LIST} from '../types/DogHatList';
 
-const HEX_REGEX = /^#[0-9a-fA-F]*$/;
+const HEX_REGEX = /^#[0-9a-f]*$/i;
 
 const DrawdogPresetBaseSchema = z.object({
 	clothes: z.enum(

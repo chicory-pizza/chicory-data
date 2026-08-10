@@ -1,0 +1,10 @@
+.button {
+	padding-inline-start: calc(var(--button-padding-x) / 1.5);
+}
+
+.textInputsGrid {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	gap: var(--mantine-spacing-sm);
+}

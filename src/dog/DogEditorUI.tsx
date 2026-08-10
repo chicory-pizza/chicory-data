@@ -1,6 +1,7 @@
 import {Accordion, Button, Checkbox, Flex, Stack} from '@mantine/core';
 import {useMemo, useState} from 'react';
 
+import CustomColorPicker from '../common/color/CustomColorPicker';
 import ErrorBoundary from '../common/ErrorBoundary';
 import isReducedMotion from '../util/isReducedMotion';
 
@@ -59,6 +60,10 @@ export default function DogEditorUI() {
 
 	// Previews
 	const [previewClothes, setPreviewClothes] = useState<string | null>(null);
+	const [previewClothesColor, setPreviewClothesColor] = useState<string | null>(
+		null,
+	);
+	const [previewEarColor, setPreviewEarColor] = useState<string | null>(null);
 	const [previewExpression, setPreviewExpression] = useState<string | null>(
 		null,
 	);
@@ -66,6 +71,10 @@ export default function DogEditorUI() {
 	const [previewHats, setPreviewHats] = useState<ReadonlyArray<string | null>>(
 		[],
 	);
+	const [previewSkinColor, setPreviewSkinColor] = useState<string | null>();
+	const [previewSkinOutlineColor, setPreviewSkinOutlineColor] = useState<
+		string | null
+	>();
 	const [previewSpeechFont, setPreviewSpeechFont] = useState<string | null>(
 		null,
 	);
@@ -217,17 +226,21 @@ export default function DogEditorUI() {
 								animation="idle"
 								canvasClassName={styles.dogPreviewCanvas}
 								clothes={previewClothes ?? clothes}
-								clothesColor={clothesColor}
+								clothesColor={previewClothesColor ?? clothesColor}
 								customClothesImage={customClothesImage}
-								earColor={hasCustomEarColor ? earColor : skinColor}
+								earColor={
+									hasCustomEarColor
+										? (previewEarColor ?? earColor)
+										: (previewSkinColor ?? skinColor)
+								}
 								expression={previewExpression ?? expression}
 								hair={previewHair ?? hair}
 								hats={hatsInPreview}
 								headSkinImage={headSkinImage}
 								playAnimations={playAnimations}
 								showBody={showBody}
-								skinColor={skinColor}
-								skinOutlineColor={skinOutlineColor}
+								skinColor={previewSkinColor ?? skinColor}
+								skinOutlineColor={previewSkinOutlineColor ?? skinOutlineColor}
 							/>
 						</div>
 					</ErrorBoundary>
@@ -239,33 +252,41 @@ export default function DogEditorUI() {
 							<div className={styles.grid}>
 								<div className={styles.label}>Skin fill:</div>
 								<div className={styles.colorControl}>
-									<input
-										onChange={(ev) => {
-											dispatch({
-												type: 'setProperties',
-												properties: {
-													skinColor: ev.currentTarget.value,
-												},
-											});
+									<CustomColorPicker
+										value={previewSkinColor ?? skinColor}
+										onChange={(newColor) => {
+											setPreviewSkinColor(null);
+
+											if (newColor !== skinColor) {
+												dispatch({
+													type: 'setProperties',
+													properties: {
+														skinColor: newColor,
+													},
+												});
+											}
 										}}
-										type="color"
-										value={skinColor}
+										onPreviewChange={setPreviewSkinColor}
 									/>
 								</div>
 
 								<div className={styles.label}>Skin outline:</div>
 								<div className={styles.colorControl}>
-									<input
-										onChange={(ev) => {
-											dispatch({
-												type: 'setProperties',
-												properties: {
-													skinOutlineColor: ev.currentTarget.value,
-												},
-											});
+									<CustomColorPicker
+										value={previewSkinOutlineColor ?? skinOutlineColor}
+										onChange={(newColor) => {
+											setPreviewSkinOutlineColor(null);
+
+											if (newColor !== skinOutlineColor) {
+												dispatch({
+													type: 'setProperties',
+													properties: {
+														skinOutlineColor: newColor,
+													},
+												});
+											}
 										}}
-										type="color"
-										value={skinOutlineColor}
+										onPreviewChange={setPreviewSkinOutlineColor}
 									/>
 								</div>
 							</div>
@@ -359,17 +380,21 @@ export default function DogEditorUI() {
 											<>
 												<div className={styles.label}>Ear color:</div>
 												<div className={styles.colorControl}>
-													<input
-														onChange={(ev) => {
-															dispatch({
-																type: 'setProperties',
-																properties: {
-																	earColor: ev.currentTarget.value,
-																},
-															});
+													<CustomColorPicker
+														value={previewEarColor ?? earColor}
+														onChange={(newColor) => {
+															setPreviewEarColor(null);
+
+															if (newColor !== earColor) {
+																dispatch({
+																	type: 'setProperties',
+																	properties: {
+																		earColor: newColor,
+																	},
+																});
+															}
 														}}
-														type="color"
-														value={earColor}
+														onPreviewChange={setPreviewEarColor}
 													/>
 												</div>
 											</>
@@ -410,26 +435,27 @@ export default function DogEditorUI() {
 													</div>
 												</div>
 
-												<div className={styles.selectModalLauncher}>
-													<DogClothesSelectModalLauncher
-														onChange={onClothesChange}
-													/>
-												</div>
+												<DogClothesSelectModalLauncher
+													onChange={onClothesChange}
+												/>
 
 												<div className={styles.clothesControls}>
-													<div className={styles.controlLabel}>Color:</div>
 													<div className={styles.color}>
-														<input
-															onChange={(ev) => {
-																dispatch({
-																	type: 'setProperties',
-																	properties: {
-																		clothesColor: ev.currentTarget.value,
-																	},
-																});
+														<CustomColorPicker
+															value={previewClothesColor ?? clothesColor}
+															onChange={(newColor) => {
+																setPreviewClothesColor(null);
+
+																if (newColor !== clothesColor) {
+																	dispatch({
+																		type: 'setProperties',
+																		properties: {
+																			clothesColor: newColor,
+																		},
+																	});
+																}
 															}}
-															type="color"
-															value={clothesColor}
+															onPreviewChange={setPreviewClothesColor}
 														/>
 													</div>
 
