@@ -68,9 +68,12 @@ export default function DogEditorUI() {
 		null,
 	);
 	const [previewHair, setPreviewHair] = useState<string | null>(null);
-	const [previewHats, setPreviewHats] = useState<ReadonlyArray<string | null>>(
-		[],
-	);
+	const [previewHatNames, setPreviewHatNames] = useState<
+		ReadonlyArray<string | null>
+	>([]);
+	const [previewHatColors, setPreviewHatColors] = useState<
+		ReadonlyArray<string | null>
+	>([]);
 	const [previewSkinColor, setPreviewSkinColor] = useState<string | null>();
 	const [previewSkinOutlineColor, setPreviewSkinOutlineColor] = useState<
 		string | null
@@ -82,12 +85,12 @@ export default function DogEditorUI() {
 	const hatsInPreview: ReadonlyArray<ChosenHat> = useMemo(() => {
 		return hats.map((hat, index) => {
 			return {
-				name: previewHats[index] ?? hat.name,
-				color: hat.color,
+				name: previewHatNames[index] ?? hat.name,
+				color: previewHatColors[index] ?? hat.color,
 				customImage: hat.customImage,
 			};
 		});
-	}, [hats, previewHats]);
+	}, [hats, previewHatColors, previewHatNames]);
 
 	function onHairChange(value: string) {
 		dispatch({
@@ -120,10 +123,16 @@ export default function DogEditorUI() {
 		dispatch({type: 'addNewHatLayer'});
 	}
 
+	function setHatPreviewColor(layer: number, previewColor: string | null) {
+		const newHats = [...previewHatColors];
+		newHats[layer] = previewColor;
+		setPreviewHatColors(newHats);
+	}
+
 	function setHatPreviewName(layer: number, previewName: string | null) {
-		const newHats = [...previewHats];
+		const newHats = [...previewHatColors];
 		newHats[layer] = previewName;
-		setPreviewHats(newHats);
+		setPreviewHatNames(newHats);
 	}
 
 	function onPresetSelect(preset: DrawdogPreset) {
@@ -311,7 +320,9 @@ export default function DogEditorUI() {
 													// eslint-disable-next-line @eslint-react/no-array-index-key
 													key={index}
 													layer={index}
-													previewName={previewHats[index]}
+													previewColor={previewHatColors[index]}
+													previewName={previewHatNames[index]}
+													setPreviewColor={setHatPreviewColor}
 													setPreviewName={setHatPreviewName}
 													totalHatsCount={hats.length}
 												/>
@@ -530,7 +541,7 @@ export default function DogEditorUI() {
 											clothesColor={clothesColor}
 											expression={previewExpression ?? expression}
 											hair={previewHair ?? hair}
-											hat={previewHats[0] ?? hats[0].name}
+											hat={previewHatNames[0] ?? hats[0].name}
 											hatColor={hats[0].color}
 											skinColor={skinColor}
 										/>

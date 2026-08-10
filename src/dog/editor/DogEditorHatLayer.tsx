@@ -3,6 +3,7 @@ import {ArrowDownIcon} from '@phosphor-icons/react/dist/csr/ArrowDown';
 import {ArrowUpIcon} from '@phosphor-icons/react/dist/csr/ArrowUp';
 import {XIcon} from '@phosphor-icons/react/dist/csr/X';
 
+import CustomColorPicker from '../../common/color/CustomColorPicker';
 import type {ReducerAction} from '../DogEditorContext';
 import type {ChosenHat} from '../drawDogToCanvas';
 
@@ -15,7 +16,9 @@ type Props = Readonly<{
 	dispatch: (action: ReducerAction) => void;
 	hat: ChosenHat;
 	layer: number;
+	previewColor: string | null;
 	previewName: string | null;
+	setPreviewColor: (layer: number, previewName: string | null) => void;
 	setPreviewName: (layer: number, previewName: string | null) => void;
 	totalHatsCount: number;
 }>;
@@ -24,7 +27,9 @@ export default function DogEditorHatLayer({
 	dispatch,
 	hat,
 	layer,
+	previewColor,
 	previewName,
+	setPreviewColor,
 	setPreviewName,
 	totalHatsCount,
 }: Props) {
@@ -42,12 +47,20 @@ export default function DogEditorHatLayer({
 		});
 	}
 
-	function onPreviewChange(newPreviewName: string | null) {
+	function onPreviewNameChange(newPreviewName: string | null) {
 		if (previewName === newPreviewName) {
 			return;
 		}
 
 		setPreviewName(layer, newPreviewName);
+	}
+
+	function onPreviewColorChange(newPreviewColor: string | null) {
+		if (previewColor === newPreviewColor) {
+			return;
+		}
+
+		setPreviewColor(layer, newPreviewColor);
 	}
 
 	function moveLayerUp() {
@@ -120,37 +133,32 @@ export default function DogEditorHatLayer({
 				<div className={styles.selectMenu}>
 					<DogHatSelectMenu
 						onChange={onHatInfoChange}
-						onPreviewChange={onPreviewChange}
+						onPreviewChange={onPreviewNameChange}
 						value={hat.name}
 					/>
 				</div>
 			</div>
 
-			<div className={styles.selectModalLauncher}>
-				<DogHatSelectModalLauncher layer={layer} onChange={onHatInfoChange} />
-			</div>
+			<DogHatSelectModalLauncher layer={layer} onChange={onHatInfoChange} />
 
 			<div className={styles.controls}>
-				<div>Color:</div>
-				<div className={styles.color}>
-					<input
-						onChange={(ev) => {
-							if (hat.color === ev.currentTarget.value) {
-								return;
-							}
+				<CustomColorPicker
+					value={previewColor ?? hat.color}
+					onChange={(newColor) => {
+						onPreviewColorChange(null);
 
+						if (newColor !== hat.color) {
 							dispatch({
 								type: 'setHatLayerProperties',
 								layer,
 								hat: {
-									color: ev.currentTarget.value,
+									color: newColor,
 								},
 							});
-						}}
-						type="color"
-						value={hat.color}
-					/>
-				</div>
+						}
+					}}
+					onPreviewChange={onPreviewColorChange}
+				/>
 
 				{hat.name === 'Custom Hat' ? (
 					<DogEditorCustomHatImageModalLauncher layer={layer} />
