@@ -1,19 +1,25 @@
-import {TextInput, Tooltip} from '@mantine/core';
+import {type FloatingPosition, TextInput, Tooltip} from '@mantine/core';
 import {useState} from 'react';
 import tinycolor from 'tinycolor2';
 
 const HEX_CODE_REGEX = /^#?([0-9a-fA-F]{3}){1,2}$/;
 
 type Props = Readonly<{
+	classNames?: React.ComponentProps<typeof TextInput>['classNames'];
 	initialHexColor: string;
 	onCommitValue: (newHex: string) => void;
 	onPreviewInput: (newHex: string) => void;
+	testId?: string;
+	tooltipPosition?: FloatingPosition;
 }>;
 
 export default function ColorHexTextInput({
+	classNames,
 	initialHexColor: initialValue,
 	onCommitValue,
 	onPreviewInput: onDraftInput,
+	testId,
+	tooltipPosition,
 }: Props) {
 	const [inputValue, setInputValue] = useState<string>(initialValue);
 
@@ -24,10 +30,11 @@ export default function ColorHexTextInput({
 	}
 
 	return (
-		<Tooltip label="Hex code (e.g. #00f3dd)" position="right">
+		<Tooltip label="Hex code (e.g. #00f3dd)" position={tooltipPosition}>
 			<TextInput
 				aria-label="Hex code (e.g. #00f3dd)"
-				// data-testid="colorcalculator-hex"
+				classNames={classNames}
+				data-testid={testId}
 				error={!HEX_CODE_REGEX.test(inputValue)}
 				maxLength={7}
 				onBlur={(ev) => {

@@ -1,22 +1,9 @@
-.textInputRoot {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: var(--mantine-spacing-xs);
-
-	--input-label-size: var(--mantine-font-size-md);
-}
-
 .textInput {
 	text-align: center;
-	width: 95px;
-}
-
-.rgbLabelText {
-	margin-right: 6px; /* there is already 4px gap */
+	width: 6em;
 }
 
 .rgbInput {
-	text-align: center;
-	width: 70px;
+	text-align: left;
+	width: 4.5em;
 }

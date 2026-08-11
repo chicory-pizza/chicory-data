@@ -6,15 +6,19 @@ import convertHexToBgrInteger from '../../util/convertHexToBgrInteger';
 import convertRgbArrayToString from '../../util/convertRgbArrayToString';
 
 type Props = Readonly<{
+	classNames?: React.ComponentProps<typeof NumberInput>['classNames'];
 	initialHexColor: string;
 	onCommitValue: (newHex: string) => void;
 	onPreviewInput: (newHex: string) => void;
+	testId?: string;
 }>;
 
 export default function ColorGmlTextInput({
+	classNames,
 	initialHexColor,
 	onCommitValue,
 	onPreviewInput: onDraftInput,
+	testId,
 }: Props) {
 	const initialValue = convertHexToBgrInteger(initialHexColor);
 
@@ -32,7 +36,8 @@ export default function ColorGmlTextInput({
 			allowNegative={false}
 			aria-label="GML number"
 			clampBehavior="strict"
-			// data-testid="colorcalculator-gml"
+			classNames={classNames}
+			data-testid={testId}
 			error={typeof inputValue !== 'number'}
 			hideControls
 			maxLength={8}

@@ -10,13 +10,13 @@ import {
 import {CaretDownIcon} from '@phosphor-icons/react/dist/csr/CaretDown';
 import tinycolor from 'tinycolor2';
 
-import CustomColorGmlTextInput from './ColorGmlTextInput';
-import CustomColorHexTextInput from './ColorHexTextInput';
+import ColorGmlTextInput from './ColorGmlTextInput';
+import ColorHexTextInput from './ColorHexTextInput';
 import ColorRgbTextInputs from './ColorRgbTextInputs';
 import styles from './CustomColorPicker.module.css';
 
 type Props = Readonly<{
-	value: string;
+	value: string; // e.g. #00f3dd
 	onChange: (newColor: string) => void;
 	onPreviewChange: (newColor: string) => void;
 }>;
@@ -72,14 +72,15 @@ export default function CustomColorPicker({
 						</Group>
 
 						<div>Hex:</div>
-						<CustomColorHexTextInput
+						<ColorHexTextInput
 							initialHexColor={value}
 							onPreviewInput={onPreviewChange}
 							onCommitValue={onChange}
+							tooltipPosition="right"
 						/>
 
 						<div>GML:</div>
-						<CustomColorGmlTextInput
+						<ColorGmlTextInput
 							initialHexColor={value}
 							onPreviewInput={onPreviewChange}
 							onCommitValue={onChange}

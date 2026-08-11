@@ -19,15 +19,19 @@ function getInitialValues(color: string): ColorFormats.RGB {
 }
 
 type Props = Readonly<{
+	classNames?: React.ComponentProps<typeof NumberInput>['classNames'];
 	initialHexColor: string;
 	onCommitValue: (newHex: string) => void;
 	onPreviewInput: (newHex: string) => void;
+	testIdPrefix?: string;
 }>;
 
 export default function ColorRgbTextInputs({
+	classNames,
 	initialHexColor: initialValue,
 	onCommitValue,
 	onPreviewInput,
+	testIdPrefix,
 }: Props) {
 	const [inputValue, setInputValue] = useState<RgbNullable>(() =>
 		getInitialValues(initialValue),
@@ -92,7 +96,8 @@ export default function ColorRgbTextInputs({
 					allowNegative={false}
 					aria-label="Red (0 to 255)"
 					clampBehavior="strict"
-					// data-testid="colorcalculator-r"
+					classNames={classNames}
+					data-testid={testIdPrefix != null ? testIdPrefix + 'r' : null}
 					error={typeof inputValue.r !== 'number'}
 					maxLength={3}
 					max={255}
@@ -117,7 +122,8 @@ export default function ColorRgbTextInputs({
 					allowNegative={false}
 					aria-label="Green (0 to 255)"
 					clampBehavior="strict"
-					// data-testid="colorcalculator-g"
+					classNames={classNames}
+					data-testid={testIdPrefix != null ? testIdPrefix + 'g' : null}
 					error={typeof inputValue.g !== 'number'}
 					maxLength={3}
 					max={255}
@@ -142,7 +148,8 @@ export default function ColorRgbTextInputs({
 					allowNegative={false}
 					aria-label="Blue (0 to 255)"
 					clampBehavior="strict"
-					// data-testid="colorcalculator-b"
+					classNames={classNames}
+					data-testid={testIdPrefix != null ? testIdPrefix + 'b' : null}
 					error={typeof inputValue.b !== 'number'}
 					maxLength={3}
 					max={255}
