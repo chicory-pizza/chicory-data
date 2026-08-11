@@ -165,9 +165,11 @@ export default function SidebarEntityList<
 							);
 						})}
 					</ul>
-				) : null}
+				) : (
+					'No results.'
+				)}
 
-				{unfilteredEntitiesLength > 0 ? (
+				{filteredEntitiesCount > 0 ? (
 					<Group gap="xs">
 						<Button
 							disabled={
