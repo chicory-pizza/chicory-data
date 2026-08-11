@@ -1,6 +1,6 @@
 import {Button} from '@mantine/core';
 
-import convertRgbArrayToString from '../../util/convertRgbArrayToString';
+import convertRgbArrayToHex from '../../util/convertRgbArrayToHex';
 import randomItem from '../../util/randomItem';
 import {useDogEditorContext} from '../DogEditorContext';
 import {DOG_CLOTHES_LIST} from '../types/DogClothesList';
@@ -29,19 +29,19 @@ export default function DogEditorRandomButton() {
 		const expression = randomItem(DOG_EXPRESSION_LIST).value;
 		const hair = randomItem(DOG_HAIR_LIST).internalName;
 
-		const clothesColor = convertRgbArrayToString([
+		const clothesColor = convertRgbArrayToHex([
 			randomNumber(0, 255),
 			randomNumber(0, 255),
 			randomNumber(0, 255),
 		]);
 
-		const hatColor = convertRgbArrayToString([
+		const hatColor = convertRgbArrayToHex([
 			randomNumber(0, 255),
 			randomNumber(0, 255),
 			randomNumber(0, 255),
 		]);
 
-		const skinColor = convertRgbArrayToString([
+		const skinColor = convertRgbArrayToHex([
 			randomNumber(0, 255),
 			randomNumber(0, 255),
 			randomNumber(0, 255),

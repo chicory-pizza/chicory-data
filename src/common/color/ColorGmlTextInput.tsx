@@ -1,9 +1,9 @@
 import {NumberInput} from '@mantine/core';
 import {useState} from 'react';
 
-import convertBgrIntegerToRgb from '../../util/convertBgrIntegerToRgb';
+import convertBgrIntegerToRgbArray from '../../util/convertBgrIntegerToRgbArray';
 import convertHexToBgrInteger from '../../util/convertHexToBgrInteger';
-import convertRgbArrayToString from '../../util/convertRgbArrayToString';
+import convertRgbArrayToHex from '../../util/convertRgbArrayToHex';
 
 type Props = Readonly<{
 	classNames?: React.ComponentProps<typeof NumberInput>['classNames'];
@@ -47,7 +47,7 @@ export default function ColorGmlTextInput({
 				(/*ev*/) => {
 					if (typeof inputValue === 'number') {
 						onCommitValue(
-							convertRgbArrayToString(convertBgrIntegerToRgb(inputValue)),
+							convertRgbArrayToHex(convertBgrIntegerToRgbArray(inputValue)),
 						);
 					}
 				}
@@ -55,7 +55,7 @@ export default function ColorGmlTextInput({
 			onChange={(newValue) => {
 				if (typeof newValue === 'number') {
 					onDraftInput(
-						convertRgbArrayToString(convertBgrIntegerToRgb(newValue)),
+						convertRgbArrayToHex(convertBgrIntegerToRgbArray(newValue)),
 					);
 				} else {
 					setInputValue(null);

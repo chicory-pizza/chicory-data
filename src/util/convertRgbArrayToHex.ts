@@ -1,4 +1,4 @@
-export default function convertRgbArrayToString(
+export default function convertRgbArrayToHex(
 	rgb: [number, number, number],
 ): string {
 	return (

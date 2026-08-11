@@ -1,6 +1,6 @@
 import DogPreview from '../../dog/preview/DogPreview';
-import convertBgrIntegerToRgb from '../../util/convertBgrIntegerToRgb';
-import convertRgbArrayToString from '../../util/convertRgbArrayToString';
+import convertBgrIntegerToRgbArray from '../../util/convertBgrIntegerToRgbArray';
+import convertRgbArrayToHex from '../../util/convertRgbArrayToHex';
 import type {ObjCustomDogType} from '../types/GameObjectType';
 
 import useLoadImageFromCustomDogTextBuffer from './useLoadImageFromCustomDogTextBuffer';
@@ -26,7 +26,7 @@ export default function ObjCustomDogPreview({canvasClassName, obj}: Props) {
 
 	const skinColor =
 		typeof obj.color_skin === 'number'
-			? convertRgbArrayToString(convertBgrIntegerToRgb(obj.color_skin))
+			? convertRgbArrayToHex(convertBgrIntegerToRgbArray(obj.color_skin))
 			: '#ffffff';
 
 	return (
@@ -41,7 +41,7 @@ export default function ObjCustomDogPreview({canvasClassName, obj}: Props) {
 			}
 			clothesColor={
 				typeof obj.color_body === 'number'
-					? convertRgbArrayToString(convertBgrIntegerToRgb(obj.color_body))
+					? convertRgbArrayToHex(convertBgrIntegerToRgbArray(obj.color_body))
 					: '#ffffff'
 			}
 			customClothesImage={customClothesImage}
@@ -60,7 +60,9 @@ export default function ObjCustomDogPreview({canvasClassName, obj}: Props) {
 						typeof obj.hat === 'string' && obj.hat !== '' ? obj.hat : 'Bandana',
 					color:
 						typeof obj.color_head === 'number'
-							? convertRgbArrayToString(convertBgrIntegerToRgb(obj.color_head))
+							? convertRgbArrayToHex(
+									convertBgrIntegerToRgbArray(obj.color_head),
+								)
 							: '#ffffff',
 					customImage: customHatImage,
 				},

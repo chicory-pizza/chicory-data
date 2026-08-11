@@ -1,8 +1,8 @@
 import {useCallback} from 'react';
 
-import convertBgrIntegerToRgb from '../../../util/convertBgrIntegerToRgb';
+import convertBgrIntegerToRgbArray from '../../../util/convertBgrIntegerToRgbArray';
 import convertHexToBgrInteger from '../../../util/convertHexToBgrInteger';
-import convertRgbArrayToString from '../../../util/convertRgbArrayToString';
+import convertRgbArrayToHex from '../../../util/convertRgbArrayToHex';
 
 type Props = Readonly<{
 	defaultValue: number;
@@ -31,8 +31,8 @@ export default function PropertyGameMakerColorInput({
 		<input
 			onChange={onChange}
 			type="color"
-			value={convertRgbArrayToString(
-				convertBgrIntegerToRgb(value ?? defaultValue),
+			value={convertRgbArrayToHex(
+				convertBgrIntegerToRgbArray(value ?? defaultValue),
 			)}
 		/>
 	);
