@@ -1,11 +1,16 @@
-import {Button} from '@mantine/core';
+import {Button, Modal} from '@mantine/core';
+import {useDisclosure} from '@mantine/hooks';
 import GIF from 'gif.js';
 import {useRef, useState} from 'react';
 
+import ErrorBoundary from '../../common/ErrorBoundary';
 import {useDogEditorContext} from '../DogEditorContext';
+import {SIZE} from '../drawDogToCanvas';
 import convertDogEditorStateToDogPreview from '../editor/convertDogEditorStateToDogPreview';
 import DogPreview from '../preview/DogPreview';
 import DOG_ANIMATIONS from '../types/DogAnimations';
+
+import styles from './DogEditorGifMaker.module.css';
 
 export default function DogEditorGifMaker() {
 	const {dogState} = useDogEditorContext();
@@ -13,6 +18,10 @@ export default function DogEditorGifMaker() {
 	const [saving, setSaving] = useState(false);
 	const gifRef = useRef<GIF>(null);
 	const [animationIndex, setAnimationIndex] = useState(0);
+
+	const [finalGifUrl, setFinalGifUrl] = useState<string | null>(null);
+	const [isModalOpen, {open: openModal, close: closeModal}] =
+		useDisclosure(false);
 
 	const animation = 'idle'; // only this for now
 
@@ -26,8 +35,8 @@ export default function DogEditorGifMaker() {
 			).toString(),
 		});
 
-		setSaving(true);
 		setAnimationIndex(0);
+		setSaving(true);
 	}
 
 	function onCanvasFrameDrawn(
@@ -35,40 +44,49 @@ export default function DogEditorGifMaker() {
 		animationIndexFromCanvas: number,
 	) {
 		const gif = gifRef.current;
-		if (!gif || animationIndexFromCanvas !== animationIndex) {
+		if (!gif || !saving || animationIndexFromCanvas !== animationIndex) {
 			return;
 		}
 
-		if (saving) {
-			gif.addFrame(canvasRef, {
-				copy: true,
-				delay: 200,
-			});
+		gif.addFrame(canvasRef, {
+			copy: true,
+			delay: 200,
+		});
 
-			// Do next frame
-			const animationInfo = DOG_ANIMATIONS.get(animation);
-			if (animationInfo == null) {
-				throw new Error('Invalid animation ' + animation);
-			}
-
-			if (animationIndex < animationInfo.headAnim.length - 1) {
-				setAnimationIndex(animationIndex + 1);
-			} else {
-				gif.once('finished', (blob: Blob) => {
-					window.open(URL.createObjectURL(blob));
-
-					setSaving(false);
-				});
-
-				gif.render();
-			}
+		// Do next frame
+		const animationInfo = DOG_ANIMATIONS.get(animation);
+		if (animationInfo == null) {
+			throw new Error('Invalid animation ' + animation);
 		}
+
+		if (animationIndex < animationInfo.headAnim.length - 1) {
+			setAnimationIndex(animationIndex + 1);
+			return;
+		}
+
+		gif.once('finished', (blob) => {
+			setFinalGifUrl(window.URL.createObjectURL(blob));
+			openModal();
+
+			setSaving(false);
+		});
+
+		gif.render();
+	}
+
+	function onModalExitTransitionEnd() {
+		if (finalGifUrl != null) {
+			window.URL.revokeObjectURL(finalGifUrl);
+		}
+		setFinalGifUrl(null);
+
+		gifRef.current = null;
 	}
 
 	return (
 		<>
-			<Button disabled={saving} onClick={onGifSave} variant="default">
-				Export to GIF
+			<Button loading={saving} onClick={onGifSave} variant="default">
+				Create GIF
 			</Button>
 
 			{saving ? (
@@ -83,6 +101,38 @@ export default function DogEditorGifMaker() {
 					/>
 				</div>
 			) : null}
+
+			<Modal
+				onExitTransitionEnd={onModalExitTransitionEnd}
+				onClose={closeModal}
+				opened={isModalOpen}
+				size="auto"
+				title="GIF created"
+			>
+				<ErrorBoundary>
+					{finalGifUrl != null ? (
+						<>
+							<Button
+								component="a"
+								href={finalGifUrl}
+								download="Drawdog.gif"
+								variant="default"
+								mb="md"
+							>
+								Download
+							</Button>
+
+							<img
+								alt="Drawdog GIF"
+								className={styles.image}
+								height={SIZE}
+								src={finalGifUrl}
+								width={SIZE}
+							/>
+						</>
+					) : null}
+				</ErrorBoundary>
+			</Modal>
 		</>
 	);
 }
