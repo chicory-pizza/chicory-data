@@ -1,10 +1,3 @@
-.grid {
-	display: grid;
-	grid-template-columns: max-content auto;
-	gap: var(--mantine-spacing-sm);
-	align-items: center;
-}
-
 @media (min-width: 801px) {
 	.selectControl {
 		width: 266px;

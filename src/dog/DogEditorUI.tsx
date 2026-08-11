@@ -1,4 +1,12 @@
-import {Accordion, Button, Checkbox, Flex, Stack} from '@mantine/core';
+import {
+	Accordion,
+	Box,
+	Button,
+	Checkbox,
+	Collapse,
+	Flex,
+	Stack,
+} from '@mantine/core';
 import {useMemo, useState} from 'react';
 
 import CustomColorPicker from '../common/color/CustomColorPicker';
@@ -417,79 +425,75 @@ export default function DogEditorUI() {
 							<Accordion.Item value="BODY">
 								<Accordion.Control>Body</Accordion.Control>
 								<Accordion.Panel>
-									<div className={styles.grid}>
-										<div className={styles.fullWidthControl}>
-											<Checkbox
-												checked={showBody}
-												label="Show body"
-												onChange={(ev) => {
-													dispatch({
-														type: 'setProperties',
-														properties: {
-															bodyShow: ev.currentTarget.checked,
-														},
-													});
-												}}
+									<Checkbox
+										checked={showBody}
+										label="Show body"
+										onChange={(ev) => {
+											dispatch({
+												type: 'setProperties',
+												properties: {
+													bodyShow: ev.currentTarget.checked,
+												},
+											});
+										}}
+									/>
+
+									<Collapse expanded={showBody}>
+										<Box className={styles.grid} mt="sm">
+											<div className={styles.label}>Clothes:</div>
+											<div className={styles.select}>
+												<div className={styles.selectMenu}>
+													<DogClothesSelectMenu
+														onChange={onClothesChange}
+														onPreviewChange={setPreviewClothes}
+														value={clothes}
+													/>
+												</div>
+											</div>
+
+											<DogClothesSelectModalLauncher
+												onChange={onClothesChange}
 											/>
-										</div>
 
-										{showBody ? (
-											<>
-												<div className={styles.label}>Clothes:</div>
-												<div className={styles.select}>
-													<div className={styles.selectMenu}>
-														<DogClothesSelectMenu
-															onChange={onClothesChange}
-															onPreviewChange={setPreviewClothes}
-															value={clothes}
-														/>
-													</div>
+											<div className={styles.clothesControls}>
+												<div className={styles.color}>
+													<CustomColorPicker
+														value={previewClothesColor ?? clothesColor}
+														onChange={(newColor) => {
+															setPreviewClothesColor(null);
+
+															if (newColor !== clothesColor) {
+																dispatch({
+																	type: 'setProperties',
+																	properties: {
+																		clothesColor: newColor,
+																	},
+																});
+															}
+														}}
+														onPreviewChange={setPreviewClothesColor}
+													/>
 												</div>
 
-												<DogClothesSelectModalLauncher
-													onChange={onClothesChange}
-												/>
-
-												<div className={styles.clothesControls}>
-													<div className={styles.color}>
-														<CustomColorPicker
-															value={previewClothesColor ?? clothesColor}
-															onChange={(newColor) => {
-																setPreviewClothesColor(null);
-
-																if (newColor !== clothesColor) {
-																	dispatch({
-																		type: 'setProperties',
-																		properties: {
-																			clothesColor: newColor,
-																		},
-																	});
-																}
-															}}
-															onPreviewChange={setPreviewClothesColor}
+												{clothes === 'Custom Tee' ||
+												customClothesImage != null ? (
+													<>
+														<div className={styles.controlLabel}>
+															Custom clothes:
+														</div>
+														<DogEditorFileInput
+															onFileLoad={onNewClothesImage}
 														/>
-													</div>
-
-													{clothes === 'Custom Tee' ||
-													customClothesImage != null ? (
-														<>
-															<div className={styles.controlLabel}>
-																Custom clothes:
-															</div>
-															<DogEditorFileInput
-																onFileLoad={onNewClothesImage}
-															/>
-															<div>
-																({CUSTOM_CLOTHES_WIDTH.toString()}×
-																{CUSTOM_CLOTHES_HEIGHT.toString()} or{' '}
-																{SIZE.toString()}×{SIZE.toString()})
-															</div>
-														</>
-													) : null}
-												</div>
-											</>
-										) : null}
-									</div>
+														<div>
+															({CUSTOM_CLOTHES_WIDTH.toString()}×
+															{CUSTOM_CLOTHES_HEIGHT.toString()} or{' '}
+															{SIZE.toString()}×{SIZE.toString()})
+														</div>
+													</>
+												) : null}
+											</div>
+										</Box>
+									</Collapse>
 								</Accordion.Panel>
 							</Accordion.Item>
 

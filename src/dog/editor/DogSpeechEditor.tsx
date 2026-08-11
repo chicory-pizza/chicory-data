@@ -1,4 +1,4 @@
-import {Checkbox, Stack, Textarea} from '@mantine/core';
+import {Checkbox, Collapse, Group, Stack, Textarea} from '@mantine/core';
 import {useMemo} from 'react';
 
 import type {OptionType} from '../../common/CustomSelect';
@@ -38,7 +38,7 @@ export default function DogSpeechEditor(props: Props) {
 	}, []);
 
 	return (
-		<Stack gap="sm">
+		<>
 			<Checkbox
 				checked={props.showBubble}
 				label="Show speech bubble"
@@ -47,20 +47,21 @@ export default function DogSpeechEditor(props: Props) {
 				}}
 			/>
 
-			{props.showBubble ? (
-				<div className={styles.grid}>
-					<div>Font:</div>
-					<div className={styles.selectControl}>
-						<CustomMenuWithMouseHoverOptions
-							formatOptionLabel={formatOptionLabel}
-							onChange={props.onFontChange}
-							onPreviewChange={props.onPreviewFontChange}
-							options={options}
-							value={props.font}
-						/>
-					</div>
+			<Collapse expanded={props.showBubble}>
+				<Stack gap="sm" mt="sm">
+					<Group gap="sm">
+						<div>Font:</div>
+						<div className={styles.selectControl}>
+							<CustomMenuWithMouseHoverOptions
+								formatOptionLabel={formatOptionLabel}
+								onChange={props.onFontChange}
+								onPreviewChange={props.onPreviewFontChange}
+								options={options}
+								value={props.font}
+							/>
+						</div>
+					</Group>
 
-					<div>Text:</div>
 					<div className={styles.textControl}>
 						<Textarea
 							autosize
@@ -72,8 +73,8 @@ export default function DogSpeechEditor(props: Props) {
 							value={props.text}
 						/>
 					</div>
-				</div>
-			) : null}
-		</Stack>
+				</Stack>
+			</Collapse>
+		</>
 	);
 }
