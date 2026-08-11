@@ -1,3 +1,5 @@
+import {Group, NumberInput} from '@mantine/core';
+
 import styles from './LevelLayerNumberInputs.module.css';
 
 type Props = Readonly<{
@@ -14,60 +16,72 @@ export default function LevelLayerNumberInputs({
 	testIdPrefix,
 }: Props) {
 	return (
-		<>
-			<span className={styles.label}>Layer:</span>
-			<input
-				className={styles.numberInput}
-				data-testid={testIdPrefix != null ? testIdPrefix + '-layer' : ''}
-				onChange={(ev) => {
-					onNewCoordinatesSet([
-						ev.currentTarget.value !== ''
-							? parseInt(ev.currentTarget.value, 10)
-							: null,
-						coordinates[1],
-						coordinates[2],
-					]);
-				}}
-				required
-				type="number"
-				value={coordinates[0] ?? ''}
-			/>
+		<Group gap="xs">
+			<Group gap="xs">
+				Layer:
+				<NumberInput
+					allowDecimal={false}
+					aria-label="Layer in the world map"
+					classNames={{input: styles.numberInput}}
+					data-testid={testIdPrefix != null ? testIdPrefix + 'layer' : ''}
+					error={typeof coordinates[0] !== 'number'}
+					onChange={(value) => {
+						onNewCoordinatesSet([
+							typeof value === 'number' ? value : null,
+							coordinates[1],
+							coordinates[2],
+						]);
+					}}
+					required
+					stepHoldDelay={400}
+					stepHoldInterval={100}
+					value={coordinates[0] ?? ''}
+				/>
+			</Group>
 
-			<span className={styles.label}>X:</span>
-			<input
-				className={styles.numberInput}
-				data-testid={testIdPrefix != null ? testIdPrefix + '-x' : ''}
-				onChange={(ev) => {
-					onNewCoordinatesSet([
-						coordinates[0],
-						ev.currentTarget.value !== ''
-							? parseInt(ev.currentTarget.value, 10)
-							: null,
-						coordinates[2],
-					]);
-				}}
-				required
-				type="number"
-				value={coordinates[1] ?? ''}
-			/>
+			<Group gap="xs">
+				X:
+				<NumberInput
+					allowDecimal={false}
+					aria-label="X coordinates in the world map"
+					classNames={{input: styles.numberInput}}
+					data-testid={testIdPrefix != null ? testIdPrefix + 'x' : ''}
+					error={typeof coordinates[1] !== 'number'}
+					onChange={(value) => {
+						onNewCoordinatesSet([
+							coordinates[0],
+							typeof value === 'number' ? value : null,
+							coordinates[2],
+						]);
+					}}
+					required
+					stepHoldDelay={400}
+					stepHoldInterval={100}
+					value={coordinates[1] ?? ''}
+				/>
+			</Group>
 
-			<span className={styles.label}>Y:</span>
-			<input
-				className={styles.numberInput}
-				data-testid={testIdPrefix != null ? testIdPrefix + '-y' : ''}
-				onChange={(ev) => {
-					onNewCoordinatesSet([
-						coordinates[0],
-						coordinates[1],
-						ev.currentTarget.value !== ''
-							? parseInt(ev.currentTarget.value, 10)
-							: null,
-					]);
-				}}
-				required
-				type="number"
-				value={coordinates[2] ?? ''}
-			/>
-		</>
+			<Group gap="xs">
+				Y:
+				<NumberInput
+					allowDecimal={false}
+					aria-label="Y coordinates in the world map"
+					classNames={{input: styles.numberInput}}
+					data-testid={testIdPrefix != null ? testIdPrefix + 'y' : ''}
+					error={typeof coordinates[2] !== 'number'}
+					onChange={(value) => {
+						onNewCoordinatesSet([
+							coordinates[0],
+							coordinates[1],
+							typeof value === 'number' ? value : null,
+						]);
+					}}
+					required
+					stepHoldDelay={400}
+					stepHoldInterval={100}
+					value={coordinates[2] ?? ''}
+				/>
+			</Group>
+		</Group>
 	);
 }

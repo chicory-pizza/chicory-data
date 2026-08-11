@@ -103,7 +103,7 @@ export default function DuplicateLevelModal(props: Props) {
 								setDraftCoordinates(newCoordinates);
 								setErrorMessage(null);
 							}}
-							testIdPrefix="duplicatelevelmodal"
+							testIdPrefix="duplicatelevelmodal-"
 						/>
 					</div>
 

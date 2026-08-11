@@ -1,4 +1,4 @@
-import {Button} from '@mantine/core';
+import {Button, Group} from '@mantine/core';
 import {useMemo, useState} from 'react';
 
 import OpenGraph from '../../common/OpenGraph';
@@ -86,7 +86,7 @@ export default function LevelSelector() {
 	}
 
 	return (
-		<div className={styles.root}>
+		<>
 			<OpenGraph
 				description={
 					'View and edit level ' + levelLabel + ' in Chicory: A Colorful Tale'
@@ -99,31 +99,40 @@ export default function LevelSelector() {
 				}
 			/>
 
-			<span className={styles.label}>Level:</span>
+			<Group gap="xs">
+				<Group gap="xs">
+					Level:
+					<div className={styles.select}>
+						<LevelLayerDropdownSelect
+							levels={levelsWithPlaceholder}
+							onNewCoordinatesSet={changeLevelBySelect}
+							selectedCoordinates={currentCoordinates}
+						/>
+					</div>
+				</Group>
 
-			<div className={styles.select}>
-				<LevelLayerDropdownSelect
-					levels={levelsWithPlaceholder}
-					onNewCoordinatesSet={changeLevelBySelect}
-					selectedCoordinates={currentCoordinates}
-				/>
-			</div>
+				<form
+					action="#"
+					className={styles.numberInputForm}
+					onSubmit={changeLevelByNumberInput}
+				>
+					<Group gap="xs">
+						<LevelLayerNumberInputs
+							coordinates={draftCoordinates}
+							onNewCoordinatesSet={setDraftCoordinates}
+							testIdPrefix="levelselector-"
+						/>
 
-			<form
-				action="#"
-				className={styles.numberInputForm}
-				onSubmit={changeLevelByNumberInput}
-			>
-				<LevelLayerNumberInputs
-					coordinates={draftCoordinates}
-					onNewCoordinatesSet={setDraftCoordinates}
-					testIdPrefix="levelselector"
-				/>
-
-				<Button data-testid="levelselector-go" type="submit" variant="default">
-					Go
-				</Button>
-			</form>
-		</div>
+						<Button
+							data-testid="levelselector-go"
+							type="submit"
+							variant="default"
+						>
+							Go
+						</Button>
+					</Group>
+				</form>
+			</Group>
+		</>
 	);
 }
