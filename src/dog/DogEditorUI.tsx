@@ -130,7 +130,7 @@ export default function DogEditorUI() {
 	}
 
 	function setHatPreviewName(layer: number, previewName: string | null) {
-		const newHats = [...previewHatColors];
+		const newHats = [...previewHatNames];
 		newHats[layer] = previewName;
 		setPreviewHatNames(newHats);
 	}
@@ -211,7 +211,7 @@ export default function DogEditorUI() {
 	return (
 		<div className={styles.root}>
 			<ErrorBoundary>
-				<DogEditorHeader hats={hatsInPreview} onPresetSelect={onPresetSelect} />
+				<DogEditorHeader onPresetSelect={onPresetSelect} />
 			</ErrorBoundary>
 
 			<div className={styles.main}>
@@ -320,8 +320,8 @@ export default function DogEditorUI() {
 													// eslint-disable-next-line @eslint-react/no-array-index-key
 													key={index}
 													layer={index}
-													previewColor={previewHatColors[index]}
-													previewName={previewHatNames[index]}
+													previewColor={hatsInPreview[index].color}
+													previewName={hatsInPreview[index].name}
 													setPreviewColor={setHatPreviewColor}
 													setPreviewName={setHatPreviewName}
 													totalHatsCount={hats.length}
@@ -541,8 +541,8 @@ export default function DogEditorUI() {
 											clothesColor={previewClothesColor ?? clothesColor}
 											expression={previewExpression ?? expression}
 											hair={previewHair ?? hair}
-											hat={previewHatNames[0] ?? hats[0].name}
-											hatColor={previewHatColors[0] ?? hats[0].color}
+											hat={hatsInPreview[0].name ?? hats[0].name}
+											hatColor={hatsInPreview[0].color ?? hats[0].color}
 											skinColor={previewSkinColor ?? skinColor}
 										/>
 									</ErrorBoundary>

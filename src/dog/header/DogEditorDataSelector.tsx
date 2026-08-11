@@ -6,7 +6,6 @@ import CommonDataLoadButton from '../../common/CommonDataLoadButton';
 import CommonDataSaveButton from '../../common/CommonDataSaveButton';
 import CommonDataSaveTimestamp from '../../common/CommonDataSaveTimestamp';
 import {useDogEditorContext} from '../DogEditorContext';
-import type {ChosenHat} from '../drawDogToCanvas';
 import {
 	type DrawdogPreset,
 	DrawdogPresetSchema,
@@ -16,7 +15,6 @@ import styles from './DogEditorDataSelector.module.css';
 import DogEditorGifMaker from './DogEditorGifMaker';
 
 type Props = Readonly<{
-	hats: ReadonlyArray<ChosenHat>;
 	onPresetSelect: (preset: DrawdogPreset) => void;
 }>;
 
@@ -55,7 +53,7 @@ export default function LevelEditorDataSelector(props: Props) {
 			earColor: dogState.hasCustomEarColor ? dogState.earColor : undefined,
 			expression: dogState.expression,
 			hair: dogState.hair,
-			hats: props.hats.map((hat) => {
+			hats: dogState.hats.map((hat) => {
 				return {
 					...hat,
 					customImage:

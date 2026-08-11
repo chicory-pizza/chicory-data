@@ -3,7 +3,6 @@ import {useDisclosure} from '@mantine/hooks';
 
 import ErrorBoundary from '../../common/ErrorBoundary';
 import AppHeader from '../../header/AppHeader';
-import type {ChosenHat} from '../drawDogToCanvas';
 import DrawdogGalleryModal from '../presets/DrawdogGalleryModal';
 import type {DrawdogPreset} from '../presets/DrawdogPresets';
 
@@ -13,7 +12,6 @@ import DogEditorRandomButton from './DogEditorRandomButton';
 import DogEditorUndoRedo from './DogEditorUndoRedo';
 
 type Props = Readonly<{
-	hats: ReadonlyArray<ChosenHat>;
 	onPresetSelect: (preset: DrawdogPreset) => void;
 }>;
 
@@ -42,10 +40,7 @@ export default function DogEditorHeader(props: Props) {
 				title="Drawdog maker"
 				titleSideStuff={
 					<ErrorBoundary>
-						<DogEditorDataSelector
-							hats={props.hats}
-							onPresetSelect={props.onPresetSelect}
-						/>
+						<DogEditorDataSelector onPresetSelect={props.onPresetSelect} />
 					</ErrorBoundary>
 				}
 			/>
