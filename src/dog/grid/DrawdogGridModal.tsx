@@ -1,5 +1,15 @@
-import {Checkbox, Modal} from '@mantine/core';
-import {useRef, useState} from 'react';
+import {
+	Checkbox,
+	Group,
+	Input,
+	Modal,
+	Stack,
+	TextInput,
+	Tooltip,
+} from '@mantine/core';
+import {useId} from '@mantine/hooks';
+import {MagnifyingGlassIcon} from '@phosphor-icons/react/dist/csr/MagnifyingGlass';
+import {useState} from 'react';
 
 import ErrorBoundary from '../../common/ErrorBoundary';
 import isReducedMotion from '../../util/isReducedMotion';
@@ -32,8 +42,6 @@ export default function DrawdogGridModal({
 	showBody,
 	title,
 }: Props) {
-	const searchInputRef = useRef<HTMLInputElement>(null);
-
 	const [filter, setFilter] = useState('');
 	const [playAnimations, setPlayAnimations] = useState(() => {
 		return canPlayAnimations && !isReducedMotion();
@@ -43,6 +51,8 @@ export default function DrawdogGridModal({
 		name: string;
 		expression: string;
 	} | null>(null);
+
+	const searchInputId = useId();
 
 	function onSelect(preset: DrawdogPresetWithName) {
 		setDogMouseOver(null);
@@ -91,72 +101,88 @@ export default function DrawdogGridModal({
 			title={title}
 		>
 			<ErrorBoundary>
-				<div className={styles.actions}>
-					<label>
-						Search:
-						<input
+				<Stack>
+					<Group>
+						<TextInput
+							aria-label="Search"
 							className={styles.searchInput}
 							data-autofocus
+							id={searchInputId}
+							leftSectionPointerEvents="none"
+							leftSection={<MagnifyingGlassIcon size={16} />}
+							rightSection={
+								filter !== '' ? (
+									<Tooltip label="Clear">
+										<Input.ClearButton
+											onClick={() => {
+												setFilter('');
+											}}
+										/>
+									</Tooltip>
+								) : undefined
+							}
 							onChange={(newFilter) => {
 								setFilter(newFilter.currentTarget.value);
 							}}
-							ref={searchInputRef}
+							placeholder="Search"
 							spellCheck={false}
 							type="search"
 							value={filter}
 						/>
-					</label>
 
-					{canPlayAnimations ? (
-						<Checkbox
-							checked={playAnimations}
-							label="Play animations"
-							onChange={(ev) => {
-								setPlayAnimations(ev.currentTarget.checked);
-							}}
-						/>
-					) : null}
-				</div>
+						{canPlayAnimations ? (
+							<Checkbox
+								checked={playAnimations}
+								label="Play animations"
+								onChange={(ev) => {
+									setPlayAnimations(ev.currentTarget.checked);
+								}}
+							/>
+						) : null}
+					</Group>
 
-				<div className={styles.grid}>
-					{presets.map((preset) => {
-						const hidden = !preset.name.toLowerCase().includes(filterLowercase);
+					<div hidden={!hasAnyVisibleDogs} className={styles.grid}>
+						{presets.map((preset) => {
+							const hidden = !preset.name
+								.toLowerCase()
+								.includes(filterLowercase);
 
-						return (
-							<div hidden={hidden} key={preset.name}>
-								<DrawdogGalleryDog
-									forceExpression={
-										dogMouseOver != null && dogMouseOver.name === preset.name
-											? dogMouseOver.expression
-											: undefined
-									}
-									onHoverEnter={
-										canChangeExpressionOnMouseOver ? onHoverEnter : undefined
-									}
-									onHoverLeave={onHoverLeave}
-									onSelect={onSelect}
-									playAnimations={!hidden && playAnimations}
-									preset={preset}
-									showBody={showBody}
-								/>
-							</div>
-						);
-					})}
-				</div>
-
-				{!hasAnyVisibleDogs ? (
-					<div className={styles.noResults}>
-						No dogs
-						<img
-							alt=":chicory_is_straight:"
-							className={styles.noResultsImage}
-							height={78 / 2}
-							src={noResultsImage}
-							title=":chicory_is_straight:"
-							width={128 / 2}
-						/>
+							return (
+								<div hidden={hidden} key={preset.name}>
+									<DrawdogGalleryDog
+										forceExpression={
+											dogMouseOver != null && dogMouseOver.name === preset.name
+												? dogMouseOver.expression
+												: undefined
+										}
+										onHoverEnter={
+											canChangeExpressionOnMouseOver ? onHoverEnter : undefined
+										}
+										onHoverLeave={onHoverLeave}
+										onSelect={onSelect}
+										playAnimations={!hidden && playAnimations}
+										preset={preset}
+										showBody={showBody}
+									/>
+								</div>
+							);
+						})}
 					</div>
-				) : null}
+
+					{!hasAnyVisibleDogs ? (
+						<div className={styles.noResults}>
+							No dogs
+							<img
+								alt=":chicory_is_straight:"
+								className={styles.noResultsImage}
+								height={78 / 2}
+								src={noResultsImage}
+								title=":chicory_is_straight:"
+								width={128 / 2}
+							/>
+						</div>
+					) : null}
+				</Stack>
 			</ErrorBoundary>
 		</Modal>
 	);
