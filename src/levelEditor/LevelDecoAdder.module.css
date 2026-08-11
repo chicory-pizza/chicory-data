@@ -1,26 +1,11 @@
-.root {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 0 8px;
-}
-
-.search {
-	margin: 8px 0;
-}
-
 .searchInput {
-	margin-left: 10px;
+	width: 250px;
 }
 
 .sprites {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-}
-
-.noResults {
-	margin: 8px 0;
 }
 
 .deco {

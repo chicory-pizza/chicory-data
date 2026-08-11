@@ -1,4 +1,7 @@
+import {Box, Stack} from '@mantine/core';
 import {memo, useState} from 'react';
+
+import SearchInput from '../common/SearchInput';
 
 import styles from './LevelDecoAdder.module.css';
 import {SPRITES} from './types/SpriteEntities';
@@ -23,24 +26,16 @@ function LevelDecoAdder(props: Props) {
 	});
 
 	return (
-		<div className={styles.root}>
-			<div className={styles.search}>
-				Search decos:
-				<input
-					className={styles.searchInput}
-					onChange={(newFilter) => {
-						setFilter(newFilter.currentTarget.value);
-					}}
-					spellCheck={false}
-					type="search"
-					value={filter}
-				/>
-			</div>
+		<Stack align="center" gap="xs" p="xs">
+			<SearchInput
+				className={styles.searchInput}
+				label="Search decos"
+				setValue={setFilter}
+				value={filter}
+			/>
 
 			<div className={styles.sprites}>
-				{filteredSprites.length === 0 ? (
-					<div className={styles.noResults}>No results</div>
-				) : null}
+				{filteredSprites.length === 0 ? <Box my="xs">No results.</Box> : null}
 
 				{filteredSprites.map((sprite) => {
 					return (
@@ -73,7 +68,7 @@ function LevelDecoAdder(props: Props) {
 					);
 				})}
 			</div>
-		</div>
+		</Stack>
 	);
 }
 

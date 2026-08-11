@@ -92,7 +92,11 @@ export default function DrawdogGridModal({
 			<ErrorBoundary>
 				<Stack>
 					<Group>
-						<SearchInput setValue={setFilter} value={filter} />
+						<SearchInput
+							className={styles.searchInput}
+							setValue={setFilter}
+							value={filter}
+						/>
 
 						{canPlayAnimations ? (
 							<Checkbox
