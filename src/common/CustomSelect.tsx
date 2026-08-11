@@ -16,11 +16,11 @@ const CUSTOM_STYLES = {
 			...baseStyles,
 			background: 'var(--input-background-color)',
 			borderColor: 'var(--input-border-color)',
-			borderRadius: 0,
+			borderRadius: 'var(--mantine-radius-default)',
 			cursor: 'pointer',
 			transition: 'none',
 			'&:hover': {
-				borderColor: 'var(--input-border-hover-color)',
+				borderColor: 'var(--input-border-color)',
 			},
 		};
 	},
@@ -30,7 +30,7 @@ const CUSTOM_STYLES = {
 			color: 'var(--input-border-color)',
 			transition: 'none',
 			'&:hover': {
-				color: 'var(--input-border-hover-color)',
+				color: 'var(--input-border-color)',
 			},
 		};
 	},
@@ -46,10 +46,11 @@ const CUSTOM_STYLES = {
 			color: 'var(--input-text-color)',
 		};
 	},
-	menuList(baseStyles: CSSObjectWithLabel) {
+	menu(baseStyles: CSSObjectWithLabel) {
 		return {
 			...baseStyles,
 			background: 'var(--input-background-color)',
+			borderRadius: 'var(--mantine-radius-default)',
 		};
 	},
 	menuPortal(baseStyles: CSSObjectWithLabel) {

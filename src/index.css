@@ -63,9 +63,7 @@ body,
 input[type='text'],
 input[type='search'],
 input[type='number'],
-textarea,
-button,
-select {
+button {
 	font-family: var(--mantine-font-family);
 	font-size: 1em;
 }
@@ -90,10 +88,8 @@ body,
 }
 
 button,
-select,
 summary,
 label,
-input[type='radio'],
 input[type='color'],
 input[type='range'] {
 	cursor: pointer;
@@ -103,36 +99,30 @@ input[type='text']:not(.mantine-Input-input),
 input[type='search']:not(.mantine-Input-input),
 input[type='number'],
 input[type='color'],
-button,
-select {
+button {
 	background: var(--input-background-color);
 	border: 1px solid var(--input-border-color);
+	border-radius: var(--mantine-radius-default);
 	color: var(--input-text-color);
 	padding: 2px;
+	transition: border-color 100ms ease;
 }
 
-button,
-select {
+button {
 	background: var(--button-background-color);
+	border-radius: 0;
 }
 
 input[type='color'] {
 	padding: 0;
 }
 
-input[type='text']:not(.mantine-Input-input):hover,
 input[type='text']:not(.mantine-Input-input):focus,
-input[type='search']:not(.mantine-Input-input):hover,
 input[type='search']:not(.mantine-Input-input):focus,
-input[type='number']:hover,
 input[type='number']:focus,
-input[type='color']:hover,
 input[type='color']:focus,
-button:not(.mantine-UnstyledButton-root):hover,
-button:not(.mantine-UnstyledButton-root):focus,
-select:hover,
-select:focus {
-	border-color: var(--input-border-hover-color);
+button:not(.mantine-UnstyledButton-root):focus {
+	border-color: var(--luncheon-purple);
 }
 
 ::-webkit-inner-spin-button {
@@ -151,6 +141,11 @@ button[disabled]:not(.mantine-UnstyledButton-root) {
 
 :focus:not(.mantine-UnstyledButton-root) {
 	outline: 1px solid var(--luncheon-purple);
+}
+
+input[type='number']:focus,
+input[type='color']:focus {
+	outline: 0;
 }
 
 #noscript-error {
