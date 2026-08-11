@@ -1,6 +1,7 @@
-import {Button, Group, Stack, TextInput} from '@mantine/core';
-import {useCallback, useState} from 'react';
+import {Button, Group, Stack} from '@mantine/core';
+import {useState} from 'react';
 
+import SearchInput from '../../../common/SearchInput';
 import type {DecorationType} from '../../types/DecorationType';
 import type {GameEntityType} from '../../types/GameEntityType';
 import type {GameObjectType} from '../../types/GameObjectType';
@@ -61,26 +62,23 @@ export default function SidebarEntityList<
 		dispatchEntitiesListItemsExpanded,
 	} = props;
 
-	const onItemToggle = useCallback(
-		(objectIndex: number) => {
-			if (expandedUnfilteredEntityIndexes.has(objectIndex)) {
-				dispatchEntitiesListItemsExpanded({
-					type: 'collapse',
-					indexes: [objectIndex],
-				});
-			} else {
-				dispatchEntitiesListItemsExpanded({
-					type: 'expand',
-					indexes: [objectIndex],
-					scrollIntoView: true,
-				});
-			}
-		},
-		[dispatchEntitiesListItemsExpanded, expandedUnfilteredEntityIndexes],
-	);
+	function onItemToggle(objectIndex: number) {
+		if (expandedUnfilteredEntityIndexes.has(objectIndex)) {
+			dispatchEntitiesListItemsExpanded({
+				type: 'collapse',
+				indexes: [objectIndex],
+			});
+		} else {
+			dispatchEntitiesListItemsExpanded({
+				type: 'expand',
+				indexes: [objectIndex],
+				scrollIntoView: true,
+			});
+		}
+	}
 
 	// Filtering
-	const [filter, setFilter] = useState<string>('');
+	const [filter, setFilter] = useState('');
 	const filterLowercase = filter.toLowerCase().trim().replace(/ /g, '_');
 
 	const filteredEntities = unfilteredEntities
@@ -130,21 +128,7 @@ export default function SidebarEntityList<
 				{props.infoBeforeFilterComponent ?? null}
 
 				{unfilteredEntitiesLength > 0 ? (
-					<Group grow>
-						<TextInput
-							classNames={{
-								root: styles.filterInputRoot,
-								wrapper: styles.filterInputWrapper,
-							}}
-							label="Filter:"
-							onChange={(newFilter) => {
-								setFilter(newFilter.currentTarget.value);
-							}}
-							spellCheck={false}
-							type="search"
-							value={filter}
-						/>
-					</Group>
+					<SearchInput setValue={setFilter} value={filter} />
 				) : null}
 
 				{props.infoBeforeListComponent ?? null}

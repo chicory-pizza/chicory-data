@@ -1,17 +1,8 @@
-import {
-	Checkbox,
-	Group,
-	Input,
-	Modal,
-	Stack,
-	TextInput,
-	Tooltip,
-} from '@mantine/core';
-import {useId} from '@mantine/hooks';
-import {MagnifyingGlassIcon} from '@phosphor-icons/react/dist/csr/MagnifyingGlass';
+import {Checkbox, Group, Modal, Stack} from '@mantine/core';
 import {useState} from 'react';
 
 import ErrorBoundary from '../../common/ErrorBoundary';
+import SearchInput from '../../common/SearchInput';
 import isReducedMotion from '../../util/isReducedMotion';
 import randomItem from '../../util/randomItem';
 import type {DrawdogPresetWithName} from '../presets/DrawdogPresets';
@@ -51,8 +42,6 @@ export default function DrawdogGridModal({
 		name: string;
 		expression: string;
 	} | null>(null);
-
-	const searchInputId = useId();
 
 	function onSelect(preset: DrawdogPresetWithName) {
 		setDogMouseOver(null);
@@ -103,32 +92,7 @@ export default function DrawdogGridModal({
 			<ErrorBoundary>
 				<Stack>
 					<Group>
-						<TextInput
-							aria-label="Search"
-							className={styles.searchInput}
-							data-autofocus
-							id={searchInputId}
-							leftSectionPointerEvents="none"
-							leftSection={<MagnifyingGlassIcon size={16} />}
-							rightSection={
-								filter !== '' ? (
-									<Tooltip label="Clear">
-										<Input.ClearButton
-											onClick={() => {
-												setFilter('');
-											}}
-										/>
-									</Tooltip>
-								) : undefined
-							}
-							onChange={(newFilter) => {
-								setFilter(newFilter.currentTarget.value);
-							}}
-							placeholder="Search"
-							spellCheck={false}
-							type="search"
-							value={filter}
-						/>
+						<SearchInput setValue={setFilter} value={filter} />
 
 						{canPlayAnimations ? (
 							<Checkbox

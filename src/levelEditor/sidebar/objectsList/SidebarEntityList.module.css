@@ -2,19 +2,6 @@
 	margin: 8px;
 }
 
-.filterInputRoot {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: var(--mantine-spacing-xs);
-
-	--input-label-size: var(--mantine-font-size-md);
-}
-
-.filterInputWrapper {
-	flex-grow: 1;
-}
-
 .list {
 	list-style-type: none;
 }
