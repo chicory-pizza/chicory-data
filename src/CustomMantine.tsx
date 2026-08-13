@@ -4,6 +4,7 @@ import {
 	createTheme,
 	type CSSVariablesResolver,
 	MantineProvider,
+	Popover,
 } from '@mantine/core';
 import {ModalsProvider} from '@mantine/modals';
 
@@ -49,10 +50,24 @@ const theme = createTheme({
 			'#b11300',
 		],
 	},
+	components: {
+		Menu: {
+			defaultProps: {
+				transitionProps: {transition: 'pop-top-left'},
+			},
+		},
+		Popover: {
+			defaultProps: {
+				shadow: 'md',
+				// no default transition as there can be many types of popovers
+				// e.g. Menu/Combobox are also technically popovers
+			},
+		},
+	},
+	cursorType: 'pointer',
 	fontFamily:
 		"Domigorgon, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
 	fontSmoothing: false,
-	cursorType: 'pointer',
 	primaryColor: 'luncheonPurple',
 	primaryShade: 2,
 });

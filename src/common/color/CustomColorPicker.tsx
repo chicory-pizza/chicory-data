@@ -33,8 +33,7 @@ export default function CustomColorPicker({
 				onChange(tinycolor(value).toHexString());
 			}}
 			position="bottom-start"
-			shadow="md"
-			transitionProps={{transition: 'fade-down'}}
+			transitionProps={{transition: 'pop-top-left'}}
 			trapFocus
 			width={320}
 		>
