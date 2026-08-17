@@ -1,11 +1,13 @@
 {
   "name": "chicory-data",
-  "homepage": "https://github.com/chicory-pizza/chicory-data",
+  "private": true,
   "description": "Modding tools for Chicory: A Colorful Tale, such as level viewer and editor",
+  "homepage": "https://github.com/chicory-pizza/chicory-data",
   "bugs": {
     "url": "https://github.com/chicory-pizza/chicory-data/issues",
     "email": "ngyikp@gmail.com"
   },
+  "license": "MPL-2.0",
   "author": {
     "name": "Ng Yik Phang (ngyikp)",
     "email": "ngyikp@gmail.com",
@@ -15,17 +17,12 @@
     "type": "git",
     "url": "git+https://github.com/chicory-pizza/chicory-data.git"
   },
-  "private": true,
-  "license": "MPL-2.0",
-  "engines": {
-    "node": ">=24"
-  },
   "type": "module",
   "scripts": {
     "build": "vite build",
     "dev": "vite",
+    "format": "oxfmt",
     "lint": "eslint .",
-    "prettier": "prettier .",
     "preview": "vite preview",
     "start": "vite",
     "test": "vitest",
@@ -83,11 +80,14 @@
     "eslint-plugin-testing-library": "7.16.2",
     "jest-image-snapshot": "6.5.2",
     "jsdom": "30.0.1",
-    "prettier": "3.9.6",
+    "oxfmt": "0.63.0",
     "typescript": "npm:@typescript/typescript6@6.0.3",
     "typescript-eslint": "8.67.0",
     "vite": "8.2.1",
     "vitest": "4.1.10"
+  },
+  "engines": {
+    "node": ">=24"
   },
   "allowScripts": {
     "canvas@3.2.3": true

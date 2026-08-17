@@ -27,7 +27,7 @@ It's recommended to install the [React Developer Tools](https://react.dev/learn/
 
 ## Code style
 
-Use [Prettier](https://prettier.io). Run `npm run prettier -- --write` to auto-fix.
+Use [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) (previously used [Prettier](https://prettier.io)). Run `npm run format` to auto-fix.
 
 ## Type-checking
 
@@ -50,5 +50,5 @@ Code coverage can be obtained by running `npm test -- --coverage`
 The test suites are run on every push, it's best to run them on your system to avoid CI failures afterwards:
 
 ```bash
-npm run tsc -- -b && npm run lint && npm test -- --run && npm run prettier -- -c
+npm run tsc -- -b && npm run lint && npm test -- --run && npm run format -- --check
 ```

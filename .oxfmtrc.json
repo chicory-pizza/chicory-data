@@ -1,0 +1,23 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"useTabs": true,
+	"singleQuote": true,
+	"bracketSpacing": false,
+	"printWidth": 80,
+	"sortPackageJson": {
+		"sortScripts": true
+	},
+	"ignorePatterns": [
+		"src/levelEditor/level_data.json",
+		"src/levelEditor/__mocks__/level_data.json",
+		"src/routeTree.gen.ts"
+	],
+	"overrides": [
+		{
+			"files": ["package.json"],
+			"options": {
+				"useTabs": false
+			}
+		}
+	]
+}

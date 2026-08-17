@@ -2,7 +2,6 @@
 	"recommendations": [
 		"editorconfig.editorconfig",
 		"dbaeumer.vscode-eslint",
-		"esbenp.prettier-vscode"
-	],
-	"unwantedRecommendations": ["vscjava.vscode-java-pack"]
+		"oxc.oxc-vscode"
+	]
 }

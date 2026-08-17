@@ -43,15 +43,13 @@ export default function ColorGmlTextInput({
 			maxLength={8}
 			max={0xffffff}
 			min={0}
-			onBlur={
-				(/*ev*/) => {
-					if (typeof inputValue === 'number') {
-						onCommitValue(
-							convertRgbArrayToHex(convertBgrIntegerToRgbArray(inputValue)),
-						);
-					}
+			onBlur={(/*ev*/) => {
+				if (typeof inputValue === 'number') {
+					onCommitValue(
+						convertRgbArrayToHex(convertBgrIntegerToRgbArray(inputValue)),
+					);
 				}
-			}
+			}}
 			onChange={(newValue) => {
 				if (typeof newValue === 'number') {
 					onDraftInput(
