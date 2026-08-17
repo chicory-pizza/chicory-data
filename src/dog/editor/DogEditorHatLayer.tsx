@@ -1,4 +1,4 @@
-import {ActionIcon, Tooltip} from '@mantine/core';
+import {ActionIcon, Tooltip, Transition} from '@mantine/core';
 import {ArrowDownIcon} from '@phosphor-icons/react/dist/csr/ArrowDown';
 import {ArrowUpIcon} from '@phosphor-icons/react/dist/csr/ArrowUp';
 import {XIcon} from '@phosphor-icons/react/dist/csr/X';
@@ -160,9 +160,17 @@ export default function DogEditorHatLayer({
 					onPreviewChange={onPreviewColorChange}
 				/>
 
-				{hat.name === 'Custom Hat' ? (
-					<DogCustomHatImageEditor layer={layer} />
-				) : null}
+				<Transition
+					duration={150}
+					mounted={hat.name === 'Custom Hat'}
+					transition="fade"
+				>
+					{(styles) => (
+						<div style={styles}>
+							<DogCustomHatImageEditor layer={layer} />
+						</div>
+					)}
+				</Transition>
 			</div>
 		</>
 	);
