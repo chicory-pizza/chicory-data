@@ -10,6 +10,11 @@
 	display: block;
 }
 
+.previewExplanationRef {
+	/* min-height of Modal header */
+	scroll-margin-top: calc(3.75rem * var(--mantine-scale));
+}
+
 .dogPreview {
 	width: 100%;
 }

@@ -1,6 +1,6 @@
 import {Button, Divider, Modal, Stack} from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 
 import ErrorBoundary from '../../../common/ErrorBoundary';
 import MessageBox from '../../../common/MessageBox';
@@ -26,6 +26,8 @@ export default function DogCustomClothesImageEditor() {
 	const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+	const previewExplanationRef = useRef<HTMLDivElement>(null);
+
 	const [isModalOpen, {open: openModal, close: closeModal}] =
 		useDisclosure(false);
 	function onModalExitTransitionEnd() {
@@ -48,6 +50,10 @@ export default function DogCustomClothesImageEditor() {
 			}
 
 			setImageDataUrl(dataUrl);
+
+			requestAnimationFrame(() => {
+				previewExplanationRef.current?.scrollIntoView({behavior: 'smooth'});
+			});
 		};
 
 		img.onerror = () => {
@@ -140,7 +146,10 @@ export default function DogCustomClothesImageEditor() {
 							<>
 								<Divider />
 
-								<p>
+								<p
+									className={styles.previewExplanationRef}
+									ref={previewExplanationRef}
+								>
 									Preview your custom tee, confirm that everything looks good.
 								</p>
 
