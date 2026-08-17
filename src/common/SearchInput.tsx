@@ -2,6 +2,7 @@ import {Input, TextInput, Tooltip} from '@mantine/core';
 import {MagnifyingGlassIcon} from '@phosphor-icons/react/dist/csr/MagnifyingGlass';
 
 type Props = Readonly<{
+	autofocus?: boolean;
 	className?: string;
 	label?: string;
 	setValue: (newValue: string) => void;
@@ -9,6 +10,7 @@ type Props = Readonly<{
 }>;
 
 export default function SearchInput({
+	autofocus,
 	className,
 	label = 'Search',
 	setValue,
@@ -18,6 +20,7 @@ export default function SearchInput({
 		<TextInput
 			aria-label={label}
 			className={className}
+			data-autofocus={autofocus}
 			leftSectionPointerEvents="none"
 			leftSection={<MagnifyingGlassIcon size={16} />}
 			rightSection={

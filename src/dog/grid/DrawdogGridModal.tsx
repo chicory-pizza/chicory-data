@@ -93,6 +93,7 @@ export default function DrawdogGridModal({
 				<Stack>
 					<Group>
 						<SearchInput
+							autofocus={true}
 							className={styles.searchInput}
 							setValue={setFilter}
 							value={filter}
