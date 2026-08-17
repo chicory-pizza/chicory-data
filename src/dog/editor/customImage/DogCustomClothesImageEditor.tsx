@@ -12,19 +12,15 @@ import {
 	CUSTOM_HAT_WIDTH,
 	SIZE,
 } from '../../drawDogToCanvas';
-import templateImage from '../../images/sprDog_head_0.png';
+import templateImage from '../../images/sprDog_blankshirt.png';
 import DogPreview from '../../preview/DogPreview';
 import convertDogEditorStateToDogPreview from '../convertDogEditorStateToDogPreview';
-import DogCustomImageMenu from '../DogCustomImageMenu';
 import DogEditorFileInput from '../DogEditorFileInput';
 
-import styles from './DogEditorCustomHatImageModalLauncher.module.css';
+import styles from './DogCustomClothesImageEditor.module.css';
+import DogCustomImageMenu from './DogCustomImageMenu';
 
-type Props = Readonly<{
-	layer: number;
-}>;
-
-export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
+export default function DogCustomClothesImageEditor() {
 	const {dispatch, dogState} = useDogEditorContext();
 
 	const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
@@ -44,12 +40,9 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 		const img = new Image();
 
 		img.onload = () => {
-			if (
-				img.width === CUSTOM_CLOTHES_WIDTH &&
-				img.height === CUSTOM_CLOTHES_HEIGHT
-			) {
+			if (img.width === CUSTOM_HAT_WIDTH && img.height === CUSTOM_HAT_HEIGHT) {
 				setErrorMessage(
-					'It looks like you are loading a custom tee as the custom hat, this is probably not what you intended.',
+					'It looks like you are loading a custom hat as the custom tee, this is probably not what you intended.',
 				);
 				return;
 			}
@@ -66,11 +59,10 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 
 	function onConfirmButtonClick() {
 		dispatch({
-			type: 'setHatLayerProperties',
-			layer,
-			hat: {
-				name: 'Custom Hat',
-				customImage: imageDataUrl,
+			type: 'setProperties',
+			properties: {
+				clothes: 'Custom Tee',
+				customClothesImage: imageDataUrl,
 			},
 		});
 
@@ -79,27 +71,25 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 
 	function onRemove() {
 		dispatch({
-			type: 'setHatLayerProperties',
-			layer,
-			hat: {
-				name: 'Custom Hat',
-				customImage: null,
+			type: 'setProperties',
+			properties: {
+				customClothesImage: null,
 			},
 		});
 	}
 
 	return (
 		<>
-			{dogState.hats[layer].customImage == null ? (
+			{dogState.customClothesImage == null ? (
 				<Button autoContrast onClick={openModal} variant="filled">
 					Select image
 				</Button>
 			) : (
 				<DogCustomImageMenu
-					buttonTooltip="Custom hat image options"
-					downloadFileName="Custom hat image.png"
-					downloadModalTitle="Custom hat image preview"
-					imageUrl={dogState.hats[layer].customImage}
+					buttonTooltip="Custom tee image options"
+					downloadFileName="Custom tee image.png"
+					downloadModalTitle="Custom tee image preview"
+					imageUrl={dogState.customClothesImage}
 					onRemove={onRemove}
 					onSelectNew={openModal}
 				/>
@@ -110,31 +100,32 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 				onClose={closeModal}
 				opened={isModalOpen}
 				size="auto"
-				title="Select custom hat image"
+				title="Select custom tee image"
 			>
 				<ErrorBoundary>
 					<Stack>
 						<Stack gap="xs">
-							<p>Save and use this template face to draw a custom hat.</p>
+							<p>Save and use this template tee to draw a custom tee.</p>
 
 							<p>
 								Export your image as a PNG with a resolution of{' '}
-								{CUSTOM_HAT_WIDTH.toString()}×{CUSTOM_HAT_HEIGHT.toString()} or{' '}
-								{SIZE.toString()}×{SIZE.toString()}.
+								{CUSTOM_CLOTHES_WIDTH.toString()}×
+								{CUSTOM_CLOTHES_HEIGHT.toString()} or {SIZE.toString()}×
+								{SIZE.toString()}.
 							</p>
 
 							<p>
-								Remember to hide the template face when exporting your final
+								Remember to hide the template tee when exporting your final
 								image.
 							</p>
 						</Stack>
 
 						<img
-							alt="Custom hat template"
+							alt="Custom tee template"
 							className={styles.templateImage}
-							height={CUSTOM_HAT_HEIGHT}
+							height={CUSTOM_CLOTHES_HEIGHT}
 							src={templateImage}
-							width={CUSTOM_HAT_WIDTH}
+							width={CUSTOM_CLOTHES_WIDTH}
 						/>
 
 						<div>
@@ -150,7 +141,7 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 								<Divider />
 
 								<p>
-									Preview your custom hat, confirm that everything looks good.
+									Preview your custom tee, confirm that everything looks good.
 								</p>
 
 								<DogPreview
@@ -158,14 +149,8 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 									animation="idle"
 									animationIndex={0}
 									canvasClassName={styles.dogPreview}
-									hats={dogState.hats
-										.slice(0, layer)
-										.concat({
-											name: dogState.hats[layer].name,
-											color: dogState.hats[layer].color,
-											customImage: imageDataUrl,
-										})
-										.concat(dogState.hats.slice(layer + 1))}
+									clothes="Custom Tee"
+									customClothesImage={imageDataUrl}
 									showBody={true}
 								/>
 

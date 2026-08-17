@@ -9,12 +9,12 @@ import {CUSTOM_HAT_HEIGHT, CUSTOM_HAT_WIDTH} from '../../drawDogToCanvas';
 import templateImage from '../../images/sprDog_head_0.png';
 import DogPreview from '../../preview/DogPreview';
 import convertDogEditorStateToDogPreview from '../convertDogEditorStateToDogPreview';
-import DogCustomImageMenu from '../DogCustomImageMenu';
 import DogEditorFileInput from '../DogEditorFileInput';
 
-import styles from './DogEditorCustomHeadSkinModalLauncher.module.css';
+import styles from './DogCustomHeadSkinEditor.module.css';
+import DogCustomImageMenu from './DogCustomImageMenu';
 
-export default function DogEditorCustomHeadSkinModalLauncher() {
+export default function DogCustomHeadSkinEditor() {
 	const {dispatch, dogState} = useDogEditorContext();
 
 	const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);

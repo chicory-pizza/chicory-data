@@ -7,7 +7,7 @@ import CustomColorPicker from '../../common/color/CustomColorPicker';
 import type {ReducerAction} from '../DogEditorContext';
 import type {ChosenHat} from '../drawDogToCanvas';
 
-import DogEditorCustomHatImageModalLauncher from './customImagePrompt/DogEditorCustomHatImageModalLauncher';
+import DogCustomHatImageEditor from './customImage/DogCustomHatImageEditor';
 import styles from './DogEditorHatLayer.module.css';
 import DogHatSelectMenu from './DogHatSelectMenu';
 import DogHatSelectModalLauncher from './DogHatSelectModalLauncher';
@@ -161,7 +161,7 @@ export default function DogEditorHatLayer({
 				/>
 
 				{hat.name === 'Custom Hat' ? (
-					<DogEditorCustomHatImageModalLauncher layer={layer} />
+					<DogCustomHatImageEditor layer={layer} />
 				) : null}
 			</div>
 		</>

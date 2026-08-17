@@ -3,7 +3,7 @@ import {useDisclosure} from '@mantine/hooks';
 import {CaretDownIcon} from '@phosphor-icons/react/dist/csr/CaretDown';
 import {ImageSquareIcon} from '@phosphor-icons/react/dist/csr/ImageSquare';
 
-import ErrorBoundary from '../../common/ErrorBoundary';
+import ErrorBoundary from '../../../common/ErrorBoundary';
 
 import styles from './DogCustomImageMenu.module.css';
 

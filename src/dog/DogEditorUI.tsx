@@ -21,8 +21,8 @@ import styles from './DogEditorUI.module.css';
 import DogPlaydataGroup from './DogPlaydataGroup';
 import DogSpeech from './DogSpeech';
 import type {ChosenHat} from './drawDogToCanvas';
-import DogCustomClothesImageEditor from './editor/customImagePrompt/DogCustomClothesImageEditor';
-import DogEditorCustomHeadSkinModalLauncher from './editor/customImagePrompt/DogEditorCustomHeadSkinModalLauncher';
+import DogCustomClothesImageEditor from './editor/customImage/DogCustomClothesImageEditor';
+import DogCustomHeadSkinEditor from './editor/customImage/DogCustomHeadSkinEditor';
 import DogClothesSelectMenu from './editor/DogClothesSelectMenu';
 import DogClothesSelectModalLauncher from './editor/DogClothesSelectModalLauncher';
 import DogEditorHatLayer from './editor/DogEditorHatLayer';
@@ -342,7 +342,7 @@ export default function DogEditorUI() {
 
 										<div className={styles.label}>Head skin:</div>
 										<div className={styles.select}>
-											<DogEditorCustomHeadSkinModalLauncher />
+											<DogCustomHeadSkinEditor />
 										</div>
 
 										<div className={styles.fullWidthControl}>
