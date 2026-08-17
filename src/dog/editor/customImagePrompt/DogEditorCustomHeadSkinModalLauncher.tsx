@@ -27,7 +27,7 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 		setErrorMessage(null);
 	}
 
-	function onNewHeadOverlayImage(dataUrl: string) {
+	function onImageLoad(dataUrl: string) {
 		setImageDataUrl(null);
 		setErrorMessage(null);
 
@@ -36,7 +36,7 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 		img.onload = () => {
 			if (img.width !== CUSTOM_HAT_WIDTH || img.height !== CUSTOM_HAT_HEIGHT) {
 				setErrorMessage(
-					`The image resolution should be ${[CUSTOM_HAT_WIDTH, CUSTOM_HAT_HEIGHT].join('×')}.`,
+					`The image resolution should be ${CUSTOM_HAT_WIDTH.toString()}×${CUSTOM_HAT_HEIGHT.toString()}.`,
 				);
 				return;
 			}
@@ -125,7 +125,7 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 						/>
 
 						<div>
-							<DogEditorFileInput onFileLoad={onNewHeadOverlayImage} />
+							<DogEditorFileInput onFileLoad={onImageLoad} />
 						</div>
 
 						{errorMessage != null ? (
@@ -145,7 +145,6 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 									animation="idle"
 									animationIndex={0}
 									canvasClassName={styles.dogPreview}
-									hats={dogState.hats}
 									headSkinImage={imageDataUrl}
 									showBody={true}
 								/>

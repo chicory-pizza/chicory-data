@@ -6,6 +6,7 @@ import {
 	Collapse,
 	Flex,
 	Stack,
+	Transition,
 } from '@mantine/core';
 import {useMemo, useState} from 'react';
 
@@ -19,18 +20,11 @@ import {useDogEditorContext} from './DogEditorContext';
 import styles from './DogEditorUI.module.css';
 import DogPlaydataGroup from './DogPlaydataGroup';
 import DogSpeech from './DogSpeech';
-import {
-	CUSTOM_CLOTHES_HEIGHT,
-	CUSTOM_CLOTHES_WIDTH,
-	CUSTOM_HAT_HEIGHT,
-	CUSTOM_HAT_WIDTH,
-	SIZE,
-} from './drawDogToCanvas';
 import type {ChosenHat} from './drawDogToCanvas';
+import DogCustomClothesImageEditor from './editor/customImagePrompt/DogCustomClothesImageEditor';
 import DogEditorCustomHeadSkinModalLauncher from './editor/customImagePrompt/DogEditorCustomHeadSkinModalLauncher';
 import DogClothesSelectMenu from './editor/DogClothesSelectMenu';
 import DogClothesSelectModalLauncher from './editor/DogClothesSelectModalLauncher';
-import DogEditorFileInput from './editor/DogEditorFileInput';
 import DogEditorHatLayer from './editor/DogEditorHatLayer';
 import DogExpressionSelectMenu from './editor/DogExpressionSelectMenu';
 import DogExpressionSelectModalLauncher from './editor/DogExpressionSelectModalLauncher';
@@ -160,33 +154,6 @@ export default function DogEditorUI() {
 				skinOutlineColor: preset.skinOutlineColor ?? '#000000',
 			},
 		});
-	}
-
-	function onNewClothesImage(dataUrl: string) {
-		const img = new Image();
-
-		img.onload = () => {
-			if (img.width === CUSTOM_HAT_WIDTH && img.height === CUSTOM_HAT_HEIGHT) {
-				alert(
-					'It looks like you are loading a custom hat as the custom clothes, this is probably not what you intended.',
-				);
-				return;
-			}
-
-			dispatch({
-				type: 'setProperties',
-				properties: {
-					clothes: 'Custom Tee',
-					customClothesImage: dataUrl,
-				},
-			});
-		};
-
-		img.onerror = () => {
-			alert('There was a problem loading the image.');
-		};
-
-		img.src = dataUrl;
 	}
 
 	function onSpeechFontChange(value: string) {
@@ -456,41 +423,34 @@ export default function DogEditorUI() {
 											/>
 
 											<div className={styles.clothesControls}>
-												<div className={styles.color}>
-													<CustomColorPicker
-														value={previewClothesColor ?? clothesColor}
-														onChange={(newColor) => {
-															setPreviewClothesColor(null);
+												<CustomColorPicker
+													value={previewClothesColor ?? clothesColor}
+													onChange={(newColor) => {
+														setPreviewClothesColor(null);
 
-															if (newColor !== clothesColor) {
-																dispatch({
-																	type: 'setProperties',
-																	properties: {
-																		clothesColor: newColor,
-																	},
-																});
-															}
-														}}
-														onPreviewChange={setPreviewClothesColor}
-													/>
-												</div>
+														if (newColor !== clothesColor) {
+															dispatch({
+																type: 'setProperties',
+																properties: {
+																	clothesColor: newColor,
+																},
+															});
+														}
+													}}
+													onPreviewChange={setPreviewClothesColor}
+												/>
 
-												{clothes === 'Custom Tee' ||
-												customClothesImage != null ? (
-													<>
-														<div className={styles.controlLabel}>
-															Custom clothes:
+												<Transition
+													duration={150}
+													mounted={clothes === 'Custom Tee'}
+													transition="fade"
+												>
+													{(styles) => (
+														<div style={styles}>
+															<DogCustomClothesImageEditor />
 														</div>
-														<DogEditorFileInput
-															onFileLoad={onNewClothesImage}
-														/>
-														<div>
-															({CUSTOM_CLOTHES_WIDTH.toString()}×
-															{CUSTOM_CLOTHES_HEIGHT.toString()} or{' '}
-															{SIZE.toString()}×{SIZE.toString()})
-														</div>
-													</>
-												) : null}
+													)}
+												</Transition>
 											</div>
 										</Box>
 									</Collapse>

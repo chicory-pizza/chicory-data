@@ -37,7 +37,7 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 		setErrorMessage(null);
 	}
 
-	function onNewHatImage(dataUrl: string) {
+	function onImageLoad(dataUrl: string) {
 		setImageDataUrl(null);
 		setErrorMessage(null);
 
@@ -49,7 +49,7 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 				img.height === CUSTOM_CLOTHES_HEIGHT
 			) {
 				setErrorMessage(
-					'It looks like you are loading custom clothes as the custom hat, this is probably not what you intended.',
+					'It looks like you are loading a custom tee as the custom hat, this is probably not what you intended.',
 				);
 				return;
 			}
@@ -138,7 +138,7 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 						/>
 
 						<div>
-							<DogEditorFileInput onFileLoad={onNewHatImage} />
+							<DogEditorFileInput onFileLoad={onImageLoad} />
 						</div>
 
 						{errorMessage != null ? (

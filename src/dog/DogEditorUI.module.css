@@ -114,10 +114,6 @@
 	grid-column: 1 / 5;
 }
 
-.color {
-	margin-right: 8px;
-}
-
 .colorControl {
 	display: flex;
 	grid-column: 3 / 5;
