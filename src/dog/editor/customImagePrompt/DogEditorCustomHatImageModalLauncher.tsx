@@ -1,4 +1,4 @@
-import {Button, Modal} from '@mantine/core';
+import {Button, Divider, Modal, Stack} from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
 import {useState} from 'react';
 
@@ -113,61 +113,68 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 				title="Select custom hat image"
 			>
 				<ErrorBoundary>
-					<p className={styles.explanation}>
-						Save and use this template face to draw a custom hat.
-					</p>
+					<Stack>
+						<Stack gap="xs">
+							<p>Save and use this template face to draw a custom hat.</p>
 
-					<p className={styles.explanation}>
-						Your exported image should be a PNG and have a resolution of{' '}
-						{CUSTOM_HAT_WIDTH.toString()}×{CUSTOM_HAT_HEIGHT.toString()} or{' '}
-						{SIZE.toString()}×{SIZE.toString()}.
-					</p>
-
-					<p className={styles.explanation}>
-						Remember to hide the template face when exporting your final image.
-					</p>
-
-					<img
-						alt="Custom hat template"
-						className={styles.templateImage}
-						height={CUSTOM_HAT_HEIGHT}
-						src={templateImage}
-						width={CUSTOM_HAT_WIDTH}
-					/>
-
-					<DogEditorFileInput onFileLoad={onNewHatImage} />
-
-					{errorMessage != null ? (
-						<div className={styles.errorMessage}>
-							<MessageBox message={errorMessage} type="ERROR" />
-						</div>
-					) : null}
-
-					{imageDataUrl != null ? (
-						<div className={styles.previewArea}>
-							<p className={styles.explanation}>
-								Preview your custom hat, confirm if everything looks good.
+							<p>
+								Export your image as a PNG with a resolution of{' '}
+								{CUSTOM_HAT_WIDTH.toString()}×{CUSTOM_HAT_HEIGHT.toString()} or{' '}
+								{SIZE.toString()}×{SIZE.toString()}.
 							</p>
 
-							<DogPreview
-								{...convertDogEditorStateToDogPreview(dogState)}
-								animation="idle"
-								animationIndex={0}
-								canvasClassName={styles.dogPreview}
-								hats={dogState.hats
-									.slice(0, layer)
-									.concat({
-										name: dogState.hats[layer].name,
-										color: dogState.hats[layer].color,
-										customImage: imageDataUrl,
-									})
-									.concat(dogState.hats.slice(layer + 1))}
-								showBody={true}
-							/>
+							<p>
+								Remember to hide the template face when exporting your final
+								image.
+							</p>
+						</Stack>
 
-							<Button onClick={onConfirmButtonClick}>Confirm</Button>
+						<img
+							alt="Custom hat template"
+							className={styles.templateImage}
+							height={CUSTOM_HAT_HEIGHT}
+							src={templateImage}
+							width={CUSTOM_HAT_WIDTH}
+						/>
+
+						<div>
+							<DogEditorFileInput onFileLoad={onNewHatImage} />
 						</div>
-					) : null}
+
+						{errorMessage != null ? (
+							<MessageBox message={errorMessage} type="ERROR" />
+						) : null}
+
+						{imageDataUrl != null ? (
+							<>
+								<Divider />
+
+								<p>
+									Preview your custom hat, confirm that everything looks good.
+								</p>
+
+								<DogPreview
+									{...convertDogEditorStateToDogPreview(dogState)}
+									animation="idle"
+									animationIndex={0}
+									canvasClassName={styles.dogPreview}
+									hats={dogState.hats
+										.slice(0, layer)
+										.concat({
+											name: dogState.hats[layer].name,
+											color: dogState.hats[layer].color,
+											customImage: imageDataUrl,
+										})
+										.concat(dogState.hats.slice(layer + 1))}
+									showBody={true}
+								/>
+
+								<div>
+									<Button onClick={onConfirmButtonClick}>Confirm</Button>
+								</div>
+							</>
+						) : null}
+					</Stack>
 				</ErrorBoundary>
 			</Modal>
 		</>

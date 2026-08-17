@@ -1,4 +1,4 @@
-import {Button, Modal} from '@mantine/core';
+import {Button, Divider, Modal, Stack} from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
 import {useState} from 'react';
 
@@ -98,60 +98,64 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 				title="Select head skin image"
 			>
 				<ErrorBoundary>
-					<ol className={styles.list}>
-						<li className={styles.explanation}>
-							Save this image to use as a template.
-						</li>
-
-						<li className={styles.explanation}>
-							Your drawing will be applied on the head as a skin.
-						</li>
-
-						<li className={styles.explanation}>
-							Hide the template face before exporting your image.
-						</li>
-
-						<li className={styles.explanation}>
-							Export your image as a PNG with resolution of {CUSTOM_HAT_WIDTH}×
-							{CUSTOM_HAT_HEIGHT}.
-						</li>
-					</ol>
-
-					<img
-						alt="Head template"
-						className={styles.templateImage}
-						height={CUSTOM_HAT_HEIGHT}
-						src={templateImage}
-						width={CUSTOM_HAT_WIDTH}
-					/>
-
-					<DogEditorFileInput onFileLoad={onNewHeadOverlayImage} />
-
-					{errorMessage != null ? (
-						<div className={styles.errorMessage}>
-							<MessageBox message={errorMessage} type="ERROR" />
-						</div>
-					) : null}
-
-					{imageDataUrl != null ? (
-						<div className={styles.previewArea}>
-							<p className={styles.explanation}>
-								Preview your head skin, confirm if everything looks good.
+					<Stack>
+						<Stack gap="xs">
+							<p>
+								Save and use this template face, your drawing will be applied on
+								the head as a skin.
 							</p>
 
-							<DogPreview
-								{...convertDogEditorStateToDogPreview(dogState)}
-								animation="idle"
-								animationIndex={0}
-								canvasClassName={styles.dogPreview}
-								hats={dogState.hats}
-								headSkinImage={imageDataUrl}
-								showBody={true}
-							/>
+							<p>
+								Export your image as a PNG with a resolution of{' '}
+								{CUSTOM_HAT_WIDTH}×{CUSTOM_HAT_HEIGHT}.
+							</p>
 
-							<Button onClick={onConfirmButtonClick}>Confirm</Button>
+							<p>
+								Remember to hide the template face when exporting your final
+								image.
+							</p>
+						</Stack>
+
+						<img
+							alt="Head template"
+							className={styles.templateImage}
+							height={CUSTOM_HAT_HEIGHT}
+							src={templateImage}
+							width={CUSTOM_HAT_WIDTH}
+						/>
+
+						<div>
+							<DogEditorFileInput onFileLoad={onNewHeadOverlayImage} />
 						</div>
-					) : null}
+
+						{errorMessage != null ? (
+							<MessageBox message={errorMessage} type="ERROR" />
+						) : null}
+
+						{imageDataUrl != null ? (
+							<>
+								<Divider />
+
+								<p>
+									Preview your head skin, confirm that everything looks good.
+								</p>
+
+								<DogPreview
+									{...convertDogEditorStateToDogPreview(dogState)}
+									animation="idle"
+									animationIndex={0}
+									canvasClassName={styles.dogPreview}
+									hats={dogState.hats}
+									headSkinImage={imageDataUrl}
+									showBody={true}
+								/>
+
+								<div>
+									<Button onClick={onConfirmButtonClick}>Confirm</Button>
+								</div>
+							</>
+						) : null}
+					</Stack>
 				</ErrorBoundary>
 			</Modal>
 		</>
