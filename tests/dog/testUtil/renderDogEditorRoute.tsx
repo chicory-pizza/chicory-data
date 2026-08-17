@@ -4,6 +4,7 @@ import {renderWithFileRoutes} from '../../file-route-utils';
 
 export default async function renderDogEditorRoute() {
 	renderWithFileRoutes('/dog');
+
 	await screen.findByText(
 		'Drawdog maker',
 		{},
