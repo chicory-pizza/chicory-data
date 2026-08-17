@@ -1,6 +1,6 @@
 import {Button, Modal} from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
-import {useCallback, useState} from 'react';
+import {useState} from 'react';
 
 import ErrorBoundary from '../../../common/ErrorBoundary';
 import MessageBox from '../../../common/MessageBox';
@@ -15,6 +15,7 @@ import {
 import templateImage from '../../images/sprDog_head_0.png';
 import DogPreview from '../../preview/DogPreview';
 import convertDogEditorStateToDogPreview from '../convertDogEditorStateToDogPreview';
+import DogCustomImageMenu from '../DogCustomImageMenu';
 import DogEditorFileInput from '../DogEditorFileInput';
 
 import styles from './DogEditorCustomHatImageModalLauncher.module.css';
@@ -31,12 +32,12 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 
 	const [isModalOpen, {open: openModal, close: closeModal}] =
 		useDisclosure(false);
-	const onModalExitTransitionEnd = useCallback(() => {
+	function onModalExitTransitionEnd() {
 		setImageDataUrl(null);
 		setErrorMessage(null);
-	}, []);
+	}
 
-	const onNewHatImage = useCallback((dataUrl: string) => {
+	function onNewHatImage(dataUrl: string) {
 		setImageDataUrl(null);
 		setErrorMessage(null);
 
@@ -61,9 +62,9 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 		};
 
 		img.src = dataUrl;
-	}, []);
+	}
 
-	const onConfirmButtonClick = useCallback(() => {
+	function onConfirmButtonClick() {
 		dispatch({
 			type: 'setHatLayerProperties',
 			layer,
@@ -74,18 +75,35 @@ export default function DogEditorCustomHatImageModalLauncher({layer}: Props) {
 		});
 
 		closeModal();
-	}, [closeModal, dispatch, imageDataUrl, layer]);
+	}
+
+	function onRemove() {
+		dispatch({
+			type: 'setHatLayerProperties',
+			layer,
+			hat: {
+				name: 'Custom Hat',
+				customImage: null,
+			},
+		});
+	}
 
 	return (
 		<>
-			<Button
-				onClick={openModal}
-				variant={
-					dogState.hats[layer].customImage == null ? 'filled' : 'default'
-				}
-			>
-				Select image
-			</Button>
+			{dogState.hats[layer].customImage == null ? (
+				<Button autoContrast onClick={openModal} variant="filled">
+					Select image
+				</Button>
+			) : (
+				<DogCustomImageMenu
+					buttonTooltip="Custom hat image options"
+					downloadFileName="Custom hat image.png"
+					downloadModalTitle="Custom hat image preview"
+					imageUrl={dogState.hats[layer].customImage}
+					onRemove={onRemove}
+					onSelectNew={openModal}
+				/>
+			)}
 
 			<Modal
 				onExitTransitionEnd={onModalExitTransitionEnd}

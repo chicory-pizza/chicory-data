@@ -4,7 +4,6 @@ import {
 	createTheme,
 	type CSSVariablesResolver,
 	MantineProvider,
-	Popover,
 } from '@mantine/core';
 import {ModalsProvider} from '@mantine/modals';
 

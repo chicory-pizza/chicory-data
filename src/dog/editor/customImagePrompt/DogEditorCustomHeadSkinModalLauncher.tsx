@@ -1,7 +1,6 @@
-import {Button, Modal, Tooltip} from '@mantine/core';
+import {Button, Modal} from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
-import {XIcon} from '@phosphor-icons/react/dist/csr/X';
-import {useCallback, useState} from 'react';
+import {useState} from 'react';
 
 import ErrorBoundary from '../../../common/ErrorBoundary';
 import MessageBox from '../../../common/MessageBox';
@@ -10,6 +9,7 @@ import {CUSTOM_HAT_HEIGHT, CUSTOM_HAT_WIDTH} from '../../drawDogToCanvas';
 import templateImage from '../../images/sprDog_head_0.png';
 import DogPreview from '../../preview/DogPreview';
 import convertDogEditorStateToDogPreview from '../convertDogEditorStateToDogPreview';
+import DogCustomImageMenu from '../DogCustomImageMenu';
 import DogEditorFileInput from '../DogEditorFileInput';
 
 import styles from './DogEditorCustomHeadSkinModalLauncher.module.css';
@@ -22,12 +22,12 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 
 	const [isModalOpen, {open: openModal, close: closeModal}] =
 		useDisclosure(false);
-	const onModalExitTransitionEnd = useCallback(() => {
+	function onModalExitTransitionEnd() {
 		setImageDataUrl(null);
 		setErrorMessage(null);
-	}, []);
+	}
 
-	const onNewHeadOverlayImage = useCallback((dataUrl: string) => {
+	function onNewHeadOverlayImage(dataUrl: string) {
 		setImageDataUrl(null);
 		setErrorMessage(null);
 
@@ -49,9 +49,9 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 		};
 
 		img.src = dataUrl;
-	}, []);
+	}
 
-	const onConfirmButtonClick = useCallback(() => {
+	function onConfirmButtonClick() {
 		dispatch({
 			type: 'setProperties',
 			properties: {
@@ -60,31 +60,34 @@ export default function DogEditorCustomHeadSkinModalLauncher() {
 		});
 
 		closeModal();
-	}, [closeModal, dispatch, imageDataUrl]);
+	}
 
-	const onRemoveButtonClick = useCallback(() => {
+	function onRemove() {
 		dispatch({
 			type: 'setProperties',
 			properties: {
 				headSkinImage: null,
 			},
 		});
-	}, [dispatch]);
+	}
 
 	return (
 		<>
 			<Button.Group>
-				<Button onClick={openModal} variant="default">
-					Select image
-				</Button>
-
-				{dogState.headSkinImage != null ? (
-					<Tooltip label="Remove head skin">
-						<Button onClick={onRemoveButtonClick} px="xs" variant="default">
-							<XIcon size="1.1em" />
-						</Button>
-					</Tooltip>
-				) : null}
+				{dogState.headSkinImage == null ? (
+					<Button onClick={openModal} variant="default">
+						Select image
+					</Button>
+				) : (
+					<DogCustomImageMenu
+						buttonTooltip="Head skin image options"
+						downloadFileName="Head skin image.png"
+						downloadModalTitle="Head skin image preview"
+						imageUrl={dogState.headSkinImage}
+						onRemove={onRemove}
+						onSelectNew={openModal}
+					/>
+				)}
 			</Button.Group>
 
 			<Modal
