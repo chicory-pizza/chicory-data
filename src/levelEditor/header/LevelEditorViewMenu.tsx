@@ -1,37 +1,32 @@
 import {Button, Menu} from '@mantine/core';
-import {memo, useCallback} from 'react';
 
 import {useLevelEditorContext} from '../LevelEditorContext';
 import type {LevelInspectorUiView} from '../types/LevelInspectorUiView';
 
-function LevelEditorViewMenu() {
+export default function LevelEditorViewMenu() {
 	const {dispatch, uiViews} = useLevelEditorContext();
 
-	const toggleUiView = useCallback(
-		(uiView: LevelInspectorUiView) => {
-			const newViews = new Set(uiViews);
-			if (uiViews.has(uiView)) {
-				newViews.delete(uiView);
-			} else {
-				newViews.add(uiView);
-			}
+	function toggleUiView(uiView: LevelInspectorUiView) {
+		const newViews = new Set(uiViews);
+		if (uiViews.has(uiView)) {
+			newViews.delete(uiView);
+		} else {
+			newViews.add(uiView);
+		}
 
-			dispatch({
-				type: 'setActiveUiViews',
-				uiViews: newViews,
-			});
-		},
-		[dispatch, uiViews],
-	);
+		dispatch({
+			type: 'setActiveUiViews',
+			uiViews: newViews,
+		});
+	}
 
 	return (
-		<Menu
-			closeOnItemClick={false}
-			shadow="md"
-			transitionProps={{transition: 'fade-down'}}
-		>
+		<Menu closeOnItemClick={false} transitionProps={{transition: 'fade-down'}}>
 			<Menu.Target>
-				<Button variant="default">View options</Button>
+				{/* prevent flex-shrink */}
+				<div>
+					<Button variant="default">View options</Button>
+				</div>
 			</Menu.Target>
 
 			<Menu.Dropdown>
@@ -108,5 +103,3 @@ function LevelEditorViewMenu() {
 		</Menu>
 	);
 }
-
-export default memo(LevelEditorViewMenu);
