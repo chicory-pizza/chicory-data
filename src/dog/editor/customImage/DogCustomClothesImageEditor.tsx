@@ -119,11 +119,6 @@ export default function DogCustomClothesImageEditor() {
 								{CUSTOM_CLOTHES_HEIGHT.toString()} or {SIZE.toString()}×
 								{SIZE.toString()}.
 							</p>
-
-							<p>
-								Remember to hide the template tee when exporting your final
-								image.
-							</p>
 						</Stack>
 
 						<img
