@@ -22,8 +22,10 @@ if (!window.matchMedia) {
 			matches: false,
 			media: query,
 			onchange: null,
-			addListener: vi.fn(), // deprecated
-			removeListener: vi.fn(), // deprecated
+			// eslint-disable-next-line @typescript-eslint/no-deprecated
+			addListener: vi.fn(),
+			// eslint-disable-next-line @typescript-eslint/no-deprecated
+			removeListener: vi.fn(),
 			addEventListener: vi.fn(),
 			removeEventListener: vi.fn(),
 			dispatchEvent: vi.fn(),
