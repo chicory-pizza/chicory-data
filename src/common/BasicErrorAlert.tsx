@@ -2,7 +2,7 @@ import MessageBox from './MessageBox';
 
 type Props = Readonly<{
 	title?: React.ReactNode;
-	error?: string | Error | null;
+	error?: unknown; // string | Error | null;
 }>;
 
 export default function BasicErrorAlert({
@@ -14,7 +14,13 @@ export default function BasicErrorAlert({
 			type="ERROR"
 			title={title}
 			style={{alignSelf: 'start', whiteSpace: 'pre-wrap'}}
-			message={typeof error === 'string' ? error : error?.message}
+			message={
+				typeof error === 'string'
+					? error
+					: error instanceof Error
+						? error.message
+						: ''
+			}
 		/>
 	);
 }
