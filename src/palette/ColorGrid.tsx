@@ -13,10 +13,15 @@ type Props = Readonly<{
 function ColorGrid({palettes, setColor}: Props) {
 	return (
 		<div className={styles.grid}>
-			{palettes.map((palette) => {
+			{palettes.map((palette, paletteIndex) => {
+				const colorItemClass =
+					styles.colorItem +
+					' ' +
+					(paletteIndex === 0 ? styles.colorItemFirst : '');
+
 				return (
 					<Fragment key={palette.description}>
-						<div className={styles.colorItem}>{palette.description}</div>
+						<div className={colorItemClass}>{palette.description}</div>
 
 						{palette.colors.map((color, index) => {
 							const [r, g, b] = color;
@@ -29,7 +34,7 @@ function ColorGrid({palettes, setColor}: Props) {
 								>
 									{index !== 0 ? <div /> : null}
 
-									<div className={styles.colorItem + ' ' + styles.colorBoxWrap}>
+									<div className={colorItemClass + ' ' + styles.colorBoxWrap}>
 										{setColor != null ? (
 											<Tooltip label="Set to this color">
 												<button
@@ -53,15 +58,13 @@ function ColorGrid({palettes, setColor}: Props) {
 										)}
 									</div>
 
-									<div className={styles.colorItem}>
-										{colorObj.toHexString()}
-									</div>
+									<div className={colorItemClass}>{colorObj.toHexString()}</div>
 
-									<div className={styles.colorItem}>R: {r}</div>
+									<div className={colorItemClass}>R: {r}</div>
 
-									<div className={styles.colorItem}>G: {g}</div>
+									<div className={colorItemClass}>G: {g}</div>
 
-									<div className={styles.colorItem}>B: {b}</div>
+									<div className={colorItemClass}>B: {b}</div>
 								</Fragment>
 							);
 						})}
